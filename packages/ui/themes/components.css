@@ -466,6 +466,7 @@
 
   /** Tooltip — minimal yüzey (gölgésiz; diğer yüzeylerden daha sade) */
   .ui-tooltip-panel {
+    z-index: 300;
     @apply max-w-xs rounded-md border border-border bg-muted px-2 py-1 text-left text-xs font-normal leading-snug text-foreground;
   }
 
@@ -528,7 +529,7 @@
   }
 
   /**
-   * Dialog kök katmanları (Tailwind arbitrary z purge edilebilir — z-index burada sabit).
+   * Overlay kök katmanları (Tailwind arbitrary z purge edilebilir — z-index burada sabit).
    * Sıra: modal 250, popover 260, onay 280, toast/tooltip 300.
    */
   .ui-dialog-root {
@@ -537,6 +538,10 @@
 
   .ui-dialog-root.ui-dialog-root--confirm {
     z-index: 280;
+  }
+
+  .ui-popover-layer {
+    z-index: 260;
   }
 
   /**

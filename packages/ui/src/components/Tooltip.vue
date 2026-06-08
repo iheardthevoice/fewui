@@ -14,7 +14,7 @@
           v-if="open && !disabled && hasContent"
           :id="tooltipId"
           ref="panelRef"
-          class="ui-tooltip-panel pointer-events-none fixed z-[300]"
+          class="ui-tooltip-panel pointer-events-none fixed"
           :style="panelStyle"
           role="tooltip"
         >

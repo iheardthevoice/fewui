@@ -530,7 +530,7 @@ function si(e, t, r, s, l, i) {
             key: 0,
             id: l.tooltipId,
             ref: "panelRef",
-            class: "ui-tooltip-panel pointer-events-none fixed z-[300]",
+            class: "ui-tooltip-panel pointer-events-none fixed",
             style: B(l.panelStyle),
             role: "tooltip"
           }, [
@@ -4755,7 +4755,7 @@ function vl(e, t, r, s, l, i) {
         default: w(() => [
           re(c("div", {
             ref: "layerRef",
-            class: "ui-popover-layer fixed z-[260]",
+            class: "ui-popover-layer fixed",
             style: B(l.layerStyle),
             "data-popover-align-active": r.alignSelectedOptionToTrigger ? "" : void 0,
             "data-ui-popover-mobile-centered": l.mobileCenteredActive ? "" : void 0,

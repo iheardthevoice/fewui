@@ -20,7 +20,7 @@
         <div
           v-show="open"
           ref="layerRef"
-          class="ui-popover-layer fixed z-[260]"
+          class="ui-popover-layer fixed"
           :style="layerStyle"
           :data-popover-align-active="alignSelectedOptionToTrigger ? '' : undefined"
           :data-ui-popover-mobile-centered="mobileCenteredActive ? '' : undefined"
