@@ -12,9 +12,12 @@
  * `@apply` ile kullanılabilir; `.ui-input` vb. bileşenlerde paylaşılır.
  */
 
-/** Form kontrol dolgu — `--input-background` → `bg-surface-input` */
+/** Form kontrol dolgu — `--input-background` */
 @utility ui-field-control-fill {
-  @apply border border-transparent bg-surface-input text-foreground;
+  @apply border border-transparent text-foreground;
+  background-color: var(--input-background);
+  -webkit-backdrop-filter: blur(var(--ui-input-backdrop-blur));
+  backdrop-filter: blur(var(--ui-input-backdrop-blur));
 }
 
 @utility ui-field-control-focus {
@@ -106,9 +109,12 @@
     @apply items-center justify-start;
   }
 
-  /** Form alanı dolgusu — `ui-field-control-fill` ile input/select ile aynı */
+  /** Form alanı dolgusu — input/select ile aynı (açık özellikler: TW @utility + attribute selector) */
   .ui-button[data-variant='solid'][data-color='input'] {
-    @apply ui-field-control-fill text-foreground shadow-none;
+    @apply border border-transparent text-foreground shadow-none;
+    background-color: var(--input-background);
+    -webkit-backdrop-filter: blur(var(--ui-input-backdrop-blur));
+    backdrop-filter: blur(var(--ui-input-backdrop-blur));
   }
 
   .ui-button[data-variant='solid'][data-color='input'] .ui-icon {
@@ -225,7 +231,24 @@
   }
 
   .ui-control {
-    @apply box-border bg-control text-control-foreground inline-flex shrink-0 items-center justify-center gap-1.5 font-normal;
+    @apply box-border text-control-foreground inline-flex shrink-0 items-center justify-center gap-1.5 font-normal;
+    background-color: var(--control-bg);
+    -webkit-backdrop-filter: blur(var(--ui-control-backdrop-blur));
+    backdrop-filter: blur(var(--ui-control-backdrop-blur));
+  }
+
+  .ui-button.ui-control[data-variant='solid'],
+  .ui-button.ui-control[data-variant='outline'],
+  .ui-button.ui-control[data-variant='ghost'],
+  .ui-button.ui-control[data-variant='link'] {
+    background-color: unset;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  .ui-button[data-variant='solid'] {
+    border-width: 0;
+    border-color: transparent;
   }
 
   .ui-control-h-sm {
@@ -240,9 +263,9 @@
     @apply box-border h-11 min-h-11 rounded-lg px-4 py-0 text-base leading-6;
   }
 
-  /** Tek satır input / textarea kabuğu — referans: 36px yükseklik, 22px radius, 14/20 metin */
+  /** Tek satır input / textarea kabuğu — referans: 36px yükseklik, `rounded-lg` (`--radius`), 14/20 metin */
   .ui-input {
-    @apply ui-field-control-fill box-border flex h-9 min-h-9 w-full min-w-0 cursor-text items-center gap-2 rounded-[22px] px-3 py-1 transition-colors transition-shadow duration-200 ease-out;
+    @apply ui-field-control-fill box-border flex h-9 min-h-9 w-full min-w-0 cursor-text items-center gap-2 rounded-lg px-3 py-1 transition-colors transition-shadow duration-200 ease-out;
   }
 
   .ui-input:focus-within {
@@ -250,7 +273,7 @@
   }
 
   .ui-input--multiline {
-    @apply h-auto min-h-9 items-start rounded-[22px] py-2;
+    @apply h-auto min-h-9 items-start rounded-lg py-2;
   }
 
   .ui-input-field {
@@ -333,7 +356,7 @@
   }
 
   .ui-pin-cell {
-    @apply ui-field-control-fill box-border min-h-10 min-w-0 flex-1 aspect-square rounded-[22px] text-center text-base font-medium tracking-[0.15em] outline-none transition-colors transition-shadow duration-200 ease-out sm:min-h-11 sm:text-lg sm:tracking-[0.2em];
+    @apply ui-field-control-fill box-border min-h-10 min-w-0 flex-1 aspect-square rounded-lg text-center text-base font-medium tracking-[0.15em] outline-none transition-colors transition-shadow duration-200 ease-out sm:min-h-11 sm:text-lg sm:tracking-[0.2em];
   }
 
   .ui-pin-cell:focus-visible {
@@ -679,7 +702,10 @@
    * Ortak yüzey — `bg-surface` + `shadow-lg` + `rounded-3xl` (Card, Popover, Dialog).
    */
   .ui-surface {
-    @apply box-border rounded-3xl border border-border bg-surface text-surface-foreground subpixel-antialiased;
+    @apply box-border rounded-3xl border border-border text-surface-foreground subpixel-antialiased;
+    background-color: var(--surface-bg);
+    -webkit-backdrop-filter: blur(var(--ui-surface-backdrop-blur));
+    backdrop-filter: blur(var(--ui-surface-backdrop-blur));
     box-shadow: var(--ui-shadow-surface);
   }
 
@@ -1214,9 +1240,9 @@
     @apply flex flex-row flex-wrap items-center justify-between gap-4;
   }
 
-  /** Kart çerçevesi — input kabuğu ile aynı köşe (22px); ayarlar listesinde hafif vurgulu satır */
+  /** Kart çerçevesi — input kabuğu ile aynı köşe (`rounded-lg`); ayarlar listesinde hafif vurgulu satır */
   .ui-form-row--card {
-    @apply flex gap-4 rounded-[22px] border border-border bg-transparent p-4;
+    @apply flex gap-4 rounded-lg border border-border bg-transparent p-4;
   }
 
   /** Kart + `direction="vertical"`: etiket üstte, kontrol altta */
@@ -1328,6 +1354,111 @@
     @apply flex w-full min-w-0 max-w-full;
   }
 
+  .ui-datepicker--fulled .ui-popover {
+    @apply w-full min-w-0;
+  }
+
+  .ui-datepicker--fulled .ui-popover-trigger {
+    @apply flex w-full min-w-0 max-w-full;
+  }
+
+  .ui-icon-picker--fulled,
+  .ui-color-picker--fulled {
+    @apply w-full;
+  }
+
+  .ui-icon-picker--fulled > .ui-popover,
+  .ui-color-picker--fulled > .ui-popover {
+    @apply block w-full min-w-0;
+  }
+
+  .ui-icon-picker--fulled .ui-popover-trigger,
+  .ui-color-picker--fulled .ui-popover-trigger {
+    @apply flex w-full min-w-0 max-w-full;
+  }
+
+  .ui-icon-picker-panel,
+  .ui-color-picker-panel {
+    @apply flex min-w-0 flex-col gap-3 p-3;
+  }
+
+  .ui-icon-picker-panel__header,
+  .ui-color-picker-panel__header {
+    @apply flex items-center justify-between gap-2;
+  }
+
+  .ui-icon-picker-panel__title,
+  .ui-color-picker-panel__title {
+    @apply text-xs font-medium uppercase tracking-wider text-muted-foreground;
+  }
+
+  .ui-icon-picker-panel__search {
+    @apply min-w-0;
+  }
+
+  .ui-icon-picker-panel__empty {
+    @apply py-6 text-center text-sm text-muted-foreground;
+  }
+
+  .ui-icon-picker-grid {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 0.25rem;
+    max-height: min(100vh - 8rem, 16rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .ui-icon-picker-cell {
+    @apply flex aspect-square min-w-0 items-center justify-center rounded-md border border-transparent text-muted-foreground transition-colors hover:border-border hover:bg-muted hover:text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-ring;
+  }
+
+  .ui-icon-picker-cell--selected {
+    @apply border-primary bg-primary/10 text-foreground;
+  }
+
+  .ui-color-picker-swatches {
+    display: grid;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    gap: 0.375rem;
+  }
+
+  .ui-color-picker-swatch {
+    @apply shrink-0 rounded-full border border-border shadow-sm;
+  }
+
+  .ui-color-picker-swatch--trigger {
+    @apply size-4;
+  }
+
+  .ui-color-picker-swatch--preset {
+    @apply relative flex aspect-square w-full min-w-0 items-center justify-center rounded-md transition-transform hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring active:scale-95;
+  }
+
+  .ui-color-picker-swatch--selected {
+    @apply ring-2 ring-primary ring-offset-1 ring-offset-surface;
+  }
+
+  .ui-color-picker-swatch--preview {
+    @apply size-9 rounded-lg;
+  }
+
+  .ui-color-picker-custom {
+    @apply flex flex-col gap-2 border-t border-border pt-3;
+  }
+
+  .ui-color-picker-custom__row {
+    @apply flex min-w-0 items-center gap-2;
+  }
+
+  .ui-popover-panel:has(.ui-icon-picker-panel) {
+    max-width: min(100vw - 1rem, 22rem);
+  }
+
+  .ui-popover-panel:has(.ui-color-picker-panel) {
+    max-width: min(100vw - 1rem, 20rem);
+  }
+
   .ui-select-field {
     @apply ui-field-control-fill relative m-0 box-border flex h-9 min-h-9 w-full min-w-0 cursor-pointer items-center gap-2 appearance-none rounded-full py-1 pl-3 pr-3 text-left outline-none transition-shadow;
   }
@@ -1421,8 +1552,34 @@
     @apply min-w-0 shrink truncate;
   }
 
+  /** Phone — ülke kodu Input prepend içinde, tek kontrol kabuğu */
+  .ui-phone {
+    @apply w-full min-w-0;
+  }
+
+  .ui-phone-prepend {
+    @apply flex shrink-0 items-center gap-1.5;
+  }
+
+  .ui-phone-country-static {
+    @apply shrink-0 text-sm font-medium leading-5 text-muted-foreground;
+  }
+
+  .ui-phone .ui-select--inline .ui-select-field {
+    @apply h-auto min-h-0 w-auto gap-1 rounded-none border-0 border-r-0 bg-transparent py-0 pl-0 pr-0 shadow-none;
+  }
+
+  .ui-phone .ui-select--inline .ui-select-field:focus-visible,
+  .ui-phone .ui-select--inline .ui-select-field[aria-expanded='true'] {
+    @apply ring-0 ring-offset-0;
+  }
+
+  .ui-phone .ui-select--inline .ui-select-chevron {
+    @apply -ml-0.5;
+  }
+
   .ui-select-filter-input {
-    @apply ui-field-control-fill m-0 box-border h-9 w-full min-w-0 rounded-[22px] px-3 py-1 outline-none transition-shadow duration-200 ease-out placeholder:text-muted-foreground;
+    @apply ui-field-control-fill m-0 box-border h-9 w-full min-w-0 rounded-lg px-3 py-1 outline-none transition-shadow duration-200 ease-out placeholder:text-muted-foreground;
   }
 
   .ui-select-filter-input:focus {
@@ -1430,7 +1587,19 @@
   }
 
   .ui-select-listbox {
-    @apply flex max-h-64 min-h-0 min-w-0 flex-col gap-0 overflow-auto p-2.5;
+    @apply flex max-h-64 min-h-0 min-w-0 flex-col gap-0.5 overflow-auto p-1.5;
+  }
+
+  .ui-select-listbox .ui-select-option.ui-button {
+    @apply min-h-8 justify-start rounded-lg;
+  }
+
+  .ui-select-listbox .ui-select-option.ui-button[data-variant='ghost'] {
+    border-width: 0;
+  }
+
+  .ui-select-listbox .ui-select-option.ui-button[data-variant='ghost']:hover:not(:disabled) {
+    @apply bg-muted/50;
   }
 
   .ui-select-listbox .ui-empty {
@@ -1472,13 +1641,14 @@
     display: none;
   }
 
-  /** Seçili satır — segment `--selected` ile aynı primary vurgu */
-  .ui-select-option.ui-button.ui-select-option--selected,
-  .ui-select-option.ui-button.ui-select-option--selected:hover {
-    @apply border-transparent bg-primary text-primary-foreground shadow-sm;
+  /** Seçili satır — `Select` solid/primary; ghost sınıflarının üstüne çıkmak için attribute seçicisi */
+  .ui-select-option.ui-button.ui-select-option--selected[data-variant='solid'][data-color='primary'],
+  .ui-select-option.ui-button.ui-select-option--selected[data-variant='solid'][data-color='primary']:hover {
+    @apply border-0 bg-primary text-primary-foreground shadow-none;
   }
 
-  .ui-select-option.ui-button.ui-select-option--selected .ui-icon {
+  .ui-select-option.ui-button.ui-select-option--selected[data-variant='solid'][data-color='primary'] .ui-icon,
+  .ui-select-option.ui-button.ui-select-option--selected[data-variant='solid'][data-color='primary'] [data-popover-align] {
     @apply text-primary-foreground;
   }
 
@@ -1667,7 +1837,7 @@
   }
 
   .ui-checkbox-box {
-    @apply mt-0.5 flex size-[1.125rem] shrink-0 items-center justify-center overflow-hidden rounded-[5px] border-0 bg-muted;
+    @apply mt-0.5 flex size-[1.125rem] shrink-0 items-center justify-center overflow-hidden rounded-sm border-0 bg-muted;
   }
 
   .ui-checkbox--checked .ui-checkbox-box {
@@ -1827,7 +1997,7 @@
   }
 
   .ui-tab-trigger--segmented {
-    @apply relative flex min-h-0 min-w-0 flex-1 shrink cursor-pointer select-none flex-col items-center justify-center gap-1 rounded-full border border-transparent bg-transparent px-2 py-1.5 outline-none transition-[color,background-color,box-shadow,border-color] duration-200 ease-out;
+    @apply relative flex min-h-0 min-w-0 flex-1 shrink cursor-pointer select-none flex-col items-center justify-center gap-1 rounded-full border-0 bg-transparent px-2 py-1.5 outline-none transition-[color,background-color,box-shadow] duration-200 ease-out;
   }
 
   .ui-tab-trigger--segmented .ui-tab-trigger-icon {
@@ -1864,19 +2034,19 @@
   }
 
   .ui-tab-trigger--segmented-selected {
-    @apply border-border bg-surface text-foreground shadow-sm;
-  }
-
-  .dark .ui-tab-trigger--segmented-selected {
-    @apply border-border bg-surface;
+    @apply border-0 bg-primary text-primary-foreground shadow-none;
   }
 
   .ui-tab-trigger--segmented-selected .ui-tab-trigger-label {
-    @apply text-foreground;
+    @apply text-primary-foreground;
   }
 
   .ui-tab-trigger--segmented-selected .ui-tab-trigger-icon {
-    @apply [&_.ui-icon]:text-foreground;
+    @apply [&_.ui-icon]:text-primary-foreground;
+  }
+
+  .dark .ui-tab-trigger--segmented-selected {
+    @apply border-0 bg-primary text-primary-foreground shadow-none;
   }
 
   .ui-tab-list--vertical.ui-tab-list--line {
@@ -2448,6 +2618,11 @@
     @apply min-h-0 min-w-0 flex-1 overflow-hidden;
   }
 
+  .ui-popover-body:has(.ui-color-picker-panel),
+  .ui-popover-body:has(.ui-icon-picker-panel) {
+    @apply overflow-y-auto overscroll-contain;
+  }
+
   .ui-popover-footer {
     @apply shrink-0 px-2.5 pb-2.5;
   }
@@ -2494,6 +2669,38 @@
   .ui-dialog-panel {
     @apply relative z-[1] flex max-h-[95dvh] w-full min-h-0 min-w-0 flex-col overflow-hidden outline-none;
     padding-inline: 0;
+  }
+
+  .ui-dialog-panel--max-sm {
+    max-width: 24rem;
+  }
+
+  .ui-dialog-panel--max-md {
+    max-width: 28rem;
+  }
+
+  .ui-dialog-panel--max-lg {
+    max-width: 32rem;
+  }
+
+  .ui-dialog-panel--max-xl {
+    max-width: 36rem;
+  }
+
+  .ui-dialog-panel--max-2xl {
+    max-width: 42rem;
+  }
+
+  .ui-dialog-panel--max-3xl {
+    max-width: 48rem;
+  }
+
+  .ui-dialog-panel--max-4xl {
+    max-width: 56rem;
+  }
+
+  .ui-dialog-panel--max-5xl {
+    max-width: 64rem;
   }
 
   .ui-dialog-panel .ui-card-toolbar,
@@ -2548,7 +2755,23 @@
   }
 
   .ui-datepicker-grid > .ui-button {
-    @apply tabular-nums;
+    @apply aspect-square size-8 shrink-0 justify-center rounded-md p-0 !min-h-0 tabular-nums;
+  }
+
+  .ui-datepicker-grid > .ui-button[data-variant='ghost'] {
+    border-width: 0;
+  }
+
+  .ui-datepicker-grid > .ui-button[data-variant='ghost']:hover:not(:disabled) {
+    @apply bg-muted/50;
+  }
+
+  .ui-datepicker-grid > .ui-button[data-variant='outline'] {
+    @apply border-0 bg-transparent shadow-none ring-1 ring-inset ring-primary/55;
+  }
+
+  .ui-datepicker-grid > .ui-button[data-variant='solid'] {
+    @apply border-0 shadow-none;
   }
 
   .ui-datepicker-grid > .ui-button[data-outside='true'] {
@@ -2560,7 +2783,11 @@
   }
 
   .ui-datepicker-quick > .ui-button {
-    @apply min-w-0 flex-1;
+    @apply min-w-0 flex-1 rounded-md border-0;
+  }
+
+  .ui-datepicker-quick > .ui-button[data-variant='ghost']:hover:not(:disabled) {
+    @apply bg-muted/50;
   }
 
   .ui-datepicker-grid > .ui-button[data-in-range='true'] {
@@ -2589,7 +2816,15 @@
   }
 
   .ui-daterangepicker-quick {
-    @apply flex w-full shrink-0 flex-col gap-1 sm:w-[9.5rem] sm:border-r sm:border-border sm:pr-4;
+    @apply flex w-full shrink-0 flex-col gap-0.5 sm:w-[9.5rem] sm:border-r sm:border-border sm:pr-4;
+  }
+
+  .ui-daterangepicker-quick > .ui-button {
+    @apply rounded-md border-0 justify-start;
+  }
+
+  .ui-daterangepicker-quick > .ui-button[data-variant='ghost']:hover:not(:disabled) {
+    @apply bg-muted/50;
   }
 
   .ui-daterangepicker-calendars {
@@ -2869,4 +3104,30 @@
   .ui-table-pagination-page {
     @apply px-4 text-xs font-medium text-foreground;
   }
+}
+
+/**
+ * Popover list / calendar cells — `ui-control-h-*` utilities (`rounded-lg`, `border`) beat @layer components.
+ * Unlayered rules so DatePicker and Select menus render flat menu rows, not pill outlines.
+ */
+.ui-select-listbox .ui-select-option.ui-button {
+  @apply rounded-lg border-0 shadow-none;
+  border-color: transparent;
+}
+
+.ui-datepicker-grid > .ui-button,
+.ui-datepicker-quick > .ui-button,
+.ui-daterangepicker-quick > .ui-button {
+  @apply rounded-md border-0 shadow-none;
+  border-color: transparent;
+}
+
+.ui-select-listbox .ui-select-option.ui-button.ui-select-option--selected,
+.ui-datepicker-grid > .ui-button[data-variant='solid'] {
+  border-width: 0;
+  box-shadow: none;
+}
+
+.ui-datepicker-grid > .ui-button[data-today='true']:not([data-variant='solid']) {
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--primary) 55%, transparent);
 }

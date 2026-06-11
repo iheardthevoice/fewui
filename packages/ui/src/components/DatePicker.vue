@@ -1,6 +1,11 @@
 <template>
   <div
-    :class="['ui-datepicker', disabled ? 'pointer-events-none opacity-50' : '', $attrs.class]"
+    :class="[
+      'ui-datepicker',
+      fulled ? 'ui-datepicker--fulled w-full' : 'w-auto shrink-0',
+      disabled ? 'pointer-events-none opacity-50' : '',
+      $attrs.class,
+    ]"
   >
     <ui-popover
       v-model:open="menuOpen"
@@ -14,8 +19,7 @@
           :id="resolvedId"
           variant="solid"
           color="input"
-          rounded
-          fulled
+          :fulled="fulled"
           text-align="left"
           prefix-icon="calendar"
           :disabled="disabled"
@@ -23,7 +27,12 @@
           :aria-haspopup="true"
           @click="toggle"
         >
-          <span class="min-w-0 flex-1 truncate text-foreground">{{ displayText }}</span>
+          <span
+            :class="[
+              'min-w-0 flex-1 truncate',
+              selectedDate ? 'text-foreground' : 'text-muted-foreground',
+            ]"
+          >{{ displayText }}</span>
         </ui-button>
       </template>
       <template #content="{ close }">
@@ -56,12 +65,12 @@
               :key="cell.key"
               :variant="dayVariant(cell)"
               :color="dayColor(cell)"
-              cubed
               size="sm"
               :disabled="cell.disabled"
               :aria-selected="cell.sel ? 'true' : 'false'"
               :aria-disabled="cell.disabled ? 'true' : undefined"
               :data-outside="cell.inMonth ? undefined : 'true'"
+              :data-today="cell.today ? 'true' : undefined"
               @click="pick(cell, close)"
             >
               {{ cell.d }}
@@ -70,7 +79,7 @@
           <div class="ui-datepicker-quick">
             <ui-button
               type="button"
-              variant="outline"
+              variant="ghost"
               color="secondary"
               size="sm"
               fulled
@@ -81,7 +90,7 @@
             </ui-button>
             <ui-button
               type="button"
-              variant="outline"
+              variant="ghost"
               color="secondary"
               size="sm"
               fulled
@@ -136,6 +145,10 @@ export default {
     disabled: {
       type: Boolean,
       default: false,
+    },
+    fulled: {
+      type: Boolean,
+      default: true,
     },
     id: {
       type: String,
@@ -276,7 +289,6 @@ export default {
     },
     dayVariant(cell) {
       if (cell.sel) return 'solid'
-      if (cell.today && !cell.sel) return 'outline'
       return 'ghost'
     },
     dayColor(cell) {

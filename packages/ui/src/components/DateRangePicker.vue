@@ -38,7 +38,7 @@
                 v-for="preset in quickPresets"
                 :key="preset.key"
                 type="button"
-                variant="outline"
+                variant="ghost"
                 color="secondary"
                 size="sm"
                 fulled
@@ -105,12 +105,12 @@
                       :key="cell.key"
                       :variant="dayVariant(cell)"
                       :color="dayColor(cell)"
-                      cubed
                       size="sm"
                       :disabled="cell.disabled"
                       :aria-selected="cell.endpoint ? 'true' : 'false'"
                       :aria-disabled="cell.disabled ? 'true' : undefined"
                       :data-outside="cell.inMonth ? undefined : 'true'"
+                      :data-today="cell.today ? 'true' : undefined"
                       :data-in-range="cell.inRange && !cell.endpoint ? 'true' : undefined"
                       :data-range-endpoint="cell.endpoint ? 'true' : undefined"
                       @mouseenter="onCellHover(cell)"
@@ -495,8 +495,6 @@ export default {
     },
     dayVariant(cell) {
       if (cell.endpoint) return 'solid'
-      if (cell.inRange) return 'ghost'
-      if (cell.today) return 'outline'
       return 'ghost'
     },
     dayColor(cell) {

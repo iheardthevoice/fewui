@@ -145,9 +145,9 @@
             <ui-button
               v-for="opt in filteredOptions"
               :key="String(opt.value)"
-              variant="ghost"
-              color="secondary"
-              rounded
+              :variant="isSelected(opt) ? 'solid' : 'ghost'"
+              :color="isSelected(opt) ? 'primary' : 'secondary'"
+              size="sm"
               fulled
               text-align="left"
               role="option"

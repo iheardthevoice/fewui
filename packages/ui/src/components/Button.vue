@@ -205,16 +205,16 @@ const linkSizeClasses = {
 const VARIANT_COLOR_CLASSES = {
   solid: {
     primary:
-      'border border-transparent bg-primary text-primary-foreground shadow-none hover:opacity-90',
+      'border-0 bg-primary text-primary-foreground shadow-none hover:opacity-90',
     secondary:
-      'border border-transparent bg-secondary text-secondary-foreground shadow-none hover:opacity-90',
+      'border-0 bg-secondary text-secondary-foreground shadow-none hover:opacity-90',
     input:
-      'border border-transparent shadow-none',
+      'border-0 shadow-none',
     warning:
-      'border border-transparent bg-warning text-warning-foreground shadow-none hover:opacity-90',
+      'border-0 bg-warning text-warning-foreground shadow-none hover:opacity-90',
     success:
-      'border border-transparent bg-success text-success-foreground shadow-none hover:opacity-90',
-    info: 'border border-transparent bg-info text-info-foreground shadow-none hover:opacity-90',
+      'border-0 bg-success text-success-foreground shadow-none hover:opacity-90',
+    info: 'border-0 bg-info text-info-foreground shadow-none hover:opacity-90',
   },
   outline: {
     primary:
@@ -229,15 +229,15 @@ const VARIANT_COLOR_CLASSES = {
   },
   ghost: {
     primary:
-      'shadow-none border border-transparent bg-transparent text-foreground hover:bg-primary hover:text-primary-foreground',
+      'shadow-none border-0 bg-transparent text-foreground hover:bg-primary hover:text-primary-foreground',
     secondary:
-      'shadow-none border border-transparent bg-transparent text-secondary-foreground hover:bg-secondary hover:text-secondary-foreground',
+      'shadow-none border-0 bg-transparent text-secondary-foreground hover:bg-secondary hover:text-secondary-foreground',
     warning:
-      'shadow-none border border-transparent bg-transparent text-warning hover:bg-warning hover:text-warning-foreground',
+      'shadow-none border-0 bg-transparent text-warning hover:bg-warning hover:text-warning-foreground',
     success:
-      'shadow-none border border-transparent bg-transparent text-success hover:bg-success hover:text-success-foreground',
+      'shadow-none border-0 bg-transparent text-success hover:bg-success hover:text-success-foreground',
     info:
-      'shadow-none border border-transparent bg-transparent text-info hover:bg-info hover:text-info-foreground',
+      'shadow-none border-0 bg-transparent text-info hover:bg-info hover:text-info-foreground',
   },
   link: {
     primary:

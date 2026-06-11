@@ -38,13 +38,13 @@ module.exports = {
         foreground: 'var(--foreground)',
 
         surface: {
-          DEFAULT: 'var(--surface)',
+          DEFAULT: 'var(--surface-bg)',
           foreground: 'var(--surface-foreground)',
           /** Input / select kabuğu (`default.css` `--input-background`) */
           input: 'var(--input-background)',
         },
         control: {
-          DEFAULT: 'var(--control)',
+          DEFAULT: 'var(--control-bg)',
           foreground: 'var(--control-foreground)',
         },
         primary: {

@@ -72,6 +72,9 @@ const PLACEMENTS = ['bottom-start', 'bottom-end', 'bottom']
 /** Görünüm kenarı ile panel arası minimum boşluk (px) */
 const VIEW_MARGIN = 10
 
+/** `components.css` ile uyumlu; açık dialog varsa üstüne çıkar */
+const POPOVER_BASE_Z_INDEX = 260
+
 /**
  * Dış tıklama: alt popover katmanına tıklanınca üst popover kapanmaz.
  * Üst katmana tıklanınca alt popover varsayılan olarak kapanır;
@@ -208,6 +211,23 @@ export default {
         })
       })
     },
+    resolveLayerZIndex() {
+      if (typeof document === 'undefined') return POPOVER_BASE_Z_INDEX
+
+      let top = POPOVER_BASE_Z_INDEX
+      for (const root of document.querySelectorAll('.ui-dialog-root')) {
+        const z = Number.parseInt(getComputedStyle(root).zIndex, 10)
+        if (Number.isFinite(z)) top = Math.max(top, z + 10)
+      }
+
+      return top
+    },
+    withLayerZIndex(style) {
+      return {
+        ...style,
+        zIndex: String(this.resolveLayerZIndex()),
+      }
+    },
     updatePosition() {
       const trigger = this.$refs.triggerRef
       const panel = this.$refs.panelRef
@@ -238,7 +258,7 @@ export default {
           style.width = `${Math.min(panelW, vw - margin * 2)}px`
           style.maxWidth = `calc(100vw - ${margin * 2}px)`
         }
-        this.layerStyle = style
+        this.layerStyle = this.withLayerZIndex(style)
         return
       }
 
@@ -271,7 +291,7 @@ export default {
         style.width = explicitW
         style.minWidth = explicitW
       }
-      this.layerStyle = style
+      this.layerStyle = this.withLayerZIndex(style)
       if (this.alignSelectedOptionToTrigger) {
         this.$nextTick(() => {
           requestAnimationFrame(() => {
@@ -328,11 +348,11 @@ export default {
       if (newLeft + w > vw - margin) newLeft = Math.max(margin, vw - margin - w)
       if (newLeft < margin) newLeft = margin
 
-      this.layerStyle = {
+      this.layerStyle = this.withLayerZIndex({
         ...this.layerStyle,
         top: `${Math.round(newTop)}px`,
         left: `${Math.round(newLeft)}px`,
-      }
+      })
     },
     bindGlobalListeners() {
       window.addEventListener('scroll', this.onScrollResize, true)

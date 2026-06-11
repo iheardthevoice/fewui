@@ -35,8 +35,18 @@
   --surface: var(--white);
   --surface-foreground: var(--base-950);
 
+  --ui-surface-opacity: 100%;
+  --ui-surface-backdrop-blur: 0;
+  --ui-surface-mix-from: var(--surface);
+  --surface-bg: color-mix(in oklab, var(--ui-surface-mix-from) var(--ui-surface-opacity), transparent);
+
   --control: var(--base-100);
   --control-foreground: var(--base-950);
+
+  --ui-control-opacity: 100%;
+  --ui-control-backdrop-blur: 0;
+  --ui-control-mix-from: var(--control);
+  --control-bg: color-mix(in oklab, var(--ui-control-mix-from) var(--ui-control-opacity), transparent);
 
   --primary: var(--base-950);
   --primary-foreground: var(--base-50);
@@ -82,8 +92,11 @@
   --accent: var(--base-100);
   --accent-foreground: var(--base-900);
 
-  /* Input: hafif gri dolgu; çerçeve ~gray-200 */
-  --input-background: oklab(0.965 0 0 / 0.92);
+  --ui-input-opacity: 100%;
+  --ui-input-backdrop-blur: 0;
+  --ui-input-mix-from: oklab(0.965 0 0 / 0.92);
+  --input-background: color-mix(in oklab, var(--ui-input-mix-from) var(--ui-input-opacity), transparent);
+
   --border: var(--base-200);
 
   /** Kart / yüzey gölgesi */
@@ -153,7 +166,7 @@
   --accent-foreground: #f5f5f7;
 
   /** Input kabuğu — yüzeyden hafif ayrışır; kart üzerinde yapay çerçeve oluşturmaz */
-  --input-background: color-mix(in oklab, var(--surface) 55%, var(--control) 45%);
+  --ui-input-mix-from: color-mix(in oklab, var(--surface) 55%, var(--control) 45%);
   --border: color-mix(in oklab, var(--foreground) 12%, transparent);
 
   --ui-shadow-surface:

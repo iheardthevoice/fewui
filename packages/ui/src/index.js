@@ -19,6 +19,7 @@ import Field from './components/Field.vue'
 import File from './components/File.vue'
 import FormRow from './components/FormRow.vue'
 import Icon from './components/Icon.vue'
+import IconPicker from './components/IconPicker.vue'
 import Input from './components/Input.vue'
 import Password from './components/Password.vue'
 import Phone from './components/Phone.vue'
@@ -59,7 +60,9 @@ import Photo from './components/Photo.vue'
 import Photos from './components/Photos.vue'
 import en from './locales/en.js'
 import tr from './locales/tr.js'
+import { applyUiTheme } from './theme/apply-theme.js'
 
+export { applyUiTheme, mergeUiTheme } from './theme/apply-theme.js'
 export { pushToast, dismissToast, clearToasts } from './toast-queue.js'
 export { requestConfirm } from './confirm-state.js'
 export {
@@ -95,6 +98,7 @@ export {
   File,
   FormRow,
   Icon,
+  IconPicker,
   Input,
   Password,
   Phone,
@@ -175,6 +179,7 @@ const GLOBAL_COMPONENTS = [
   ['ui-file', File],
   ['ui-form-row', FormRow],
   ['ui-icon', Icon],
+  ['ui-icon-picker', IconPicker],
   ['ui-input', Input],
   ['ui-password', Password],
   ['ui-phone', Phone],
@@ -216,10 +221,15 @@ const GLOBAL_COMPONENTS = [
 ]
 
 /**
+ * @typedef {import('./theme/apply-theme.js').UiThemeConfig} UiThemeConfig
+ */
+
+/**
  * @typedef {object} UiLibInstallOptions
  * @property {import('vue-i18n').I18n} i18n vue-i18n örneği (zorunlu — UI metinleri buraya yazılır)
  * @property {string} [locale] Birleştirilecek paket kodu (`LOCALE_PACKS` anahtarı). Verilmezse `i18n.global.locale` kullanılır.
  * @property {string[]} [locales] Birden fazla dil paketini aynı anda birleştir (örn. `['tr','en']`). Verilirse `locale` yok sayılır.
+ * @property {UiThemeConfig} [theme] Tasarım token’ları (`primaryColor`, `baseColor`, `surface`, `control`, `fontFamily`, …)
  */
 
 /**
@@ -228,7 +238,11 @@ const GLOBAL_COMPONENTS = [
  * @param {UiLibInstallOptions} options
  */
 function install(app, options = {}) {
-  const { i18n, locale, locales } = options
+  const { i18n, locale, locales, theme } = options
+
+  if (theme) {
+    applyUiTheme(theme)
+  }
 
   if (i18n?.global?.mergeLocaleMessage) {
     const list =

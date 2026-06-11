@@ -58,6 +58,13 @@ export default {
       clear: 'Clear',
       customHex: 'Custom color (hex)',
     },
+    iconPicker: {
+      triggerPlaceholder: 'Pick an icon',
+      popoverTitle: 'Icons',
+      clear: 'Clear',
+      searchPlaceholder: 'Search icons…',
+      noResults: 'No results',
+    },
     datePicker: {
       today: 'Today',
       yesterday: 'Yesterday',

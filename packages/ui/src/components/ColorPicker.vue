@@ -1,38 +1,59 @@
 <template>
-  <div class="ui-color-picker w-full min-w-0">
+  <div :class="rootClass">
     <ui-popover
       v-model:open="popoverOpen"
       placement="bottom-start"
-      width="18rem"
+      :match-trigger-width="true"
+      :disabled="disabled"
     >
-      <template #trigger="{ toggle }">
-        <ui-button
+      <template #trigger="{ open, toggle }">
+        <button
           type="button"
-          variant="solid"
-          color="input"
-          rounded
-          fulled
-          text-align="left"
-          :prefix-icon="localColor ? undefined : 'palette'"
+          class="ui-select-field"
           :disabled="disabled"
+          :aria-expanded="open ? 'true' : 'false'"
           :aria-haspopup="true"
           @click="toggle"
         >
-          <span class="inline-flex min-w-0 flex-1 items-center gap-2 text-foreground">
+          <span
+            class="ui-select-prefix inline-flex shrink-0 items-center"
+            aria-hidden="true"
+          >
             <span
               v-if="localColor"
-              class="size-4 shrink-0 rounded-full border border-border shadow-sm"
+              class="ui-color-picker-swatch ui-color-picker-swatch--trigger"
               :style="{ backgroundColor: localColor }"
-              aria-hidden="true"
             />
-            <span class="truncate">{{ localColor || triggerLabel }}</span>
+            <ui-icon
+              v-else
+              name="palette"
+              size="xs"
+              class="text-muted-foreground"
+            />
           </span>
-        </ui-button>
+          <span
+            class="ui-select-value"
+            :class="{ 'ui-select-value--placeholder': !localColor }"
+          >
+            {{ displayValue }}
+          </span>
+          <span class="ui-select-field-suffix">
+            <span
+              class="ui-select-chevron"
+              aria-hidden="true"
+            >
+              <ui-icon
+                name="chevron-down"
+                size="xs"
+              />
+            </span>
+          </span>
+        </button>
       </template>
       <template #content>
-        <div class="space-y-3 p-3">
-          <div class="flex items-center justify-between gap-2">
-            <span class="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+        <div class="ui-color-picker-panel">
+          <div class="ui-color-picker-panel__header">
+            <span class="ui-color-picker-panel__title">
               {{ popoverTitleLabel }}
             </span>
             <ui-button
@@ -48,12 +69,13 @@
             </ui-button>
           </div>
 
-          <div class="grid grid-cols-8 gap-1.5">
+          <div class="ui-color-picker-swatches">
             <button
               v-for="color in presetColors"
               :key="color"
               type="button"
-              class="flex h-6 w-6 items-center justify-center rounded-md border border-border shadow-sm transition-transform hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring active:scale-95"
+              class="ui-color-picker-swatch ui-color-picker-swatch--preset"
+              :class="{ 'ui-color-picker-swatch--selected': localColor === color }"
               :style="{ backgroundColor: color }"
               :title="color"
               @click="selectColor(color)"
@@ -62,16 +84,17 @@
                 v-if="localColor === color"
                 name="check"
                 type="solid"
-                class="text-sm leading-none text-white mix-blend-difference"
+                size="xs"
+                class="text-white mix-blend-difference"
               />
             </button>
           </div>
 
-          <div class="border-t border-border pt-3">
-            <span class="mb-2 block text-xs font-medium uppercase tracking-wider text-muted-foreground">
+          <div class="ui-color-picker-custom">
+            <span class="ui-color-picker-panel__title">
               {{ customColorLabelText }}
             </span>
-            <div class="flex items-center gap-2">
+            <div class="ui-color-picker-custom__row">
               <ui-input
                 v-model="localColor"
                 block
@@ -80,7 +103,7 @@
                 @blur="normalizeHex"
               />
               <span
-                class="size-9 shrink-0 rounded-lg border border-border shadow-sm"
+                class="ui-color-picker-swatch ui-color-picker-swatch--preview"
                 :style="{ backgroundColor: localColor || 'transparent' }"
                 aria-hidden="true"
               />
@@ -93,6 +116,8 @@
 </template>
 
 <script>
+import { cn } from '../utils/cn.js'
+
 const PRESET_COLORS = [
   '#f87171', '#fb923c', '#fbbf24', '#facc15', '#a3e635', '#4ade80', '#34d399', '#2dd4bf',
   '#22d3ee', '#38bdf8', '#60a5fa', '#818cf8', '#a78bfa', '#c084fc', '#e879f9', '#f472b6',
@@ -139,6 +164,13 @@ export default {
     }
   },
   computed: {
+    rootClass() {
+      return cn(
+        'ui-color-picker ui-color-picker--fulled w-full min-w-0',
+        this.disabled && 'pointer-events-none opacity-50',
+        this.$attrs.class,
+      )
+    },
     localColor: {
       get() {
         return this.modelValue || ''
@@ -149,6 +181,9 @@ export default {
     },
     triggerLabel() {
       return this.triggerPlaceholder || this.$t('ui.colorPicker.triggerPlaceholder')
+    },
+    displayValue() {
+      return this.localColor || this.triggerLabel
     },
     popoverTitleLabel() {
       return this.popoverTitle || this.$t('ui.colorPicker.popoverTitle')

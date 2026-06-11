@@ -35,6 +35,50 @@ app.use(UiLib, { i18n, locale: 'tr' })
 
 Programatik erişim: **`getUiMessages('tr')`** — manuel `mergeLocaleMessage` için.
 
+## Tema (`theme`)
+
+`app.use(UiLib, { i18n, locale: 'tr', theme: { … } })` ile tasarım token’ları kök öğede CSS değişkeni olarak uygulanır.
+
+```js
+app.use(UiLib, {
+  i18n,
+  locales: ['tr', 'en'],
+  theme: {
+    mode: 'dark',
+    fontFamily: 'Poppins',
+    primaryColor: '#ff006e',
+    primaryForeground: '#ffffff',
+    secondaryColor: '#8338ec',
+    background: '#0a0a0a',
+    foreground: '#ffffff',
+    surface: '#141416',
+    control: '#2c2c30',
+    surfaceStyle: {
+      mixFrom: 'foreground',
+      opacity: 6,
+      backdropBlur: 'md',
+    },
+    controlStyle: {
+      opacity: 8,
+      backdropBlur: 12,
+    },
+    baseColor: {
+      50: '#f5f5f7',
+      950: '#0a0a0a',
+    },
+    colors: {
+      'brand-accent': '#3a86ff',
+    },
+  },
+})
+```
+
+Desteklenen alanlar: `mode`, `fontFamily`, `primaryColor`, `primaryForeground`, `baseColor` (50–950), `background`, `foreground`, `surface`, `surfaceStyle`, `control`, `controlStyle`, `inputStyle`, `secondaryColor`, `border`, `ring`, `muted`, `accent`, `colors`.
+
+`surfaceStyle` / `controlStyle` / `inputStyle`: `opacity` (veya `bgOpacity`, 0–100 veya 0–1), `backdropBlur` (`12`, `'12px'`, `'md'`), `mixFrom` (`'foreground'`, `'surface'`, `'background'`, `'control'` veya ham renk).
+
+Runtime güncelleme: **`applyUiTheme(theme)`** veya **`mergeUiTheme(base, overrides)`**.
+
 ## Global kayıt (`ui-*`)
 
 ```js

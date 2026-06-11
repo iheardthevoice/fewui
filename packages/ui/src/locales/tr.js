@@ -64,6 +64,13 @@ export default {
       clear: 'Temizle',
       customHex: 'Özel renk (hex)',
     },
+    iconPicker: {
+      triggerPlaceholder: 'İkon seçin',
+      popoverTitle: 'İkonlar',
+      clear: 'Temizle',
+      searchPlaceholder: 'İkon ara…',
+      noResults: 'Sonuç bulunamadı',
+    },
     datePicker: {
       today: 'Bugün',
       yesterday: 'Dün',

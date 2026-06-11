@@ -1,35 +1,56 @@
 <template>
-  <ui-input
-    :id="resolvedNumberId"
-    v-model="innerNumber"
-    type="tel"
-    inputmode="tel"
-    class="w-full"
-    :disabled="disabled"
-    :readonly="readonly"
-    :placeholder="resolvedPlaceholder"
-    :name="numberName"
-    :autocomplete="autocomplete"
-    :maxlength="numberMaxlength"
-    :aria-describedby="ariaDescribedby"
-    v-bind="numberPassthrough"
-    @focus="$emit('focus', $event)"
-    @blur="$emit('blur', $event)"
-  >
-    <template #prepend>
-      <ui-select
-        v-model="innerCountry"
-        variant="inline"
-        :options="countryOptions"
-        :disabled="disabled"
-        :aria-label="resolvedCountryAria"
-      />
-    </template>
-  </ui-input>
+  <div :class="rootClass">
+    <ui-input
+      :id="resolvedNumberId"
+      v-model="innerNumber"
+      type="tel"
+      inputmode="tel"
+      class="w-full"
+      :size="size"
+      :disabled="disabled"
+      :readonly="readonly"
+      :placeholder="resolvedPlaceholder"
+      :name="numberName"
+      :autocomplete="autocomplete"
+      :maxlength="numberMaxlength"
+      :aria-describedby="ariaDescribedby"
+      v-bind="numberPassthrough"
+      @focus="$emit('focus', $event)"
+      @blur="$emit('blur', $event)"
+    >
+      <template #prepend>
+        <div class="ui-phone-prepend">
+          <ui-icon
+            name="phone"
+            size="xs"
+            class="text-muted-foreground"
+            aria-hidden="true"
+          />
+          <span
+            v-if="isSingleCountry"
+            class="ui-phone-country-static"
+          >{{ innerCountry }}</span>
+          <ui-select
+            v-else
+            v-model="innerCountry"
+            variant="inline"
+            :size="size"
+            :options="countryOptions"
+            :disabled="disabled"
+            :aria-label="resolvedCountryAria"
+          />
+        </div>
+      </template>
+    </ui-input>
+  </div>
 </template>
 
 <script>
+import { cn } from '../utils/cn.js'
+
 let phoneCounter = 0
+
+const SIZES = ['sm', 'md', 'lg']
 
 const DEFAULT_COUNTRIES = [
   { value: '+90', label: '+90' },
@@ -53,6 +74,11 @@ export default {
     countries: {
       type: Array,
       default: () => DEFAULT_COUNTRIES,
+    },
+    size: {
+      type: String,
+      default: 'md',
+      validator: (v) => SIZES.includes(v),
     },
     disabled: {
       type: Boolean,
@@ -99,6 +125,16 @@ export default {
   computed: {
     countryOptions() {
       return this.countries?.length ? this.countries : DEFAULT_COUNTRIES
+    },
+    isSingleCountry() {
+      return this.countryOptions.length === 1
+    },
+    rootClass() {
+      return cn(
+        'ui-phone',
+        this.isSingleCountry && 'ui-phone--single-country',
+        this.size !== 'md' && `ui-phone--${this.size}`,
+      )
     },
     innerCountry: {
       get() {
