@@ -27,7 +27,7 @@
   },
   "scripts": {
     "build": "vite build",
-    "prepublishOnly": "vite build"
+    "postbuild": "node ../../../frontend/scripts/sync-ui-lib-pin.mjs"
   },
   "peerDependencies": {
     "vue": "^3.4.0",
