@@ -678,6 +678,23 @@
     }
   }
 
+  .ui-overlay-popover-backdrop-enter-active {
+    transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .ui-overlay-popover-backdrop-leave-active {
+    transition: opacity 0.18s cubic-bezier(0.4, 0, 0.6, 1);
+  }
+
+  .ui-overlay-popover-backdrop-enter-from,
+  .ui-overlay-popover-backdrop-leave-to {
+    opacity: 0;
+  }
+
+  .ui-popover-backdrop {
+    z-index: 409;
+  }
+
   /**
    * Overlay kök katmanları (Tailwind arbitrary z purge edilebilir — z-index burada sabit).
    * Sıra: modal 400, popover 410, onay 420, toast 500 — unlayered blok dosya sonunda tekrarlanır.

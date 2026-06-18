@@ -4,6 +4,7 @@
     :placement="placement"
     :match-trigger-width="matchTriggerWidth"
     :block="block"
+    :mobile-centered="false"
     :close-on-outside-click="closeOnOutsideClick"
     :close-on-escape="closeOnEscape"
     :outside-click-ignore-selector="outsideClickIgnoreSelector"

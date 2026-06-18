@@ -15,6 +15,15 @@
       />
     </div>
     <Teleport to="body">
+      <Transition name="ui-overlay-popover-backdrop">
+        <div
+          v-if="showMobileBackdrop"
+          class="ui-popover-backdrop fixed inset-0 bg-black/50"
+          :style="backdropStyle"
+          aria-hidden="true"
+          @click="close"
+        />
+      </Transition>
       <Transition name="ui-overlay-popover">
         <div
           v-show="open"
@@ -162,16 +171,31 @@ export default {
       type: Boolean,
       default: false,
     },
+    /**
+     * Mobil görünümde paneli ekran ortasında aç (varsayılan).
+     * false: tetikleyiciye göre konumlanır (Dropdown menüler).
+     */
+    mobileCentered: {
+      type: Boolean,
+      default: true,
+    },
   },
   emits: ['update:open'],
   data() {
     return {
       layerStyle: {},
+      layerZIndex: POPOVER_BASE_Z_INDEX,
       rafId: 0,
       mobileCenteredActive: false,
     }
   },
   computed: {
+    showMobileBackdrop() {
+      return this.open && this.mobileCenteredActive
+    },
+    backdropStyle() {
+      return { zIndex: String(this.layerZIndex) }
+    },
     rootShellClass() {
       return this.block
         ? 'ui-popover ui-popover--block relative w-full min-w-0 max-w-full'
@@ -247,9 +271,11 @@ export default {
       return top
     },
     withLayerZIndex(style) {
+      const z = this.resolveLayerZIndex()
+      this.layerZIndex = z
       return {
         ...style,
-        zIndex: String(this.resolveLayerZIndex()),
+        zIndex: String(z),
       }
     },
     updatePosition() {
@@ -267,7 +293,7 @@ export default {
           : panel.offsetWidth || (this.matchTriggerWidth ? r.width : 200)
       const panelH = panel.offsetHeight || 120
 
-      if (isMobileViewport()) {
+      if (isMobileViewport() && this.mobileCentered) {
         this.mobileCenteredActive = true
         const left = Math.max(margin, Math.round((vw - panelW) / 2))
         const top = Math.max(margin, Math.round((vh - panelH) / 2))
