@@ -19,6 +19,10 @@ export default {
     dialog: {
       close: 'Kapat',
     },
+    guidance: {
+      go: 'Devam',
+      close: 'Kapat',
+    },
     confirm: {
       ok: 'Tamam',
       cancel: 'İptal',

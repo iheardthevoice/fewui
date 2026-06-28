@@ -4058,6 +4058,10 @@ const Jr = /* @__PURE__ */ w(br, [["render", kr]]), es = {
     dialog: {
       close: "Close"
     },
+    guidance: {
+      go: "Continue",
+      close: "Close"
+    },
     confirm: {
       ok: "OK",
       cancel: "Cancel",
@@ -4154,6 +4158,10 @@ const Jr = /* @__PURE__ */ w(br, [["render", kr]]), es = {
       dismiss: "Kapat"
     },
     dialog: {
+      close: "Kapat"
+    },
+    guidance: {
+      go: "Devam",
       close: "Kapat"
     },
     confirm: {
@@ -4423,4 +4431,4 @@ export {
   Pe as t,
   ts as u
 };
-//# sourceMappingURL=apply-theme-Dp8HgcfI.js.map
+//# sourceMappingURL=apply-theme-BcA_BjQ8.js.map

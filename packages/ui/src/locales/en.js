@@ -15,6 +15,10 @@ export default {
     dialog: {
       close: 'Close',
     },
+    guidance: {
+      go: 'Continue',
+      close: 'Close',
+    },
     confirm: {
       ok: 'OK',
       cancel: 'Cancel',

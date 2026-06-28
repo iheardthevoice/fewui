@@ -969,6 +969,79 @@
     @apply border-t border-border px-4 py-3;
   }
 
+  .ui-guidance-footer {
+    @apply flex w-full flex-wrap items-center justify-end gap-2;
+  }
+
+  .ui-guidance-footer--popover {
+    @apply border-t border-border pt-3;
+  }
+
+  .ui-guidance-footer--tour {
+    @apply border-t border-border px-4 py-3;
+  }
+
+  .ui-guidance-popover {
+    @apply flex min-w-0 flex-col gap-3 p-4;
+  }
+
+  .ui-guidance-popover__lead {
+    @apply flex gap-3;
+  }
+
+  .ui-guidance-popover__icon {
+    @apply flex shrink-0 text-primary;
+  }
+
+  .ui-guidance-popover__title {
+    @apply text-sm font-medium text-foreground;
+  }
+
+  .ui-guidance-popover__description {
+    @apply mt-1 text-sm text-muted-foreground;
+  }
+
+  .ui-guidance-tour {
+    @apply pointer-events-none fixed inset-0 z-[415];
+  }
+
+  .ui-guidance-tour__backdrop {
+    @apply pointer-events-auto absolute inset-0 bg-black/40;
+  }
+
+  .ui-guidance-tour__highlight {
+    @apply pointer-events-none absolute rounded-xl ring-2 ring-primary;
+    box-shadow: 0 0 0 9999px rgb(0 0 0 / 0.38);
+  }
+
+  .ui-guidance-tour__panel {
+    @apply pointer-events-auto overflow-hidden shadow-lg;
+  }
+
+  .ui-guidance-tour__panel-header {
+    @apply flex items-start gap-3 border-b border-border px-4 py-3;
+  }
+
+  .ui-guidance-tour__icon {
+    @apply flex shrink-0 text-primary;
+  }
+
+  .ui-guidance-tour__panel-text {
+    @apply min-w-0 flex-1;
+  }
+
+  .ui-guidance-tour__title {
+    @apply text-sm font-medium text-foreground;
+  }
+
+  .ui-guidance-tour__description {
+    @apply mt-1 text-sm text-muted-foreground;
+  }
+
+  .ui-guidance-tour__body {
+    @apply px-4 py-3;
+  }
+
   /** Boş durum — ortalanmış ikon, başlık, açıklama; arka plan her zaman şeffaf */
   .ui-empty {
     @apply box-border flex min-w-0 flex-col items-center bg-transparent text-center text-foreground subpixel-antialiased;
@@ -3489,7 +3562,7 @@
     }
 
     .ui-dialog-panel .ui-card-header {
-      padding-top: 0.125rem;
+      padding-top: 0.75rem;
       padding-inline: var(--ui-dialog-inset-x);
       padding-bottom: 0.75rem;
     }

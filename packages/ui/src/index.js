@@ -20,6 +20,7 @@ import Empty from './components/Empty.vue'
 import Field from './components/Field.vue'
 import File from './components/File.vue'
 import FormRow from './components/FormRow.vue'
+import Guidance from './components/Guidance.vue'
 import Icon from './components/Icon.vue'
 import IconPicker from './components/IconPicker.vue'
 import Input from './components/Input.vue'
@@ -104,6 +105,7 @@ export {
   Field,
   File,
   FormRow,
+  Guidance,
   Icon,
   IconPicker,
   Input,
@@ -187,6 +189,7 @@ const GLOBAL_COMPONENTS = [
   ['ui-field', Field],
   ['ui-file', File],
   ['ui-form-row', FormRow],
+  ['ui-guidance', Guidance],
   ['ui-icon', Icon],
   ['ui-icon-picker', IconPicker],
   ['ui-input', Input],
