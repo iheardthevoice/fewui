@@ -1,7 +1,7 @@
 {
-  "name": "@ui/lib",
+  "name": "fewui",
   "version": "0.0.1",
-  "description": "Vue 3 UI (Button, Icon), vue-i18n (tr), theme CSS, Tailwind preset",
+  "description": "Fewui — Vue 3 UI (Button, Icon), vue-i18n (tr), theme CSS, Tailwind preset",
   "type": "module",
   "sideEffects": [
     "./themes/*.css",
@@ -27,7 +27,7 @@
   },
   "scripts": {
     "build": "vite build",
-    "postbuild": "node ../../../frontend/scripts/sync-ui-lib-pin.mjs"
+    "postbuild": "node ../../../frontend/scripts/sync-fewui-pin.mjs"
   },
   "peerDependencies": {
     "vue": "^3.4.0",

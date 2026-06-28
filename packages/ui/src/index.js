@@ -269,12 +269,12 @@ function install(app, options = {}) {
       if (pack) {
         i18n.global.mergeLocaleMessage(loc, pack)
       } else if (typeof import.meta !== 'undefined' && import.meta.env?.DEV) {
-        console.warn(`[@ui/lib] Bilinmeyen locale paketi: "${loc}". Mevcut: ${Object.keys(LOCALE_PACKS).join(', ')}`)
+        console.warn(`[fewui] Bilinmeyen locale paketi: "${loc}". Mevcut: ${Object.keys(LOCALE_PACKS).join(', ')}`)
       }
     }
   } else if (typeof import.meta !== 'undefined' && import.meta.env?.DEV) {
     console.warn(
-      '[@ui/lib] app.use(UiLib, { i18n, locale: "tr" }) şeklinde i18n ve locale verin; aksi halde $t anahtarları çözülmez.',
+      '[fewui] app.use(UiLib, { i18n, locale: "tr" }) şeklinde i18n ve locale verin; aksi halde $t anahtarları çözülmez.',
     )
   }
 

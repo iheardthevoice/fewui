@@ -1,6 +1,6 @@
 /**
  * Splits themes/components.css into utilities + layer + overrides.
- * Keeps themes/components.css as re-export for @ui/lib/components.css consumers.
+ * Keeps themes/components.css as re-export for fewui/components.css consumers.
  */
 import { readFileSync, writeFileSync, mkdirSync, rmSync } from 'node:fs'
 import { dirname, join } from 'node:path'

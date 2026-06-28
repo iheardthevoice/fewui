@@ -1472,7 +1472,7 @@
   }
 
   .ui-form-row--card-horizontal .ui-form-row-control {
-    @apply w-auto min-w-[8rem] max-w-[min(100%,20rem)] shrink-0;
+    @apply flex w-auto min-w-[8rem] max-w-[min(100%,20rem)] shrink-0 items-center justify-end;
   }
 
   @media (max-width: 639px) {
@@ -2893,6 +2893,7 @@
 
   .ui-dialog-panel {
     @apply relative z-[1] flex max-h-[min(90dvh,100%)] w-full min-h-0 min-w-0 flex-col overflow-hidden outline-none;
+    --ui-dialog-body-ring-inset: 0.5rem;
   }
 
   .ui-dialog-panel--max-sm {
@@ -2944,12 +2945,13 @@
   }
 
   .ui-dialog-panel .ui-card-body {
-    @apply min-h-0 overflow-y-auto overscroll-contain;
+    @apply relative z-[1] min-h-0 overflow-y-auto overscroll-contain;
     flex: 0 1 auto;
     max-height: calc(min(90dvh, 100%) - 9.5rem);
     padding-inline: var(--ui-card-padding);
     padding-block: 0.75rem;
-    scroll-padding: var(--ui-card-padding);
+    scroll-padding-inline: var(--ui-card-padding);
+    scroll-padding-block: 0.75rem;
   }
 
   .ui-dialog-panel .ui-card-header + .ui-card-body,
@@ -2959,7 +2961,8 @@
   }
 
   .ui-dialog-panel .ui-card-body:has(+ .ui-card-footer) {
-    padding-bottom: 0;
+    padding-bottom: var(--ui-dialog-body-ring-inset);
+    scroll-padding-bottom: calc(0.75rem + var(--ui-dialog-body-ring-inset));
   }
 
   .ui-dialog-panel .ui-card-body:not(:has(+ .ui-card-footer)) {
@@ -2967,10 +2970,16 @@
   }
 
   .ui-dialog-panel .ui-card-footer {
-    @apply flex shrink-0 flex-nowrap items-center justify-end gap-3;
+    @apply relative z-0 flex shrink-0 flex-nowrap items-center justify-end gap-3;
     padding-inline: var(--ui-card-padding);
     padding-top: 0.75rem;
     padding-bottom: var(--ui-card-padding);
+  }
+
+  .ui-dialog-panel .ui-card-body .ui-input:focus-within,
+  .ui-dialog-panel .ui-card-body .ui-select-field:focus-visible,
+  .ui-dialog-panel .ui-card-body .ui-select-field[aria-expanded='true'] {
+    @apply relative z-[2];
   }
 
   .ui-dialog-panel--body-flex {
@@ -3489,11 +3498,13 @@
       max-height: calc(min(92dvh, 100%) - 9.5rem);
       padding-inline: var(--ui-dialog-inset-x);
       padding-block: 0.75rem;
-      scroll-padding: var(--ui-dialog-inset-x);
+      scroll-padding-inline: var(--ui-dialog-inset-x);
+      scroll-padding-block: 0.75rem;
     }
 
     .ui-dialog-panel .ui-card-body:has(+ .ui-card-footer) {
-      padding-bottom: 0;
+      padding-bottom: var(--ui-dialog-body-ring-inset);
+      scroll-padding-bottom: calc(0.75rem + var(--ui-dialog-body-ring-inset));
     }
 
     .ui-dialog-panel .ui-card-body:not(:has(+ .ui-card-footer)) {

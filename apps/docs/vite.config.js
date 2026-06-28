@@ -10,11 +10,11 @@ export default defineConfig({
   plugins: [vue()],
   resolve: {
     alias: {
-      '@ui/lib': resolve(uiRoot, 'src/index.js'),
+      'fewui': resolve(uiRoot, 'src/index.js'),
     },
   },
   server: {
-    /** Varil uygulaması (`frontend`) varsayılan 5173 kullanır; kütüphane dokümantasyonu 5175. */
+    /** Restta uygulaması (`frontend`) varsayılan 5173 kullanır; kütüphane dokümantasyonu 5175. */
     port: 5175,
     fs: {
       allow: [uiRoot, __dirname],

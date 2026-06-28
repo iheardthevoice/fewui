@@ -65,7 +65,7 @@ const GLOBAL_COMPONENTS = [
  */
 
 /**
- * Landing-only Vue plugin: registers the subset of `ui-*` components used on varilbar.com.
+ * Landing-only Vue plugin: registers the subset of `ui-*` components used on restta.com tenant sites.
  * @param {import('vue').App} app
  * @param {UiLibInstallOptions} options
  */

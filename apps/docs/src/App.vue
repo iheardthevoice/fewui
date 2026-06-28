@@ -1,6 +1,6 @@
 <script setup>
 import { computed, ref, watch } from 'vue'
-import { useToast, useDialog, useConfirm } from '@ui/lib'
+import { useToast, useDialog, useConfirm } from 'fewui'
 import { i18n } from './i18n.js'
 
 const toastUi = useToast()

@@ -1,5 +1,5 @@
 /**
- * Varsayılan Türkçe metinler (@ui/lib bileşenleri).
+ * Varsayılan Türkçe metinler (fewui bileşenleri).
  * İleride `en.js` vb. eklenebilir; `createI18n` messages ile birleştirilir.
  */
 export default {

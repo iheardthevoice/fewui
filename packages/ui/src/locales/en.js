@@ -1,5 +1,5 @@
 /**
- * English UI strings (@ui/lib).
+ * English UI strings (fewui).
  */
 export default {
   ui: {

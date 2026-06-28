@@ -1,6 +1,6 @@
 # Tasarım ve bileşen kullanım notları
 
-Bu belge **@ui/lib** ile geliştirdiğimiz arayüz dilini, token’ları ve tekrar kullanım kalıplarını özetler. Ayrıntılı sınıflar için `packages/ui/themes/components.css` ve `packages/ui/themes/default.css` kaynak kabul edilir.
+Bu belge **fewui** ile geliştirdiğimiz arayüz dilini, token’ları ve tekrar kullanım kalıplarını özetler. Ayrıntılı sınıflar için `packages/ui/themes/components.css` ve `packages/ui/themes/default.css` kaynak kabul edilir.
 
 ---
 
@@ -135,8 +135,8 @@ Kart gövdesi (`ui-card-body`) varsayılan olarak bu tabanı kullanır.
 ## 15. Tüketim özeti
 
 ```js
-import UiLib from '@ui/lib'
-import '@ui/lib/style.css' // default.css + components.css zinciri
+import UiLib from 'fewui'
+import 'fewui/style.css' // default.css + components.css zinciri
 app.use(UiLib, { i18n, locale: 'tr' })
 ```
 

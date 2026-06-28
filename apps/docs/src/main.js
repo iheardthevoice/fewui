@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import { createRouter, createMemoryHistory } from 'vue-router'
 import App from './App.vue'
-import UiLib from '@ui/lib'
+import UiLib from 'fewui'
 import { i18n } from './i18n.js'
 import '../../../packages/ui/themes/default.css'
 import './style.css'

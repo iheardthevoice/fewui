@@ -1,4 +1,4 @@
-# @ui/lib
+# fewui
 
 Vue 3 tasarım sistemi: **61 global bileşen** (`ui-button`, `ui-dialog`, …), OKLCH tema token’ları, runtime `applyUiTheme`, vue-i18n (`tr` / `en`).
 
@@ -7,8 +7,8 @@ Vue 3 tasarım sistemi: **61 global bileşen** (`ui-button`, `ui-dialog`, …), 
 ```js
 import { createApp } from 'vue'
 import { createI18n } from 'vue-i18n'
-import UiLib from '@ui/lib'
-import '@ui/lib/style.css'
+import UiLib from 'fewui'
+import 'fewui/style.css'
 
 const i18n = createI18n({
   legacy: true,
@@ -30,19 +30,19 @@ app.use(UiLib, {
 Stil zinciri (Tailwind v4 uygulamalarda):
 
 ```css
-@import "@ui/lib/style.css";
-@import "@ui/lib/components.css";
+@import "fewui/style.css";
+@import "fewui/components.css";
 ```
 
 ## Export’lar
 
 | Export | Açıklama |
 |--------|----------|
-| `@ui/lib` | Tam plugin + named export’lar |
-| `@ui/lib/landing` | Landing alt kümesi (~20 bileşen) |
-| `@ui/lib/style.css` | `themes/default.css` token’ları |
-| `@ui/lib/components.css` | Bileşen stilleri (`themes/components/`) |
-| `@ui/lib/tailwind-preset` | Tailwind v3 preset |
+| `fewui` | Tam plugin + named export’lar |
+| `fewui/landing` | Landing alt kümesi (~20 bileşen) |
+| `fewui/style.css` | `themes/default.css` token’ları |
+| `fewui/components.css` | Bileşen stilleri (`themes/components/`) |
+| `fewui/tailwind-preset` | Tailwind v3 preset |
 
 ## Programatik API
 

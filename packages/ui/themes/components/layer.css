@@ -1435,7 +1435,7 @@
   }
 
   .ui-form-row--card-horizontal .ui-form-row-control {
-    @apply w-auto min-w-[8rem] max-w-[min(100%,20rem)] shrink-0;
+    @apply flex w-auto min-w-[8rem] max-w-[min(100%,20rem)] shrink-0 items-center justify-end;
   }
 
   @media (max-width: 639px) {
