@@ -903,7 +903,7 @@
   }
 
   .ui-card--data-table > .ui-card-toolbar {
-    @apply px-3 py-3 sm:px-4 max-md:px-0;
+    @apply px-3 py-3 sm:px-4;
   }
 
   .ui-card--data-table > .ui-card-toolbar > * {
@@ -3457,7 +3457,11 @@
   }
 
   .ui-table-cell--empty {
-    @apply h-72;
+    @apply h-72 px-3;
+  }
+
+  .app-data-table--filter-empty .ui-table-cell--empty .ui-empty {
+    @apply mx-auto max-w-sm;
   }
 
   .ui-table-cell--tone-title {
@@ -3491,20 +3495,86 @@
       -webkit-overflow-scrolling: touch;
     }
 
-    .app-data-table .ui-table {
+    .app-data-table:not(.app-data-table--filter-empty) .ui-table {
       table-layout: auto;
       width: max-content;
       min-width: 100%;
     }
 
-    .app-data-table .ui-table-head:not(.ui-table-head--icon-col):not(.ui-table-head--w-sm),
-    .app-data-table .ui-table-cell:not(.ui-table-cell--icon-col):not(.ui-table-cell--w-sm) {
+    .app-data-table--filter-empty .ui-table {
+      table-layout: fixed;
+      width: 100%;
+    }
+
+    .app-data-table--filter-empty .ui-table-header {
+      display: none;
+    }
+
+    .app-data-table--filter-empty .ui-table-cell--empty {
+      text-align: center;
+    }
+
+    .app-data-table .ui-table-head--icon-col,
+    .app-data-table .ui-table-cell--icon-col {
+      display: none;
+    }
+
+    .app-data-table:not(.app-data-table--filter-empty) .ui-table-head:not(.ui-table-head--icon-col):not(.ui-table-head--w-sm):not(:last-child),
+    .app-data-table:not(.app-data-table--filter-empty) .ui-table-cell:not(.ui-table-cell--icon-col):not(.ui-table-cell--w-sm):not(:last-child) {
       min-width: 7rem;
     }
 
     .app-data-table .ui-table-head--w-sm,
-    .app-data-table .ui-table-cell:has(.ui-action-group) {
+    .app-data-table .ui-table-cell:has(.ui-action-group),
+    .app-data-table .ui-table-cell:has([data-app-row-menu]) {
       min-width: 3rem;
+    }
+
+    .app-data-table:not(.app-data-table--filter-empty) .ui-table-body .ui-table-row > .ui-table-cell {
+      background-color: var(--surface-bg);
+    }
+
+    .app-data-table:not(.app-data-table--filter-empty) .ui-table-body .ui-table-row:hover > .ui-table-cell {
+      background-color: color-mix(in oklab, var(--muted) 40%, var(--surface-bg));
+    }
+
+    .app-data-table:not(.app-data-table--filter-empty) .ui-table-body .ui-table-row--interactive:hover > .ui-table-cell {
+      background-color: color-mix(in oklab, var(--muted) 50%, var(--surface-bg));
+    }
+
+    .app-data-table:not(.app-data-table--filter-empty) .ui-table-body .ui-table-row--soft-hover:hover > .ui-table-cell {
+      background-color: color-mix(in oklab, var(--muted) 25%, var(--surface-bg));
+    }
+
+    .app-data-table:not(.app-data-table--filter-empty) .ui-table-body .ui-table-row--strong-hover:hover > .ui-table-cell {
+      background-color: color-mix(in oklab, var(--muted) 60%, var(--surface-bg));
+    }
+
+    .app-data-table:not(.app-data-table--filter-empty) .ui-table-body .ui-table-row--selected > .ui-table-cell {
+      background-color: color-mix(in oklab, var(--muted) 50%, var(--surface-bg));
+    }
+
+    .app-data-table:not(.app-data-table--filter-empty) .ui-table-head:last-child,
+    .app-data-table:not(.app-data-table--filter-empty) .ui-table-cell:has([data-app-row-menu]) {
+      position: sticky;
+      right: 0;
+      z-index: 2;
+      background-color: var(--surface-bg);
+      box-shadow: -8px 0 12px -10px color-mix(in srgb, var(--foreground) 10%, transparent);
+    }
+
+    .app-data-table:not(.app-data-table--filter-empty) .ui-table-head:last-child {
+      z-index: 3;
+    }
+
+    .app-data-table:not(.app-data-table--filter-empty) .ui-table-body .ui-table-row:hover > .ui-table-cell:has([data-app-row-menu]),
+    .app-data-table:not(.app-data-table--filter-empty) .ui-table-body .ui-table-row--interactive:hover > .ui-table-cell:has([data-app-row-menu]) {
+      background-color: color-mix(in oklab, var(--muted) 50%, var(--surface-bg));
+    }
+
+    .app-data-table .ui-table-cell:has([data-app-row-menu]) [data-app-row-menu] .ui-button[data-variant='ghost']:hover:not(:disabled),
+    .app-data-table .ui-table-cell:has([data-app-row-menu]) [data-app-row-menu] .ui-button[data-variant='ghost']:active:not(:disabled) {
+      background-color: transparent;
     }
   }
 
