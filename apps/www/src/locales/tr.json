@@ -1,0 +1,54 @@
+{
+  "nav": {
+    "home": "Ana sayfa",
+    "projects": "Projeler",
+    "create": "Projeni yarat",
+    "docs": "Dokümantasyon"
+  },
+  "home": {
+    "title": "FewUI",
+    "tagline": "Ajanlarla ürün geliştiren ekipler için AI-native UI framework.",
+    "description": "Bileşenler, tasarım token'ları, Cursor kuralları ve agent skill'leri — insanlar ve AI için tek sistem.",
+    "ctaCreate": "Temanı oluştur",
+    "ctaDocs": "Kit dokümantasyonu",
+    "techTitle": "Modern yığın",
+    "techBody": "Vue 3, CSS custom property'ler, Tailwind preset, vue-i18n ve Restta ölçeğinde runtime temalama."
+  },
+  "projects": {
+    "title": "Projeler",
+    "description": "FewUI Kit ile geliştirilen ürünler.",
+    "resttaTitle": "Restta",
+    "resttaDescription": "Restoran POS, web modülü ve tenant landing siteleri."
+  },
+  "restta": {
+    "title": "Restta",
+    "description": "Uçtan uca restoran operasyonu: panel, herkese açık landing, QR menüler ve web site oluşturucu.",
+    "features": {
+      "pos": "POS",
+      "web": "Web modülü",
+      "landing": "Tenant landing"
+    }
+  },
+  "create": {
+    "title": "Projeni yarat",
+    "description": "Tema token'larını ayarlayın, bileşenleri önizleyin, kuralları ve skill'leri indirin."
+  },
+  "themePlayground": {
+    "title": "Tema",
+    "description": "Token ayarlarını yapın ve projeniz için kuralları dışa aktarın.",
+    "mode": { "dark": "Koyu", "light": "Açık" },
+    "fields": {
+      "preset": "Stil",
+      "mode": "Mod",
+      "primary": "Ana renk",
+      "font": "Yazı tipi",
+      "customCss": "Özel CSS",
+      "customCssPlaceholder": ":root { … }"
+    },
+    "actions": {
+      "copyJson": "Tema JSON kopyala",
+      "downloadRules": "Kuralları indir",
+      "downloadSkill": "Skill indir"
+    }
+  }
+}

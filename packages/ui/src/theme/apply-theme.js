@@ -1,5 +1,6 @@
-const BASE_SCALE_STEPS = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950]
+import { applyGoogleFontsForTheme } from './google-fonts.js'
 
+const BASE_SCALE_STEPS = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950]
 const FONT_FALLBACKS = 'ui-sans-serif, system-ui, sans-serif'
 
 /** @type {Record<string, string>} */
@@ -37,7 +38,9 @@ const MIX_FROM_MAP = {
 /**
  * @typedef {object} UiThemeConfig
  * @property {'light'|'dark'} [mode] Kök öğeye `.dark` sınıfı ekler veya kaldırır
- * @property {string} [fontFamily] `--font-sans` (örn. `Poppins` veya tam yığın)
+ * @property {string} [fontFamily] `--font-sans` / gövde (alias: `bodyFontFamily`)
+ * @property {string} [bodyFontFamily] `--font-sans` içerik metni
+ * @property {string} [headingFontFamily] `--font-heading` başlıklar
  * @property {string} [primaryColor] `--primary` (alias: `primary`)
  * @property {string} [primaryForeground] `--primary-foreground`
  * @property {UiThemeBaseColorScale} [baseColor] `--base-50` … `--base-950` (kısmi verilebilir)
@@ -270,11 +273,38 @@ export function applyUiTheme(theme = {}, options = {}) {
     root.classList.remove('dark')
   }
 
+  const vars = resolveThemeVars(theme)
+
+  for (const [prop, value] of Object.entries(vars)) {
+    root.style.setProperty(prop, value)
+  }
+
+  applyGoogleFontsForTheme(theme)
+
+  return { ...vars }
+}
+
+/**
+ * DOM olmadan tema CSS değişkenlerini hesaplar.
+ * @param {UiThemeConfig} [theme]
+ * @returns {Record<string, string>}
+ */
+export function resolveThemeVars(theme = {}) {
+  if (!theme || typeof theme !== 'object') {
+    return {}
+  }
+
   /** @type {Record<string, string>} */
   const vars = {}
 
-  if (theme.fontFamily) {
-    vars['--font-sans'] = formatFontFamily(theme.fontFamily)
+  const bodyFont = theme.bodyFontFamily || theme.fontFamily
+  if (bodyFont) {
+    vars['--font-sans'] = formatFontFamily(bodyFont)
+  }
+
+  const headingFont = theme.headingFontFamily || bodyFont
+  if (headingFont) {
+    vars['--font-heading'] = formatFontFamily(headingFont)
   }
 
   if (theme.baseColor && typeof theme.baseColor === 'object') {
@@ -338,11 +368,24 @@ export function applyUiTheme(theme = {}, options = {}) {
     }
   }
 
-  for (const [prop, value] of Object.entries(vars)) {
-    root.style.setProperty(prop, value)
-  }
+  return vars
+}
 
-  return { ...vars }
+/**
+ * SSR için html öznitelikleri üretir.
+ * @param {UiThemeConfig} [theme]
+ * @returns {{ classAttr: string, styleAttr: string }}
+ */
+export function buildThemeStyleAttr(theme = {}) {
+  const vars = resolveThemeVars(theme)
+  const style = Object.entries(vars)
+    .map(([key, value]) => `${key}: ${value}`)
+    .join('; ')
+  const classes = theme.mode === 'dark' ? 'dark' : theme.mode === 'light' ? '' : ''
+  return {
+    classAttr: classes,
+    styleAttr: style,
+  }
 }
 
 /**

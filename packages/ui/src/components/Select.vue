@@ -559,6 +559,7 @@ export default {
       }
       this.$emit('update:modelValue', opt.value)
       this.$emit('change', { type: 'change', target: { value: String(opt.value) } })
+      this.menuOpen = false
       close()
     },
     toggleValue(opt) {

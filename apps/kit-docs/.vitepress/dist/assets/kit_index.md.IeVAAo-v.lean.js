@@ -1,0 +1,1 @@
+import{_ as t,H as a,f as o,i}from"./chunks/framework.Cvt1eIE0.js";const u=JSON.parse('{"title":"FewUI Kit","description":"","frontmatter":{},"headers":[],"relativePath":"kit/index.md","filePath":"kit/index.md"}'),s={name:"kit/index.md"};function r(n,e,l,d,c,h){return a(),o("div",null,[...e[0]||(e[0]=[i("",10)])])}const m=t(s,[["render",r]]);export{u as __pageData,m as default};

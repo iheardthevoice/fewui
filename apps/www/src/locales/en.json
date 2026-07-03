@@ -1,0 +1,54 @@
+{
+  "nav": {
+    "home": "Home",
+    "projects": "Projects",
+    "create": "Create your project",
+    "docs": "Documentation"
+  },
+  "home": {
+    "title": "FewUI",
+    "tagline": "AI-native UI framework for teams that ship with agents.",
+    "description": "Components, design tokens, Cursor rules, and agent skills — one system for humans and AI to build consistent interfaces.",
+    "ctaCreate": "Create your theme",
+    "ctaDocs": "Read the Kit docs",
+    "techTitle": "Built with modern stack",
+    "techBody": "Vue 3, CSS custom properties, Tailwind preset, vue-i18n, and runtime theming designed for Restta-scale products."
+  },
+  "projects": {
+    "title": "Projects",
+    "description": "Products built with FewUI Kit.",
+    "resttaTitle": "Restta",
+    "resttaDescription": "Restaurant POS, web module, and tenant landing sites."
+  },
+  "restta": {
+    "title": "Restta",
+    "description": "End-to-end restaurant operations: panel admin, public landing, QR menus, and web site builder.",
+    "features": {
+      "pos": "Point of sale",
+      "web": "Web site module",
+      "landing": "Tenant landing"
+    }
+  },
+  "create": {
+    "title": "Create your project",
+    "description": "Tune theme tokens, preview components, and download rules and skills for your stack."
+  },
+  "themePlayground": {
+    "title": "Theme",
+    "description": "Adjust tokens and export rules for your project.",
+    "mode": { "dark": "Dark", "light": "Light" },
+    "fields": {
+      "preset": "Style",
+      "mode": "Mode",
+      "primary": "Primary",
+      "font": "Font",
+      "customCss": "Custom CSS",
+      "customCssPlaceholder": ":root { … }"
+    },
+    "actions": {
+      "copyJson": "Copy theme JSON",
+      "downloadRules": "Download rules",
+      "downloadSkill": "Download skill"
+    }
+  }
+}

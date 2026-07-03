@@ -42,6 +42,12 @@ export default {
       default: '',
       validator: (v) => v === '' || v === 'full',
     },
+    /** Segmented yükseklik / tipografi — `md` (varsayılan) veya `lg`. */
+    size: {
+      type: String,
+      default: 'md',
+      validator: (v) => v === 'md' || v === 'lg',
+    },
   },
   emits: ['update:modelValue'],
   data() {
@@ -61,6 +67,7 @@ export default {
         this.variant === 'segmented' ? 'ui-tabs--segmented' : 'ui-tabs--line',
         this.orientation === 'vertical' ? 'ui-tabs--vertical' : '',
         this.fit === 'full' ? 'ui-tabs--fit-full' : '',
+        this.variant === 'segmented' && this.size === 'lg' ? 'ui-tabs--segmented-lg' : '',
         this.$attrs.class,
       )
     },

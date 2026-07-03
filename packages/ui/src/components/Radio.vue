@@ -8,6 +8,7 @@
         'ui-radio--highlight': highlight && isChecked,
       },
     ]"
+    @click="select"
     @keydown.enter.prevent="select"
     @keydown.space.prevent="select"
   >

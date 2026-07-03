@@ -2,27 +2,33 @@
 
   .ui-heading-1 {
     @apply text-3xl font-medium leading-9 tracking-tight text-foreground;
+    font-family: var(--font-heading, var(--font-sans));
   }
 
   .ui-heading-2 {
     @apply text-2xl font-medium leading-8 tracking-tight text-foreground;
+    font-family: var(--font-heading, var(--font-sans));
   }
 
   /** Kart / bölüm başlığı: 16px, 500, 24px satır (DevTools referansı) */
   .ui-heading-3 {
     @apply text-base font-medium leading-6 text-foreground;
+    font-family: var(--font-heading, var(--font-sans));
   }
 
   .ui-heading-4 {
     @apply text-sm font-medium leading-5 text-foreground;
+    font-family: var(--font-heading, var(--font-sans));
   }
 
   .ui-heading-5 {
     @apply text-xs font-medium leading-4 text-foreground;
+    font-family: var(--font-heading, var(--font-sans));
   }
 
   .ui-heading-6 {
     @apply text-xs font-medium leading-4 tracking-tight text-foreground;
+    font-family: var(--font-heading, var(--font-sans));
   }
 
   /** Yardımcı / gövde varsayılanı: 14px, 20px satır, muted-foreground */
@@ -2788,7 +2794,7 @@
   }
 
   .ui-toast-stack {
-    @apply flex w-full flex-col items-center gap-2;
+    @apply pointer-events-none flex w-full flex-col items-center gap-2;
   }
 
   /**

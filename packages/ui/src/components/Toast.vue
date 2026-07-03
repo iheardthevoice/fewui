@@ -4,15 +4,16 @@
       <TransitionGroup
         name="ui-toast"
         tag="div"
-        class="ui-toast-stack"
+        class="ui-toast-stack pointer-events-none"
       >
         <div
           v-for="item in items"
           :key="item.id"
-          class="pointer-events-auto flex w-full justify-center"
+          class="pointer-events-none flex w-full justify-center"
         >
           <div
             :class="toastClasses(item)"
+            class="pointer-events-auto"
             v-bind="toastA11y(item)"
           >
             <span

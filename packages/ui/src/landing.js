@@ -18,11 +18,34 @@ import Skeleton from './components/Skeleton.vue'
 import TabList from './components/TabList.vue'
 import Tabs from './components/Tabs.vue'
 import TabTrigger from './components/TabTrigger.vue'
+import Toast from './components/Toast.vue'
 import en from './locales/en.js'
 import tr from './locales/tr.js'
 import { applyUiTheme } from './theme/apply-theme.js'
 
-export { applyUiTheme, mergeUiTheme } from './theme/apply-theme.js'
+export { pushToast, dismissToast, clearToasts } from './toast-queue.js'
+
+export {
+  applyUiTheme,
+  mergeUiTheme,
+  resolveThemeVars,
+  buildThemeStyleAttr,
+} from './theme/apply-theme.js'
+export {
+  deriveBrandColorsFromPrimary,
+  withDerivedBrandColors,
+  resolvePrimaryColor,
+} from './theme/derive-theme.js'
+export { applyThemeCustomCss, clearThemeCustomCss } from './theme/custom-css.js'
+export {
+  applyGoogleFontsForTheme,
+  buildGoogleFontsLinkTag,
+  buildGoogleFontsStylesheetUrl,
+  googleFontSelectOptions,
+  GOOGLE_FONTS_CATALOG,
+  resolveThemeFontFamilies,
+} from './theme/google-fonts.js'
+export { getThemePreset, resolveThemePreset } from './theme/presets/index.js'
 
 const LOCALE_PACKS = {
   en,
@@ -50,6 +73,7 @@ const GLOBAL_COMPONENTS = [
   ['ui-tab-list', TabList],
   ['ui-tabs', Tabs],
   ['ui-tab-trigger', TabTrigger],
+  ['ui-toast', Toast],
 ]
 
 /**

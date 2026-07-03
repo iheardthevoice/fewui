@@ -12,6 +12,12 @@
       :description="description"
       border
     >
+      <template
+        v-if="$slots.actions"
+        #actions
+      >
+        <slot name="actions" />
+      </template>
       <slot />
       <template
         v-if="hasFooterActions"
@@ -174,6 +180,7 @@
         <div
           v-if="syncOpen"
           class="ui-guidance-tour"
+          :class="{ 'ui-guidance-tour--has-target': tourHighlightStyle }"
           role="presentation"
           @keydown.esc="onEscape"
         >
@@ -191,85 +198,93 @@
           />
           <div
             ref="tourPanelRef"
-            class="ui-guidance-tour__panel ui-surface ui-card"
+            class="ui-guidance-tour__panel ui-surface ui-card ui-card--no-padding"
             :style="tourPanelStyle"
             role="dialog"
             aria-modal="true"
             :aria-label="title || resolvedGoLabel"
           >
-            <div class="ui-guidance-tour__panel-header">
-              <span
-                v-if="icon"
-                class="ui-guidance-tour__icon"
-              >
-                <ui-icon
-                  :name="icon"
-                  :type="iconType"
-                  size="sm"
-                />
-              </span>
-              <div class="ui-guidance-tour__panel-text">
-                <p
-                  v-if="title"
-                  class="ui-guidance-tour__title"
+            <div class="ui-guidance-tour__content">
+              <div class="ui-header-lead">
+                <div class="ui-header-lead__main">
+                  <span
+                    v-if="icon"
+                    class="ui-header-lead__icon"
+                  >
+                    <ui-icon
+                      :name="icon"
+                      :type="iconType"
+                      size="sm"
+                    />
+                  </span>
+                  <div class="ui-header-lead__text">
+                    <p
+                      v-if="title"
+                      class="ui-guidance-tour__title"
+                    >
+                      {{ title }}
+                    </p>
+                    <p
+                      v-if="description"
+                      class="ui-guidance-tour__description ui-text-default"
+                    >
+                      {{ description }}
+                    </p>
+                  </div>
+                </div>
+                <div
+                  v-if="showClose"
+                  class="ui-header-lead__actions"
                 >
-                  {{ title }}
-                </p>
-                <p
-                  v-if="description"
-                  class="ui-guidance-tour__description ui-text-default"
-                >
-                  {{ description }}
-                </p>
+                  <ui-button
+                    type="button"
+                    variant="solid"
+                    color="secondary"
+                    size="sm"
+                    cubed
+                    prefix-icon="xmark"
+                    :aria-label="resolvedCloseLabel"
+                    @click="onClose"
+                  />
+                </div>
               </div>
-              <ui-button
-                v-if="showClose"
-                type="button"
-                variant="solid"
-                color="secondary"
-                size="sm"
-                cubed
-                prefix-icon="xmark"
-                :aria-label="resolvedCloseLabel"
-                @click="onClose"
+              <div
+                v-if="$slots.default"
+                class="ui-guidance-tour__body"
+              >
+                <slot />
+              </div>
+              <div
+                v-if="hasFooterActions && !$slots.footer"
+                class="ui-guidance-footer ui-guidance-footer--tour"
+              >
+                <ui-button
+                  v-if="showFooterClose"
+                  type="button"
+                  variant="outline"
+                  color="secondary"
+                  size="sm"
+                  rounded
+                  @click="onClose"
+                >
+                  {{ resolvedCloseLabel }}
+                </ui-button>
+                <ui-button
+                  v-if="showGo"
+                  type="button"
+                  color="primary"
+                  size="sm"
+                  rounded
+                  @click="onGo"
+                >
+                  {{ resolvedGoLabel }}
+                </ui-button>
+              </div>
+              <slot
+                v-else
+                name="footer"
               />
             </div>
-            <div
-              v-if="$slots.default"
-              class="ui-guidance-tour__body"
-            >
-              <slot />
-            </div>
-            <div
-              v-if="hasFooterActions && !$slots.footer"
-              class="ui-guidance-footer ui-guidance-footer--tour"
-            >
-              <ui-button
-                v-if="showFooterClose"
-                type="button"
-                variant="outline"
-                color="secondary"
-                size="sm"
-                rounded
-                @click="onClose"
-              >
-                {{ resolvedCloseLabel }}
-              </ui-button>
-              <ui-button
-                v-if="showGo"
-                type="button"
-                color="primary"
-                size="sm"
-                rounded
-                @click="onGo"
-              >
-                {{ resolvedGoLabel }}
-              </ui-button>
-            </div>
-            <slot
-              v-else
-              name="footer"
-            />
           </div>
         </div>
       </Transition>
@@ -410,6 +425,7 @@ export default {
       tourHighlightStyle: null,
       tourPanelStyle: null,
       tourResizeObserver: null,
+      tourTargetRetries: 0,
     }
   },
   computed: {
@@ -492,15 +508,13 @@ export default {
     resolveTourTarget() {
       const raw = this.target
       if (!raw) return null
-      let el = null
       if (typeof raw === 'object' && raw instanceof HTMLElement) {
-        el = raw
-      } else if (typeof raw === 'string' && raw.trim()) {
-        el = document.querySelector(raw.trim())
+        return raw
       }
-      if (!el) return null
-      const row = el.closest('.ui-form-row')
-      return row || el
+      if (typeof raw === 'string' && raw.trim()) {
+        return document.querySelector(raw.trim())
+      }
+      return null
     },
     measureTourLayout(flipIfNeeded = false) {
       const targetEl = this.resolveTourTarget()
@@ -585,6 +599,25 @@ export default {
       this._tourLayoutRaf = requestAnimationFrame(() => {
         this.measureTourLayout(true)
         this._tourLayoutRaf = null
+        this.scheduleTourTargetRetry()
+      })
+    },
+    scheduleTourTargetRetry() {
+      if (!this.open || this.mode !== 'tour') return
+      if (this._tourTargetRetryRaf) {
+        cancelAnimationFrame(this._tourTargetRetryRaf)
+        this._tourTargetRetryRaf = null
+      }
+      const targetEl = this.resolveTourTarget()
+      if (targetEl?.getBoundingClientRect().width > 0) {
+        this.tourTargetRetries = 0
+        return
+      }
+      if (this.tourTargetRetries >= 24) return
+      this.tourTargetRetries += 1
+      this._tourTargetRetryRaf = requestAnimationFrame(() => {
+        this._tourTargetRetryRaf = null
+        this.updateTourLayout()
       })
     },
     bindTourListeners() {
@@ -601,6 +634,11 @@ export default {
       }
     },
     unbindTourListeners() {
+      this.tourTargetRetries = 0
+      if (this._tourTargetRetryRaf) {
+        cancelAnimationFrame(this._tourTargetRetryRaf)
+        this._tourTargetRetryRaf = null
+      }
       if (this._tourLayoutRaf) {
         cancelAnimationFrame(this._tourLayoutRaf)
         this._tourLayoutRaf = null

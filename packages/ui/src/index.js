@@ -65,7 +65,27 @@ import en from './locales/en.js'
 import tr from './locales/tr.js'
 import { applyUiTheme } from './theme/apply-theme.js'
 
-export { applyUiTheme, mergeUiTheme } from './theme/apply-theme.js'
+export {
+  GOOGLE_FONTS_CATALOG,
+  googleFontSelectOptions,
+  buildGoogleFontsStylesheetUrl,
+  buildGoogleFontsLinkTag,
+  applyGoogleFontsForTheme,
+  resolveThemeFontFamilies,
+} from './theme/google-fonts.js'
+export { applyUiTheme, mergeUiTheme, resolveThemeVars, buildThemeStyleAttr } from './theme/apply-theme.js'
+export {
+  deriveBrandColorsFromPrimary,
+  withDerivedBrandColors,
+  resolvePrimaryColor,
+} from './theme/derive-theme.js'
+export { applyThemeCustomCss, clearThemeCustomCss, THEME_CUSTOM_CSS_ID } from './theme/custom-css.js'
+export {
+  THEME_PRESETS,
+  THEME_PRESET_IDS,
+  getThemePreset,
+  resolveThemePreset,
+} from './theme/presets/index.js'
 export { createUiId, createUiIdFactory } from './utils/ui-id.js'
 export { resolveUiText } from './utils/resolve-ui-text.js'
 export { pickPassthroughAttrs } from './utils/pick-passthrough-attrs.js'

@@ -39,27 +39,33 @@
 
   .ui-heading-1 {
     @apply text-3xl font-medium leading-9 tracking-tight text-foreground;
+    font-family: var(--font-heading, var(--font-sans));
   }
 
   .ui-heading-2 {
     @apply text-2xl font-medium leading-8 tracking-tight text-foreground;
+    font-family: var(--font-heading, var(--font-sans));
   }
 
   /** Kart / bölüm başlığı: 16px, 500, 24px satır (DevTools referansı) */
   .ui-heading-3 {
     @apply text-base font-medium leading-6 text-foreground;
+    font-family: var(--font-heading, var(--font-sans));
   }
 
   .ui-heading-4 {
     @apply text-sm font-medium leading-5 text-foreground;
+    font-family: var(--font-heading, var(--font-sans));
   }
 
   .ui-heading-5 {
     @apply text-xs font-medium leading-4 text-foreground;
+    font-family: var(--font-heading, var(--font-sans));
   }
 
   .ui-heading-6 {
     @apply text-xs font-medium leading-4 tracking-tight text-foreground;
+    font-family: var(--font-heading, var(--font-sans));
   }
 
   /** Yardımcı / gövde varsayılanı: 14px, 20px satır, muted-foreground */
@@ -978,7 +984,7 @@
   }
 
   .ui-guidance-footer--tour {
-    @apply border-t border-border px-4 py-3;
+    @apply pt-0;
   }
 
   .ui-guidance-popover {
@@ -1006,28 +1012,28 @@
   }
 
   .ui-guidance-tour__backdrop {
-    @apply pointer-events-auto absolute inset-0 bg-black/40;
+    @apply pointer-events-auto absolute inset-0 bg-black/55;
+  }
+
+  .ui-guidance-tour--has-target .ui-guidance-tour__backdrop {
+    @apply bg-transparent;
   }
 
   .ui-guidance-tour__highlight {
-    @apply pointer-events-none absolute rounded-xl ring-2 ring-primary;
-    box-shadow: 0 0 0 9999px rgb(0 0 0 / 0.38);
+    @apply pointer-events-none absolute z-[1] rounded-xl ring-2 ring-primary ring-offset-2 ring-offset-background;
+    box-shadow: 0 0 0 9999px rgb(0 0 0 / 0.68);
   }
 
   .ui-guidance-tour__panel {
-    @apply pointer-events-auto overflow-hidden shadow-lg;
+    @apply pointer-events-auto z-[2] overflow-hidden shadow-lg;
   }
 
-  .ui-guidance-tour__panel-header {
-    @apply flex items-start gap-3 border-b border-border px-4 py-3;
+  .ui-guidance-tour__content {
+    @apply flex flex-col gap-3 p-4;
   }
 
-  .ui-guidance-tour__icon {
-    @apply flex shrink-0 text-primary;
-  }
-
-  .ui-guidance-tour__panel-text {
-    @apply min-w-0 flex-1;
+  .ui-guidance-tour .ui-header-lead__icon {
+    @apply text-primary;
   }
 
   .ui-guidance-tour__title {
@@ -1035,11 +1041,11 @@
   }
 
   .ui-guidance-tour__description {
-    @apply mt-1 text-sm text-muted-foreground;
+    @apply text-sm text-muted-foreground;
   }
 
   .ui-guidance-tour__body {
-    @apply px-4 py-3;
+    @apply min-w-0;
   }
 
   /** Boş durum — ortalanmış ikon, başlık, açıklama; arka plan her zaman şeffaf */
@@ -2285,6 +2291,26 @@
     @apply w-full max-w-full;
   }
 
+  .ui-tabs:not(.ui-tabs--fit-full) .ui-tab-list--segmented {
+    @apply w-auto max-w-full;
+  }
+
+  .ui-tabs:not(.ui-tabs--fit-full) .ui-tab-trigger--segmented {
+    @apply min-w-[6.5rem] flex-none px-4;
+  }
+
+  .ui-tabs--segmented-lg .ui-tab-list--horizontal.ui-tab-list--segmented {
+    @apply min-h-[3.75rem] gap-1.5 p-1.5;
+  }
+
+  .ui-tabs--segmented-lg .ui-tab-trigger--segmented {
+    @apply gap-1.5 px-4 py-2;
+  }
+
+  .ui-tabs--segmented-lg .ui-tab-trigger--segmented .ui-tab-trigger-label {
+    @apply text-xs leading-snug;
+  }
+
   .ui-tab-trigger--segmented {
     @apply relative flex min-h-0 min-w-0 flex-1 shrink cursor-pointer select-none flex-col items-center justify-center gap-1 rounded-full border-0 bg-transparent px-2 py-1.5 outline-none transition-[color,background-color,box-shadow] duration-200 ease-out;
   }
@@ -2422,7 +2448,9 @@
   }
 
   .ui-segment-group--vertical:not(.ui-segment-group--icon-only) {
-    @apply flex h-auto min-h-0 w-full flex-col items-stretch gap-1 p-1;
+    @apply flex h-auto min-h-0 w-full flex-col items-stretch gap-0.5 rounded-none border-0 bg-transparent p-0 shadow-none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
   }
 
   /** Dikey + yalnız ikon: sabit kare hücreler; `w-full` + `aspect-square` genişliği yüksekliğe taşır */
@@ -2431,7 +2459,9 @@
   }
 
   .ui-segment-group--vertical.ui-segment-group--sm:not(.ui-segment-group--icon-only) {
-    @apply h-auto min-h-0 w-full gap-0.5 p-0.5;
+    @apply h-auto min-h-0 w-full gap-0.5 rounded-none border-0 bg-transparent p-0 shadow-none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
   }
 
   .ui-segment-group--vertical.ui-segment-group--sm.ui-segment-group--icon-only {
@@ -2439,7 +2469,9 @@
   }
 
   .ui-segment-group--vertical.ui-segment-group--lg:not(.ui-segment-group--icon-only) {
-    @apply h-auto min-h-0 w-full gap-1 p-1;
+    @apply h-auto min-h-0 w-full gap-0.5 rounded-none border-0 bg-transparent p-0 shadow-none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
   }
 
   .ui-segment-group--vertical.ui-segment-group--lg.ui-segment-group--icon-only {
@@ -2487,7 +2519,11 @@
   }
 
   .ui-segment-group--vertical .ui-segment {
-    @apply h-9 min-h-9 flex-none flex-grow-0;
+    @apply h-9 min-h-9 flex-none flex-grow-0 justify-start rounded-lg px-3;
+  }
+
+  .ui-segment-group--vertical .ui-segment-main {
+    @apply justify-start;
   }
 
   .ui-segment-group--vertical .ui-segment:not(.ui-segment--icon-only) {
@@ -2898,7 +2934,7 @@
   }
 
   .ui-toast-stack {
-    @apply flex w-full flex-col items-center gap-2;
+    @apply pointer-events-none flex w-full flex-col items-center gap-2;
   }
 
   /**

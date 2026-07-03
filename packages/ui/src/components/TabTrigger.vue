@@ -73,7 +73,10 @@ export default {
       return 'line'
     },
     tabIconSize() {
-      return this.triggerKind === 'segmented' ? 'md' : 'xs'
+      if (this.triggerKind === 'segmented') {
+        return this.uiTabs?.size === 'lg' ? 'lg' : 'md'
+      }
+      return 'xs'
     },
     /** FA Pro: segment kartlarında da varsayılan `light` kullanılır. */
     tabIconType() {

@@ -9,6 +9,7 @@
 
 :root {
   --font-sans: Inter, ui-sans-serif;
+  --font-heading: var(--font-sans);
 
   --radius: 26px;
 

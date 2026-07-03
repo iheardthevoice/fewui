@@ -1,0 +1,48 @@
+/** @type {import('../apply-theme.js').UiThemeConfig} */
+export const landingPreset = {
+  mode: 'dark',
+  fontFamily: 'Poppins',
+  headingFontFamily: 'Poppins',
+  bodyFontFamily: 'Poppins',
+  primaryColor: '#f97316',
+  primaryForeground: '#ffffff',
+  secondaryColor: '#404040',
+  background: '#0a0a0a',
+  foreground: '#fafafa',
+  surface: '#171717',
+  surfaceForeground: '#fafafa',
+  control: '#262626',
+  controlForeground: '#fafafa',
+  mutedForeground: '#a3a3a3',
+  surfaceStyle: {
+    mixFrom: 'foreground',
+    opacity: 6,
+    backdropBlur: 'md',
+  },
+  controlStyle: {
+    mixFrom: 'foreground',
+    opacity: 8,
+    backdropBlur: 'md',
+  },
+  inputStyle: {
+    mixFrom: 'foreground',
+    opacity: 8,
+    backdropBlur: 'sm',
+  },
+  baseColor: {
+    50: '#fafafa',
+    100: '#f5f5f5',
+    200: '#e5e5e5',
+    300: '#d4d4d4',
+    400: '#a3a3a3',
+    500: '#737373',
+    600: '#525252',
+    700: '#404040',
+    800: '#262626',
+    900: '#171717',
+    950: '#0a0a0a',
+  },
+  colors: {
+    'brand-accent': '#fbbf24',
+  },
+}

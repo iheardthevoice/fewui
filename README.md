@@ -1,16 +1,18 @@
 # ui
 
-Monorepo: **`fewui`** (`Button`, `Icon`, tema, Tailwind preset, vue-i18n) ve **`apps/docs`** önizleme uygulaması.
+Monorepo: **`fewui`**, **theme playground**, **docs playground**, **Kit docs (VitePress)**, **fewui.com (www)**.
 
-**Tasarım dili ve bileşen kalıpları:** [`DESIGN.md`](DESIGN.md)
+**Tasarım dili:** [`DESIGN.md`](DESIGN.md)
 
 ## Komutlar
 
 | Komut | Açıklama |
 | --- | --- |
-| `pnpm docs:dev` | Önizleme (Vite) |
-| `pnpm docs:build` / `pnpm docs:preview` | Üretim build / statik önizleme |
 | `pnpm build` | `fewui` kütüphane bundle |
+| `pnpm playground:dev` / `pnpm docs:dev` | Component + tema playground (`:5175`) |
+| `pnpm kit-docs:dev` | Kit dokümantasyonu VitePress (`:5174`) |
+| `pnpm www:dev` | fewui.com marketing (`:5176`) |
+| `pnpm docs:build` / `kit-docs:build` / `www:build` | Üretim build |
 
 ## Tüketim
 

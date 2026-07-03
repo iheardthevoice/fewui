@@ -4,8 +4,16 @@
   "packageManager": "pnpm@9.15.4",
   "scripts": {
     "build": "pnpm -w run build:lib",
-    "docs:dev": "pnpm -w run docs:dev",
-    "docs:build": "pnpm -w run docs:build",
-    "docs:preview": "pnpm --filter @fewui/docs preview"
+    "build:lib": "pnpm --filter fewui build",
+    "docs:dev": "pnpm --filter @fewui/docs dev",
+    "docs:build": "pnpm --filter @fewui/docs build",
+    "docs:preview": "pnpm --filter @fewui/docs preview",
+    "playground:dev": "pnpm --filter @fewui/docs dev",
+    "kit-docs:dev": "pnpm --filter @fewui/kit-docs dev",
+    "kit-docs:build": "pnpm --filter @fewui/kit-docs build",
+    "kit-docs:preview": "pnpm --filter @fewui/kit-docs preview",
+    "www:dev": "pnpm --filter @fewui/www dev",
+    "www:build": "pnpm --filter @fewui/www build",
+    "www:preview": "pnpm --filter @fewui/www preview"
   }
 }
