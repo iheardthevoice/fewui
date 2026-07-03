@@ -294,6 +294,11 @@
 
 <script>
 import { resolveUiText } from '../utils/resolve-ui-text.js'
+import {
+  measureTourHighlightRect,
+  normalizeTourTarget,
+  tourHighlightObserveNodes,
+} from '../utils/tour-target-bounds.js'
 
 const MODES = ['dialog', 'popover', 'card', 'tour']
 const ICON_TYPES = ['solid', 'regular', 'brands', 'light', 'duotone', 'thin']
@@ -509,10 +514,10 @@ export default {
       const raw = this.target
       if (!raw) return null
       if (typeof raw === 'object' && raw instanceof HTMLElement) {
-        return raw
+        return normalizeTourTarget(raw)
       }
       if (typeof raw === 'string' && raw.trim()) {
-        return document.querySelector(raw.trim())
+        return normalizeTourTarget(document.querySelector(raw.trim()))
       }
       return null
     },
@@ -540,7 +545,8 @@ export default {
         return
       }
 
-      const rect = targetEl.getBoundingClientRect()
+      const rect = measureTourHighlightRect(targetEl)
+      if (!rect) return
       const pad = Math.max(0, Number(this.targetPadding) || 0)
       const highlightTop = Math.max(0, rect.top - pad)
       const highlightLeft = Math.max(0, rect.left - pad)
@@ -610,8 +616,11 @@ export default {
       }
       const targetEl = this.resolveTourTarget()
       if (targetEl?.getBoundingClientRect().width > 0) {
-        this.tourTargetRetries = 0
-        return
+        const measured = measureTourHighlightRect(targetEl)
+        if (measured && measured.height > 0) {
+          this.tourTargetRetries = 0
+          return
+        }
       }
       if (this.tourTargetRetries >= 24) return
       this.tourTargetRetries += 1
@@ -630,7 +639,11 @@ export default {
         const panelEl = this.$refs.tourPanelRef
         if (panelEl) this.tourResizeObserver.observe(panelEl)
         const targetEl = this.resolveTourTarget()
-        if (targetEl) this.tourResizeObserver.observe(targetEl)
+        if (targetEl) {
+          for (const node of tourHighlightObserveNodes(targetEl)) {
+            this.tourResizeObserver.observe(node)
+          }
+        }
       }
     },
     unbindTourListeners() {

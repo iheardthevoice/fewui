@@ -1,4 +1,4 @@
-import { openBlock as l, createElementBlock as o, mergeProps as A, renderSlot as m, resolveComponent as v, normalizeClass as y, createVNode as g, createCommentVNode as h, createElementVNode as f, toDisplayString as k, createBlock as _, Teleport as Q, Transition as K, withCtx as w, normalizeStyle as q, createTextVNode as M, Fragment as $, withModifiers as D, renderList as W, withDirectives as G, vShow as Ne, withKeys as U, createSlots as Me, vModelText as se, normalizeProps as Je, guardReactiveProps as et, useSlots as tt, computed as N, ref as R, onMounted as it, watch as nt, nextTick as ae, reactive as rt, TransitionGroup as st } from "vue";
+import { openBlock as l, createElementBlock as o, mergeProps as I, renderSlot as m, resolveComponent as v, normalizeClass as y, createVNode as g, createCommentVNode as h, createElementVNode as f, toDisplayString as k, createBlock as _, Teleport as Q, Transition as K, withCtx as w, normalizeStyle as q, createTextVNode as M, Fragment as $, withModifiers as D, renderList as W, withDirectives as G, vShow as Ne, withKeys as U, createSlots as Me, vModelText as se, normalizeProps as Je, guardReactiveProps as et, useSlots as tt, computed as N, ref as R, onMounted as it, watch as nt, nextTick as ae, reactive as rt, TransitionGroup as st } from "vue";
 import { RouterLink as at } from "vue-router";
 const x = (e, t) => {
   const i = e.__vccOpts || e;
@@ -66,7 +66,7 @@ const lt = ["horizontal", "vertical"], ot = {
   }
 }, ut = ["aria-label"];
 function dt(e, t, i, r, a, n) {
-  return l(), o("div", A({
+  return l(), o("div", I({
     class: n.rootClass,
     role: "group",
     "aria-label": i.ariaLabel || void 0
@@ -156,7 +156,7 @@ const cs = /* @__PURE__ */ x(ot, [["render", dt]]), ct = ["info", "success", "wa
 };
 function bt(e, t, i, r, a, n) {
   const s = v("ui-icon"), u = v("ui-button");
-  return l(), o("div", A({
+  return l(), o("div", I({
     class: n.rootClasses,
     role: n.alertRole
   }, n.passthroughAttrs), [
@@ -990,7 +990,7 @@ const hs = /* @__PURE__ */ x(Vt, [["render", ei]]), ti = ["none", "sm", "md"], m
 };
 function si(e, t, i, r, a, n) {
   const s = v("ui-icon");
-  return n.hasLabel ? (l(), o("div", A({
+  return n.hasLabel ? (l(), o("div", I({
     key: 1,
     class: n.labeledClass
   }, n.labeledAttrs), [
@@ -1011,7 +1011,7 @@ function si(e, t, i, r, a, n) {
       class: "ui-divider__line",
       "aria-hidden": "true"
     }, null, -1))
-  ], 16)) : (l(), o("hr", A({
+  ], 16)) : (l(), o("hr", I({
     key: 0,
     class: n.rootClass
   }, n.rootAttrs), null, 16));
@@ -1130,7 +1130,7 @@ const We = /* @__PURE__ */ x(ii, [["render", si]]), ai = ["solid", "dashed", "do
 };
 function yi(e, t, i, r, a, n) {
   const s = v("ui-icon"), u = v("Divider");
-  return l(), o("div", A({ class: n.rootClasses }, n.passthroughAttrs), [
+  return l(), o("div", I({ class: n.rootClasses }, n.passthroughAttrs), [
     e.$slots.toolbar ? (l(), o("div", ui, [
       m(e.$slots, "toolbar")
     ])) : h("", !0),
@@ -1284,13 +1284,13 @@ const bi = {
     calendarCells() {
       const e = this.viewYear, t = this.viewMonth, i = new Date(e, t, 1), r = new Date(e, t, 1 - i.getDay()), a = [];
       for (let n = 0; n < 42; n += 1) {
-        const s = new Date(r.getFullYear(), r.getMonth(), r.getDate() + n), u = s.getMonth() === t && s.getFullYear() === e, d = s.getDate(), c = E(s), p = `${s.getFullYear()}-${s.getMonth()}-${s.getDate()}`, I = !!(this.selectedDate && c === E(this.selectedDate)), S = E(/* @__PURE__ */ new Date()) === c, b = !!(this.minYmd && c < this.minYmd);
+        const s = new Date(r.getFullYear(), r.getMonth(), r.getDate() + n), u = s.getMonth() === t && s.getFullYear() === e, d = s.getDate(), c = E(s), p = `${s.getFullYear()}-${s.getMonth()}-${s.getDate()}`, A = !!(this.selectedDate && c === E(this.selectedDate)), S = E(/* @__PURE__ */ new Date()) === c, b = !!(this.minYmd && c < this.minYmd);
         a.push({
           key: p,
           d,
           out: !u,
           date: s,
-          sel: I,
+          sel: A,
           today: S,
           inMonth: u,
           disabled: b
@@ -1842,7 +1842,7 @@ function Wi(e, t, i, r, a, n) {
             "aria-hidden": "true",
             onClick: t[0] || (t[0] = (...c) => n.onBackdrop && n.onBackdrop(...c))
           }),
-          f("div", A({
+          f("div", I({
             ref: "panelRef",
             class: n.panelClasses,
             style: n.panelStyle,
@@ -1998,7 +1998,7 @@ const ys = /* @__PURE__ */ x(Pi, [["render", Wi]]), Yi = ["solid", "regular", "b
 };
 function Ji(e, t, i, r, a, n) {
   const s = v("ui-icon");
-  return l(), o("div", A({ class: n.rootClass }, n.passthroughAttrs), [
+  return l(), o("div", I({ class: n.rootClass }, n.passthroughAttrs), [
     n.resolvedIcon ? (l(), o("div", Ui, [
       g(s, {
         name: n.resolvedIcon,
@@ -2017,6 +2017,7 @@ const bs = /* @__PURE__ */ x(Gi, [["render", Ji]]);
 let we = 0;
 const en = ["vertical", "horizontal"], tn = ["default", "card"], nn = {
   name: "FormRow",
+  inheritAttrs: !1,
   props: {
     label: {
       type: String,
@@ -2094,10 +2095,10 @@ const en = ["vertical", "horizontal"], tn = ["default", "card"], nn = {
   class: "ui-form-row-action shrink-0"
 }, on = ["id"], un = { class: "ui-form-row-control" };
 function dn(e, t, i, r, a, n) {
-  return l(), o("div", {
-    class: y(["ui-form-row", n.rootLayoutClass]),
+  return l(), o("div", I({
+    class: ["ui-form-row", n.rootLayoutClass],
     "data-primary-field": i.primary ? "" : void 0
-  }, [
+  }, e.$attrs), [
     n.hasTextBlock ? (l(), o("div", sn, [
       i.label || e.$slots.action ? (l(), o("div", {
         key: 0,
@@ -2124,7 +2125,7 @@ function dn(e, t, i, r, a, n) {
         descriptionId: n.descriptionId
       })
     ])
-  ], 10, rn);
+  ], 16, rn);
 }
 const vs = /* @__PURE__ */ x(nn, [["render", dn]]), cn = ["solid", "regular", "brands", "light", "duotone", "thin"], _e = {
   solid: "fa-solid",
@@ -2195,7 +2196,7 @@ const vs = /* @__PURE__ */ x(nn, [["render", dn]]), cn = ["solid", "regular", "b
   }
 };
 function pn(e, t, i, r, a, n) {
-  return l(), o("i", A({ class: n.iconClass }, n.rootAttrs), null, 16);
+  return l(), o("i", I({ class: n.iconClass }, n.rootAttrs), null, 16);
 }
 const ks = /* @__PURE__ */ x(mn, [["render", pn]]), gn = ie("ui-input"), yn = ["sm", "md", "lg"], bn = {
   name: "Input",
@@ -2341,7 +2342,7 @@ function Cn(e, t, i, r, a, n) {
         size: "xs"
       }, null, 8, ["name"])
     ])) : h("", !0),
-    i.multiline ? (l(), o("textarea", A({
+    i.multiline ? (l(), o("textarea", I({
       key: 2,
       id: n.resolvedId,
       ref: "field",
@@ -2359,7 +2360,7 @@ function Cn(e, t, i, r, a, n) {
       onChange: t[1] || (t[1] = (u) => e.$emit("change", u)),
       onFocus: t[2] || (t[2] = (u) => e.$emit("focus", u)),
       onBlur: t[3] || (t[3] = (u) => e.$emit("blur", u))
-    }), null, 16, Sn)) : (l(), o("input", A({
+    }), null, 16, Sn)) : (l(), o("input", I({
       key: 3,
       id: n.resolvedId,
       ref: "field",
@@ -2514,7 +2515,7 @@ function Ln(e, t, i, r, a, n) {
   return l(), o("div", {
     class: y(n.rootClass)
   }, [
-    g(d, A({
+    g(d, I({
       id: n.resolvedNumberId,
       modelValue: n.innerNumber,
       "onUpdate:modelValue": t[1] || (t[1] = (c) => n.innerNumber = c),
@@ -2772,10 +2773,10 @@ const xs = /* @__PURE__ */ x(In, [["render", Ln]]), Fn = [
         b >= a && (c = b);
       }
       (this.placement.startsWith("right") || this.placement.startsWith("left")) && (c + d > r - a && (c = Math.max(a, r - a - d)), c < a && (c = a));
-      const I = this.matchTriggerWidth && n == null ? `${Math.ceil(s.width)}px` : void 0, S = {
+      const A = this.matchTriggerWidth && n == null ? `${Math.ceil(s.width)}px` : void 0, S = {
         top: `${Math.round(c)}px`,
         left: `${Math.round(p)}px`,
-        minWidth: I
+        minWidth: A
       };
       n != null && (S.width = n, S.minWidth = n), this.layerStyle = this.withLayerZIndex(S), this.alignSelectedOptionToTrigger && this.$nextTick(() => {
         requestAnimationFrame(() => {
@@ -2791,11 +2792,11 @@ const xs = /* @__PURE__ */ x(In, [["render", Ln]]), Fn = [
         return;
       const a = t.querySelector('[role="option"][aria-selected="true"]');
       if (!a) return;
-      const n = e.querySelector("[data-popover-align]") || e, s = a.querySelector("[data-popover-align]") || a, u = n.getBoundingClientRect(), d = s.getBoundingClientRect(), c = d.top - u.top, p = d.left - u.left, I = i.getBoundingClientRect(), S = this.layerStyle.top, b = this.layerStyle.left;
-      let C = typeof S == "string" && S !== "" ? parseFloat(S) : I.top, L = typeof b == "string" && b !== "" ? parseFloat(b) : I.left;
-      Number.isNaN(C) && (C = I.top), Number.isNaN(L) && (L = I.left);
+      const n = e.querySelector("[data-popover-align]") || e, s = a.querySelector("[data-popover-align]") || a, u = n.getBoundingClientRect(), d = s.getBoundingClientRect(), c = d.top - u.top, p = d.left - u.left, A = i.getBoundingClientRect(), S = this.layerStyle.top, b = this.layerStyle.left;
+      let C = typeof S == "string" && S !== "" ? parseFloat(S) : A.top, L = typeof b == "string" && b !== "" ? parseFloat(b) : A.left;
+      Number.isNaN(C) && (C = A.top), Number.isNaN(L) && (L = A.left);
       let P = C - c, B = L - p;
-      const z = Ie, Y = window.innerHeight, V = window.innerWidth, H = I.height, j = I.width;
+      const z = Ie, Y = window.innerHeight, V = window.innerWidth, H = A.height, j = A.width;
       P + H > Y - z && (P = Math.max(z, Y - z - H)), P < z && (P = z), B + j > V - z && (B = Math.max(z, V - z - j)), B < z && (B = z), this.layerStyle = this.withLayerZIndex({
         ...this.layerStyle,
         top: `${Math.round(P)}px`,
@@ -3447,7 +3448,7 @@ const er = ["field", "inline"], tr = ["sm", "md", "lg"], ir = {
   class: "block min-w-0 truncate"
 };
 function gr(e, t, i, r, a, n) {
-  const s = v("ui-icon"), u = v("Tag"), d = v("ui-skeleton"), c = v("ui-button"), p = v("ui-empty"), I = v("ui-popover");
+  const s = v("ui-icon"), u = v("Tag"), d = v("ui-skeleton"), c = v("ui-button"), p = v("ui-empty"), A = v("ui-popover");
   return l(), o("div", {
     class: y(n.rootClass)
   }, [
@@ -3457,7 +3458,7 @@ function gr(e, t, i, r, a, n) {
       name: i.name,
       value: n.hiddenFieldValue
     }, null, 8, nr)) : h("", !0),
-    g(I, {
+    g(A, {
       open: a.menuOpen,
       "onUpdate:open": t[6] || (t[6] = (S) => a.menuOpen = S),
       placement: "bottom-start",
@@ -3466,7 +3467,7 @@ function gr(e, t, i, r, a, n) {
       "align-selected-option-to-trigger": n.alignSelectedToTrigger
     }, Me({
       trigger: w(({ open: S, toggle: b }) => [
-        f("button", A({
+        f("button", I({
           type: "button",
           id: n.resolvedId,
           class: ["ui-select-field", { "ui-select-field--values": i.multiple }],
@@ -3650,7 +3651,7 @@ const Ts = /* @__PURE__ */ x(ir, [["render", gr]]), yr = ["line", "circle", "blo
     }
   },
   setup(e) {
-    const t = tt(), i = N(() => !!t.default), r = R(null), a = R(null), n = R(null), s = R(null), u = R(!1), d = R(!1), c = R(!1), p = R(!1), I = N(
+    const t = tt(), i = N(() => !!t.default), r = R(null), a = R(null), n = R(null), s = R(null), u = R(!1), d = R(!1), c = R(!1), p = R(!1), A = N(
       () => e.loading || d.value
     ), S = N(
       () => e.loading || d.value
@@ -3713,7 +3714,7 @@ const Ts = /* @__PURE__ */ x(ir, [["render", gr]]), yr = ["line", "circle", "blo
       hostStyle: L,
       heightAnimActive: u,
       isRevealing: d,
-      showPlaceholder: I,
+      showPlaceholder: A,
       isBusy: S,
       placeholderClass: P,
       contentWrapClass: B,
@@ -3751,7 +3752,7 @@ const Ts = /* @__PURE__ */ x(ir, [["render", gr]]), yr = ["line", "circle", "blo
   }
 }, Sr = ["aria-busy"], xr = ["aria-hidden"];
 function wr(e, t, i, r, a, n) {
-  return r.hasDefaultSlot ? (l(), o("div", A({
+  return r.hasDefaultSlot ? (l(), o("div", I({
     key: 1,
     ref: "hostRef",
     class: n.hostClass,
@@ -3786,7 +3787,7 @@ function wr(e, t, i, r, a, n) {
         m(e.$slots, "default")
       ], 8, xr)
     ], 2)
-  ], 16, Sr)) : (l(), o("div", A({
+  ], 16, Sr)) : (l(), o("div", I({
     key: 0,
     class: n.skeletonClass,
     "aria-hidden": "true"
@@ -3833,7 +3834,7 @@ const Is = /* @__PURE__ */ x(kr, [["render", wr]]), _r = {
   methods: {
     /** Klavye: ok tuşları ile tetikleyiciler arasında odak (yatay/dikey). */
     onKeydown(e) {
-      var p, I;
+      var p, A;
       if (!this.uiTabs) return;
       const t = this.uiTabs.orientation === "vertical", i = Array.from(this.$el.querySelectorAll('[role="tab"]:not([disabled])'));
       if (i.length === 0) return;
@@ -3847,12 +3848,12 @@ const Is = /* @__PURE__ */ x(kr, [["render", wr]]), _r = {
       let d = i.indexOf(u);
       d === -1 && (d = i.findIndex((S) => S.getAttribute("aria-selected") === "true")), d === -1 && (d = 0);
       let c = d + s;
-      c < 0 && (c = i.length - 1), c >= i.length && (c = 0), (I = (p = i[c]) == null ? void 0 : p.focus) == null || I.call(p);
+      c < 0 && (c = i.length - 1), c >= i.length && (c = 0), (A = (p = i[c]) == null ? void 0 : p.focus) == null || A.call(p);
     }
   }
 }, Cr = ["aria-label", "aria-orientation"];
 function Tr(e, t, i, r, a, n) {
-  return l(), o("div", A({
+  return l(), o("div", I({
     class: n.listClass,
     role: "tablist",
     "aria-label": i.ariaLabel || void 0,
@@ -3943,7 +3944,7 @@ const As = /* @__PURE__ */ x(_r, [["render", Tr]]), Ir = ie("ui-tabs"), Ar = ["l
   }
 };
 function Lr(e, t, i, r, a, n) {
-  return l(), o("div", A({ class: n.rootClass }, n.passthroughAttrs), [
+  return l(), o("div", I({ class: n.rootClass }, n.passthroughAttrs), [
     m(e.$slots, "default")
   ], 16);
 }
@@ -4141,7 +4142,7 @@ function Mr(e, t, i, r, a, n) {
             key: d.id,
             class: "pointer-events-none flex w-full justify-center"
           }, [
-            f("div", A({
+            f("div", I({
               class: [n.toastClasses(d), "pointer-events-auto"]
             }, { ref_for: !0 }, n.toastA11y(d)), [
               f("span", {
@@ -4786,4 +4787,4 @@ export {
   T as y,
   gs as z
 };
-//# sourceMappingURL=index-eNOUU8cy.js.map
+//# sourceMappingURL=index-DNzMqumC.js.map

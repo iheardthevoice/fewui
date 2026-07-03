@@ -3,6 +3,7 @@
     class="ui-form-row"
     :class="rootLayoutClass"
     :data-primary-field="primary ? '' : undefined"
+    v-bind="$attrs"
   >
     <div
       v-if="hasTextBlock"
@@ -51,6 +52,7 @@ const VARIANTS = ['default', 'card']
 
 export default {
   name: 'FormRow',
+  inheritAttrs: false,
   props: {
     label: {
       type: String,
