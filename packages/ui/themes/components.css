@@ -2270,17 +2270,25 @@
   }
 
   @media (max-width: 767px) {
-    .ui-tab-list--horizontal.ui-tab-list--segmented {
+    .ui-tabs--scrollable .ui-tab-list--horizontal.ui-tab-list--segmented {
       @apply flex-nowrap overflow-x-auto overscroll-x-contain ui-scrollbar-none;
     }
 
-    .ui-tab-list--horizontal.ui-tab-list--segmented .ui-tab-trigger--segmented {
+    .ui-tabs--scrollable .ui-tab-list--horizontal.ui-tab-list--segmented .ui-tab-trigger--segmented {
       @apply min-w-[5.5rem] shrink-0 flex-none;
     }
   }
 
   .dark .ui-tab-list--horizontal.ui-tab-list--segmented {
     @apply bg-surface-input;
+  }
+
+  .ui-tabs--transparent .ui-tab-list--horizontal.ui-tab-list--segmented {
+    @apply border-transparent bg-transparent shadow-none;
+  }
+
+  .dark .ui-tabs--transparent .ui-tab-list--horizontal.ui-tab-list--segmented {
+    @apply border-transparent bg-transparent;
   }
 
   .ui-tabs--fit-full {
@@ -2313,6 +2321,10 @@
 
   .ui-tab-trigger--segmented {
     @apply relative flex min-h-0 min-w-0 flex-1 shrink cursor-pointer select-none flex-col items-center justify-center gap-1 rounded-full border-0 bg-transparent px-2 py-1.5 outline-none transition-[color,background-color,box-shadow] duration-200 ease-out;
+  }
+
+  .ui-tab-trigger-badge {
+    @apply pointer-events-none absolute end-2 top-1 z-10;
   }
 
   .ui-tab-trigger--segmented .ui-tab-trigger-icon {

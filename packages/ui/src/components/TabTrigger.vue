@@ -21,6 +21,19 @@
     <span class="ui-tab-trigger-label min-w-0 whitespace-nowrap">
       <slot>{{ label }}</slot>
     </span>
+    <span
+      v-if="showBadge"
+      class="ui-tab-trigger-badge"
+      aria-hidden="true"
+    >
+      <ui-badge
+        variant="solid"
+        size="sm"
+        :truncate="false"
+      >
+        {{ badgeLabel }}
+      </ui-badge>
+    </span>
   </button>
 </template>
 
@@ -62,6 +75,11 @@ export default {
       type: Boolean,
       default: false,
     },
+    /** Doluysa sekme köşesinde sayı rozeti (ör. sepet adedi). */
+    badge: {
+      type: [String, Number],
+      default: null,
+    },
   },
   computed: {
     /** `segmented` yalnızca yatay `ui-tabs` içinde geçerlidir. */
@@ -85,6 +103,15 @@ export default {
     isSelected() {
       if (!this.uiTabs) return false
       return this.uiTabs.isSelected(this.value)
+    },
+    showBadge() {
+      const n = Number(this.badge)
+      return this.badge != null && this.badge !== '' && Number.isFinite(n) && n > 0
+    },
+    badgeLabel() {
+      const n = Number(this.badge)
+      if (!Number.isFinite(n) || n <= 0) return ''
+      return n > 99 ? '99+' : String(n)
     },
     triggerDomId() {
       return this.uiTabs ? this.uiTabs.triggerId(this.value) : undefined

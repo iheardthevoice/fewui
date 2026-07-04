@@ -48,6 +48,16 @@ export default {
       default: 'md',
       validator: (v) => v === 'md' || v === 'lg',
     },
+    /** Segmented iz arka planını kaldırır (mobil sabit üst şerit vb.). */
+    transparent: {
+      type: Boolean,
+      default: false,
+    },
+    /** Mobilde segmented tab listesinde yatay kaydırma; varsayılan kapalı (`fit="full"` ile eşit bölünür). */
+    scrollable: {
+      type: Boolean,
+      default: false,
+    },
   },
   emits: ['update:modelValue'],
   data() {
@@ -68,6 +78,8 @@ export default {
         this.orientation === 'vertical' ? 'ui-tabs--vertical' : '',
         this.fit === 'full' ? 'ui-tabs--fit-full' : '',
         this.variant === 'segmented' && this.size === 'lg' ? 'ui-tabs--segmented-lg' : '',
+        this.transparent ? 'ui-tabs--transparent' : '',
+        this.scrollable ? 'ui-tabs--scrollable' : '',
         this.$attrs.class,
       )
     },
