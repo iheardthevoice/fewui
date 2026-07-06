@@ -9,6 +9,7 @@
 
 <script>
 import { cn } from '../utils/cn.js'
+import { resolveControlSize } from '../utils/control-size.js'
 import { createUiIdFactory } from '../utils/ui-id.js'
 
 const nextTabsId = createUiIdFactory('ui-tabs')
@@ -71,13 +72,16 @@ export default {
     }
   },
   computed: {
+    resolvedSize() {
+      return resolveControlSize(this.size, { defaultSize: 'md' })
+    },
     rootClass() {
       return cn(
         'ui-tabs flex min-w-0 flex-col gap-4',
         this.variant === 'segmented' ? 'ui-tabs--segmented' : 'ui-tabs--line',
         this.orientation === 'vertical' ? 'ui-tabs--vertical' : '',
         this.fit === 'full' ? 'ui-tabs--fit-full' : '',
-        this.variant === 'segmented' && this.size === 'lg' ? 'ui-tabs--segmented-lg' : '',
+        this.variant === 'segmented' && this.resolvedSize === 'lg' ? 'ui-tabs--segmented-lg' : '',
         this.transparent ? 'ui-tabs--transparent' : '',
         this.scrollable ? 'ui-tabs--scrollable' : '',
         this.$attrs.class,

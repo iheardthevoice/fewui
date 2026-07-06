@@ -77,6 +77,7 @@
 
 <script>
 import { cn } from '../utils/cn.js'
+import { resolveControlSize } from '../utils/control-size.js'
 import { createUiIdFactory } from '../utils/ui-id.js'
 import { pickPassthroughAttrs } from '../utils/pick-passthrough-attrs.js'
 
@@ -161,11 +162,12 @@ export default {
   },
   computed: {
     resolvedSize() {
-      if (this.size !== 'md') return this.size
+      let size = resolveControlSize(this.size, { defaultSize: 'md' })
+      if (size !== 'md') return size
       const fromRow = typeof this.uiFormRowPrimary === 'function'
         ? this.uiFormRowPrimary()
         : this.uiFormRowPrimary
-      return fromRow ? 'lg' : 'md'
+      return fromRow ? 'lg' : size
     },
     rootClass() {
       return cn(

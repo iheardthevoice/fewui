@@ -87,6 +87,7 @@ export {
   resolveThemePreset,
 } from './theme/presets/index.js'
 export { createUiId, createUiIdFactory } from './utils/ui-id.js'
+export { resolveControlSize } from './utils/control-size.js'
 export { resolveUiText } from './utils/resolve-ui-text.js'
 export { pickPassthroughAttrs } from './utils/pick-passthrough-attrs.js'
 export { pushToast, dismissToast, clearToasts } from './toast-queue.js'

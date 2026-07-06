@@ -416,7 +416,7 @@ export default {
           panel.removeEventListener('transitionend', onTransitionEnd)
           this.focusFallbackTimer = null
           this.runInitialFocus()
-        }, 480)
+        }, 440)
       })
     },
     runInitialFocus() {

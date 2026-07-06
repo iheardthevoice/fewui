@@ -24,9 +24,12 @@
           @click="close"
         />
       </Transition>
-      <Transition name="ui-overlay-popover">
+      <Transition
+        name="ui-overlay-popover"
+        @before-enter="onPopoverBeforeEnter"
+      >
         <div
-          v-show="open"
+          v-if="open"
           ref="layerRef"
           class="ui-popover-layer fixed"
           :style="layerStyle"
@@ -242,6 +245,9 @@ export default {
     if (this.rafId) cancelAnimationFrame(this.rafId)
   },
   methods: {
+    onPopoverBeforeEnter() {
+      this.updatePosition()
+    },
     toggle() {
       if (this.disabled) return
       this.$emit('update:open', !this.open)
@@ -471,7 +477,7 @@ export default {
       const target = e?.target
       if (
         panel
-        && target
+        && target instanceof Node
         && target !== document
         && target !== document.documentElement
         && panel.contains(target)

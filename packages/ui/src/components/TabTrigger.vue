@@ -92,7 +92,7 @@ export default {
     },
     tabIconSize() {
       if (this.triggerKind === 'segmented') {
-        return this.uiTabs?.size === 'lg' ? 'lg' : 'md'
+        return this.uiTabs?.resolvedSize === 'lg' ? 'lg' : 'md'
       }
       return 'xs'
     },

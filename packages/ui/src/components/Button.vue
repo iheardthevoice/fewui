@@ -172,6 +172,7 @@
 
 <script>
 import { RouterLink } from 'vue-router'
+import { resolveControlSize } from '../utils/control-size.js'
 import { resolveUiText } from '../utils/resolve-ui-text.js'
 
 const sizes = ['sm', 'md', 'lg']
@@ -364,6 +365,9 @@ export default {
     isDisabled() {
       return this.disabled || this.loading
     },
+    resolvedSize() {
+      return resolveControlSize(this.size, { defaultSize: 'md' })
+    },
     resolvedLoadingText() {
       if (this.loadingText != null && this.loadingText !== '') {
         return this.loadingText
@@ -376,25 +380,25 @@ export default {
     },
     /** Metin yanı ikonlar — küçük kontrollerde `xs`, `lg` düğmede `sm`. */
     inlineIconSize() {
-      return this.size === 'lg' ? 'sm' : 'xs'
+      return this.resolvedSize === 'lg' ? 'sm' : 'xs'
     },
     /** Kübik düğme ikonları — kutu boyutuna göre. */
     cubedIconSize() {
       const m = { sm: 'xs', md: 'sm', lg: 'sm' }
-      return m[this.size] || 'sm'
+      return m[this.resolvedSize] || 'sm'
     },
     buttonClasses() {
       const isLink = this.variant === 'link'
       const isNav = this.variant === 'nav'
       let sizeOrCubed
       if (this.cubed && !isLink && !isNav) {
-        sizeOrCubed = cubedSizeClasses[this.size] || cubedSizeClasses.md
+        sizeOrCubed = cubedSizeClasses[this.resolvedSize] || cubedSizeClasses.md
       } else if (isLink) {
-        sizeOrCubed = linkSizeClasses[this.size]
+        sizeOrCubed = linkSizeClasses[this.resolvedSize]
       } else if (isNav) {
         sizeOrCubed = 'h-auto min-h-0 w-full max-w-full justify-start overflow-hidden p-0 !min-h-0'
       } else {
-        sizeOrCubed = sizeClasses[this.size] || sizeClasses.md
+        sizeOrCubed = sizeClasses[this.resolvedSize] || sizeClasses.md
       }
 
       let roundedClass = ''

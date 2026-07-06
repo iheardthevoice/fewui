@@ -681,18 +681,26 @@
     transform: translateY(0.125rem) scale(0.97);
   }
 
-  /** Popover — yumuşak giriş (ease-out overshoot) */
-  .ui-overlay-popover-enter-active,
+  /** Popover — GPU-friendly opacity + transform; kapanış girişten biraz daha yumuşak */
+  .ui-overlay-popover-enter-active {
+    transition:
+      opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.26s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+  }
+
   .ui-overlay-popover-leave-active {
     transition:
-      opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1),
-      transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+      opacity 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+      transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+    will-change: opacity, transform;
+    pointer-events: none;
   }
 
   .ui-overlay-popover-enter-from,
   .ui-overlay-popover-leave-to {
     opacity: 0;
-    transform: translateY(0.375rem) scale(0.97);
+    transform: translate3d(0, 0.375rem, 0) scale3d(0.97, 0.97, 1);
   }
 
   /**
@@ -713,7 +721,7 @@
   @media (max-width: 767px) {
     .ui-overlay-popover-enter-from[data-ui-popover-mobile-centered],
     .ui-overlay-popover-leave-to[data-ui-popover-mobile-centered] {
-      transform: scale(0.96);
+      transform: scale3d(0.96, 0.96, 1);
     }
 
     .ui-popover-panel {
@@ -722,11 +730,14 @@
   }
 
   .ui-overlay-popover-backdrop-enter-active {
-    transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity;
   }
 
   .ui-overlay-popover-backdrop-leave-active {
-    transition: opacity 0.18s cubic-bezier(0.4, 0, 0.6, 1);
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: opacity;
+    pointer-events: none;
   }
 
   .ui-overlay-popover-backdrop-enter-from,
@@ -763,10 +774,12 @@
    */
   .ui-overlay-dialog-enter-active .ui-dialog-backdrop {
     transition: opacity 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity;
   }
 
   .ui-overlay-dialog-leave-active .ui-dialog-backdrop {
-    transition: opacity 0.55s cubic-bezier(0.4, 0, 0.6, 1);
+    transition: opacity 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: opacity;
   }
 
   .ui-overlay-dialog-enter-from .ui-dialog-backdrop,
@@ -778,20 +791,24 @@
     transition:
       opacity 0.38s cubic-bezier(0.22, 1, 0.36, 1),
       transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
   }
 
   .ui-overlay-dialog-leave-active .ui-dialog-panel {
-    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition:
+      opacity 0.36s cubic-bezier(0.4, 0, 0.2, 1),
+      transform 0.38s cubic-bezier(0.32, 0.72, 0, 1);
+    will-change: opacity, transform;
   }
 
   .ui-overlay-dialog-enter-from .ui-dialog-panel {
     opacity: 0;
-    transform: scale(0.96);
+    transform: scale3d(0.96, 0.96, 1);
   }
 
   .ui-overlay-dialog-leave-to .ui-dialog-panel {
     opacity: 0;
-    transform: scale(0.96);
+    transform: scale3d(0.96, 0.96, 1);
   }
 
   .ui-overlay-dialog-leave-active.ui-dialog-root {
@@ -824,12 +841,19 @@
     .ui-overlay-dialog-enter-active .ui-dialog-backdrop,
     .ui-overlay-dialog-leave-active .ui-dialog-backdrop,
     .ui-overlay-dialog-enter-active .ui-dialog-panel,
-    .ui-overlay-dialog-leave-active .ui-dialog-panel {
+    .ui-overlay-dialog-leave-active .ui-dialog-panel,
+    .ui-overlay-popover-enter-active,
+    .ui-overlay-popover-leave-active,
+    .ui-overlay-popover-backdrop-enter-active,
+    .ui-overlay-popover-backdrop-leave-active {
       transition-duration: 0.01ms;
+      will-change: auto;
     }
 
     .ui-overlay-dialog-enter-from .ui-dialog-panel,
-    .ui-overlay-dialog-leave-to .ui-dialog-panel {
+    .ui-overlay-dialog-leave-to .ui-dialog-panel,
+    .ui-overlay-popover-enter-from,
+    .ui-overlay-popover-leave-to {
       transform: none;
     }
   }
@@ -3572,7 +3596,6 @@
       right: 0;
       z-index: 2;
       background-color: var(--surface-bg);
-      box-shadow: -8px 0 12px -10px color-mix(in srgb, var(--foreground) 10%, transparent);
     }
 
     .app-data-table:not(.app-data-table--filter-empty) .ui-table-head:last-child {
@@ -3613,14 +3636,22 @@
       padding: 0;
     }
 
+    .ui-overlay-dialog-enter-active .ui-dialog-panel {
+      transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .ui-overlay-dialog-leave-active .ui-dialog-panel {
+      transition: transform 0.36s cubic-bezier(0.32, 0.72, 0, 1);
+    }
+
     .ui-overlay-dialog-enter-from .ui-dialog-panel {
       opacity: 1;
-      transform: translateY(100%);
+      transform: translate3d(0, 100%, 0);
     }
 
     .ui-overlay-dialog-leave-to .ui-dialog-panel {
       opacity: 1;
-      transform: translateY(100%);
+      transform: translate3d(0, 100%, 0);
     }
 
     .ui-dialog-sheet-grab {

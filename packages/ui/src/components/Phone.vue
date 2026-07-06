@@ -6,7 +6,7 @@
       type="tel"
       inputmode="tel"
       class="w-full"
-      :size="size"
+      :size="resolvedSize"
       :disabled="disabled"
       :readonly="readonly"
       :placeholder="resolvedPlaceholder"
@@ -34,7 +34,7 @@
             v-else
             v-model="innerCountry"
             variant="inline"
-            :size="size"
+            :size="resolvedSize"
             :options="countryOptions"
             :disabled="disabled"
             :aria-label="resolvedCountryAria"
@@ -47,6 +47,7 @@
 
 <script>
 import { cn } from '../utils/cn.js'
+import { resolveControlSize } from '../utils/control-size.js'
 
 let phoneCounter = 0
 
@@ -129,11 +130,14 @@ export default {
     isSingleCountry() {
       return this.countryOptions.length === 1
     },
+    resolvedSize() {
+      return resolveControlSize(this.size, { defaultSize: 'md' })
+    },
     rootClass() {
       return cn(
         'ui-phone',
         this.isSingleCountry && 'ui-phone--single-country',
-        this.size !== 'md' && `ui-phone--${this.size}`,
+        this.resolvedSize !== 'md' && `ui-phone--${this.resolvedSize}`,
       )
     },
     innerCountry: {

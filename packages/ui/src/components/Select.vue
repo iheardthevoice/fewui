@@ -192,6 +192,7 @@
 
 <script>
 import { cn } from '../utils/cn.js'
+import { resolveControlSize } from '../utils/control-size.js'
 import Tag from './Tag.vue'
 
 let selectCounter = 0
@@ -305,11 +306,12 @@ export default {
   },
   computed: {
     resolvedSize() {
-      if (this.size !== 'md') return this.size
+      let size = resolveControlSize(this.size, { defaultSize: 'md' })
+      if (size !== 'md') return size
       const fromRow = typeof this.uiFormRowPrimary === 'function'
         ? this.uiFormRowPrimary()
         : this.uiFormRowPrimary
-      return fromRow ? 'lg' : 'md'
+      return fromRow ? 'lg' : size
     },
     rootClass() {
       const isInline = this.variant === 'inline'

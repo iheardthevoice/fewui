@@ -11,6 +11,7 @@
 
 <script>
 import { cn } from '../utils/cn.js'
+import { resolveControlSize } from '../utils/control-size.js'
 
 const SIZES = ['sm', 'md', 'lg']
 const DIRECTIONS = ['horizontal', 'vertical']
@@ -57,6 +58,9 @@ export default {
     }
   },
   computed: {
+    resolvedSize() {
+      return resolveControlSize(this.size, { defaultSize: 'md' })
+    },
     rootClass() {
       return cn(
         'ui-segment-group',
@@ -64,7 +68,7 @@ export default {
         this.direction === 'vertical' && 'ui-segment-group--vertical',
         this.iconOnly && 'ui-segment-group--icon-only',
         !this.block && this.direction !== 'vertical' && 'ui-segment-group--inline',
-        this.size !== 'md' && `ui-segment-group--${this.size}`,
+        this.resolvedSize !== 'md' && `ui-segment-group--${this.resolvedSize}`,
         this.$attrs.class,
       )
     },

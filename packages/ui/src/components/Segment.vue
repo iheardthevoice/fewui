@@ -117,7 +117,7 @@ export default {
       return !this.iconOnly
     },
     iconSize() {
-      const size = this.uiSegmentGroup?.size || 'md'
+      const size = this.uiSegmentGroup?.resolvedSize || 'md'
       if (this.iconOnly) {
         return size === 'lg' ? 'sm' : 'xs'
       }
