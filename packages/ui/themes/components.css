@@ -1869,7 +1869,17 @@
   }
 
   .ui-phone-prepend {
-    @apply flex shrink-0 items-center gap-1.5;
+    @apply flex shrink-0 items-center gap-1.5 bg-transparent;
+    background-color: transparent;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  .ui-phone .ui-input > .ui-text-default:has(.ui-phone-prepend) {
+    @apply bg-transparent;
+    background-color: transparent;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
   }
 
   .ui-phone-country-static {
@@ -2637,7 +2647,19 @@
   }
 
   .ui-segment--icon-only {
-    @apply aspect-square size-9 min-h-9 flex-none flex-grow-0 p-0;
+    @apply aspect-square size-8 min-h-8 min-w-8 max-h-8 max-w-8 flex-none flex-grow-0 p-0;
+  }
+
+  .ui-segment-group.ui-segment-group--sm:not(.ui-segment-group--vertical) .ui-segment--icon-only {
+    @apply size-7 h-7 w-7 min-h-7 min-w-7 max-h-7 max-w-7;
+  }
+
+  .ui-segment-group.ui-segment-group--lg:not(.ui-segment-group--vertical) .ui-segment--icon-only {
+    @apply size-9 h-9 w-9 min-h-9 min-w-9 max-h-9 max-w-9;
+  }
+
+  .ui-segment-group--icon-only:not(.ui-segment-group--vertical) {
+    @apply overflow-hidden;
   }
 
   .ui-segment-group--vertical .ui-segment--icon-only {
@@ -2674,7 +2696,7 @@
   }
 
   .ui-segment--selected {
-    @apply bg-primary text-primary-foreground shadow-sm;
+    @apply bg-primary text-primary-foreground shadow-none;
   }
 
   .ui-segment-label {

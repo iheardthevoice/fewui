@@ -61,7 +61,6 @@
       :close-on-backdrop="closeOnBackdrop"
       :close-on-escape="closeOnEscape"
       :show-close="showClose"
-      header-divider
       @after-leave="$emit('after-leave')"
     >
       <slot />

@@ -971,7 +971,6 @@ function pi(e, t, i, l, n, r) {
     "max-width": "sm",
     title: r.confirmState.title,
     description: r.confirmState.description,
-    "header-divider": "",
     "close-on-backdrop": !0,
     "close-on-escape": !0,
     "aria-label": r.confirmState.title || r.fallbackAriaLabel
@@ -2241,7 +2240,6 @@ function Ir(e, t, i, l, n, r) {
       "close-on-backdrop": i.closeOnBackdrop,
       "close-on-escape": i.closeOnEscape,
       "show-close": i.showClose,
-      "header-divider": "",
       onAfterLeave: t[1] || (t[1] = (k) => e.$emit("after-leave"))
     }, ue({
       default: g(() => [

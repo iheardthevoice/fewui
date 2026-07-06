@@ -5,7 +5,6 @@
     max-width="sm"
     :title="confirmState.title"
     :description="confirmState.description"
-    header-divider
     :close-on-backdrop="true"
     :close-on-escape="true"
     :aria-label="confirmState.title || fallbackAriaLabel"
