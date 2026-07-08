@@ -2406,6 +2406,14 @@
     @apply [&_.ui-icon]:text-primary-foreground;
   }
 
+  .dark .ui-tab-trigger--segmented-selected .ui-tab-trigger-label {
+    @apply text-primary-foreground;
+  }
+
+  .dark .ui-tab-trigger--segmented-selected .ui-tab-trigger-icon .ui-icon {
+    @apply text-primary-foreground;
+  }
+
   .dark .ui-tab-trigger--segmented-selected {
     @apply border-0 bg-primary text-primary-foreground shadow-none;
   }
