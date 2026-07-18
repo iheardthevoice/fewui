@@ -128,6 +128,12 @@
     color: var(--info-foreground);
   }
 
+  .ui-button.ui-control[data-variant='solid'][data-color='danger'] {
+    @apply border-0 shadow-none;
+    background-color: var(--destructive);
+    color: var(--destructive-foreground);
+  }
+
   .ui-button.ui-control[data-variant='solid']:not([data-color='input']):hover:not(:disabled) {
     opacity: 0.9;
   }
@@ -187,6 +193,17 @@
     color: var(--info-foreground);
   }
 
+  .ui-button.ui-control[data-variant='ghost'][data-color='danger'] {
+    @apply border-0 shadow-none;
+    background-color: transparent;
+    color: var(--destructive);
+  }
+
+  .ui-button.ui-control[data-variant='ghost'][data-color='danger']:hover:not(:disabled) {
+    background-color: var(--destructive);
+    color: var(--destructive-foreground);
+  }
+
   .ui-button.ui-control[data-variant='outline'][data-color='primary'],
   .ui-button.ui-control[data-variant='outline'][data-color='secondary'] {
     @apply shadow-none;
@@ -233,6 +250,17 @@
     background-color: color-mix(in oklab, var(--info) 10%, transparent);
   }
 
+  .ui-button.ui-control[data-variant='outline'][data-color='danger'] {
+    @apply shadow-none;
+    background-color: transparent;
+    border: 1px solid var(--destructive);
+    color: var(--destructive);
+  }
+
+  .ui-button.ui-control[data-variant='outline'][data-color='danger']:hover:not(:disabled) {
+    background-color: color-mix(in oklab, var(--destructive) 10%, transparent);
+  }
+
   .ui-button.ui-control[data-variant='link'] {
     background-color: transparent;
     -webkit-backdrop-filter: none;
@@ -250,6 +278,11 @@
 
   .ui-popover.ui-popover--block {
     @apply w-full min-w-0 max-w-full shrink;
+  }
+
+  .ui-popover.ui-popover--inherit-layout,
+  .ui-popover-trigger.ui-popover-trigger--inherit-layout {
+    display: contents;
   }
 
   .ui-popover-trigger {
@@ -310,11 +343,13 @@
   }
 
   .ui-action-group--grow.ui-action-group--horizontal > * {
-    @apply min-w-0 flex-1 basis-0;
+    @apply flex-1 basis-auto;
+    min-width: max-content;
   }
 
   .ui-action-group--grow.ui-action-group--vertical > * {
-    @apply min-h-0 w-full min-w-0 flex-1 basis-0;
+    @apply w-full flex-1 basis-auto;
+    min-height: max-content;
   }
 
   .ui-action-group--joined.ui-action-group--horizontal > *:not(:first-child) {
@@ -373,6 +408,11 @@
     backdrop-filter: blur(var(--ui-control-backdrop-blur));
   }
 
+  /** FA webfont gliflerini buton içinde optik olarak ortala */
+  .ui-button .ui-icon {
+    @apply inline-flex size-[1em] items-center justify-center leading-none;
+  }
+
   .ui-button.ui-control[data-variant='ghost'],
   .ui-button.ui-control[data-variant='link'] {
     -webkit-backdrop-filter: none;
@@ -407,6 +447,26 @@
 
   .ui-input--multiline {
     @apply h-auto min-h-9 items-start rounded-lg py-2;
+  }
+
+  /** Inline / composer: dolgu ve odak halkası yok */
+  .ui-input--plain {
+    @apply h-auto min-h-0 gap-0 rounded-none border-0 bg-transparent px-0 py-0 shadow-none;
+    background-color: transparent;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  .ui-input--plain:focus-within {
+    @apply shadow-none ring-0 ring-offset-0;
+  }
+
+  .ui-input--plain.ui-input--multiline {
+    @apply min-h-0 rounded-none py-0;
+  }
+
+  .ui-input--plain .ui-input-field--textarea {
+    @apply min-h-0 resize-none;
   }
 
   .ui-input-field {
@@ -592,9 +652,13 @@
     }
   }
 
-  /** Badge — etiket metni (varsayılan truncate; genişlik `maxWidth` prop ile) */
+  /** Badge — etiket metni; kısaltma yalnız `--truncate` + max-w-* ile */
   .ui-badge-label {
-    @apply inline-block min-w-0 truncate text-left;
+    @apply inline-block text-left;
+  }
+
+  .ui-badge-label--truncate {
+    @apply truncate;
   }
 
   /** Badge — boyut */
@@ -886,7 +950,15 @@
   }
 
   .ui-card--data-table > .ui-card-body {
-    @apply min-w-0 text-foreground;
+    @apply min-w-0 grow-0 text-foreground;
+  }
+
+  /**
+   * Footer yokken alt nefes payı — yan hover inset (0.25rem) ile uyumlu,
+   * toolbar py ritminin yarısı (0.5rem); pb-3 fazla kaçıyordu.
+   */
+  .ui-card--data-table:not(:has(> .ui-card-footer)) > .ui-card-body {
+    padding-bottom: 0.5rem;
   }
 
   .ui-card--data-table > .ui-card-toolbar {
@@ -898,7 +970,11 @@
   }
 
   .ui-card--data-table > .ui-card-footer {
-    @apply px-4 pb-4 pt-3 max-md:px-3;
+    @apply w-full px-4 pb-4 pt-3 max-md:px-3;
+  }
+
+  .ui-card--data-table > .ui-card-footer > .ui-table-pagination {
+    @apply w-full;
   }
 
   .ui-card--transparent {
@@ -960,6 +1036,79 @@
 
   .ui-card-footer--inset {
     @apply border-t border-border px-4 py-3;
+  }
+
+  .ui-guidance-footer {
+    @apply flex w-full flex-wrap items-center justify-end gap-2;
+  }
+
+  .ui-guidance-footer--popover {
+    @apply border-t border-border pt-3;
+  }
+
+  .ui-guidance-footer--tour {
+    @apply pt-0;
+  }
+
+  .ui-guidance-popover {
+    @apply flex min-w-0 flex-col gap-3 p-4;
+  }
+
+  .ui-guidance-popover__lead {
+    @apply flex gap-3;
+  }
+
+  .ui-guidance-popover__icon {
+    @apply flex shrink-0 text-primary;
+  }
+
+  .ui-guidance-popover__title {
+    @apply text-sm font-medium text-foreground;
+  }
+
+  .ui-guidance-popover__description {
+    @apply mt-1 text-sm text-muted-foreground;
+  }
+
+  .ui-guidance-tour {
+    @apply pointer-events-none fixed inset-0 z-[415];
+  }
+
+  .ui-guidance-tour__backdrop {
+    @apply pointer-events-auto absolute inset-0 bg-black/55;
+  }
+
+  .ui-guidance-tour--has-target .ui-guidance-tour__backdrop {
+    @apply bg-transparent;
+  }
+
+  .ui-guidance-tour__highlight {
+    @apply pointer-events-none absolute z-[1] rounded-xl ring-2 ring-primary ring-offset-2 ring-offset-background;
+    box-shadow: 0 0 0 9999px rgb(0 0 0 / 0.68);
+  }
+
+  .ui-guidance-tour__panel {
+    @apply pointer-events-auto z-[2] overflow-hidden shadow-lg;
+  }
+
+  .ui-guidance-tour__content {
+    @apply flex flex-col gap-3 p-4;
+  }
+
+  .ui-guidance-tour .ui-header-lead__icon {
+    @apply text-primary;
+  }
+
+  .ui-guidance-tour__title {
+    @apply text-sm font-medium text-foreground;
+  }
+
+  .ui-guidance-tour__description {
+    @apply text-sm text-muted-foreground;
+  }
+
+  .ui-guidance-tour__body {
+    @apply min-w-0;
   }
 
   /** Boş durum — ortalanmış ikon, başlık, açıklama; arka plan her zaman şeffaf */
@@ -1062,6 +1211,10 @@
 
   .ui-avatar--lg {
     @apply h-14 w-14 min-h-14 min-w-14 shrink-0 text-sm leading-none;
+  }
+
+  .ui-avatar--xl {
+    @apply h-20 w-20 min-h-20 min-w-20 shrink-0 text-base leading-none;
   }
 
   .ui-avatar-img {
@@ -1235,11 +1388,11 @@
   }
 
   .ui-action-card {
-    @apply flex w-full min-w-0 items-center gap-3 rounded-2xl bg-secondary px-4 py-4 text-left transition-colors duration-200 hover:bg-control focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50;
+    @apply flex w-full min-w-0 items-center gap-3 rounded-2xl border border-border bg-transparent px-4 py-4 text-left transition-colors duration-200 hover:bg-control focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50;
   }
 
   .ui-action-card--selected {
-    @apply bg-control;
+    @apply border-ring bg-control;
   }
 
   .ui-action-card__icon {
@@ -1759,7 +1912,7 @@
   }
 
   .ui-phone-prepend {
-    @apply flex shrink-0 items-center gap-1.5 bg-transparent;
+    @apply mr-2 flex shrink-0 items-center gap-2 border-r border-border/60 bg-transparent pr-3;
     background-color: transparent;
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
@@ -1777,7 +1930,7 @@
   }
 
   .ui-phone .ui-select--inline .ui-select-field {
-    @apply h-auto min-h-0 w-auto gap-1 rounded-none border-0 border-r-0 bg-transparent py-0 pl-0 pr-0 shadow-none;
+    @apply h-auto min-h-0 w-auto gap-2 rounded-none border-0 border-r-0 bg-transparent py-0 pl-0 pr-0 shadow-none;
   }
 
   .ui-phone .ui-select--inline .ui-select-field:focus-visible,
@@ -1786,7 +1939,7 @@
   }
 
   .ui-phone .ui-select--inline .ui-select-chevron {
-    @apply -ml-0.5;
+    @apply ml-0.5;
   }
 
   .ui-select-filter-input {
@@ -1964,6 +2117,10 @@
     @apply flex w-full min-w-0 flex-row gap-3;
   }
 
+  .ui-radio-group--button.ui-radio-group--vertical {
+    @apply flex-col;
+  }
+
   .ui-radio {
     @apply m-0 cursor-pointer select-none;
   }
@@ -1977,7 +2134,11 @@
   }
 
   .ui-radio--button {
-    @apply flex flex-1 items-start gap-3 rounded-xl border border-border bg-surface p-4 transition-colors duration-150;
+    @apply flex min-w-0 flex-1 items-start gap-3 overflow-visible rounded-xl border border-border bg-surface p-4 transition-colors duration-150;
+  }
+
+  .ui-radio-group--button.ui-radio-group--vertical > .ui-radio--button {
+    @apply w-full flex-none;
   }
 
   .ui-radio--button.ui-radio--checked {
@@ -2001,7 +2162,7 @@
   }
 
   .ui-radio-description {
-    @apply text-sm font-normal leading-5 text-muted-foreground;
+    @apply break-words text-sm font-normal leading-5 text-muted-foreground;
   }
 
   /** sr-only native input — klavye odağı etikette görünür ring */
@@ -2223,6 +2384,26 @@
     @apply w-full max-w-full;
   }
 
+  .ui-tabs:not(.ui-tabs--fit-full) .ui-tab-list--segmented {
+    @apply w-auto max-w-full;
+  }
+
+  .ui-tabs:not(.ui-tabs--fit-full) .ui-tab-trigger--segmented {
+    @apply min-w-[6.5rem] flex-none px-4;
+  }
+
+  .ui-tabs--segmented-lg .ui-tab-list--horizontal.ui-tab-list--segmented {
+    @apply min-h-[3.75rem] gap-1.5 p-1.5;
+  }
+
+  .ui-tabs--segmented-lg .ui-tab-trigger--segmented {
+    @apply gap-1.5 px-4 py-2;
+  }
+
+  .ui-tabs--segmented-lg .ui-tab-trigger--segmented .ui-tab-trigger-label {
+    @apply text-xs leading-snug;
+  }
+
   .ui-tab-trigger--segmented {
     @apply relative flex min-h-0 min-w-0 flex-1 shrink cursor-pointer select-none flex-col items-center justify-center gap-1 rounded-full border-0 bg-transparent px-2 py-1.5 outline-none transition-[color,background-color,box-shadow] duration-200 ease-out;
   }
@@ -2372,7 +2553,9 @@
   }
 
   .ui-segment-group--vertical:not(.ui-segment-group--icon-only) {
-    @apply flex h-auto min-h-0 w-full flex-col items-stretch gap-1 p-1;
+    @apply flex h-auto min-h-0 w-full flex-col items-stretch gap-0.5 rounded-none border-0 bg-transparent p-0 shadow-none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
   }
 
   /** Dikey + yalnız ikon: sabit kare hücreler; `w-full` + `aspect-square` genişliği yüksekliğe taşır */
@@ -2381,7 +2564,9 @@
   }
 
   .ui-segment-group--vertical.ui-segment-group--sm:not(.ui-segment-group--icon-only) {
-    @apply h-auto min-h-0 w-full gap-0.5 p-0.5;
+    @apply h-auto min-h-0 w-full gap-0.5 rounded-none border-0 bg-transparent p-0 shadow-none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
   }
 
   .ui-segment-group--vertical.ui-segment-group--sm.ui-segment-group--icon-only {
@@ -2389,7 +2574,9 @@
   }
 
   .ui-segment-group--vertical.ui-segment-group--lg:not(.ui-segment-group--icon-only) {
-    @apply h-auto min-h-0 w-full gap-1 p-1;
+    @apply h-auto min-h-0 w-full gap-0.5 rounded-none border-0 bg-transparent p-0 shadow-none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
   }
 
   .ui-segment-group--vertical.ui-segment-group--lg.ui-segment-group--icon-only {
@@ -2437,7 +2624,11 @@
   }
 
   .ui-segment-group--vertical .ui-segment {
-    @apply h-9 min-h-9 flex-none flex-grow-0;
+    @apply h-9 min-h-9 flex-none flex-grow-0 justify-start rounded-lg px-3;
+  }
+
+  .ui-segment-group--vertical .ui-segment-main {
+    @apply justify-start;
   }
 
   .ui-segment-group--vertical .ui-segment:not(.ui-segment--icon-only) {
@@ -2870,8 +3061,17 @@
     @apply flex max-h-[min(100vh-2rem,24rem)] max-w-[min(100vw-1rem,24rem)] flex-col overflow-hidden outline-none;
   }
 
+  /** DatePicker paneli — hızlı seçim satırı kesilmesin */
+  .ui-popover-panel:has(.ui-datepicker-panel) {
+    @apply max-h-[min(100vh-2rem,36rem)];
+  }
+
+  .ui-popover-body:has(.ui-datepicker-panel) {
+    @apply overflow-y-auto overscroll-contain;
+  }
+
   .ui-popover-header {
-    @apply shrink-0 px-2.5 pt-2.5;
+    @apply shrink-0 px-3.5 pt-3.5;
   }
 
   .ui-popover-body {
@@ -2884,7 +3084,51 @@
   }
 
   .ui-popover-footer {
-    @apply shrink-0 px-2.5 pb-2.5;
+    @apply shrink-0 px-3.5 pb-3.5;
+  }
+
+  /**
+   * FieldAction — hap tetikleyici + popover/dialog içinde serbest alan içeriği.
+   */
+  .ui-field-action {
+    @apply relative inline-flex shrink-0;
+  }
+
+  .ui-field-action-header {
+    @apply flex items-start justify-between gap-3 border-b border-border pb-3;
+  }
+
+  .ui-field-action-header__text {
+    @apply min-w-0 flex-1;
+  }
+
+  .ui-field-action-header__title {
+    @apply m-0 text-sm font-medium text-foreground;
+  }
+
+  .ui-field-action-header__description {
+    @apply m-0 mt-1 text-xs leading-snug text-muted-foreground;
+  }
+
+  .ui-field-action-body {
+    @apply min-h-0 min-w-0 px-3.5 py-3;
+  }
+
+  .ui-field-action-footer {
+    @apply flex w-full items-center justify-end gap-2;
+  }
+
+  .ui-popover-panel:has(.ui-field-action-header) {
+    @apply min-w-[18rem];
+  }
+
+  .ui-popover-footer:has(.ui-field-action-footer) {
+    @apply border-t border-border pt-3;
+  }
+
+  .ui-datepicker--embedded .ui-datepicker-panel,
+  .ui-timepicker--embedded .ui-timepicker-panel {
+    @apply p-0;
   }
 
   /**
@@ -2928,6 +3172,7 @@
 
   .ui-dialog-panel {
     @apply relative z-[1] flex max-h-[min(90dvh,100%)] w-full min-h-0 min-w-0 flex-col overflow-hidden outline-none;
+    --ui-dialog-body-ring-inset: 0.5rem;
   }
 
   .ui-dialog-panel--max-sm {
@@ -2979,12 +3224,13 @@
   }
 
   .ui-dialog-panel .ui-card-body {
-    @apply min-h-0 overflow-y-auto overscroll-contain;
+    @apply relative z-[1] min-h-0 overflow-y-auto overscroll-contain;
     flex: 0 1 auto;
     max-height: calc(min(90dvh, 100%) - 9.5rem);
     padding-inline: var(--ui-card-padding);
     padding-block: 0.75rem;
-    scroll-padding: var(--ui-card-padding);
+    scroll-padding-inline: var(--ui-card-padding);
+    scroll-padding-block: 0.75rem;
   }
 
   .ui-dialog-panel .ui-card-header + .ui-card-body,
@@ -2994,7 +3240,8 @@
   }
 
   .ui-dialog-panel .ui-card-body:has(+ .ui-card-footer) {
-    padding-bottom: 0;
+    padding-bottom: var(--ui-dialog-body-ring-inset);
+    scroll-padding-bottom: calc(0.75rem + var(--ui-dialog-body-ring-inset));
   }
 
   .ui-dialog-panel .ui-card-body:not(:has(+ .ui-card-footer)) {
@@ -3002,10 +3249,16 @@
   }
 
   .ui-dialog-panel .ui-card-footer {
-    @apply flex shrink-0 flex-nowrap items-center justify-end gap-3;
+    @apply relative z-0 flex shrink-0 flex-nowrap items-center justify-end gap-3;
     padding-inline: var(--ui-card-padding);
     padding-top: 0.75rem;
     padding-bottom: var(--ui-card-padding);
+  }
+
+  .ui-dialog-panel .ui-card-body .ui-input:focus-within,
+  .ui-dialog-panel .ui-card-body .ui-select-field:focus-visible,
+  .ui-dialog-panel .ui-card-body .ui-select-field[aria-expanded='true'] {
+    @apply relative z-[2];
   }
 
   .ui-dialog-panel--body-flex {
@@ -3038,7 +3291,12 @@
   }
 
   .ui-dialog-panel .ui-card-footer .ui-action-group {
-    @apply ml-auto flex w-auto max-w-full flex-row flex-nowrap items-center justify-end gap-2;
+    @apply ml-auto flex w-auto max-w-full flex-row flex-wrap items-center justify-end gap-2;
+  }
+
+  .ui-dialog-panel .ui-card-footer .ui-action-group--grow > * {
+    flex: 1 1 auto;
+    min-width: max-content;
   }
 
   .ui-dialog-panel .ui-card-footer > .ui-button:not(.ui-button--fulled) {
@@ -3060,12 +3318,20 @@
   }
 
   /** DatePicker — gün ızgarası (`ui-button` + varyantlar) */
+  .ui-datepicker-weekdays {
+    @apply grid grid-cols-7 gap-1 place-items-center text-center text-[10px] font-medium uppercase leading-none text-muted-foreground;
+  }
+
   .ui-datepicker-grid {
-    @apply grid grid-cols-7 gap-1;
+    @apply grid grid-cols-7 gap-1 place-items-center;
   }
 
   .ui-datepicker-grid > .ui-button {
-    @apply aspect-square size-8 shrink-0 justify-center rounded-md p-0 !min-h-0 tabular-nums;
+    @apply relative aspect-square size-8 shrink-0 items-center justify-center rounded-full p-0 !min-h-0 text-xs leading-none tabular-nums;
+  }
+
+  .ui-datepicker-grid > .ui-button .ui-button-text {
+    @apply flex-none leading-none text-center;
   }
 
   .ui-datepicker-grid > .ui-button[data-variant='ghost'] {
@@ -3089,11 +3355,11 @@
   }
 
   .ui-datepicker-quick {
-    @apply mt-2 flex gap-1 border-t border-border pt-2;
+    @apply mt-3 flex gap-1 border-t border-border pt-3;
   }
 
   .ui-datepicker-quick > .ui-button {
-    @apply min-w-0 flex-1 rounded-md border-0;
+    @apply min-w-0 flex-1 rounded-md border-0 px-1.5;
   }
 
   .ui-datepicker-quick > .ui-button[data-variant='ghost']:hover:not(:disabled) {
@@ -3149,9 +3415,46 @@
     @apply w-full min-w-0 sm:min-w-[15.5rem] sm:max-w-[16.5rem];
   }
 
-  /** TimePicker — sabit tekerlek yüksekliği; spacer = (viewport − satır) / 2 ile orta hizalı snap */
+  /**
+   * TimePicker — saat | : | dakika yan yana; seçim bandı ortada; fade uçlarda.
+   * Viewport yüksekliği 180px; spacer = (viewport − satır) / 2 ile orta hizalı snap.
+   */
+  .ui-timepicker-wheels {
+    @apply relative isolate h-[180px] w-full overflow-hidden;
+  }
+
+  .ui-timepicker-wheels-row {
+    @apply relative z-[1] flex h-full min-h-0 w-full items-stretch;
+  }
+
+  .ui-timepicker-selection-band {
+    @apply pointer-events-none absolute inset-x-1 z-0 rounded-md bg-muted;
+    top: 50%;
+    height: 2.5rem;
+    transform: translateY(-50%);
+  }
+
+  .ui-timepicker-colon {
+    @apply relative z-[1] flex shrink-0 items-center justify-center self-center px-0.5 text-sm tabular-nums text-muted-foreground;
+  }
+
+  .ui-timepicker-wheels-fade {
+    @apply pointer-events-none absolute inset-x-0 z-[2];
+    height: calc((180px - 2.5rem) / 2);
+  }
+
+  .ui-timepicker-wheels-fade--top {
+    @apply top-0;
+    background: linear-gradient(to bottom, var(--surface), transparent);
+  }
+
+  .ui-timepicker-wheels-fade--bottom {
+    @apply bottom-0;
+    background: linear-gradient(to top, var(--surface), transparent);
+  }
+
   .ui-timepicker-wheel-viewport {
-    @apply h-[180px] max-h-[180px] overflow-y-auto overscroll-y-contain touch-pan-y;
+    @apply h-[180px] max-h-[180px] overflow-y-auto overscroll-y-contain touch-pan-y ui-scrollbar-none;
     scroll-snap-type: y mandatory;
     -webkit-overflow-scrolling: touch;
   }
@@ -3162,13 +3465,17 @@
   }
 
   .ui-timepicker-wheel-item {
-    @apply flex h-10 w-full shrink-0 cursor-default items-center justify-center border-0 bg-transparent tabular-nums text-sm font-normal leading-5 text-foreground outline-none;
+    @apply flex h-10 w-full shrink-0 cursor-default items-center justify-center border-0 bg-transparent tabular-nums text-sm font-normal leading-5 text-muted-foreground outline-none;
     scroll-snap-align: center;
     scroll-snap-stop: normal;
   }
 
   .ui-timepicker-wheel-item:hover {
     @apply text-foreground;
+  }
+
+  .ui-timepicker-wheel-item--selected {
+    @apply font-medium text-foreground;
   }
 
   /** Toast — TransitionGroup */
@@ -3231,7 +3538,7 @@
   }
 
   .ui-table-header--sticky {
-    @apply sticky top-0 z-10 bg-background shadow-sm;
+    @apply sticky top-0 z-10 bg-surface shadow-sm;
   }
 
   .ui-table-row {
@@ -3243,32 +3550,122 @@
     @apply cursor-pointer;
   }
 
-  /** Gövde satırları: hover arka plan + köşe yuvarlama; thead satırlarına uygulanmaz */
-  .ui-table-body .ui-table-row:hover > td {
+  /**
+   * Gövde satırları: inset ayırıcı (::after) + inset hover (::before).
+   * Çizgi içerik hizasından başlar/biter; hover/selected’da üst-alt çizgi kaybolur.
+   * Köşe tasarım `--radius` ile uyumlu (rounded-lg).
+   */
+  .ui-table-header .ui-table-row > th {
+    position: relative;
+    border-bottom: none;
+  }
+
+  .ui-table-header .ui-table-row > th::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 1px;
+    pointer-events: none;
+    background-color: var(--border);
+    transition: opacity 0.15s ease;
+  }
+
+  .ui-table-header .ui-table-row > th:first-child::after {
+    left: 0.25rem;
+  }
+
+  .ui-table-header .ui-table-row > th:last-child::after {
+    right: 0.25rem;
+  }
+
+  .ui-table-body .ui-table-row > td {
+    position: relative;
+    isolation: isolate;
+    border-bottom: none;
+  }
+
+  .ui-table-body .ui-table-row > td::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    height: 1px;
+    pointer-events: none;
+    background-color: var(--border);
+    transition: opacity 0.15s ease;
+  }
+
+  .ui-table-body .ui-table-row > td:first-child::after {
+    left: 0.25rem;
+  }
+
+  .ui-table-body .ui-table-row > td:last-child::after {
+    right: 0.25rem;
+  }
+
+  .ui-table-body .ui-table-row:last-child > td::after {
+    opacity: 0;
+  }
+
+  .ui-table-body .ui-table-row > td::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    pointer-events: none;
+    border-radius: 0;
+    background-color: transparent;
+    transition: background-color 0.2s ease;
+  }
+
+  .ui-table-body .ui-table-row > td:first-child::before {
+    left: 0.25rem;
+    border-top-left-radius: var(--radius);
+    border-bottom-left-radius: var(--radius);
+  }
+
+  .ui-table-body .ui-table-row > td:last-child::before {
+    right: 0.25rem;
+    border-top-right-radius: var(--radius);
+    border-bottom-right-radius: var(--radius);
+  }
+
+  .ui-table-body .ui-table-row:hover:not(.ui-table-row--no-hover) > td:not(.ui-table-cell--empty)::after,
+  .ui-table-body .ui-table-row--selected > td:not(.ui-table-cell--empty)::after,
+  .ui-table-body .ui-table-row:has(+ .ui-table-row:hover:not(.ui-table-row--no-hover)) > td::after,
+  .ui-table-body .ui-table-row:has(+ .ui-table-row--selected) > td::after {
+    opacity: 0;
+  }
+
+  .ui-table:has(.ui-table-body > .ui-table-row:first-child:hover:not(.ui-table-row--no-hover)) .ui-table-header .ui-table-row > th::after,
+  .ui-table:has(.ui-table-body > .ui-table-row:first-child.ui-table-row--selected) .ui-table-header .ui-table-row > th::after {
+    opacity: 0;
+  }
+
+  .ui-table-body .ui-table-row:hover:not(.ui-table-row--no-hover) > td:not(.ui-table-cell--empty)::before {
     background-color: color-mix(in oklab, var(--muted) 40%, transparent);
   }
 
-  .ui-table-body .ui-table-row:hover > td:first-child {
-    @apply rounded-l-lg;
-  }
-
-  .ui-table-body .ui-table-row:hover > td:last-child {
-    @apply rounded-r-lg;
-  }
-
-  .ui-table-body .ui-table-row--selected > td {
+  .ui-table-body .ui-table-row--selected > td:not(.ui-table-cell--empty)::before {
     background-color: color-mix(in oklab, var(--muted) 50%, transparent);
   }
 
-  .ui-table-body .ui-table-row--soft-hover:hover > td {
+  .ui-table-body .ui-table-row--soft-hover:hover > td:not(.ui-table-cell--empty)::before {
     background-color: color-mix(in oklab, var(--muted) 25%, transparent);
   }
 
-  .ui-table-body .ui-table-row--strong-hover:hover > td {
+  .ui-table-body .ui-table-row--strong-hover:hover > td:not(.ui-table-cell--empty)::before {
     background-color: color-mix(in oklab, var(--muted) 60%, transparent);
   }
 
-  .ui-table-body .ui-table-row--interactive:hover > td {
+  .ui-table-body .ui-table-row--interactive:hover > td:not(.ui-table-cell--empty)::before {
     background-color: color-mix(in oklab, var(--muted) 50%, transparent);
   }
 
@@ -3277,7 +3674,7 @@
   }
 
   .ui-table-head {
-    @apply min-w-0 overflow-hidden px-4 py-2.5 text-left align-middle;
+    @apply min-w-0 overflow-hidden px-4 py-2.5 text-left align-middle text-muted-foreground;
     @apply [&:has([role=checkbox])]:pr-0;
   }
 
@@ -3448,27 +3845,7 @@
     }
 
     .app-data-table:not(.app-data-table--filter-empty) .ui-table-body .ui-table-row > .ui-table-cell {
-      background-color: var(--surface-bg);
-    }
-
-    .app-data-table:not(.app-data-table--filter-empty) .ui-table-body .ui-table-row:hover > .ui-table-cell {
-      background-color: color-mix(in oklab, var(--muted) 40%, var(--surface-bg));
-    }
-
-    .app-data-table:not(.app-data-table--filter-empty) .ui-table-body .ui-table-row--interactive:hover > .ui-table-cell {
-      background-color: color-mix(in oklab, var(--muted) 50%, var(--surface-bg));
-    }
-
-    .app-data-table:not(.app-data-table--filter-empty) .ui-table-body .ui-table-row--soft-hover:hover > .ui-table-cell {
-      background-color: color-mix(in oklab, var(--muted) 25%, var(--surface-bg));
-    }
-
-    .app-data-table:not(.app-data-table--filter-empty) .ui-table-body .ui-table-row--strong-hover:hover > .ui-table-cell {
-      background-color: color-mix(in oklab, var(--muted) 60%, var(--surface-bg));
-    }
-
-    .app-data-table:not(.app-data-table--filter-empty) .ui-table-body .ui-table-row--selected > .ui-table-cell {
-      background-color: color-mix(in oklab, var(--muted) 50%, var(--surface-bg));
+      background-color: var(--surface);
     }
 
     .app-data-table:not(.app-data-table--filter-empty) .ui-table-head:last-child,
@@ -3476,16 +3853,11 @@
       position: sticky;
       right: 0;
       z-index: 2;
-      background-color: var(--surface-bg);
+      background-color: var(--surface);
     }
 
     .app-data-table:not(.app-data-table--filter-empty) .ui-table-head:last-child {
       z-index: 3;
-    }
-
-    .app-data-table:not(.app-data-table--filter-empty) .ui-table-body .ui-table-row:hover > .ui-table-cell:has([data-app-row-menu]),
-    .app-data-table:not(.app-data-table--filter-empty) .ui-table-body .ui-table-row--interactive:hover > .ui-table-cell:has([data-app-row-menu]) {
-      background-color: color-mix(in oklab, var(--muted) 50%, var(--surface-bg));
     }
 
     .app-data-table .ui-table-cell:has([data-app-row-menu]) [data-app-row-menu] .ui-button[data-variant='ghost']:hover:not(:disabled),
@@ -3592,7 +3964,7 @@
     }
 
     .ui-dialog-panel .ui-card-header {
-      padding-top: 0.125rem;
+      padding-top: 0.75rem;
       padding-inline: var(--ui-dialog-inset-x);
       padding-bottom: 0.75rem;
     }
@@ -3601,11 +3973,13 @@
       max-height: calc(min(92dvh, 100%) - 9.5rem);
       padding-inline: var(--ui-dialog-inset-x);
       padding-block: 0.75rem;
-      scroll-padding: var(--ui-dialog-inset-x);
+      scroll-padding-inline: var(--ui-dialog-inset-x);
+      scroll-padding-block: 0.75rem;
     }
 
     .ui-dialog-panel .ui-card-body:has(+ .ui-card-footer) {
-      padding-bottom: 0;
+      padding-bottom: var(--ui-dialog-body-ring-inset);
+      scroll-padding-bottom: calc(0.75rem + var(--ui-dialog-body-ring-inset));
     }
 
     .ui-dialog-panel .ui-card-body:not(:has(+ .ui-card-footer)) {
@@ -3653,8 +4027,16 @@
 .ui-datepicker-grid > .ui-button,
 .ui-datepicker-quick > .ui-button,
 .ui-daterangepicker-quick > .ui-button {
-  @apply rounded-md border-0 shadow-none;
+  @apply rounded-full border-0 shadow-none;
   border-color: transparent;
+}
+
+.ui-datepicker-grid > .ui-button {
+  @apply items-center justify-center p-0;
+}
+
+.ui-datepicker-quick > .ui-button {
+  @apply rounded-md;
 }
 
 .ui-select-listbox .ui-select-option.ui-button.ui-select-option--selected,
@@ -3664,7 +4046,17 @@
 }
 
 .ui-datepicker-grid > .ui-button[data-today='true']:not([data-variant='solid']) {
-  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--primary) 55%, transparent);
+  position: relative;
+  box-shadow: none;
+}
+
+.ui-datepicker-grid > .ui-button[data-today='true']:not([data-variant='solid'])::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: 9999px;
+  border: 1.5px solid color-mix(in oklab, var(--primary) 70%, transparent);
+  pointer-events: none;
 }
 
 /**

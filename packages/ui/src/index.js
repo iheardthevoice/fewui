@@ -18,6 +18,7 @@ import Divider from './components/Divider.vue'
 import Dropdown from './components/Dropdown.vue'
 import Empty from './components/Empty.vue'
 import Field from './components/Field.vue'
+import FieldAction from './components/FieldAction.vue'
 import File from './components/File.vue'
 import FormRow from './components/FormRow.vue'
 import Guidance from './components/Guidance.vue'
@@ -124,6 +125,7 @@ export {
   Dropdown,
   Empty,
   Field,
+  FieldAction,
   File,
   FormRow,
   Guidance,
@@ -208,6 +210,7 @@ const GLOBAL_COMPONENTS = [
   ['ui-dropdown', Dropdown],
   ['ui-empty', Empty],
   ['ui-field', Field],
+  ['ui-field-action', FieldAction],
   ['ui-file', File],
   ['ui-form-row', FormRow],
   ['ui-guidance', Guidance],

@@ -32,7 +32,10 @@ export default {
       type: Boolean,
       default: false,
     },
-    /** Yatayda doğrudan çocuklara `flex-1 min-w-0` (toolbar’da eşit pay) */
+    /**
+     * Yatayda çocuklar eşit büyür; içerik genişliğinin altına inmez
+     * (`min-width: max-content` — erken “…” kesilmesini önler).
+     */
     grow: {
       type: Boolean,
       default: false,

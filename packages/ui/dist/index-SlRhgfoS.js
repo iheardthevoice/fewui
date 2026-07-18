@@ -1,6 +1,6 @@
-import { openBlock as l, createElementBlock as o, mergeProps as I, renderSlot as m, resolveComponent as v, normalizeClass as b, createVNode as g, createCommentVNode as h, createElementVNode as f, toDisplayString as k, createBlock as _, Teleport as Q, Transition as q, withCtx as w, normalizeStyle as G, createTextVNode as O, ref as $, Fragment as R, withModifiers as D, renderList as W, withKeys as U, createSlots as je, withDirectives as ne, vModelText as oe, normalizeProps as it, guardReactiveProps as nt, vShow as rt, useSlots as st, computed as M, onMounted as at, watch as lt, nextTick as ue, reactive as ot, TransitionGroup as ut } from "vue";
-import { RouterLink as dt } from "vue-router";
-const x = (e, t) => {
+import { openBlock as l, createElementBlock as u, mergeProps as I, renderSlot as m, resolveComponent as k, normalizeClass as v, createVNode as p, createCommentVNode as h, createElementVNode as f, toDisplayString as b, createBlock as x, Teleport as Z, Transition as q, withCtx as S, normalizeStyle as G, createTextVNode as D, ref as P, Fragment as R, Comment as rt, Text as st, withModifiers as A, renderList as H, withKeys as Q, createSlots as je, withDirectives as re, vModelText as oe, normalizeProps as at, guardReactiveProps as lt, vShow as ot, useSlots as ut, computed as N, onMounted as dt, watch as ct, nextTick as ue, reactive as ft, TransitionGroup as ht } from "vue";
+import { RouterLink as mt } from "vue-router";
+const _ = (e, t) => {
   const i = e.__vccOpts || e;
   for (const [r, a] of t)
     i[r] = a;
@@ -20,7 +20,7 @@ function T(...e) {
     }
   return t.join(" ");
 }
-const ct = ["horizontal", "vertical"], ft = {
+const pt = ["horizontal", "vertical"], gt = {
   name: "ActionGroup",
   inheritAttrs: !1,
   props: {
@@ -28,7 +28,7 @@ const ct = ["horizontal", "vertical"], ft = {
     orientation: {
       type: String,
       default: "horizontal",
-      validator: (e) => ct.includes(e)
+      validator: (e) => pt.includes(e)
     },
     /**
      * true: doğrudan çocukların bitişik iç köşelerinde border-radius sıfırlanır (dış uçlar korunur).
@@ -38,7 +38,10 @@ const ct = ["horizontal", "vertical"], ft = {
       type: Boolean,
       default: !1
     },
-    /** Yatayda doğrudan çocuklara `flex-1 min-w-0` (toolbar’da eşit pay) */
+    /**
+     * Yatayda çocuklar eşit büyür; içerik genişliğinin altına inmez
+     * (`min-width: max-content` — erken “…” kesilmesini önler).
+     */
     grow: {
       type: Boolean,
       default: !1
@@ -64,17 +67,17 @@ const ct = ["horizontal", "vertical"], ft = {
       return t;
     }
   }
-}, ht = ["aria-label"];
-function mt(e, t, i, r, a, n) {
-  return l(), o("div", I({
+}, bt = ["aria-label"];
+function yt(e, t, i, r, a, n) {
+  return l(), u("div", I({
     class: n.rootClass,
     role: "group",
     "aria-label": i.ariaLabel || void 0
   }, n.passthroughAttrs), [
     m(e.$slots, "default")
-  ], 16, ht);
+  ], 16, bt);
 }
-const ps = /* @__PURE__ */ x(ft, [["render", mt]]), pt = ["info", "success", "warning", "error"], de = {
+const Ts = /* @__PURE__ */ _(gt, [["render", yt]]), vt = ["info", "success", "warning", "error"], de = {
   info: "circle-info",
   success: "circle-check",
   warning: "triangle-exclamation",
@@ -84,7 +87,7 @@ const ps = /* @__PURE__ */ x(ft, [["render", mt]]), pt = ["info", "success", "wa
   success: "text-success",
   warning: "text-warning",
   error: "text-destructive"
-}, gt = {
+}, kt = {
   name: "Alert",
   inheritAttrs: !1,
   props: {
@@ -92,7 +95,7 @@ const ps = /* @__PURE__ */ x(ft, [["render", mt]]), pt = ["info", "success", "wa
     variant: {
       type: String,
       default: "info",
-      validator: (e) => pt.includes(e)
+      validator: (e) => vt.includes(e)
     },
     title: {
       type: String,
@@ -144,42 +147,42 @@ const ps = /* @__PURE__ */ x(ft, [["render", mt]]), pt = ["info", "success", "wa
       this.$emit("dismiss");
     }
   }
-}, bt = ["role"], yt = { class: "ui-alert-body" }, vt = {
+}, St = ["role"], wt = { class: "ui-alert-body" }, xt = {
   key: 0,
   class: "ui-alert-title"
-}, kt = {
+}, _t = {
   key: 1,
   class: "ui-alert-description ui-text-default"
-}, St = {
+}, Ct = {
   key: 2,
   class: "ui-alert-slot"
 };
-function wt(e, t, i, r, a, n) {
-  const s = v("ui-icon"), u = v("ui-button");
-  return l(), o("div", I({
+function Tt(e, t, i, r, a, n) {
+  const s = k("ui-icon"), d = k("ui-button");
+  return l(), u("div", I({
     class: n.rootClasses,
     role: n.alertRole
   }, n.passthroughAttrs), [
-    i.showIcon ? (l(), o("span", {
+    i.showIcon ? (l(), u("span", {
       key: 0,
-      class: b(["ui-alert-icon", n.iconToneClass]),
+      class: v(["ui-alert-icon", n.iconToneClass]),
       "aria-hidden": "true"
     }, [
       m(e.$slots, "icon", {}, () => [
-        g(s, {
+        p(s, {
           name: n.resolvedIcon,
           size: "sm"
         }, null, 8, ["name"])
       ])
     ], 2)) : h("", !0),
-    f("div", yt, [
-      i.title ? (l(), o("p", vt, k(i.title), 1)) : h("", !0),
-      i.description ? (l(), o("p", kt, k(i.description), 1)) : h("", !0),
-      e.$slots.default ? (l(), o("div", St, [
+    f("div", wt, [
+      i.title ? (l(), u("p", xt, b(i.title), 1)) : h("", !0),
+      i.description ? (l(), u("p", _t, b(i.description), 1)) : h("", !0),
+      e.$slots.default ? (l(), u("div", Ct, [
         m(e.$slots, "default")
       ])) : h("", !0)
     ]),
-    i.dismissible ? (l(), _(u, {
+    i.dismissible ? (l(), x(d, {
       key: 1,
       "native-type": "button",
       variant: "ghost",
@@ -191,11 +194,11 @@ function wt(e, t, i, r, a, n) {
       "aria-label": n.dismissLabel,
       onClick: n.onDismiss
     }, null, 8, ["aria-label", "onClick"])) : h("", !0)
-  ], 16, bt);
+  ], 16, St);
 }
-const gs = /* @__PURE__ */ x(gt, [["render", wt]]);
-let xt = 0;
-const _t = ["top", "bottom", "left", "right"], F = 8, Ct = {
+const Is = /* @__PURE__ */ _(kt, [["render", Tt]]);
+let It = 0;
+const Lt = ["top", "bottom", "left", "right"], F = 8, zt = {
   name: "Tooltip",
   inheritAttrs: !1,
   props: {
@@ -207,7 +210,7 @@ const _t = ["top", "bottom", "left", "right"], F = 8, Ct = {
     placement: {
       type: String,
       default: "top",
-      validator: (e) => _t.includes(e)
+      validator: (e) => Lt.includes(e)
     },
     /** Gecikme (ms) */
     showDelay: {
@@ -227,7 +230,7 @@ const _t = ["top", "bottom", "left", "right"], F = 8, Ct = {
     return {
       open: !1,
       panelStyle: {},
-      tooltipId: `ui-tooltip-${++xt}`,
+      tooltipId: `ui-tooltip-${++It}`,
       showTimer: null,
       hideTimer: null
     };
@@ -334,19 +337,19 @@ const _t = ["top", "bottom", "left", "right"], F = 8, Ct = {
         top: `${e.top - i}px`,
         transform: "translate(-50%, -100%)"
       }, s = r.getBoundingClientRect());
-      let u = 0, d = 0;
-      if (s.left < F ? u = F - s.left : s.right > a - F && (u = a - F - s.right), s.top < F ? d = F - s.top : s.bottom > n - F && (d = n - F - s.bottom), u === 0 && d === 0) return;
-      const c = parseFloat(this.panelStyle.left), p = parseFloat(this.panelStyle.top);
-      !Number.isFinite(c) || !Number.isFinite(p) || (this.panelStyle = {
+      let d = 0, o = 0;
+      if (s.left < F ? d = F - s.left : s.right > a - F && (d = a - F - s.right), s.top < F ? o = F - s.top : s.bottom > n - F && (o = n - F - s.bottom), d === 0 && o === 0) return;
+      const c = parseFloat(this.panelStyle.left), g = parseFloat(this.panelStyle.top);
+      !Number.isFinite(c) || !Number.isFinite(g) || (this.panelStyle = {
         ...this.panelStyle,
-        left: `${c + u}px`,
-        top: `${p + d}px`
+        left: `${c + d}px`,
+        top: `${g + o}px`
       });
     }
   }
-}, Tt = ["id"], It = { class: "ui-tooltip-motion inline-flex max-w-full min-w-0" };
-function zt(e, t, i, r, a, n) {
-  return l(), o("div", {
+}, At = ["id"], Dt = { class: "ui-tooltip-motion inline-flex max-w-full min-w-0" };
+function Ft(e, t, i, r, a, n) {
+  return l(), u("div", {
     ref: "wrapperRef",
     class: "ui-tooltip inline-flex max-w-full min-w-0",
     onMouseenter: t[0] || (t[0] = (...s) => n.onEnter && n.onEnter(...s)),
@@ -355,10 +358,10 @@ function zt(e, t, i, r, a, n) {
     onFocusout: t[3] || (t[3] = (...s) => n.onFocusOut && n.onFocusOut(...s))
   }, [
     m(e.$slots, "default"),
-    (l(), _(Q, { to: "body" }, [
-      g(q, { name: "ui-tooltip-fade" }, {
-        default: w(() => [
-          a.open && !i.disabled && n.hasContent ? (l(), o("div", {
+    (l(), x(Z, { to: "body" }, [
+      p(q, { name: "ui-tooltip-fade" }, {
+        default: S(() => [
+          a.open && !i.disabled && n.hasContent ? (l(), u("div", {
             key: 0,
             id: a.tooltipId,
             ref: "panelRef",
@@ -366,19 +369,19 @@ function zt(e, t, i, r, a, n) {
             style: G(a.panelStyle),
             role: "tooltip"
           }, [
-            f("span", It, [
+            f("span", Dt, [
               m(e.$slots, "content", {}, () => [
-                O(k(i.label), 1)
+                D(b(i.label), 1)
               ])
             ])
-          ], 12, Tt)) : h("", !0)
+          ], 12, At)) : h("", !0)
         ]),
         _: 3
       })
     ]))
   ], 544);
 }
-const We = /* @__PURE__ */ x(Ct, [["render", zt]]), Lt = ["solid", "secondary", "outline"], At = ["sm", "md", "lg"], fe = {
+const We = /* @__PURE__ */ _(zt, [["render", Ft]]), Rt = ["solid", "secondary", "outline"], Bt = ["sm", "md", "lg"], fe = {
   solid: "border border-transparent bg-primary text-primary-foreground",
   secondary: "border border-transparent bg-secondary text-secondary-foreground",
   outline: "border border-border bg-transparent text-foreground"
@@ -386,47 +389,48 @@ const We = /* @__PURE__ */ x(Ct, [["render", zt]]), Lt = ["solid", "secondary", 
   sm: "ui-badge--sm",
   md: "ui-badge--md",
   lg: "ui-badge--lg"
-}, Z = {
+}, X = {
   32: "max-w-32",
   40: "max-w-40",
   48: "max-w-48",
+  64: "max-w-64",
   full: "max-w-full"
 };
-function Ft(e) {
+function Pt(e) {
   const t = String(e || "").trim();
   if (!t) return "";
   let i = t.startsWith("#") ? t : `#${t}`;
   return /^#[0-9A-Fa-f]{3}$/.test(i) && (i = `#${i[1]}${i[1]}${i[2]}${i[2]}${i[3]}${i[3]}`), /^#[0-9A-Fa-f]{6}$/.test(i) ? i.toUpperCase() : "";
 }
-function Dt(e) {
+function $t(e) {
   const t = parseInt(e.slice(1, 3), 16), i = parseInt(e.slice(3, 5), 16), r = parseInt(e.slice(5, 7), 16);
   return (0.299 * t + 0.587 * i + 0.114 * r) / 255 > 0.58 ? "#0a0a0a" : "#ffffff";
 }
-const $t = {
+const Et = {
   name: "Badge",
   components: { Tooltip: We },
   props: {
     variant: {
       type: String,
       default: "solid",
-      validator: (e) => Lt.includes(e)
+      validator: (e) => Rt.includes(e)
     },
     /** sm — varsayılan kompakt; md / lg daha geniş padding */
     size: {
       type: String,
       default: "sm",
-      validator: (e) => At.includes(e)
+      validator: (e) => Bt.includes(e)
     },
-    /** Uzun metinde kısaltma (…) ve taşma varsa tooltip */
+    /** Uzun metinde kısaltma (…) — `maxWidth` üst sınırından sonra (varsayılan ~12rem) */
     truncate: {
       type: Boolean,
       default: !0
     },
-    /** Tailwind max-w-* anahtarı: full (varsayılan), 32, 40, 48 */
+    /** Tailwind max-w-* anahtarı: 32, 40, 48, 64, full — truncate açıkken üst sınır */
     maxWidth: {
       type: String,
-      default: "full",
-      validator: (e) => Object.keys(Z).includes(e)
+      default: "48",
+      validator: (e) => Object.keys(X).includes(e)
     },
     /** Tooltip metni; boşsa slot metni kullanılır */
     tooltip: {
@@ -448,19 +452,19 @@ const $t = {
   },
   computed: {
     labelWidthClass() {
-      return this.truncate ? Z[this.maxWidth] || Z[32] : "max-w-full";
+      return this.truncate ? X[this.maxWidth] || X[48] : "";
     },
     hasAdornment() {
       return !!(this.$slots.prepend || this.$slots.append);
     },
     normalizedHex() {
-      return Ft(this.hex);
+      return Pt(this.hex);
     },
     hexBadgeStyle() {
       if (this.normalizedHex)
         return {
           backgroundColor: this.normalizedHex,
-          color: Dt(this.normalizedHex),
+          color: $t(this.normalizedHex),
           borderColor: "transparent",
           boxShadow: "0 1px 2px rgb(0 0 0 / 0.12)"
         };
@@ -518,35 +522,35 @@ const $t = {
       this.isTruncated = e.scrollWidth > e.clientWidth + 1;
     }
   }
-}, Rt = {
+}, Ot = {
   key: 0,
   class: "inline-flex shrink-0 items-center [&_.ui-icon]:leading-none"
-}, Bt = {
+}, Vt = {
   key: 1,
   class: "inline-flex shrink-0 items-center [&_.ui-icon]:leading-none"
 };
-function Pt(e, t, i, r, a, n) {
-  const s = v("Tooltip");
-  return l(), _(s, {
+function Nt(e, t, i, r, a, n) {
+  const s = k("Tooltip");
+  return l(), x(s, {
     label: n.tooltipLabel,
     disabled: !n.showTooltip,
     placement: "top"
   }, {
-    default: w(() => [
+    default: S(() => [
       f("span", {
-        class: b(n.badgeClasses),
+        class: v(n.badgeClasses),
         style: G(n.hexBadgeStyle)
       }, [
-        e.$slots.prepend ? (l(), o("span", Rt, [
+        e.$slots.prepend ? (l(), u("span", Ot, [
           m(e.$slots, "prepend")
         ])) : h("", !0),
         f("span", {
           ref: "labelRef",
-          class: b(["ui-badge-label", n.labelWidthClass])
+          class: v(["ui-badge-label", [n.labelWidthClass, i.truncate ? "ui-badge-label--truncate" : ""]])
         }, [
           m(e.$slots, "default")
         ], 2),
-        e.$slots.append ? (l(), o("span", Bt, [
+        e.$slots.append ? (l(), u("span", Vt, [
           m(e.$slots, "append")
         ])) : h("", !0)
       ], 6)
@@ -554,22 +558,22 @@ function Pt(e, t, i, r, a, n) {
     _: 3
   }, 8, ["label", "disabled"]);
 }
-const Et = /* @__PURE__ */ x($t, [["render", Pt]]), Ye = "(max-width: 767px)", Ke = $(!1);
-function X() {
+const Mt = /* @__PURE__ */ _(Et, [["render", Nt]]), Ye = "(max-width: 767px)", Ke = P(!1);
+function J() {
   typeof window > "u" || (Ke.value = window.matchMedia(Ye).matches);
 }
 if (typeof window < "u") {
-  X();
+  J();
   const e = window.matchMedia(Ye);
-  typeof e.addEventListener == "function" ? e.addEventListener("change", X) : typeof e.addListener == "function" && e.addListener(X);
+  typeof e.addEventListener == "function" ? e.addEventListener("change", J) : typeof e.addListener == "function" && e.addListener(J);
 }
-function re() {
+function U() {
   return Ke.value;
 }
 function Y(e, { defaultSize: t = "md" } = {}) {
   if (e !== t)
     return e;
-  const i = re();
+  const i = U();
   return t === "sm" && !i ? "lg" : t === "md" ? i ? "lg" : "md" : e;
 }
 function qe(e, t, i) {
@@ -580,7 +584,7 @@ function qe(e, t, i) {
   }
   return i;
 }
-const Ot = ["sm", "md", "lg"], Vt = ["solid", "outline", "ghost", "link", "nav"], Nt = ["primary", "secondary", "input", "warning", "success", "info"], Mt = ["button", "submit", "reset"], me = {
+const Ht = ["sm", "md", "lg"], jt = ["solid", "outline", "ghost", "link", "nav"], Wt = ["primary", "secondary", "input", "warning", "success", "info", "danger"], Yt = ["button", "submit", "reset"], me = {
   sm: "ui-control-h-sm",
   md: "ui-control-h-md",
   lg: "ui-control-h-lg"
@@ -588,7 +592,7 @@ const Ot = ["sm", "md", "lg"], Vt = ["solid", "outline", "ghost", "link", "nav"]
   sm: "aspect-square size-8 shrink-0 p-0 !min-h-0 text-xs leading-4",
   md: "aspect-square size-9 shrink-0 p-0 !min-h-0 text-sm leading-5",
   lg: "aspect-square size-11 shrink-0 p-0 !min-h-0 text-base leading-6"
-}, Ht = {
+}, Kt = {
   sm: "text-xs",
   md: "text-sm",
   lg: "text-base"
@@ -599,28 +603,32 @@ const Ot = ["sm", "md", "lg"], Vt = ["solid", "outline", "ghost", "link", "nav"]
     input: "border-0 shadow-none",
     warning: "border-0 bg-warning text-warning-foreground shadow-none hover:opacity-90",
     success: "border-0 bg-success text-success-foreground shadow-none hover:opacity-90",
-    info: "border-0 bg-info text-info-foreground shadow-none hover:opacity-90"
+    info: "border-0 bg-info text-info-foreground shadow-none hover:opacity-90",
+    danger: "border-0 bg-destructive text-destructive-foreground shadow-none hover:opacity-90"
   },
   outline: {
     primary: "border border-border bg-transparent text-foreground shadow-none hover:bg-muted/60",
     secondary: "border border-border bg-transparent text-foreground shadow-none hover:bg-muted/60",
     warning: "shadow-none border border-warning bg-transparent text-warning hover:bg-warning/10",
     success: "shadow-none border border-success bg-transparent text-success hover:bg-success/10",
-    info: "shadow-none border border-info bg-transparent text-info hover:bg-info/10"
+    info: "shadow-none border border-info bg-transparent text-info hover:bg-info/10",
+    danger: "shadow-none border border-destructive bg-transparent text-destructive hover:bg-destructive/10"
   },
   ghost: {
     primary: "shadow-none border-0 bg-transparent text-foreground hover:bg-primary hover:text-primary-foreground",
     secondary: "shadow-none border-0 bg-transparent text-secondary-foreground hover:bg-secondary hover:text-secondary-foreground",
     warning: "shadow-none border-0 bg-transparent text-warning hover:bg-warning hover:text-warning-foreground",
     success: "shadow-none border-0 bg-transparent text-success hover:bg-success hover:text-success-foreground",
-    info: "shadow-none border-0 bg-transparent text-info hover:bg-info hover:text-info-foreground"
+    info: "shadow-none border-0 bg-transparent text-info hover:bg-info hover:text-info-foreground",
+    danger: "shadow-none border-0 bg-transparent text-destructive hover:bg-destructive hover:text-destructive-foreground"
   },
   link: {
     primary: "border-0 bg-transparent p-0 !h-auto !min-h-0 shadow-none font-medium text-primary underline-offset-4 hover:underline",
     secondary: "border-0 bg-transparent p-0 !h-auto !min-h-0 shadow-none text-secondary-foreground underline-offset-4 hover:underline",
     warning: "border-0 bg-transparent p-0 !h-auto !min-h-0 shadow-none text-warning underline-offset-4 hover:underline",
     success: "border-0 bg-transparent p-0 !h-auto !min-h-0 shadow-none text-success underline-offset-4 hover:underline",
-    info: "border-0 bg-transparent p-0 !h-auto !min-h-0 shadow-none text-info underline-offset-4 hover:underline"
+    info: "border-0 bg-transparent p-0 !h-auto !min-h-0 shadow-none text-info underline-offset-4 hover:underline",
+    danger: "border-0 bg-transparent p-0 !h-auto !min-h-0 shadow-none text-destructive underline-offset-4 hover:underline"
   },
   nav: {
     primary: "shadow-none border-0 bg-transparent text-foreground hover:bg-transparent",
@@ -628,11 +636,12 @@ const Ot = ["sm", "md", "lg"], Vt = ["solid", "outline", "ghost", "link", "nav"]
     input: "shadow-none border-0 bg-transparent text-foreground hover:bg-transparent",
     warning: "shadow-none border-0 bg-transparent text-warning hover:bg-transparent",
     success: "shadow-none border-0 bg-transparent text-success hover:bg-transparent",
-    info: "shadow-none border-0 bg-transparent text-info hover:bg-transparent"
+    info: "shadow-none border-0 bg-transparent text-info hover:bg-transparent",
+    danger: "shadow-none border-0 bg-transparent text-destructive hover:bg-transparent"
   }
-}, jt = {
+}, qt = {
   name: "Button",
-  components: { RouterLink: dt },
+  components: { RouterLink: mt },
   props: {
     /** `vue-router` hedefi; verildiğinde `<a>` + istemci navigasyonu (`RouterLink` custom). */
     to: {
@@ -643,22 +652,22 @@ const Ot = ["sm", "md", "lg"], Vt = ["solid", "outline", "ghost", "link", "nav"]
     nativeType: {
       type: String,
       default: "button",
-      validator: (e) => Mt.includes(e)
+      validator: (e) => Yt.includes(e)
     },
     variant: {
       type: String,
       default: "solid",
-      validator: (e) => Vt.includes(e)
+      validator: (e) => jt.includes(e)
     },
     color: {
       type: String,
       default: "primary",
-      validator: (e) => Nt.includes(e)
+      validator: (e) => Wt.includes(e)
     },
     size: {
       type: String,
       default: "md",
-      validator: (e) => Ot.includes(e)
+      validator: (e) => Ht.includes(e)
     },
     prefixIcon: {
       type: String,
@@ -715,9 +724,14 @@ const Ot = ["sm", "md", "lg"], Vt = ["solid", "outline", "ghost", "link", "nav"]
     /**
      * Kübik kutu: yalnız ikon veya tek slot (ör. avatar).
      * Slot varken `textContentClass` (`truncate`) kullanılmaz — kesilme olmaz.
+     * Boş / comment-only default slot (ör. `v-if` kapalı) merkezi düzeni bozmasın.
      */
     usesCubedCenterLayout() {
-      return !this.cubed || this.prefixIcon && this.suffixIcon ? !1 : this.prefixIcon || this.suffixIcon ? !this.$slots.default : !0;
+      return !this.cubed || this.prefixIcon && this.suffixIcon ? !1 : this.prefixIcon || this.suffixIcon ? !this.hasRenderableDefaultSlot : !0;
+    },
+    hasRenderableDefaultSlot() {
+      const e = this.$slots.default;
+      return e ? e().some((t) => this.isRenderableVNode(t)) : !1;
     },
     isDisabled() {
       return this.disabled || this.loading;
@@ -729,7 +743,8 @@ const Ot = ["sm", "md", "lg"], Vt = ["solid", "outline", "ghost", "link", "nav"]
       return this.loadingText != null && this.loadingText !== "" ? this.loadingText : qe(this, "ui.button.loading", "Loading");
     },
     textContentClass() {
-      return ["ui-button-text min-w-0 flex-1 truncate", this.textAlign === "left" ? "text-left" : "text-center"].join(" ");
+      const e = this.textAlign === "left" ? "text-left" : "text-center";
+      return this.fulled || this.block || this.variant === "nav" ? ["ui-button-text min-w-0 flex-1 truncate", e].join(" ") : ["ui-button-text whitespace-nowrap", e].join(" ");
     },
     /** Metin yanı ikonlar — küçük kontrollerde `xs`, `lg` düğmede `sm`. */
     inlineIconSize() {
@@ -740,13 +755,13 @@ const Ot = ["sm", "md", "lg"], Vt = ["solid", "outline", "ghost", "link", "nav"]
       return { sm: "xs", md: "sm", lg: "sm" }[this.resolvedSize] || "sm";
     },
     buttonClasses() {
-      var s, u;
+      var s, d;
       const e = this.variant === "link", t = this.variant === "nav";
       let i;
-      this.cubed && !e && !t ? i = pe[this.resolvedSize] || pe.md : e ? i = Ht[this.resolvedSize] : t ? i = "h-auto min-h-0 w-full max-w-full justify-start overflow-hidden p-0 !min-h-0" : i = me[this.resolvedSize] || me.md;
+      this.cubed && !e && !t ? i = pe[this.resolvedSize] || pe.md : e ? i = Kt[this.resolvedSize] : t ? i = "h-auto min-h-0 w-full max-w-full justify-start overflow-hidden p-0 !min-h-0" : i = me[this.resolvedSize] || me.md;
       let r = "";
       !e && !t && (this.rounded && !this.cubed || this.cubed) && (r = "rounded-full");
-      const a = ((s = ge[this.variant]) == null ? void 0 : s[this.color]) || ((u = ge.solid) == null ? void 0 : u.primary), n = this.fulled || this.block;
+      const a = ((s = ge[this.variant]) == null ? void 0 : s[this.color]) || ((d = ge.solid) == null ? void 0 : d.primary), n = this.fulled || this.block;
       return [
         "ui-button ui-control font-sans",
         a,
@@ -759,6 +774,16 @@ const Ot = ["sm", "md", "lg"], Vt = ["solid", "outline", "ghost", "link", "nav"]
     }
   },
   methods: {
+    isRenderableVNode(e) {
+      if (e == null || typeof e != "object" || e.type === rt) return !1;
+      if (e.type === st)
+        return String(e.children ?? "").trim().length > 0;
+      if (e.type === R) {
+        const t = e.children;
+        return Array.isArray(t) ? t.some((i) => this.isRenderableVNode(i)) : !1;
+      }
+      return !0;
+    },
     onClick(e) {
       this.isDisabled || this.$emit("click", e);
     },
@@ -770,181 +795,181 @@ const Ot = ["sm", "md", "lg"], Vt = ["solid", "outline", "ghost", "link", "nav"]
       this.$emit("click", e), t(e);
     }
   }
-}, Wt = ["href", "data-variant", "data-color", "aria-disabled", "tabindex", "onClick"], Yt = {
+}, Gt = ["href", "data-variant", "data-color", "aria-disabled", "tabindex", "onClick"], Qt = {
   key: 0,
   class: "ui-button-cubed-inner inline-flex size-full min-h-0 min-w-0 items-center justify-center",
   "aria-hidden": "true"
-}, Kt = {
+}, Ut = {
   class: "inline-flex shrink-0 items-center justify-center",
   "aria-hidden": "true"
-}, qt = {
+}, Zt = {
   key: 0,
   class: "sr-only"
-}, Gt = {
+}, Xt = {
   key: 2,
   class: "ui-button-cubed-inner inline-flex size-full min-h-0 min-w-0 items-center justify-center rounded-[inherit] [&_.ui-icon]:leading-none"
-}, Ut = {
-  key: 0,
-  class: "inline-flex shrink-0 items-center justify-center",
-  "aria-hidden": "true"
-}, Qt = {
-  key: 1,
-  class: "inline-flex shrink-0 items-center justify-center",
-  "aria-hidden": "true"
-}, Zt = ["type", "disabled", "data-variant", "data-color"], Xt = {
-  key: 0,
-  class: "ui-button-cubed-inner inline-flex size-full min-h-0 min-w-0 items-center justify-center",
-  "aria-hidden": "true"
 }, Jt = {
+  key: 0,
   class: "inline-flex shrink-0 items-center justify-center",
   "aria-hidden": "true"
 }, ei = {
+  key: 1,
+  class: "inline-flex shrink-0 items-center justify-center",
+  "aria-hidden": "true"
+}, ti = ["type", "disabled", "data-variant", "data-color"], ii = {
+  key: 0,
+  class: "ui-button-cubed-inner inline-flex size-full min-h-0 min-w-0 items-center justify-center",
+  "aria-hidden": "true"
+}, ni = {
+  class: "inline-flex shrink-0 items-center justify-center",
+  "aria-hidden": "true"
+}, ri = {
   key: 0,
   class: "sr-only"
-}, ti = {
+}, si = {
   key: 2,
   class: "ui-button-cubed-inner inline-flex size-full min-h-0 min-w-0 items-center justify-center rounded-[inherit] [&_.ui-icon]:leading-none"
-}, ii = {
+}, ai = {
   key: 0,
   class: "inline-flex shrink-0 items-center justify-center",
   "aria-hidden": "true"
-}, ni = {
+}, li = {
   key: 1,
   class: "inline-flex shrink-0 items-center justify-center",
   "aria-hidden": "true"
 };
-function ri(e, t, i, r, a, n) {
-  const s = v("ui-icon"), u = v("RouterLink");
-  return n.hasRouterTo ? (l(), _(u, {
+function oi(e, t, i, r, a, n) {
+  const s = k("ui-icon"), d = k("RouterLink");
+  return n.hasRouterTo ? (l(), x(d, {
     key: 0,
     to: i.to,
     custom: ""
   }, {
-    default: w(({ href: d, navigate: c }) => [
+    default: S(({ href: o, navigate: c }) => [
       f("a", {
-        href: d,
-        class: b(n.buttonClasses),
+        href: o,
+        class: v(n.buttonClasses),
         "data-variant": i.variant,
         "data-color": i.color,
         "aria-disabled": n.isDisabled ? "true" : void 0,
         tabindex: n.isDisabled ? -1 : void 0,
-        onClick: (p) => n.onRouterLinkClick(p, c)
+        onClick: (g) => n.onRouterLinkClick(g, c)
       }, [
-        i.loading && n.usesCubedCenterLayout ? (l(), o("span", Yt, [
-          g(s, {
+        i.loading && n.usesCubedCenterLayout ? (l(), u("span", Qt, [
+          p(s, {
             size: n.cubedIconSize,
             name: "spinner",
             class: "fa-spin"
           }, null, 8, ["size"])
-        ])) : i.loading ? (l(), o(R, { key: 1 }, [
-          f("span", Kt, [
-            g(s, {
+        ])) : i.loading ? (l(), u(R, { key: 1 }, [
+          f("span", Ut, [
+            p(s, {
               size: n.inlineIconSize,
               name: "spinner",
               class: "fa-spin"
             }, null, 8, ["size"])
           ]),
           f("span", {
-            class: b(n.textContentClass)
+            class: v(n.textContentClass)
           }, [
-            n.resolvedLoadingText ? (l(), o("span", qt, k(n.resolvedLoadingText), 1)) : m(e.$slots, "default", { key: 1 })
+            n.resolvedLoadingText ? (l(), u("span", Zt, b(n.resolvedLoadingText), 1)) : m(e.$slots, "default", { key: 1 })
           ], 2)
-        ], 64)) : n.usesCubedCenterLayout ? (l(), o("span", Gt, [
-          i.prefixIcon ? (l(), _(s, {
+        ], 64)) : n.usesCubedCenterLayout ? (l(), u("span", Xt, [
+          i.prefixIcon ? (l(), x(s, {
             key: 0,
             size: n.cubedIconSize,
             name: i.prefixIcon
-          }, null, 8, ["size", "name"])) : i.suffixIcon ? (l(), _(s, {
+          }, null, 8, ["size", "name"])) : i.suffixIcon ? (l(), x(s, {
             key: 1,
             size: n.cubedIconSize,
             name: i.suffixIcon
           }, null, 8, ["size", "name"])) : m(e.$slots, "default", { key: 2 })
-        ])) : (l(), o(R, { key: 3 }, [
-          i.prefixIcon ? (l(), o("span", Ut, [
-            g(s, {
+        ])) : (l(), u(R, { key: 3 }, [
+          i.prefixIcon ? (l(), u("span", Jt, [
+            p(s, {
               size: n.inlineIconSize,
               name: i.prefixIcon
             }, null, 8, ["size", "name"])
           ])) : h("", !0),
           f("span", {
-            class: b(n.textContentClass)
+            class: v(n.textContentClass)
           }, [
             m(e.$slots, "default")
           ], 2),
-          i.suffixIcon ? (l(), o("span", Qt, [
-            g(s, {
+          i.suffixIcon ? (l(), u("span", ei, [
+            p(s, {
               size: n.inlineIconSize,
               name: i.suffixIcon
             }, null, 8, ["size", "name"])
           ])) : h("", !0)
         ], 64))
-      ], 10, Wt)
+      ], 10, Gt)
     ]),
     _: 3
-  }, 8, ["to"])) : (l(), o("button", {
+  }, 8, ["to"])) : (l(), u("button", {
     key: 1,
     type: i.nativeType,
     disabled: n.isDisabled,
-    class: b(n.buttonClasses),
+    class: v(n.buttonClasses),
     "data-variant": i.variant,
     "data-color": i.color,
-    onClick: t[0] || (t[0] = (...d) => n.onClick && n.onClick(...d))
+    onClick: t[0] || (t[0] = (...o) => n.onClick && n.onClick(...o))
   }, [
-    i.loading && n.usesCubedCenterLayout ? (l(), o("span", Xt, [
-      g(s, {
+    i.loading && n.usesCubedCenterLayout ? (l(), u("span", ii, [
+      p(s, {
         size: n.cubedIconSize,
         name: "spinner",
         class: "fa-spin"
       }, null, 8, ["size"])
-    ])) : i.loading ? (l(), o(R, { key: 1 }, [
-      f("span", Jt, [
-        g(s, {
+    ])) : i.loading ? (l(), u(R, { key: 1 }, [
+      f("span", ni, [
+        p(s, {
           size: n.inlineIconSize,
           name: "spinner",
           class: "fa-spin"
         }, null, 8, ["size"])
       ]),
       f("span", {
-        class: b(n.textContentClass)
+        class: v(n.textContentClass)
       }, [
-        n.resolvedLoadingText ? (l(), o("span", ei, k(n.resolvedLoadingText), 1)) : m(e.$slots, "default", { key: 1 })
+        n.resolvedLoadingText ? (l(), u("span", ri, b(n.resolvedLoadingText), 1)) : m(e.$slots, "default", { key: 1 })
       ], 2)
-    ], 64)) : n.usesCubedCenterLayout ? (l(), o("span", ti, [
-      i.prefixIcon ? (l(), _(s, {
+    ], 64)) : n.usesCubedCenterLayout ? (l(), u("span", si, [
+      i.prefixIcon ? (l(), x(s, {
         key: 0,
         size: n.cubedIconSize,
         name: i.prefixIcon
-      }, null, 8, ["size", "name"])) : i.suffixIcon ? (l(), _(s, {
+      }, null, 8, ["size", "name"])) : i.suffixIcon ? (l(), x(s, {
         key: 1,
         size: n.cubedIconSize,
         name: i.suffixIcon
       }, null, 8, ["size", "name"])) : m(e.$slots, "default", { key: 2 })
-    ])) : (l(), o(R, { key: 3 }, [
-      i.prefixIcon ? (l(), o("span", ii, [
-        g(s, {
+    ])) : (l(), u(R, { key: 3 }, [
+      i.prefixIcon ? (l(), u("span", ai, [
+        p(s, {
           size: n.inlineIconSize,
           name: i.prefixIcon
         }, null, 8, ["size", "name"])
       ])) : h("", !0),
       f("span", {
-        class: b(n.textContentClass)
+        class: v(n.textContentClass)
       }, [
         m(e.$slots, "default")
       ], 2),
-      i.suffixIcon ? (l(), o("span", ni, [
-        g(s, {
+      i.suffixIcon ? (l(), u("span", li, [
+        p(s, {
           size: n.inlineIconSize,
           name: i.suffixIcon
         }, null, 8, ["size", "name"])
       ])) : h("", !0)
     ], 64))
-  ], 10, Zt));
+  ], 10, ti));
 }
-const bs = /* @__PURE__ */ x(jt, [["render", ri]]), si = ["none", "sm", "md"], be = {
+const Ls = /* @__PURE__ */ _(qt, [["render", oi]]), ui = ["none", "sm", "md"], be = {
   none: "",
   sm: "my-2",
   md: "my-4"
-}, ai = {
+}, di = {
   name: "Divider",
   inheritAttrs: !1,
   props: {
@@ -965,7 +990,7 @@ const bs = /* @__PURE__ */ x(jt, [["render", ri]]), si = ["none", "sm", "md"], b
     spacing: {
       type: String,
       default: "md",
-      validator: (e) => si.includes(e)
+      validator: (e) => ui.includes(e)
     },
     /**
      * true: yalnızca görsel — `role="presentation"`, ekran okuyucu atlar.
@@ -1004,13 +1029,13 @@ const bs = /* @__PURE__ */ x(jt, [["render", ri]]), si = ["none", "sm", "md"], b
       return this.decorative ? e.role = "presentation" : (e.role = "separator", e["aria-orientation"] = "horizontal", this.title && (e["aria-label"] = this.title)), e;
     }
   }
-}, li = { class: "ui-divider__label" }, oi = {
+}, ci = { class: "ui-divider__label" }, fi = {
   key: 1,
   class: "ui-section-label"
 };
-function ui(e, t, i, r, a, n) {
-  const s = v("ui-icon");
-  return n.hasLabel ? (l(), o("div", I({
+function hi(e, t, i, r, a, n) {
+  const s = k("ui-icon");
+  return n.hasLabel ? (l(), u("div", I({
     key: 1,
     class: n.labeledClass
   }, n.labeledAttrs), [
@@ -1018,30 +1043,30 @@ function ui(e, t, i, r, a, n) {
       class: "ui-divider__line",
       "aria-hidden": "true"
     }, null, -1)),
-    f("span", li, [
-      i.icon ? (l(), _(s, {
+    f("span", ci, [
+      i.icon ? (l(), x(s, {
         key: 0,
         name: i.icon,
         size: "sm",
         class: "text-muted-foreground"
       }, null, 8, ["name"])) : h("", !0),
-      i.title ? (l(), o("span", oi, k(i.title), 1)) : h("", !0)
+      i.title ? (l(), u("span", fi, b(i.title), 1)) : h("", !0)
     ]),
     t[1] || (t[1] = f("span", {
       class: "ui-divider__line",
       "aria-hidden": "true"
     }, null, -1))
-  ], 16)) : (l(), o("hr", I({
+  ], 16)) : (l(), u("hr", I({
     key: 0,
     class: n.rootClass
   }, n.rootAttrs), null, 16));
 }
-const Ge = /* @__PURE__ */ x(ai, [["render", ui]]), di = ["solid", "dashed", "dotted", "double"], ye = {
+const Ge = /* @__PURE__ */ _(di, [["render", hi]]), mi = ["solid", "dashed", "dotted", "double"], ye = {
   solid: "border-solid",
   dashed: "border-dashed",
   dotted: "border-dotted",
   double: "border-double"
-}, ci = ["solid", "regular", "brands", "light", "duotone", "thin"], fi = {
+}, pi = ["solid", "regular", "brands", "light", "duotone", "thin"], gi = {
   name: "Card",
   components: { Divider: Ge },
   inheritAttrs: !1,
@@ -1055,7 +1080,7 @@ const Ge = /* @__PURE__ */ x(ai, [["render", ui]]), di = ["solid", "dashed", "do
     borderType: {
       type: String,
       default: "solid",
-      validator: (e) => di.includes(e)
+      validator: (e) => mi.includes(e)
     },
     title: {
       type: String,
@@ -1074,7 +1099,7 @@ const Ge = /* @__PURE__ */ x(ai, [["render", ui]]), di = ["solid", "dashed", "do
     iconType: {
       type: String,
       default: "light",
-      validator: (e) => ci.includes(e)
+      validator: (e) => pi.includes(e)
     },
     /** Gövde: yatay satır (buton / ikon sıraları). */
     row: {
@@ -1129,95 +1154,113 @@ const Ge = /* @__PURE__ */ x(ai, [["render", ui]]), di = ["solid", "dashed", "do
       return t;
     }
   }
-}, hi = {
+}, bi = {
   key: 0,
   class: "ui-card-toolbar shrink-0"
-}, mi = {
+}, yi = {
   key: 0,
   class: "ui-header-lead"
-}, pi = { class: "ui-header-lead__main" }, gi = {
+}, vi = { class: "ui-header-lead__main" }, ki = {
   key: 0,
   class: "ui-header-lead__icon"
-}, bi = { class: "ui-header-lead__text" }, yi = {
+}, Si = { class: "ui-header-lead__text" }, wi = {
   key: 0,
   class: "ui-heading-3"
-}, vi = {
+}, xi = {
   key: 1,
   class: "ui-text-default"
-}, ki = {
+}, _i = {
   key: 0,
   class: "ui-header-lead__actions"
 };
-function Si(e, t, i, r, a, n) {
-  const s = v("ui-icon"), u = v("Divider");
-  return l(), o("div", I({ class: n.rootClasses }, n.passthroughAttrs), [
-    e.$slots.toolbar ? (l(), o("div", hi, [
+function Ci(e, t, i, r, a, n) {
+  const s = k("ui-icon"), d = k("Divider");
+  return l(), u("div", I({ class: n.rootClasses }, n.passthroughAttrs), [
+    e.$slots.toolbar ? (l(), u("div", bi, [
       m(e.$slots, "toolbar")
     ])) : h("", !0),
-    n.hasHeaderBlock ? (l(), o("div", {
+    n.hasHeaderBlock ? (l(), u("div", {
       key: 1,
-      class: b(["ui-card-header shrink-0", { "ui-card-header--inset": i.removePadding }])
+      class: v(["ui-card-header shrink-0", { "ui-card-header--inset": i.removePadding }])
     }, [
       m(e.$slots, "header", {}, () => [
-        n.hasDefaultHeader ? (l(), o("div", mi, [
-          f("div", pi, [
-            i.icon ? (l(), o("span", gi, [
-              g(s, {
+        n.hasDefaultHeader ? (l(), u("div", yi, [
+          f("div", vi, [
+            i.icon ? (l(), u("span", ki, [
+              p(s, {
                 name: i.icon,
                 type: i.iconType,
                 size: "lg"
               }, null, 8, ["name", "type"])
             ])) : h("", !0),
-            f("div", bi, [
-              i.title ? (l(), o("h3", yi, k(i.title), 1)) : h("", !0),
-              i.description ? (l(), o("p", vi, k(i.description), 1)) : h("", !0)
+            f("div", Si, [
+              i.title ? (l(), u("h3", wi, b(i.title), 1)) : h("", !0),
+              i.description ? (l(), u("p", xi, b(i.description), 1)) : h("", !0)
             ])
           ]),
-          e.$slots.append || e.$slots.actions ? (l(), o("div", ki, [
+          e.$slots.append || e.$slots.actions ? (l(), u("div", _i, [
             m(e.$slots, "append"),
             m(e.$slots, "actions")
           ])) : h("", !0)
         ])) : h("", !0)
       ])
     ], 2)) : h("", !0),
-    n.showHeaderDivider ? (l(), _(u, {
+    n.showHeaderDivider ? (l(), x(d, {
       key: 2,
       spacing: "none",
       class: "!my-0 shrink-0"
     })) : h("", !0),
-    e.$slots.default ? (l(), o("div", {
+    e.$slots.default ? (l(), u("div", {
       key: 3,
-      class: b(["ui-card-body ui-text-default", {
+      class: v(["ui-card-body ui-text-default", {
         "ui-card-body--row": i.row,
         "ui-card-body--flush": i.removePadding
       }])
     }, [
       m(e.$slots, "default")
     ], 2)) : h("", !0),
-    e.$slots.footer ? (l(), o("div", {
+    e.$slots.footer ? (l(), u("div", {
       key: 4,
-      class: b(["ui-card-footer", { "ui-card-footer--inset": i.removePadding }])
+      class: v(["ui-card-footer", { "ui-card-footer--inset": i.removePadding }])
     }, [
       m(e.$slots, "footer")
     ], 2)) : h("", !0)
   ], 16);
 }
-const ys = /* @__PURE__ */ x(fi, [["render", Si]]);
+const zs = /* @__PURE__ */ _(gi, [["render", Ci]]);
+function Qe(e) {
+  const t = typeof e == "object" && e != null && "value" in e ? e.value : e;
+  return t === "en" || t === "en-GB" || t === "en-US" ? "en-GB" : "tr-TR";
+}
+function Ue(e, t = "tr-TR") {
+  return !(e instanceof Date) || Number.isNaN(e.getTime()) ? "" : e.toLocaleDateString(Qe(t), {
+    day: "numeric",
+    month: "long",
+    year: "numeric"
+  });
+}
+function As(e, t = "tr-TR") {
+  if (e == null || e === "") return "";
+  const i = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(e).trim());
+  if (!i) return "";
+  const r = Number(i[1]), a = Number(i[2]) - 1, n = Number(i[3]), s = new Date(r, a, n);
+  return s.getFullYear() !== r || s.getMonth() !== a || s.getDate() !== n ? "" : Ue(s, t);
+}
 let ve = 0;
 function ke(e) {
   return String(e).padStart(2, "0");
 }
-function E(e) {
+function M(e) {
   return `${e.getFullYear()}-${ke(e.getMonth() + 1)}-${ke(e.getDate())}`;
 }
-function J(e) {
+function ee(e) {
   if (e == null || e === "") return null;
   const t = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(e).trim());
   if (!t) return null;
   const i = Number(t[1]), r = Number(t[2]) - 1, a = Number(t[3]), n = new Date(i, r, a);
   return n.getFullYear() !== i || n.getMonth() !== r || n.getDate() !== a ? null : n;
 }
-const wi = {
+const Ti = {
   name: "DatePicker",
   inheritAttrs: !1,
   props: {
@@ -1238,6 +1281,18 @@ const wi = {
       type: Boolean,
       default: !0
     },
+    /**
+     * true: tetikleyici/popover yok — paneli doğrudan yerleştir (FieldAction vb.).
+     */
+    embedded: {
+      type: Boolean,
+      default: !1
+    },
+    /** Hızlı seçim satırını göster */
+    showQuick: {
+      type: Boolean,
+      default: !0
+    },
     id: {
       type: String,
       default: void 0
@@ -1247,13 +1302,15 @@ const wi = {
       type: String,
       default: ""
     },
-    /** Boş bırakılırsa `ui.datePicker.today` (i18n) */
     todayLabel: {
       type: String,
       default: ""
     },
-    /** Boş bırakılırsa `ui.datePicker.yesterday` (i18n) */
     yesterdayLabel: {
+      type: String,
+      default: ""
+    },
+    tomorrowLabel: {
       type: String,
       default: ""
     }
@@ -1261,7 +1318,7 @@ const wi = {
   emits: ["update:modelValue", "change"],
   data() {
     ve += 1;
-    const e = ve, t = J(this.modelValue) || /* @__PURE__ */ new Date();
+    const e = ve, t = ee(this.modelValue) || /* @__PURE__ */ new Date();
     return {
       fallbackId: `ui-datepicker-${e}`,
       menuOpen: !1,
@@ -1274,13 +1331,17 @@ const wi = {
       return this.id != null && this.id !== "" ? this.id : this.fallbackId;
     },
     selectedDate() {
-      return J(this.modelValue);
+      return ee(this.modelValue);
+    },
+    locale() {
+      var e;
+      return Qe((e = this.$i18n) == null ? void 0 : e.locale);
     },
     displayText() {
-      return this.selectedDate ? E(this.selectedDate) : this.placeholder;
+      return this.selectedDate ? Ue(this.selectedDate, this.locale) : this.placeholder;
     },
     monthTitle() {
-      return new Date(this.viewYear, this.viewMonth, 1).toLocaleString("en-US", {
+      return new Date(this.viewYear, this.viewMonth, 1).toLocaleString(this.locale, {
         month: "long",
         year: "numeric"
       });
@@ -1294,6 +1355,9 @@ const wi = {
     resolvedYesterdayLabel() {
       return this.yesterdayLabel ? this.yesterdayLabel : typeof this.$t == "function" ? this.$t("ui.datePicker.yesterday") : "Yesterday";
     },
+    resolvedTomorrowLabel() {
+      return this.tomorrowLabel ? this.tomorrowLabel : typeof this.$t == "function" ? this.$t("ui.datePicker.tomorrow") : "Tomorrow";
+    },
     todayQuickDisabled() {
       return this.isQuickDateDisabled(/* @__PURE__ */ new Date());
     },
@@ -1301,18 +1365,22 @@ const wi = {
       const e = /* @__PURE__ */ new Date();
       return e.setDate(e.getDate() - 1), this.isQuickDateDisabled(e);
     },
+    tomorrowQuickDisabled() {
+      const e = /* @__PURE__ */ new Date();
+      return e.setDate(e.getDate() + 1), this.isQuickDateDisabled(e);
+    },
     calendarCells() {
       const e = this.viewYear, t = this.viewMonth, i = new Date(e, t, 1), r = new Date(e, t, 1 - i.getDay()), a = [];
       for (let n = 0; n < 42; n += 1) {
-        const s = new Date(r.getFullYear(), r.getMonth(), r.getDate() + n), u = s.getMonth() === t && s.getFullYear() === e, d = s.getDate(), c = E(s), p = `${s.getFullYear()}-${s.getMonth()}-${s.getDate()}`, z = !!(this.selectedDate && c === E(this.selectedDate)), S = E(/* @__PURE__ */ new Date()) === c, y = !!(this.minYmd && c < this.minYmd);
+        const s = new Date(r.getFullYear(), r.getMonth(), r.getDate() + n), d = s.getMonth() === t && s.getFullYear() === e, o = s.getDate(), c = M(s), g = `${s.getFullYear()}-${s.getMonth()}-${s.getDate()}`, L = !!(this.selectedDate && c === M(this.selectedDate)), w = M(/* @__PURE__ */ new Date()) === c, y = !!(this.minYmd && c < this.minYmd);
         a.push({
-          key: p,
-          d,
-          out: !u,
+          key: g,
+          d: o,
+          out: !d,
           date: s,
-          sel: z,
-          today: S,
-          inMonth: u,
+          sel: L,
+          today: w,
+          inMonth: d,
           disabled: y
         });
       }
@@ -1321,14 +1389,14 @@ const wi = {
   },
   watch: {
     modelValue() {
-      const e = J(this.modelValue);
+      const e = ee(this.modelValue);
       e && (this.viewYear = e.getFullYear(), this.viewMonth = e.getMonth());
     }
   },
   methods: {
     isQuickDateDisabled(e) {
       if (!e) return !0;
-      const t = E(e);
+      const t = M(e);
       return !!(this.minYmd && t < this.minYmd);
     },
     shiftMonth(e) {
@@ -1337,14 +1405,14 @@ const wi = {
     },
     pick(e, t) {
       if (!e.date || e.disabled) return;
-      const i = E(e.date);
-      this.$emit("update:modelValue", i), this.$emit("change", i), t();
+      const i = M(e.date);
+      this.$emit("update:modelValue", i), this.$emit("change", i), typeof t == "function" ? t() : this.menuOpen = !1;
     },
     pickQuick(e, t) {
       const i = /* @__PURE__ */ new Date();
-      if (e === "yesterday" && i.setDate(i.getDate() - 1), this.isQuickDateDisabled(i)) return;
-      const r = E(i);
-      this.viewYear = i.getFullYear(), this.viewMonth = i.getMonth(), this.$emit("update:modelValue", r), this.$emit("change", r), t();
+      if (e === "yesterday" ? i.setDate(i.getDate() - 1) : e === "tomorrow" && i.setDate(i.getDate() + 1), this.isQuickDateDisabled(i)) return;
+      const r = M(i);
+      this.viewYear = i.getFullYear(), this.viewMonth = i.getMonth(), this.$emit("update:modelValue", r), this.$emit("change", r), typeof t == "function" ? t() : this.menuOpen = !1;
     },
     dayVariant(e) {
       return e.sel ? "solid" : "ghost";
@@ -1353,71 +1421,182 @@ const wi = {
       return e.sel || e.today && !e.sel ? "primary" : "secondary";
     }
   }
-}, xi = { class: "ui-datepicker-panel w-full min-w-[17rem] p-2" }, _i = { class: "mb-2 flex items-center justify-between gap-2" }, Ci = { class: "text-sm font-medium tabular-nums text-foreground" }, Ti = { class: "ui-datepicker-grid" }, Ii = { class: "ui-datepicker-quick" };
-function zi(e, t, i, r, a, n) {
-  const s = v("ui-button"), u = v("ui-popover");
-  return l(), o("div", {
-    class: b([
+}, Ii = {
+  key: 0,
+  class: "ui-datepicker-panel w-full min-w-[17rem]"
+}, Li = { class: "mb-3 flex items-center justify-between gap-2" }, zi = { class: "text-sm font-medium tabular-nums text-foreground" }, Ai = { class: "ui-datepicker-grid" }, Di = {
+  key: 0,
+  class: "ui-datepicker-quick"
+}, Fi = { class: "ui-datepicker-panel w-full min-w-[17rem] p-3" }, Ri = { class: "mb-3 flex items-center justify-between gap-2" }, Bi = { class: "text-sm font-medium tabular-nums text-foreground" }, Pi = { class: "ui-datepicker-grid" }, $i = {
+  key: 0,
+  class: "ui-datepicker-quick"
+};
+function Ei(e, t, i, r, a, n) {
+  const s = k("ui-button"), d = k("ui-popover");
+  return l(), u("div", {
+    class: v([
       "ui-datepicker",
-      i.fulled ? "ui-datepicker--fulled w-full" : "w-auto shrink-0",
+      i.embedded ? "ui-datepicker--embedded" : "",
+      !i.embedded && i.fulled ? "ui-datepicker--fulled w-full" : "",
+      !i.embedded && !i.fulled ? "w-auto shrink-0" : "",
       i.disabled ? "pointer-events-none opacity-50" : "",
       e.$attrs.class
     ])
   }, [
-    g(u, {
-      open: a.menuOpen,
-      "onUpdate:open": t[2] || (t[2] = (d) => a.menuOpen = d),
-      placement: "bottom-start",
-      "match-trigger-width": !0,
-      disabled: i.disabled
-    }, {
-      trigger: w(({ open: d, toggle: c }) => [
-        g(s, {
-          type: "button",
-          id: n.resolvedId,
-          variant: "solid",
-          color: "input",
-          fulled: i.fulled,
-          "text-align": "left",
-          "prefix-icon": "calendar",
-          disabled: i.disabled,
-          "aria-expanded": d ? "true" : "false",
-          "aria-haspopup": !0,
-          onClick: c
+    i.embedded ? (l(), u("div", Ii, [
+      f("div", Li, [
+        p(s, {
+          variant: "ghost",
+          color: "primary",
+          cubed: "",
+          "prefix-icon": "chevron-left",
+          "aria-label": "Previous month",
+          onClick: t[0] || (t[0] = A((o) => n.shiftMonth(-1), ["stop"]))
+        }),
+        f("span", zi, b(n.monthTitle), 1),
+        p(s, {
+          variant: "ghost",
+          color: "primary",
+          cubed: "",
+          "prefix-icon": "chevron-right",
+          "aria-label": "Next month",
+          onClick: t[1] || (t[1] = A((o) => n.shiftMonth(1), ["stop"]))
+        })
+      ]),
+      t[8] || (t[8] = f("div", { class: "ui-datepicker-weekdays mb-2" }, [
+        f("span", null, "Su"),
+        f("span", null, "Mo"),
+        f("span", null, "Tu"),
+        f("span", null, "We"),
+        f("span", null, "Th"),
+        f("span", null, "Fr"),
+        f("span", null, "Sa")
+      ], -1)),
+      f("div", Ai, [
+        (l(!0), u(R, null, H(n.calendarCells, (o) => (l(), x(s, {
+          key: o.key,
+          variant: n.dayVariant(o),
+          color: n.dayColor(o),
+          size: "sm",
+          cubed: "",
+          disabled: o.disabled,
+          "aria-selected": o.sel ? "true" : "false",
+          "aria-disabled": o.disabled ? "true" : void 0,
+          "data-outside": o.inMonth ? void 0 : "true",
+          "data-today": o.today ? "true" : void 0,
+          onClick: (c) => n.pick(o)
         }, {
-          default: w(() => [
-            f("span", {
-              class: b([
-                "min-w-0 flex-1 truncate",
-                n.selectedDate ? "text-foreground" : "text-muted-foreground"
-              ])
-            }, k(n.displayText), 3)
+          default: S(() => [
+            D(b(o.d), 1)
+          ]),
+          _: 2
+        }, 1032, ["variant", "color", "disabled", "aria-selected", "aria-disabled", "data-outside", "data-today", "onClick"]))), 128))
+      ]),
+      i.showQuick ? (l(), u("div", Di, [
+        p(s, {
+          type: "button",
+          variant: "ghost",
+          color: "secondary",
+          size: "sm",
+          fulled: "",
+          disabled: n.yesterdayQuickDisabled,
+          onClick: t[2] || (t[2] = (o) => n.pickQuick("yesterday"))
+        }, {
+          default: S(() => [
+            D(b(n.resolvedYesterdayLabel), 1)
           ]),
           _: 1
-        }, 8, ["id", "fulled", "disabled", "aria-expanded", "onClick"])
+        }, 8, ["disabled"]),
+        p(s, {
+          type: "button",
+          variant: "ghost",
+          color: "secondary",
+          size: "sm",
+          fulled: "",
+          disabled: n.todayQuickDisabled,
+          onClick: t[3] || (t[3] = (o) => n.pickQuick("today"))
+        }, {
+          default: S(() => [
+            D(b(n.resolvedTodayLabel), 1)
+          ]),
+          _: 1
+        }, 8, ["disabled"]),
+        p(s, {
+          type: "button",
+          variant: "ghost",
+          color: "secondary",
+          size: "sm",
+          fulled: "",
+          disabled: n.tomorrowQuickDisabled,
+          onClick: t[4] || (t[4] = (o) => n.pickQuick("tomorrow"))
+        }, {
+          default: S(() => [
+            D(b(n.resolvedTomorrowLabel), 1)
+          ]),
+          _: 1
+        }, 8, ["disabled"])
+      ])) : h("", !0)
+    ])) : (l(), x(d, {
+      key: 1,
+      open: a.menuOpen,
+      "onUpdate:open": t[7] || (t[7] = (o) => a.menuOpen = o),
+      placement: "bottom-start",
+      "match-trigger-width": !e.$slots.trigger,
+      disabled: i.disabled
+    }, {
+      trigger: S(({ open: o, toggle: c, close: g }) => [
+        m(e.$slots, "trigger", {
+          open: o,
+          toggle: c,
+          close: g
+        }, () => [
+          p(s, {
+            type: "button",
+            id: n.resolvedId,
+            variant: "solid",
+            color: "input",
+            fulled: i.fulled,
+            "text-align": "left",
+            "prefix-icon": "calendar",
+            disabled: i.disabled,
+            "aria-expanded": o ? "true" : "false",
+            "aria-haspopup": !0,
+            onClick: c
+          }, {
+            default: S(() => [
+              f("span", {
+                class: v([
+                  "min-w-0 flex-1 truncate",
+                  n.selectedDate ? "text-foreground" : "text-muted-foreground"
+                ])
+              }, b(n.displayText), 3)
+            ]),
+            _: 1
+          }, 8, ["id", "fulled", "disabled", "aria-expanded", "onClick"])
+        ])
       ]),
-      content: w(({ close: d }) => [
-        f("div", xi, [
-          f("div", _i, [
-            g(s, {
+      content: S(({ close: o }) => [
+        f("div", Fi, [
+          f("div", Ri, [
+            p(s, {
               variant: "ghost",
               color: "primary",
               cubed: "",
               "prefix-icon": "chevron-left",
               "aria-label": "Previous month",
-              onClick: t[0] || (t[0] = D((c) => n.shiftMonth(-1), ["stop"]))
+              onClick: t[5] || (t[5] = A((c) => n.shiftMonth(-1), ["stop"]))
             }),
-            f("span", Ci, k(n.monthTitle), 1),
-            g(s, {
+            f("span", Bi, b(n.monthTitle), 1),
+            p(s, {
               variant: "ghost",
               color: "primary",
               cubed: "",
               "prefix-icon": "chevron-right",
               "aria-label": "Next month",
-              onClick: t[1] || (t[1] = D((c) => n.shiftMonth(1), ["stop"]))
+              onClick: t[6] || (t[6] = A((c) => n.shiftMonth(1), ["stop"]))
             })
           ]),
-          t[3] || (t[3] = f("div", { class: "mb-1 grid grid-cols-7 gap-0.5 text-center text-[10px] font-medium uppercase text-muted-foreground" }, [
+          t[9] || (t[9] = f("div", { class: "ui-datepicker-weekdays mb-2" }, [
             f("span", null, "Su"),
             f("span", null, "Mo"),
             f("span", null, "Tu"),
@@ -1426,87 +1605,102 @@ function zi(e, t, i, r, a, n) {
             f("span", null, "Fr"),
             f("span", null, "Sa")
           ], -1)),
-          f("div", Ti, [
-            (l(!0), o(R, null, W(n.calendarCells, (c) => (l(), _(s, {
+          f("div", Pi, [
+            (l(!0), u(R, null, H(n.calendarCells, (c) => (l(), x(s, {
               key: c.key,
               variant: n.dayVariant(c),
               color: n.dayColor(c),
               size: "sm",
+              cubed: "",
               disabled: c.disabled,
               "aria-selected": c.sel ? "true" : "false",
               "aria-disabled": c.disabled ? "true" : void 0,
               "data-outside": c.inMonth ? void 0 : "true",
               "data-today": c.today ? "true" : void 0,
-              onClick: (p) => n.pick(c, d)
+              onClick: (g) => n.pick(c, o)
             }, {
-              default: w(() => [
-                O(k(c.d), 1)
+              default: S(() => [
+                D(b(c.d), 1)
               ]),
               _: 2
             }, 1032, ["variant", "color", "disabled", "aria-selected", "aria-disabled", "data-outside", "data-today", "onClick"]))), 128))
           ]),
-          f("div", Ii, [
-            g(s, {
-              type: "button",
-              variant: "ghost",
-              color: "secondary",
-              size: "sm",
-              fulled: "",
-              disabled: n.todayQuickDisabled,
-              onClick: (c) => n.pickQuick("today", d)
-            }, {
-              default: w(() => [
-                O(k(n.resolvedTodayLabel), 1)
-              ]),
-              _: 1
-            }, 8, ["disabled", "onClick"]),
-            g(s, {
+          i.showQuick ? (l(), u("div", $i, [
+            p(s, {
               type: "button",
               variant: "ghost",
               color: "secondary",
               size: "sm",
               fulled: "",
               disabled: n.yesterdayQuickDisabled,
-              onClick: (c) => n.pickQuick("yesterday", d)
+              onClick: (c) => n.pickQuick("yesterday", o)
             }, {
-              default: w(() => [
-                O(k(n.resolvedYesterdayLabel), 1)
+              default: S(() => [
+                D(b(n.resolvedYesterdayLabel), 1)
+              ]),
+              _: 1
+            }, 8, ["disabled", "onClick"]),
+            p(s, {
+              type: "button",
+              variant: "ghost",
+              color: "secondary",
+              size: "sm",
+              fulled: "",
+              disabled: n.todayQuickDisabled,
+              onClick: (c) => n.pickQuick("today", o)
+            }, {
+              default: S(() => [
+                D(b(n.resolvedTodayLabel), 1)
+              ]),
+              _: 1
+            }, 8, ["disabled", "onClick"]),
+            p(s, {
+              type: "button",
+              variant: "ghost",
+              color: "secondary",
+              size: "sm",
+              fulled: "",
+              disabled: n.tomorrowQuickDisabled,
+              onClick: (c) => n.pickQuick("tomorrow", o)
+            }, {
+              default: S(() => [
+                D(b(n.resolvedTomorrowLabel), 1)
               ]),
               _: 1
             }, 8, ["disabled", "onClick"])
-          ])
+          ])) : h("", !0)
         ])
       ]),
-      _: 1
-    }, 8, ["open", "disabled"])
+      _: 3
+    }, 8, ["open", "match-trigger-width", "disabled"]))
   ], 2);
 }
-const vs = /* @__PURE__ */ x(wi, [["render", zi]]);
+const Ds = /* @__PURE__ */ _(Ti, [["render", Ei]]);
 let Se = 0;
-function ks(e) {
+function Fs(e) {
   return Se += 1, `${e}-${Se}`;
 }
 function se(e) {
   let t = 0;
   return () => (t += 1, `${e}-${t}`);
 }
-function Ue(e, t = ["class", "style"]) {
+function Ze(e, t = ["class", "style"]) {
   const i = new Set(t), r = {};
   for (const [a, n] of Object.entries(e || {}))
     i.has(a) || (r[a] = n);
   return r;
 }
-const Li = [
+const Oi = [
   "textarea.ui-input-field:not([disabled])",
   "input.ui-input-field:not([disabled])",
   "textarea:not([disabled])",
   "select:not([disabled])",
   'input:not([disabled]):not([type="hidden"]):not([type="submit"]):not([type="button"]):not([type="reset"])'
-].join(","), Ai = [
+].join(","), Vi = [
   "button.ui-select-field:not([disabled])",
   "button.ui-pin-cell:not([disabled])"
 ].join(",");
-function Fi(e) {
+function Ni(e) {
   if (!(e instanceof HTMLElement) || e.disabled || e.getAttribute("aria-hidden") === "true") return !1;
   const t = getComputedStyle(e);
   return t.display === "none" || t.visibility === "hidden" ? !1 : e.getClientRects().length > 0;
@@ -1514,11 +1708,11 @@ function Fi(e) {
 function we(e, t, { skipFooter: i = !1 } = {}) {
   if (!e) return null;
   for (const r of e.querySelectorAll(t))
-    if (Fi(r) && !(i && r.closest(".ui-card-footer")))
+    if (Ni(r) && !(i && r.closest(".ui-card-footer")))
       return r;
   return null;
 }
-function Di(e) {
+function Mi(e) {
   const t = [
     e.querySelector(".ui-card-body"),
     e.querySelector(".ui-card-toolbar"),
@@ -1529,28 +1723,28 @@ function Di(e) {
   return i;
 }
 function xe(e, { skipFooter: t = !1 } = {}) {
-  const i = we(e, Li, { skipFooter: t });
+  const i = we(e, Oi, { skipFooter: t });
   if (i)
     return i.focus(), !0;
-  const r = we(e, Ai, { skipFooter: t });
+  const r = we(e, Vi, { skipFooter: t });
   return r ? (r.focus(), !0) : !1;
 }
-function $i(e) {
+function Hi(e) {
   if (!e) return !1;
   const t = e.querySelector("[data-primary-field]");
   if (t && xe(t))
     return !0;
-  for (const i of Di(e))
+  for (const i of Mi(e))
     if (xe(i, { skipFooter: i === e }))
       return !0;
   return !1;
 }
-const Ri = se("ui-dialog"), Bi = ["solid", "dashed", "dotted", "double"], _e = {
+const ji = se("ui-dialog"), Wi = ["solid", "dashed", "dotted", "double"], _e = {
   solid: "border-solid",
   dashed: "border-dashed",
   dotted: "border-dotted",
   double: "border-double"
-}, Pi = ["solid", "regular", "brands", "light", "duotone", "thin"], Ei = ["sm", "md", "lg", "xl", "2xl", "3xl", "4xl", "5xl"], Ce = {
+}, Yi = ["solid", "regular", "brands", "light", "duotone", "thin"], Ki = ["sm", "md", "lg", "xl", "2xl", "3xl", "4xl", "5xl"], Ce = {
   sm: "ui-dialog-panel--max-sm",
   md: "ui-dialog-panel--max-md",
   lg: "ui-dialog-panel--max-lg",
@@ -1559,7 +1753,7 @@ const Ri = se("ui-dialog"), Bi = ["solid", "dashed", "dotted", "double"], _e = {
   "3xl": "ui-dialog-panel--max-3xl",
   "4xl": "ui-dialog-panel--max-4xl",
   "5xl": "ui-dialog-panel--max-5xl"
-}, Oi = {
+}, qi = {
   name: "Dialog",
   components: { Divider: Ge },
   inheritAttrs: !1,
@@ -1581,7 +1775,7 @@ const Ri = se("ui-dialog"), Bi = ["solid", "dashed", "dotted", "double"], _e = {
     maxWidth: {
       type: String,
       default: "lg",
-      validator: (e) => Ei.includes(e)
+      validator: (e) => Ki.includes(e)
     },
     /** Dış çerçeve (1px `border-border`) — `ui-card` ile aynı. */
     border: {
@@ -1592,7 +1786,7 @@ const Ri = se("ui-dialog"), Bi = ["solid", "dashed", "dotted", "double"], _e = {
     borderType: {
       type: String,
       default: "solid",
-      validator: (e) => Bi.includes(e)
+      validator: (e) => Wi.includes(e)
     },
     title: {
       type: String,
@@ -1611,7 +1805,7 @@ const Ri = se("ui-dialog"), Bi = ["solid", "dashed", "dotted", "double"], _e = {
     iconType: {
       type: String,
       default: "light",
-      validator: (e) => Pi.includes(e)
+      validator: (e) => Yi.includes(e)
     },
     /** Sağ üst kapat düğmesi. */
     showClose: {
@@ -1675,7 +1869,7 @@ const Ri = se("ui-dialog"), Bi = ["solid", "dashed", "dotted", "double"], _e = {
   },
   emits: ["update:open", "after-leave"],
   data() {
-    const e = Ri();
+    const e = ji();
     return {
       titleId: `ui-dialog-title-${e}`,
       descriptionId: `ui-dialog-desc-${e}`,
@@ -1725,7 +1919,7 @@ const Ri = se("ui-dialog"), Bi = ["solid", "dashed", "dotted", "double"], _e = {
         return { maxHeight: this.panelMaxHeight };
     },
     passthroughAttrs() {
-      return Ue(this.$attrs, ["class"]);
+      return Ze(this.$attrs, ["class"]);
     },
     ariaLabelledby() {
       if (this.title != null && this.title !== "")
@@ -1781,8 +1975,9 @@ const Ri = se("ui-dialog"), Bi = ["solid", "dashed", "dotted", "double"], _e = {
     },
     focusInitialField() {
       var t;
+      if (U()) return;
       const e = this.$refs.panelRef;
-      e && $i(e) || (t = e == null ? void 0 : e.focus) == null || t.call(e);
+      e && Hi(e) || (t = e == null ? void 0 : e.focus) == null || t.call(e);
     },
     close() {
       this.open && this.$emit("update:open", !1);
@@ -1799,18 +1994,18 @@ const Ri = se("ui-dialog"), Bi = ["solid", "dashed", "dotted", "double"], _e = {
       e && (e.style.transform = "", e.style.transition = "");
     },
     onSheetPointerDown(e) {
-      if (!re() || e.button !== 0) return;
+      if (!U() || e.button !== 0) return;
       const t = this.$refs.panelRef;
       if (!t) return;
       e.preventDefault(), this.teardownSheetDrag();
       const i = e.clientY, r = t.style.transition;
       t.style.transition = "none";
-      const a = (u) => {
-        const d = Math.max(0, u.clientY - i);
-        t.style.transform = `translateY(${d}px)`;
-      }, n = (u) => {
-        const d = Math.max(0, u.clientY - i);
-        t.style.transition = r, t.style.transform = "", d >= 72 && this.close(), this.teardownSheetDrag();
+      const a = (d) => {
+        const o = Math.max(0, d.clientY - i);
+        t.style.transform = `translateY(${o}px)`;
+      }, n = (d) => {
+        const o = Math.max(0, d.clientY - i);
+        t.style.transition = r, t.style.transform = "", o >= 72 && this.close(), this.teardownSheetDrag();
       }, s = () => {
         t.style.transition = r, t.style.transform = "", this.teardownSheetDrag();
       };
@@ -1819,36 +2014,36 @@ const Ri = se("ui-dialog"), Bi = ["solid", "dashed", "dotted", "double"], _e = {
       };
     }
   }
-}, Vi = ["aria-labelledby", "aria-describedby", "aria-label"], Ni = {
+}, Gi = ["aria-labelledby", "aria-describedby", "aria-label"], Qi = {
   key: 0,
   class: "ui-card-header shrink-0"
-}, Mi = {
+}, Ui = {
   key: 0,
   class: "ui-dialog-header__icon"
-}, Hi = ["id"], ji = {
+}, Zi = ["id"], Xi = {
   key: 2,
   class: "ui-dialog-header__actions"
-}, Wi = ["id"], Yi = {
+}, Ji = ["id"], en = {
   key: 1,
   class: "ui-card-toolbar shrink-0"
-}, Ki = {
+}, tn = {
   key: 4,
   class: "ui-card-footer"
 };
-function qi(e, t, i, r, a, n) {
-  const s = v("ui-icon"), u = v("ui-button"), d = v("Divider");
-  return l(), _(Q, { to: "body" }, [
-    g(q, {
+function nn(e, t, i, r, a, n) {
+  const s = k("ui-icon"), d = k("ui-button"), o = k("Divider");
+  return l(), x(Z, { to: "body" }, [
+    p(q, {
       name: "ui-overlay-dialog",
       appear: "",
       onAfterEnter: n.onOverlayAfterEnter,
       onAfterLeave: n.onOverlayAfterLeave
     }, {
-      default: w(() => [
-        i.open ? (l(), o("div", {
+      default: S(() => [
+        i.open ? (l(), u("div", {
           key: 0,
           ref: "layerRef",
-          class: b(n.rootLayerClasses),
+          class: v(n.rootLayerClasses),
           tabindex: "-1",
           role: "presentation",
           onKeydown: t[3] || (t[3] = (...c) => n.onLayerKeydown && n.onLayerKeydown(...c))
@@ -1869,7 +2064,7 @@ function qi(e, t, i, r, a, n) {
             "aria-describedby": n.ariaDescribedby,
             "aria-label": n.ariaLabelAttr
           }, n.passthroughAttrs, {
-            onClick: t[2] || (t[2] = D(() => {
+            onClick: t[2] || (t[2] = A(() => {
             }, ["stop"]))
           }), [
             f("div", {
@@ -1881,29 +2076,29 @@ function qi(e, t, i, r, a, n) {
                 "aria-hidden": "true"
               }, null, -1)
             ])], 32),
-            n.hasHeaderBlock ? (l(), o("div", Ni, [
+            n.hasHeaderBlock ? (l(), u("div", Qi, [
               m(e.$slots, "header", {}, () => [
-                n.hasDefaultHeader ? (l(), o("div", {
+                n.hasDefaultHeader ? (l(), u("div", {
                   key: 0,
-                  class: b(["ui-dialog-header", { "ui-dialog-header--no-icon": !i.icon }])
+                  class: v(["ui-dialog-header", { "ui-dialog-header--no-icon": !i.icon }])
                 }, [
-                  i.icon ? (l(), o("span", Mi, [
-                    g(s, {
+                  i.icon ? (l(), u("span", Ui, [
+                    p(s, {
                       name: i.icon,
                       type: i.iconType,
                       size: "sm"
                     }, null, 8, ["name", "type"])
                   ])) : h("", !0),
-                  i.title ? (l(), o("h3", {
+                  i.title ? (l(), u("h3", {
                     key: 1,
                     id: a.titleId,
                     class: "ui-dialog-header__title ui-heading-3"
-                  }, k(i.title), 9, Hi)) : h("", !0),
-                  e.$slots.append || e.$slots.actions ? (l(), o("div", ji, [
+                  }, b(i.title), 9, Zi)) : h("", !0),
+                  e.$slots.append || e.$slots.actions ? (l(), u("div", Xi, [
                     m(e.$slots, "append"),
                     m(e.$slots, "actions")
                   ])) : h("", !0),
-                  i.showClose ? (l(), _(u, {
+                  i.showClose ? (l(), x(d, {
                     key: 3,
                     type: "button",
                     variant: "solid",
@@ -1914,25 +2109,25 @@ function qi(e, t, i, r, a, n) {
                     "aria-label": n.resolvedCloseLabel,
                     onClick: n.close
                   }, null, 8, ["aria-label", "onClick"])) : h("", !0),
-                  i.description ? (l(), o("p", {
+                  i.description ? (l(), u("p", {
                     key: 4,
                     id: a.descriptionId,
                     class: "ui-dialog-header__description ui-text-default"
-                  }, k(i.description), 9, Wi)) : h("", !0)
+                  }, b(i.description), 9, Ji)) : h("", !0)
                 ], 2)) : h("", !0)
               ])
             ])) : h("", !0),
-            e.$slots.toolbar ? (l(), o("div", Yi, [
+            e.$slots.toolbar ? (l(), u("div", en, [
               m(e.$slots, "toolbar")
             ])) : h("", !0),
-            n.showHeaderDivider ? (l(), _(d, {
+            n.showHeaderDivider ? (l(), x(o, {
               key: 2,
               spacing: "none",
               class: "!my-0 shrink-0"
             })) : h("", !0),
-            e.$slots.default ? (l(), o("div", {
+            e.$slots.default ? (l(), u("div", {
               key: 3,
-              class: b(["ui-card-body ui-text-default", {
+              class: v(["ui-card-body ui-text-default", {
                 "ui-card-body--row": i.row,
                 "ui-card-body--flush": i.bodyPadding === "none",
                 "ui-card-body--flex": i.bodyLayout === "flex"
@@ -1940,21 +2135,21 @@ function qi(e, t, i, r, a, n) {
             }, [
               m(e.$slots, "default")
             ], 2)) : h("", !0),
-            e.$slots.footer ? (l(), o("div", Ki, [
+            e.$slots.footer ? (l(), u("div", tn, [
               m(e.$slots, "footer")
             ])) : h("", !0)
-          ], 16, Vi)
+          ], 16, Gi)
         ], 34)) : h("", !0)
       ]),
       _: 3
     }, 8, ["onAfterEnter", "onAfterLeave"])
   ]);
 }
-const Ss = /* @__PURE__ */ x(Oi, [["render", qi]]), Gi = ["solid", "regular", "brands", "light", "duotone", "thin"], Ui = ["sm", "md", "lg"], Qi = {
+const Rs = /* @__PURE__ */ _(qi, [["render", nn]]), rn = ["solid", "regular", "brands", "light", "duotone", "thin"], sn = ["sm", "md", "lg"], an = {
   sm: "sm",
   md: "md",
   lg: "lg"
-}, Zi = {
+}, ln = {
   name: "Empty",
   inheritAttrs: !1,
   props: {
@@ -1975,18 +2170,18 @@ const Ss = /* @__PURE__ */ x(Oi, [["render", qi]]), Gi = ["solid", "regular", "b
     iconType: {
       type: String,
       default: "light",
-      validator: (e) => Gi.includes(e)
+      validator: (e) => rn.includes(e)
     },
     /** `sm` | `md` | `lg` — padding, ikon kutusu, başlık ve açıklama ölçeği */
     size: {
       type: String,
       default: "md",
-      validator: (e) => Ui.includes(e)
+      validator: (e) => sn.includes(e)
     }
   },
   computed: {
     iconSize() {
-      return Qi[this.size] ?? "md";
+      return an[this.size] ?? "md";
     },
     resolvedIcon() {
       return this.icon == null || this.icon === "" ? null : this.icon;
@@ -1999,39 +2194,39 @@ const Ss = /* @__PURE__ */ x(Oi, [["render", qi]]), Gi = ["solid", "regular", "b
       return t;
     }
   }
-}, Xi = {
+}, on = {
   key: 0,
   class: "ui-empty-icon"
-}, Ji = {
+}, un = {
   key: 1,
   class: "ui-empty-title"
-}, en = {
+}, dn = {
   key: 2,
   class: "ui-empty-description ui-text-default"
-}, tn = {
+}, cn = {
   key: 3,
   class: "ui-empty-actions"
 };
-function nn(e, t, i, r, a, n) {
-  const s = v("ui-icon");
-  return l(), o("div", I({ class: n.rootClass }, n.passthroughAttrs), [
-    n.resolvedIcon ? (l(), o("div", Xi, [
-      g(s, {
+function fn(e, t, i, r, a, n) {
+  const s = k("ui-icon");
+  return l(), u("div", I({ class: n.rootClass }, n.passthroughAttrs), [
+    n.resolvedIcon ? (l(), u("div", on, [
+      p(s, {
         name: n.resolvedIcon,
         type: i.iconType,
         size: n.iconSize
       }, null, 8, ["name", "type", "size"])
     ])) : h("", !0),
-    i.title ? (l(), o("h2", Ji, k(i.title), 1)) : h("", !0),
-    i.description ? (l(), o("p", en, k(i.description), 1)) : h("", !0),
-    e.$slots.default ? (l(), o("div", tn, [
+    i.title ? (l(), u("h2", un, b(i.title), 1)) : h("", !0),
+    i.description ? (l(), u("p", dn, b(i.description), 1)) : h("", !0),
+    e.$slots.default ? (l(), u("div", cn, [
       m(e.$slots, "default")
     ])) : h("", !0)
   ], 16);
 }
-const ws = /* @__PURE__ */ x(Zi, [["render", nn]]);
+const Bs = /* @__PURE__ */ _(ln, [["render", fn]]);
 let Te = 0;
-const rn = ["vertical", "horizontal"], sn = ["default", "card"], an = {
+const hn = ["vertical", "horizontal"], mn = ["default", "card"], pn = {
   name: "FormRow",
   inheritAttrs: !1,
   props: {
@@ -2050,7 +2245,7 @@ const rn = ["vertical", "horizontal"], sn = ["default", "card"], an = {
     direction: {
       type: String,
       default: "vertical",
-      validator: (e) => rn.includes(e)
+      validator: (e) => hn.includes(e)
     },
     /**
      * `default`: mevcut `direction` düzeni.
@@ -2059,7 +2254,7 @@ const rn = ["vertical", "horizontal"], sn = ["default", "card"], an = {
     variant: {
       type: String,
       default: "default",
-      validator: (e) => sn.includes(e)
+      validator: (e) => mn.includes(e)
     },
     /** Dışarıdan sabit id vermek için (ör. test); verilmezse otomatik üretilir. */
     id: {
@@ -2103,59 +2298,59 @@ const rn = ["vertical", "horizontal"], sn = ["default", "card"], an = {
       return !this.label && this.$slots.action ? `${e} ui-form-row-label-line--action-only` : e;
     }
   }
-}, ln = ["data-primary-field"], on = {
+}, gn = ["data-primary-field"], bn = {
   key: 0,
   class: "ui-form-row-text"
-}, un = ["for"], dn = {
+}, yn = ["for"], vn = {
   key: 1,
   class: "ui-form-row-action shrink-0"
-}, cn = ["id"], fn = { class: "ui-form-row-control" };
-function hn(e, t, i, r, a, n) {
-  return l(), o("div", I({
+}, kn = ["id"], Sn = { class: "ui-form-row-control" };
+function wn(e, t, i, r, a, n) {
+  return l(), u("div", I({
     class: ["ui-form-row", n.rootLayoutClass],
     "data-primary-field": i.primary ? "" : void 0
   }, e.$attrs), [
-    n.hasTextBlock ? (l(), o("div", on, [
-      i.label || e.$slots.action ? (l(), o("div", {
+    n.hasTextBlock ? (l(), u("div", bn, [
+      i.label || e.$slots.action ? (l(), u("div", {
         key: 0,
-        class: b(n.labelLineClass)
+        class: v(n.labelLineClass)
       }, [
-        i.label ? (l(), o("label", {
+        i.label ? (l(), u("label", {
           key: 0,
           class: "ui-form-label min-w-0",
           for: n.controlId
-        }, k(i.label), 9, un)) : h("", !0),
-        e.$slots.action ? (l(), o("div", dn, [
+        }, b(i.label), 9, yn)) : h("", !0),
+        e.$slots.action ? (l(), u("div", vn, [
           m(e.$slots, "action")
         ])) : h("", !0)
       ], 2)) : h("", !0),
-      i.description ? (l(), o("p", {
+      i.description ? (l(), u("p", {
         key: 1,
         id: n.descriptionId,
         class: "ui-text-default"
-      }, k(i.description), 9, cn)) : h("", !0)
+      }, b(i.description), 9, kn)) : h("", !0)
     ])) : h("", !0),
-    f("div", fn, [
+    f("div", Sn, [
       m(e.$slots, "default", {
         controlId: n.controlId,
         descriptionId: n.descriptionId
       })
     ])
-  ], 16, ln);
+  ], 16, gn);
 }
-const xs = /* @__PURE__ */ x(an, [["render", hn]]), mn = ["solid", "regular", "brands", "light", "duotone", "thin"], Ie = {
+const Ps = /* @__PURE__ */ _(pn, [["render", wn]]), xn = ["solid", "regular", "brands", "light", "duotone", "thin"], Ie = {
   solid: "fa-solid",
   regular: "fa-regular",
   brands: "fa-brands",
   light: "fa-light",
   duotone: "fa-duotone",
   thin: "fa-thin"
-}, pn = ["xs", "sm", "md", "lg"], gn = {
+}, _n = ["xs", "sm", "md", "lg"], Cn = {
   xs: "text-xs leading-none",
   sm: "text-sm leading-none",
   md: "text-base leading-none",
   lg: "text-lg leading-none"
-}, bn = {
+}, Tn = {
   name: "Icon",
   inheritAttrs: !1,
   props: {
@@ -2168,13 +2363,13 @@ const xs = /* @__PURE__ */ x(an, [["render", hn]]), mn = ["solid", "regular", "b
     type: {
       type: String,
       default: "light",
-      validator: (e) => mn.includes(e)
+      validator: (e) => xn.includes(e)
     },
     /** Visual size (maps to Tailwind `text-*`). */
     size: {
       type: String,
       default: "md",
-      validator: (e) => pn.includes(e)
+      validator: (e) => _n.includes(e)
     },
     /**
      * true: `aria-label` i18n `ui.icon.accessible` ile, `role="img"`.
@@ -2191,10 +2386,10 @@ const xs = /* @__PURE__ */ x(an, [["render", hn]]), mn = ["solid", "regular", "b
     },
     iconClass() {
       return T(
-        "ui-icon fa not-italic inline-block shrink-0",
+        "ui-icon fa not-italic inline-flex shrink-0 items-center justify-center leading-none",
         this.faWeightClass,
         this.name ? `fa-${this.name}` : "",
-        gn[this.size],
+        Cn[this.size],
         this.$attrs.class
       );
     },
@@ -2211,10 +2406,10 @@ const xs = /* @__PURE__ */ x(an, [["render", hn]]), mn = ["solid", "regular", "b
     }
   }
 };
-function yn(e, t, i, r, a, n) {
-  return l(), o("i", I({ class: n.iconClass }, n.rootAttrs), null, 16);
+function In(e, t, i, r, a, n) {
+  return l(), u("i", I({ class: n.iconClass }, n.rootAttrs), null, 16);
 }
-const _s = /* @__PURE__ */ x(bn, [["render", yn]]), vn = se("ui-input"), kn = ["sm", "md", "lg"], Sn = {
+const $s = /* @__PURE__ */ _(Tn, [["render", In]]), Ln = se("ui-input"), zn = ["sm", "md", "lg"], An = ["default", "plain"], Dn = {
   name: "Input",
   inheritAttrs: !1,
   inject: {
@@ -2223,11 +2418,17 @@ const _s = /* @__PURE__ */ x(bn, [["render", yn]]), vn = se("ui-input"), kn = ["
     }
   },
   props: {
+    /** `default` dolgulu kabuk; `plain` border/fill yok (inline düzenleme). */
+    variant: {
+      type: String,
+      default: "default",
+      validator: (e) => An.includes(e)
+    },
     /** `sm` 32px, `md` 36px (varsayılan), `lg` 44px — select / segment ile hizalı */
     size: {
       type: String,
       default: "md",
-      validator: (e) => kn.includes(e)
+      validator: (e) => zn.includes(e)
     },
     /** `v-model` */
     modelValue: {
@@ -2287,7 +2488,7 @@ const _s = /* @__PURE__ */ x(bn, [["render", yn]]), vn = se("ui-input"), kn = ["
   },
   emits: ["update:modelValue", "input", "change", "focus", "blur"],
   data() {
-    return { fallbackId: vn() };
+    return { fallbackId: Ln() };
   },
   computed: {
     resolvedSize() {
@@ -2297,6 +2498,7 @@ const _s = /* @__PURE__ */ x(bn, [["render", yn]]), vn = se("ui-input"), kn = ["
     rootClass() {
       return T(
         "ui-input",
+        this.variant === "plain" && "ui-input--plain",
         this.multiline && "ui-input--multiline",
         this.resolvedSize !== "md" && `ui-input--${this.resolvedSize}`,
         this.isDisabled && "pointer-events-none opacity-50"
@@ -2309,7 +2511,7 @@ const _s = /* @__PURE__ */ x(bn, [["render", yn]]), vn = se("ui-input"), kn = ["
       return this.id != null && this.id !== "" ? this.id : this.fallbackId;
     },
     passthroughAttrs() {
-      return Ue(this.$attrs, [
+      return Ze(this.$attrs, [
         "class",
         "style",
         "type",
@@ -2328,38 +2530,42 @@ const _s = /* @__PURE__ */ x(bn, [["render", yn]]), vn = se("ui-input"), kn = ["
   methods: {
     onInput(e) {
       this.$emit("update:modelValue", e.target.value), this.$emit("input", e);
+    },
+    focus() {
+      var e, t;
+      (t = (e = this.$refs.field) == null ? void 0 : e.focus) == null || t.call(e);
     }
   }
-}, wn = {
+}, Fn = {
   key: 0,
   class: "ui-text-default flex shrink-0 items-center"
-}, xn = {
+}, Rn = {
   key: 1,
   class: "inline-flex shrink-0 items-center text-muted-foreground",
   "aria-hidden": "true"
-}, _n = ["id", "value", "rows", "disabled", "readonly", "placeholder", "name", "autocomplete", "maxlength"], Cn = ["id", "type", "value", "disabled", "readonly", "placeholder", "name", "autocomplete", "maxlength"], Tn = {
+}, Bn = ["id", "value", "rows", "disabled", "readonly", "placeholder", "name", "autocomplete", "maxlength"], Pn = ["id", "type", "value", "disabled", "readonly", "placeholder", "name", "autocomplete", "maxlength"], $n = {
   key: 4,
   class: "inline-flex shrink-0 items-center text-muted-foreground",
   "aria-hidden": "true"
-}, In = {
+}, En = {
   key: 5,
   class: "ui-text-default flex shrink-0 items-center"
 };
-function zn(e, t, i, r, a, n) {
-  const s = v("ui-icon");
-  return l(), o("div", {
-    class: b([n.rootClass, e.$attrs.class])
+function On(e, t, i, r, a, n) {
+  const s = k("ui-icon");
+  return l(), u("div", {
+    class: v([n.rootClass, e.$attrs.class])
   }, [
-    e.$slots.prepend ? (l(), o("div", wn, [
+    e.$slots.prepend ? (l(), u("div", Fn, [
       m(e.$slots, "prepend")
     ])) : h("", !0),
-    i.prefixIcon ? (l(), o("span", xn, [
-      g(s, {
+    i.prefixIcon ? (l(), u("span", Rn, [
+      p(s, {
         name: i.prefixIcon,
         size: "xs"
       }, null, 8, ["name"])
     ])) : h("", !0),
-    i.multiline ? (l(), o("textarea", I({
+    i.multiline ? (l(), u("textarea", I({
       key: 2,
       id: n.resolvedId,
       ref: "field",
@@ -2373,11 +2579,11 @@ function zn(e, t, i, r, a, n) {
       autocomplete: i.autocomplete,
       maxlength: i.maxlength
     }, n.passthroughAttrs, {
-      onInput: t[0] || (t[0] = (...u) => n.onInput && n.onInput(...u)),
-      onChange: t[1] || (t[1] = (u) => e.$emit("change", u)),
-      onFocus: t[2] || (t[2] = (u) => e.$emit("focus", u)),
-      onBlur: t[3] || (t[3] = (u) => e.$emit("blur", u))
-    }), null, 16, _n)) : (l(), o("input", I({
+      onInput: t[0] || (t[0] = (...d) => n.onInput && n.onInput(...d)),
+      onChange: t[1] || (t[1] = (d) => e.$emit("change", d)),
+      onFocus: t[2] || (t[2] = (d) => e.$emit("focus", d)),
+      onBlur: t[3] || (t[3] = (d) => e.$emit("blur", d))
+    }), null, 16, Bn)) : (l(), u("input", I({
       key: 3,
       id: n.resolvedId,
       ref: "field",
@@ -2391,30 +2597,30 @@ function zn(e, t, i, r, a, n) {
       autocomplete: i.autocomplete,
       maxlength: i.maxlength
     }, n.passthroughAttrs, {
-      onInput: t[4] || (t[4] = (...u) => n.onInput && n.onInput(...u)),
-      onChange: t[5] || (t[5] = (u) => e.$emit("change", u)),
-      onFocus: t[6] || (t[6] = (u) => e.$emit("focus", u)),
-      onBlur: t[7] || (t[7] = (u) => e.$emit("blur", u))
-    }), null, 16, Cn)),
-    i.suffixIcon ? (l(), o("span", Tn, [
-      g(s, {
+      onInput: t[4] || (t[4] = (...d) => n.onInput && n.onInput(...d)),
+      onChange: t[5] || (t[5] = (d) => e.$emit("change", d)),
+      onFocus: t[6] || (t[6] = (d) => e.$emit("focus", d)),
+      onBlur: t[7] || (t[7] = (d) => e.$emit("blur", d))
+    }), null, 16, Pn)),
+    i.suffixIcon ? (l(), u("span", $n, [
+      p(s, {
         name: i.suffixIcon,
         size: "xs"
       }, null, 8, ["name"])
     ])) : h("", !0),
-    e.$slots.append ? (l(), o("div", In, [
+    e.$slots.append ? (l(), u("div", En, [
       m(e.$slots, "append")
     ])) : h("", !0)
   ], 2);
 }
-const Cs = /* @__PURE__ */ x(Sn, [["render", zn]]);
-let ze = 0;
-const Ln = ["sm", "md", "lg"], Le = [
+const Es = /* @__PURE__ */ _(Dn, [["render", On]]);
+let Le = 0;
+const Vn = ["sm", "md", "lg"], ze = [
   { value: "+90", label: "+90" },
   { value: "+1", label: "+1" },
   { value: "+44", label: "+44" },
   { value: "+49", label: "+49" }
-], An = {
+], Nn = {
   name: "Phone",
   inheritAttrs: !1,
   props: {
@@ -2428,12 +2634,12 @@ const Ln = ["sm", "md", "lg"], Le = [
     },
     countries: {
       type: Array,
-      default: () => Le
+      default: () => ze
     },
     size: {
       type: String,
       default: "md",
-      validator: (e) => Ln.includes(e)
+      validator: (e) => Vn.includes(e)
     },
     disabled: {
       type: Boolean,
@@ -2474,12 +2680,12 @@ const Ln = ["sm", "md", "lg"], Le = [
   },
   emits: ["update:country", "update:number", "focus", "blur"],
   data() {
-    return ze += 1, { fallbackId: `ui-phone-number-${ze}` };
+    return Le += 1, { fallbackId: `ui-phone-number-${Le}` };
   },
   computed: {
     countryOptions() {
       var e;
-      return (e = this.countries) != null && e.length ? this.countries : Le;
+      return (e = this.countries) != null && e.length ? this.countries : ze;
     },
     isSingleCountry() {
       return this.countryOptions.length === 1;
@@ -2526,16 +2732,16 @@ const Ln = ["sm", "md", "lg"], Le = [
       return t;
     }
   }
-}, Fn = { class: "ui-phone-prepend" }, Dn = {
+}, Mn = { class: "ui-phone-prepend" }, Hn = {
   key: 0,
   class: "ui-phone-country-static"
 };
-function $n(e, t, i, r, a, n) {
-  const s = v("ui-icon"), u = v("ui-select"), d = v("ui-input");
-  return l(), o("div", {
-    class: b(n.rootClass)
+function jn(e, t, i, r, a, n) {
+  const s = k("ui-icon"), d = k("ui-select"), o = k("ui-input");
+  return l(), u("div", {
+    class: v(n.rootClass)
   }, [
-    g(d, I({
+    p(o, I({
       id: n.resolvedNumberId,
       modelValue: n.innerNumber,
       "onUpdate:modelValue": t[1] || (t[1] = (c) => n.innerNumber = c),
@@ -2554,15 +2760,15 @@ function $n(e, t, i, r, a, n) {
       onFocus: t[2] || (t[2] = (c) => e.$emit("focus", c)),
       onBlur: t[3] || (t[3] = (c) => e.$emit("blur", c))
     }), {
-      prepend: w(() => [
-        f("div", Fn, [
-          g(s, {
+      prepend: S(() => [
+        f("div", Mn, [
+          p(s, {
             name: "phone",
             size: "xs",
             class: "text-muted-foreground",
             "aria-hidden": "true"
           }),
-          n.isSingleCountry ? (l(), o("span", Dn, k(n.innerCountry), 1)) : (l(), _(u, {
+          n.isSingleCountry ? (l(), u("span", Hn, b(n.innerCountry), 1)) : (l(), x(d, {
             key: 1,
             modelValue: n.innerCountry,
             "onUpdate:modelValue": t[0] || (t[0] = (c) => n.innerCountry = c),
@@ -2578,7 +2784,7 @@ function $n(e, t, i, r, a, n) {
     }, 16, ["id", "modelValue", "size", "disabled", "readonly", "placeholder", "name", "autocomplete", "maxlength", "aria-describedby"])
   ], 2);
 }
-const Ts = /* @__PURE__ */ x(An, [["render", $n]]), Rn = [
+const Os = /* @__PURE__ */ _(Nn, [["render", jn]]), Wn = [
   "bottom-start",
   "bottom-end",
   "bottom",
@@ -2588,12 +2794,12 @@ const Ts = /* @__PURE__ */ x(An, [["render", $n]]), Rn = [
   "left-end",
   "top-start",
   "top-end"
-], Ae = 10, ee = 410, Bn = [
+], Ae = 10, te = 410, Yn = [
   ".ui-select-listbox",
   ".ui-datepicker-panel",
   ".ui-daterangepicker-panel",
   ".ui-timepicker-panel"
-], Pn = {
+], Kn = {
   name: "Popover",
   inheritAttrs: !1,
   props: {
@@ -2605,7 +2811,7 @@ const Ts = /* @__PURE__ */ x(An, [["render", $n]]), Rn = [
     placement: {
       type: String,
       default: "bottom-start",
-      validator: (e) => Rn.includes(e)
+      validator: (e) => Wn.includes(e)
     },
     /** Tetikleyici ile aynı minimum genişlik */
     matchTriggerWidth: {
@@ -2660,6 +2866,14 @@ const Ts = /* @__PURE__ */ x(An, [["render", $n]]), Rn = [
       default: !1
     },
     /**
+     * true: kök ve tetikleyici kabuğu `display: contents` — flex satırında yalnızca slot
+     * (ör. `ui-tab-trigger`) katılır; konumlandırma ilk çocuk öğeden alınır.
+     */
+    inheritLayout: {
+      type: Boolean,
+      default: !1
+    },
+    /**
      * Mobil görünümde paneli ekran ortasında aç (varsayılan).
      * false: tetikleyiciye göre konumlanır (Dropdown menüler).
      */
@@ -2672,7 +2886,7 @@ const Ts = /* @__PURE__ */ x(An, [["render", $n]]), Rn = [
   data() {
     return {
       layerStyle: {},
-      layerZIndex: ee,
+      layerZIndex: te,
       rafId: 0,
       mobileCenteredActive: !1
     };
@@ -2685,10 +2899,10 @@ const Ts = /* @__PURE__ */ x(An, [["render", $n]]), Rn = [
       return { zIndex: String(this.layerZIndex) };
     },
     rootShellClass() {
-      return this.block ? "ui-popover ui-popover--block relative w-full min-w-0 max-w-full" : "ui-popover relative shrink-0";
+      return this.inheritLayout ? "ui-popover ui-popover--inherit-layout" : this.block ? "ui-popover ui-popover--block relative w-full min-w-0 max-w-full" : "ui-popover relative shrink-0";
     },
     triggerShellClass() {
-      return this.block ? "ui-popover-trigger ui-popover-trigger--block flex w-full min-w-0 max-w-full" : "ui-popover-trigger inline-flex shrink-0";
+      return this.inheritLayout ? "ui-popover-trigger ui-popover-trigger--inherit-layout" : this.block ? "ui-popover-trigger ui-popover-trigger--block flex w-full min-w-0 max-w-full" : "ui-popover-trigger inline-flex shrink-0";
     },
     resolvedWidth() {
       const e = this.width;
@@ -2731,8 +2945,8 @@ const Ts = /* @__PURE__ */ x(An, [["render", $n]]), Rn = [
       });
     },
     resolveLayerZIndex() {
-      if (typeof document > "u") return ee;
-      let e = ee;
+      if (typeof document > "u") return te;
+      let e = te;
       for (const t of document.querySelectorAll(".ui-dialog-root")) {
         const i = Number.parseInt(getComputedStyle(t).zIndex, 10);
         Number.isFinite(i) && (e = Math.max(e, i + 10));
@@ -2746,84 +2960,88 @@ const Ts = /* @__PURE__ */ x(An, [["render", $n]]), Rn = [
         zIndex: String(t)
       };
     },
+    resolveTriggerEl() {
+      const e = this.$refs.triggerRef;
+      return e ? this.inheritLayout && e.firstElementChild instanceof HTMLElement ? e.firstElementChild : e : null;
+    },
     updatePosition() {
-      const e = this.$refs.triggerRef, t = this.$refs.panelRef;
+      const e = this.resolveTriggerEl(), t = this.$refs.panelRef;
       if (!e || !t) return;
-      const i = window.innerWidth, r = window.innerHeight, a = Ae, n = this.resolvedWidth, s = e.getBoundingClientRect(), u = n != null ? t.offsetWidth || 200 : t.offsetWidth || (this.matchTriggerWidth ? s.width : 200), d = t.offsetHeight || 120;
-      if (re() && this.mobileCentered) {
+      const i = window.innerWidth, r = window.innerHeight, a = Ae, n = this.resolvedWidth, s = e.getBoundingClientRect(), d = n != null ? t.offsetWidth || 200 : t.offsetWidth || (this.matchTriggerWidth ? s.width : 200), o = t.offsetHeight || 120;
+      if (U() && this.mobileCentered) {
         this.mobileCenteredActive = !0;
-        const y = Math.max(a, Math.round((i - u) / 2)), A = {
-          top: `${Math.max(a, Math.round((r - d) / 2))}px`,
+        const y = Math.max(a, Math.round((i - d) / 2)), C = {
+          top: `${Math.max(a, Math.round((r - o) / 2))}px`,
           left: `${y}px`
         };
-        n != null ? (A.width = n, A.minWidth = n) : (A.width = `${Math.min(u, i - a * 2)}px`, A.maxWidth = `calc(100vw - ${a * 2}px)`), this.layerStyle = this.withLayerZIndex(A);
+        n != null ? (C.width = n, C.minWidth = n) : (C.width = `${Math.min(d, i - a * 2)}px`, C.maxWidth = `calc(100vw - ${a * 2}px)`), this.layerStyle = this.withLayerZIndex(C);
         return;
       }
       this.mobileCenteredActive = !1;
-      let c, p;
+      let c, g;
       switch (this.placement) {
         case "right-start":
-          c = s.top, p = s.right + a;
+          c = s.top, g = s.right + a;
           break;
         case "right-end":
-          c = s.bottom - d, p = s.right + a;
+          c = s.bottom - o, g = s.right + a;
           break;
         case "left-start":
-          c = s.top, p = s.left - a - u;
+          c = s.top, g = s.left - a - d;
           break;
         case "left-end":
-          c = s.bottom - d, p = s.left - a - u;
+          c = s.bottom - o, g = s.left - a - d;
           break;
         case "top-start":
-          c = s.top - a - d, p = s.left;
+          c = s.top - a - o, g = s.left;
           break;
         case "top-end":
-          c = s.top - a - d, p = s.right - u;
+          c = s.top - a - o, g = s.right - d;
           break;
         case "bottom-end":
-          c = s.bottom + a, p = s.right - u;
+          c = s.bottom + a, g = s.right - d;
           break;
         case "bottom":
-          c = s.bottom + a, p = s.left + (s.width - u) / 2;
+          c = s.bottom + a, g = s.left + (s.width - d) / 2;
           break;
         case "bottom-start":
         default:
-          c = s.bottom + a, p = s.left;
+          c = s.bottom + a, g = s.left;
           break;
       }
-      if (this.placement.startsWith("right") && p + u > i - a && (p = s.left - a - u), this.placement.startsWith("left") && p < a && (p = s.right + a), this.placement.startsWith("top") && c < a && (c = s.bottom + a), p + u > i - a && (p = Math.max(a, i - a - u)), p < a && (p = a), this.placement.startsWith("bottom") && c + d > r - a) {
-        const y = s.top - a - d;
+      if (this.placement.startsWith("right") && g + d > i - a && (g = s.left - a - d), this.placement.startsWith("left") && g < a && (g = s.right + a), this.placement.startsWith("top") && c < a && (c = s.bottom + a), g + d > i - a && (g = Math.max(a, i - a - d)), g < a && (g = a), this.placement.startsWith("bottom") && c + o > r - a) {
+        const y = s.top - a - o;
         y >= a && (c = y);
       }
-      (this.placement.startsWith("right") || this.placement.startsWith("left")) && (c + d > r - a && (c = Math.max(a, r - a - d)), c < a && (c = a));
-      const z = this.matchTriggerWidth && n == null ? `${Math.ceil(s.width)}px` : void 0, S = {
+      (this.placement.startsWith("right") || this.placement.startsWith("left")) && (c + o > r - a && (c = Math.max(a, r - a - o)), c < a && (c = a));
+      const L = this.matchTriggerWidth && n == null ? `${Math.ceil(s.width)}px` : void 0, w = {
         top: `${Math.round(c)}px`,
-        left: `${Math.round(p)}px`,
-        minWidth: z
+        left: `${Math.round(g)}px`,
+        minWidth: L
       };
-      n != null && (S.width = n, S.minWidth = n), this.layerStyle = this.withLayerZIndex(S), this.alignSelectedOptionToTrigger && this.$nextTick(() => {
+      n != null && (w.width = n, w.minWidth = n), this.layerStyle = this.withLayerZIndex(w), this.alignSelectedOptionToTrigger && this.$nextTick(() => {
         requestAnimationFrame(() => {
           requestAnimationFrame(() => this.nudgeAlignSelectedToTrigger());
         });
       });
     },
     nudgeAlignSelectedToTrigger() {
-      const e = this.$refs.triggerRef, t = this.$refs.panelRef, i = this.$refs.layerRef;
+      const e = this.resolveTriggerEl(), t = this.$refs.panelRef, i = this.$refs.layerRef;
       if (!e || !t || !i) return;
       const r = t.querySelector('[role="listbox"]');
       if (r && r.scrollHeight > r.clientHeight + 2)
         return;
       const a = t.querySelector('[role="option"][aria-selected="true"]');
       if (!a) return;
-      const n = e.querySelector("[data-popover-align]") || e, s = a.querySelector("[data-popover-align]") || a, u = n.getBoundingClientRect(), d = s.getBoundingClientRect(), c = d.top - u.top, p = d.left - u.left, z = i.getBoundingClientRect(), S = this.layerStyle.top, y = this.layerStyle.left;
-      let C = typeof S == "string" && S !== "" ? parseFloat(S) : z.top, A = typeof y == "string" && y !== "" ? parseFloat(y) : z.left;
-      Number.isNaN(C) && (C = z.top), Number.isNaN(A) && (A = z.left);
-      let B = C - c, P = A - p;
-      const L = Ae, K = window.innerHeight, N = window.innerWidth, H = z.height, j = z.width;
-      B + H > K - L && (B = Math.max(L, K - L - H)), B < L && (B = L), P + j > N - L && (P = Math.max(L, N - L - j)), P < L && (P = L), this.layerStyle = this.withLayerZIndex({
+      const n = e.querySelector("[data-popover-align]") || e, s = a.querySelector("[data-popover-align]") || a, d = n.getBoundingClientRect(), o = s.getBoundingClientRect(), c = o.top - d.top, g = o.left - d.left, L = i.getBoundingClientRect(), w = this.layerStyle.top, y = this.layerStyle.left;
+      let B = typeof w == "string" && w !== "" ? parseFloat(w) : L.top, C = typeof y == "string" && y !== "" ? parseFloat(y) : L.left;
+      Number.isNaN(B) && (B = L.top), Number.isNaN(C) && (C = L.left);
+      let $ = B - c, E = C - g;
+      const z = Ae, K = window.innerHeight, V = window.innerWidth, j = L.height, W = L.width;
+      $ + j > K - z && ($ = Math.max(z, K - z - j)), $ < z && ($ = z), E + W > V - z && (E = Math.max(z, V - z - W)), E < z && (E = z), this.layerStyle = this.withLayerZIndex({
         ...this.layerStyle,
-        top: `${Math.round(B)}px`,
-        left: `${Math.round(P)}px`
+        top: `${Math.round($)}px`,
+        left: `${Math.round(E)}px`
       });
     },
     bindGlobalListeners() {
@@ -2852,7 +3070,7 @@ const Ts = /* @__PURE__ */ x(An, [["render", $n]]), Rn = [
       const t = this.$refs.layerRef, i = e.closest("[data-ui-popover-layer]");
       if (i && i !== t)
         return this.isOpenedInsidePopoverLayer(i) ? this.keepOpenOnAncestorPopoverClick : !0;
-      for (const n of Bn)
+      for (const n of Yn)
         if (e.closest(n)) return !0;
       const r = (a = this.outsideClickIgnoreSelector) == null ? void 0 : a.trim();
       return !!(r && e.closest(r));
@@ -2864,21 +3082,21 @@ const Ts = /* @__PURE__ */ x(An, [["render", $n]]), Rn = [
       e.key === "Escape" && this.close();
     }
   }
-}, En = ["data-popover-align-active", "data-ui-popover-mobile-centered"], On = {
+}, qn = ["data-popover-align-active", "data-ui-popover-mobile-centered"], Gn = {
   key: 0,
   class: "ui-popover-header"
-}, Vn = { class: "ui-popover-body min-h-0 min-w-0" }, Nn = {
+}, Qn = { class: "ui-popover-body min-h-0 min-w-0" }, Un = {
   key: 1,
   class: "ui-popover-footer"
 };
-function Mn(e, t, i, r, a, n) {
-  return l(), o("div", {
+function Zn(e, t, i, r, a, n) {
+  return l(), u("div", {
     ref: "rootRef",
-    class: b([n.rootShellClass, e.$attrs.class])
+    class: v([n.rootShellClass, e.$attrs.class])
   }, [
     f("div", {
       ref: "triggerRef",
-      class: b(n.triggerShellClass)
+      class: v(n.triggerShellClass)
     }, [
       m(e.$slots, "trigger", {
         open: i.open,
@@ -2886,10 +3104,10 @@ function Mn(e, t, i, r, a, n) {
         close: n.close
       })
     ], 2),
-    (l(), _(Q, { to: "body" }, [
-      g(q, { name: "ui-overlay-popover-backdrop" }, {
-        default: w(() => [
-          n.showMobileBackdrop ? (l(), o("div", {
+    (l(), x(Z, { to: "body" }, [
+      p(q, { name: "ui-overlay-popover-backdrop" }, {
+        default: S(() => [
+          n.showMobileBackdrop ? (l(), u("div", {
             key: 0,
             class: "ui-popover-backdrop fixed inset-0 bg-black/50",
             style: G(n.backdropStyle),
@@ -2899,12 +3117,12 @@ function Mn(e, t, i, r, a, n) {
         ]),
         _: 1
       }),
-      g(q, {
+      p(q, {
         name: "ui-overlay-popover",
         onBeforeEnter: n.onPopoverBeforeEnter
       }, {
-        default: w(() => [
-          i.open ? (l(), o("div", {
+        default: S(() => [
+          i.open ? (l(), u("div", {
             key: 0,
             ref: "layerRef",
             class: "ui-popover-layer fixed",
@@ -2920,24 +3138,24 @@ function Mn(e, t, i, r, a, n) {
               tabindex: "-1",
               onKeydown: t[1] || (t[1] = (...s) => n.onPanelKeydown && n.onPanelKeydown(...s))
             }, [
-              e.$slots.header ? (l(), o("div", On, [
+              e.$slots.header ? (l(), u("div", Gn, [
                 m(e.$slots, "header", { close: n.close })
               ])) : h("", !0),
-              f("div", Vn, [
+              f("div", Qn, [
                 m(e.$slots, "content", { close: n.close })
               ]),
-              e.$slots.footer ? (l(), o("div", Nn, [
+              e.$slots.footer ? (l(), u("div", Un, [
                 m(e.$slots, "footer", { close: n.close })
               ])) : h("", !0)
             ], 544)
-          ], 12, En)) : h("", !0)
+          ], 12, qn)) : h("", !0)
         ]),
         _: 3
       }, 8, ["onBeforeEnter"])
     ]))
   ], 2);
 }
-const Is = /* @__PURE__ */ x(Pn, [["render", Mn]]), Hn = {
+const Vs = /* @__PURE__ */ _(Kn, [["render", Zn]]), Xn = {
   name: "Radio",
   inject: {
     uiRadioGroup: {
@@ -2983,14 +3201,14 @@ const Is = /* @__PURE__ */ x(Pn, [["render", Mn]]), Hn = {
       this.uiRadioGroup && this.uiRadioGroup.$emit("update:modelValue", this.value);
     }
   }
-}, jn = ["name", "value", "checked"], Wn = { class: "ui-radio-body" }, Yn = { class: "ui-radio-label" }, Kn = {
+}, Jn = ["name", "value", "checked"], er = { class: "ui-radio-body" }, tr = { class: "ui-radio-label" }, ir = {
   key: 0,
   class: "ui-radio-description"
 };
-function qn(e, t, i, r, a, n) {
+function nr(e, t, i, r, a, n) {
   var s;
-  return l(), o("label", {
-    class: b([
+  return l(), u("label", {
+    class: v([
       "ui-radio",
       `ui-radio--${n.groupVariant}`,
       {
@@ -2998,10 +3216,10 @@ function qn(e, t, i, r, a, n) {
         "ui-radio--highlight": i.highlight && n.isChecked
       }
     ]),
-    onClick: t[1] || (t[1] = (...u) => n.select && n.select(...u)),
+    onClick: t[1] || (t[1] = (...d) => n.select && n.select(...d)),
     onKeydown: [
-      t[2] || (t[2] = U(D((...u) => n.select && n.select(...u), ["prevent"]), ["enter"])),
-      t[3] || (t[3] = U(D((...u) => n.select && n.select(...u), ["prevent"]), ["space"]))
+      t[2] || (t[2] = Q(A((...d) => n.select && n.select(...d), ["prevent"]), ["enter"])),
+      t[3] || (t[3] = Q(A((...d) => n.select && n.select(...d), ["prevent"]), ["space"]))
     ]
   }, [
     f("input", {
@@ -3010,38 +3228,41 @@ function qn(e, t, i, r, a, n) {
       value: n.stringValue,
       checked: n.isChecked,
       class: "sr-only",
-      onChange: t[0] || (t[0] = (...u) => n.select && n.select(...u))
-    }, null, 40, jn),
+      onChange: t[0] || (t[0] = (...d) => n.select && n.select(...d))
+    }, null, 40, Jn),
     t[4] || (t[4] = f("span", {
       class: "ui-radio-indicator",
       "aria-hidden": "true"
     }, null, -1)),
-    f("span", Wn, [
-      f("span", Yn, k(i.label), 1),
-      i.description ? (l(), o("span", Kn, k(i.description), 1)) : h("", !0)
+    f("span", er, [
+      f("span", tr, b(i.label), 1),
+      i.description ? (l(), u("span", ir, b(i.description), 1)) : h("", !0)
     ])
   ], 34);
 }
-const zs = /* @__PURE__ */ x(Hn, [["render", qn]]);
-let Fe = 0;
-const Gn = ["list", "button", "List", "Button"], Un = ["vertical", "horizontal"], Qn = {
+const Ns = /* @__PURE__ */ _(Xn, [["render", nr]]);
+let De = 0;
+const rr = ["list", "button", "List", "Button"], sr = ["vertical", "horizontal"], ar = {
   name: "RadioGroup",
   props: {
     modelValue: {
       type: [String, Number, Boolean],
       default: null
     },
-    /** `list` — satır listesi; `button` — yan yana kart seçenekleri */
+    /** `list` — satır listesi; `button` — kart seçenekleri */
     variant: {
       type: String,
       default: "list",
-      validator: (e) => Gn.includes(e)
+      validator: (e) => rr.includes(e)
     },
-    /** Yalnız `variant="list"`: `horizontal` ile yan yana dizilim */
+    /**
+     * `list`: varsayılan dikey; `horizontal` yan yana.
+     * `button`: varsayılan yatay; `vertical` alt alta (uzun açıklamalı plan seçimi vb.).
+     */
     orientation: {
       type: String,
-      default: "vertical",
-      validator: (e) => Un.includes(e)
+      default: null,
+      validator: (e) => e == null || e === "" || sr.includes(e)
     },
     /** `radiogroup` erişilebilir adı */
     ariaLabel: {
@@ -3051,17 +3272,21 @@ const Gn = ["list", "button", "List", "Button"], Un = ["vertical", "horizontal"]
   },
   emits: ["update:modelValue"],
   data() {
-    return Fe += 1, { groupName: `ui-radio-group-${Fe}` };
+    return De += 1, { groupName: `ui-radio-group-${De}` };
   },
   computed: {
     normalizedVariant() {
       return (this.variant || "list").toLowerCase() === "button" ? "button" : "list";
     },
+    effectiveOrientation() {
+      return this.normalizedVariant === "button" ? this.orientation === "vertical" ? "vertical" : "horizontal" : this.orientation === "horizontal" ? "horizontal" : "vertical";
+    },
     rootClass() {
       return T(
         "ui-radio-group",
         `ui-radio-group--${this.normalizedVariant}`,
-        this.normalizedVariant === "list" && this.orientation === "horizontal" ? "ui-radio-group--horizontal" : ""
+        this.normalizedVariant === "list" && this.effectiveOrientation === "horizontal" ? "ui-radio-group--horizontal" : "",
+        this.normalizedVariant === "button" && this.effectiveOrientation === "vertical" ? "ui-radio-group--vertical" : ""
       );
     }
   },
@@ -3070,19 +3295,19 @@ const Gn = ["list", "button", "List", "Button"], Un = ["vertical", "horizontal"]
       uiRadioGroup: this
     };
   }
-}, Zn = ["aria-label"];
-function Xn(e, t, i, r, a, n) {
-  return l(), o("div", {
-    class: b(n.rootClass),
+}, lr = ["aria-label"];
+function or(e, t, i, r, a, n) {
+  return l(), u("div", {
+    class: v(n.rootClass),
     role: "radiogroup",
     "aria-label": i.ariaLabel || void 0
   }, [
     m(e.$slots, "default")
-  ], 10, Zn);
+  ], 10, lr);
 }
-const Ls = /* @__PURE__ */ x(Qn, [["render", Xn]]), Jn = {
+const Ms = /* @__PURE__ */ _(ar, [["render", or]]), ur = {
   name: "Tag",
-  components: { Badge: Et, Tooltip: We },
+  components: { Badge: Mt, Tooltip: We },
   props: {
     variant: {
       type: String,
@@ -3105,38 +3330,38 @@ const Ls = /* @__PURE__ */ x(Qn, [["render", Xn]]), Jn = {
       return typeof this.$t == "function" ? this.$t("ui.tag.remove") : "Kaldır";
     }
   }
-}, er = ["aria-label"];
-function tr(e, t, i, r, a, n) {
-  const s = v("ui-icon"), u = v("Tooltip"), d = v("Badge");
-  return l(), _(d, {
+}, dr = ["aria-label"];
+function cr(e, t, i, r, a, n) {
+  const s = k("ui-icon"), d = k("Tooltip"), o = k("Badge");
+  return l(), x(o, {
     variant: i.variant,
     size: i.size,
     class: "ui-tag max-w-[min(100%,14rem)] shrink-0"
   }, je({
-    default: w(() => [
+    default: S(() => [
       m(e.$slots, "default")
     ]),
     _: 2
   }, [
     i.removable ? {
       name: "append",
-      fn: w(() => [
-        g(u, {
+      fn: S(() => [
+        p(d, {
           label: n.removeLabel,
           placement: "bottom"
         }, {
-          default: w(() => [
+          default: S(() => [
             f("button", {
               type: "button",
               class: "ui-tag-remove",
               "aria-label": n.removeLabel,
-              onClick: t[0] || (t[0] = D((c) => e.$emit("remove"), ["stop"]))
+              onClick: t[0] || (t[0] = A((c) => e.$emit("remove"), ["stop"]))
             }, [
-              g(s, {
+              p(s, {
                 name: "xmark",
                 size: "xs"
               })
-            ], 8, er)
+            ], 8, dr)
           ]),
           _: 1
         }, 8, ["label"])
@@ -3145,11 +3370,11 @@ function tr(e, t, i, r, a, n) {
     } : void 0
   ]), 1032, ["variant", "size"]);
 }
-const ir = /* @__PURE__ */ x(Jn, [["render", tr]]);
-let De = 0;
-const nr = ["field", "inline"], rr = ["sm", "md", "lg"], sr = {
+const fr = /* @__PURE__ */ _(ur, [["render", cr]]);
+let Fe = 0;
+const hr = ["field", "inline"], mr = ["sm", "md", "lg"], pr = {
   name: "Select",
-  components: { Tag: ir },
+  components: { Tag: fr },
   inheritAttrs: !1,
   inject: {
     uiFormRowPrimary: {
@@ -3160,12 +3385,12 @@ const nr = ["field", "inline"], rr = ["sm", "md", "lg"], sr = {
     variant: {
       type: String,
       default: "field",
-      validator: (e) => nr.includes(e)
+      validator: (e) => hr.includes(e)
     },
     size: {
       type: String,
       default: "md",
-      validator: (e) => rr.includes(e)
+      validator: (e) => mr.includes(e)
     },
     modelValue: {
       type: [String, Number, Boolean, Array],
@@ -3241,8 +3466,8 @@ const nr = ["field", "inline"], rr = ["sm", "md", "lg"], sr = {
   },
   emits: ["update:modelValue", "change", "dropdownOpenChange", "filterChange"],
   data() {
-    De += 1;
-    const e = De;
+    Fe += 1;
+    const e = Fe;
     return {
       fallbackId: `ui-select-${e}`,
       listboxId: `ui-select-listbox-${e}`,
@@ -3452,122 +3677,128 @@ const nr = ["field", "inline"], rr = ["sm", "md", "lg"], sr = {
       }
     }
   }
-}, ar = ["name", "value"], lr = ["id", "disabled", "aria-expanded", "aria-haspopup", "aria-controls", "aria-describedby", "onClick"], or = {
+}, gr = ["name", "value"], br = ["id", "disabled", "aria-expanded", "aria-haspopup", "aria-controls", "aria-describedby", "onClick"], yr = {
   key: 0,
   class: "ui-select-prefix inline-flex shrink-0 items-center text-muted-foreground",
   "aria-hidden": "true"
-}, ur = {
+}, vr = {
   key: 1,
   class: "ui-select-values-inner"
-}, dr = ["placeholder", "aria-label", "disabled"], cr = {
+}, kr = ["placeholder", "aria-label", "disabled"], Sr = {
   key: 2,
   class: "ui-select-value ui-select-value--placeholder",
   "data-popover-align": ""
-}, fr = { class: "ui-select-field-suffix" }, hr = ["aria-label"], mr = {
+}, wr = { class: "ui-select-field-suffix" }, xr = ["aria-label"], _r = {
   class: "ui-select-chevron",
   "aria-hidden": "true"
-}, pr = ["placeholder", "aria-label", "onKeydown"], gr = ["id", "role", "aria-multiselectable", "aria-labelledby"], br = {
+}, Cr = ["placeholder", "aria-label", "onKeydown"], Tr = ["id", "role", "aria-multiselectable", "aria-labelledby"], Ir = {
   key: 0,
   class: "flex flex-col gap-2 px-1 py-2"
-}, yr = {
+}, Lr = {
   "data-popover-align": "",
   class: "block min-w-0 truncate"
 };
-function vr(e, t, i, r, a, n) {
-  const s = v("ui-icon"), u = v("Tag"), d = v("ui-skeleton"), c = v("ui-button"), p = v("ui-empty"), z = v("ui-popover");
-  return l(), o("div", {
-    class: b(n.rootClass)
+function zr(e, t, i, r, a, n) {
+  const s = k("ui-icon"), d = k("Tag"), o = k("ui-skeleton"), c = k("ui-button"), g = k("ui-empty"), L = k("ui-popover");
+  return l(), u("div", {
+    class: v(n.rootClass)
   }, [
-    i.name ? (l(), o("input", {
+    i.name ? (l(), u("input", {
       key: 0,
       type: "hidden",
       name: i.name,
       value: n.hiddenFieldValue
-    }, null, 8, ar)) : h("", !0),
-    g(z, {
+    }, null, 8, gr)) : h("", !0),
+    p(L, {
       open: a.menuOpen,
-      "onUpdate:open": t[6] || (t[6] = (S) => a.menuOpen = S),
+      "onUpdate:open": t[6] || (t[6] = (w) => a.menuOpen = w),
       placement: "bottom-start",
-      "match-trigger-width": n.resolvedMatchTriggerWidth,
+      "match-trigger-width": i.matchTriggerWidth && !e.$slots.trigger,
       disabled: n.isDisabled,
       "align-selected-option-to-trigger": n.alignSelectedToTrigger
     }, je({
-      trigger: w(({ open: S, toggle: y }) => [
-        f("button", I({
-          type: "button",
-          id: n.resolvedId,
-          class: ["ui-select-field", { "ui-select-field--values": i.multiple }],
-          disabled: n.isDisabled,
-          "aria-expanded": S ? "true" : "false",
-          "aria-haspopup": n.listboxRole,
-          "aria-controls": a.listboxId,
-          "aria-describedby": i.ariaDescribedby
-        }, n.triggerPassthrough, {
-          onClick: (C) => n.onTriggerClick(y)
-        }), [
-          i.prefixIcon ? (l(), o("span", or, [
-            g(s, {
-              name: i.prefixIcon,
-              size: "xs"
-            }, null, 8, ["name"])
-          ])) : h("", !0),
-          i.multiple ? (l(), o("div", ur, [
-            (l(!0), o(R, null, W(n.selectedValues, (C) => (l(), _(u, {
-              key: String(C),
-              variant: "secondary",
-              size: "sm",
-              removable: "",
-              onRemove: (A) => n.removeValue(C)
-            }, {
-              default: w(() => [
-                O(k(n.labelForValue(C)), 1)
-              ]),
-              _: 2
-            }, 1032, ["onRemove"]))), 128)),
-            n.isFilterable ? ne((l(), o("input", {
-              key: 0,
-              ref: "searchInput",
-              "onUpdate:modelValue": t[0] || (t[0] = (C) => a.filterQuery = C),
-              type: "text",
-              class: b(["ui-select-values-input", { "ui-select-values-input--solo": !n.selectedValues.length }]),
-              placeholder: n.multipleInputPlaceholder,
-              "aria-label": n.resolvedFilterPlaceholder,
-              autocomplete: "off",
-              disabled: n.isDisabled,
-              onClick: t[1] || (t[1] = D(() => {
-              }, ["stop"])),
-              onKeydown: t[2] || (t[2] = (...C) => n.onSearchKeydown && n.onSearchKeydown(...C))
-            }, null, 42, dr)), [
-              [oe, a.filterQuery]
-            ]) : h("", !0)
-          ])) : i.loading ? (l(), o("span", cr, k(n.resolvedLoadingLabel), 1)) : (l(), o("span", {
-            key: 3,
-            class: b(["ui-select-value", { "ui-select-value--placeholder": n.isPlaceholderDisplay }]),
-            "data-popover-align": ""
-          }, k(n.displayLabel), 3)),
-          f("span", fr, [
-            n.showClearButton ? (l(), o("button", {
-              key: 0,
-              type: "button",
-              class: "ui-select-clear",
-              "aria-label": n.clearAriaLabel,
-              onClick: t[3] || (t[3] = D((...C) => n.clearSelection && n.clearSelection(...C), ["stop"]))
-            }, [
-              g(s, {
-                name: "xmark",
+      trigger: S(({ open: w, toggle: y, close: B }) => [
+        m(e.$slots, "trigger", {
+          open: w,
+          toggle: y,
+          close: B
+        }, () => [
+          f("button", I({
+            type: "button",
+            id: n.resolvedId,
+            class: ["ui-select-field", { "ui-select-field--values": i.multiple }],
+            disabled: n.isDisabled,
+            "aria-expanded": w ? "true" : "false",
+            "aria-haspopup": n.listboxRole,
+            "aria-controls": a.listboxId,
+            "aria-describedby": i.ariaDescribedby
+          }, n.triggerPassthrough, {
+            onClick: (C) => n.onTriggerClick(y)
+          }), [
+            i.prefixIcon ? (l(), u("span", yr, [
+              p(s, {
+                name: i.prefixIcon,
                 size: "xs"
-              })
-            ], 8, hr)) : h("", !0),
-            f("span", mr, [
-              g(s, {
-                name: "chevron-down",
-                size: "xs"
-              })
+              }, null, 8, ["name"])
+            ])) : h("", !0),
+            i.multiple ? (l(), u("div", vr, [
+              (l(!0), u(R, null, H(n.selectedValues, (C) => (l(), x(d, {
+                key: String(C),
+                variant: "secondary",
+                size: "sm",
+                removable: "",
+                onRemove: ($) => n.removeValue(C)
+              }, {
+                default: S(() => [
+                  D(b(n.labelForValue(C)), 1)
+                ]),
+                _: 2
+              }, 1032, ["onRemove"]))), 128)),
+              n.isFilterable ? re((l(), u("input", {
+                key: 0,
+                ref: "searchInput",
+                "onUpdate:modelValue": t[0] || (t[0] = (C) => a.filterQuery = C),
+                type: "text",
+                class: v(["ui-select-values-input", { "ui-select-values-input--solo": !n.selectedValues.length }]),
+                placeholder: n.multipleInputPlaceholder,
+                "aria-label": n.resolvedFilterPlaceholder,
+                autocomplete: "off",
+                disabled: n.isDisabled,
+                onClick: t[1] || (t[1] = A(() => {
+                }, ["stop"])),
+                onKeydown: t[2] || (t[2] = (...C) => n.onSearchKeydown && n.onSearchKeydown(...C))
+              }, null, 42, kr)), [
+                [oe, a.filterQuery]
+              ]) : h("", !0)
+            ])) : i.loading ? (l(), u("span", Sr, b(n.resolvedLoadingLabel), 1)) : (l(), u("span", {
+              key: 3,
+              class: v(["ui-select-value", { "ui-select-value--placeholder": n.isPlaceholderDisplay }]),
+              "data-popover-align": ""
+            }, b(n.displayLabel), 3)),
+            f("span", wr, [
+              n.showClearButton ? (l(), u("button", {
+                key: 0,
+                type: "button",
+                class: "ui-select-clear",
+                "aria-label": n.clearAriaLabel,
+                onClick: t[3] || (t[3] = A((...C) => n.clearSelection && n.clearSelection(...C), ["stop"]))
+              }, [
+                p(s, {
+                  name: "xmark",
+                  size: "xs"
+                })
+              ], 8, xr)) : h("", !0),
+              f("span", _r, [
+                p(s, {
+                  name: "chevron-down",
+                  size: "xs"
+                })
+              ])
             ])
-          ])
-        ], 16, lr)
+          ], 16, br)
+        ])
       ]),
-      content: w(({ close: S }) => [
+      content: S(({ close: w }) => [
         f("div", {
           ref: "listbox",
           id: a.listboxId,
@@ -3576,13 +3807,13 @@ function vr(e, t, i, r, a, n) {
           "aria-multiselectable": i.multiple ? "true" : void 0,
           "aria-labelledby": n.resolvedId
         }, [
-          i.loading && !n.filteredOptions.length ? (l(), o("div", br, [
-            (l(), o(R, null, W(3, (y) => g(d, {
+          i.loading && !n.filteredOptions.length ? (l(), u("div", Ir, [
+            (l(), u(R, null, H(3, (y) => p(o, {
               key: y,
               variant: "line",
-              class: b(y === 3 ? "max-w-[72%]" : void 0)
+              class: v(y === 3 ? "max-w-[72%]" : void 0)
             }, null, 8, ["class"])), 64))
-          ])) : n.filteredOptions.length ? (l(!0), o(R, { key: 1 }, W(n.filteredOptions, (y) => (l(), _(c, {
+          ])) : n.filteredOptions.length ? (l(!0), u(R, { key: 1 }, H(n.filteredOptions, (y) => (l(), x(c, {
             key: String(y.value),
             variant: n.isSelected(y) ? "solid" : "ghost",
             color: n.isSelected(y) ? "primary" : "secondary",
@@ -3590,34 +3821,34 @@ function vr(e, t, i, r, a, n) {
             fulled: "",
             "text-align": "left",
             role: "option",
-            class: b(["ui-select-option", { "ui-select-option--selected": n.isSelected(y) }]),
+            class: v(["ui-select-option", { "ui-select-option--selected": n.isSelected(y) }]),
             "suffix-icon": n.isSelected(y) ? "check" : void 0,
             "aria-selected": n.isSelected(y) ? "true" : "false",
-            onClick: (C) => n.pick(y, S)
+            onClick: (B) => n.pick(y, w)
           }, {
-            default: w(() => [
-              f("span", yr, k(y.label), 1)
+            default: S(() => [
+              f("span", Lr, b(y.label), 1)
             ]),
             _: 2
-          }, 1032, ["variant", "color", "class", "suffix-icon", "aria-selected", "onClick"]))), 128)) : n.isFilterable && a.filterQuery ? (l(), _(p, {
+          }, 1032, ["variant", "color", "class", "suffix-icon", "aria-selected", "onClick"]))), 128)) : n.isFilterable && a.filterQuery ? (l(), x(g, {
             key: 2,
             icon: "magnifying-glass",
             size: "sm",
             title: n.noResultsText
-          }, null, 8, ["title"])) : (l(), _(p, {
+          }, null, 8, ["title"])) : (l(), x(g, {
             key: 3,
             icon: "table-cells",
             size: "sm",
             title: n.emptyOptionsText
           }, null, 8, ["title"]))
-        ], 8, gr)
+        ], 8, Tr)
       ]),
       _: 2
     }, [
       n.showPopoverHeader ? {
         name: "header",
-        fn: w(({ close: S }) => [
-          ne(f("input", {
+        fn: S(({ close: w }) => [
+          re(f("input", {
             ref: "filterInput",
             "onUpdate:modelValue": t[4] || (t[4] = (y) => a.filterQuery = y),
             type: "text",
@@ -3625,13 +3856,13 @@ function vr(e, t, i, r, a, n) {
             placeholder: n.resolvedFilterPlaceholder,
             "aria-label": n.resolvedFilterPlaceholder,
             autocomplete: "off",
-            onMousedown: t[5] || (t[5] = D(() => {
+            onMousedown: t[5] || (t[5] = A(() => {
             }, ["prevent"])),
             onKeydown: [
-              U(D((y) => n.pickFirstFiltered(S), ["prevent"]), ["enter"]),
-              U(D((y) => S(), ["prevent"]), ["esc"])
+              Q(A((y) => n.pickFirstFiltered(w), ["prevent"]), ["enter"]),
+              Q(A((y) => w(), ["prevent"]), ["esc"])
             ]
-          }, null, 40, pr), [
+          }, null, 40, Cr), [
             [oe, a.filterQuery]
           ])
         ]),
@@ -3639,31 +3870,31 @@ function vr(e, t, i, r, a, n) {
       } : void 0,
       e.$slots.footer ? {
         name: "footer",
-        fn: w((S) => [
-          m(e.$slots, "footer", it(nt(S)))
+        fn: S((w) => [
+          m(e.$slots, "footer", at(lt(w)))
         ]),
         key: "1"
       } : void 0
     ]), 1032, ["open", "match-trigger-width", "disabled", "align-selected-option-to-trigger"])
   ], 2);
 }
-const As = /* @__PURE__ */ x(sr, [["render", vr]]), kr = ["line", "circle", "block", "pill"], Sr = ["sm", "md", "lg"], wr = 480, $e = {
+const Hs = /* @__PURE__ */ _(pr, [["render", zr]]), Ar = ["line", "circle", "block", "pill"], Dr = ["sm", "md", "lg"], Fr = 480, Re = {
   line: "ui-skeleton--line",
   circle: "ui-skeleton--circle",
   block: "ui-skeleton--block",
   pill: "ui-skeleton--pill"
-}, Re = {
+}, Be = {
   sm: "ui-skeleton--size-sm",
   md: "ui-skeleton--size-md",
   lg: "ui-skeleton--size-lg"
-}, xr = {
+}, Rr = {
   name: "Skeleton",
   inheritAttrs: !1,
   props: {
     variant: {
       type: String,
       default: "line",
-      validator: (e) => kr.includes(e)
+      validator: (e) => Ar.includes(e)
     },
     loading: {
       type: Boolean,
@@ -3673,87 +3904,87 @@ const As = /* @__PURE__ */ x(sr, [["render", vr]]), kr = ["line", "circle", "blo
     size: {
       type: String,
       default: "md",
-      validator: (e) => Sr.includes(e)
+      validator: (e) => Dr.includes(e)
     }
   },
   setup(e) {
-    const t = st(), i = M(() => !!t.default), r = $(null), a = $(null), n = $(null), s = $(null), u = $(!1), d = $(!1), c = $(!1), p = $(!1), z = M(
-      () => e.loading || d.value
-    ), S = M(
-      () => e.loading || d.value
+    const t = ut(), i = N(() => !!t.default), r = P(null), a = P(null), n = P(null), s = P(null), d = P(!1), o = P(!1), c = P(!1), g = P(!1), L = N(
+      () => e.loading || o.value
+    ), w = N(
+      () => e.loading || o.value
     );
-    at(() => {
-      p.value = window.matchMedia(
+    dt(() => {
+      g.value = window.matchMedia(
         "(prefers-reduced-motion: reduce)"
       ).matches;
-    }), lt(
+    }), ct(
       () => e.loading,
-      async (L, K) => {
-        var j, ae, le;
-        if (L) {
-          d.value = !1, c.value = !1, s.value = null, u.value = !1;
+      async (z, K) => {
+        var W, ae, le;
+        if (z) {
+          o.value = !1, c.value = !1, s.value = null, d.value = !1;
           return;
         }
         if (K !== !0) return;
-        if (p.value) {
-          d.value = !1, s.value = null, u.value = !1;
+        if (g.value) {
+          o.value = !1, s.value = null, d.value = !1;
           return;
         }
-        const N = ((j = r.value) == null ? void 0 : j.offsetHeight) ?? ((ae = a.value) == null ? void 0 : ae.offsetHeight) ?? 0;
-        d.value = !0, c.value = !1, u.value = !0, s.value = N, await ue();
-        const H = ((le = n.value) == null ? void 0 : le.scrollHeight) ?? N;
-        if (N <= 0 && H <= 0) {
+        const V = ((W = r.value) == null ? void 0 : W.offsetHeight) ?? ((ae = a.value) == null ? void 0 : ae.offsetHeight) ?? 0;
+        o.value = !0, c.value = !1, d.value = !0, s.value = V, await ue();
+        const j = ((le = n.value) == null ? void 0 : le.scrollHeight) ?? V;
+        if (V <= 0 && j <= 0) {
           y();
           return;
         }
         await ue(), requestAnimationFrame(() => {
           requestAnimationFrame(() => {
-            s.value = H, c.value = !0;
+            s.value = j, c.value = !0;
           });
-        }), setTimeout(y, wr + 40);
+        }), setTimeout(y, Fr + 40);
       }
     );
     function y() {
-      d.value = !1, c.value = !1, s.value = null, u.value = !1;
+      o.value = !1, c.value = !1, s.value = null, d.value = !1;
     }
-    function C(L) {
-      L.target === r.value && L.propertyName === "height" && (e.loading || u.value && y());
+    function B(z) {
+      z.target === r.value && z.propertyName === "height" && (e.loading || d.value && y());
     }
-    const A = M(() => {
+    const C = N(() => {
       if (s.value != null)
         return { height: `${s.value}px` };
-    }), B = M(() => ({
-      "ui-skeleton-placeholder--flow": e.loading && !d.value,
-      "ui-skeleton-placeholder--overlay": d.value,
-      "ui-skeleton-placeholder--fade-out": d.value
-    })), P = M(() => ({
-      "ui-skeleton-content-wrap--loading": e.loading && !d.value,
-      "ui-skeleton-content-wrap--revealing": d.value,
-      "ui-skeleton-content-wrap--revealing-visible": d.value && c.value,
-      "ui-skeleton-content-wrap--ready": !e.loading && !d.value
+    }), $ = N(() => ({
+      "ui-skeleton-placeholder--flow": e.loading && !o.value,
+      "ui-skeleton-placeholder--overlay": o.value,
+      "ui-skeleton-placeholder--fade-out": o.value
+    })), E = N(() => ({
+      "ui-skeleton-content-wrap--loading": e.loading && !o.value,
+      "ui-skeleton-content-wrap--revealing": o.value,
+      "ui-skeleton-content-wrap--revealing-visible": o.value && c.value,
+      "ui-skeleton-content-wrap--ready": !e.loading && !o.value
     }));
     return {
       hasDefaultSlot: i,
       hostRef: r,
       placeholderRef: a,
       contentWrapRef: n,
-      hostStyle: A,
-      heightAnimActive: u,
-      isRevealing: d,
-      showPlaceholder: z,
-      isBusy: S,
-      placeholderClass: B,
-      contentWrapClass: P,
-      onHostTransitionEnd: C
+      hostStyle: C,
+      heightAnimActive: d,
+      isRevealing: o,
+      showPlaceholder: L,
+      isBusy: w,
+      placeholderClass: $,
+      contentWrapClass: E,
+      onHostTransitionEnd: B
     };
   },
   computed: {
     variantClass() {
-      return $e[this.variant] || $e.line;
+      return Re[this.variant] || Re.line;
     },
     lineSizeClass() {
       if (this.variant === "line")
-        return Re[this.size] || Re.md;
+        return Be[this.size] || Be.md;
     },
     skeletonClass() {
       return T(
@@ -3776,9 +4007,9 @@ const As = /* @__PURE__ */ x(sr, [["render", vr]]), kr = ["line", "circle", "blo
       return t;
     }
   }
-}, _r = ["aria-busy"], Cr = ["aria-hidden"];
-function Tr(e, t, i, r, a, n) {
-  return r.hasDefaultSlot ? (l(), o("div", I({
+}, Br = ["aria-busy"], Pr = ["aria-hidden"];
+function $r(e, t, i, r, a, n) {
+  return r.hasDefaultSlot ? (l(), u("div", I({
     key: 1,
     ref: "hostRef",
     class: n.hostClass,
@@ -3787,9 +4018,9 @@ function Tr(e, t, i, r, a, n) {
   }, n.passthroughAttrs, {
     onTransitionend: t[0] || (t[0] = (...s) => r.onHostTransitionEnd && r.onHostTransitionEnd(...s))
   }), [
-    ne(f("div", {
+    re(f("div", {
       ref: "placeholderRef",
-      class: b(["ui-skeleton-placeholder", r.placeholderClass]),
+      class: v(["ui-skeleton-placeholder", r.placeholderClass]),
       "aria-hidden": "true"
     }, [
       m(e.$slots, "placeholder", {}, () => [
@@ -3800,26 +4031,26 @@ function Tr(e, t, i, r, a, n) {
         ], -1))
       ])
     ], 2), [
-      [rt, r.showPlaceholder]
+      [ot, r.showPlaceholder]
     ]),
     f("div", {
       ref: "contentWrapRef",
-      class: b(["ui-skeleton-content-wrap", r.contentWrapClass])
+      class: v(["ui-skeleton-content-wrap", r.contentWrapClass])
     }, [
       f("div", {
         class: "ui-skeleton-content",
         "aria-hidden": r.showPlaceholder && !r.isRevealing ? "true" : void 0
       }, [
         m(e.$slots, "default")
-      ], 8, Cr)
+      ], 8, Pr)
     ], 2)
-  ], 16, _r)) : (l(), o("div", I({
+  ], 16, Br)) : (l(), u("div", I({
     key: 0,
     class: n.skeletonClass,
     "aria-hidden": "true"
   }, n.passthroughAttrs), null, 16));
 }
-const Fs = /* @__PURE__ */ x(xr, [["render", Tr]]), Ir = {
+const js = /* @__PURE__ */ _(Rr, [["render", $r]]), Er = {
   name: "TabList",
   inheritAttrs: !1,
   inject: {
@@ -3860,7 +4091,7 @@ const Fs = /* @__PURE__ */ x(xr, [["render", Tr]]), Ir = {
   methods: {
     /** Klavye: ok tuşları ile tetikleyiciler arasında odak (yatay/dikey). */
     onKeydown(e) {
-      var p, z;
+      var g, L;
       if (!this.uiTabs) return;
       const t = this.uiTabs.orientation === "vertical", i = Array.from(this.$el.querySelectorAll('[role="tab"]:not([disabled])'));
       if (i.length === 0) return;
@@ -3870,16 +4101,16 @@ const Fs = /* @__PURE__ */ x(xr, [["render", Tr]]), Ir = {
       else if (a.includes(n)) s = -1;
       else return;
       e.preventDefault();
-      const u = document.activeElement;
-      let d = i.indexOf(u);
-      d === -1 && (d = i.findIndex((S) => S.getAttribute("aria-selected") === "true")), d === -1 && (d = 0);
-      let c = d + s;
-      c < 0 && (c = i.length - 1), c >= i.length && (c = 0), (z = (p = i[c]) == null ? void 0 : p.focus) == null || z.call(p);
+      const d = document.activeElement;
+      let o = i.indexOf(d);
+      o === -1 && (o = i.findIndex((w) => w.getAttribute("aria-selected") === "true")), o === -1 && (o = 0);
+      let c = o + s;
+      c < 0 && (c = i.length - 1), c >= i.length && (c = 0), (L = (g = i[c]) == null ? void 0 : g.focus) == null || L.call(g);
     }
   }
-}, zr = ["aria-label", "aria-orientation"];
-function Lr(e, t, i, r, a, n) {
-  return l(), o("div", I({
+}, Or = ["aria-label", "aria-orientation"];
+function Vr(e, t, i, r, a, n) {
+  return l(), u("div", I({
     class: n.listClass,
     role: "tablist",
     "aria-label": i.ariaLabel || void 0,
@@ -3888,9 +4119,9 @@ function Lr(e, t, i, r, a, n) {
     onKeydown: t[0] || (t[0] = (...s) => n.onKeydown && n.onKeydown(...s))
   }), [
     m(e.$slots, "default")
-  ], 16, zr);
+  ], 16, Or);
 }
-const Ds = /* @__PURE__ */ x(Ir, [["render", Lr]]), Ar = se("ui-tabs"), Fr = ["line", "segmented"], Dr = {
+const Ws = /* @__PURE__ */ _(Er, [["render", Vr]]), Nr = se("ui-tabs"), Mr = ["line", "segmented"], Hr = {
   name: "Tabs",
   inheritAttrs: !1,
   props: {
@@ -3903,7 +4134,7 @@ const Ds = /* @__PURE__ */ x(Ir, [["render", Lr]]), Ar = se("ui-tabs"), Fr = ["l
     variant: {
       type: String,
       default: "line",
-      validator: (e) => Fr.includes(e)
+      validator: (e) => Mr.includes(e)
     },
     /** `horizontal` — yan yana tetikleyiciler; `vertical` — sol şerit + içerik. */
     orientation: {
@@ -3937,7 +4168,7 @@ const Ds = /* @__PURE__ */ x(Ir, [["render", Lr]]), Ar = se("ui-tabs"), Fr = ["l
   emits: ["update:modelValue"],
   data() {
     return {
-      baseId: Ar()
+      baseId: Nr()
     };
   },
   provide() {
@@ -3984,12 +4215,12 @@ const Ds = /* @__PURE__ */ x(Ir, [["render", Lr]]), Ar = se("ui-tabs"), Fr = ["l
     }
   }
 };
-function $r(e, t, i, r, a, n) {
-  return l(), o("div", I({ class: n.rootClass }, n.passthroughAttrs), [
+function jr(e, t, i, r, a, n) {
+  return l(), u("div", I({ class: n.rootClass }, n.passthroughAttrs), [
     m(e.$slots, "default")
   ], 16);
 }
-const $s = /* @__PURE__ */ x(Dr, [["render", $r]]), Rr = ["solid", "regular", "brands", "light", "duotone", "thin"], Br = {
+const Ys = /* @__PURE__ */ _(Hr, [["render", jr]]), Wr = ["solid", "regular", "brands", "light", "duotone", "thin"], Yr = {
   name: "TabTrigger",
   inheritAttrs: !1,
   inject: {
@@ -4016,7 +4247,7 @@ const $s = /* @__PURE__ */ x(Dr, [["render", $r]]), Rr = ["solid", "regular", "b
     iconType: {
       type: String,
       default: "light",
-      validator: (e) => Rr.includes(e)
+      validator: (e) => Wr.includes(e)
     },
     disabled: {
       type: Boolean,
@@ -4026,6 +4257,21 @@ const $s = /* @__PURE__ */ x(Dr, [["render", $r]]), Rr = ["solid", "regular", "b
     badge: {
       type: [String, Number],
       default: null
+    },
+    /** Verilirse `ui-tabs` seçim durumunun üzerine yazar (menü tetikleyici sekmeler). */
+    active: {
+      type: Boolean,
+      default: void 0
+    },
+    /** `menu` — `aria-haspopup` / `aria-expanded` (panel `aria-controls` kapatılır). */
+    popup: {
+      type: String,
+      default: ""
+    },
+    /** `popup` doluysa menü açık/kapalı durumu. */
+    expanded: {
+      type: Boolean,
+      default: !1
     }
   },
   computed: {
@@ -4044,15 +4290,21 @@ const $s = /* @__PURE__ */ x(Dr, [["render", $r]]), Rr = ["solid", "regular", "b
       return this.iconType;
     },
     isSelected() {
-      return this.uiTabs ? this.uiTabs.isSelected(this.value) : !1;
+      return typeof this.active == "boolean" ? this.active : this.uiTabs ? this.uiTabs.isSelected(this.value) : !1;
     },
     showBadge() {
-      const e = Number(this.badge);
-      return this.badge != null && this.badge !== "" && Number.isFinite(e) && e > 0;
+      if (this.badge == null || this.badge === "") return !1;
+      const e = String(this.badge).trim();
+      return /^\d+(\.\d+)?$/.test(e) ? Number(e) > 0 : e.length > 0;
     },
     badgeLabel() {
-      const e = Number(this.badge);
-      return !Number.isFinite(e) || e <= 0 ? "" : e > 99 ? "99+" : String(e);
+      if (this.badge == null || this.badge === "") return "";
+      const e = String(this.badge).trim();
+      if (/^\d+(\.\d+)?$/.test(e)) {
+        const t = Number(e);
+        return t <= 0 ? "" : t > 99 ? "99+" : String(t);
+      }
+      return e;
     },
     triggerDomId() {
       return this.uiTabs ? this.uiTabs.triggerId(this.value) : void 0;
@@ -4079,25 +4331,27 @@ const $s = /* @__PURE__ */ x(Dr, [["render", $r]]), Rr = ["solid", "regular", "b
       this.disabled || !this.uiTabs || this.uiTabs.setValue(this.value);
     }
   }
-}, Pr = ["id", "aria-selected", "aria-controls", "tabindex", "disabled"], Er = { class: "ui-tab-trigger-label min-w-0 whitespace-nowrap" }, Or = {
+}, Kr = ["id", "aria-selected", "aria-controls", "aria-haspopup", "aria-expanded", "tabindex", "disabled"], qr = { class: "ui-tab-trigger-label min-w-0 whitespace-nowrap" }, Gr = {
   key: 1,
   class: "ui-tab-trigger-badge",
   "aria-hidden": "true"
 };
-function Vr(e, t, i, r, a, n) {
-  const s = v("ui-icon"), u = v("ui-badge");
-  return l(), o("button", {
+function Qr(e, t, i, r, a, n) {
+  const s = k("ui-icon"), d = k("ui-badge");
+  return l(), u("button", {
     type: "button",
     role: "tab",
     id: n.triggerDomId,
-    class: b(n.triggerClass),
+    class: v(n.triggerClass),
     "aria-selected": n.isSelected ? "true" : "false",
-    "aria-controls": n.panelDomId,
+    "aria-controls": i.popup ? void 0 : n.panelDomId,
+    "aria-haspopup": i.popup || void 0,
+    "aria-expanded": i.popup ? i.expanded ? "true" : "false" : void 0,
     tabindex: n.isSelected ? 0 : -1,
     disabled: i.disabled,
-    onClick: t[0] || (t[0] = (...d) => n.select && n.select(...d))
+    onClick: t[0] || (t[0] = (...o) => n.select && n.select(...o))
   }, [
-    i.icon ? (l(), _(s, {
+    i.icon ? (l(), x(s, {
       key: 0,
       name: i.icon,
       type: n.tabIconType,
@@ -4105,33 +4359,33 @@ function Vr(e, t, i, r, a, n) {
       class: "ui-tab-trigger-icon",
       "aria-hidden": "true"
     }, null, 8, ["name", "type", "size"])) : h("", !0),
-    f("span", Er, [
+    f("span", qr, [
       m(e.$slots, "default", {}, () => [
-        O(k(i.label), 1)
+        D(b(i.label), 1)
       ])
     ]),
-    n.showBadge ? (l(), o("span", Or, [
-      g(u, {
+    n.showBadge ? (l(), u("span", Gr, [
+      p(d, {
         variant: "solid",
         size: "sm",
         truncate: !1
       }, {
-        default: w(() => [
-          O(k(n.badgeLabel), 1)
+        default: S(() => [
+          D(b(n.badgeLabel), 1)
         ]),
         _: 1
       })
     ])) : h("", !0)
-  ], 10, Pr);
+  ], 10, Kr);
 }
-const Rs = /* @__PURE__ */ x(Br, [["render", Vr]]), V = ot({
+const Ks = /* @__PURE__ */ _(Yr, [["render", Qr]]), O = ft({
   /** @type {ToastItem[]} */
   items: []
 });
-let Be = 0;
-function Bs(e = {}) {
-  Be += 1;
-  const t = Be, i = {
+let Pe = 0;
+function qs(e = {}) {
+  Pe += 1;
+  const t = Pe, i = {
     id: t,
     title: e.title ?? "",
     description: e.description ?? "",
@@ -4139,20 +4393,20 @@ function Bs(e = {}) {
     duration: e.duration !== void 0 ? e.duration : 4500,
     _timer: null
   };
-  return V.items.push(i), i.duration > 0 && (i._timer = setTimeout(() => Qe(t), i.duration)), t;
+  return O.items.push(i), i.duration > 0 && (i._timer = setTimeout(() => Xe(t), i.duration)), t;
 }
-function Qe(e) {
-  const t = V.items.findIndex((r) => r.id === e);
+function Xe(e) {
+  const t = O.items.findIndex((r) => r.id === e);
   if (t === -1) return;
-  const i = V.items[t];
-  i._timer && (clearTimeout(i._timer), i._timer = null), V.items.splice(t, 1);
+  const i = O.items[t];
+  i._timer && (clearTimeout(i._timer), i._timer = null), O.items.splice(t, 1);
 }
-function Ps() {
-  for (const e of V.items)
+function Gs() {
+  for (const e of O.items)
     e._timer && clearTimeout(e._timer);
-  V.items.splice(0);
+  O.items.splice(0);
 }
-const Pe = {
+const $e = {
   info: "circle-info",
   success: "circle-check",
   warning: "triangle-exclamation",
@@ -4162,20 +4416,20 @@ const Pe = {
   success: "text-success",
   warning: "text-warning",
   error: "text-destructive"
-}, Nr = {
+}, Ur = {
   name: "Toast",
   computed: {
     items() {
-      return V.items;
+      return O.items;
     },
     dismissLabel() {
       return typeof this.$t == "function" ? this.$t("ui.alert.dismiss") : "Kapat";
     }
   },
   methods: {
-    queueDismissToast: Qe,
+    queueDismissToast: Xe,
     iconFor(e) {
-      return Pe[e] || Pe.info;
+      return $e[e] || $e.info;
     },
     iconToneClass(e) {
       return Ee[e] || Ee.info;
@@ -4191,44 +4445,44 @@ const Pe = {
       };
     }
   }
-}, Mr = { class: "ui-toast-host" }, Hr = { class: "ui-alert-body" }, jr = {
+}, Zr = { class: "ui-toast-host" }, Xr = { class: "ui-alert-body" }, Jr = {
   key: 0,
   class: "ui-alert-title"
-}, Wr = {
+}, es = {
   key: 1,
   class: "ui-alert-description ui-text-default"
 };
-function Yr(e, t, i, r, a, n) {
-  const s = v("ui-icon"), u = v("ui-button");
-  return l(), _(Q, { to: "body" }, [
-    f("div", Mr, [
-      g(ut, {
+function ts(e, t, i, r, a, n) {
+  const s = k("ui-icon"), d = k("ui-button");
+  return l(), x(Z, { to: "body" }, [
+    f("div", Zr, [
+      p(ht, {
         name: "ui-toast",
         tag: "div",
         class: "ui-toast-stack pointer-events-none"
       }, {
-        default: w(() => [
-          (l(!0), o(R, null, W(n.items, (d) => (l(), o("div", {
-            key: d.id,
+        default: S(() => [
+          (l(!0), u(R, null, H(n.items, (o) => (l(), u("div", {
+            key: o.id,
             class: "pointer-events-none flex w-full justify-center"
           }, [
             f("div", I({
-              class: [n.toastClasses(d), "pointer-events-auto"]
-            }, { ref_for: !0 }, n.toastA11y(d)), [
+              class: [n.toastClasses(o), "pointer-events-auto"]
+            }, { ref_for: !0 }, n.toastA11y(o)), [
               f("span", {
-                class: b(["ui-alert-icon", n.iconToneClass(d.variant)]),
+                class: v(["ui-alert-icon", n.iconToneClass(o.variant)]),
                 "aria-hidden": "true"
               }, [
-                g(s, {
-                  name: n.iconFor(d.variant),
+                p(s, {
+                  name: n.iconFor(o.variant),
                   size: "sm"
                 }, null, 8, ["name"])
               ], 2),
-              f("div", Hr, [
-                d.title ? (l(), o("p", jr, k(d.title), 1)) : h("", !0),
-                d.description ? (l(), o("p", Wr, k(d.description), 1)) : h("", !0)
+              f("div", Xr, [
+                o.title ? (l(), u("p", Jr, b(o.title), 1)) : h("", !0),
+                o.description ? (l(), u("p", es, b(o.description), 1)) : h("", !0)
               ]),
-              g(u, {
+              p(d, {
                 "native-type": "button",
                 variant: "ghost",
                 color: "secondary",
@@ -4237,7 +4491,7 @@ function Yr(e, t, i, r, a, n) {
                 class: "ui-toast-dismiss shrink-0",
                 "prefix-icon": "xmark",
                 "aria-label": n.dismissLabel,
-                onClick: (c) => n.queueDismissToast(d.id)
+                onClick: (c) => n.queueDismissToast(o.id)
               }, null, 8, ["aria-label", "onClick"])
             ], 16)
           ]))), 128))
@@ -4247,7 +4501,7 @@ function Yr(e, t, i, r, a, n) {
     ])
   ]);
 }
-const Es = /* @__PURE__ */ x(Nr, [["render", Yr]]), Os = {
+const Qs = /* @__PURE__ */ _(Ur, [["render", ts]]), Us = {
   ui: {
     button: {
       loading: "Loading"
@@ -4272,6 +4526,10 @@ const Es = /* @__PURE__ */ x(Nr, [["render", Yr]]), Os = {
     },
     tag: {
       remove: "Remove tag"
+    },
+    fieldAction: {
+      clear: "Clear",
+      done: "Done"
     },
     phone: {
       countryAria: "Country code",
@@ -4317,7 +4575,8 @@ const Es = /* @__PURE__ */ x(Nr, [["render", Yr]]), Os = {
     },
     datePicker: {
       today: "Today",
-      yesterday: "Yesterday"
+      yesterday: "Yesterday",
+      tomorrow: "Tomorrow"
     },
     dateRangePicker: {
       placeholder: "Select date range",
@@ -4346,7 +4605,7 @@ const Es = /* @__PURE__ */ x(Nr, [["render", Yr]]), Os = {
       more: "+{count}"
     }
   }
-}, Vs = {
+}, Zs = {
   ui: {
     button: {
       /** Yükleme sırasında ekran okuyucu / varsayılan `loading-text` */
@@ -4376,6 +4635,10 @@ const Es = /* @__PURE__ */ x(Nr, [["render", Yr]]), Os = {
     tag: {
       /** Tag kapat düğmesi `aria-label` */
       remove: "Etiketi kaldır"
+    },
+    fieldAction: {
+      clear: "Temizle",
+      done: "Tamam"
     },
     phone: {
       countryAria: "Ülke kodu",
@@ -4421,7 +4684,8 @@ const Es = /* @__PURE__ */ x(Nr, [["render", Yr]]), Os = {
     },
     datePicker: {
       today: "Bugün",
-      yesterday: "Dün"
+      yesterday: "Dün",
+      tomorrow: "Yarın"
     },
     dateRangePicker: {
       placeholder: "Tarih aralığı seçin",
@@ -4450,7 +4714,7 @@ const Es = /* @__PURE__ */ x(Nr, [["render", Yr]]), Os = {
       more: "+{count}"
     }
   }
-}, Kr = "fewui-google-fonts", qr = Object.freeze([
+}, is = "fewui-google-fonts", ns = Object.freeze([
   { value: "Inter", label: "Inter" },
   { value: "Poppins", label: "Poppins" },
   { value: "Roboto", label: "Roboto" },
@@ -4469,32 +4733,32 @@ const Es = /* @__PURE__ */ x(Nr, [["render", Yr]]), Os = {
   { value: "Playfair Display", label: "Playfair Display" },
   { value: "Libre Baskerville", label: "Libre Baskerville" }
 ]);
-function Ns() {
-  return qr.map((e) => ({ ...e }));
+function Xs() {
+  return ns.map((e) => ({ ...e }));
 }
-function Ze(e = {}) {
+function Je(e = {}) {
   const t = String(e.bodyFontFamily || e.fontFamily || "").trim(), i = String(e.headingFontFamily || t).trim();
   return { body: t, heading: i };
 }
-function Xe(e) {
+function et(e) {
   const t = [...new Set(
     (e || []).map((r) => String(r || "").trim()).filter(Boolean)
   )];
   return t.length ? `https://fonts.googleapis.com/css2?${t.map((r) => `family=${encodeURIComponent(r).replace(/%20/g, "+")}:wght@400;500;600`).join("&")}&display=swap` : null;
 }
-function Ms(e = {}) {
-  const { body: t, heading: i } = Ze(e), r = Xe([t, i]);
+function Js(e = {}) {
+  const { body: t, heading: i } = Je(e), r = et([t, i]);
   return r ? `<link rel="stylesheet" href="${r}">` : "";
 }
-function Gr(e = {}, t = {}) {
+function rs(e = {}, t = {}) {
   if (typeof document > "u") return null;
-  const { body: i, heading: r } = Ze(e), a = Xe([i, r]);
+  const { body: i, heading: r } = Je(e), a = et([i, r]);
   if (!a) return null;
-  const n = t.id || Kr;
+  const n = t.id || is;
   let s = document.getElementById(n);
   return s || (s = document.createElement("link"), s.id = n, s.rel = "stylesheet", document.head.appendChild(s)), s.getAttribute("href") !== a && s.setAttribute("href", a), a;
 }
-const Ur = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950], Qr = "ui-sans-serif, system-ui, sans-serif", Oe = {
+const ss = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950], as = "ui-sans-serif, system-ui, sans-serif", Oe = {
   none: "0",
   sm: "4px",
   DEFAULT: "8px",
@@ -4509,14 +4773,14 @@ const Ur = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950], Qr = "ui-sans
   background: "var(--background)",
   control: "var(--control)"
 };
-function Zr(e) {
+function ls(e) {
   return typeof document > "u" ? null : e ? typeof e == "string" ? document.querySelector(e) : e : document.documentElement;
 }
 function Ne(e) {
   const t = String(e).trim();
-  return !t || t.includes(",") ? t : `${t}, ${Qr}`;
+  return !t || t.includes(",") ? t : `${t}, ${as}`;
 }
-function Xr(e) {
+function os(e) {
   const t = e.trim().replace("#", "");
   return t.length === 3 ? [0, 1, 2].map((i) => parseInt(t[i] + t[i], 16)) : t.length === 6 ? [
     parseInt(t.slice(0, 2), 16),
@@ -4524,21 +4788,35 @@ function Xr(e) {
     parseInt(t.slice(4, 6), 16)
   ] : null;
 }
-function Jr(e, t, i) {
+function us(e) {
+  const t = String(e || "").trim().match(/^oklch\(\s*([0-9.]+%?)/i);
+  if (!t) return null;
+  const i = t[1];
+  if (i.endsWith("%")) {
+    const a = Number.parseFloat(i);
+    return Number.isFinite(a) ? a / 100 : null;
+  }
+  const r = Number.parseFloat(i);
+  return Number.isFinite(r) ? r > 1 ? r / 100 : r : null;
+}
+function ds(e, t, i) {
   const [r, a, n] = [e, t, i].map((s) => {
-    const u = s / 255;
-    return u <= 0.03928 ? u / 12.92 : ((u + 0.055) / 1.055) ** 2.4;
+    const d = s / 255;
+    return d <= 0.03928 ? d / 12.92 : ((d + 0.055) / 1.055) ** 2.4;
   });
   return 0.2126 * r + 0.7152 * a + 0.0722 * n;
 }
-function es(e, t = "#ffffff", i = "#0a0a0b") {
-  const r = Xr(e);
-  return r && Jr(...r) > 0.4 ? i : t;
+function cs(e, t = "#ffffff", i = "#0a0a0b") {
+  const r = os(e);
+  if (r)
+    return ds(...r) > 0.4 ? i : t;
+  const a = us(e);
+  return a != null && a > 0.4 ? i : t;
 }
-function ts(e) {
+function fs(e) {
   return e.startsWith("--") ? e : `--${e.replace(/([A-Z])/g, "-$1").replace(/_/g, "-").toLowerCase()}`;
 }
-function is(e) {
+function hs(e) {
   if (e == null || e === "")
     return null;
   const t = Number(e);
@@ -4547,7 +4825,7 @@ function is(e) {
   const i = t <= 1 ? Math.round(t * 100) : Math.round(t);
   return `${Math.min(100, Math.max(0, i))}%`;
 }
-function ns(e) {
+function ms(e) {
   if (e == null || e === "")
     return null;
   if (typeof e == "number")
@@ -4555,17 +4833,17 @@ function ns(e) {
   const t = String(e).trim();
   return Oe[t] != null ? Oe[t] : /^\d+$/.test(t) ? `${t}px` : t;
 }
-function rs(e) {
+function ps(e) {
   return e == null || e === "" ? null : Ve[e] ? Ve[e] : String(e);
 }
-function te(e, t, i) {
+function ie(e, t, i) {
   if (!i || typeof i != "object")
     return;
-  const r = is(i.opacity ?? i.bgOpacity);
+  const r = hs(i.opacity ?? i.bgOpacity);
   r && (e[`--ui-${t}-opacity`] = r);
-  const a = ns(i.backdropBlur ?? i.backdropFilter);
+  const a = ms(i.backdropBlur ?? i.backdropFilter);
   a && (e[`--ui-${t}-backdrop-blur`] = a);
-  const n = rs(i.mixFrom);
+  const n = ps(i.mixFrom);
   n && (e[`--ui-${t}-mix-from`] = n);
 }
 function Me(e, t, i) {
@@ -4576,26 +4854,26 @@ function Me(e, t, i) {
   if (a != null && a !== "")
     return String(a);
 }
-function Hs(e = {}, t = {}) {
-  const i = Zr(e.root ?? t.root);
+function ea(e = {}, t = {}) {
+  const i = ls(e.root ?? t.root);
   if (!i || typeof e != "object")
     return {};
   e.mode === "dark" ? i.classList.add("dark") : e.mode === "light" && i.classList.remove("dark");
-  const r = Je(e);
+  const r = tt(e);
   for (const [a, n] of Object.entries(r))
     i.style.setProperty(a, n);
-  return Gr(e), { ...r };
+  return rs(e), { ...r };
 }
-function Je(e = {}) {
+function tt(e = {}) {
   if (!e || typeof e != "object")
     return {};
   const t = {}, i = e.bodyFontFamily || e.fontFamily;
   i && (t["--font-sans"] = Ne(i));
   const r = e.headingFontFamily || i;
   if (r && (t["--font-heading"] = Ne(r)), e.baseColor && typeof e.baseColor == "object")
-    for (const u of Ur) {
-      const d = e.baseColor[u];
-      d != null && d !== "" && (t[`--base-${u}`] = String(d));
+    for (const d of ss) {
+      const o = e.baseColor[d];
+      o != null && o !== "" && (t[`--base-${d}`] = String(o));
     }
   const a = [
     ["background", "--background"],
@@ -4613,26 +4891,26 @@ function Je(e = {}) {
     ["accent", "--accent"],
     ["accentForeground", "--accent-foreground"]
   ];
-  for (const [u, d] of a) {
-    const c = e[u];
-    c != null && c !== "" && (t[d] = String(c));
+  for (const [d, o] of a) {
+    const c = e[d];
+    c != null && c !== "" && (t[o] = String(c));
   }
   const n = Me(e, "primaryColor", "primary");
-  n && (t["--primary"] = n, e.primaryForeground || (t["--primary-foreground"] = es(n)), e.ring || (t["--ring"] = `color-mix(in oklab, ${n} 55%, transparent)`));
+  n && (t["--primary"] = n, e.primaryForeground || (t["--primary-foreground"] = cs(n)), e.ring || (t["--ring"] = `color-mix(in oklab, ${n} 55%, transparent)`));
   const s = Me(e, "secondaryColor", "secondary");
-  if (s && (t["--secondary"] = s), te(t, "surface", e.surfaceStyle), te(t, "control", e.controlStyle), te(t, "input", e.inputStyle), e.colors && typeof e.colors == "object")
-    for (const [u, d] of Object.entries(e.colors))
-      d != null && d !== "" && (t[ts(u)] = String(d));
+  if (s && (t["--secondary"] = s), ie(t, "surface", e.surfaceStyle), ie(t, "control", e.controlStyle), ie(t, "input", e.inputStyle), e.colors && typeof e.colors == "object")
+    for (const [d, o] of Object.entries(e.colors))
+      o != null && o !== "" && (t[fs(d)] = String(o));
   return t;
 }
-function js(e = {}) {
-  const t = Je(e), i = Object.entries(t).map(([a, n]) => `${a}: ${n}`).join("; ");
+function ta(e = {}) {
+  const t = tt(e), i = Object.entries(t).map(([a, n]) => `${a}: ${n}`).join("; ");
   return {
     classAttr: e.mode === "dark" ? "dark" : (e.mode === "light", ""),
     styleAttr: i
   };
 }
-function ss(e, t) {
+function gs(e, t) {
   return {
     ...e,
     ...t,
@@ -4658,7 +4936,7 @@ function ss(e, t) {
     }
   };
 }
-function as(e) {
+function bs(e) {
   const t = String(e || "").trim().replace("#", "");
   return t.length === 3 ? [0, 1, 2].map((i) => parseInt(t[i] + t[i], 16)) : t.length === 6 ? [
     parseInt(t.slice(0, 2), 16),
@@ -4666,14 +4944,14 @@ function as(e) {
     parseInt(t.slice(4, 6), 16)
   ] : null;
 }
-function ie(e) {
+function ne(e) {
   return Math.min(255, Math.max(0, Math.round(e))).toString(16).padStart(2, "0");
 }
 function He(e, t, i) {
-  return `#${ie(e)}${ie(t)}${ie(i)}`;
+  return `#${ne(e)}${ne(t)}${ne(i)}`;
 }
-function ls(e) {
-  const t = as(e);
+function ys(e) {
+  const t = bs(e);
   if (!t)
     return { accent: e, brandAccent: e };
   const [i, r, a] = t, n = He(
@@ -4687,14 +4965,14 @@ function ls(e) {
   );
   return { accent: n, brandAccent: s };
 }
-function Ws(e, t = {}) {
+function ia(e, t = {}) {
   if (!e || typeof e != "object") return e;
   const i = e.primaryColor || e.primary;
   if (!i) return e;
-  const r = ls(String(i)), a = { ...e, colors: { ...e.colors || {} } };
+  const r = ys(String(i)), a = { ...e, colors: { ...e.colors || {} } };
   return (t.force || !e.accent) && (a.accent = r.accent), (t.force || !a.colors["brand-accent"]) && (a.colors["brand-accent"] = r.brandAccent), a;
 }
-function Ys(e, t = "#f97316") {
+function na(e, t = "#f97316") {
   if (!e || typeof e != "object") return t;
   const i = typeof e.primaryColor == "string" ? e.primaryColor.trim() : "";
   if (i) return i;
@@ -4705,8 +4983,8 @@ function Ys(e, t = "#f97316") {
   }
   return t;
 }
-const et = "fewui-theme-custom-css";
-function os(e, t = et) {
+const it = "fewui-theme-custom-css";
+function vs(e, t = it) {
   if (typeof document > "u") return;
   const i = String(e || "").trim();
   let r = document.getElementById(t);
@@ -4716,15 +4994,15 @@ function os(e, t = et) {
   }
   r || (r = document.createElement("style"), r.id = t, document.head.appendChild(r)), r.textContent = i;
 }
-function Ks(e = et) {
-  os("", e);
+function ra(e = it) {
+  vs("", e);
 }
-const tt = {
+const nt = {
   mode: "dark",
   fontFamily: "Inter",
   headingFontFamily: "Inter",
   bodyFontFamily: "Inter"
-}, us = {
+}, ks = {
   mode: "dark",
   fontFamily: "Inter",
   surfaceStyle: {
@@ -4742,7 +5020,7 @@ const tt = {
     opacity: 100,
     backdropBlur: "none"
   }
-}, ds = {
+}, Ss = {
   mode: "dark",
   fontFamily: "Poppins",
   headingFontFamily: "Poppins",
@@ -4788,74 +5066,76 @@ const tt = {
   colors: {
     "brand-accent": "#fbbf24"
   }
-}, cs = {
-  panel: tt,
-  flat: us,
-  landing: ds
-}, qs = ["panel", "flat", "landing"];
-function fs(e = "panel") {
-  const t = String(e || "panel").trim(), i = cs[t] || tt;
+}, ws = {
+  panel: nt,
+  flat: ks,
+  landing: Ss
+}, sa = ["panel", "flat", "landing"];
+function xs(e = "panel") {
+  const t = String(e || "panel").trim(), i = ws[t] || nt;
   return structuredClone(i);
 }
-function Gs(e, t = {}) {
-  return ss(fs(e), t);
+function aa(e, t = {}) {
+  return gs(xs(e), t);
 }
 export {
-  qe as $,
-  ps as A,
-  Et as B,
-  ys as C,
-  et as D,
-  ws as E,
-  xs as F,
-  qr as G,
+  aa as $,
+  Ts as A,
+  Mt as B,
+  zs as C,
+  it as D,
+  Bs as E,
+  Ps as F,
+  ns as G,
   se as H,
-  _s as I,
-  ls as J,
-  Qe as K,
-  Os as L,
-  fs as M,
-  Ns as N,
-  ss as O,
-  Ts as P,
-  Ue as Q,
-  zs as R,
-  As as S,
-  cs as T,
-  Bs as U,
-  Y as V,
-  Ys as W,
-  Ze as X,
-  Gs as Y,
+  $s as I,
+  ys as J,
+  Xe as K,
+  Us as L,
+  As as M,
+  xs as N,
+  Xs as O,
+  Os as P,
+  gs as Q,
+  Ns as R,
+  Hs as S,
+  ws as T,
+  Ze as U,
+  qs as V,
+  Y as W,
+  Qe as X,
+  na as Y,
   Je as Z,
-  x as _,
-  gs as a,
-  Vs as a0,
-  Ws as a1,
-  bs as b,
-  vs as c,
-  Ss as d,
+  _,
+  Is as a,
+  tt as a0,
+  qe as a1,
+  Zs as a2,
+  ia as a3,
+  Ls as b,
+  Ds as c,
+  Rs as d,
   Ge as e,
-  Cs as f,
-  Is as g,
-  Ls as h,
-  Fs as i,
-  qs as j,
-  Ds as k,
-  Rs as l,
-  $s as m,
-  ir as n,
-  Es as o,
+  Es as f,
+  Vs as g,
+  Ms as h,
+  js as i,
+  sa as j,
+  Ws as k,
+  Ks as l,
+  Ys as m,
+  fr as n,
+  Qs as o,
   We as p,
-  Gr as q,
-  os as r,
-  Hs as s,
-  Ms as t,
-  Xe as u,
-  js as v,
-  Ks as w,
-  Ps as x,
+  rs as q,
+  vs as r,
+  ea as s,
+  Js as t,
+  et as u,
+  ta as v,
+  ra as w,
+  Gs as x,
   T as y,
-  ks as z
+  Fs as z
 };
-//# sourceMappingURL=index-DZlWBF9X.js.map
+//# sourceMappingURL=index-SlRhgfoS.js.map

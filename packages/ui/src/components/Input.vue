@@ -84,6 +84,7 @@ import { pickPassthroughAttrs } from '../utils/pick-passthrough-attrs.js'
 const nextInputId = createUiIdFactory('ui-input')
 
 const SIZES = ['sm', 'md', 'lg']
+const VARIANTS = ['default', 'plain']
 
 export default {
   name: 'Input',
@@ -94,6 +95,12 @@ export default {
     },
   },
   props: {
+    /** `default` dolgulu kabuk; `plain` border/fill yok (inline düzenleme). */
+    variant: {
+      type: String,
+      default: 'default',
+      validator: (v) => VARIANTS.includes(v),
+    },
     /** `sm` 32px, `md` 36px (varsayılan), `lg` 44px — select / segment ile hizalı */
     size: {
       type: String,
@@ -172,6 +179,7 @@ export default {
     rootClass() {
       return cn(
         'ui-input',
+        this.variant === 'plain' && 'ui-input--plain',
         this.multiline && 'ui-input--multiline',
         this.resolvedSize !== 'md' && `ui-input--${this.resolvedSize}`,
         this.isDisabled && 'pointer-events-none opacity-50',
@@ -207,6 +215,9 @@ export default {
     onInput(e) {
       this.$emit('update:modelValue', e.target.value)
       this.$emit('input', e)
+    },
+    focus() {
+      this.$refs.field?.focus?.()
     },
   },
 }

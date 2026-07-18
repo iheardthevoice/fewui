@@ -17,7 +17,7 @@
       <span
         ref="labelRef"
         class="ui-badge-label"
-        :class="labelWidthClass"
+        :class="[labelWidthClass, truncate ? 'ui-badge-label--truncate' : '']"
       >
         <slot />
       </span>
@@ -54,6 +54,7 @@ const LABEL_WIDTH_CLASSES = {
   '32': 'max-w-32',
   '40': 'max-w-40',
   '48': 'max-w-48',
+  '64': 'max-w-64',
   full: 'max-w-full',
 }
 
@@ -93,15 +94,15 @@ export default {
       default: 'sm',
       validator: (v) => SIZES.includes(v),
     },
-    /** Uzun metinde kısaltma (…) ve taşma varsa tooltip */
+    /** Uzun metinde kısaltma (…) — `maxWidth` üst sınırından sonra (varsayılan ~12rem) */
     truncate: {
       type: Boolean,
       default: true,
     },
-    /** Tailwind max-w-* anahtarı: full (varsayılan), 32, 40, 48 */
+    /** Tailwind max-w-* anahtarı: 32, 40, 48, 64, full — truncate açıkken üst sınır */
     maxWidth: {
       type: String,
-      default: 'full',
+      default: '48',
       validator: (v) => Object.keys(LABEL_WIDTH_CLASSES).includes(v),
     },
     /** Tooltip metni; boşsa slot metni kullanılır */
@@ -124,8 +125,8 @@ export default {
   },
   computed: {
     labelWidthClass() {
-      if (!this.truncate) return 'max-w-full'
-      return LABEL_WIDTH_CLASSES[this.maxWidth] || LABEL_WIDTH_CLASSES['32']
+      if (!this.truncate) return ''
+      return LABEL_WIDTH_CLASSES[this.maxWidth] || LABEL_WIDTH_CLASSES['48']
     },
     hasAdornment() {
       return Boolean(this.$slots.prepend || this.$slots.append)

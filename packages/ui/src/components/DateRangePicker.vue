@@ -9,22 +9,29 @@
       :width="popoverWidth"
       :disabled="disabled"
     >
-      <template #trigger="{ open, toggle }">
-        <ui-button
-          type="button"
-          :id="resolvedId"
-          variant="solid"
-          color="input"
-          fulled
-          text-align="left"
-          prefix-icon="calendar"
-          :disabled="disabled"
-          :aria-expanded="open ? 'true' : 'false'"
-          :aria-haspopup="true"
-          @click="toggle"
+      <template #trigger="{ open, toggle, close }">
+        <slot
+          name="trigger"
+          :open="open"
+          :toggle="toggle"
+          :close="close"
         >
-          <span class="min-w-0 flex-1 truncate text-foreground">{{ displayText }}</span>
-        </ui-button>
+          <ui-button
+            type="button"
+            :id="resolvedId"
+            variant="solid"
+            color="input"
+            fulled
+            text-align="left"
+            prefix-icon="calendar"
+            :disabled="disabled"
+            :aria-expanded="open ? 'true' : 'false'"
+            :aria-haspopup="true"
+            @click="toggle"
+          >
+            <span class="min-w-0 flex-1 truncate text-foreground">{{ displayText }}</span>
+          </ui-button>
+        </slot>
       </template>
       <template #content="{ close }">
         <div class="ui-datepicker-panel ui-daterangepicker-panel p-2">
@@ -95,7 +102,7 @@
                       aria-hidden="true"
                     />
                   </div>
-                  <div class="mb-1 grid grid-cols-7 gap-0.5 text-center text-[10px] font-medium uppercase text-muted-foreground">
+                  <div class="ui-datepicker-weekdays mb-1">
                     <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
                   </div>
                   <div class="ui-datepicker-grid">
@@ -105,6 +112,7 @@
                       :variant="dayVariant(cell)"
                       :color="dayColor(cell)"
                       size="sm"
+                      cubed
                       :disabled="cell.disabled"
                       :aria-selected="cell.endpoint ? 'true' : 'false'"
                       :aria-disabled="cell.disabled ? 'true' : undefined"
@@ -129,6 +137,8 @@
 </template>
 
 <script>
+import { formatYmdDisplay, resolveDateDisplayLocale } from '../utils/format-ymd-display.js'
+
 let drpCounter = 0
 
 function pad2(n) {
@@ -226,7 +236,7 @@ export default {
       return 'min(calc(100vw - 2rem), 50rem)'
     },
     locale() {
-      return this.$i18n?.locale || 'tr'
+      return resolveDateDisplayLocale(this.$i18n?.locale)
     },
     startYmd() {
       return String(this.modelValue?.[0] || '').trim()
@@ -394,8 +404,7 @@ export default {
     formatDisplay(from, to) {
       const fmt = (s) => {
         if (!s) return '…'
-        const [y, m, d] = String(s).split('-')
-        return `${d}.${m}.${y}`
+        return formatYmdDisplay(s, this.locale) || s
       }
       if (!from && !to) return this.resolvedPlaceholder
       if (from === to || !to) return fmt(from || to)

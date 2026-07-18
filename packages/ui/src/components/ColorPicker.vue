@@ -3,52 +3,59 @@
     <ui-popover
       v-model:open="popoverOpen"
       placement="bottom-start"
-      :match-trigger-width="true"
+      :match-trigger-width="!$slots.trigger"
       :disabled="disabled"
     >
-      <template #trigger="{ open, toggle }">
-        <button
-          type="button"
-          class="ui-select-field"
-          :disabled="disabled"
-          :aria-expanded="open ? 'true' : 'false'"
-          :aria-haspopup="true"
-          @click="toggle"
+      <template #trigger="{ open, toggle, close }">
+        <slot
+          name="trigger"
+          :open="open"
+          :toggle="toggle"
+          :close="close"
         >
-          <span
-            class="ui-select-prefix inline-flex shrink-0 items-center"
-            aria-hidden="true"
+          <button
+            type="button"
+            class="ui-select-field"
+            :disabled="disabled"
+            :aria-expanded="open ? 'true' : 'false'"
+            :aria-haspopup="true"
+            @click="toggle"
           >
             <span
-              v-if="localColor"
-              class="ui-color-picker-swatch ui-color-picker-swatch--trigger"
-              :style="{ backgroundColor: localColor }"
-            />
-            <ui-icon
-              v-else
-              name="palette"
-              size="xs"
-              class="text-muted-foreground"
-            />
-          </span>
-          <span
-            class="ui-select-value"
-            :class="{ 'ui-select-value--placeholder': !localColor }"
-          >
-            {{ displayValue }}
-          </span>
-          <span class="ui-select-field-suffix">
-            <span
-              class="ui-select-chevron"
+              class="ui-select-prefix inline-flex shrink-0 items-center"
               aria-hidden="true"
             >
+              <span
+                v-if="localColor"
+                class="ui-color-picker-swatch ui-color-picker-swatch--trigger"
+                :style="{ backgroundColor: localColor }"
+              />
               <ui-icon
-                name="chevron-down"
+                v-else
+                name="palette"
                 size="xs"
+                class="text-muted-foreground"
               />
             </span>
-          </span>
-        </button>
+            <span
+              class="ui-select-value"
+              :class="{ 'ui-select-value--placeholder': !localColor }"
+            >
+              {{ displayValue }}
+            </span>
+            <span class="ui-select-field-suffix">
+              <span
+                class="ui-select-chevron"
+                aria-hidden="true"
+              >
+                <ui-icon
+                  name="chevron-down"
+                  size="xs"
+                />
+              </span>
+            </span>
+          </button>
+        </slot>
       </template>
       <template #content>
         <div class="ui-color-picker-panel">

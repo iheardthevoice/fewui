@@ -5,7 +5,9 @@
     :id="triggerDomId"
     :class="triggerClass"
     :aria-selected="isSelected ? 'true' : 'false'"
-    :aria-controls="panelDomId"
+    :aria-controls="popup ? undefined : panelDomId"
+    :aria-haspopup="popup || undefined"
+    :aria-expanded="popup ? (expanded ? 'true' : 'false') : undefined"
     :tabindex="isSelected ? 0 : -1"
     :disabled="disabled"
     @click="select"
@@ -80,6 +82,21 @@ export default {
       type: [String, Number],
       default: null,
     },
+    /** Verilirse `ui-tabs` seçim durumunun üzerine yazar (menü tetikleyici sekmeler). */
+    active: {
+      type: Boolean,
+      default: undefined,
+    },
+    /** `menu` — `aria-haspopup` / `aria-expanded` (panel `aria-controls` kapatılır). */
+    popup: {
+      type: String,
+      default: '',
+    },
+    /** `popup` doluysa menü açık/kapalı durumu. */
+    expanded: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     /** `segmented` yalnızca yatay `ui-tabs` içinde geçerlidir. */
@@ -101,17 +118,27 @@ export default {
       return this.iconType
     },
     isSelected() {
+      if (typeof this.active === 'boolean') return this.active
       if (!this.uiTabs) return false
       return this.uiTabs.isSelected(this.value)
     },
     showBadge() {
-      const n = Number(this.badge)
-      return this.badge != null && this.badge !== '' && Number.isFinite(n) && n > 0
+      if (this.badge == null || this.badge === '') return false
+      const asString = String(this.badge).trim()
+      if (/^\d+(\.\d+)?$/.test(asString)) {
+        return Number(asString) > 0
+      }
+      return asString.length > 0
     },
     badgeLabel() {
-      const n = Number(this.badge)
-      if (!Number.isFinite(n) || n <= 0) return ''
-      return n > 99 ? '99+' : String(n)
+      if (this.badge == null || this.badge === '') return ''
+      const asString = String(this.badge).trim()
+      if (/^\d+(\.\d+)?$/.test(asString)) {
+        const n = Number(asString)
+        if (n <= 0) return ''
+        return n > 99 ? '99+' : String(n)
+      }
+      return asString
     },
     triggerDomId() {
       return this.uiTabs ? this.uiTabs.triggerId(this.value) : undefined

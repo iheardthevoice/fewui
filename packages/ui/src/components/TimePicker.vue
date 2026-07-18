@@ -1,30 +1,126 @@
 <template>
   <div
-    :class="['ui-timepicker', disabled ? 'pointer-events-none opacity-50' : '', $attrs.class]"
+    :class="[
+      'ui-timepicker',
+      embedded ? 'ui-timepicker--embedded' : '',
+      disabled ? 'pointer-events-none opacity-50' : '',
+      $attrs.class,
+    ]"
   >
+    <template v-if="embedded">
+      <div class="ui-timepicker-panel w-full">
+        <div class="ui-timepicker-wheels">
+          <div
+            class="ui-timepicker-selection-band"
+            aria-hidden="true"
+          />
+          <div class="ui-timepicker-wheels-row">
+            <div
+              class="min-h-0 min-w-0 flex-1"
+              role="spinbutton"
+              :aria-valuenow="draftHour"
+              aria-valuemin="0"
+              aria-valuemax="23"
+              :aria-label="hourAriaLabel"
+            >
+              <div
+                ref="hourWheel"
+                class="ui-timepicker-wheel-viewport"
+              >
+                <div class="ui-timepicker-wheel-spacer">
+                  <button
+                    v-for="h in hourOptions"
+                    :key="'h-' + h"
+                    type="button"
+                    tabindex="-1"
+                    :class="[
+                      'ui-timepicker-wheel-item',
+                      h === draftHour ? 'ui-timepicker-wheel-item--selected' : '',
+                    ]"
+                    @click="selectHour(h)"
+                  >
+                    {{ pad2(h) }}
+                  </button>
+                </div>
+              </div>
+            </div>
+            <span
+              class="ui-timepicker-colon"
+              aria-hidden="true"
+            >:</span>
+            <div
+              class="min-h-0 min-w-0 flex-1"
+              role="spinbutton"
+              :aria-valuenow="draftMinute"
+              aria-valuemin="0"
+              aria-valuemax="59"
+              :aria-label="minuteAriaLabel"
+            >
+              <div
+                ref="minuteWheel"
+                class="ui-timepicker-wheel-viewport"
+              >
+                <div class="ui-timepicker-wheel-spacer">
+                  <button
+                    v-for="(m, mi) in minuteValues"
+                    :key="'m-' + m"
+                    type="button"
+                    tabindex="-1"
+                    :class="[
+                      'ui-timepicker-wheel-item',
+                      m === draftMinute ? 'ui-timepicker-wheel-item--selected' : '',
+                    ]"
+                    @click="selectMinute(mi)"
+                  >
+                    {{ pad2(m) }}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="ui-timepicker-wheels-fade ui-timepicker-wheels-fade--top"
+            aria-hidden="true"
+          />
+          <div
+            class="ui-timepicker-wheels-fade ui-timepicker-wheels-fade--bottom"
+            aria-hidden="true"
+          />
+        </div>
+      </div>
+    </template>
+
     <ui-popover
+      v-else
       v-model:open="menuOpen"
       placement="bottom-start"
       :match-trigger-width="false"
       :width="popoverWidth"
       :disabled="disabled"
     >
-      <template #trigger="{ open, toggle }">
-        <ui-button
-          type="button"
-          :id="resolvedId"
-          variant="solid"
-          color="input"
-          fulled
-          text-align="left"
-          prefix-icon="clock"
-          :disabled="disabled"
-          :aria-expanded="open ? 'true' : 'false'"
-          :aria-haspopup="true"
-          @click="toggle"
+      <template #trigger="{ open, toggle, close }">
+        <slot
+          name="trigger"
+          :open="open"
+          :toggle="toggle"
+          :close="close"
         >
-          <span class="min-w-0 flex-1 truncate text-foreground">{{ display }}</span>
-        </ui-button>
+          <ui-button
+            type="button"
+            :id="resolvedId"
+            variant="solid"
+            color="input"
+            fulled
+            text-align="left"
+            prefix-icon="clock"
+            :disabled="disabled"
+            :aria-expanded="open ? 'true' : 'false'"
+            :aria-haspopup="true"
+            @click="toggle"
+          >
+            <span class="min-w-0 flex-1 truncate text-foreground">{{ display }}</span>
+          </ui-button>
+        </slot>
       </template>
       <template #content>
         <div class="ui-timepicker-panel w-full p-2">
@@ -147,6 +243,13 @@ export default {
       type: Boolean,
       default: false,
     },
+    /**
+     * true: tetikleyici/popover yok — tekerlek panelini doğrudan yerleştir.
+     */
+    embedded: {
+      type: Boolean,
+      default: false,
+    },
     id: {
       type: String,
       default: undefined,
@@ -227,8 +330,21 @@ export default {
         this.unbindWheelListeners()
       }
     },
+    embedded: {
+      immediate: true,
+      handler(value) {
+        if (!value) return
+        this.applyModelToDraft()
+        this.$nextTick(() => {
+          this.$nextTick(() => {
+            this.scrollWheelsToDraft()
+            this.bindWheelListeners()
+          })
+        })
+      },
+    },
     stepMinutes() {
-      if (this.menuOpen) {
+      if (this.menuOpen || this.embedded) {
         this.applyModelToDraft()
         this.$nextTick(() => {
           this.$nextTick(() => {
@@ -238,6 +354,17 @@ export default {
         })
       }
     },
+  },
+  mounted() {
+    if (this.embedded) {
+      this.applyModelToDraft()
+      this.$nextTick(() => {
+        this.$nextTick(() => {
+          this.scrollWheelsToDraft()
+          this.bindWheelListeners()
+        })
+      })
+    }
   },
   beforeUnmount() {
     clearTimeout(this._hourScrollTimer)

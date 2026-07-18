@@ -392,6 +392,9 @@ function submitLogin() {
                 <ui-button color="warning">
                   Ödemeyi onayla
                 </ui-button>
+                <ui-button color="danger">
+                  Sil
+                </ui-button>
                 <ui-button color="success">
                   Başarılı
                 </ui-button>
@@ -407,6 +410,9 @@ function submitLogin() {
               <div class="flex flex-wrap gap-2">
                 <ui-button variant="outline" color="warning">
                   Uyarı
+                </ui-button>
+                <ui-button variant="outline" color="danger">
+                  Sil
                 </ui-button>
                 <ui-button variant="outline" color="success">
                   Onaylandı
@@ -430,6 +436,9 @@ function submitLogin() {
                 <ui-button variant="ghost" color="warning">
                   Uyarı
                 </ui-button>
+                <ui-button variant="ghost" color="danger">
+                  Sil
+                </ui-button>
                 <ui-button variant="ghost" color="success">
                   Onaylandı
                 </ui-button>
@@ -446,7 +455,7 @@ function submitLogin() {
                 <ui-button variant="outline" color="primary" rounded @click="dialogProg.show()">
                   Sipariş detayı
                 </ui-button>
-                <ui-button variant="outline" color="warning" rounded @click="runConfirmDemo">
+                <ui-button variant="outline" color="danger" rounded @click="runConfirmDemo">
                   Siparişi iptal et
                 </ui-button>
               </div>

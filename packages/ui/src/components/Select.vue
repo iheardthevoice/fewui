@@ -11,98 +11,105 @@
     <ui-popover
       v-model:open="menuOpen"
       placement="bottom-start"
-      :match-trigger-width="resolvedMatchTriggerWidth"
+      :match-trigger-width="matchTriggerWidth && !$slots.trigger"
       :disabled="isDisabled"
       :align-selected-option-to-trigger="alignSelectedToTrigger"
     >
-      <template #trigger="{ open, toggle }">
-        <button
-          type="button"
-          :id="resolvedId"
-          class="ui-select-field"
-          :class="{ 'ui-select-field--values': multiple }"
-          :disabled="isDisabled"
-          :aria-expanded="open ? 'true' : 'false'"
-          :aria-haspopup="listboxRole"
-          :aria-controls="listboxId"
-          :aria-describedby="ariaDescribedby"
-          v-bind="triggerPassthrough"
-          @click="onTriggerClick(toggle)"
+      <template #trigger="{ open, toggle, close }">
+        <slot
+          name="trigger"
+          :open="open"
+          :toggle="toggle"
+          :close="close"
         >
-          <span
-            v-if="prefixIcon"
-            class="ui-select-prefix inline-flex shrink-0 items-center text-muted-foreground"
-            aria-hidden="true"
+          <button
+            type="button"
+            :id="resolvedId"
+            class="ui-select-field"
+            :class="{ 'ui-select-field--values': multiple }"
+            :disabled="isDisabled"
+            :aria-expanded="open ? 'true' : 'false'"
+            :aria-haspopup="listboxRole"
+            :aria-controls="listboxId"
+            :aria-describedby="ariaDescribedby"
+            v-bind="triggerPassthrough"
+            @click="onTriggerClick(toggle)"
           >
-            <ui-icon
-              :name="prefixIcon"
-              size="xs"
-            />
-          </span>
-          <div
-            v-if="multiple"
-            class="ui-select-values-inner"
-          >
-            <Tag
-              v-for="val in selectedValues"
-              :key="String(val)"
-              variant="secondary"
-              size="sm"
-              removable
-              @remove="removeValue(val)"
-            >
-              {{ labelForValue(val) }}
-            </Tag>
-            <input
-              v-if="isFilterable"
-              ref="searchInput"
-              v-model="filterQuery"
-              type="text"
-              class="ui-select-values-input"
-              :class="{ 'ui-select-values-input--solo': !selectedValues.length }"
-              :placeholder="multipleInputPlaceholder"
-              :aria-label="resolvedFilterPlaceholder"
-              autocomplete="off"
-              :disabled="isDisabled"
-              @click.stop
-              @keydown="onSearchKeydown"
-            >
-          </div>
-          <span
-            v-else-if="loading"
-            class="ui-select-value ui-select-value--placeholder"
-            data-popover-align
-          >{{ resolvedLoadingLabel }}</span>
-          <span
-            v-else
-            class="ui-select-value"
-            :class="{ 'ui-select-value--placeholder': isPlaceholderDisplay }"
-            data-popover-align
-          >{{ displayLabel }}</span>
-          <span class="ui-select-field-suffix">
-            <button
-              v-if="showClearButton"
-              type="button"
-              class="ui-select-clear"
-              :aria-label="clearAriaLabel"
-              @click.stop="clearSelection"
-            >
-              <ui-icon
-                name="xmark"
-                size="xs"
-              />
-            </button>
             <span
-              class="ui-select-chevron"
+              v-if="prefixIcon"
+              class="ui-select-prefix inline-flex shrink-0 items-center text-muted-foreground"
               aria-hidden="true"
             >
               <ui-icon
-                name="chevron-down"
+                :name="prefixIcon"
                 size="xs"
               />
             </span>
-          </span>
-        </button>
+            <div
+              v-if="multiple"
+              class="ui-select-values-inner"
+            >
+              <Tag
+                v-for="val in selectedValues"
+                :key="String(val)"
+                variant="secondary"
+                size="sm"
+                removable
+                @remove="removeValue(val)"
+              >
+                {{ labelForValue(val) }}
+              </Tag>
+              <input
+                v-if="isFilterable"
+                ref="searchInput"
+                v-model="filterQuery"
+                type="text"
+                class="ui-select-values-input"
+                :class="{ 'ui-select-values-input--solo': !selectedValues.length }"
+                :placeholder="multipleInputPlaceholder"
+                :aria-label="resolvedFilterPlaceholder"
+                autocomplete="off"
+                :disabled="isDisabled"
+                @click.stop
+                @keydown="onSearchKeydown"
+              >
+            </div>
+            <span
+              v-else-if="loading"
+              class="ui-select-value ui-select-value--placeholder"
+              data-popover-align
+            >{{ resolvedLoadingLabel }}</span>
+            <span
+              v-else
+              class="ui-select-value"
+              :class="{ 'ui-select-value--placeholder': isPlaceholderDisplay }"
+              data-popover-align
+            >{{ displayLabel }}</span>
+            <span class="ui-select-field-suffix">
+              <button
+                v-if="showClearButton"
+                type="button"
+                class="ui-select-clear"
+                :aria-label="clearAriaLabel"
+                @click.stop="clearSelection"
+              >
+                <ui-icon
+                  name="xmark"
+                  size="xs"
+                />
+              </button>
+              <span
+                class="ui-select-chevron"
+                aria-hidden="true"
+              >
+                <ui-icon
+                  name="chevron-down"
+                  size="xs"
+                />
+              </span>
+            </span>
+          </button>
+        </slot>
       </template>
       <template
         v-if="showPopoverHeader"

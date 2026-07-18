@@ -1,9 +1,9 @@
-import { s as m, a0 as g, L as p, A as T, a as d, B as b, b as h, C as f, c as C, d as F, E as L, F as v, I as y, f as G, P as O, g as P, R as A, h as S, S as k, i as B, k as E, m as w, l as M, o as N } from "./index-DZlWBF9X.js";
-import { G as q, q as J, r as V, t as W, u as X, v as Y, w as Z, x as j, J as z, K as H, M as Q, N as $, O as aa, U as ea, W as oa, X as sa, Y as ta, Z as la, a1 as ia } from "./index-DZlWBF9X.js";
-const R = {
+import { s as m, a2 as g, L as p, A as T, a as d, B as b, b as h, C as f, c as C, d as F, E as L, F as v, I as y, f as G, P as O, g as P, R as A, h as S, S as k, i as B, k as E, m as w, l as N, o as R } from "./index-SlRhgfoS.js";
+import { G as V, q, r as J, t as Q, u as Y, v as Z, w as $, x as j, J as z, K as H, N as W, O as X, Q as aa, V as ea, Y as oa, Z as sa, $ as ta, a0 as la, a3 as ia } from "./index-SlRhgfoS.js";
+const _ = {
   en: p,
   tr: g
-}, U = [
+}, x = [
   ["ui-action-group", T],
   ["ui-alert", d],
   ["ui-badge", b],
@@ -23,10 +23,10 @@ const R = {
   ["ui-skeleton", B],
   ["ui-tab-list", E],
   ["ui-tabs", w],
-  ["ui-tab-trigger", M],
-  ["ui-toast", N]
+  ["ui-tab-trigger", N],
+  ["ui-toast", R]
 ];
-function _(n, u = {}) {
+function D(n, u = {}) {
   var l, i;
   const { i18n: a, locale: s, locales: c, theme: t } = u;
   if (t && m(t), (l = a == null ? void 0 : a.global) != null && l.mergeLocaleMessage) {
@@ -34,31 +34,31 @@ function _(n, u = {}) {
       typeof a.global.locale == "string" ? a.global.locale : ((i = a.global.locale) == null ? void 0 : i.value) ?? "tr"
     ]);
     for (const e of o) {
-      const r = R[e];
+      const r = _[e];
       r && a.global.mergeLocaleMessage(e, r);
     }
   }
-  for (const [o, e] of U)
+  for (const [o, e] of x)
     n.component(o, e);
 }
-const D = {
-  install: _
+const M = {
+  install: D
 };
 export {
-  q as GOOGLE_FONTS_CATALOG,
-  J as applyGoogleFontsForTheme,
-  V as applyThemeCustomCss,
+  V as GOOGLE_FONTS_CATALOG,
+  q as applyGoogleFontsForTheme,
+  J as applyThemeCustomCss,
   m as applyUiTheme,
-  W as buildGoogleFontsLinkTag,
-  X as buildGoogleFontsStylesheetUrl,
-  Y as buildThemeStyleAttr,
-  Z as clearThemeCustomCss,
+  Q as buildGoogleFontsLinkTag,
+  Y as buildGoogleFontsStylesheetUrl,
+  Z as buildThemeStyleAttr,
+  $ as clearThemeCustomCss,
   j as clearToasts,
-  D as default,
+  M as default,
   z as deriveBrandColorsFromPrimary,
   H as dismissToast,
-  Q as getThemePreset,
-  $ as googleFontSelectOptions,
+  W as getThemePreset,
+  X as googleFontSelectOptions,
   aa as mergeUiTheme,
   ea as pushToast,
   oa as resolvePrimaryColor,

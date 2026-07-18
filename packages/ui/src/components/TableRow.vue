@@ -7,7 +7,7 @@
 <script>
 import { cn } from '../utils/cn.js'
 
-const HOVERS = ['soft', 'strong']
+const HOVERS = ['none', 'soft', 'strong']
 
 export default {
   name: 'TableRow',
@@ -34,6 +34,7 @@ export default {
     rootClass() {
       return cn(
         'ui-table-row',
+        this.hover === 'none' && 'ui-table-row--no-hover',
         this.hover === 'soft' && 'ui-table-row--soft-hover',
         this.hover === 'strong' && 'ui-table-row--strong-hover',
         this.interactive && 'ui-table-row--interactive',

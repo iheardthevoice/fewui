@@ -429,6 +429,7 @@ export default {
       this.$emit('after-leave')
     },
     focusInitialField() {
+      if (isMobileViewport()) return
       const panel = this.$refs.panelRef
       if (panel && focusFirstField(panel)) return
       panel?.focus?.()

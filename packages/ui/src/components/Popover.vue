@@ -175,6 +175,14 @@ export default {
       default: false,
     },
     /**
+     * true: kök ve tetikleyici kabuğu `display: contents` — flex satırında yalnızca slot
+     * (ör. `ui-tab-trigger`) katılır; konumlandırma ilk çocuk öğeden alınır.
+     */
+    inheritLayout: {
+      type: Boolean,
+      default: false,
+    },
+    /**
      * Mobil görünümde paneli ekran ortasında aç (varsayılan).
      * false: tetikleyiciye göre konumlanır (Dropdown menüler).
      */
@@ -200,11 +208,17 @@ export default {
       return { zIndex: String(this.layerZIndex) }
     },
     rootShellClass() {
+      if (this.inheritLayout) {
+        return 'ui-popover ui-popover--inherit-layout'
+      }
       return this.block
         ? 'ui-popover ui-popover--block relative w-full min-w-0 max-w-full'
         : 'ui-popover relative shrink-0'
     },
     triggerShellClass() {
+      if (this.inheritLayout) {
+        return 'ui-popover-trigger ui-popover-trigger--inherit-layout'
+      }
       return this.block
         ? 'ui-popover-trigger ui-popover-trigger--block flex w-full min-w-0 max-w-full'
         : 'ui-popover-trigger inline-flex shrink-0'
@@ -284,8 +298,16 @@ export default {
         zIndex: String(z),
       }
     },
+    resolveTriggerEl() {
+      const shell = this.$refs.triggerRef
+      if (!shell) return null
+      if (this.inheritLayout) {
+        return shell.firstElementChild instanceof HTMLElement ? shell.firstElementChild : shell
+      }
+      return shell
+    },
     updatePosition() {
-      const trigger = this.$refs.triggerRef
+      const trigger = this.resolveTriggerEl()
       const panel = this.$refs.panelRef
       if (!trigger || !panel) return
       const vw = window.innerWidth
@@ -406,7 +428,7 @@ export default {
       }
     },
     nudgeAlignSelectedToTrigger() {
-      const trigger = this.$refs.triggerRef
+      const trigger = this.resolveTriggerEl()
       const panel = this.$refs.panelRef
       const layer = this.$refs.layerRef
       if (!trigger || !panel || !layer) return

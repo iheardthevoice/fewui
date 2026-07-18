@@ -29,12 +29,13 @@
 <script>
 import { cn } from '../utils/cn.js'
 
-const SIZES = ['sm', 'md', 'lg']
+const SIZES = ['sm', 'md', 'lg', 'xl']
 
 const SIZE_CLASS = {
   sm: 'ui-avatar--sm',
   md: 'ui-avatar--md',
   lg: 'ui-avatar--lg',
+  xl: 'ui-avatar--xl',
 }
 
 /** A–Z; Türkçe harfler Latin karşılığına eşlenir (renk tutarlılığı). */

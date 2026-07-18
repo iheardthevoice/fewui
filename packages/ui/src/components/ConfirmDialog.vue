@@ -19,7 +19,7 @@
       </ui-button>
       <ui-button
         rounded
-        :color="confirmState.destructive ? 'warning' : 'primary'"
+        :color="confirmState.destructive ? 'danger' : 'primary'"
         @click="onConfirm"
       >
         {{ confirmText }}

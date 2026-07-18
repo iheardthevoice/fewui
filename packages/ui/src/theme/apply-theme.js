@@ -117,6 +117,26 @@ function parseHex(hex) {
 }
 
 /**
+ * Tailwind v4 palette values are often `oklch(...)`. Returns lightness in 0–1, or null.
+ * @param {string} color
+ * @returns {number|null}
+ */
+function parseOklchLightness(color) {
+  const match = String(color || '')
+    .trim()
+    .match(/^oklch\(\s*([0-9.]+%?)/i)
+  if (!match) return null
+  const raw = match[1]
+  if (raw.endsWith('%')) {
+    const pct = Number.parseFloat(raw)
+    return Number.isFinite(pct) ? pct / 100 : null
+  }
+  const value = Number.parseFloat(raw)
+  if (!Number.isFinite(value)) return null
+  return value > 1 ? value / 100 : value
+}
+
+/**
  * @param {number} r
  * @param {number} g
  * @param {number} b
@@ -140,10 +160,14 @@ function relativeLuminance(r, g, b) {
  */
 function pickContrastForeground(color, light = '#ffffff', dark = '#0a0a0b') {
   const rgb = parseHex(color)
-  if (!rgb) {
-    return light
+  if (rgb) {
+    return relativeLuminance(...rgb) > 0.4 ? dark : light
   }
-  return relativeLuminance(...rgb) > 0.4 ? dark : light
+  const lightness = parseOklchLightness(color)
+  if (lightness != null) {
+    return lightness > 0.4 ? dark : light
+  }
+  return light
 }
 
 /**

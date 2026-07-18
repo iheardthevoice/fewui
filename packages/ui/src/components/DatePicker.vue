@@ -2,42 +2,135 @@
   <div
     :class="[
       'ui-datepicker',
-      fulled ? 'ui-datepicker--fulled w-full' : 'w-auto shrink-0',
+      embedded ? 'ui-datepicker--embedded' : '',
+      !embedded && fulled ? 'ui-datepicker--fulled w-full' : '',
+      !embedded && !fulled ? 'w-auto shrink-0' : '',
       disabled ? 'pointer-events-none opacity-50' : '',
       $attrs.class,
     ]"
   >
+    <template v-if="embedded">
+      <div class="ui-datepicker-panel w-full min-w-[17rem]">
+        <div class="mb-3 flex items-center justify-between gap-2">
+          <ui-button
+            variant="ghost"
+            color="primary"
+            cubed
+            prefix-icon="chevron-left"
+            aria-label="Previous month"
+            @click.stop="shiftMonth(-1)"
+          />
+          <span class="text-sm font-medium tabular-nums text-foreground">{{ monthTitle }}</span>
+          <ui-button
+            variant="ghost"
+            color="primary"
+            cubed
+            prefix-icon="chevron-right"
+            aria-label="Next month"
+            @click.stop="shiftMonth(1)"
+          />
+        </div>
+          <div class="ui-datepicker-weekdays mb-2">
+            <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+          </div>
+          <div class="ui-datepicker-grid">
+            <ui-button
+              v-for="cell in calendarCells"
+              :key="cell.key"
+              :variant="dayVariant(cell)"
+              :color="dayColor(cell)"
+              size="sm"
+              cubed
+              :disabled="cell.disabled"
+              :aria-selected="cell.sel ? 'true' : 'false'"
+              :aria-disabled="cell.disabled ? 'true' : undefined"
+              :data-outside="cell.inMonth ? undefined : 'true'"
+              :data-today="cell.today ? 'true' : undefined"
+              @click="pick(cell)"
+            >
+              {{ cell.d }}
+            </ui-button>
+          </div>
+        <div
+          v-if="showQuick"
+          class="ui-datepicker-quick"
+        >
+          <ui-button
+            type="button"
+            variant="ghost"
+            color="secondary"
+            size="sm"
+            fulled
+            :disabled="yesterdayQuickDisabled"
+            @click="pickQuick('yesterday')"
+          >
+            {{ resolvedYesterdayLabel }}
+          </ui-button>
+          <ui-button
+            type="button"
+            variant="ghost"
+            color="secondary"
+            size="sm"
+            fulled
+            :disabled="todayQuickDisabled"
+            @click="pickQuick('today')"
+          >
+            {{ resolvedTodayLabel }}
+          </ui-button>
+          <ui-button
+            type="button"
+            variant="ghost"
+            color="secondary"
+            size="sm"
+            fulled
+            :disabled="tomorrowQuickDisabled"
+            @click="pickQuick('tomorrow')"
+          >
+            {{ resolvedTomorrowLabel }}
+          </ui-button>
+        </div>
+      </div>
+    </template>
+
     <ui-popover
+      v-else
       v-model:open="menuOpen"
       placement="bottom-start"
-      :match-trigger-width="true"
+      :match-trigger-width="!$slots.trigger"
       :disabled="disabled"
     >
-      <template #trigger="{ open, toggle }">
-        <ui-button
-          type="button"
-          :id="resolvedId"
-          variant="solid"
-          color="input"
-          :fulled="fulled"
-          text-align="left"
-          prefix-icon="calendar"
-          :disabled="disabled"
-          :aria-expanded="open ? 'true' : 'false'"
-          :aria-haspopup="true"
-          @click="toggle"
+      <template #trigger="{ open, toggle, close }">
+        <slot
+          name="trigger"
+          :open="open"
+          :toggle="toggle"
+          :close="close"
         >
-          <span
-            :class="[
-              'min-w-0 flex-1 truncate',
-              selectedDate ? 'text-foreground' : 'text-muted-foreground',
-            ]"
-          >{{ displayText }}</span>
-        </ui-button>
+          <ui-button
+            type="button"
+            :id="resolvedId"
+            variant="solid"
+            color="input"
+            :fulled="fulled"
+            text-align="left"
+            prefix-icon="calendar"
+            :disabled="disabled"
+            :aria-expanded="open ? 'true' : 'false'"
+            :aria-haspopup="true"
+            @click="toggle"
+          >
+            <span
+              :class="[
+                'min-w-0 flex-1 truncate',
+                selectedDate ? 'text-foreground' : 'text-muted-foreground',
+              ]"
+            >{{ displayText }}</span>
+          </ui-button>
+        </slot>
       </template>
       <template #content="{ close }">
-        <div class="ui-datepicker-panel w-full min-w-[17rem] p-2">
-          <div class="mb-2 flex items-center justify-between gap-2">
+        <div class="ui-datepicker-panel w-full min-w-[17rem] p-3">
+          <div class="mb-3 flex items-center justify-between gap-2">
             <ui-button
               variant="ghost"
               color="primary"
@@ -56,7 +149,7 @@
               @click.stop="shiftMonth(1)"
             />
           </div>
-          <div class="mb-1 grid grid-cols-7 gap-0.5 text-center text-[10px] font-medium uppercase text-muted-foreground">
+          <div class="ui-datepicker-weekdays mb-2">
             <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
           </div>
           <div class="ui-datepicker-grid">
@@ -66,6 +159,7 @@
               :variant="dayVariant(cell)"
               :color="dayColor(cell)"
               size="sm"
+              cubed
               :disabled="cell.disabled"
               :aria-selected="cell.sel ? 'true' : 'false'"
               :aria-disabled="cell.disabled ? 'true' : undefined"
@@ -76,7 +170,21 @@
               {{ cell.d }}
             </ui-button>
           </div>
-          <div class="ui-datepicker-quick">
+          <div
+            v-if="showQuick"
+            class="ui-datepicker-quick"
+          >
+            <ui-button
+              type="button"
+              variant="ghost"
+              color="secondary"
+              size="sm"
+              fulled
+              :disabled="yesterdayQuickDisabled"
+              @click="pickQuick('yesterday', close)"
+            >
+              {{ resolvedYesterdayLabel }}
+            </ui-button>
             <ui-button
               type="button"
               variant="ghost"
@@ -94,10 +202,10 @@
               color="secondary"
               size="sm"
               fulled
-              :disabled="yesterdayQuickDisabled"
-              @click="pickQuick('yesterday', close)"
+              :disabled="tomorrowQuickDisabled"
+              @click="pickQuick('tomorrow', close)"
             >
-              {{ resolvedYesterdayLabel }}
+              {{ resolvedTomorrowLabel }}
             </ui-button>
           </div>
         </div>
@@ -107,6 +215,8 @@
 </template>
 
 <script>
+import { formatDateDisplay, resolveDateDisplayLocale } from '../utils/format-ymd-display.js'
+
 let dpCounter = 0
 
 function pad2(n) {
@@ -150,6 +260,18 @@ export default {
       type: Boolean,
       default: true,
     },
+    /**
+     * true: tetikleyici/popover yok — paneli doğrudan yerleştir (FieldAction vb.).
+     */
+    embedded: {
+      type: Boolean,
+      default: false,
+    },
+    /** Hızlı seçim satırını göster */
+    showQuick: {
+      type: Boolean,
+      default: true,
+    },
     id: {
       type: String,
       default: undefined,
@@ -159,13 +281,15 @@ export default {
       type: String,
       default: '',
     },
-    /** Boş bırakılırsa `ui.datePicker.today` (i18n) */
     todayLabel: {
       type: String,
       default: '',
     },
-    /** Boş bırakılırsa `ui.datePicker.yesterday` (i18n) */
     yesterdayLabel: {
+      type: String,
+      default: '',
+    },
+    tomorrowLabel: {
       type: String,
       default: '',
     },
@@ -189,12 +313,15 @@ export default {
     selectedDate() {
       return parseYmd(this.modelValue)
     },
+    locale() {
+      return resolveDateDisplayLocale(this.$i18n?.locale)
+    },
     displayText() {
       if (!this.selectedDate) return this.placeholder
-      return toYmd(this.selectedDate)
+      return formatDateDisplay(this.selectedDate, this.locale)
     },
     monthTitle() {
-      return new Date(this.viewYear, this.viewMonth, 1).toLocaleString('en-US', {
+      return new Date(this.viewYear, this.viewMonth, 1).toLocaleString(this.locale, {
         month: 'long',
         year: 'numeric',
       })
@@ -210,12 +337,21 @@ export default {
       if (this.yesterdayLabel) return this.yesterdayLabel
       return typeof this.$t === 'function' ? this.$t('ui.datePicker.yesterday') : 'Yesterday'
     },
+    resolvedTomorrowLabel() {
+      if (this.tomorrowLabel) return this.tomorrowLabel
+      return typeof this.$t === 'function' ? this.$t('ui.datePicker.tomorrow') : 'Tomorrow'
+    },
     todayQuickDisabled() {
       return this.isQuickDateDisabled(new Date())
     },
     yesterdayQuickDisabled() {
       const d = new Date()
       d.setDate(d.getDate() - 1)
+      return this.isQuickDateDisabled(d)
+    },
+    tomorrowQuickDisabled() {
+      const d = new Date()
+      d.setDate(d.getDate() + 1)
       return this.isQuickDateDisabled(d)
     },
     calendarCells() {
@@ -272,12 +408,15 @@ export default {
       const ymd = toYmd(cell.date)
       this.$emit('update:modelValue', ymd)
       this.$emit('change', ymd)
-      close()
+      if (typeof close === 'function') close()
+      else this.menuOpen = false
     },
     pickQuick(kind, close) {
       const date = new Date()
       if (kind === 'yesterday') {
         date.setDate(date.getDate() - 1)
+      } else if (kind === 'tomorrow') {
+        date.setDate(date.getDate() + 1)
       }
       if (this.isQuickDateDisabled(date)) return
       const ymd = toYmd(date)
@@ -285,7 +424,8 @@ export default {
       this.viewMonth = date.getMonth()
       this.$emit('update:modelValue', ymd)
       this.$emit('change', ymd)
-      close()
+      if (typeof close === 'function') close()
+      else this.menuOpen = false
     },
     dayVariant(cell) {
       if (cell.sel) return 'solid'

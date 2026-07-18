@@ -4,6 +4,7 @@
     :placement="placement"
     :match-trigger-width="matchTriggerWidth"
     :block="block"
+    :inherit-layout="inheritLayout"
     :mobile-centered="false"
     :close-on-outside-click="closeOnOutsideClick"
     :close-on-escape="closeOnEscape"
@@ -40,7 +41,7 @@
             <ui-button
               v-else
               variant="ghost"
-              color="secondary"
+              :color="itemColor(it)"
               rounded
               fulled
               text-align="left"
@@ -97,6 +98,11 @@ export default {
       type: Boolean,
       default: false,
     },
+    /** Flex satırında tetikleyicinin doğrudan katılımı (`ui-tab-list` içi menü sekmesi). */
+    inheritLayout: {
+      type: Boolean,
+      default: false,
+    },
     closeOnOutsideClick: {
       type: Boolean,
       default: true,
@@ -137,6 +143,12 @@ export default {
   methods: {
     onOpenChange(value) {
       this.isOpen = value
+    },
+    /** `color`, veya `variant: 'destructive'` → danger (sil / yıkıcı eylem). */
+    itemColor(it) {
+      if (it?.color) return it.color
+      if (it?.variant === 'destructive' || it?.destructive) return 'danger'
+      return 'secondary'
     },
     onItem(it, close) {
       if (it.disabled) return

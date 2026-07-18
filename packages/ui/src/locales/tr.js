@@ -33,6 +33,10 @@ export default {
       /** Tag kapat düğmesi `aria-label` */
       remove: 'Etiketi kaldır',
     },
+    fieldAction: {
+      clear: 'Temizle',
+      done: 'Tamam',
+    },
     phone: {
       countryAria: 'Ülke kodu',
       placeholder: '5XX XXX XX XX',
@@ -78,6 +82,7 @@ export default {
     datePicker: {
       today: 'Bugün',
       yesterday: 'Dün',
+      tomorrow: 'Yarın',
     },
     dateRangePicker: {
       placeholder: 'Tarih aralığı seçin',

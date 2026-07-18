@@ -27,6 +27,10 @@ export default {
     tag: {
       remove: 'Remove tag',
     },
+    fieldAction: {
+      clear: 'Clear',
+      done: 'Done',
+    },
     phone: {
       countryAria: 'Country code',
       placeholder: '555 000 0000',
@@ -72,6 +76,7 @@ export default {
     datePicker: {
       today: 'Today',
       yesterday: 'Yesterday',
+      tomorrow: 'Tomorrow',
     },
     dateRangePicker: {
       placeholder: 'Select date range',

@@ -171,13 +171,14 @@
 </template>
 
 <script>
+import { Comment, Fragment, Text } from 'vue'
 import { RouterLink } from 'vue-router'
 import { resolveControlSize } from '../utils/control-size.js'
 import { resolveUiText } from '../utils/resolve-ui-text.js'
 
 const sizes = ['sm', 'md', 'lg']
 const variants = ['solid', 'outline', 'ghost', 'link', 'nav']
-const colors = ['primary', 'secondary', 'input', 'warning', 'success', 'info']
+const colors = ['primary', 'secondary', 'input', 'warning', 'success', 'info', 'danger']
 
 const NATIVE_TYPES = ['button', 'submit', 'reset']
 
@@ -217,6 +218,8 @@ const VARIANT_COLOR_CLASSES = {
     success:
       'border-0 bg-success text-success-foreground shadow-none hover:opacity-90',
     info: 'border-0 bg-info text-info-foreground shadow-none hover:opacity-90',
+    danger:
+      'border-0 bg-destructive text-destructive-foreground shadow-none hover:opacity-90',
   },
   outline: {
     primary:
@@ -228,6 +231,8 @@ const VARIANT_COLOR_CLASSES = {
     success:
       'shadow-none border border-success bg-transparent text-success hover:bg-success/10',
     info: 'shadow-none border border-info bg-transparent text-info hover:bg-info/10',
+    danger:
+      'shadow-none border border-destructive bg-transparent text-destructive hover:bg-destructive/10',
   },
   ghost: {
     primary:
@@ -240,6 +245,8 @@ const VARIANT_COLOR_CLASSES = {
       'shadow-none border-0 bg-transparent text-success hover:bg-success hover:text-success-foreground',
     info:
       'shadow-none border-0 bg-transparent text-info hover:bg-info hover:text-info-foreground',
+    danger:
+      'shadow-none border-0 bg-transparent text-destructive hover:bg-destructive hover:text-destructive-foreground',
   },
   link: {
     primary:
@@ -251,6 +258,8 @@ const VARIANT_COLOR_CLASSES = {
     success:
       'border-0 bg-transparent p-0 !h-auto !min-h-0 shadow-none text-success underline-offset-4 hover:underline',
     info: 'border-0 bg-transparent p-0 !h-auto !min-h-0 shadow-none text-info underline-offset-4 hover:underline',
+    danger:
+      'border-0 bg-transparent p-0 !h-auto !min-h-0 shadow-none text-destructive underline-offset-4 hover:underline',
   },
   nav: {
     primary:
@@ -265,6 +274,8 @@ const VARIANT_COLOR_CLASSES = {
       'shadow-none border-0 bg-transparent text-success hover:bg-transparent',
     info:
       'shadow-none border-0 bg-transparent text-info hover:bg-transparent',
+    danger:
+      'shadow-none border-0 bg-transparent text-destructive hover:bg-transparent',
   },
 }
 
@@ -353,14 +364,20 @@ export default {
     /**
      * Kübik kutu: yalnız ikon veya tek slot (ör. avatar).
      * Slot varken `textContentClass` (`truncate`) kullanılmaz — kesilme olmaz.
+     * Boş / comment-only default slot (ör. `v-if` kapalı) merkezi düzeni bozmasın.
      */
     usesCubedCenterLayout() {
       if (!this.cubed) return false
       if (this.prefixIcon && this.suffixIcon) return false
       if (this.prefixIcon || this.suffixIcon) {
-        return !this.$slots.default
+        return !this.hasRenderableDefaultSlot
       }
       return true
+    },
+    hasRenderableDefaultSlot() {
+      const slot = this.$slots.default
+      if (!slot) return false
+      return slot().some((vnode) => this.isRenderableVNode(vnode))
     },
     isDisabled() {
       return this.disabled || this.loading
@@ -376,7 +393,15 @@ export default {
     },
     textContentClass() {
       const align = this.textAlign === 'left' ? 'text-left' : 'text-center'
-      return ['ui-button-text min-w-0 flex-1 truncate', align].join(' ')
+      const isBlock = this.fulled || this.block
+      /**
+       * Tam genişlik / nav: taşmayı kısalt.
+       * Normal düğmelerde truncate yok — grow/flex içinde `min-w-0` ile “QR …” gibi okunaksız kesilmeyi önler.
+       */
+      if (isBlock || this.variant === 'nav') {
+        return ['ui-button-text min-w-0 flex-1 truncate', align].join(' ')
+      }
+      return ['ui-button-text whitespace-nowrap', align].join(' ')
     },
     /** Metin yanı ikonlar — küçük kontrollerde `xs`, `lg` düğmede `sm`. */
     inlineIconSize() {
@@ -426,6 +451,19 @@ export default {
     },
   },
   methods: {
+    isRenderableVNode(vnode) {
+      if (vnode == null || typeof vnode !== 'object') return false
+      if (vnode.type === Comment) return false
+      if (vnode.type === Text) {
+        return String(vnode.children ?? '').trim().length > 0
+      }
+      if (vnode.type === Fragment) {
+        const children = vnode.children
+        if (!Array.isArray(children)) return false
+        return children.some((child) => this.isRenderableVNode(child))
+      }
+      return true
+    },
     onClick(e) {
       if (this.isDisabled) return
       this.$emit('click', e)

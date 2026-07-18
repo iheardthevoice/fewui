@@ -6,43 +6,50 @@
       :width="panelWidth"
       :disabled="disabled"
     >
-      <template #trigger="{ open, toggle }">
-        <button
-          type="button"
-          class="ui-select-field"
-          :disabled="disabled"
-          :aria-expanded="open ? 'true' : 'false'"
-          :aria-haspopup="true"
-          @click="toggle"
+      <template #trigger="{ open, toggle, close }">
+        <slot
+          name="trigger"
+          :open="open"
+          :toggle="toggle"
+          :close="close"
         >
-          <span
-            class="ui-select-prefix inline-flex shrink-0 items-center text-muted-foreground"
-            aria-hidden="true"
+          <button
+            type="button"
+            class="ui-select-field"
+            :disabled="disabled"
+            :aria-expanded="open ? 'true' : 'false'"
+            :aria-haspopup="true"
+            @click="toggle"
           >
-            <ui-icon
-              :name="localIcon || 'grid'"
-              :type="iconType"
-              size="xs"
-            />
-          </span>
-          <span
-            class="ui-select-value"
-            :class="{ 'ui-select-value--placeholder': !localIcon }"
-          >
-            {{ localIcon || triggerLabel }}
-          </span>
-          <span class="ui-select-field-suffix">
             <span
-              class="ui-select-chevron"
+              class="ui-select-prefix inline-flex shrink-0 items-center text-muted-foreground"
               aria-hidden="true"
             >
               <ui-icon
-                name="chevron-down"
+                :name="localIcon || 'grid'"
+                :type="iconType"
                 size="xs"
               />
             </span>
-          </span>
-        </button>
+            <span
+              class="ui-select-value"
+              :class="{ 'ui-select-value--placeholder': !localIcon }"
+            >
+              {{ localIcon || triggerLabel }}
+            </span>
+            <span class="ui-select-field-suffix">
+              <span
+                class="ui-select-chevron"
+                aria-hidden="true"
+              >
+                <ui-icon
+                  name="chevron-down"
+                  size="xs"
+                />
+              </span>
+            </span>
+          </button>
+        </slot>
       </template>
       <template #content>
         <div class="ui-icon-picker-panel">
