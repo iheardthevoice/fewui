@@ -102,6 +102,16 @@ export default {
       type: Boolean,
       default: false,
     },
+    /** Sayfa üstünde ince, tam genişlikte durum çubuğu. */
+    banner: {
+      type: Boolean,
+      default: false,
+    },
+    /** Sidebar / dar alan: kompakt, daha yuvarlak, bordersız. */
+    soft: {
+      type: Boolean,
+      default: false,
+    },
   },
   emits: ['dismiss'],
   computed: {
@@ -115,7 +125,12 @@ export default {
       return VARIANT_ICON_CLASS[this.variant] || VARIANT_ICON_CLASS.info
     },
     rootClasses() {
-      return cn(`ui-alert ui-alert--${this.variant}`, this.$attrs.class)
+      return cn(
+        `ui-alert ui-alert--${this.variant}`,
+        this.banner ? 'ui-alert--banner' : '',
+        this.soft ? 'ui-alert--soft' : '',
+        this.$attrs.class,
+      )
     },
     passthroughAttrs() {
       const { class: _c, ...rest } = this.$attrs

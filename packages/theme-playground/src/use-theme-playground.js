@@ -5,6 +5,7 @@ import {
   mergeUiTheme,
   resolveThemePreset,
   THEME_PRESET_IDS,
+  FEW_PRIMARY,
 } from 'fewui'
 
 const STORAGE_KEY = 'fewui-theme-playground'
@@ -34,7 +35,7 @@ function writeStored(payload) {
 export function useThemePlayground(options = {}) {
   const stored = readStored()
   const presetId = ref(stored?.presetId || options.defaultPresetId || 'panel')
-  const primaryColor = ref(stored?.primaryColor || '#f97316')
+  const primaryColor = ref(stored?.primaryColor || FEW_PRIMARY)
   const mode = ref(stored?.mode || 'dark')
   const fontFamily = ref(stored?.fontFamily || 'Inter')
   const customCss = ref(stored?.customCss || '')

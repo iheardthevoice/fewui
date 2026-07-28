@@ -23,7 +23,14 @@
     <span
       class="ui-radio-indicator"
       aria-hidden="true"
-    ></span>
+    >
+      <ui-icon
+        v-if="isChecked"
+        name="check"
+        size="xs"
+        class="ui-radio-check-icon text-primary-foreground"
+      />
+    </span>
     <span class="ui-radio-body">
       <span class="ui-radio-label">{{ label }}</span>
       <span

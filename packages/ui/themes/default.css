@@ -48,8 +48,8 @@
   --ui-control-mix-from: var(--control);
   --control-bg: color-mix(in oklab, var(--ui-control-mix-from) var(--ui-control-opacity), transparent);
 
-  --primary: var(--base-950);
-  --primary-foreground: var(--base-50);
+  --primary: #1B5CFF;
+  --primary-foreground: #ffffff;
 
   /* İkincil dolgu: ~gray-100 (#F3F4F6 civarı) */
   --secondary: var(--base-100);
@@ -128,8 +128,8 @@
   --control: var(--base-800);
   --control-foreground: var(--base-50);
 
-  --primary: var(--base-50);
-  --primary-foreground: var(--base-950);
+  --primary: #1B5CFF;
+  --primary-foreground: #ffffff;
 
   --secondary: var(--base-800);
   --secondary-foreground: var(--base-50);

@@ -26,7 +26,10 @@
             type="button"
             :id="resolvedId"
             class="ui-select-field"
-            :class="{ 'ui-select-field--values': multiple }"
+            :class="{
+              'ui-select-field--values': multiple,
+              'ui-select-field--bare': variant === 'inline',
+            }"
             :disabled="isDisabled"
             :aria-expanded="open ? 'true' : 'false'"
             :aria-haspopup="listboxRole"
@@ -120,6 +123,8 @@
           v-model="filterQuery"
           type="text"
           class="ui-select-filter-input w-full"
+          :class="filterInputClass"
+          :data-size="resolvedSize"
           :placeholder="resolvedFilterPlaceholder"
           :aria-label="resolvedFilterPlaceholder"
           autocomplete="off"
@@ -133,6 +138,8 @@
           ref="listbox"
           :id="listboxId"
           class="ui-select-listbox"
+          :class="listboxClass"
+          :data-size="resolvedSize"
           :role="listboxRole"
           :aria-multiselectable="multiple ? 'true' : undefined"
           :aria-labelledby="resolvedId"
@@ -154,7 +161,7 @@
               :key="String(opt.value)"
               :variant="isSelected(opt) ? 'solid' : 'ghost'"
               :color="isSelected(opt) ? 'primary' : 'secondary'"
-              size="sm"
+              :size="optionButtonSize"
               fulled
               text-align="left"
               role="option"
@@ -173,13 +180,13 @@
           <ui-empty
             v-else-if="isFilterable && filterQuery"
             icon="magnifying-glass"
-            size="sm"
+            :size="emptyStateSize"
             :title="noResultsText"
           />
           <ui-empty
             v-else
             icon="table-cells"
-            size="sm"
+            :size="emptyStateSize"
             :title="emptyOptionsText"
           />
         </div>
@@ -319,6 +326,19 @@ export default {
         ? this.uiFormRowPrimary()
         : this.uiFormRowPrimary
       return fromRow ? 'lg' : size
+    },
+    /** Popover seçenekleri tetikleyici ile aynı boyutta (sm/md/lg). */
+    optionButtonSize() {
+      return this.resolvedSize
+    },
+    emptyStateSize() {
+      return this.resolvedSize === 'lg' ? 'md' : 'sm'
+    },
+    listboxClass() {
+      return this.resolvedSize !== 'md' ? `ui-select-listbox--${this.resolvedSize}` : undefined
+    },
+    filterInputClass() {
+      return this.resolvedSize !== 'md' ? `ui-select-filter-input--${this.resolvedSize}` : undefined
     },
     rootClass() {
       const isInline = this.variant === 'inline'

@@ -94,7 +94,9 @@ function formatFontFamily(fontFamily) {
   if (trimmed.includes(',')) {
     return trimmed
   }
-  return `${trimmed}, ${FONT_FALLBACKS}`
+  const needsQuotes = /\s/.test(trimmed) && !/^["'].*["']$/.test(trimmed)
+  const family = needsQuotes ? `"${trimmed.replace(/"/g, '')}"` : trimmed
+  return `${family}, ${FONT_FALLBACKS}`
 }
 
 /**
@@ -165,7 +167,8 @@ function pickContrastForeground(color, light = '#ffffff', dark = '#0a0a0b') {
   }
   const lightness = parseOklchLightness(color)
   if (lightness != null) {
-    return lightness > 0.4 ? dark : light
+    // OKLCH L is perceptual, not WCAG luminance — mid brand steps still need light labels.
+    return lightness > 0.72 ? dark : light
   }
   return light
 }

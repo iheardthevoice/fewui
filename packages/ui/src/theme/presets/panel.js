@@ -4,4 +4,6 @@ export const panelPreset = {
   fontFamily: 'Inter',
   headingFontFamily: 'Inter',
   bodyFontFamily: 'Inter',
+  primaryColor: '#1B5CFF',
+  primaryForeground: '#ffffff',
 }

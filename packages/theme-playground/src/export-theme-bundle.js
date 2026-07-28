@@ -1,3 +1,5 @@
+import { FEW_PRIMARY } from 'fewui'
+
 /**
  * @param {import('fewui').UiThemeConfig} theme
  * @param {{ presetId?: string, customCss?: string }} [meta]
@@ -11,7 +13,7 @@ export function exportThemeJson(theme, meta = {}) {
  * @param {{ presetId?: string, customCss?: string }} [meta]
  */
 export function exportCursorRule(theme, meta = {}) {
-  const primary = theme.primaryColor || theme.primary || '#f97316'
+  const primary = theme.primaryColor || theme.primary || FEW_PRIMARY
   const mode = theme.mode || 'dark'
   const font = theme.fontFamily || 'Inter'
   return `---
@@ -49,7 +51,7 @@ ${exportThemeJson(theme, meta)}
  * @param {{ presetId?: string }} [meta]
  */
 export function exportAgentSkill(theme, meta = {}) {
-  const primary = theme.primaryColor || theme.primary || '#f97316'
+  const primary = theme.primaryColor || theme.primary || FEW_PRIMARY
   return `# FewUI Kit
 
 FewUI is an AI-oriented UI framework: components, design tokens, Cursor rules, and agent skills work together.

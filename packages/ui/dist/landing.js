@@ -1,70 +1,75 @@
-import { s as m, a2 as g, L as p, A as T, a as d, B as b, b as h, C as f, c as C, d as F, E as L, F as v, I as y, f as G, P as O, g as P, R as A, h as S, S as k, i as B, k as E, m as w, l as N, o as R } from "./index-SlRhgfoS.js";
-import { G as V, q, r as J, t as Q, u as Y, v as Z, w as $, x as j, J as z, K as H, N as W, O as X, Q as aa, V as ea, Y as oa, Z as sa, $ as ta, a0 as la, a3 as ia } from "./index-SlRhgfoS.js";
-const _ = {
+import { w as m, a8 as g, Q as p, A as T, a as d, B as b, b as h, C as F, c as C, d as f, E as O, i as P, I as A, j as E, P as L, k as y, R as G, l as R, S as _, m as v, o as S, q as k, p as B, s as I } from "./index-Czn3by8P.js";
+import { F as Y, f as j, g as q, h as z, G as H, u as J, v as K, x as Q, y as V, z as X, H as Z, J as $, N as aa, O as sa, W as ea, X as oa, Y as ta, Z as la, a0 as ia, a3 as ra, a4 as na, a5 as ua, a6 as ca, a9 as ma } from "./index-Czn3by8P.js";
+const w = {
   en: p,
   tr: g
-}, x = [
+}, D = [
   ["ui-action-group", T],
   ["ui-alert", d],
   ["ui-badge", b],
   ["ui-button", h],
-  ["ui-card", f],
+  ["ui-card", F],
   ["ui-date-picker", C],
-  ["ui-dialog", F],
-  ["ui-empty", L],
-  ["ui-form-row", v],
-  ["ui-icon", y],
-  ["ui-input", G],
-  ["ui-phone", O],
-  ["ui-popover", P],
-  ["ui-radio", A],
-  ["ui-radio-group", S],
-  ["ui-select", k],
-  ["ui-skeleton", B],
-  ["ui-tab-list", E],
-  ["ui-tabs", w],
-  ["ui-tab-trigger", N],
-  ["ui-toast", R]
+  ["ui-dialog", f],
+  ["ui-empty", O],
+  ["ui-form-row", P],
+  ["ui-icon", A],
+  ["ui-input", E],
+  ["ui-phone", L],
+  ["ui-popover", y],
+  ["ui-radio", G],
+  ["ui-radio-group", R],
+  ["ui-select", _],
+  ["ui-skeleton", v],
+  ["ui-tab-list", S],
+  ["ui-tabs", k],
+  ["ui-tab-trigger", B],
+  ["ui-toast", I]
 ];
-function D(n, u = {}) {
+function M(n, u = {}) {
   var l, i;
-  const { i18n: a, locale: s, locales: c, theme: t } = u;
+  const { i18n: a, locale: o, locales: c, theme: t } = u;
   if (t && m(t), (l = a == null ? void 0 : a.global) != null && l.mergeLocaleMessage) {
-    const o = c ?? (s != null ? [s] : [
+    const e = c ?? (o != null ? [o] : [
       typeof a.global.locale == "string" ? a.global.locale : ((i = a.global.locale) == null ? void 0 : i.value) ?? "tr"
     ]);
-    for (const e of o) {
-      const r = _[e];
-      r && a.global.mergeLocaleMessage(e, r);
+    for (const s of e) {
+      const r = w[s];
+      r && a.global.mergeLocaleMessage(s, r);
     }
   }
-  for (const [o, e] of x)
-    n.component(o, e);
+  for (const [e, s] of D)
+    n.component(e, s);
 }
-const M = {
-  install: D
+const W = {
+  install: M
 };
 export {
-  V as GOOGLE_FONTS_CATALOG,
-  q as applyGoogleFontsForTheme,
-  J as applyThemeCustomCss,
+  Y as FEW_COLOR_SCALE,
+  j as FEW_PALETTE_ID,
+  q as FEW_PRIMARY,
+  z as FEW_PRIMARY_FOREGROUND,
+  H as GOOGLE_FONTS_CATALOG,
+  J as applyGoogleFontsForTheme,
+  K as applyThemeCustomCss,
   m as applyUiTheme,
   Q as buildGoogleFontsLinkTag,
-  Y as buildGoogleFontsStylesheetUrl,
-  Z as buildThemeStyleAttr,
-  $ as clearThemeCustomCss,
-  j as clearToasts,
-  M as default,
-  z as deriveBrandColorsFromPrimary,
-  H as dismissToast,
-  W as getThemePreset,
-  X as googleFontSelectOptions,
-  aa as mergeUiTheme,
-  ea as pushToast,
-  oa as resolvePrimaryColor,
-  sa as resolveThemeFontFamilies,
-  ta as resolveThemePreset,
-  la as resolveThemeVars,
-  ia as withDerivedBrandColors
+  V as buildGoogleFontsStylesheetUrl,
+  X as buildThemeStyleAttr,
+  Z as clearThemeCustomCss,
+  $ as clearToasts,
+  W as default,
+  aa as deriveBrandColorsFromPrimary,
+  sa as dismissToast,
+  ea as getFewPrimaryColors,
+  oa as getThemePreset,
+  ta as googleFontSelectOptions,
+  la as mergeUiTheme,
+  ia as pushToast,
+  ra as resolvePrimaryColor,
+  na as resolveThemeFontFamilies,
+  ua as resolveThemePreset,
+  ca as resolveThemeVars,
+  ma as withDerivedBrandColors
 };
 //# sourceMappingURL=landing.js.map

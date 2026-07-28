@@ -34,17 +34,36 @@
 <script>
 import Tooltip from './Tooltip.vue'
 
-const VARIANTS = ['solid', 'secondary', 'outline']
+const VARIANTS = [
+  'solid',
+  'secondary',
+  'outline',
+  'success',
+  'warning',
+  'danger',
+  'error',
+  'destructive',
+  'muted',
+  'info',
+]
 
-const SIZES = ['sm', 'md', 'lg']
+const SIZES = ['xs', 'sm', 'md', 'lg']
 
 const variantClasses = {
   solid: 'border border-transparent bg-primary text-primary-foreground',
   secondary: 'border border-transparent bg-secondary text-secondary-foreground',
   outline: 'border border-border bg-transparent text-foreground',
+  success: 'border border-transparent bg-success text-success-foreground',
+  warning: 'border border-transparent bg-warning text-warning-foreground',
+  danger: 'border border-transparent bg-destructive text-destructive-foreground',
+  error: 'border border-transparent bg-destructive text-destructive-foreground',
+  destructive: 'border border-transparent bg-destructive text-destructive-foreground',
+  muted: 'border border-transparent bg-muted text-muted-foreground',
+  info: 'border border-transparent bg-info text-info-foreground',
 }
 
 const sizeClasses = {
+  xs: 'ui-badge--xs',
   sm: 'ui-badge--sm',
   md: 'ui-badge--md',
   lg: 'ui-badge--lg',

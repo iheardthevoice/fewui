@@ -26,7 +26,12 @@
 </template>
 
 <script>
-import { getCurrencySymbol, resolveCurrencyCode, sanitizeMoneyInput } from '../utils/currency.js'
+import {
+  formatMoneyInput,
+  getCurrencySymbol,
+  parseLocalizedMoneyInput,
+  resolveCurrencyCode,
+} from '../utils/currency.js'
 
 let currencyInputCounter = 0
 
@@ -44,6 +49,11 @@ export default {
     currency: {
       type: String,
       default: 'TRY',
+    },
+    /** Binlik ve ondalık ayırıcılarını belirleyen BCP 47 locale. */
+    locale: {
+      type: String,
+      default: 'tr-TR',
     },
     size: {
       type: String,
@@ -93,10 +103,10 @@ export default {
     },
     innerValue: {
       get() {
-        return this.modelValue == null ? '' : String(this.modelValue)
+        return formatMoneyInput(this.modelValue, this.locale)
       },
       set(val) {
-        const next = sanitizeMoneyInput(val)
+        const next = parseLocalizedMoneyInput(val, this.locale)
         this.$emit('update:modelValue', next)
       },
     },
@@ -118,6 +128,7 @@ export default {
         'name',
         'autocomplete',
         'currency',
+        'locale',
         'size',
       ])
       const out = {}

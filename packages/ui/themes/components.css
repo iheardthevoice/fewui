@@ -142,9 +142,15 @@
   }
 
   .ui-button.ui-control[data-variant='solid'][data-color='secondary'] {
-    @apply border-0 shadow-none;
-    background-color: var(--secondary);
-    color: var(--secondary-foreground);
+    @apply border border-transparent shadow-none;
+    background-color: var(--input-background);
+    color: var(--foreground);
+    -webkit-backdrop-filter: blur(var(--ui-input-backdrop-blur));
+    backdrop-filter: blur(var(--ui-input-backdrop-blur));
+  }
+
+  .ui-button.ui-control[data-variant='solid'][data-color='secondary']:hover:not(:disabled) {
+    background-color: color-mix(in oklab, var(--input-background) 82%, var(--foreground) 10%);
   }
 
   .ui-button.ui-control[data-variant='solid'][data-color='warning'] {
@@ -171,7 +177,7 @@
     color: var(--destructive-foreground);
   }
 
-  .ui-button.ui-control[data-variant='solid']:not([data-color='input']):hover:not(:disabled) {
+  .ui-button.ui-control[data-variant='solid']:not([data-color='input']):not([data-color='secondary']):hover:not(:disabled) {
     opacity: 0.9;
   }
 
@@ -241,23 +247,32 @@
     color: var(--destructive-foreground);
   }
 
-  .ui-button.ui-control[data-variant='outline'][data-color='primary'],
+  .ui-button.ui-control[data-variant='outline'][data-color='primary'] {
+    @apply shadow-none;
+    background-color: transparent;
+    border: 1px solid currentColor;
+    color: var(--primary);
+  }
+
+  .ui-button.ui-control[data-variant='outline'][data-color='primary']:hover:not(:disabled) {
+    background-color: color-mix(in oklab, var(--primary) 10%, transparent);
+  }
+
   .ui-button.ui-control[data-variant='outline'][data-color='secondary'] {
     @apply shadow-none;
     background-color: transparent;
-    border: 1px solid var(--border);
+    border: 1px solid var(--control);
     color: var(--foreground);
   }
 
-  .ui-button.ui-control[data-variant='outline'][data-color='primary']:hover:not(:disabled),
   .ui-button.ui-control[data-variant='outline'][data-color='secondary']:hover:not(:disabled) {
-    background-color: color-mix(in oklab, var(--muted) 60%, transparent);
+    background-color: var(--input-background);
   }
 
   .ui-button.ui-control[data-variant='outline'][data-color='warning'] {
     @apply shadow-none;
     background-color: transparent;
-    border: 1px solid var(--warning);
+    border: 1px solid currentColor;
     color: var(--warning);
   }
 
@@ -268,7 +283,7 @@
   .ui-button.ui-control[data-variant='outline'][data-color='success'] {
     @apply shadow-none;
     background-color: transparent;
-    border: 1px solid var(--success);
+    border: 1px solid currentColor;
     color: var(--success);
   }
 
@@ -279,7 +294,7 @@
   .ui-button.ui-control[data-variant='outline'][data-color='info'] {
     @apply shadow-none;
     background-color: transparent;
-    border: 1px solid var(--info);
+    border: 1px solid currentColor;
     color: var(--info);
   }
 
@@ -290,7 +305,7 @@
   .ui-button.ui-control[data-variant='outline'][data-color='danger'] {
     @apply shadow-none;
     background-color: transparent;
-    border: 1px solid var(--destructive);
+    border: 1px solid currentColor;
     color: var(--destructive);
   }
 
@@ -699,6 +714,10 @@
   }
 
   /** Badge — boyut */
+  .ui-badge--xs {
+    @apply rounded px-1.5 py-0.5 text-[0.65rem] leading-none;
+  }
+
   .ui-badge--sm {
     @apply rounded-md px-2 py-0.5 text-xs leading-none;
   }
@@ -709,6 +728,32 @@
 
   .ui-badge--lg {
     @apply rounded-lg px-3 py-1.5 text-sm leading-5;
+  }
+
+  /** Badge semantik dolgular — TW taraması kaçsa da token’lar çalışsın */
+  .ui-badge.bg-success {
+    background-color: var(--success);
+    color: var(--success-foreground);
+  }
+
+  .ui-badge.bg-warning {
+    background-color: var(--warning);
+    color: var(--warning-foreground);
+  }
+
+  .ui-badge.bg-destructive {
+    background-color: var(--destructive);
+    color: var(--destructive-foreground);
+  }
+
+  .ui-badge.bg-muted {
+    background-color: var(--muted);
+    color: var(--muted-foreground);
+  }
+
+  .ui-badge.bg-info {
+    background-color: var(--info);
+    color: var(--info-foreground);
   }
 
   /** Tag — boyut / dolgu Badge ile (`Tag.vue` + `ui-badge--*`); kapat düğmesi */
@@ -828,6 +873,18 @@
     z-index: 420;
   }
 
+  .ui-sheet-root {
+    z-index: 400;
+  }
+
+  .ui-sheet-root--no-overlay {
+    pointer-events: none;
+  }
+
+  .ui-sheet-root--no-overlay .ui-sheet-panel {
+    pointer-events: auto;
+  }
+
   .ui-popover-layer {
     z-index: 410;
   }
@@ -876,6 +933,55 @@
   }
 
   .ui-overlay-dialog-leave-active.ui-dialog-root {
+    pointer-events: none;
+  }
+
+  /**
+   * Sheet — sağ/sol yan panel; overlay kapalıyken arka plan tıklanabilir.
+   */
+  .ui-overlay-sheet-right-enter-active .ui-sheet-backdrop,
+  .ui-overlay-sheet-left-enter-active .ui-sheet-backdrop {
+    transition: opacity 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity;
+  }
+
+  .ui-overlay-sheet-right-leave-active .ui-sheet-backdrop,
+  .ui-overlay-sheet-left-leave-active .ui-sheet-backdrop {
+    transition: opacity 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: opacity;
+  }
+
+  .ui-overlay-sheet-right-enter-from .ui-sheet-backdrop,
+  .ui-overlay-sheet-right-leave-to .ui-sheet-backdrop,
+  .ui-overlay-sheet-left-enter-from .ui-sheet-backdrop,
+  .ui-overlay-sheet-left-leave-to .ui-sheet-backdrop {
+    opacity: 0;
+  }
+
+  .ui-overlay-sheet-right-enter-active .ui-sheet-panel,
+  .ui-overlay-sheet-left-enter-active .ui-sheet-panel {
+    transition: transform 0.36s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+  }
+
+  .ui-overlay-sheet-right-leave-active .ui-sheet-panel,
+  .ui-overlay-sheet-left-leave-active .ui-sheet-panel {
+    transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+  }
+
+  .ui-overlay-sheet-right-enter-from .ui-sheet-panel,
+  .ui-overlay-sheet-right-leave-to .ui-sheet-panel {
+    transform: translateX(100%);
+  }
+
+  .ui-overlay-sheet-left-enter-from .ui-sheet-panel,
+  .ui-overlay-sheet-left-leave-to .ui-sheet-panel {
+    transform: translateX(-100%);
+  }
+
+  .ui-overlay-sheet-right-leave-active.ui-sheet-root,
+  .ui-overlay-sheet-left-leave-active.ui-sheet-root {
     pointer-events: none;
   }
 
@@ -1850,15 +1956,21 @@
     max-width: min(100vw - 1rem, 20rem);
   }
 
+  /**
+   * Select tetikleyici — dolgu yalnızca `field` varyantında.
+   * `inline` (Phone prepend vb.) asla `ui-field-control-fill` almaz;
+   * aksi halde input-background + backdrop-blur ülke kodunun arkasında kutu bırakır.
+   */
   .ui-select-field {
-    @apply ui-field-control-fill relative m-0 box-border flex h-9 min-h-9 w-full min-w-0 cursor-pointer items-center gap-2 appearance-none rounded-lg py-1 pl-3 pr-3 text-left outline-none transition-shadow;
+    @apply relative m-0 box-border flex h-9 min-h-9 w-full min-w-0 cursor-pointer items-center gap-2 appearance-none rounded-lg py-1 pl-3 pr-3 text-left outline-none transition-shadow;
   }
 
-  .ui-select-field[aria-expanded='true'] {
-    @apply ui-field-control-focus;
+  .ui-select:not(.ui-select--inline) .ui-select-field {
+    @apply ui-field-control-fill;
   }
 
-  .ui-select-field:focus-visible {
+  .ui-select:not(.ui-select--inline) .ui-select-field[aria-expanded='true'],
+  .ui-select:not(.ui-select--inline) .ui-select-field:focus-visible {
     @apply ui-field-control-focus;
   }
 
@@ -1925,18 +2037,27 @@
     @apply text-base leading-6;
   }
 
-  /** Select `variant="inline"` — Input prepend / ActionGroup joined içinde */
+  /** Select `variant="inline"` — Input prepend / ActionGroup joined içinde; chrome yok */
   .ui-select--inline {
     @apply w-auto shrink-0;
   }
 
-  .ui-select--inline .ui-select-field {
-    @apply h-8 min-h-8 gap-1 rounded-none border-0 border-r border-border bg-transparent py-0 pl-0 pr-2 text-sm shadow-none;
-  }
-
+  .ui-select--inline .ui-select-field,
+  .ui-select--inline .ui-select-field:hover,
+  .ui-select--inline .ui-select-field:focus,
   .ui-select--inline .ui-select-field:focus-visible,
-  .ui-select--inline .ui-select-field[aria-expanded='true'] {
-    @apply ring-0 ring-offset-0;
+  .ui-select--inline .ui-select-field[aria-expanded='true'],
+  .ui-select-field--bare,
+  .ui-select-field--bare:hover,
+  .ui-select-field--bare:focus,
+  .ui-select-field--bare:focus-visible,
+  .ui-select-field--bare[aria-expanded='true'] {
+    @apply h-8 min-h-8 gap-1 rounded-none border-0 border-r border-border bg-transparent py-0 pl-0 pr-2 text-sm shadow-none ring-0 ring-offset-0;
+    background-color: transparent;
+    background-image: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    box-shadow: none;
   }
 
   .ui-select--inline .ui-select-value {
@@ -1949,15 +2070,16 @@
   }
 
   .ui-phone-prepend {
-    @apply mr-2 flex shrink-0 items-center gap-2 border-r border-border/60 bg-transparent pr-3;
+    @apply mr-2 flex shrink-0 select-none items-center gap-2 border-r border-border/60 bg-transparent pr-3;
     background-color: transparent;
+    background-image: none;
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
   }
 
   .ui-phone .ui-input > .ui-text-default:has(.ui-phone-prepend) {
-    @apply bg-transparent;
     background-color: transparent;
+    background-image: none;
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
   }
@@ -1966,13 +2088,17 @@
     @apply shrink-0 text-sm font-medium leading-5 text-muted-foreground;
   }
 
-  .ui-phone .ui-select--inline .ui-select-field {
-    @apply h-auto min-h-0 w-auto gap-2 rounded-none border-0 border-r-0 bg-transparent py-0 pl-0 pr-0 shadow-none;
-  }
-
+  .ui-phone .ui-select--inline .ui-select-field,
+  .ui-phone .ui-select--inline .ui-select-field:hover,
+  .ui-phone .ui-select--inline .ui-select-field:focus,
   .ui-phone .ui-select--inline .ui-select-field:focus-visible,
   .ui-phone .ui-select--inline .ui-select-field[aria-expanded='true'] {
-    @apply ring-0 ring-offset-0;
+    @apply h-auto min-h-0 w-auto gap-2 rounded-none border-0 border-r-0 bg-transparent py-0 pl-0 pr-0 shadow-none ring-0 ring-offset-0;
+    background-color: transparent;
+    background-image: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    box-shadow: none;
   }
 
   .ui-phone .ui-select--inline .ui-select-chevron {
@@ -1980,7 +2106,15 @@
   }
 
   .ui-select-filter-input {
-    @apply ui-field-control-fill m-0 box-border h-9 w-full min-w-0 rounded-lg px-3 py-1 outline-none transition-shadow duration-200 ease-out placeholder:text-muted-foreground;
+    @apply ui-field-control-fill m-0 box-border h-9 w-full min-w-0 rounded-lg px-3 py-1 text-sm leading-5 outline-none transition-shadow duration-200 ease-out placeholder:text-muted-foreground;
+  }
+
+  .ui-select-filter-input--sm {
+    @apply h-8 rounded-md px-2.5 text-xs leading-4;
+  }
+
+  .ui-select-filter-input--lg {
+    @apply h-11 rounded-lg px-4 text-base leading-6;
   }
 
   .ui-select-filter-input:focus {
@@ -1991,8 +2125,24 @@
     @apply flex max-h-64 min-h-0 min-w-0 flex-col gap-0.5 overflow-auto p-1.5;
   }
 
+  .ui-select-listbox--sm {
+    @apply max-h-56 gap-0.5 p-1;
+  }
+
+  .ui-select-listbox--lg {
+    @apply max-h-80 gap-1 p-2;
+  }
+
   .ui-select-listbox .ui-select-option.ui-button {
-    @apply min-h-8 justify-start rounded-lg;
+    @apply justify-start rounded-lg;
+  }
+
+  .ui-select-listbox--sm .ui-select-option.ui-button {
+    @apply rounded-md;
+  }
+
+  .ui-select-listbox--lg .ui-select-option.ui-button {
+    @apply rounded-lg;
   }
 
   .ui-select-listbox .ui-select-option.ui-button[data-variant='ghost'] {
@@ -2005,6 +2155,10 @@
 
   .ui-select-listbox .ui-empty {
     @apply py-4;
+  }
+
+  .ui-select-listbox--lg .ui-empty {
+    @apply py-6;
   }
 
   /** Seçili değer(ler) pill — tek ve çoklu aynı tetikleyici düzeni */
@@ -2187,7 +2341,7 @@
   }
 
   .ui-radio--checked .ui-radio-indicator {
-    @apply border-[3px] border-foreground bg-white;
+    @apply border-0 bg-primary;
   }
 
   .ui-radio-body {
@@ -2250,7 +2404,7 @@
   }
 
   .ui-checkbox--checked .ui-checkbox-box {
-    @apply border-0 bg-foreground;
+    @apply border-0 bg-primary;
   }
 
   .ui-checkbox-body {
@@ -2289,7 +2443,7 @@
     @apply rounded-xl;
   }
 
-  /** Switch — kompakt iz, beyaz başparmak */
+  /** Switch — kompakt iz; açıkken başparmak primary */
   .ui-switch {
     @apply inline-flex shrink-0 cursor-pointer rounded-full border-0 bg-transparent p-0 outline-none transition-opacity;
   }
@@ -2308,11 +2462,7 @@
   }
 
   .ui-switch-track--on {
-    @apply bg-primary;
-  }
-
-  .dark .ui-switch-track--on {
-    @apply bg-muted-foreground;
+    @apply bg-primary/30;
   }
 
   .ui-switch-thumb {
@@ -2320,7 +2470,7 @@
   }
 
   .ui-switch-thumb--on {
-    @apply translate-x-[1.125rem];
+    @apply translate-x-[1.125rem] bg-primary;
   }
 
   /** Menu — düz liste; kabuk yok (card içinde / dışında). Yüzen panel: dışarıda `ui-card` / `ui-surface`. */
@@ -2383,22 +2533,30 @@
   /** SegmentGroup — iz rengi input ile aynı token (`surface-input`) */
   /** Tabs — TabList + TabTrigger + TabPanel (`role="tablist"` / `tab` / `tabpanel`) */
   .ui-tab-list--horizontal.ui-tab-list--line {
-    @apply flex flex-row flex-wrap items-end gap-1 border-b border-muted;
+    @apply flex flex-row flex-nowrap items-end gap-1 overflow-x-auto overscroll-x-contain border-b border-muted ui-scrollbar-none;
+  }
+
+  .ui-tab-list--horizontal.ui-tab-list--line .ui-tab-trigger--line {
+    @apply shrink-0;
   }
 
   /** Tabs — segmented: açık temada iz `control` ile karttan ayrışır; koyuda `surface-input` */
   .ui-tab-list--horizontal.ui-tab-list--segmented {
-    @apply inline-flex min-h-[3.25rem] w-full max-w-full min-w-0 flex-row items-stretch gap-1 rounded-full border border-border bg-control p-1;
+    @apply inline-flex min-h-[3.25rem] w-full max-w-full min-w-0 flex-row flex-nowrap items-stretch gap-1 overflow-x-auto overscroll-x-contain rounded-full border border-border bg-control p-1 ui-scrollbar-none;
   }
 
-  @media (max-width: 767px) {
-    .ui-tabs--scrollable .ui-tab-list--horizontal.ui-tab-list--segmented {
-      @apply flex-nowrap overflow-x-auto overscroll-x-contain ui-scrollbar-none;
-    }
+  /** Tetikleyiciler küçülmez — taşınca liste kayar (mobil / dar kart). */
+  .ui-tab-list--horizontal.ui-tab-list--segmented .ui-tab-trigger--segmented {
+    @apply min-w-[5.5rem] shrink-0;
+  }
 
-    .ui-tabs--scrollable .ui-tab-list--horizontal.ui-tab-list--segmented .ui-tab-trigger--segmented {
-      @apply min-w-[5.5rem] shrink-0 flex-none;
-    }
+  /** `scrollable` prop — geriye dönük; stil artık varsayılan listede. */
+  .ui-tabs--scrollable .ui-tab-list--horizontal.ui-tab-list--segmented {
+    @apply w-full max-w-full;
+  }
+
+  .ui-tabs--scrollable .ui-tab-list--horizontal.ui-tab-list--segmented .ui-tab-trigger--segmented {
+    @apply min-w-[5.5rem] shrink-0 flex-none;
   }
 
   .dark .ui-tab-list--horizontal.ui-tab-list--segmented {
@@ -2419,6 +2577,11 @@
 
   .ui-tabs--fit-full .ui-tab-list--segmented {
     @apply w-full max-w-full;
+  }
+
+  /** fit-full: alan varken büyür; min genişliğin altına inmez → taşınca scroll. */
+  .ui-tabs--fit-full .ui-tab-list--horizontal.ui-tab-list--segmented .ui-tab-trigger--segmented {
+    @apply min-w-[5.5rem] flex-1 shrink-0;
   }
 
   .ui-tabs:not(.ui-tabs--fit-full) .ui-tab-list--segmented {
@@ -2442,7 +2605,7 @@
   }
 
   .ui-tab-trigger--segmented {
-    @apply relative flex min-h-0 min-w-0 flex-1 shrink cursor-pointer select-none flex-col items-center justify-center gap-1 rounded-full border-0 bg-transparent px-2 py-1.5 outline-none transition-[color,background-color,box-shadow] duration-200 ease-out;
+    @apply relative flex min-h-0 min-w-0 cursor-pointer select-none flex-col items-center justify-center gap-1 rounded-full border-0 bg-transparent px-2 py-1.5 outline-none transition-[color,background-color,box-shadow] duration-200 ease-out;
   }
 
   .ui-tab-trigger-badge {
@@ -2816,7 +2979,7 @@
   }
 
   .dark .ui-radio--checked .ui-radio-indicator {
-    @apply border-[3px] border-white bg-background;
+    @apply border-0 bg-primary;
   }
 
   .dark .ui-checkbox-box {
@@ -2824,7 +2987,7 @@
   }
 
   .dark .ui-checkbox--checked .ui-checkbox-box {
-    @apply border-0 bg-foreground;
+    @apply border-0 bg-primary;
   }
 
   /**
@@ -2953,7 +3116,7 @@
 
   /** Alert — kart yüzeyinden hafif tonlu çağrı kutusu (`rounded-lg` = `--radius`; gölgésiz, liste gap-3) */
   .ui-alert {
-    @apply flex items-start gap-3 rounded-lg border border-border p-4 text-sm leading-5 text-foreground subpixel-antialiased;
+    @apply flex items-start gap-3 rounded-2xl border border-border p-4 text-sm leading-5 text-foreground subpixel-antialiased;
   }
 
   .ui-alert--info {
@@ -2978,7 +3141,7 @@
 
   /** İkon zeminleri — muted yerine varyant tonu */
   .ui-alert-icon {
-    @apply mt-0.5 inline-flex size-8 shrink-0 items-center justify-center rounded-lg;
+    @apply mt-0.5 inline-flex size-8 shrink-0 items-center justify-center rounded-xl;
   }
 
   .ui-alert--info .ui-alert-icon {
@@ -3015,6 +3178,52 @@
 
   .ui-alert-dismiss {
     @apply self-start;
+  }
+
+  /** Sayfa üstü durum çubuğu — tek satırlık, tam genişlikte ve köşesiz. */
+  .ui-alert--banner {
+    @apply items-center gap-2 rounded-none border-x-0 border-t-0 px-4 py-2;
+  }
+
+  .ui-alert--banner .ui-alert-icon {
+    @apply mt-0 size-6 rounded-md;
+  }
+
+  .ui-alert--banner .ui-alert-body {
+    @apply flex flex-1 flex-wrap items-center gap-x-2 gap-y-1 space-y-0;
+  }
+
+  .ui-alert--banner .ui-alert-description {
+    @apply min-w-0 flex-1 text-xs leading-4;
+  }
+
+  .ui-alert--banner .ui-alert-slot {
+    @apply shrink-0 p-0;
+  }
+
+  /** Dar alan / kart içi — kompakt tipografi, bordersız, yumuşak köşe. */
+  .ui-alert--soft {
+    @apply gap-2.5 rounded-2xl border-0 p-3 text-xs leading-4;
+  }
+
+  .ui-alert--soft .ui-alert-icon {
+    @apply mt-0 size-6 rounded-xl;
+  }
+
+  .ui-alert--soft .ui-alert-body {
+    @apply space-y-0.5;
+  }
+
+  .ui-alert--soft .ui-alert-title {
+    @apply text-xs leading-4;
+  }
+
+  .ui-alert--soft .ui-alert-description {
+    @apply text-xs leading-4 text-muted-foreground;
+  }
+
+  .ui-alert--soft .ui-alert-slot {
+    @apply pt-1 text-xs leading-4;
   }
 
   /**
@@ -3132,7 +3341,7 @@
   }
 
   .ui-field-action-header {
-    @apply flex items-start justify-between gap-3 border-b border-border pb-3;
+    @apply flex items-start justify-between gap-3;
   }
 
   .ui-field-action-header__text {
@@ -3157,10 +3366,6 @@
 
   .ui-popover-panel:has(.ui-field-action-header) {
     @apply min-w-[18rem];
-  }
-
-  .ui-popover-footer:has(.ui-field-action-footer) {
-    @apply border-t border-border pt-3;
   }
 
   .ui-datepicker--embedded .ui-datepicker-panel,
@@ -3196,6 +3401,103 @@
 
   .ui-dialog-panel .ui-dialog-header__actions {
     @apply flex shrink-0 items-center gap-1.5;
+  }
+
+  .ui-sheet-panel .ui-sheet-header {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto auto;
+    align-items: center;
+    column-gap: 0.75rem;
+    row-gap: 0.2rem;
+    min-width: 0;
+  }
+
+  .ui-sheet-panel .ui-sheet-header--no-icon {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+  }
+
+  .ui-sheet-panel .ui-sheet-header__icon {
+    @apply flex h-6 shrink-0 items-center justify-center text-muted-foreground;
+  }
+
+  .ui-sheet-panel .ui-sheet-header__title {
+    @apply min-w-0 truncate;
+  }
+
+  .ui-sheet-panel .ui-sheet-header__actions {
+    @apply flex shrink-0 items-center gap-1.5;
+  }
+
+  .ui-sheet-panel .ui-sheet-header > .ui-button {
+    @apply col-start-4 row-start-1 shrink-0 justify-self-end;
+  }
+
+  .ui-sheet-panel .ui-sheet-header--no-icon > .ui-button {
+    @apply col-start-3;
+  }
+
+  .ui-sheet-panel .ui-sheet-header__description {
+    @apply col-span-full m-0 text-sm text-muted-foreground;
+  }
+
+  .ui-sheet-panel {
+    @apply max-h-dvh border-border shadow-xl;
+  }
+
+  .ui-sheet-panel--right {
+    @apply border-l border-y-0 border-r-0 rounded-none;
+  }
+
+  .ui-sheet-panel--left {
+    @apply border-r border-y-0 border-l-0 rounded-none;
+  }
+
+  .ui-sheet-panel--sm {
+    width: min(100vw, 22rem);
+  }
+
+  .ui-sheet-panel--md {
+    width: min(100vw, 26rem);
+  }
+
+  .ui-sheet-panel--lg {
+    width: min(100vw, 28rem);
+  }
+
+  .ui-sheet-panel--xl {
+    width: min(100vw, 36rem);
+  }
+
+  .ui-sheet-panel .ui-card-header {
+    @apply shrink-0 px-3 pt-3 pb-2;
+  }
+
+  .ui-sheet-panel .ui-card-toolbar {
+    @apply shrink-0 px-3 pb-2;
+  }
+
+  .ui-sheet-panel .ui-card-body {
+    @apply min-h-0 flex-1 overflow-y-auto overscroll-contain px-3 py-2;
+  }
+
+  .ui-sheet-panel .ui-card-body--flush {
+    @apply p-0;
+  }
+
+  .ui-sheet-panel .ui-card-body--flex {
+    @apply flex flex-col;
+  }
+
+  .ui-sheet-panel--body-flex .ui-card-body--flex {
+    @apply min-h-0 flex-1;
+  }
+
+  .ui-sheet-panel .ui-card-footer {
+    @apply shrink-0 border-t border-border px-3 py-2.5;
+  }
+
+  .ui-sheet-panel .ui-card-footer .ui-action-group {
+    @apply ml-auto flex w-auto max-w-full flex-row flex-wrap items-center justify-end gap-2;
   }
 
   .ui-dialog-panel .ui-dialog-header > .ui-button {

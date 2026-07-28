@@ -210,7 +210,7 @@ const VARIANT_COLOR_CLASSES = {
     primary:
       'border-0 bg-primary text-primary-foreground shadow-none hover:opacity-90',
     secondary:
-      'border-0 bg-secondary text-secondary-foreground shadow-none hover:opacity-90',
+      'border border-transparent text-foreground shadow-none',
     input:
       'border-0 shadow-none',
     warning:
@@ -223,16 +223,16 @@ const VARIANT_COLOR_CLASSES = {
   },
   outline: {
     primary:
-      'border border-border bg-transparent text-foreground shadow-none hover:bg-muted/60',
+      'border border-current bg-transparent text-primary shadow-none hover:bg-primary/10',
     secondary:
-      'border border-border bg-transparent text-foreground shadow-none hover:bg-muted/60',
+      'border bg-transparent text-foreground shadow-none hover:bg-[var(--input-background)]',
     warning:
-      'shadow-none border border-warning bg-transparent text-warning hover:bg-warning/10',
+      'shadow-none border border-current bg-transparent text-warning hover:bg-warning/10',
     success:
-      'shadow-none border border-success bg-transparent text-success hover:bg-success/10',
-    info: 'shadow-none border border-info bg-transparent text-info hover:bg-info/10',
+      'shadow-none border border-current bg-transparent text-success hover:bg-success/10',
+    info: 'shadow-none border border-current bg-transparent text-info hover:bg-info/10',
     danger:
-      'shadow-none border border-destructive bg-transparent text-destructive hover:bg-destructive/10',
+      'shadow-none border border-current bg-transparent text-destructive hover:bg-destructive/10',
   },
   ghost: {
     primary:

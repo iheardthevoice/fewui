@@ -54,10 +54,10 @@ export default {
       type: Boolean,
       default: false,
     },
-    /** Mobilde segmented tab listesinde yatay kaydırma; varsayılan kapalı (`fit="full"` ile eşit bölünür). */
+    /** Dar alanlarda (sheet, mobil) segmented listede yatay kaydırma — varsayılan açık. */
     scrollable: {
       type: Boolean,
-      default: false,
+      default: true,
     },
   },
   emits: ['update:modelValue'],

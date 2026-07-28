@@ -25,6 +25,7 @@ import Guidance from './components/Guidance.vue'
 import Icon from './components/Icon.vue'
 import IconPicker from './components/IconPicker.vue'
 import Input from './components/Input.vue'
+import PriceInput from './components/PriceInput.vue'
 import Password from './components/Password.vue'
 import Phone from './components/Phone.vue'
 import Pin from './components/Pin.vue'
@@ -35,6 +36,7 @@ import Progress from './components/Progress.vue'
 import Radio from './components/Radio.vue'
 import RadioGroup from './components/RadioGroup.vue'
 import Select from './components/Select.vue'
+import Sheet from './components/Sheet.vue'
 import Menu from './components/Menu.vue'
 import MenuGroup from './components/MenuGroup.vue'
 import MenuItem from './components/MenuItem.vue'
@@ -65,6 +67,7 @@ import Photos from './components/Photos.vue'
 import en from './locales/en.js'
 import tr from './locales/tr.js'
 import { applyUiTheme } from './theme/apply-theme.js'
+import { setPriceInputConfig } from './price-input-config.js'
 
 export {
   GOOGLE_FONTS_CATALOG,
@@ -80,6 +83,13 @@ export {
   withDerivedBrandColors,
   resolvePrimaryColor,
 } from './theme/derive-theme.js'
+export {
+  FEW_PALETTE_ID,
+  FEW_PRIMARY,
+  FEW_PRIMARY_FOREGROUND,
+  FEW_COLOR_SCALE,
+  getFewPrimaryColors,
+} from './theme/few-palette.js'
 export { applyThemeCustomCss, clearThemeCustomCss, THEME_CUSTOM_CSS_ID } from './theme/custom-css.js'
 export {
   THEME_PRESETS,
@@ -93,11 +103,15 @@ export { resolveUiText } from './utils/resolve-ui-text.js'
 export { pickPassthroughAttrs } from './utils/pick-passthrough-attrs.js'
 export { pushToast, dismissToast, clearToasts } from './toast-queue.js'
 export { requestConfirm } from './confirm-state.js'
+export { getPriceInputConfig, setPriceInputConfig, PRICE_FORMATS } from './price-input-config.js'
 export {
   resolveCurrencyCode,
   getCurrencySymbol,
   formatCurrencyAmount,
   sanitizeMoneyInput,
+  getMoneySeparators,
+  parseLocalizedMoneyInput,
+  formatMoneyInput,
 } from './utils/currency.js'
 
 export { useToast } from './composables/useToast.js'
@@ -132,6 +146,7 @@ export {
   Icon,
   IconPicker,
   Input,
+  PriceInput,
   Password,
   Phone,
   Pin,
@@ -142,6 +157,7 @@ export {
   Radio,
   RadioGroup,
   Select,
+  Sheet,
   Menu,
   MenuGroup,
   MenuItem,
@@ -217,6 +233,7 @@ const GLOBAL_COMPONENTS = [
   ['ui-icon', Icon],
   ['ui-icon-picker', IconPicker],
   ['ui-input', Input],
+  ['ui-price-input', PriceInput],
   ['ui-password', Password],
   ['ui-phone', Phone],
   ['ui-pin', Pin],
@@ -227,6 +244,7 @@ const GLOBAL_COMPONENTS = [
   ['ui-radio', Radio],
   ['ui-radio-group', RadioGroup],
   ['ui-select', Select],
+  ['ui-sheet', Sheet],
   ['ui-menu', Menu],
   ['ui-menu-group', MenuGroup],
   ['ui-menu-item', MenuItem],
@@ -250,6 +268,7 @@ const GLOBAL_COMPONENTS = [
   ['ui-tabs', Tabs],
   ['ui-tab-trigger', TabTrigger],
   ['ui-time-picker', TimePicker],
+  ['ui-timepicker', TimePicker],
   ['ui-tooltip', Tooltip],
   ['ui-toast', Toast],
   ['ui-photo', Photo],
@@ -266,6 +285,7 @@ const GLOBAL_COMPONENTS = [
  * @property {string} [locale] Birleştirilecek paket kodu (`LOCALE_PACKS` anahtarı). Verilmezse `i18n.global.locale` kullanılır.
  * @property {string[]} [locales] Birden fazla dil paketini aynı anda birleştir (örn. `['tr','en']`). Verilirse `locale` yok sayılır.
  * @property {UiThemeConfig} [theme] Tasarım token’ları (`primaryColor`, `baseColor`, `surface`, `control`, `fontFamily`, …)
+ * @property {{currency?: string, format?: string, locale?: string}} [priceInput] `ui-price-input` global para birimi ve fiyat biçimi
  */
 
 /**
@@ -274,10 +294,13 @@ const GLOBAL_COMPONENTS = [
  * @param {UiLibInstallOptions} options
  */
 function install(app, options = {}) {
-  const { i18n, locale, locales, theme } = options
+  const { i18n, locale, locales, theme, priceInput } = options
 
   if (theme) {
     applyUiTheme(theme)
+  }
+  if (priceInput) {
+    setPriceInputConfig(priceInput)
   }
 
   if (i18n?.global?.mergeLocaleMessage) {

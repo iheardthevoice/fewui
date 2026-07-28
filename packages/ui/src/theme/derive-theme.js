@@ -1,3 +1,5 @@
+import { FEW_PRIMARY } from './few-palette.js'
+
 /**
  * @param {string} hex
  * @returns {[number, number, number]|null}
@@ -89,7 +91,7 @@ export function withDerivedBrandColors(theme, options = {}) {
  * @param {string} [fallback]
  * @returns {string}
  */
-export function resolvePrimaryColor(raw, fallback = '#f97316') {
+export function resolvePrimaryColor(raw, fallback = FEW_PRIMARY) {
   if (!raw || typeof raw !== 'object') return fallback
   const top = typeof raw.primaryColor === 'string' ? raw.primaryColor.trim() : ''
   if (top) return top

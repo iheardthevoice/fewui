@@ -86,3 +86,51 @@ export function sanitizeMoneyInput(value) {
   }
   return s
 }
+
+/**
+ * Locale ayırıcılarını çözer. Desteklenmeyen ortamlarda güvenli varsayılan kullanır.
+ * @param {string} locale
+ */
+export function getMoneySeparators(locale = 'tr-TR') {
+  try {
+    const parts = new Intl.NumberFormat(locale).formatToParts(12345.6)
+    return {
+      group: parts.find((part) => part.type === 'group')?.value || '.',
+      decimal: parts.find((part) => part.type === 'decimal')?.value || ',',
+    }
+  } catch {
+    return { group: '.', decimal: ',' }
+  }
+}
+
+/**
+ * Locale ile gösterilen para girişini API'ye uygun noktalı ondalık metne çevirir.
+ * @param {string|number|null|undefined} value
+ * @param {string} locale
+ */
+export function parseLocalizedMoneyInput(value, locale = 'tr-TR') {
+  const { group, decimal } = getMoneySeparators(locale)
+  let text = String(value ?? '').trim()
+  if (!text) return ''
+
+  text = text.split(group).join('')
+  text = text.split(decimal).join('.')
+  return sanitizeMoneyInput(text)
+}
+
+/**
+ * API'ye uygun para değerini, yazım devam ederken ondalık kısmı koruyarak gruplar.
+ * @param {string|number|null|undefined} value
+ * @param {string} locale
+ */
+export function formatMoneyInput(value, locale = 'tr-TR') {
+  const raw = sanitizeMoneyInput(value)
+  if (!raw) return ''
+
+  const { group, decimal } = getMoneySeparators(locale)
+  const [integerRaw = '', fraction] = raw.split('.')
+  const integer = integerRaw.replace(/^0+(?=\d)/, '') || '0'
+  const grouped = integer.replace(/\B(?=(\d{3})+(?!\d))/g, group)
+
+  return fraction === undefined ? grouped : `${grouped}${decimal}${fraction}`
+}

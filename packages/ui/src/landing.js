@@ -36,6 +36,13 @@ export {
   withDerivedBrandColors,
   resolvePrimaryColor,
 } from './theme/derive-theme.js'
+export {
+  FEW_PALETTE_ID,
+  FEW_PRIMARY,
+  FEW_PRIMARY_FOREGROUND,
+  FEW_COLOR_SCALE,
+  getFewPrimaryColors,
+} from './theme/few-palette.js'
 export { applyThemeCustomCss, clearThemeCustomCss } from './theme/custom-css.js'
 export {
   applyGoogleFontsForTheme,
