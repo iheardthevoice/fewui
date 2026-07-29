@@ -111,7 +111,10 @@ export default {
       return Object.is(this.uiSegmentGroup.modelValue, this.value)
     },
     iconOnly() {
-      return Boolean(this.uiSegmentGroup?.iconOnly)
+      const group = this.uiSegmentGroup
+      if (!group) return false
+      if (typeof group.resolvedIconOnly === 'boolean') return group.resolvedIconOnly
+      return Boolean(group.iconOnly)
     },
     showLabel() {
       return !this.iconOnly

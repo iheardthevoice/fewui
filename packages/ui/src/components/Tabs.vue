@@ -43,11 +43,11 @@ export default {
       default: '',
       validator: (v) => v === '' || v === 'full',
     },
-    /** Segmented yükseklik / tipografi — `md` (varsayılan) veya `lg`. */
+    /** Segmented yükseklik / tipografi — `sm` | `md` (varsayılan) | `lg`. */
     size: {
       type: String,
       default: 'md',
-      validator: (v) => v === 'md' || v === 'lg',
+      validator: (v) => v === 'sm' || v === 'md' || v === 'lg',
     },
     /** Segmented iz arka planını kaldırır (mobil sabit üst şerit vb.). */
     transparent: {
@@ -82,6 +82,7 @@ export default {
         this.orientation === 'vertical' ? 'ui-tabs--vertical' : '',
         this.fit === 'full' ? 'ui-tabs--fit-full' : '',
         this.variant === 'segmented' && this.resolvedSize === 'lg' ? 'ui-tabs--segmented-lg' : '',
+        this.variant === 'segmented' && this.resolvedSize === 'sm' ? 'ui-tabs--segmented-sm' : '',
         this.transparent ? 'ui-tabs--transparent' : '',
         this.scrollable ? 'ui-tabs--scrollable' : '',
         this.$attrs.class,

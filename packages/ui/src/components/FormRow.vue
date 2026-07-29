@@ -72,6 +72,14 @@ export default {
       validator: (v) => DIRECTIONS.includes(v),
     },
     /**
+     * `direction="horizontal"` iken dar viewport’ta dikey yığılır
+     * (`max-width: 767px` — segment `icon-only="mobile"` ile aynı kırılım).
+     */
+    stackOnMobile: {
+      type: Boolean,
+      default: false,
+    },
+    /**
      * `default`: mevcut `direction` düzeni.
      * `card`: kenarlıklı, yuvarlatılmış yüzey; küçük ekranda dikey, `sm+` yatay `space-between`.
      */
@@ -118,12 +126,20 @@ export default {
       return !!(this.label || this.description || this.$slots.action)
     },
     rootLayoutClass() {
+      const stack =
+        this.stackOnMobile && this.direction === 'horizontal'
+          ? 'ui-form-row--stack-mobile'
+          : ''
       if (this.variant === 'card') {
-        return this.direction === 'vertical'
-          ? 'ui-form-row--card ui-form-row--card-vertical'
-          : 'ui-form-row--card ui-form-row--card-horizontal'
+        const base =
+          this.direction === 'vertical'
+            ? 'ui-form-row--card ui-form-row--card-vertical'
+            : 'ui-form-row--card ui-form-row--card-horizontal'
+        return [base, stack].filter(Boolean).join(' ')
       }
-      return this.direction === 'horizontal' ? 'ui-form-row--horizontal' : 'ui-form-row--vertical'
+      const base =
+        this.direction === 'horizontal' ? 'ui-form-row--horizontal' : 'ui-form-row--vertical'
+      return [base, stack].filter(Boolean).join(' ')
     },
     labelLineClass() {
       const base = 'ui-form-row-label-line'

@@ -171,10 +171,29 @@
               :aria-selected="isSelected(opt) ? 'true' : 'false'"
               @click="pick(opt, close)"
             >
-              <span
-                data-popover-align
-                class="block min-w-0 truncate"
-              >{{ opt.label }}</span>
+              <slot
+                name="option"
+                :option="opt"
+                :selected="isSelected(opt)"
+              >
+                <span class="flex w-full min-w-0 items-center justify-between gap-2">
+                  <span
+                    data-popover-align
+                    class="min-w-0 truncate"
+                  >{{ opt.label }}</span>
+                  <ui-badge
+                    v-if="opt.badge"
+                    :variant="opt.badgeVariant || 'secondary'"
+                    size="xs"
+                  >
+                    {{ opt.badge }}
+                  </ui-badge>
+                  <span
+                    v-else-if="opt.description"
+                    class="shrink-0 text-muted-foreground"
+                  >{{ opt.description }}</span>
+                </span>
+              </slot>
             </ui-button>
           </template>
           <ui-empty
@@ -390,7 +409,7 @@ export default {
       return (this.options || [])
         .map((o) => {
           if (o != null && typeof o === 'object' && 'value' in o && 'label' in o) {
-            return { value: o.value, label: o.label }
+            return { ...o, value: o.value, label: o.label }
           }
           return { value: o, label: String(o) }
         })
@@ -412,7 +431,9 @@ export default {
       return this.normalizedOptions.filter(
         (o) =>
           this.normalizeFilter(o.label).includes(q)
-          || this.normalizeFilter(String(o.value)).includes(q),
+          || this.normalizeFilter(String(o.value)).includes(q)
+          || this.normalizeFilter(o.description || '').includes(q)
+          || this.normalizeFilter(o.badge || '').includes(q),
       )
     },
     selectedValues() {

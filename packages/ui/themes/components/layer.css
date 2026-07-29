@@ -1004,6 +1004,8 @@
     --ui-card-gap: 0;
     padding: 0;
     gap: 0;
+    /* Yatay scrollbar / satır zemini rounded-3xl köşelerinden taşmasın. */
+    overflow: hidden;
   }
 
   .ui-card--data-table > .ui-card-body {
@@ -1651,6 +1653,25 @@
     @apply flex flex-row flex-wrap items-center justify-between gap-4;
   }
 
+  /** `stack-on-mobile` — yatay satır dar ekranda dikey (FormRow prop). */
+  @media (max-width: 767px) {
+    .ui-form-row--horizontal.ui-form-row--stack-mobile {
+      @apply flex-col flex-nowrap items-stretch gap-2;
+    }
+
+    .ui-form-row--horizontal.ui-form-row--stack-mobile .ui-form-row-control {
+      @apply w-full min-w-0 shrink;
+    }
+
+    .ui-form-row--card-horizontal.ui-form-row--stack-mobile {
+      @apply flex-col items-stretch gap-3;
+    }
+
+    .ui-form-row--card-horizontal.ui-form-row--stack-mobile .ui-form-row-control {
+      @apply w-full min-w-0 max-w-none shrink;
+    }
+  }
+
   /** Kart çerçevesi — input kabuğu ile aynı köşe (`rounded-lg`); ayarlar listesinde hafif vurgulu satır */
   .ui-form-row--card {
     @apply flex gap-4 rounded-lg border border-border bg-transparent p-4;
@@ -2121,6 +2142,11 @@
     @apply text-primary-foreground;
   }
 
+  /** Option içi badge — buton rengine yenilmesin */
+  .ui-select-listbox .ui-select-option.ui-button .ui-badge {
+    @apply shrink-0;
+  }
+
   /** Aralık — dolu uç foreground, boş uç muted; squircle tutamaç; hover’da yarı saydam halka */
   .ui-slider {
     @apply flex min-w-0 flex-col gap-3;
@@ -2504,6 +2530,26 @@
 
   .ui-tabs:not(.ui-tabs--fit-full) .ui-tab-trigger--segmented {
     @apply min-w-[6.5rem] flex-none px-4;
+  }
+
+  .ui-tabs--segmented-sm .ui-tab-list--horizontal.ui-tab-list--segmented {
+    @apply min-h-11 gap-0.5 p-0.5;
+  }
+
+  .ui-tabs--segmented-sm .ui-tab-list--horizontal.ui-tab-list--segmented .ui-tab-trigger--segmented {
+    @apply min-w-[5rem];
+  }
+
+  .ui-tabs--segmented-sm .ui-tab-trigger--segmented {
+    @apply gap-0.5 px-2 py-1;
+  }
+
+  .ui-tabs--segmented-sm .ui-tab-trigger--segmented .ui-tab-trigger-label {
+    @apply text-[11px] leading-tight;
+  }
+
+  .ui-tabs--segmented-sm .ui-tab-trigger-badge {
+    @apply end-1.5 top-0.5;
   }
 
   .ui-tabs--segmented-lg .ui-tab-list--horizontal.ui-tab-list--segmented {
@@ -3964,6 +4010,13 @@
       overflow-x: auto;
       overscroll-behavior-x: contain;
       -webkit-overflow-scrolling: touch;
+      /* Görünür scrollbar köşeli track bırakıyor; dokunmatik kaydırma yeterli. */
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .app-data-table .ui-table-scroll::-webkit-scrollbar {
+      display: none;
     }
 
     .app-data-table:not(.app-data-table--filter-empty) .ui-table {
