@@ -78,10 +78,8 @@
 <script>
 import { cn } from '../utils/cn.js'
 import { resolveControlSize } from '../utils/control-size.js'
-import { createUiIdFactory } from '../utils/ui-id.js'
+import { useId } from 'vue'
 import { pickPassthroughAttrs } from '../utils/pick-passthrough-attrs.js'
-
-const nextInputId = createUiIdFactory('ui-input')
 
 const SIZES = ['sm', 'md', 'lg']
 const VARIANTS = ['default', 'plain']
@@ -164,8 +162,8 @@ export default {
     },
   },
   emits: ['update:modelValue', 'input', 'change', 'focus', 'blur'],
-  data() {
-    return { fallbackId: nextInputId() }
+  setup() {
+    return { fallbackId: useId() }
   },
   computed: {
     resolvedSize() {

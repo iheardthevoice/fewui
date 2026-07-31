@@ -10,9 +10,7 @@
 <script>
 import { cn } from '../utils/cn.js'
 import { resolveControlSize } from '../utils/control-size.js'
-import { createUiIdFactory } from '../utils/ui-id.js'
-
-const nextTabsId = createUiIdFactory('ui-tabs')
+import { useId } from 'vue'
 
 const VARIANTS = ['line', 'segmented']
 
@@ -61,10 +59,9 @@ export default {
     },
   },
   emits: ['update:modelValue'],
-  data() {
-    return {
-      baseId: nextTabsId(),
-    }
+  setup() {
+    // Vue useId is stable across SSR ↔ client (unlike module counters on Workers).
+    return { baseId: useId() }
   },
   provide() {
     return {
