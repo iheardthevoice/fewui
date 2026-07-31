@@ -97,7 +97,7 @@ export {
   getThemePreset,
   resolveThemePreset,
 } from './theme/presets/index.js'
-export { createUiId, createUiIdFactory } from './utils/ui-id.js'
+export { createUiId, createUiIdFactory, resetUiIds } from './utils/ui-id.js'
 export { resolveControlSize } from './utils/control-size.js'
 export { resolveUiText } from './utils/resolve-ui-text.js'
 export { pickPassthroughAttrs } from './utils/pick-passthrough-attrs.js'

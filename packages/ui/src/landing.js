@@ -23,6 +23,7 @@ import en from './locales/en.js'
 import tr from './locales/tr.js'
 import { applyUiTheme } from './theme/apply-theme.js'
 
+export { createUiId, createUiIdFactory, resetUiIds } from './utils/ui-id.js'
 export { pushToast, dismissToast, clearToasts } from './toast-queue.js'
 
 export {
