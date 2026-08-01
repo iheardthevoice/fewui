@@ -14,7 +14,10 @@
         :close="close"
       />
     </div>
-    <Teleport to="body">
+    <Teleport
+      v-if="portalReady"
+      to="body"
+    >
       <Transition name="ui-overlay-popover-backdrop">
         <div
           v-if="showMobileBackdrop"
@@ -198,6 +201,7 @@ export default {
       layerZIndex: POPOVER_BASE_Z_INDEX,
       rafId: 0,
       mobileCenteredActive: false,
+      portalReady: false,
     }
   },
   computed: {
@@ -246,6 +250,7 @@ export default {
     },
   },
   mounted() {
+    this.portalReady = true
     if (this.open) {
       this.$nextTick(() => {
         this.updatePosition()

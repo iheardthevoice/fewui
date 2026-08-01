@@ -8,7 +8,11 @@
     @focusout="onFocusOut"
   >
     <slot />
-    <Teleport to="body">
+    <!-- Defer Teleport until mount: empty SSR teleport markers mismatch and can wipe #app. -->
+    <Teleport
+      v-if="portalReady"
+      to="body"
+    >
       <Transition name="ui-tooltip-fade">
         <div
           v-if="open && !disabled && hasContent"
@@ -64,6 +68,7 @@ export default {
   data() {
     return {
       open: false,
+      portalReady: false,
       panelStyle: {},
       tooltipId: `ui-tooltip-${++tooltipUid}`,
       showTimer: null,
@@ -76,6 +81,7 @@ export default {
     },
   },
   mounted() {
+    this.portalReady = true
     window.addEventListener('scroll', this.onScrollResize, true)
     window.addEventListener('resize', this.onScrollResize)
     document.addEventListener('keydown', this.onDocumentKeydown)
