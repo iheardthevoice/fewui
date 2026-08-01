@@ -1916,6 +1916,7 @@ const Gi = Mi("ui-dialog"), Qi = ["solid", "dashed", "dotted", "double"], xe = {
     return {
       titleId: `ui-dialog-title-${e}`,
       descriptionId: `ui-dialog-desc-${e}`,
+      portalReady: !1,
       focusFallbackTimer: null,
       sheetDragCleanup: null
     };
@@ -1927,6 +1928,9 @@ const Gi = Mi("ui-dialog"), Qi = ["solid", "dashed", "dotted", "double"], xe = {
       },
       flush: "post"
     }
+  },
+  mounted() {
+    this.portalReady = !0;
   },
   beforeUnmount() {
     this.clearFocusFallback(), this.teardownSheetDrag();
@@ -2075,7 +2079,10 @@ const Gi = Mi("ui-dialog"), Qi = ["solid", "dashed", "dotted", "double"], xe = {
 };
 function ln(e, t, i, r, a, n) {
   const s = v("ui-icon"), u = v("ui-button"), o = v("Divider");
-  return l(), w(Z, { to: "body" }, [
+  return a.portalReady ? (l(), w(Z, {
+    key: 0,
+    to: "body"
+  }, [
     p(G, {
       name: "ui-overlay-dialog",
       appear: "",
@@ -2186,7 +2193,7 @@ function ln(e, t, i, r, a, n) {
       ]),
       _: 3
     }, 8, ["onAfterEnter", "onAfterLeave"])
-  ]);
+  ])) : h("", !0);
 }
 const Vs = /* @__PURE__ */ _(Zi, [["render", ln]]), on = ["solid", "regular", "brands", "light", "duotone", "thin"], dn = ["sm", "md", "lg"], un = {
   sm: "sm",
@@ -5264,4 +5271,4 @@ export {
   it as y,
   la as z
 };
-//# sourceMappingURL=index-CDDjBCHl.js.map
+//# sourceMappingURL=index-Cd3EqkY7.js.map

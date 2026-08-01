@@ -1,5 +1,9 @@
 <template>
-  <Teleport to="body">
+  <!-- Defer Teleport until mount: empty SSR teleport markers mismatch and can wipe #app. -->
+  <Teleport
+    v-if="portalReady"
+    to="body"
+  >
     <Transition
       :name="transitionName"
       appear
@@ -236,6 +240,7 @@ export default {
     return {
       titleId: `ui-sheet-title-${id}`,
       descriptionId: `ui-sheet-desc-${id}`,
+      portalReady: false,
       focusFallbackTimer: null,
     }
   },
@@ -250,6 +255,9 @@ export default {
       },
       flush: 'post',
     },
+  },
+  mounted() {
+    this.portalReady = true
   },
   beforeUnmount() {
     this.clearFocusFallback()

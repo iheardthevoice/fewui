@@ -1,5 +1,9 @@
 <template>
-  <Teleport to="body">
+  <!-- Defer Teleport until mount: empty SSR teleport markers mismatch and can wipe #app. -->
+  <Teleport
+    v-if="portalReady"
+    to="body"
+  >
     <Transition
       name="ui-overlay-dialog"
       appear
@@ -289,6 +293,7 @@ export default {
     return {
       titleId: `ui-dialog-title-${id}`,
       descriptionId: `ui-dialog-desc-${id}`,
+      portalReady: false,
       focusFallbackTimer: null,
       sheetDragCleanup: null,
     }
@@ -305,6 +310,9 @@ export default {
       },
       flush: 'post',
     },
+  },
+  mounted() {
+    this.portalReady = true
   },
   beforeUnmount() {
     this.clearFocusFallback()

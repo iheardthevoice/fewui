@@ -1,6 +1,6 @@
 import { resolveComponent as v, openBlock as l, createElementBlock as n, normalizeClass as k, renderSlot as b, createBlock as y, createCommentVNode as f, createElementVNode as d, toDisplayString as p, normalizeStyle as E, resolveDynamicComponent as F, mergeProps as T, withCtx as g, createVNode as S, withModifiers as O, createTextVNode as L, Fragment as C, renderList as z, withKeys as le, reactive as ne, normalizeProps as Me, guardReactiveProps as Pe, createSlots as j, Teleport as Q, Transition as X, readonly as $e, withDirectives as He, vShow as We } from "vue";
-import { _ as w, K as x, a9 as M, a4 as Ye, V as Ge, e as oe, U as Ue, a0 as Ke, M as Ve, Z as je, a3 as qe, J as Ze, O as Qe, a1 as $, aa as Ee, w as Xe, Q as Je, A as et, a as tt, B as it, b as rt, C as lt, c as at, d as st, E as nt, i as ot, I as ut, j as ct, P as dt, k as ht, R as ft, l as mt, S as pt, m as gt, r as bt, o as yt, q as vt, p as _t, t as kt, s as wt } from "./index-CDDjBCHl.js";
-import { F as Oo, f as Mo, g as Po, h as Vo, G as Eo, D as Bo, T as Ro, n as Do, u as Fo, v as No, x as $o, y as Ho, z as Wo, H as Yo, L as Go, N as Uo, W as Ko, X as jo, Y as qo, $ as Zo, a2 as Qo, a5 as Xo, a6 as Jo, a7 as eu, a8 as tu, ab as iu } from "./index-CDDjBCHl.js";
+import { _ as w, K as x, a9 as M, a4 as Ye, V as Ge, e as oe, U as Ue, a0 as Ke, M as Ve, Z as je, a3 as qe, J as Ze, O as Qe, a1 as $, aa as Ee, w as Xe, Q as Je, A as et, a as tt, B as it, b as rt, C as lt, c as at, d as st, E as nt, i as ot, I as ut, j as ct, P as dt, k as ht, R as ft, l as mt, S as pt, m as gt, r as bt, o as yt, q as vt, p as _t, t as kt, s as wt } from "./index-Cd3EqkY7.js";
+import { F as Oo, f as Mo, g as Po, h as Vo, G as Eo, D as Ro, T as Bo, n as Do, u as Fo, v as No, x as $o, y as Ho, z as Wo, H as Yo, L as Go, N as Uo, W as Ko, X as jo, Y as qo, $ as Zo, a2 as Qo, a5 as Xo, a6 as Jo, a7 as eu, a8 as tu, ab as iu } from "./index-Cd3EqkY7.js";
 const St = ["solid", "regular", "brands", "light", "duotone", "thin"], xt = {
   name: "ActionCard",
   props: {
@@ -152,12 +152,12 @@ const Vt = /* @__PURE__ */ w(Ot, [["render", Pt]]), Et = ["sm", "md", "lg", "xl"
   Ş: "S",
   Ü: "U"
 });
-function Bt(e) {
+function Rt(e) {
   if (!e || typeof e != "string") return "default";
   let t = e.toLocaleUpperCase("tr-TR");
   return pe[t] && (t = pe[t]), t >= "A" && t <= "Z" ? t : "default";
 }
-function Rt(e) {
+function Bt(e) {
   var s;
   const t = (e || "").trim();
   if (!t) return "?";
@@ -245,11 +245,11 @@ const Dt = {
       return this.name != null && this.name.trim() !== "" ? this.name.trim() : this.fallback != null && this.fallback.trim() !== "" ? this.fallback.trim() : (this.alt || "").trim();
     },
     displayInitials() {
-      return Rt(this.initialsSource);
+      return Bt(this.initialsSource);
     },
     colorLetterKey() {
       const e = this.initialsSource;
-      return e ? Bt(e[0]) : "default";
+      return e ? Rt(e[0]) : "default";
     },
     letterColors() {
       return me[this.colorLetterKey] || me.default;
@@ -586,7 +586,7 @@ function J(e, t = "TRY") {
   const s = r.toUpperCase();
   return W[s] ? s : t in W ? t : "TRY";
 }
-function Be(e) {
+function Re(e) {
   var r;
   const t = J(e);
   if (W[t])
@@ -607,10 +607,10 @@ function wo(e, t, r = "tr-TR") {
   try {
     return new Intl.NumberFormat(r, { style: "currency", currency: a }).format(s);
   } catch {
-    return `${Be(a)}${s.toFixed(2)}`;
+    return `${Re(a)}${s.toFixed(2)}`;
   }
 }
-function Re(e) {
+function Be(e) {
   let t = String(e ?? "").replace(",", ".");
   t = t.replace(/[^\d.]/g, "");
   const r = t.indexOf(".");
@@ -635,10 +635,10 @@ function De(e = "tr-TR") {
 function ai(e, t = "tr-TR") {
   const { group: r, decimal: s } = De(t);
   let a = String(e ?? "").trim();
-  return a ? (a = a.split(r).join(""), a = a.split(s).join("."), Re(a)) : "";
+  return a ? (a = a.split(r).join(""), a = a.split(s).join("."), Be(a)) : "";
 }
 function si(e, t = "tr-TR") {
-  const r = Re(e);
+  const r = Be(e);
   if (!r) return "";
   const { group: s, decimal: a } = De(t), [i = "", o] = r.split("."), u = (i.replace(/^0+(?=\d)/, "") || "0").replace(/\B(?=(\d{3})+(?!\d))/g, s);
   return o === void 0 ? u : `${u}${a}${o}`;
@@ -702,7 +702,7 @@ const ni = ["sm", "md", "lg"], oi = {
   },
   computed: {
     displaySymbol() {
-      return Be(this.currency);
+      return Re(this.currency);
     },
     resolvedCurrencyCode() {
       return J(this.currency);
@@ -1052,7 +1052,7 @@ function G(e) {
   const r = Number(t[1]), s = Number(t[2]) - 1, a = Number(t[3]), i = new Date(r, s, a);
   return i.getFullYear() !== r || i.getMonth() !== s || i.getDate() !== a ? null : i;
 }
-function R(e, t) {
+function B(e, t) {
   return e === t ? 0 : e < t ? -1 : 1;
 }
 function te(e, t, r) {
@@ -1063,7 +1063,7 @@ function _e(e, t, r, s) {
   let o = `${e}-${Y(t + 1)}-${Y(i)}`;
   if (r && o > r && (o = r), s && a < s && o < s) return null;
   let c = a;
-  return s && c < s && (c = s), R(c, o) > 0 ? null : [c, o];
+  return s && c < s && (c = s), B(c, o) > 0 ? null : [c, o];
 }
 const Ii = {
   name: "DateRangePicker",
@@ -1164,7 +1164,7 @@ const Ii = {
       if (this.pickingEnd) return this.pickingEnd;
       if (this.pickingStart && this.hoverYmd) {
         const e = this.pickingStart, t = this.hoverYmd;
-        return R(e, t) <= 0 ? t : e;
+        return B(e, t) <= 0 ? t : e;
       }
       return this.pickingStart ? this.pickingStart : this.endYmd;
     },
@@ -1253,11 +1253,11 @@ const Ii = {
     buildCellsForMonth(e, t) {
       const r = new Date(e, t, 1), s = new Date(e, t, 1 - r.getDay()), a = this.previewStart, i = this.previewEnd, o = a && i, c = [];
       for (let u = 0; u < 42; u += 1) {
-        const h = new Date(s.getFullYear(), s.getMonth(), s.getDate() + u), m = h.getMonth() === t && h.getFullYear() === e, _ = h.getDate(), A = D(h), N = `${h.getFullYear()}-${h.getMonth()}-${h.getDate()}-${t}`, P = D(/* @__PURE__ */ new Date()) === A, B = !!(this.minYmd && A < this.minYmd) || !!(this.maxYmd && A > this.maxYmd);
+        const h = new Date(s.getFullYear(), s.getMonth(), s.getDate() + u), m = h.getMonth() === t && h.getFullYear() === e, _ = h.getDate(), A = D(h), N = `${h.getFullYear()}-${h.getMonth()}-${h.getDate()}-${t}`, P = D(/* @__PURE__ */ new Date()) === A, R = !!(this.minYmd && A < this.minYmd) || !!(this.maxYmd && A > this.maxYmd);
         let ue = !1, ce = !1;
         if (o) {
-          const de = R(a, i) <= 0 ? a : i, he = R(a, i) <= 0 ? i : a;
-          ue = R(A, de) >= 0 && R(A, he) <= 0, ce = A === de || A === he;
+          const de = B(a, i) <= 0 ? a : i, he = B(a, i) <= 0 ? i : a;
+          ue = B(A, de) >= 0 && B(A, he) <= 0, ce = A === de || A === he;
         }
         c.push({
           key: N,
@@ -1265,7 +1265,7 @@ const Ii = {
           date: h,
           today: P,
           inMonth: m,
-          disabled: B,
+          disabled: R,
           inRange: ue,
           endpoint: ce
         });
@@ -1288,7 +1288,7 @@ const Ii = {
         return;
       }
       let s = this.pickingStart, a = r;
-      if (R(a, s) < 0) {
+      if (B(a, s) < 0) {
         const i = s;
         s = a, a = i;
       }
@@ -1304,7 +1304,7 @@ const Ii = {
 }, Ai = { class: "min-w-0 flex-1 truncate text-foreground" }, zi = { class: "ui-datepicker-panel ui-daterangepicker-panel p-2" }, Oi = { class: "ui-daterangepicker-layout" }, Mi = ["aria-label"], Pi = { class: "ui-daterangepicker-calendars" }, Vi = {
   key: 0,
   class: "mb-2 text-xs text-muted-foreground"
-}, Ei = { class: "ui-daterangepicker-month-row" }, Bi = { class: "mb-2 flex items-center justify-between gap-2" }, Ri = {
+}, Ei = { class: "ui-daterangepicker-month-row" }, Ri = { class: "mb-2 flex items-center justify-between gap-2" }, Bi = {
   key: 1,
   class: "size-9 shrink-0",
   "aria-hidden": "true"
@@ -1382,7 +1382,7 @@ function $i(e, t, r, s, a, i) {
                   key: h.key,
                   class: "ui-daterangepicker-month"
                 }, [
-                  d("div", Bi, [
+                  d("div", Ri, [
                     h.showPrev ? (l(), y(o, {
                       key: 0,
                       variant: "ghost",
@@ -1391,7 +1391,7 @@ function $i(e, t, r, s, a, i) {
                       "prefix-icon": "chevron-left",
                       "aria-label": i.resolvedPrevMonthLabel,
                       onClick: t[0] || (t[0] = O((m) => i.shiftMonth(-1), ["stop"]))
-                    }, null, 8, ["aria-label"])) : (l(), n("span", Ri)),
+                    }, null, 8, ["aria-label"])) : (l(), n("span", Bi)),
                     d("span", Di, p(h.title), 1),
                     h.showNext ? (l(), y(o, {
                       key: 2,
@@ -2529,11 +2529,11 @@ const Ar = ["dialog", "popover", "card", "tour"], zr = ["solid", "regular", "bra
         width: `${Math.max(0, N - _)}px`,
         height: `${Math.max(0, A - m)}px`
       };
-      let P = A + V, B = _;
-      this.placement.startsWith("top") ? P = m - c - V : this.placement.startsWith("right") ? (P = m, B = N + V) : this.placement.startsWith("left") ? (P = m, B = _ - o - V) : this.placement.includes("end") && (B = N - o), e && !this.placement.startsWith("top") && !this.placement.startsWith("left") && !this.placement.startsWith("right") && P + c > a - V && (P = m - c - V), P = Math.max(V, Math.min(P, a - c - V)), B = Math.max(V, Math.min(B, s - o - V)), this.tourPanelStyle = {
+      let P = A + V, R = _;
+      this.placement.startsWith("top") ? P = m - c - V : this.placement.startsWith("right") ? (P = m, R = N + V) : this.placement.startsWith("left") ? (P = m, R = _ - o - V) : this.placement.includes("end") && (R = N - o), e && !this.placement.startsWith("top") && !this.placement.startsWith("left") && !this.placement.startsWith("right") && P + c > a - V && (P = m - c - V), P = Math.max(V, Math.min(P, a - c - V)), R = Math.max(V, Math.min(R, s - o - V)), this.tourPanelStyle = {
         position: "fixed",
         top: `${P}px`,
-        left: `${B}px`,
+        left: `${R}px`,
         width: "min(24rem, calc(100vw - 2rem))",
         zIndex: 420,
         transform: "none"
@@ -2574,7 +2574,7 @@ const Ar = ["dialog", "popover", "card", "tour"], zr = ["solid", "regular", "bra
       this.tourTargetRetries = 0, this._tourTargetRetryRaf && (cancelAnimationFrame(this._tourTargetRetryRaf), this._tourTargetRetryRaf = null), this._tourLayoutRaf && (cancelAnimationFrame(this._tourLayoutRaf), this._tourLayoutRaf = null), this._tourOnResize && (window.removeEventListener("resize", this._tourOnResize), window.removeEventListener("scroll", this._tourOnResize, !0), this._tourOnResize = null), this.tourResizeObserver && (this.tourResizeObserver.disconnect(), this.tourResizeObserver = null);
     }
   }
-}, Er = { class: "ui-guidance-footer" }, Br = { class: "ui-guidance-popover" }, Rr = {
+}, Er = { class: "ui-guidance-footer" }, Rr = { class: "ui-guidance-popover" }, Br = {
   key: 0,
   class: "ui-guidance-popover__lead"
 }, Dr = {
@@ -2724,8 +2724,8 @@ function el(e, t, r, s, a, i) {
         b(e.$slots, "trigger", Me(Pe(_)))
       ]),
       content: g(() => [
-        d("div", Br, [
-          r.icon || r.title || r.description ? (l(), n("div", Rr, [
+        d("div", Rr, [
+          r.icon || r.title || r.description ? (l(), n("div", Br, [
             r.icon ? (l(), n("span", Dr, [
               S(h, {
                 name: r.icon,
@@ -3512,7 +3512,7 @@ function El(e, t, r, s, a, i) {
     }, null, 40, Vl))), 128))
   ], 10, Pl);
 }
-const Bl = /* @__PURE__ */ w(Ml, [["render", El]]), Rl = ["ul", "ol", "div"], Dl = {
+const Rl = /* @__PURE__ */ w(Ml, [["render", El]]), Bl = ["ul", "ol", "div"], Dl = {
   name: "List",
   inheritAttrs: !1,
   props: {
@@ -3520,7 +3520,7 @@ const Bl = /* @__PURE__ */ w(Ml, [["render", El]]), Rl = ["ul", "ol", "div"], Dl
     tag: {
       type: String,
       default: "ul",
-      validator: (e) => Rl.includes(e)
+      validator: (e) => Bl.includes(e)
     },
     /** Öğeler arası dikey boşluk (`gap-3` | `gap-4`). */
     density: {
@@ -3833,6 +3833,7 @@ const aa = /* @__PURE__ */ w(Xl, [["render", la]]), sa = Ve("ui-sheet"), na = ["
     return {
       titleId: `ui-sheet-title-${e}`,
       descriptionId: `ui-sheet-desc-${e}`,
+      portalReady: !1,
       focusFallbackTimer: null
     };
   },
@@ -3843,6 +3844,9 @@ const aa = /* @__PURE__ */ w(Xl, [["render", la]]), sa = Ve("ui-sheet"), na = ["
       },
       flush: "post"
     }
+  },
+  mounted() {
+    this.portalReady = !0;
   },
   beforeUnmount() {
     this.clearFocusFallback();
@@ -3944,7 +3948,10 @@ const aa = /* @__PURE__ */ w(Xl, [["render", la]]), sa = Ve("ui-sheet"), na = ["
 };
 function va(e, t, r, s, a, i) {
   const o = v("ui-icon"), c = v("ui-button"), u = v("Divider");
-  return l(), y(Q, { to: "body" }, [
+  return a.portalReady ? (l(), y(Q, {
+    key: 0,
+    to: "body"
+  }, [
     S(X, {
       name: i.transitionName,
       appear: "",
@@ -4045,7 +4052,7 @@ function va(e, t, r, s, a, i) {
       ]),
       _: 3
     }, 8, ["name", "onAfterEnter", "onAfterLeave"])
-  ]);
+  ])) : f("", !0);
 }
 const _a = /* @__PURE__ */ w(ca, [["render", va]]), ka = ["sm", "md", "lg", "full"], Te = {
   sm: "w-52 max-w-full",
@@ -4197,7 +4204,7 @@ function Va(e, t, r, s, a, i) {
     _: 3
   }, 16, ["to", "prefix-icon", "suffix-icon", "disabled", "loading", "class", "aria-current", "onClick"]);
 }
-const Ea = /* @__PURE__ */ w(Pa, [["render", Va]]), Ba = {
+const Ea = /* @__PURE__ */ w(Pa, [["render", Va]]), Ra = {
   name: "MenuNav",
   inheritAttrs: !1,
   props: {
@@ -4215,7 +4222,7 @@ const Ea = /* @__PURE__ */ w(Pa, [["render", Va]]), Ba = {
       return t;
     }
   }
-}, Ra = ["aria-label"];
+}, Ba = ["aria-label"];
 function Da(e, t, r, s, a, i) {
   return l(), n("div", T({
     class: i.navClass,
@@ -4223,9 +4230,9 @@ function Da(e, t, r, s, a, i) {
     "aria-label": r.ariaLabel || void 0
   }, i.passthroughAttrs), [
     b(e.$slots, "default")
-  ], 16, Ra);
+  ], 16, Ba);
 }
-const Fa = /* @__PURE__ */ w(Ba, [["render", Da]]), Na = {
+const Fa = /* @__PURE__ */ w(Ra, [["render", Da]]), Na = {
   name: "Segment",
   inject: {
     uiSegmentGroup: {
@@ -4892,7 +4899,7 @@ function Es(e, t, r, s, a, i) {
     ], 2)
   ], 16, Vs);
 }
-const Bs = /* @__PURE__ */ w(Ps, [["render", Es]]), Rs = {
+const Rs = /* @__PURE__ */ w(Ps, [["render", Es]]), Bs = {
   name: "Table",
   inheritAttrs: !1,
   computed: {
@@ -4912,7 +4919,7 @@ function Fs(e, t, r, s, a, i) {
     ], 16)
   ]);
 }
-const Ns = /* @__PURE__ */ w(Rs, [["render", Fs]]), $s = {
+const Ns = /* @__PURE__ */ w(Bs, [["render", Fs]]), $s = {
   name: "TableBody"
 }, Hs = { class: "ui-table-body" };
 function Ws(e, t, r, s, a, i) {
@@ -5456,7 +5463,7 @@ const wn = {
 }, In = { class: "ui-timepicker-wheel-spacer" }, An = ["onClick"], zn = ["aria-valuenow", "aria-label"], On = {
   ref: "minuteWheel",
   class: "ui-timepicker-wheel-viewport"
-}, Mn = { class: "ui-timepicker-wheel-spacer" }, Pn = ["onClick"], Vn = { class: "min-w-0 flex-1 truncate text-foreground" }, En = { class: "ui-timepicker-panel w-full p-2" }, Bn = { class: "ui-timepicker-wheels" }, Rn = { class: "ui-timepicker-wheels-row" }, Dn = ["aria-valuenow", "aria-label"], Fn = {
+}, Mn = { class: "ui-timepicker-wheel-spacer" }, Pn = ["onClick"], Vn = { class: "min-w-0 flex-1 truncate text-foreground" }, En = { class: "ui-timepicker-panel w-full p-2" }, Rn = { class: "ui-timepicker-wheels" }, Bn = { class: "ui-timepicker-wheels-row" }, Dn = ["aria-valuenow", "aria-label"], Fn = {
   ref: "hourWheel",
   class: "ui-timepicker-wheel-viewport"
 }, Nn = { class: "ui-timepicker-wheel-spacer" }, $n = ["onClick"], Hn = ["aria-valuenow", "aria-label"], Wn = {
@@ -5577,12 +5584,12 @@ function Un(e, t, r, s, a, i) {
       ]),
       content: g(() => [
         d("div", En, [
-          d("div", Bn, [
+          d("div", Rn, [
             t[6] || (t[6] = d("div", {
               class: "ui-timepicker-selection-band",
               "aria-hidden": "true"
             }, null, -1)),
-            d("div", Rn, [
+            d("div", Bn, [
               d("div", {
                 class: "min-h-0 min-w-0 flex-1",
                 role: "spinbutton",
@@ -6209,7 +6216,7 @@ const To = Ee, yo = [
   ["ui-price-input", Sl],
   ["ui-password", zl],
   ["ui-phone", dt],
-  ["ui-pin", Bl],
+  ["ui-pin", Rl],
   ["ui-list", Nl],
   ["ui-list-item", jl],
   ["ui-popover", ht],
@@ -6227,7 +6234,7 @@ const To = Ee, yo = [
   ["ui-skeleton", gt],
   ["ui-slider", Ms],
   ["ui-stepper", ks],
-  ["ui-switch", Bs],
+  ["ui-switch", Rs],
   ["ui-table", Ns],
   ["ui-table-body", Ys],
   ["ui-table-cell", Zs],
@@ -6309,7 +6316,7 @@ export {
   dt as Phone,
   so as Photo,
   bo as Photos,
-  Bl as Pin,
+  Rl as Pin,
   ht as Popover,
   Sl as PriceInput,
   aa as Progress,
@@ -6322,9 +6329,9 @@ export {
   gt as Skeleton,
   Ms as Slider,
   ks as Stepper,
-  Bs as Switch,
-  Bo as THEME_CUSTOM_CSS_ID,
-  Ro as THEME_PRESETS,
+  Rs as Switch,
+  Ro as THEME_CUSTOM_CSS_ID,
+  Bo as THEME_PRESETS,
   Do as THEME_PRESET_IDS,
   yt as TabList,
   _n as TabPanel,
@@ -6356,7 +6363,7 @@ export {
   Qe as dismissToast,
   wo as formatCurrencyAmount,
   si as formatMoneyInput,
-  Be as getCurrencySymbol,
+  Re as getCurrencySymbol,
   Ko as getFewPrimaryColors,
   De as getMoneySeparators,
   _l as getPriceInputConfig,
@@ -6376,7 +6383,7 @@ export {
   eu as resolveThemePreset,
   tu as resolveThemeVars,
   M as resolveUiText,
-  Re as sanitizeMoneyInput,
+  Be as sanitizeMoneyInput,
   vl as setPriceInputConfig,
   To as uiMessagesTr,
   Co as useConfirm,
