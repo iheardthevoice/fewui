@@ -1,6 +1,7 @@
 import ActionCard from './components/ActionCard.vue'
 import ActionCardList from './components/ActionCardList.vue'
 import ActionGroup from './components/ActionGroup.vue'
+import AiButton from './components/AiButton.vue'
 import Alert from './components/Alert.vue'
 import Avatar from './components/Avatar.vue'
 import Badge from './components/Badge.vue'
@@ -122,6 +123,7 @@ export {
   ActionCard,
   ActionCardList,
   ActionGroup,
+  AiButton,
   Alert,
   Avatar,
   Badge,
@@ -209,6 +211,7 @@ const GLOBAL_COMPONENTS = [
   ['ui-action-card', ActionCard],
   ['ui-action-card-list', ActionCardList],
   ['ui-action-group', ActionGroup],
+  ['ui-ai-button', AiButton],
   ['ui-alert', Alert],
   ['ui-avatar', Avatar],
   ['ui-badge', Badge],

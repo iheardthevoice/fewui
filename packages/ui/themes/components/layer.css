@@ -899,6 +899,55 @@
     pointer-events: none;
   }
 
+  /**
+   * Sheet — sağ/sol yan panel; overlay kapalıyken arka plan tıklanabilir.
+   */
+  .ui-overlay-sheet-right-enter-active .ui-sheet-backdrop,
+  .ui-overlay-sheet-left-enter-active .ui-sheet-backdrop {
+    transition: opacity 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity;
+  }
+
+  .ui-overlay-sheet-right-leave-active .ui-sheet-backdrop,
+  .ui-overlay-sheet-left-leave-active .ui-sheet-backdrop {
+    transition: opacity 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: opacity;
+  }
+
+  .ui-overlay-sheet-right-enter-from .ui-sheet-backdrop,
+  .ui-overlay-sheet-right-leave-to .ui-sheet-backdrop,
+  .ui-overlay-sheet-left-enter-from .ui-sheet-backdrop,
+  .ui-overlay-sheet-left-leave-to .ui-sheet-backdrop {
+    opacity: 0;
+  }
+
+  .ui-overlay-sheet-right-enter-active .ui-sheet-panel,
+  .ui-overlay-sheet-left-enter-active .ui-sheet-panel {
+    transition: transform 0.36s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+  }
+
+  .ui-overlay-sheet-right-leave-active .ui-sheet-panel,
+  .ui-overlay-sheet-left-leave-active .ui-sheet-panel {
+    transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+  }
+
+  .ui-overlay-sheet-right-enter-from .ui-sheet-panel,
+  .ui-overlay-sheet-right-leave-to .ui-sheet-panel {
+    transform: translateX(100%);
+  }
+
+  .ui-overlay-sheet-left-enter-from .ui-sheet-panel,
+  .ui-overlay-sheet-left-leave-to .ui-sheet-panel {
+    transform: translateX(-100%);
+  }
+
+  .ui-overlay-sheet-right-leave-active.ui-sheet-root,
+  .ui-overlay-sheet-left-leave-active.ui-sheet-root {
+    pointer-events: none;
+  }
+
   /** Dialog — mobil alt sayfa tutamacı (masaüstünde gizli) */
   .ui-dialog-sheet-grab {
     display: none;
@@ -1009,7 +1058,7 @@
   }
 
   .ui-card--data-table > .ui-card-body {
-    @apply min-w-0 grow-0 basis-auto text-foreground;
+    @apply min-w-0 grow-0 text-foreground;
   }
 
   /**
@@ -1258,6 +1307,10 @@
 
   .ui-avatar--letter {
     @apply bg-transparent text-inherit;
+  }
+
+  .ui-avatar--xs {
+    @apply h-5 w-5 min-h-5 min-w-5 shrink-0 text-[8px] leading-none;
   }
 
   .ui-avatar--sm {
@@ -2244,12 +2297,16 @@
     @apply flex-row flex-wrap items-center gap-6;
   }
 
+  /**
+   * Yatay button grup: 2 sütun — uzun etiketler taşmadan eşit padding ile sığar.
+   * Dikey (`orientation="vertical"`): tek sütun flex listesi.
+   */
   .ui-radio-group--button {
-    @apply flex w-full min-w-0 flex-row gap-3;
+    @apply grid w-full min-w-0 grid-cols-2 gap-3;
   }
 
   .ui-radio-group--button.ui-radio-group--vertical {
-    @apply flex-col;
+    @apply flex flex-col;
   }
 
   .ui-radio {
@@ -2265,11 +2322,11 @@
   }
 
   .ui-radio--button {
-    @apply flex min-w-0 flex-1 items-start gap-3 overflow-visible rounded-xl border border-border bg-surface p-4 transition-colors duration-150;
+    @apply flex min-w-0 items-start gap-3 overflow-hidden rounded-xl border border-border bg-surface p-4 transition-colors duration-150;
   }
 
   .ui-radio-group--button.ui-radio-group--vertical > .ui-radio--button {
-    @apply w-full flex-none;
+    @apply w-full;
   }
 
   .ui-radio--button.ui-radio--checked {
@@ -2289,7 +2346,7 @@
   }
 
   .ui-radio-label {
-    @apply text-sm font-medium leading-5 text-foreground;
+    @apply break-words text-sm font-medium leading-5 text-foreground;
   }
 
   .ui-radio-description {
@@ -2565,8 +2622,7 @@
   }
 
   .ui-tab-trigger--segmented {
-    @apply relative flex min-h-0 min-w-0 flex-col items-center justify-center gap-1 rounded-full border-0 bg-transparent px-2 py-1.5 outline-none transition-[color,background-color,box-shadow] duration-200 ease-out;
-    @apply cursor-pointer select-none;
+    @apply relative flex min-h-0 min-w-0 cursor-pointer select-none flex-col items-center justify-center gap-1 rounded-full border-0 bg-transparent px-2 py-1.5 outline-none transition-[color,background-color,box-shadow] duration-200 ease-out;
   }
 
   .ui-tab-trigger-badge {
@@ -3362,6 +3418,111 @@
 
   .ui-dialog-panel .ui-dialog-header__actions {
     @apply flex shrink-0 items-center gap-1.5;
+  }
+
+  .ui-sheet-panel .ui-sheet-header {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto auto;
+    align-items: center;
+    column-gap: 0.75rem;
+    row-gap: 0.2rem;
+    min-width: 0;
+  }
+
+  .ui-sheet-panel .ui-sheet-header--no-icon {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+  }
+
+  .ui-sheet-panel .ui-sheet-header__icon {
+    @apply flex h-6 shrink-0 items-center justify-center text-muted-foreground;
+  }
+
+  .ui-sheet-panel .ui-sheet-header__title {
+    @apply min-w-0 truncate;
+  }
+
+  .ui-sheet-panel .ui-sheet-header__actions {
+    @apply flex shrink-0 items-center gap-1.5;
+  }
+
+  .ui-sheet-panel .ui-sheet-header > .ui-button {
+    @apply col-start-4 row-start-1 shrink-0 justify-self-end;
+  }
+
+  .ui-sheet-panel .ui-sheet-header--no-icon > .ui-button {
+    @apply col-start-3;
+  }
+
+  .ui-sheet-panel .ui-sheet-header__description {
+    @apply col-span-full m-0 text-sm text-muted-foreground;
+  }
+
+  .ui-sheet-panel {
+    @apply max-h-dvh border-border shadow-xl;
+  }
+
+  /** Dialog gibi: kök kart padding’i yok; inset header/body/footer’da. */
+  .ui-sheet-panel.ui-card {
+    --ui-card-gap: 0;
+    padding: 0;
+    gap: 0;
+  }
+
+  .ui-sheet-panel--right {
+    @apply border-l border-y-0 border-r-0 rounded-none;
+  }
+
+  .ui-sheet-panel--left {
+    @apply border-r border-y-0 border-l-0 rounded-none;
+  }
+
+  .ui-sheet-panel--sm {
+    width: min(100vw - 3.5rem, 18rem);
+  }
+
+  .ui-sheet-panel--md {
+    width: min(100vw, 26rem);
+  }
+
+  .ui-sheet-panel--lg {
+    width: min(100vw, 28rem);
+  }
+
+  .ui-sheet-panel--xl {
+    width: min(100vw, 36rem);
+  }
+
+  .ui-sheet-panel .ui-card-header {
+    @apply shrink-0 px-2.5 pb-1.5;
+    padding-top: max(0.5rem, env(safe-area-inset-top, 0px));
+  }
+
+  .ui-sheet-panel .ui-card-toolbar {
+    @apply shrink-0 px-2.5 pb-1.5;
+  }
+
+  .ui-sheet-panel .ui-card-body {
+    @apply min-h-0 flex-1 overflow-y-auto overscroll-contain px-2.5 py-1.5;
+  }
+
+  .ui-sheet-panel .ui-card-body--flush {
+    @apply p-0;
+  }
+
+  .ui-sheet-panel .ui-card-body--flex {
+    @apply flex flex-col;
+  }
+
+  .ui-sheet-panel--body-flex .ui-card-body--flex {
+    @apply min-h-0 flex-1;
+  }
+
+  .ui-sheet-panel .ui-card-footer {
+    @apply shrink-0 border-t border-border px-2.5 py-2;
+  }
+
+  .ui-sheet-panel .ui-card-footer .ui-action-group {
+    @apply ml-auto flex w-auto max-w-full flex-row flex-wrap items-center justify-end gap-2;
   }
 
   .ui-dialog-panel .ui-dialog-header > .ui-button {
@@ -4223,92 +4384,4 @@
       white-space: nowrap;
     }
   }
-}
-
-/**
- * Popover list / calendar cells — `ui-control-h-*` utilities (`rounded-lg`, `border`) beat @layer components.
- * Unlayered rules so DatePicker and Select menus render flat menu rows, not pill outlines.
- */
-.ui-select-listbox .ui-select-option.ui-button {
-  @apply rounded-lg border-0 shadow-none;
-  border-color: transparent;
-}
-
-.ui-datepicker-grid > .ui-button,
-.ui-datepicker-quick > .ui-button,
-.ui-daterangepicker-quick > .ui-button {
-  @apply rounded-full border-0 shadow-none;
-  border-color: transparent;
-}
-
-.ui-datepicker-grid > .ui-button {
-  @apply items-center justify-center p-0;
-}
-
-.ui-datepicker-quick > .ui-button {
-  @apply rounded-md;
-}
-
-.ui-select-listbox .ui-select-option.ui-button.ui-select-option--selected,
-.ui-datepicker-grid > .ui-button[data-variant='solid'] {
-  border-width: 0;
-  box-shadow: none;
-}
-
-.ui-datepicker-grid > .ui-button[data-today='true']:not([data-variant='solid']) {
-  position: relative;
-  box-shadow: none;
-}
-
-.ui-datepicker-grid > .ui-button[data-today='true']:not([data-variant='solid'])::after {
-  content: '';
-  position: absolute;
-  inset: 3px;
-  border-radius: 9999px;
-  border: 1.5px solid color-mix(in oklab, var(--primary) 70%, transparent);
-  pointer-events: none;
-}
-
-/**
- * Overlay z-index — unlayered; @layer/components ve sabit chrome (tab bar, header) üstünde kalır.
- */
-.ui-dialog-root {
-  z-index: 400;
-  isolation: isolate;
-}
-
-.ui-dialog-root.ui-dialog-root--confirm {
-  z-index: 420;
-}
-
-.ui-popover-layer {
-  z-index: 410;
-}
-
-.ui-toast-host {
-  z-index: 500;
-}
-
-/** Dialog footer — unlayered; border/padding tutarlılığı */
-.ui-dialog-panel.ui-card > .ui-card-footer {
-  border-top: none;
-  box-shadow: none;
-  padding-top: 0.75rem;
-  padding-bottom: var(--ui-card-padding);
-}
-
-/** Dialog içi picker/input tetikleyicileri — yüzeyden ayrışan dolgu */
-.ui-dialog-panel.ui-card {
-  --ui-input-mix-from: var(--control);
-  --input-background: color-mix(in oklab, var(--ui-input-mix-from) var(--ui-input-opacity), transparent);
-}
-
-.dark .ui-dialog-panel.ui-card {
-  --ui-input-mix-from: color-mix(in oklab, var(--control) 65%, var(--foreground) 6%);
-  --input-background: color-mix(in oklab, var(--ui-input-mix-from) var(--ui-input-opacity), transparent);
-}
-
-.ui-dialog-panel .ui-button[data-variant='solid'][data-color='input'] {
-  background-color: var(--input-background);
-  border-color: transparent;
 }

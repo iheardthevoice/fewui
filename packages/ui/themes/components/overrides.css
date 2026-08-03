@@ -1,0 +1,204 @@
+/**
+ * Popover list / calendar cells — `ui-control-h-*` utilities (`rounded-lg`, `border`) beat @layer components.
+ * Unlayered rules so DatePicker and Select menus render flat menu rows, not pill outlines.
+ */
+.ui-select-listbox .ui-select-option.ui-button {
+  @apply rounded-lg border-0 shadow-none;
+  border-color: transparent;
+}
+
+.ui-datepicker-grid > .ui-button,
+.ui-datepicker-quick > .ui-button,
+.ui-daterangepicker-quick > .ui-button {
+  @apply rounded-full border-0 shadow-none;
+  border-color: transparent;
+}
+
+.ui-datepicker-grid > .ui-button {
+  @apply items-center justify-center p-0;
+}
+
+.ui-datepicker-quick > .ui-button {
+  @apply rounded-md;
+}
+
+.ui-select-listbox .ui-select-option.ui-button.ui-select-option--selected,
+.ui-datepicker-grid > .ui-button[data-variant='solid'] {
+  border-width: 0;
+  box-shadow: none;
+}
+
+.ui-datepicker-grid > .ui-button[data-today='true']:not([data-variant='solid']) {
+  position: relative;
+  box-shadow: none;
+}
+
+.ui-datepicker-grid > .ui-button[data-today='true']:not([data-variant='solid'])::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: 9999px;
+  border: 1.5px solid color-mix(in oklab, var(--primary) 70%, transparent);
+  pointer-events: none;
+}
+
+/**
+ * Overlay z-index — unlayered; @layer/components ve sabit chrome (tab bar, header) üstünde kalır.
+ */
+.ui-dialog-root {
+  z-index: 400;
+  isolation: isolate;
+}
+
+.ui-dialog-root.ui-dialog-root--confirm {
+  z-index: 420;
+}
+
+.ui-popover-layer {
+  z-index: 410;
+}
+
+.ui-toast-host {
+  z-index: 500;
+}
+
+/** Dialog footer — unlayered; border/padding tutarlılığı */
+.ui-dialog-panel.ui-card > .ui-card-footer {
+  border-top: none;
+  box-shadow: none;
+  padding-top: 0.75rem;
+  padding-bottom: var(--ui-card-padding);
+}
+
+/** Dialog içi picker/input tetikleyicileri — yüzeyden ayrışan dolgu */
+.ui-dialog-panel.ui-card {
+  --ui-input-mix-from: var(--control);
+  --input-background: color-mix(in oklab, var(--ui-input-mix-from) var(--ui-input-opacity), transparent);
+}
+
+.dark .ui-dialog-panel.ui-card {
+  --ui-input-mix-from: color-mix(in oklab, var(--control) 65%, var(--foreground) 6%);
+  --input-background: color-mix(in oklab, var(--ui-input-mix-from) var(--ui-input-opacity), transparent);
+}
+
+.ui-dialog-panel .ui-button[data-variant='solid'][data-color='input'] {
+  background-color: var(--input-background);
+  border-color: transparent;
+}
+
+/**
+ * AiButton — animasyonlu gradient çerçeve.
+ * Dış yükseklik `ui-control-h-*` ile aynı; border padding bu yüksekliğin içinde kalır.
+ * Köşe: `--ui-ai-button-radius` (sm = rounded-md, md/lg = --radius).
+ */
+.ui-ai-button {
+  --ui-ai-button-border: 1.5px;
+  --ui-ai-button-radius: var(--radius);
+  --ui-ai-button-height: 2.25rem; /* md / ui-control-h-md */
+  box-sizing: border-box;
+  position: relative;
+  display: inline-flex;
+  align-items: stretch;
+  isolation: isolate;
+  overflow: hidden;
+  height: var(--ui-ai-button-height);
+  min-height: var(--ui-ai-button-height);
+  max-height: var(--ui-ai-button-height);
+  border-radius: var(--ui-ai-button-radius);
+  padding: var(--ui-ai-button-border);
+  transition: transform 150ms ease-out;
+}
+
+.ui-ai-button[data-size='sm'] {
+  --ui-ai-button-height: 2rem; /* ui-control-h-sm */
+}
+
+.ui-ai-button[data-size='lg'] {
+  --ui-ai-button-height: 2.75rem; /* ui-control-h-lg */
+}
+
+.ui-ai-button--block {
+  display: flex;
+  width: 100%;
+}
+
+.ui-ai-button:active:not(.ui-ai-button--disabled) {
+  transform: scale(0.98);
+}
+
+.ui-ai-button__glow {
+  position: absolute;
+  inset: -60%;
+  z-index: 0;
+  background: conic-gradient(
+    from var(--ui-ai-border-angle, 0deg),
+    #38bdf8,
+    color-mix(in oklab, var(--primary) 85%, white),
+    #f472b6,
+    #fbbf24,
+    #38bdf8
+  );
+  animation: ui-ai-button-spin 2.8s linear infinite;
+}
+
+.ui-ai-button__surface {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-width: 0;
+  min-height: 0;
+  flex: 1 1 auto;
+  align-items: stretch;
+  overflow: hidden;
+  border-radius: calc(var(--ui-ai-button-radius) - var(--ui-ai-button-border));
+  background: var(--input-background);
+}
+
+.ui-ai-button--block .ui-ai-button__surface {
+  width: 100%;
+}
+
+.ui-ai-button__surface .ui-button {
+  box-sizing: border-box;
+  height: 100% !important;
+  min-height: 0 !important;
+  border-radius: inherit !important;
+  transform: none !important;
+}
+
+.ui-ai-button__surface .ui-button:disabled,
+.ui-ai-button__surface .ui-button[aria-disabled='true'] {
+  pointer-events: none;
+}
+
+@property --ui-ai-border-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes ui-ai-button-spin {
+  to {
+    --ui-ai-border-angle: 360deg;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ui-ai-button {
+    transition: none;
+  }
+
+  .ui-ai-button:active:not(.ui-ai-button--disabled) {
+    transform: none;
+  }
+
+  .ui-ai-button__glow {
+    animation: none;
+    background: linear-gradient(
+      135deg,
+      #38bdf8,
+      color-mix(in oklab, var(--primary) 85%, white),
+      #f472b6
+    );
+  }
+}

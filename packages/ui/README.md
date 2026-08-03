@@ -1,6 +1,6 @@
 # fewui
 
-Vue 3 tasarım sistemi: **61 global bileşen** (`ui-button`, `ui-dialog`, …), OKLCH tema token’ları, runtime `applyUiTheme`, vue-i18n (`tr` / `en`).
+Vue 3 tasarım sistemi: **62 global bileşen** (`ui-button`, `ui-ai-button`, `ui-dialog`, …), OKLCH tema token’ları, runtime `applyUiTheme`, vue-i18n (`tr` / `en`).
 
 ## Kurulum
 
@@ -54,7 +54,7 @@ Stil zinciri (Tailwind v4 uygulamalarda):
 
 ## Bileşenler (global)
 
-ActionCard, ActionCardList, ActionGroup, Alert, Avatar, Badge, Button, Card, Checkbox, CheckboxGroup, ColorPicker, ConfirmDialog, CurrencyInput, DatePicker, DateRangePicker, Dialog, Divider, Dropdown, Empty, Field, File, FormRow, Icon, IconPicker, Input, List, ListItem, Menu, MenuGroup, MenuItem, MenuNav, Password, Phone, Photo, Photos, Pin, Popover, Progress, Radio, RadioGroup, Segment, SegmentGroup, Select, Skeleton, Slider, Stepper, Switch, Table (+ alt parçalar), Tabs, TabList, TabTrigger, TabPanel, Tag, TimePicker, Toast, Tooltip.
+ActionCard, ActionCardList, ActionGroup, AiButton, Alert, Avatar, Badge, Button, Card, Checkbox, CheckboxGroup, ColorPicker, ConfirmDialog, CurrencyInput, DatePicker, DateRangePicker, Dialog, Divider, Dropdown, Empty, Field, File, FormRow, Icon, IconPicker, Input, List, ListItem, Menu, MenuGroup, MenuItem, MenuNav, Password, Phone, Photo, Photos, Pin, Popover, Progress, Radio, RadioGroup, Segment, SegmentGroup, Select, Skeleton, Slider, Stepper, Switch, Table (+ alt parçalar), Tabs, TabList, TabTrigger, TabPanel, Tag, TimePicker, Toast, Tooltip.
 
 ## i18n
 

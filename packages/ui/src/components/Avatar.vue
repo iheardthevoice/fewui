@@ -29,9 +29,10 @@
 <script>
 import { cn } from '../utils/cn.js'
 
-const SIZES = ['sm', 'md', 'lg', 'xl']
+const SIZES = ['xs', 'sm', 'md', 'lg', 'xl']
 
 const SIZE_CLASS = {
+  xs: 'ui-avatar--xs',
   sm: 'ui-avatar--sm',
   md: 'ui-avatar--md',
   lg: 'ui-avatar--lg',

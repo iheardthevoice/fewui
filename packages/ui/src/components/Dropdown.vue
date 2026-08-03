@@ -47,6 +47,7 @@
               text-align="left"
               role="menuitem"
               :prefix-icon="it.icon || null"
+              :suffix-icon="it.suffixIcon || it.suffix_icon || null"
               :disabled="it.disabled"
               @click.stop="onItem(it, close)"
             >

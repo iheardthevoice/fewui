@@ -1346,6 +1346,10 @@
     @apply bg-transparent text-inherit;
   }
 
+  .ui-avatar--xs {
+    @apply h-5 w-5 min-h-5 min-w-5 shrink-0 text-[8px] leading-none;
+  }
+
   .ui-avatar--sm {
     @apply h-8 w-8 min-h-8 min-w-8 shrink-0 text-[10px] leading-none;
   }
@@ -2330,12 +2334,16 @@
     @apply flex-row flex-wrap items-center gap-6;
   }
 
+  /**
+   * Yatay button grup: 2 sütun — uzun etiketler taşmadan eşit padding ile sığar.
+   * Dikey (`orientation="vertical"`): tek sütun flex listesi.
+   */
   .ui-radio-group--button {
-    @apply flex w-full min-w-0 flex-row gap-3;
+    @apply grid w-full min-w-0 grid-cols-2 gap-3;
   }
 
   .ui-radio-group--button.ui-radio-group--vertical {
-    @apply flex-col;
+    @apply flex flex-col;
   }
 
   .ui-radio {
@@ -2351,11 +2359,11 @@
   }
 
   .ui-radio--button {
-    @apply flex min-w-0 flex-1 items-start gap-3 overflow-visible rounded-xl border border-border bg-surface p-4 transition-colors duration-150;
+    @apply flex min-w-0 items-start gap-3 overflow-hidden rounded-xl border border-border bg-surface p-4 transition-colors duration-150;
   }
 
   .ui-radio-group--button.ui-radio-group--vertical > .ui-radio--button {
-    @apply w-full flex-none;
+    @apply w-full;
   }
 
   .ui-radio--button.ui-radio--checked {
@@ -2375,7 +2383,7 @@
   }
 
   .ui-radio-label {
-    @apply text-sm font-medium leading-5 text-foreground;
+    @apply break-words text-sm font-medium leading-5 text-foreground;
   }
 
   .ui-radio-description {
@@ -4501,4 +4509,121 @@
 .ui-dialog-panel .ui-button[data-variant='solid'][data-color='input'] {
   background-color: var(--input-background);
   border-color: transparent;
+}
+
+/**
+ * AiButton — animasyonlu gradient çerçeve.
+ * Dış yükseklik `ui-control-h-*` ile aynı; border padding bu yüksekliğin içinde kalır.
+ * Köşe: `--ui-ai-button-radius` (sm = rounded-md, md/lg = --radius).
+ */
+.ui-ai-button {
+  --ui-ai-button-border: 1.5px;
+  --ui-ai-button-radius: var(--radius);
+  --ui-ai-button-height: 2.25rem; /* md / ui-control-h-md */
+  box-sizing: border-box;
+  position: relative;
+  display: inline-flex;
+  align-items: stretch;
+  isolation: isolate;
+  overflow: hidden;
+  height: var(--ui-ai-button-height);
+  min-height: var(--ui-ai-button-height);
+  max-height: var(--ui-ai-button-height);
+  border-radius: var(--ui-ai-button-radius);
+  padding: var(--ui-ai-button-border);
+  transition: transform 150ms ease-out;
+}
+
+.ui-ai-button[data-size='sm'] {
+  --ui-ai-button-height: 2rem; /* ui-control-h-sm */
+}
+
+.ui-ai-button[data-size='lg'] {
+  --ui-ai-button-height: 2.75rem; /* ui-control-h-lg */
+}
+
+.ui-ai-button--block {
+  display: flex;
+  width: 100%;
+}
+
+.ui-ai-button:active:not(.ui-ai-button--disabled) {
+  transform: scale(0.98);
+}
+
+.ui-ai-button__glow {
+  position: absolute;
+  inset: -60%;
+  z-index: 0;
+  background: conic-gradient(
+    from var(--ui-ai-border-angle, 0deg),
+    #38bdf8,
+    color-mix(in oklab, var(--primary) 85%, white),
+    #f472b6,
+    #fbbf24,
+    #38bdf8
+  );
+  animation: ui-ai-button-spin 2.8s linear infinite;
+}
+
+.ui-ai-button__surface {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-width: 0;
+  min-height: 0;
+  flex: 1 1 auto;
+  align-items: stretch;
+  overflow: hidden;
+  border-radius: calc(var(--ui-ai-button-radius) - var(--ui-ai-button-border));
+  background: var(--input-background);
+}
+
+.ui-ai-button--block .ui-ai-button__surface {
+  width: 100%;
+}
+
+.ui-ai-button__surface .ui-button {
+  box-sizing: border-box;
+  height: 100% !important;
+  min-height: 0 !important;
+  border-radius: inherit !important;
+  transform: none !important;
+}
+
+.ui-ai-button__surface .ui-button:disabled,
+.ui-ai-button__surface .ui-button[aria-disabled='true'] {
+  pointer-events: none;
+}
+
+@property --ui-ai-border-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes ui-ai-button-spin {
+  to {
+    --ui-ai-border-angle: 360deg;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ui-ai-button {
+    transition: none;
+  }
+
+  .ui-ai-button:active:not(.ui-ai-button--disabled) {
+    transform: none;
+  }
+
+  .ui-ai-button__glow {
+    animation: none;
+    background: linear-gradient(
+      135deg,
+      #38bdf8,
+      color-mix(in oklab, var(--primary) 85%, white),
+      #f472b6
+    );
+  }
 }
