@@ -62,6 +62,19 @@
   z-index: 500;
 }
 
+@media (max-width: 767px) {
+  /**
+   * Panel mobil alt tab varken toast’lar chrome üstünden başlar
+   * (`--app-mobile-bottom-chrome-height` AppPanelMobileTabBar tarafından yazılır).
+   */
+  .ui-toast-host {
+    bottom: calc(
+      var(--app-mobile-bottom-chrome-height, env(safe-area-inset-bottom, 0px)) + 0.5rem
+    );
+    padding-bottom: 0.75rem;
+  }
+}
+
 /** Dialog footer — unlayered; border/padding tutarlılığı */
 .ui-dialog-panel.ui-card > .ui-card-footer {
   border-top: none;

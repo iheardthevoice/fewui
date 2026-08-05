@@ -68,12 +68,16 @@
                 v-model="filterQuery"
                 type="text"
                 class="ui-select-values-input"
-                :class="{ 'ui-select-values-input--solo': !selectedValues.length }"
+                :class="{
+                  'ui-select-values-input--solo': !selectedValues.length,
+                  'ui-select-values-input--open': menuOpen,
+                }"
                 :placeholder="multipleInputPlaceholder"
                 :aria-label="resolvedFilterPlaceholder"
                 autocomplete="off"
                 :disabled="isDisabled"
-                @click.stop
+                @click.stop="onSearchInputActivate"
+                @focus="onSearchInputActivate"
                 @keydown="onSearchKeydown"
               >
             </div>
@@ -532,6 +536,14 @@ export default {
   },
   watch: {
     filterQuery(q) {
+      if (
+        this.multiple
+        && !this.menuOpen
+        && !this.isDisabled
+        && String(q ?? '').length > 0
+      ) {
+        this.menuOpen = true
+      }
       if (!this.remoteFilter) return
       if (this.filterDebounceTimer) {
         clearTimeout(this.filterDebounceTimer)
@@ -571,6 +583,12 @@ export default {
       if (el && typeof el.focus === 'function') {
         el.focus()
         el.select?.()
+      }
+    },
+    onSearchInputActivate() {
+      if (this.isDisabled) return
+      if (!this.menuOpen) {
+        this.menuOpen = true
       }
     },
     onTriggerClick(toggle) {

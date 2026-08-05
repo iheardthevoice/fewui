@@ -78,6 +78,11 @@
     @apply items-center justify-start;
   }
 
+  /** Loading: spinner ortalanır (`justify-start` ikon-only yüklemede kaydırıyordu). */
+  .ui-button.ui-control:not(.aspect-square)[data-loading='true'] {
+    @apply justify-center;
+  }
+
   /** Form alanı dolgusu — input/select ile aynı (açık özellikler: TW @utility + attribute selector) */
   .ui-button.ui-control[data-variant='solid'][data-color='input'] {
     @apply border border-transparent text-foreground shadow-none;
@@ -2163,11 +2168,15 @@
   }
 
   .ui-select-values-input {
-    @apply m-0 box-border h-6 min-h-6 min-w-0 flex-1 basis-0 border-0 bg-transparent p-0 text-foreground outline-none placeholder:text-muted-foreground;
+    @apply m-0 box-border h-6 min-h-6 min-w-0 flex-1 basis-0 cursor-pointer border-0 bg-transparent p-0 text-foreground outline-none placeholder:text-muted-foreground;
   }
 
   .ui-select-values-input--solo {
     @apply min-w-[6rem] flex-[1_1_100%] basis-full;
+  }
+
+  .ui-select-values-input--open {
+    @apply cursor-text;
   }
 
   .ui-select-values-input:not(.ui-select-values-input--solo) {
@@ -3307,10 +3316,23 @@
     @apply self-center;
   }
 
-  /** Toast kapsayıcı — Teleport içi */
+  /** Toast kapsayıcı — Teleport içi; mobilde alt tab chrome üstünden başlar. */
   .ui-toast-host {
     @apply pointer-events-none fixed inset-x-0 bottom-0 flex flex-col items-center gap-2 p-4 pb-6;
     z-index: 500;
+  }
+
+  @media (max-width: 767px) {
+    .ui-toast-host {
+      /**
+       * `--app-mobile-bottom-chrome-height` tab + dock + safe-area (AppPanelMobileTabBar).
+       * Yoksa yalnızca safe-area; toast tab’ın üstünde kalır.
+       */
+      bottom: calc(
+        var(--app-mobile-bottom-chrome-height, env(safe-area-inset-bottom, 0px)) + 0.5rem
+      );
+      padding-bottom: 0.75rem;
+    }
   }
 
   .ui-toast-stack {

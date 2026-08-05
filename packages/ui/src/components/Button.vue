@@ -10,13 +10,15 @@
       :class="buttonClasses"
       :data-variant="variant"
       :data-color="color"
+      :data-loading="loading ? 'true' : undefined"
+      :aria-busy="loading ? 'true' : undefined"
       :aria-disabled="isDisabled ? 'true' : undefined"
       :tabindex="isDisabled ? -1 : undefined"
       @click="onRouterLinkClick($event, navigate)"
     >
       <template v-if="loading && usesCubedCenterLayout">
         <span
-          class="ui-button-cubed-inner inline-flex size-full min-h-0 min-w-0 items-center justify-center"
+          class="ui-button-cubed-inner inline-flex size-full min-h-0 min-w-0 items-center justify-center [&_.ui-icon]:leading-none"
           aria-hidden="true"
         >
           <ui-icon
@@ -25,10 +27,14 @@
             class="fa-spin"
           />
         </span>
+        <span
+          v-if="resolvedLoadingText"
+          class="sr-only"
+        >{{ resolvedLoadingText }}</span>
       </template>
       <template v-else-if="loading">
         <span
-          class="inline-flex shrink-0 items-center justify-center"
+          class="ui-button-loading-inner inline-flex size-full min-h-0 min-w-0 flex-1 items-center justify-center [&_.ui-icon]:leading-none"
           aria-hidden="true"
         >
           <ui-icon
@@ -37,13 +43,10 @@
             class="fa-spin"
           />
         </span>
-        <span :class="textContentClass">
-          <span
-            v-if="resolvedLoadingText"
-            class="sr-only"
-          >{{ resolvedLoadingText }}</span>
-          <slot v-else />
-        </span>
+        <span
+          v-if="resolvedLoadingText"
+          class="sr-only"
+        >{{ resolvedLoadingText }}</span>
       </template>
       <template v-else-if="usesCubedCenterLayout">
         <span class="ui-button-cubed-inner inline-flex size-full min-h-0 min-w-0 items-center justify-center rounded-[inherit] [&_.ui-icon]:leading-none">
@@ -94,11 +97,13 @@
     :class="buttonClasses"
     :data-variant="variant"
     :data-color="color"
+    :data-loading="loading ? 'true' : undefined"
+    :aria-busy="loading ? 'true' : undefined"
     @click="onClick"
   >
     <template v-if="loading && usesCubedCenterLayout">
       <span
-        class="ui-button-cubed-inner inline-flex size-full min-h-0 min-w-0 items-center justify-center"
+        class="ui-button-cubed-inner inline-flex size-full min-h-0 min-w-0 items-center justify-center [&_.ui-icon]:leading-none"
         aria-hidden="true"
       >
         <ui-icon
@@ -107,10 +112,14 @@
           class="fa-spin"
         />
       </span>
+      <span
+        v-if="resolvedLoadingText"
+        class="sr-only"
+      >{{ resolvedLoadingText }}</span>
     </template>
     <template v-else-if="loading">
       <span
-        class="inline-flex shrink-0 items-center justify-center"
+        class="ui-button-loading-inner inline-flex size-full min-h-0 min-w-0 flex-1 items-center justify-center [&_.ui-icon]:leading-none"
         aria-hidden="true"
       >
         <ui-icon
@@ -119,13 +128,10 @@
           class="fa-spin"
         />
       </span>
-      <span :class="textContentClass">
-        <span
-          v-if="resolvedLoadingText"
-          class="sr-only"
-        >{{ resolvedLoadingText }}</span>
-        <slot v-else />
-      </span>
+      <span
+        v-if="resolvedLoadingText"
+        class="sr-only"
+      >{{ resolvedLoadingText }}</span>
     </template>
     <template v-else-if="usesCubedCenterLayout">
       <span class="ui-button-cubed-inner inline-flex size-full min-h-0 min-w-0 items-center justify-center rounded-[inherit] [&_.ui-icon]:leading-none">
