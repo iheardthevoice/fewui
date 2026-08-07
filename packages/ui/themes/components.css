@@ -1131,6 +1131,22 @@
     @apply bg-transparent shadow-none;
   }
 
+  .ui-card--interactive {
+    @apply overflow-hidden transition-[transform,border-color,box-shadow] duration-300 ease-out;
+  }
+
+  .ui-card--interactive:hover {
+    transform: translateY(-0.5rem);
+    border-color: color-mix(in oklab, var(--primary) 45%, transparent);
+    box-shadow: 0 16px 40px color-mix(in oklab, var(--primary) 25%, transparent);
+  }
+
+  .ui-card--emphasized {
+    border-color: color-mix(in oklab, var(--primary) 55%, transparent);
+    background-color: color-mix(in oklab, var(--primary) 12%, var(--surface-bg));
+    box-shadow: 0 12px 32px color-mix(in oklab, var(--primary) 30%, transparent);
+  }
+
   .ui-card-header {
     @apply min-w-0 shrink-0;
   }
@@ -1345,6 +1361,14 @@
   /** Avatar — dairesel görsel veya baş harf yedeği */
   .ui-avatar {
     @apply relative inline-flex shrink-0 select-none items-center justify-center overflow-hidden rounded-full bg-muted font-medium uppercase tracking-tight text-muted-foreground;
+  }
+
+  .ui-avatar--rounded {
+    @apply rounded-md;
+  }
+
+  .ui-avatar--square {
+    @apply rounded-none;
   }
 
   .ui-avatar--letter {
@@ -1574,8 +1598,25 @@
     @apply m-0 flex min-w-0 list-none flex-col p-0;
   }
 
+  .ui-list--bordered {
+    @apply divide-y divide-border overflow-hidden rounded-lg border border-border;
+  }
+
+  .ui-list--bordered > .ui-list-item {
+    @apply px-3 py-3;
+  }
+
   .ui-list-item {
-    @apply flex min-w-0 list-none gap-3;
+    @apply flex min-w-0 list-none items-start gap-3;
+  }
+
+  .ui-list-item--center {
+    @apply items-center;
+  }
+
+  .ui-list-item--center .ui-list-item-prefix,
+  .ui-list-item--center .ui-list-item-prefix-slot {
+    @apply mt-0;
   }
 
   .ui-list-item-prefix {
@@ -1592,6 +1633,10 @@
 
   .ui-list-item-content {
     @apply min-w-0 text-sm font-normal leading-5 text-foreground;
+  }
+
+  .ui-list-item-trailing {
+    @apply flex shrink-0 items-center gap-2;
   }
 
   /** Skeleton — yükleme iskeleti */
@@ -3456,7 +3501,7 @@
    */
   .ui-dialog-panel .ui-dialog-header {
     display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto auto;
+    grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
     column-gap: 0.75rem;
     row-gap: 0.20rem;
@@ -3464,7 +3509,7 @@
   }
 
   .ui-dialog-panel .ui-dialog-header--no-icon {
-    grid-template-columns: minmax(0, 1fr) auto auto;
+    grid-template-columns: minmax(0, 1fr) auto;
   }
 
   .ui-dialog-panel .ui-dialog-header__icon {
@@ -3476,7 +3521,7 @@
   }
 
   .ui-dialog-panel .ui-dialog-header__actions {
-    @apply flex shrink-0 items-center gap-1.5;
+    @apply ml-auto flex shrink-0 items-center justify-end gap-1.5;
   }
 
   .ui-sheet-panel .ui-sheet-header {
@@ -3584,7 +3629,7 @@
     @apply ml-auto flex w-auto max-w-full flex-row flex-wrap items-center justify-end gap-2;
   }
 
-  .ui-dialog-panel .ui-dialog-header > .ui-button {
+  .ui-dialog-panel .ui-dialog-header__close {
     @apply shrink-0;
   }
 
@@ -4427,7 +4472,7 @@
       grid-template-columns: auto minmax(0, 1fr) auto;
     }
 
-    .ui-dialog-panel .ui-dialog-header > .ui-button {
+    .ui-dialog-panel .ui-dialog-header__close {
       display: none;
     }
   }

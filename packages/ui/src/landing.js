@@ -1,5 +1,6 @@
 import ActionGroup from './components/ActionGroup.vue'
 import Alert from './components/Alert.vue'
+import Avatar from './components/Avatar.vue'
 import Badge from './components/Badge.vue'
 import Button from './components/Button.vue'
 import Card from './components/Card.vue'
@@ -9,6 +10,8 @@ import Empty from './components/Empty.vue'
 import FormRow from './components/FormRow.vue'
 import Icon from './components/Icon.vue'
 import Input from './components/Input.vue'
+import List from './components/List.vue'
+import ListItem from './components/ListItem.vue'
 import Phone from './components/Phone.vue'
 import Popover from './components/Popover.vue'
 import Radio from './components/Radio.vue'
@@ -63,6 +66,7 @@ const LOCALE_PACKS = {
 const GLOBAL_COMPONENTS = [
   ['ui-action-group', ActionGroup],
   ['ui-alert', Alert],
+  ['ui-avatar', Avatar],
   ['ui-badge', Badge],
   ['ui-button', Button],
   ['ui-card', Card],
@@ -72,6 +76,8 @@ const GLOBAL_COMPONENTS = [
   ['ui-form-row', FormRow],
   ['ui-icon', Icon],
   ['ui-input', Input],
+  ['ui-list', List],
+  ['ui-list-item', ListItem],
   ['ui-phone', Phone],
   ['ui-popover', Popover],
   ['ui-radio', Radio],

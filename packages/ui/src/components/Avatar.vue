@@ -39,6 +39,14 @@ const SIZE_CLASS = {
   xl: 'ui-avatar--xl',
 }
 
+const SHAPES = ['circle', 'rounded', 'square']
+
+const SHAPE_CLASS = {
+  circle: '',
+  rounded: 'ui-avatar--rounded',
+  square: 'ui-avatar--square',
+}
+
 /** A–Z; Türkçe harfler Latin karşılığına eşlenir (renk tutarlılığı). */
 const AVATAR_LETTER_COLORS = Object.freeze({
   A: { bg: 'hsla(0, 72%, 52%, 0.18)', fg: 'hsl(0, 65%, 48%)' },
@@ -139,6 +147,12 @@ export default {
       default: 'md',
       validator: (v) => SIZES.includes(v),
     },
+    /** `circle` (varsayılan) | `rounded` (albüm kapağı) | `square` */
+    shape: {
+      type: String,
+      default: 'circle',
+      validator: (v) => SHAPES.includes(v),
+    },
     ring: {
       type: Boolean,
       default: false,
@@ -162,6 +176,7 @@ export default {
       return cn(
         'ui-avatar',
         SIZE_CLASS[this.size] || SIZE_CLASS.md,
+        SHAPE_CLASS[this.shape] || '',
         this.ring ? 'ui-avatar--ring' : '',
         this.interactive ? 'ui-avatar--interactive' : '',
         this.showLetterTone ? 'ui-avatar--letter' : '',

@@ -66,36 +66,37 @@
                     />
                   </span>
                   <h3
-                    v-if="title"
+                    v-if="hasTitle"
                     :id="titleId"
                     class="ui-dialog-header__title ui-heading-3"
                   >
-                    {{ title }}
+                    <slot name="title">{{ title }}</slot>
                   </h3>
                   <div
-                    v-if="$slots.append || $slots.actions"
+                    v-if="showClose || $slots.append || $slots.actions"
                     class="ui-dialog-header__actions"
                   >
                     <slot name="append" />
                     <slot name="actions" />
+                    <ui-button
+                      v-if="showClose"
+                      type="button"
+                      variant="solid"
+                      color="secondary"
+                      size="sm"
+                      cubed
+                      prefix-icon="xmark"
+                      class="ui-dialog-header__close"
+                      :aria-label="resolvedCloseLabel"
+                      @click="close"
+                    />
                   </div>
-                  <ui-button
-                    v-if="showClose"
-                    type="button"
-                    variant="solid"
-                    color="secondary"
-                    size="sm"
-                    cubed
-                    prefix-icon="xmark"
-                    :aria-label="resolvedCloseLabel"
-                    @click="close"
-                  />
                 <p
-                  v-if="description"
+                  v-if="hasDescription"
                   :id="descriptionId"
                   class="ui-dialog-header__description ui-text-default"
                 >
-                  {{ description }}
+                  <slot name="description">{{ description }}</slot>
                 </p>
               </div>
             </slot>
@@ -319,11 +320,20 @@ export default {
     this.teardownSheetDrag()
   },
   computed: {
+    hasTitle() {
+      return !!(this.$slots.title || (this.title != null && this.title !== ''))
+    },
+    hasDescription() {
+      return !!(
+        this.$slots.description ||
+        (this.description != null && this.description !== '')
+      )
+    },
     hasDefaultHeader() {
       return !!(
         this.icon ||
-        (this.title != null && this.title !== '') ||
-        (this.description != null && this.description !== '') ||
+        this.hasTitle ||
+        this.hasDescription ||
         this.$slots.actions ||
         this.$slots.append ||
         this.showClose
@@ -365,13 +375,13 @@ export default {
       return pickPassthroughAttrs(this.$attrs, ['class'])
     },
     ariaLabelledby() {
-      if (this.title != null && this.title !== '') {
+      if (this.hasTitle) {
         return this.titleId
       }
       return undefined
     },
     ariaDescribedby() {
-      if (this.description != null && this.description !== '') {
+      if (this.hasDescription) {
         return this.descriptionId
       }
       return undefined

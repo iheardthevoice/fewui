@@ -154,6 +154,16 @@ export default {
       type: Boolean,
       default: false,
     },
+    /** Hover’da hafif yükselme + primary vurgu (etkinlik / tıklanabilir kart). */
+    interactive: {
+      type: Boolean,
+      default: false,
+    },
+    /** Primary kenar / zemin vurgusu (ör. “bugün” etkinlik kartı). */
+    emphasized: {
+      type: Boolean,
+      default: false,
+    },
     /** `data-table` — sıfır kök padding; toolbar/footer DataTable boşlukları. */
     layout: {
       type: String,
@@ -196,6 +206,12 @@ export default {
       }
       if (this.transparent) {
         base.push('ui-card--transparent')
+      }
+      if (this.interactive) {
+        base.push('ui-card--interactive')
+      }
+      if (this.emphasized) {
+        base.push('ui-card--emphasized')
       }
       return cn(base.join(' '), this.$attrs.class)
     },

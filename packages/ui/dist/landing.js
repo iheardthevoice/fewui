@@ -1,78 +1,81 @@
-import { w as m, aa as g, Q as p, A as d, a as T, B as b, b as F, C as h, c as C, d as f, E as L, i as O, I as P, j as y, P as A, k as E, R as G, l as R, S as _, m as v, o as S, q as I, p as k, s as U } from "./index-ba9_3Kpa.js";
-import { F as Y, f as j, g as q, h as z, G as H, u as J, v as K, x as Q, y as V, z as X, H as $, J as Z, L as aa, M as ea, N as sa, O as oa, W as ta, X as ia, Y as la, $ as ra, a1 as na, a2 as ua, a5 as ca, a6 as ma, a7 as ga, a8 as pa, ab as da } from "./index-ba9_3Kpa.js";
-const B = {
+import { y as m, ad as g, W as p, A as d, a as T, b, B as F, c as h, C, d as L, e as A, E as O, j as P, I as f, k as y, L as E, l as v, P as G, m as R, R as _, n as I, S, o as U, q as k, s as B, r as M, u as w } from "./index-C-HHJk1i.js";
+import { F as j, g as q, h as z, i as H, G as J, w as Q, x as Z, z as $, H as X, J as aa, K as sa, M as ea, O as oa, Q as ta, U as ia, V as la, Z as ra, $ as ua, a0 as na, a2 as ca, a4 as ma, a5 as ga, a8 as pa, a9 as da, aa as Ta, ab as ba, ae as Fa } from "./index-C-HHJk1i.js";
+const D = {
   en: p,
   tr: g
-}, M = [
+}, W = [
   ["ui-action-group", d],
   ["ui-alert", T],
-  ["ui-badge", b],
-  ["ui-button", F],
-  ["ui-card", h],
-  ["ui-date-picker", C],
-  ["ui-dialog", f],
-  ["ui-empty", L],
-  ["ui-form-row", O],
-  ["ui-icon", P],
+  ["ui-avatar", b],
+  ["ui-badge", F],
+  ["ui-button", h],
+  ["ui-card", C],
+  ["ui-date-picker", L],
+  ["ui-dialog", A],
+  ["ui-empty", O],
+  ["ui-form-row", P],
+  ["ui-icon", f],
   ["ui-input", y],
-  ["ui-phone", A],
-  ["ui-popover", E],
-  ["ui-radio", G],
-  ["ui-radio-group", R],
-  ["ui-select", _],
-  ["ui-skeleton", v],
-  ["ui-tab-list", S],
-  ["ui-tabs", I],
-  ["ui-tab-trigger", k],
-  ["ui-toast", U]
+  ["ui-list", E],
+  ["ui-list-item", v],
+  ["ui-phone", G],
+  ["ui-popover", R],
+  ["ui-radio", _],
+  ["ui-radio-group", I],
+  ["ui-select", S],
+  ["ui-skeleton", U],
+  ["ui-tab-list", k],
+  ["ui-tabs", B],
+  ["ui-tab-trigger", M],
+  ["ui-toast", w]
 ];
-function w(n, u = {}) {
+function N(u, n = {}) {
   var i, l;
-  const { i18n: a, locale: o, locales: c, theme: t } = u;
+  const { i18n: a, locale: o, locales: c, theme: t } = n;
   if (t && m(t), (i = a == null ? void 0 : a.global) != null && i.mergeLocaleMessage) {
-    const s = c ?? (o != null ? [o] : [
+    const e = c ?? (o != null ? [o] : [
       typeof a.global.locale == "string" ? a.global.locale : ((l = a.global.locale) == null ? void 0 : l.value) ?? "tr"
     ]);
-    for (const e of s) {
-      const r = B[e];
-      r && a.global.mergeLocaleMessage(e, r);
+    for (const s of e) {
+      const r = D[s];
+      r && a.global.mergeLocaleMessage(s, r);
     }
   }
-  for (const [s, e] of M)
-    n.component(s, e);
+  for (const [e, s] of W)
+    u.component(e, s);
 }
-const N = {
-  install: w
+const K = {
+  install: N
 };
 export {
-  Y as FEW_COLOR_SCALE,
-  j as FEW_PALETTE_ID,
-  q as FEW_PRIMARY,
-  z as FEW_PRIMARY_FOREGROUND,
-  H as GOOGLE_FONTS_CATALOG,
-  J as applyGoogleFontsForTheme,
-  K as applyThemeCustomCss,
+  j as FEW_COLOR_SCALE,
+  q as FEW_PALETTE_ID,
+  z as FEW_PRIMARY,
+  H as FEW_PRIMARY_FOREGROUND,
+  J as GOOGLE_FONTS_CATALOG,
+  Q as applyGoogleFontsForTheme,
+  Z as applyThemeCustomCss,
   m as applyUiTheme,
-  Q as buildGoogleFontsLinkTag,
-  V as buildGoogleFontsStylesheetUrl,
-  X as buildThemeStyleAttr,
-  $ as clearThemeCustomCss,
-  Z as clearToasts,
-  aa as createUiId,
-  ea as createUiIdFactory,
-  N as default,
-  sa as deriveBrandColorsFromPrimary,
-  oa as dismissToast,
-  ta as getFewPrimaryColors,
-  ia as getThemePreset,
-  la as googleFontSelectOptions,
-  ra as mergeUiTheme,
-  na as pushToast,
-  ua as resetUiIds,
-  ca as resolvePrimaryColor,
-  ma as resolveThemeFontFamilies,
-  ga as resolveThemePreset,
-  pa as resolveThemeVars,
-  da as withDerivedBrandColors
+  $ as buildGoogleFontsLinkTag,
+  X as buildGoogleFontsStylesheetUrl,
+  aa as buildThemeStyleAttr,
+  sa as clearThemeCustomCss,
+  ea as clearToasts,
+  oa as createUiId,
+  ta as createUiIdFactory,
+  K as default,
+  ia as deriveBrandColorsFromPrimary,
+  la as dismissToast,
+  ra as getFewPrimaryColors,
+  ua as getThemePreset,
+  na as googleFontSelectOptions,
+  ca as mergeUiTheme,
+  ma as pushToast,
+  ga as resetUiIds,
+  pa as resolvePrimaryColor,
+  da as resolveThemeFontFamilies,
+  Ta as resolveThemePreset,
+  ba as resolveThemeVars,
+  Fa as withDerivedBrandColors
 };
 //# sourceMappingURL=landing.js.map

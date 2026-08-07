@@ -1,6 +1,6 @@
 <template>
   <li
-    class="ui-list-item"
+    :class="itemClass"
     role="listitem"
   >
     <span
@@ -24,11 +24,20 @@
     <div class="ui-list-item-content min-w-0 flex-1">
       <slot />
     </div>
+    <div
+      v-if="$slots.trailing"
+      class="ui-list-item-trailing shrink-0"
+    >
+      <slot name="trailing" />
+    </div>
   </li>
 </template>
 
 <script>
+import { cn } from '../utils/cn.js'
+
 const ICON_TYPES = ['solid', 'regular', 'brands', 'light', 'duotone', 'thin']
+const ALIGNS = ['start', 'center']
 
 export default {
   name: 'ListItem',
@@ -42,6 +51,20 @@ export default {
       type: String,
       default: 'light',
       validator: (v) => ICON_TYPES.includes(v),
+    },
+    /** Prefiks / trailing ile dikey hizalama (`center` medya satırları için). */
+    align: {
+      type: String,
+      default: 'start',
+      validator: (v) => ALIGNS.includes(v),
+    },
+  },
+  computed: {
+    itemClass() {
+      return cn(
+        'ui-list-item',
+        this.align === 'center' ? 'ui-list-item--center' : '',
+      )
     },
   },
 }
