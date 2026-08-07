@@ -77,7 +77,7 @@ function Ct(e, t, i, r, a, n) {
     m(e.$slots, "default")
   ], 16, xt);
 }
-const sa = /* @__PURE__ */ _(_t, [["render", Ct]]), Tt = ["info", "success", "warning", "error"], de = {
+const aa = /* @__PURE__ */ _(_t, [["render", Ct]]), Tt = ["info", "success", "warning", "error"], de = {
   info: "circle-info",
   success: "circle-check",
   warning: "triangle-exclamation",
@@ -211,7 +211,7 @@ function Rt(e, t, i, r, a, n) {
     }, null, 8, ["aria-label", "onClick"])) : f("", !0)
   ], 16, zt);
 }
-const aa = /* @__PURE__ */ _(It, [["render", Rt]]), Bt = ["xs", "sm", "md", "lg", "xl"], fe = {
+const la = /* @__PURE__ */ _(It, [["render", Rt]]), Bt = ["xs", "sm", "md", "lg", "xl"], fe = {
   xs: "ui-avatar--xs",
   sm: "ui-avatar--sm",
   md: "ui-avatar--md",
@@ -418,7 +418,7 @@ function jt(e, t, i, r, a, n) {
     _: 1
   }, 16, ["type", "class", "style", "onClick"]);
 }
-const la = /* @__PURE__ */ _(Nt, [["render", jt]]);
+const oa = /* @__PURE__ */ _(Nt, [["render", jt]]);
 let Ht = 0;
 const Wt = ["top", "bottom", "left", "right"], E = 8, Yt = {
   name: "Tooltip",
@@ -1216,7 +1216,7 @@ function Ti(e, t, i, r, a, n) {
     ], 64))
   ], 10, yi));
 }
-const oa = /* @__PURE__ */ _(ui, [["render", Ti]]), Ii = ["none", "sm", "md"], ke = {
+const ua = /* @__PURE__ */ _(ui, [["render", Ti]]), Ii = ["none", "sm", "md"], ke = {
   none: "",
   sm: "my-2",
   md: "my-4"
@@ -1488,7 +1488,7 @@ function Hi(e, t, i, r, a, n) {
     ], 2)) : f("", !0)
   ], 16);
 }
-const ua = /* @__PURE__ */ _(Bi, [["render", Hi]]);
+const da = /* @__PURE__ */ _(Bi, [["render", Hi]]);
 function et(e) {
   const t = typeof e == "object" && e != null && "value" in e ? e.value : e;
   return t === "en" || t === "en-GB" || t === "en-US" ? "en-GB" : "tr-TR";
@@ -1500,7 +1500,7 @@ function tt(e, t = "tr-TR") {
     year: "numeric"
   });
 }
-function da(e, t = "tr-TR") {
+function ca(e, t = "tr-TR") {
   if (e == null || e === "") return "";
   const i = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(e).trim());
   if (!i) return "";
@@ -1936,10 +1936,10 @@ function tn(e, t, i, r, a, n) {
     }, 8, ["open", "match-trigger-width", "disabled"]))
   ], 2);
 }
-const ca = /* @__PURE__ */ _(Wi, [["render", tn]]);
+const fa = /* @__PURE__ */ _(Wi, [["render", tn]]);
 let se = 0;
 const it = [];
-function fa(e) {
+function ha(e) {
   return se += 1, `${e}-${se}`;
 }
 function nn(e) {
@@ -1949,7 +1949,7 @@ function nn(e) {
     t = 0;
   }), i;
 }
-function ha() {
+function ma() {
   se = 0;
   for (const e of it)
     e();
@@ -2437,7 +2437,7 @@ function wn(e, t, i, r, a, n) {
     }, 8, ["onAfterEnter", "onAfterLeave"])
   ])) : f("", !0);
 }
-const ma = /* @__PURE__ */ _(hn, [["render", wn]]), _n = ["solid", "regular", "brands", "light", "duotone", "thin"], xn = ["sm", "md", "lg"], Cn = {
+const pa = /* @__PURE__ */ _(hn, [["render", wn]]), _n = ["solid", "regular", "brands", "light", "duotone", "thin"], xn = ["sm", "md", "lg"], Cn = {
   sm: "sm",
   md: "md",
   lg: "lg"
@@ -2516,7 +2516,7 @@ function Fn(e, t, i, r, a, n) {
     ])) : f("", !0)
   ], 16);
 }
-const pa = /* @__PURE__ */ _(Tn, [["render", Fn]]);
+const ga = /* @__PURE__ */ _(Tn, [["render", Fn]]);
 let ze = 0;
 const Dn = ["vertical", "horizontal"], Rn = ["default", "card"], Bn = {
   name: "FormRow",
@@ -2639,7 +2639,7 @@ function Mn(e, t, i, r, a, n) {
     ])
   ], 16, En);
 }
-const ga = /* @__PURE__ */ _(Bn, [["render", Mn]]), jn = ["solid", "regular", "brands", "light", "duotone", "thin"], Ae = {
+const ba = /* @__PURE__ */ _(Bn, [["render", Mn]]), jn = ["solid", "regular", "brands", "light", "duotone", "thin"], Ae = {
   solid: "fa-solid",
   regular: "fa-regular",
   brands: "fa-brands",
@@ -2710,7 +2710,7 @@ const ga = /* @__PURE__ */ _(Bn, [["render", Mn]]), jn = ["solid", "regular", "b
 function Kn(e, t, i, r, a, n) {
   return l(), o("i", I({ class: n.iconClass }, n.rootAttrs), null, 16);
 }
-const ba = /* @__PURE__ */ _(Yn, [["render", Kn]]), Gn = ["sm", "md", "lg"], qn = ["default", "plain"], Qn = {
+const ya = /* @__PURE__ */ _(Yn, [["render", Kn]]), Gn = ["sm", "md", "lg"], qn = ["default", "plain"], Qn = {
   name: "Input",
   inheritAttrs: !1,
   inject: {
@@ -2914,7 +2914,7 @@ function ir(e, t, i, r, a, n) {
     ])) : f("", !0)
   ], 2);
 }
-const ya = /* @__PURE__ */ _(Qn, [["render", ir]]);
+const va = /* @__PURE__ */ _(Qn, [["render", ir]]);
 let Le = 0;
 const nr = ["sm", "md", "lg"], Fe = [
   { value: "+90", label: "+90" },
@@ -3085,7 +3085,7 @@ function lr(e, t, i, r, a, n) {
     }, 16, ["id", "modelValue", "size", "disabled", "readonly", "placeholder", "name", "autocomplete", "maxlength", "aria-describedby"])
   ], 2);
 }
-const va = /* @__PURE__ */ _(rr, [["render", lr]]), or = ["ul", "ol", "div"], ur = ["plain", "bordered"], dr = ["compact", "normal", "relaxed"], cr = {
+const ka = /* @__PURE__ */ _(rr, [["render", lr]]), or = ["ul", "ol", "div"], ur = ["plain", "bordered"], dr = ["compact", "normal", "relaxed"], cr = {
   name: "List",
   inheritAttrs: !1,
   props: {
@@ -3135,7 +3135,7 @@ function fr(e, t, i, r, a, n) {
     _: 3
   }, 16, ["class"]);
 }
-const ka = /* @__PURE__ */ _(cr, [["render", fr]]), hr = ["solid", "regular", "brands", "light", "duotone", "thin"], mr = ["start", "center"], pr = {
+const Sa = /* @__PURE__ */ _(cr, [["render", fr]]), hr = ["solid", "regular", "brands", "light", "duotone", "thin"], mr = ["start", "center"], pr = {
   name: "ListItem",
   props: {
     /** Dolu daire içinde `ui-icon` (ör. `check`). */
@@ -3198,7 +3198,7 @@ function kr(e, t, i, r, a, n) {
     ])) : f("", !0)
   ], 2);
 }
-const Sa = /* @__PURE__ */ _(pr, [["render", kr]]), Sr = [
+const wa = /* @__PURE__ */ _(pr, [["render", kr]]), Sr = [
   "bottom-start",
   "bottom-end",
   "bottom",
@@ -3573,7 +3573,7 @@ function zr(e, t, i, r, a, n) {
     ])) : f("", !0)
   ], 2);
 }
-const wa = /* @__PURE__ */ _(_r, [["render", zr]]), Ar = {
+const _a = /* @__PURE__ */ _(_r, [["render", zr]]), Ar = {
   name: "Radio",
   inject: {
     uiRadioGroup: {
@@ -3666,7 +3666,7 @@ function Er(e, t, i, r, a, n) {
     ])
   ], 34);
 }
-const _a = /* @__PURE__ */ _(Ar, [["render", Er]]);
+const xa = /* @__PURE__ */ _(Ar, [["render", Er]]);
 let Re = 0;
 const Pr = ["list", "button", "List", "Button"], $r = ["vertical", "horizontal"], Or = {
   name: "RadioGroup",
@@ -3731,7 +3731,7 @@ function Vr(e, t, i, r, a, n) {
     m(e.$slots, "default")
   ], 10, Nr);
 }
-const xa = /* @__PURE__ */ _(Or, [["render", Vr]]), Mr = {
+const Ca = /* @__PURE__ */ _(Or, [["render", Vr]]), Mr = {
   name: "Tag",
   components: { Badge: ni, Tooltip: Qe },
   props: {
@@ -4348,7 +4348,7 @@ function us(e, t, i, r, a, n) {
     ]), 1032, ["open", "match-trigger-width", "disabled", "align-selected-option-to-trigger"])
   ], 2);
 }
-const Ca = /* @__PURE__ */ _(Gr, [["render", us]]), ds = ["line", "circle", "block", "pill"], cs = ["sm", "md", "lg"], fs = 480, Ee = {
+const Ta = /* @__PURE__ */ _(Gr, [["render", us]]), ds = ["line", "circle", "block", "pill"], cs = ["sm", "md", "lg"], fs = 480, Ee = {
   line: "ui-skeleton--line",
   circle: "ui-skeleton--circle",
   block: "ui-skeleton--block",
@@ -4520,7 +4520,7 @@ function gs(e, t, i, r, a, n) {
     "aria-hidden": "true"
   }, n.passthroughAttrs), null, 16));
 }
-const Ta = /* @__PURE__ */ _(hs, [["render", gs]]), bs = {
+const Ia = /* @__PURE__ */ _(hs, [["render", gs]]), bs = {
   name: "TabList",
   inheritAttrs: !1,
   inject: {
@@ -4591,7 +4591,7 @@ function vs(e, t, i, r, a, n) {
     m(e.$slots, "default")
   ], 16, ys);
 }
-const Ia = /* @__PURE__ */ _(bs, [["render", vs]]), ks = ["line", "segmented"], Ss = {
+const za = /* @__PURE__ */ _(bs, [["render", vs]]), ks = ["line", "segmented"], Ss = {
   name: "Tabs",
   inheritAttrs: !1,
   props: {
@@ -4689,7 +4689,7 @@ function ws(e, t, i, r, a, n) {
     m(e.$slots, "default")
   ], 16);
 }
-const za = /* @__PURE__ */ _(Ss, [["render", ws]]), _s = ["solid", "regular", "brands", "light", "duotone", "thin"], xs = {
+const Aa = /* @__PURE__ */ _(Ss, [["render", ws]]), _s = ["solid", "regular", "brands", "light", "duotone", "thin"], xs = {
   name: "TabTrigger",
   inheritAttrs: !1,
   inject: {
@@ -4800,12 +4800,16 @@ const za = /* @__PURE__ */ _(Ss, [["render", ws]]), _s = ["solid", "regular", "b
       this.disabled || !this.uiTabs || this.uiTabs.setValue(this.value);
     }
   }
-}, Cs = ["id", "aria-selected", "aria-controls", "aria-haspopup", "aria-expanded", "tabindex", "disabled"], Ts = { class: "ui-tab-trigger-label min-w-0 whitespace-nowrap" }, Is = {
+}, Cs = ["id", "aria-selected", "aria-controls", "aria-haspopup", "aria-expanded", "tabindex", "disabled"], Ts = {
+  key: 0,
+  class: "ui-tab-trigger-icon",
+  "aria-hidden": "true"
+}, Is = { class: "ui-tab-trigger-label min-w-0 whitespace-nowrap" }, zs = {
   key: 1,
   class: "ui-tab-trigger-badge",
   "aria-hidden": "true"
 };
-function zs(e, t, i, r, a, n) {
+function As(e, t, i, r, a, n) {
   const s = y("ui-icon"), d = y("ui-badge");
   return l(), o("button", {
     type: "button",
@@ -4820,20 +4824,19 @@ function zs(e, t, i, r, a, n) {
     disabled: i.disabled,
     onClick: t[0] || (t[0] = (...u) => n.select && n.select(...u))
   }, [
-    i.icon ? (l(), w(s, {
-      key: 0,
-      name: i.icon,
-      type: n.tabIconType,
-      size: n.tabIconSize,
-      class: "ui-tab-trigger-icon",
-      "aria-hidden": "true"
-    }, null, 8, ["name", "type", "size"])) : f("", !0),
-    h("span", Ts, [
+    i.icon ? (l(), o("span", Ts, [
+      p(s, {
+        name: i.icon,
+        type: n.tabIconType,
+        size: n.tabIconSize
+      }, null, 8, ["name", "type", "size"])
+    ])) : f("", !0),
+    h("span", Is, [
       m(e.$slots, "default", {}, () => [
         F(g(i.label), 1)
       ])
     ]),
-    n.showBadge ? (l(), o("span", Is, [
+    n.showBadge ? (l(), o("span", zs, [
       p(d, {
         variant: "solid",
         size: "sm",
@@ -4847,12 +4850,12 @@ function zs(e, t, i, r, a, n) {
     ])) : f("", !0)
   ], 10, Cs);
 }
-const Aa = /* @__PURE__ */ _(xs, [["render", zs]]), O = vt({
+const La = /* @__PURE__ */ _(xs, [["render", As]]), O = vt({
   /** @type {ToastItem[]} */
   items: []
 });
 let $e = 0;
-function La(e = {}) {
+function Fa(e = {}) {
   $e += 1;
   const t = $e, i = {
     id: t,
@@ -4870,7 +4873,7 @@ function rt(e) {
   const i = O.items[t];
   i._timer && (clearTimeout(i._timer), i._timer = null), O.items.splice(t, 1);
 }
-function Fa() {
+function Da() {
   for (const e of O.items)
     e._timer && clearTimeout(e._timer);
   O.items.splice(0);
@@ -4885,7 +4888,7 @@ const Oe = {
   success: "text-success",
   warning: "text-warning",
   error: "text-destructive"
-}, As = {
+}, Ls = {
   name: "Toast",
   computed: {
     items() {
@@ -4914,17 +4917,17 @@ const Oe = {
       };
     }
   }
-}, Ls = { class: "ui-toast-host" }, Fs = { class: "ui-alert-body" }, Ds = {
+}, Fs = { class: "ui-toast-host" }, Ds = { class: "ui-alert-body" }, Rs = {
   key: 0,
   class: "ui-alert-title"
-}, Rs = {
+}, Bs = {
   key: 1,
   class: "ui-alert-description ui-text-default"
 };
-function Bs(e, t, i, r, a, n) {
+function Es(e, t, i, r, a, n) {
   const s = y("ui-icon"), d = y("ui-button");
   return l(), w(Z, { to: "body" }, [
-    h("div", Ls, [
+    h("div", Fs, [
       p(kt, {
         name: "ui-toast",
         tag: "div",
@@ -4947,9 +4950,9 @@ function Bs(e, t, i, r, a, n) {
                   size: "sm"
                 }, null, 8, ["name"])
               ], 2),
-              h("div", Fs, [
-                u.title ? (l(), o("p", Ds, g(u.title), 1)) : f("", !0),
-                u.description ? (l(), o("p", Rs, g(u.description), 1)) : f("", !0)
+              h("div", Ds, [
+                u.title ? (l(), o("p", Rs, g(u.title), 1)) : f("", !0),
+                u.description ? (l(), o("p", Bs, g(u.description), 1)) : f("", !0)
               ]),
               p(d, {
                 "native-type": "button",
@@ -4970,7 +4973,7 @@ function Bs(e, t, i, r, a, n) {
     ])
   ]);
 }
-const Da = /* @__PURE__ */ _(As, [["render", Bs]]), Ra = {
+const Ra = /* @__PURE__ */ _(Ls, [["render", Es]]), Ba = {
   ui: {
     button: {
       loading: "Loading"
@@ -5074,7 +5077,7 @@ const Da = /* @__PURE__ */ _(As, [["render", Bs]]), Ra = {
       more: "+{count}"
     }
   }
-}, Ba = {
+}, Ea = {
   ui: {
     button: {
       /** Yükleme sırasında ekran okuyucu / varsayılan `loading-text` */
@@ -5183,7 +5186,7 @@ const Da = /* @__PURE__ */ _(As, [["render", Bs]]), Ra = {
       more: "+{count}"
     }
   }
-}, Es = "fewui-google-fonts", Ps = Object.freeze([
+}, Ps = "fewui-google-fonts", $s = Object.freeze([
   { value: "Inter", label: "Inter" },
   { value: "Poppins", label: "Poppins" },
   { value: "Roboto", label: "Roboto" },
@@ -5202,8 +5205,8 @@ const Da = /* @__PURE__ */ _(As, [["render", Bs]]), Ra = {
   { value: "Playfair Display", label: "Playfair Display" },
   { value: "Libre Baskerville", label: "Libre Baskerville" }
 ]);
-function Ea() {
-  return Ps.map((e) => ({ ...e }));
+function Pa() {
+  return $s.map((e) => ({ ...e }));
 }
 function st(e = {}) {
   const t = String(e.bodyFontFamily || e.fontFamily || "").trim(), i = String(e.headingFontFamily || t).trim();
@@ -5215,19 +5218,19 @@ function at(e) {
   )];
   return t.length ? `https://fonts.googleapis.com/css2?${t.map((r) => `family=${encodeURIComponent(r).replace(/%20/g, "+")}:wght@400;500;600`).join("&")}&display=swap` : null;
 }
-function Pa(e = {}) {
+function $a(e = {}) {
   const { body: t, heading: i } = st(e), r = at([t, i]);
   return r ? `<link rel="stylesheet" href="${r}">` : "";
 }
-function $s(e = {}, t = {}) {
+function Os(e = {}, t = {}) {
   if (typeof document > "u") return null;
   const { body: i, heading: r } = st(e), a = at([i, r]);
   if (!a) return null;
-  const n = t.id || Es;
+  const n = t.id || Ps;
   let s = document.getElementById(n);
   return s || (s = document.createElement("link"), s.id = n, s.rel = "stylesheet", document.head.appendChild(s)), s.getAttribute("href") !== a && s.setAttribute("href", a), a;
 }
-const Os = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950], Ns = "ui-sans-serif, system-ui, sans-serif", Ve = {
+const Ns = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950], Vs = "ui-sans-serif, system-ui, sans-serif", Ve = {
   none: "0",
   sm: "4px",
   DEFAULT: "8px",
@@ -5242,14 +5245,14 @@ const Os = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950], Ns = "ui-sans
   background: "var(--background)",
   control: "var(--control)"
 };
-function Vs(e) {
+function Ms(e) {
   return typeof document > "u" ? null : e ? typeof e == "string" ? document.querySelector(e) : e : document.documentElement;
 }
 function je(e) {
   const t = String(e).trim();
-  return !t || t.includes(",") ? t : `${/\s/.test(t) && !/^["'].*["']$/.test(t) ? `"${t.replace(/"/g, "")}"` : t}, ${Ns}`;
+  return !t || t.includes(",") ? t : `${/\s/.test(t) && !/^["'].*["']$/.test(t) ? `"${t.replace(/"/g, "")}"` : t}, ${Vs}`;
 }
-function Ms(e) {
+function js(e) {
   const t = e.trim().replace("#", "");
   return t.length === 3 ? [0, 1, 2].map((i) => parseInt(t[i] + t[i], 16)) : t.length === 6 ? [
     parseInt(t.slice(0, 2), 16),
@@ -5257,7 +5260,7 @@ function Ms(e) {
     parseInt(t.slice(4, 6), 16)
   ] : null;
 }
-function js(e) {
+function Hs(e) {
   const t = String(e || "").trim().match(/^oklch\(\s*([0-9.]+%?)/i);
   if (!t) return null;
   const i = t[1];
@@ -5268,24 +5271,24 @@ function js(e) {
   const r = Number.parseFloat(i);
   return Number.isFinite(r) ? r > 1 ? r / 100 : r : null;
 }
-function Hs(e, t, i) {
+function Ws(e, t, i) {
   const [r, a, n] = [e, t, i].map((s) => {
     const d = s / 255;
     return d <= 0.03928 ? d / 12.92 : ((d + 0.055) / 1.055) ** 2.4;
   });
   return 0.2126 * r + 0.7152 * a + 0.0722 * n;
 }
-function Ws(e, t = "#ffffff", i = "#0a0a0b") {
-  const r = Ms(e);
+function Ys(e, t = "#ffffff", i = "#0a0a0b") {
+  const r = js(e);
   if (r)
-    return Hs(...r) > 0.4 ? i : t;
-  const a = js(e);
+    return Ws(...r) > 0.4 ? i : t;
+  const a = Hs(e);
   return a != null && a > 0.72 ? i : t;
 }
-function Ys(e) {
+function Ks(e) {
   return e.startsWith("--") ? e : `--${e.replace(/([A-Z])/g, "-$1").replace(/_/g, "-").toLowerCase()}`;
 }
-function Ks(e) {
+function Gs(e) {
   if (e == null || e === "")
     return null;
   const t = Number(e);
@@ -5294,7 +5297,7 @@ function Ks(e) {
   const i = t <= 1 ? Math.round(t * 100) : Math.round(t);
   return `${Math.min(100, Math.max(0, i))}%`;
 }
-function Gs(e) {
+function qs(e) {
   if (e == null || e === "")
     return null;
   if (typeof e == "number")
@@ -5302,17 +5305,17 @@ function Gs(e) {
   const t = String(e).trim();
   return Ve[t] != null ? Ve[t] : /^\d+$/.test(t) ? `${t}px` : t;
 }
-function qs(e) {
+function Qs(e) {
   return e == null || e === "" ? null : Me[e] ? Me[e] : String(e);
 }
 function ie(e, t, i) {
   if (!i || typeof i != "object")
     return;
-  const r = Ks(i.opacity ?? i.bgOpacity);
+  const r = Gs(i.opacity ?? i.bgOpacity);
   r && (e[`--ui-${t}-opacity`] = r);
-  const a = Gs(i.backdropBlur ?? i.backdropFilter);
+  const a = qs(i.backdropBlur ?? i.backdropFilter);
   a && (e[`--ui-${t}-backdrop-blur`] = a);
-  const n = qs(i.mixFrom);
+  const n = Qs(i.mixFrom);
   n && (e[`--ui-${t}-mix-from`] = n);
 }
 function He(e, t, i) {
@@ -5323,15 +5326,15 @@ function He(e, t, i) {
   if (a != null && a !== "")
     return String(a);
 }
-function $a(e = {}, t = {}) {
-  const i = Vs(e.root ?? t.root);
+function Oa(e = {}, t = {}) {
+  const i = Ms(e.root ?? t.root);
   if (!i || typeof e != "object")
     return {};
   e.mode === "dark" ? i.classList.add("dark") : e.mode === "light" && i.classList.remove("dark");
   const r = lt(e);
   for (const [a, n] of Object.entries(r))
     i.style.setProperty(a, n);
-  return $s(e), { ...r };
+  return Os(e), { ...r };
 }
 function lt(e = {}) {
   if (!e || typeof e != "object")
@@ -5340,7 +5343,7 @@ function lt(e = {}) {
   i && (t["--font-sans"] = je(i));
   const r = e.headingFontFamily || i;
   if (r && (t["--font-heading"] = je(r)), e.baseColor && typeof e.baseColor == "object")
-    for (const d of Os) {
+    for (const d of Ns) {
       const u = e.baseColor[d];
       u != null && u !== "" && (t[`--base-${d}`] = String(u));
     }
@@ -5365,21 +5368,21 @@ function lt(e = {}) {
     c != null && c !== "" && (t[u] = String(c));
   }
   const n = He(e, "primaryColor", "primary");
-  n && (t["--primary"] = n, e.primaryForeground || (t["--primary-foreground"] = Ws(n)), e.ring || (t["--ring"] = `color-mix(in oklab, ${n} 55%, transparent)`));
+  n && (t["--primary"] = n, e.primaryForeground || (t["--primary-foreground"] = Ys(n)), e.ring || (t["--ring"] = `color-mix(in oklab, ${n} 55%, transparent)`));
   const s = He(e, "secondaryColor", "secondary");
   if (s && (t["--secondary"] = s), ie(t, "surface", e.surfaceStyle), ie(t, "control", e.controlStyle), ie(t, "input", e.inputStyle), e.colors && typeof e.colors == "object")
     for (const [d, u] of Object.entries(e.colors))
-      u != null && u !== "" && (t[Ys(d)] = String(u));
+      u != null && u !== "" && (t[Ks(d)] = String(u));
   return t;
 }
-function Oa(e = {}) {
+function Na(e = {}) {
   const t = lt(e), i = Object.entries(t).map(([a, n]) => `${a}: ${n}`).join("; ");
   return {
     classAttr: e.mode === "dark" ? "dark" : (e.mode === "light", ""),
     styleAttr: i
   };
 }
-function Qs(e, t) {
+function Us(e, t) {
   return {
     ...e,
     ...t,
@@ -5405,7 +5408,7 @@ function Qs(e, t) {
     }
   };
 }
-const Na = "few", ot = "#1B5CFF", Va = "#ffffff", We = {
+const Va = "few", ot = "#1B5CFF", Ma = "#ffffff", We = {
   50: "#F0F5FF",
   100: "#DBE7FF",
   200: "#BDD4FF",
@@ -5418,13 +5421,13 @@ const Na = "few", ot = "#1B5CFF", Va = "#ffffff", We = {
   900: "#18358A",
   950: "#102054"
 };
-function Ma() {
+function ja() {
   return {
     light: We[600],
     dark: We[600]
   };
 }
-function Us(e) {
+function Zs(e) {
   const t = String(e || "").trim().replace("#", "");
   return t.length === 3 ? [0, 1, 2].map((i) => parseInt(t[i] + t[i], 16)) : t.length === 6 ? [
     parseInt(t.slice(0, 2), 16),
@@ -5438,8 +5441,8 @@ function ne(e) {
 function Ye(e, t, i) {
   return `#${ne(e)}${ne(t)}${ne(i)}`;
 }
-function Zs(e) {
-  const t = Us(e);
+function Xs(e) {
+  const t = Zs(e);
   if (!t)
     return { accent: e, brandAccent: e };
   const [i, r, a] = t, n = Ye(
@@ -5453,14 +5456,14 @@ function Zs(e) {
   );
   return { accent: n, brandAccent: s };
 }
-function ja(e, t = {}) {
+function Ha(e, t = {}) {
   if (!e || typeof e != "object") return e;
   const i = e.primaryColor || e.primary;
   if (!i) return e;
-  const r = Zs(String(i)), a = { ...e, colors: { ...e.colors || {} } };
+  const r = Xs(String(i)), a = { ...e, colors: { ...e.colors || {} } };
   return (t.force || !e.accent) && (a.accent = r.accent), (t.force || !a.colors["brand-accent"]) && (a.colors["brand-accent"] = r.brandAccent), a;
 }
-function Ha(e, t = ot) {
+function Wa(e, t = ot) {
   if (!e || typeof e != "object") return t;
   const i = typeof e.primaryColor == "string" ? e.primaryColor.trim() : "";
   if (i) return i;
@@ -5472,7 +5475,7 @@ function Ha(e, t = ot) {
   return t;
 }
 const ut = "fewui-theme-custom-css";
-function Xs(e, t = ut) {
+function Js(e, t = ut) {
   if (typeof document > "u") return;
   const i = String(e || "").trim();
   let r = document.getElementById(t);
@@ -5482,8 +5485,8 @@ function Xs(e, t = ut) {
   }
   r || (r = document.createElement("style"), r.id = t, document.head.appendChild(r)), r.textContent = i;
 }
-function Wa(e = ut) {
-  Xs("", e);
+function Ya(e = ut) {
+  Js("", e);
 }
 const dt = {
   mode: "dark",
@@ -5492,7 +5495,7 @@ const dt = {
   bodyFontFamily: "Inter",
   primaryColor: "#1B5CFF",
   primaryForeground: "#ffffff"
-}, Js = {
+}, ea = {
   mode: "dark",
   fontFamily: "Inter",
   surfaceStyle: {
@@ -5510,7 +5513,7 @@ const dt = {
     opacity: 100,
     backdropBlur: "none"
   }
-}, ea = {
+}, ta = {
   mode: "dark",
   fontFamily: "Poppins",
   headingFontFamily: "Poppins",
@@ -5556,87 +5559,87 @@ const dt = {
   colors: {
     "brand-accent": "#fbbf24"
   }
-}, ta = {
+}, ia = {
   panel: dt,
-  flat: Js,
-  landing: ea
-}, Ya = ["panel", "flat", "landing"];
-function ia(e = "panel") {
-  const t = String(e || "panel").trim(), i = ta[t] || dt;
+  flat: ea,
+  landing: ta
+}, Ka = ["panel", "flat", "landing"];
+function na(e = "panel") {
+  const t = String(e || "panel").trim(), i = ia[t] || dt;
   return structuredClone(i);
 }
-function Ka(e, t = {}) {
-  return Qs(ia(e), t);
+function Ga(e, t = {}) {
+  return Us(na(e), t);
 }
 export {
-  ia as $,
-  sa as A,
+  na as $,
+  aa as A,
   ni as B,
-  ua as C,
+  da as C,
   ut as D,
-  pa as E,
+  ga as E,
   We as F,
-  Ps as G,
+  $s as G,
   at as H,
-  ba as I,
-  Oa as J,
-  Wa as K,
-  ka as L,
-  Fa as M,
+  ya as I,
+  Na as J,
+  Ya as K,
+  Sa as L,
+  Da as M,
   T as N,
-  fa as O,
-  va as P,
+  ha as O,
+  ka as P,
   nn as Q,
-  _a as R,
-  Ca as S,
-  ta as T,
-  Zs as U,
+  xa as R,
+  Ta as S,
+  ia as T,
+  Xs as U,
   rt as V,
-  Ra as W,
+  Ba as W,
   on as X,
-  da as Y,
-  Ma as Z,
+  ca as Y,
+  ja as Z,
   _,
-  aa as a,
-  Ea as a0,
+  la as a,
+  Pa as a0,
   U as a1,
-  Qs as a2,
+  Us as a2,
   nt as a3,
-  La as a4,
-  ha as a5,
+  Fa as a4,
+  ma as a5,
   Y as a6,
   et as a7,
-  Ha as a8,
+  Wa as a8,
   st as a9,
-  Ka as aa,
+  Ga as aa,
   lt as ab,
   Xe as ac,
-  Ba as ad,
-  ja as ae,
-  la as b,
-  oa as c,
-  ca as d,
-  ma as e,
+  Ea as ad,
+  Ha as ae,
+  oa as b,
+  ua as c,
+  fa as d,
+  pa as e,
   Je as f,
-  Na as g,
+  Va as g,
   ot as h,
-  Va as i,
-  ga as j,
-  ya as k,
-  Sa as l,
-  wa as m,
-  xa as n,
-  Ta as o,
-  Ya as p,
-  Ia as q,
-  Aa as r,
-  za as s,
+  Ma as i,
+  ba as j,
+  va as k,
+  wa as l,
+  _a as m,
+  Ca as n,
+  Ia as o,
+  Ka as p,
+  za as q,
+  La as r,
+  Aa as s,
   Wr as t,
-  Da as u,
+  Ra as u,
   Qe as v,
-  $s as w,
-  Xs as x,
-  $a as y,
-  Pa as z
+  Os as w,
+  Js as x,
+  Oa as y,
+  $a as z
 };
-//# sourceMappingURL=index-C-HHJk1i.js.map
+//# sourceMappingURL=index-M4oSugpb.js.map

@@ -12,14 +12,17 @@
     :disabled="disabled"
     @click="select"
   >
-    <ui-icon
+    <span
       v-if="icon"
-      :name="icon"
-      :type="tabIconType"
-      :size="tabIconSize"
       class="ui-tab-trigger-icon"
       aria-hidden="true"
-    />
+    >
+      <ui-icon
+        :name="icon"
+        :type="tabIconType"
+        :size="tabIconSize"
+      />
+    </span>
     <span class="ui-tab-trigger-label min-w-0 whitespace-nowrap">
       <slot>{{ label }}</slot>
     </span>
