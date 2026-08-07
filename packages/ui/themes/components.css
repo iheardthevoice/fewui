@@ -868,6 +868,8 @@
    * Sıra: modal 400, popover 410, onay 420, toast 500 — unlayered blok dosya sonunda tekrarlanır.
    */
   .ui-dialog-root {
+    position: fixed;
+    inset: 0;
     z-index: 400;
     align-items: center;
     justify-content: center;
@@ -879,6 +881,8 @@
   }
 
   .ui-sheet-root {
+    position: fixed;
+    inset: 0;
     z-index: 400;
   }
 
@@ -4538,6 +4542,8 @@
  * Overlay z-index — unlayered; @layer/components ve sabit chrome (tab bar, header) üstünde kalır.
  */
 .ui-dialog-root {
+  position: fixed;
+  inset: 0;
   z-index: 400;
   isolation: isolate;
 }
