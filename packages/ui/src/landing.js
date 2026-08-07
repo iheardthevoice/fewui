@@ -16,6 +16,8 @@ import Phone from './components/Phone.vue'
 import Popover from './components/Popover.vue'
 import Radio from './components/Radio.vue'
 import RadioGroup from './components/RadioGroup.vue'
+import Segment from './components/Segment.vue'
+import SegmentGroup from './components/SegmentGroup.vue'
 import Select from './components/Select.vue'
 import Skeleton from './components/Skeleton.vue'
 import TabList from './components/TabList.vue'
@@ -82,6 +84,8 @@ const GLOBAL_COMPONENTS = [
   ['ui-popover', Popover],
   ['ui-radio', Radio],
   ['ui-radio-group', RadioGroup],
+  ['ui-segment', Segment],
+  ['ui-segment-group', SegmentGroup],
   ['ui-select', Select],
   ['ui-skeleton', Skeleton],
   ['ui-tab-list', TabList],
