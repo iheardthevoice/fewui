@@ -6,6 +6,7 @@ import Button from './components/Button.vue'
 import Card from './components/Card.vue'
 import DatePicker from './components/DatePicker.vue'
 import Dialog from './components/Dialog.vue'
+import Dropdown from './components/Dropdown.vue'
 import Empty from './components/Empty.vue'
 import FormRow from './components/FormRow.vue'
 import Icon from './components/Icon.vue'
@@ -74,6 +75,7 @@ const GLOBAL_COMPONENTS = [
   ['ui-card', Card],
   ['ui-date-picker', DatePicker],
   ['ui-dialog', Dialog],
+  ['ui-dropdown', Dropdown],
   ['ui-empty', Empty],
   ['ui-form-row', FormRow],
   ['ui-icon', Icon],
