@@ -293,6 +293,14 @@ export default {
       type: String,
       default: '',
     },
+    /**
+     * Restaurant day-end (`HH:mm`). When set, dün/bugün/yarın and “today”
+     * highlight follow the business day (same as backend `toBusinessDate`).
+     */
+    businessDayEnd: {
+      type: String,
+      default: '',
+    },
   },
   emits: ['update:modelValue', 'change'],
   data() {
@@ -341,16 +349,27 @@ export default {
       if (this.tomorrowLabel) return this.tomorrowLabel
       return typeof this.$t === 'function' ? this.$t('ui.datePicker.tomorrow') : 'Tomorrow'
     },
+    /** Local calendar date representing the current business “today”. */
+    referenceTodayDate() {
+      const raw = String(this.businessDayEnd || '').trim()
+      if (!/^\d{1,2}:\d{2}$/.test(raw)) {
+        const now = new Date()
+        return new Date(now.getFullYear(), now.getMonth(), now.getDate())
+      }
+      const [h, m] = raw.split(':').map((part) => Number(part) || 0)
+      const shifted = new Date(Date.now() - (h * 60 + m) * 60 * 1000)
+      return new Date(shifted.getFullYear(), shifted.getMonth(), shifted.getDate())
+    },
     todayQuickDisabled() {
-      return this.isQuickDateDisabled(new Date())
+      return this.isQuickDateDisabled(this.referenceTodayDate)
     },
     yesterdayQuickDisabled() {
-      const d = new Date()
+      const d = new Date(this.referenceTodayDate)
       d.setDate(d.getDate() - 1)
       return this.isQuickDateDisabled(d)
     },
     tomorrowQuickDisabled() {
-      const d = new Date()
+      const d = new Date(this.referenceTodayDate)
       d.setDate(d.getDate() + 1)
       return this.isQuickDateDisabled(d)
     },
@@ -359,6 +378,7 @@ export default {
       const m = this.viewMonth
       const first = new Date(y, m, 1)
       const start = new Date(y, m, 1 - first.getDay())
+      const todayYmd = toYmd(this.referenceTodayDate)
       const cells = []
       for (let i = 0; i < 42; i += 1) {
         const cur = new Date(start.getFullYear(), start.getMonth(), start.getDate() + i)
@@ -367,7 +387,7 @@ export default {
         const ymd = toYmd(cur)
         const key = `${cur.getFullYear()}-${cur.getMonth()}-${cur.getDate()}`
         const sel = !!(this.selectedDate && ymd === toYmd(this.selectedDate))
-        const today = toYmd(new Date()) === ymd
+        const today = todayYmd === ymd
         const disabled = Boolean(this.minYmd && ymd < this.minYmd)
         cells.push({
           key,
@@ -412,7 +432,7 @@ export default {
       else this.menuOpen = false
     },
     pickQuick(kind, close) {
-      const date = new Date()
+      const date = new Date(this.referenceTodayDate)
       if (kind === 'yesterday') {
         date.setDate(date.getDate() - 1)
       } else if (kind === 'tomorrow') {
