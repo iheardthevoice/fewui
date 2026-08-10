@@ -48,6 +48,31 @@
           class="sr-only"
         >{{ resolvedLoadingText }}</span>
       </template>
+      <template v-else-if="stack">
+        <span
+          v-if="prefixIcon"
+          class="inline-flex shrink-0 items-center justify-center"
+          aria-hidden="true"
+        >
+          <ui-icon
+            :size="stackIconSize"
+            :name="prefixIcon"
+          />
+        </span>
+        <span :class="textContentClass">
+          <slot />
+        </span>
+        <span
+          v-if="suffixIcon"
+          class="inline-flex shrink-0 items-center justify-center"
+          aria-hidden="true"
+        >
+          <ui-icon
+            :size="stackIconSize"
+            :name="suffixIcon"
+          />
+        </span>
+      </template>
       <template v-else-if="usesCubedCenterLayout">
         <span class="ui-button-cubed-inner inline-flex size-full min-h-0 min-w-0 items-center justify-center rounded-[inherit] [&_.ui-icon]:leading-none">
           <ui-icon
@@ -133,6 +158,31 @@
         class="sr-only"
       >{{ resolvedLoadingText }}</span>
     </template>
+    <template v-else-if="stack">
+      <span
+        v-if="prefixIcon"
+        class="inline-flex shrink-0 items-center justify-center"
+        aria-hidden="true"
+      >
+        <ui-icon
+          :size="stackIconSize"
+          :name="prefixIcon"
+        />
+      </span>
+      <span :class="textContentClass">
+        <slot />
+      </span>
+      <span
+        v-if="suffixIcon"
+        class="inline-flex shrink-0 items-center justify-center"
+        aria-hidden="true"
+      >
+        <ui-icon
+          :size="stackIconSize"
+          :name="suffixIcon"
+        />
+      </span>
+    </template>
     <template v-else-if="usesCubedCenterLayout">
       <span class="ui-button-cubed-inner inline-flex size-full min-h-0 min-w-0 items-center justify-center rounded-[inherit] [&_.ui-icon]:leading-none">
         <ui-icon
@@ -199,6 +249,13 @@ const cubedSizeClasses = {
   sm: 'aspect-square size-8 shrink-0 p-0 !min-h-0 text-xs leading-4',
   md: 'aspect-square size-9 shrink-0 p-0 !min-h-0 text-sm leading-5',
   lg: 'aspect-square size-11 shrink-0 p-0 !min-h-0 text-base leading-6',
+}
+
+/** İkon üstte, etiket altta — satır yüksekliğine (segment tab) uzanır, daire kalır */
+const stackSizeClasses = {
+  sm: 'aspect-square h-auto w-auto self-stretch shrink-0 !min-h-0 !min-w-0 px-1 py-0.5 text-[10px] leading-none',
+  md: 'aspect-square h-auto w-auto self-stretch shrink-0 !min-h-0 !min-w-0 px-1 py-0.5 text-[10px] leading-none',
+  lg: 'aspect-square h-auto w-auto self-stretch shrink-0 !min-h-0 !min-w-0 px-1 py-0.5 text-[10px] leading-none',
 }
 
 const linkSizeClasses = {
@@ -336,6 +393,14 @@ export default {
       type: Boolean,
       default: false,
     },
+    /**
+     * İkon + metin dikey yığılır (`prefixIcon` üstte, slot altta).
+     * `cubed` ile birlikte kullanılmaz.
+     */
+    stack: {
+      type: Boolean,
+      default: false,
+    },
     rounded: {
       type: Boolean,
       default: false,
@@ -373,6 +438,7 @@ export default {
      * Boş / comment-only default slot (ör. `v-if` kapalı) merkezi düzeni bozmasın.
      */
     usesCubedCenterLayout() {
+      if (this.stack) return false
       if (!this.cubed) return false
       if (this.prefixIcon && this.suffixIcon) return false
       if (this.prefixIcon || this.suffixIcon) {
@@ -404,6 +470,9 @@ export default {
        * Tam genişlik / nav: taşmayı kısalt.
        * Normal düğmelerde truncate yok — grow/flex içinde `min-w-0` ile “QR …” gibi okunaksız kesilmeyi önler.
        */
+      if (this.stack) {
+        return ['ui-button-text max-w-full truncate', align].join(' ')
+      }
       if (isBlock || this.variant === 'nav') {
         return ['ui-button-text min-w-0 flex-1 truncate', align].join(' ')
       }
@@ -418,11 +487,18 @@ export default {
       const m = { sm: 'xs', md: 'sm', lg: 'sm' }
       return m[this.resolvedSize] || 'sm'
     },
+    /** Dikey yığın: segment sekmelerine yakın dokunma hedefi. */
+    stackIconSize() {
+      const m = { sm: 'sm', md: 'sm', lg: 'md' }
+      return m[this.resolvedSize] || 'sm'
+    },
     buttonClasses() {
       const isLink = this.variant === 'link'
       const isNav = this.variant === 'nav'
       let sizeOrCubed
-      if (this.cubed && !isLink && !isNav) {
+      if (this.stack && !isLink && !isNav) {
+        sizeOrCubed = stackSizeClasses[this.resolvedSize] || stackSizeClasses.md
+      } else if (this.cubed && !isLink && !isNav) {
         sizeOrCubed = cubedSizeClasses[this.resolvedSize] || cubedSizeClasses.md
       } else if (isLink) {
         sizeOrCubed = linkSizeClasses[this.resolvedSize]
@@ -434,8 +510,7 @@ export default {
 
       let roundedClass = ''
       if (!isLink && !isNav) {
-        if (this.rounded && !this.cubed) roundedClass = 'rounded-full'
-        else if (this.cubed) roundedClass = 'rounded-full'
+        if (this.stack || this.rounded || this.cubed) roundedClass = 'rounded-full'
       }
 
       const variantColor =
@@ -447,6 +522,7 @@ export default {
 
       return [
         'ui-button ui-control font-sans',
+        this.stack ? 'ui-button--stack' : '',
         variantColor,
         sizeOrCubed,
         isBlock ? 'ui-button--fulled w-full' : '',

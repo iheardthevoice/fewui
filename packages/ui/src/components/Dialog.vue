@@ -161,7 +161,7 @@ const BORDER_TYPE_CLASS = {
 
 const ICON_TYPES = ['solid', 'regular', 'brands', 'light', 'duotone', 'thin']
 
-const MAX_WIDTHS = ['sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl', '5xl']
+const MAX_WIDTHS = ['sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl', '5xl', 'full']
 
 const MAX_WIDTH_CLASS = {
   sm: 'ui-dialog-panel--max-sm',
@@ -172,6 +172,7 @@ const MAX_WIDTH_CLASS = {
   '3xl': 'ui-dialog-panel--max-3xl',
   '4xl': 'ui-dialog-panel--max-4xl',
   '5xl': 'ui-dialog-panel--max-5xl',
+  full: 'ui-dialog-panel--max-full',
 }
 
 export default {

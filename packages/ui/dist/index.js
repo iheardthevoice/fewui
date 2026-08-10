@@ -1,6 +1,6 @@
 import { resolveComponent as _, openBlock as l, createElementBlock as s, normalizeClass as k, renderSlot as y, createBlock as b, createCommentVNode as f, createElementVNode as c, toDisplayString as m, normalizeStyle as E, createVNode as w, mergeProps as T, withCtx as g, withModifiers as P, createTextVNode as S, Fragment as I, renderList as z, withKeys as le, reactive as se, createSlots as j, normalizeProps as Re, guardReactiveProps as Be, Teleport as Q, Transition as X, readonly as De, resolveDynamicComponent as K, withDirectives as Fe, vShow as Ne } from "vue";
-import { _ as x, ae as M, U as C, a9 as $e, a0 as He, f as Ie, $ as We, a5 as Ye, W as Ae, Q as Ge, Y as Ue, a6 as N, af as ze, J as Ke, Z as je, A as qe, a as Ze, b as Qe, B as Xe, c as Je, C as et, d as tt, e as it, g as rt, E as lt, k as at, I as nt, l as st, P as ot, L as ut, m as ct, n as dt, R as ht, o as ft, q as pt, S as mt, p as gt, r as bt, w as yt, t as vt, v as _t, u as kt, y as wt, x as xt } from "./index-ZcrfdfAy.js";
-import { F as qs, h as Zs, i as Qs, j as Xs, G as Js, D as eo, T as to, s as io, z as ro, H as lo, K as ao, M as no, N as so, O as oo, V as uo, X as co, a1 as ho, a2 as fo, a3 as po, a4 as mo, a7 as go, a8 as bo, aa as yo, ab as vo, ac as _o, ad as ko, ag as wo } from "./index-ZcrfdfAy.js";
+import { _ as x, ae as M, U as C, a9 as $e, a0 as He, f as Ie, $ as We, a5 as Ye, W as Ae, Q as Ge, Y as Ue, a6 as N, af as ze, J as Ke, Z as je, A as qe, a as Ze, b as Qe, B as Xe, c as Je, C as et, d as tt, e as it, g as rt, E as lt, k as at, I as nt, l as st, P as ot, L as ut, m as ct, n as dt, R as ht, o as ft, q as pt, S as mt, p as gt, r as bt, w as yt, t as vt, v as _t, u as kt, y as wt, x as xt } from "./index-o7kAzHuc.js";
+import { F as js, h as qs, i as Zs, j as Qs, G as Xs, D as Js, T as eo, s as to, z as io, H as ro, K as lo, M as ao, N as no, O as so, V as oo, X as uo, a1 as co, a2 as ho, a3 as fo, a4 as po, a7 as mo, a8 as go, aa as bo, ab as yo, ac as vo, ad as _o, ag as ko } from "./index-o7kAzHuc.js";
 const St = ["solid", "regular", "brands", "light", "duotone", "thin"], Ct = {
   name: "ActionCard",
   props: {
@@ -486,7 +486,7 @@ function Me(e) {
     return t;
   }
 }
-function Ns(e, t, r = "tr-TR") {
+function Fs(e, t, r = "tr-TR") {
   const n = Number(e) || 0, a = J(t);
   try {
     return new Intl.NumberFormat(r, { style: "currency", currency: a }).format(n);
@@ -3481,6 +3481,20 @@ const $l = /* @__PURE__ */ x(Ol, [["render", Nl]]), Hl = Ae("ui-sheet"), Wl = ["
       type: Boolean,
       default: !1
     },
+    /**
+     * Footer üst kenar çizgisi — `false` ile border-t kalkar.
+     */
+    footerBorder: {
+      type: Boolean,
+      default: !0
+    },
+    /**
+     * Dar viewport’ta (`max-width: 767px`) panel tam genişlik.
+     */
+    fullOnMobile: {
+      type: Boolean,
+      default: !1
+    },
     ariaLabel: {
       type: String,
       default: ""
@@ -3536,6 +3550,7 @@ const $l = /* @__PURE__ */ x(Ol, [["render", Nl]]), Hl = Ae("ui-sheet"), Wl = ["
         this.sizeClass,
         this.side === "left" ? "ui-sheet-panel--left" : "ui-sheet-panel--right",
         this.bodyLayout === "flex" ? "ui-sheet-panel--body-flex" : "",
+        this.fullOnMobile ? "ui-sheet-panel--full-mobile" : "",
         this.$attrs.class
       );
     },
@@ -3605,11 +3620,8 @@ const $l = /* @__PURE__ */ x(Ol, [["render", Nl]]), Hl = Ae("ui-sheet"), Wl = ["
 }, Xl = ["id"], Jl = {
   key: 1,
   class: "ui-card-toolbar shrink-0"
-}, ea = {
-  key: 4,
-  class: "ui-card-footer"
 };
-function ta(e, t, r, n, a, i) {
+function ea(e, t, r, n, a, i) {
   const d = _("ui-icon"), u = _("ui-button"), o = _("Divider");
   return a.portalReady ? (l(), b(Q, {
     key: 0,
@@ -3707,9 +3719,12 @@ function ta(e, t, r, n, a, i) {
             }, [
               y(e.$slots, "default")
             ], 2)) : f("", !0),
-            e.$slots.footer ? (l(), s("div", ea, [
+            e.$slots.footer ? (l(), s("div", {
+              key: 4,
+              class: k(["ui-card-footer", { "ui-sheet-footer--borderless": !r.footerBorder }])
+            }, [
               y(e.$slots, "footer")
-            ])) : f("", !0)
+            ], 2)) : f("", !0)
           ], 16, Kl)
         ], 34)) : f("", !0)
       ]),
@@ -3717,19 +3732,19 @@ function ta(e, t, r, n, a, i) {
     }, 8, ["name", "onAfterEnter", "onAfterLeave"])
   ])) : f("", !0);
 }
-const ia = /* @__PURE__ */ x(Ul, [["render", ta]]), ra = ["sm", "md", "lg", "full"], xe = {
+const ta = /* @__PURE__ */ x(Ul, [["render", ea]]), ia = ["sm", "md", "lg", "full"], xe = {
   sm: "w-52 max-w-full",
   md: "w-56 max-w-full",
   lg: "w-64 max-w-full",
   full: "w-full max-w-full"
-}, la = {
+}, ra = {
   name: "Menu",
   inheritAttrs: !1,
   props: {
     width: {
       type: String,
       default: "md",
-      validator: (e) => ra.includes(e)
+      validator: (e) => ia.includes(e)
     }
   },
   computed: {
@@ -3745,27 +3760,27 @@ const ia = /* @__PURE__ */ x(Ul, [["render", ta]]), ra = ["sm", "md", "lg", "ful
       return t;
     }
   }
-}, aa = {
+}, la = {
   key: 0,
   class: "ui-menu-header"
-}, na = { class: "ui-menu-body" }, sa = {
+}, aa = { class: "ui-menu-body" }, na = {
   key: 1,
   class: "ui-menu-footer"
 };
-function oa(e, t, r, n, a, i) {
+function sa(e, t, r, n, a, i) {
   return l(), s("nav", T({ class: i.rootClass }, i.passthroughAttrs), [
-    e.$slots.header ? (l(), s("div", aa, [
+    e.$slots.header ? (l(), s("div", la, [
       y(e.$slots, "header")
     ])) : f("", !0),
-    c("div", na, [
+    c("div", aa, [
       y(e.$slots, "default")
     ]),
-    e.$slots.footer ? (l(), s("div", sa, [
+    e.$slots.footer ? (l(), s("div", na, [
       y(e.$slots, "footer")
     ])) : f("", !0)
   ], 16);
 }
-const ua = /* @__PURE__ */ x(la, [["render", oa]]), ca = {
+const oa = /* @__PURE__ */ x(ra, [["render", sa]]), ua = {
   name: "MenuGroup",
   inheritAttrs: !1,
   props: {
@@ -3783,19 +3798,19 @@ const ua = /* @__PURE__ */ x(la, [["render", oa]]), ca = {
       return t;
     }
   }
-}, da = {
+}, ca = {
   key: 0,
   class: "ui-menu-group-label"
-}, ha = { class: "ui-menu-group-items" };
-function fa(e, t, r, n, a, i) {
+}, da = { class: "ui-menu-group-items" };
+function ha(e, t, r, n, a, i) {
   return l(), s("div", T({ class: i.groupClass }, i.passthroughAttrs), [
-    r.label ? (l(), s("p", da, m(r.label), 1)) : f("", !0),
-    c("div", ha, [
+    r.label ? (l(), s("p", ca, m(r.label), 1)) : f("", !0),
+    c("div", da, [
       y(e.$slots, "default")
     ])
   ], 16);
 }
-const pa = /* @__PURE__ */ x(ca, [["render", fa]]), ma = {
+const fa = /* @__PURE__ */ x(ua, [["render", ha]]), pa = {
   name: "MenuItem",
   inheritAttrs: !1,
   props: {
@@ -3845,7 +3860,7 @@ const pa = /* @__PURE__ */ x(ca, [["render", fa]]), ma = {
     }
   }
 };
-function ga(e, t, r, n, a, i) {
+function ma(e, t, r, n, a, i) {
   const d = _("ui-button");
   return l(), b(d, T({
     type: "button",
@@ -3867,7 +3882,7 @@ function ga(e, t, r, n, a, i) {
     _: 3
   }, 16, ["to", "prefix-icon", "suffix-icon", "disabled", "loading", "class", "aria-current", "onClick"]);
 }
-const ba = /* @__PURE__ */ x(ma, [["render", ga]]), ya = {
+const ga = /* @__PURE__ */ x(pa, [["render", ma]]), ba = {
   name: "MenuNav",
   inheritAttrs: !1,
   props: {
@@ -3885,17 +3900,17 @@ const ba = /* @__PURE__ */ x(ma, [["render", ga]]), ya = {
       return t;
     }
   }
-}, va = ["aria-label"];
-function _a(e, t, r, n, a, i) {
+}, ya = ["aria-label"];
+function va(e, t, r, n, a, i) {
   return l(), s("div", T({
     class: i.navClass,
     role: "navigation",
     "aria-label": r.ariaLabel || void 0
   }, i.passthroughAttrs), [
     y(e.$slots, "default")
-  ], 16, va);
+  ], 16, ya);
 }
-const ka = /* @__PURE__ */ x(ya, [["render", _a]]), wa = ["horizontal", "vertical"], xa = ["default", "pills"], Sa = {
+const _a = /* @__PURE__ */ x(ba, [["render", va]]), ka = ["horizontal", "vertical"], wa = ["default", "pills"], xa = {
   name: "Stepper",
   inheritAttrs: !1,
   props: {
@@ -3914,12 +3929,12 @@ const ka = /* @__PURE__ */ x(ya, [["render", _a]]), wa = ["horizontal", "vertica
     variant: {
       type: String,
       default: "default",
-      validator: (e) => xa.includes(e)
+      validator: (e) => wa.includes(e)
     },
     direction: {
       type: String,
       default: "horizontal",
-      validator: (e) => wa.includes(e)
+      validator: (e) => ka.includes(e)
     },
     interactive: {
       type: Boolean,
@@ -3991,31 +4006,31 @@ const ka = /* @__PURE__ */ x(ya, [["render", _a]]), wa = ["horizontal", "vertica
       return this.modelValue > e ? "ui-stepper-rail--done" : "ui-stepper-rail--todo";
     }
   }
-}, Ca = ["aria-label"], La = { class: "ui-stepper-pills-track" }, Ta = {
+}, Sa = ["aria-label"], Ca = { class: "ui-stepper-pills-track" }, La = {
   key: 0,
   class: "ui-stepper-pills-label"
-}, Ia = { class: "flex w-full min-w-0 items-center justify-center" }, Aa = {
+}, Ta = { class: "flex w-full min-w-0 items-center justify-center" }, Ia = {
   key: 1,
   class: "ui-stepper-rail-spacer w-4 shrink-0",
   "aria-hidden": "true"
-}, za = {
+}, Aa = {
   key: 1,
   class: "tabular-nums"
-}, Ma = {
+}, za = {
   key: 3,
   class: "ui-stepper-rail-spacer w-4 shrink-0",
   "aria-hidden": "true"
-}, Pa = { class: "ui-stepper-title ui-stepper-title--horizontal" }, Va = {
+}, Ma = { class: "ui-stepper-title ui-stepper-title--horizontal" }, Pa = {
   key: 0,
   class: "ui-stepper-description ui-stepper-description--horizontal"
-}, Oa = { class: "flex flex-col items-center" }, Ea = {
+}, Va = { class: "flex flex-col items-center" }, Oa = {
   key: 1,
   class: "tabular-nums"
-}, Ra = { class: "ui-stepper-copy ui-stepper-copy--vertical min-w-0 flex-1" }, Ba = { class: "ui-stepper-title" }, Da = {
+}, Ea = { class: "ui-stepper-copy ui-stepper-copy--vertical min-w-0 flex-1" }, Ra = { class: "ui-stepper-title" }, Ba = {
   key: 0,
   class: "ui-stepper-description"
 };
-function Fa(e, t, r, n, a, i) {
+function Da(e, t, r, n, a, i) {
   const d = _("ui-icon");
   return l(), s("div", T({
     class: i.rootClass,
@@ -4023,7 +4038,7 @@ function Fa(e, t, r, n, a, i) {
     "aria-label": r.ariaLabel
   }, i.passthroughAttrs), [
     r.variant === "pills" ? (l(), s(I, { key: 0 }, [
-      c("div", La, [
+      c("div", Ca, [
         (l(!0), s(I, null, z(i.normalizedSteps, (u, o) => (l(), b(K(r.interactive ? "button" : "span"), T({
           key: o,
           class: ["ui-stepper-pill", i.pillClass(o)],
@@ -4034,18 +4049,18 @@ function Fa(e, t, r, n, a, i) {
           onClick: (h) => r.interactive ? i.go(o) : void 0
         }), null, 16, ["class", "aria-current", "aria-label", "onClick"]))), 128))
       ]),
-      r.showLabel ? (l(), s("p", Ta, m(i.pillsLabel), 1)) : f("", !0)
+      r.showLabel ? (l(), s("p", La, m(i.pillsLabel), 1)) : f("", !0)
     ], 64)) : r.direction === "horizontal" ? (l(!0), s(I, { key: 1 }, z(i.normalizedSteps, (u, o) => (l(), s("div", {
       key: o,
       class: "ui-stepper-item ui-stepper-item--horizontal flex min-w-0 flex-1 flex-col items-center text-center",
       role: "listitem"
     }, [
-      c("div", Ia, [
+      c("div", Ta, [
         o > 0 ? (l(), s("span", {
           key: 0,
           class: k(["ui-stepper-rail ui-stepper-rail--h", i.railBeforeClass(o)]),
           "aria-hidden": "true"
-        }, null, 2)) : (l(), s("span", Aa)),
+        }, null, 2)) : (l(), s("span", Ia)),
         (l(), b(K(r.interactive ? "button" : "div"), T({
           class: ["ui-stepper-indicator shrink-0", i.indicatorClass(o)],
           "aria-current": o === r.modelValue ? "step" : void 0,
@@ -4059,7 +4074,7 @@ function Fa(e, t, r, n, a, i) {
               name: u.icon,
               type: u.iconType || "light",
               size: "sm"
-            }, null, 8, ["name", "type"])) : (l(), s("span", za, m(o + 1), 1))
+            }, null, 8, ["name", "type"])) : (l(), s("span", Aa, m(o + 1), 1))
           ]),
           _: 2
         }, 1040, ["class", "aria-current", "aria-label", "onClick"])),
@@ -4067,16 +4082,16 @@ function Fa(e, t, r, n, a, i) {
           key: 2,
           class: k(["ui-stepper-rail ui-stepper-rail--h", i.railAfterClass(o)]),
           "aria-hidden": "true"
-        }, null, 2)) : (l(), s("span", Ma))
+        }, null, 2)) : (l(), s("span", za))
       ]),
-      c("p", Pa, m(u.title), 1),
-      u.description ? (l(), s("p", Va, m(u.description), 1)) : f("", !0)
+      c("p", Ma, m(u.title), 1),
+      u.description ? (l(), s("p", Pa, m(u.description), 1)) : f("", !0)
     ]))), 128)) : (l(!0), s(I, { key: 2 }, z(i.normalizedSteps, (u, o) => (l(), s("div", {
       key: o,
       class: "ui-stepper-item ui-stepper-item--vertical flex gap-3",
       role: "listitem"
     }, [
-      c("div", Oa, [
+      c("div", Va, [
         (l(), b(K(r.interactive ? "button" : "div"), T({
           class: ["ui-stepper-indicator shrink-0", i.indicatorClass(o)],
           "aria-current": o === r.modelValue ? "step" : void 0,
@@ -4090,7 +4105,7 @@ function Fa(e, t, r, n, a, i) {
               name: u.icon,
               type: u.iconType || "light",
               size: "sm"
-            }, null, 8, ["name", "type"])) : (l(), s("span", Ea, m(o + 1), 1))
+            }, null, 8, ["name", "type"])) : (l(), s("span", Oa, m(o + 1), 1))
           ]),
           _: 2
         }, 1040, ["class", "aria-current", "aria-label", "onClick"])),
@@ -4100,16 +4115,16 @@ function Fa(e, t, r, n, a, i) {
           "aria-hidden": "true"
         }, null, 2)) : f("", !0)
       ]),
-      c("div", Ra, [
-        c("p", Ba, m(u.title), 1),
-        u.description ? (l(), s("p", Da, m(u.description), 1)) : f("", !0)
+      c("div", Ea, [
+        c("p", Ra, m(u.title), 1),
+        u.description ? (l(), s("p", Ba, m(u.description), 1)) : f("", !0)
       ])
     ]))), 128))
-  ], 16, Ca);
+  ], 16, Sa);
 }
-const Na = /* @__PURE__ */ x(Sa, [["render", Fa]]);
+const Fa = /* @__PURE__ */ x(xa, [["render", Da]]);
 let Se = 0;
-const $a = {
+const Na = {
   name: "Slider",
   inheritAttrs: !1,
   props: {
@@ -4206,29 +4221,29 @@ const $a = {
       this.$emit("change", e);
     }
   }
-}, Ha = {
+}, $a = {
   key: 0,
   class: "ui-slider-header"
-}, Wa = {
+}, Ha = {
   key: 0,
   class: "ui-form-label"
-}, Ya = {
+}, Wa = {
   key: 1,
   class: "ui-slider-value"
-}, Ga = { class: "ui-slider-rail" }, Ua = ["id", "value", "min", "max", "step", "disabled", "aria-valuemin", "aria-valuemax", "aria-valuenow", "aria-valuetext", "aria-describedby"], Ka = {
+}, Ya = { class: "ui-slider-rail" }, Ga = ["id", "value", "min", "max", "step", "disabled", "aria-valuemin", "aria-valuemax", "aria-valuenow", "aria-valuetext", "aria-describedby"], Ua = {
   key: 1,
   class: "ui-slider-scale"
-}, ja = { key: 0 }, qa = { key: 1 };
-function Za(e, t, r, n, a, i) {
+}, Ka = { key: 0 }, ja = { key: 1 };
+function qa(e, t, r, n, a, i) {
   const d = _("ui-progress");
   return l(), s("div", {
     class: k(i.rootClass)
   }, [
-    r.label || i.hasValue ? (l(), s("div", Ha, [
-      r.label ? (l(), s("span", Wa, m(r.label), 1)) : f("", !0),
-      i.hasValue ? (l(), s("span", Ya, m(r.valueText), 1)) : f("", !0)
+    r.label || i.hasValue ? (l(), s("div", $a, [
+      r.label ? (l(), s("span", Ha, m(r.label), 1)) : f("", !0),
+      i.hasValue ? (l(), s("span", Wa, m(r.valueText), 1)) : f("", !0)
     ])) : f("", !0),
-    c("div", Ga, [
+    c("div", Ya, [
       w(d, {
         type: "bar",
         size: "md",
@@ -4252,17 +4267,17 @@ function Za(e, t, r, n, a, i) {
         "aria-describedby": r.ariaDescribedby,
         onInput: t[0] || (t[0] = (...u) => i.onNativeInput && i.onNativeInput(...u)),
         onChange: t[1] || (t[1] = (...u) => i.onChange && i.onChange(...u))
-      }), null, 16, Ua)
+      }), null, 16, Ga)
     ]),
-    r.minLabel || r.maxLabel ? (l(), s("div", Ka, [
-      r.minLabel ? (l(), s("span", ja, m(r.minLabel), 1)) : f("", !0),
-      r.maxLabel ? (l(), s("span", qa, m(r.maxLabel), 1)) : f("", !0)
+    r.minLabel || r.maxLabel ? (l(), s("div", Ua, [
+      r.minLabel ? (l(), s("span", Ka, m(r.minLabel), 1)) : f("", !0),
+      r.maxLabel ? (l(), s("span", ja, m(r.maxLabel), 1)) : f("", !0)
     ])) : f("", !0)
   ], 2);
 }
-const Qa = /* @__PURE__ */ x($a, [["render", Za]]);
+const Za = /* @__PURE__ */ x(Na, [["render", qa]]);
 let Ce = 0;
-const Xa = {
+const Qa = {
   name: "Switch",
   inheritAttrs: !1,
   props: {
@@ -4312,8 +4327,8 @@ const Xa = {
       this.$emit("update:modelValue", e), this.$emit("change", e);
     }
   }
-}, Ja = ["id", "aria-checked", "disabled", "aria-describedby"];
-function en(e, t, r, n, a, i) {
+}, Xa = ["id", "aria-checked", "disabled", "aria-describedby"];
+function Ja(e, t, r, n, a, i) {
   return l(), s("button", T({
     type: "button",
     role: "switch",
@@ -4338,9 +4353,9 @@ function en(e, t, r, n, a, i) {
         class: k(["ui-switch-thumb", r.modelValue ? "ui-switch-thumb--on" : ""])
       }, null, 2)
     ], 2)
-  ], 16, Ja);
+  ], 16, Xa);
 }
-const tn = /* @__PURE__ */ x(Xa, [["render", en]]), rn = {
+const en = /* @__PURE__ */ x(Qa, [["render", Ja]]), tn = {
   name: "Table",
   inheritAttrs: !1,
   computed: {
@@ -4352,23 +4367,23 @@ const tn = /* @__PURE__ */ x(Xa, [["render", en]]), rn = {
       return t;
     }
   }
-}, ln = { class: "ui-table-scroll" };
-function an(e, t, r, n, a, i) {
-  return l(), s("div", ln, [
+}, rn = { class: "ui-table-scroll" };
+function ln(e, t, r, n, a, i) {
+  return l(), s("div", rn, [
     c("table", T({ class: i.rootClass }, i.passthroughAttrs), [
       y(e.$slots, "default")
     ], 16)
   ]);
 }
-const nn = /* @__PURE__ */ x(rn, [["render", an]]), sn = {
+const an = /* @__PURE__ */ x(tn, [["render", ln]]), nn = {
   name: "TableBody"
-}, on = { class: "ui-table-body" };
-function un(e, t, r, n, a, i) {
-  return l(), s("tbody", on, [
+}, sn = { class: "ui-table-body" };
+function on(e, t, r, n, a, i) {
+  return l(), s("tbody", sn, [
     y(e.$slots, "default")
   ]);
 }
-const cn = /* @__PURE__ */ x(sn, [["render", un]]), dn = ["left", "center", "right"], hn = ["title", "secondary", "body"], fn = {
+const un = /* @__PURE__ */ x(nn, [["render", on]]), cn = ["left", "center", "right"], dn = ["title", "secondary", "body"], hn = {
   name: "TableCell",
   props: {
     colspan: {
@@ -4378,12 +4393,12 @@ const cn = /* @__PURE__ */ x(sn, [["render", un]]), dn = ["left", "center", "rig
     align: {
       type: String,
       default: "left",
-      validator: (e) => dn.includes(e)
+      validator: (e) => cn.includes(e)
     },
     tone: {
       type: String,
       default: "",
-      validator: (e) => e === "" || hn.includes(e)
+      validator: (e) => e === "" || dn.includes(e)
     },
     iconCol: {
       type: Boolean,
@@ -4409,22 +4424,22 @@ const cn = /* @__PURE__ */ x(sn, [["render", un]]), dn = ["left", "center", "rig
       );
     }
   }
-}, pn = ["colspan"];
-function mn(e, t, r, n, a, i) {
+}, fn = ["colspan"];
+function pn(e, t, r, n, a, i) {
   return l(), s("td", {
     colspan: r.colspan > 0 ? r.colspan : void 0,
     class: k(i.rootClass)
   }, [
     y(e.$slots, "default")
-  ], 10, pn);
+  ], 10, fn);
 }
-const gn = /* @__PURE__ */ x(fn, [["render", mn]]), bn = ["left", "center", "right"], yn = ["sm", "md", "lg"], vn = {
+const mn = /* @__PURE__ */ x(hn, [["render", pn]]), gn = ["left", "center", "right"], bn = ["sm", "md", "lg"], yn = {
   name: "TableHead",
   props: {
     align: {
       type: String,
       default: "left",
-      validator: (e) => bn.includes(e)
+      validator: (e) => gn.includes(e)
     },
     width: {
       type: String,
@@ -4449,12 +4464,12 @@ const gn = /* @__PURE__ */ x(fn, [["render", mn]]), bn = ["left", "center", "rig
       );
     },
     widthStyle() {
-      if (!(this.iconCol || yn.includes(this.width)) && this.width)
+      if (!(this.iconCol || bn.includes(this.width)) && this.width)
         return { width: this.width, minWidth: this.width };
     }
   }
 };
-function _n(e, t, r, n, a, i) {
+function vn(e, t, r, n, a, i) {
   return l(), s("th", {
     class: k(i.rootClass),
     style: E(i.widthStyle)
@@ -4462,7 +4477,7 @@ function _n(e, t, r, n, a, i) {
     y(e.$slots, "default")
   ], 6);
 }
-const kn = /* @__PURE__ */ x(vn, [["render", _n]]), wn = {
+const _n = /* @__PURE__ */ x(yn, [["render", vn]]), kn = {
   name: "TableHeader",
   props: {
     sticky: {
@@ -4476,14 +4491,14 @@ const kn = /* @__PURE__ */ x(vn, [["render", _n]]), wn = {
     }
   }
 };
-function xn(e, t, r, n, a, i) {
+function wn(e, t, r, n, a, i) {
   return l(), s("thead", {
     class: k(i.rootClass)
   }, [
     y(e.$slots, "default")
   ], 2);
 }
-const Sn = /* @__PURE__ */ x(wn, [["render", xn]]), Cn = {
+const xn = /* @__PURE__ */ x(kn, [["render", wn]]), Sn = {
   name: "TablePagination",
   props: {
     currentPage: {
@@ -4520,16 +4535,16 @@ const Sn = /* @__PURE__ */ x(wn, [["render", xn]]), Cn = {
       return this.currentPage < this.lastPage;
     }
   }
-}, Ln = { class: "ui-table-pagination" }, Tn = { class: "ui-table-pagination-meta" }, In = { class: "ui-table-pagination-nav" }, An = { class: "ui-table-pagination-page" };
-function zn(e, t, r, n, a, i) {
+}, Cn = { class: "ui-table-pagination" }, Ln = { class: "ui-table-pagination-meta" }, Tn = { class: "ui-table-pagination-nav" }, In = { class: "ui-table-pagination-page" };
+function An(e, t, r, n, a, i) {
   const d = _("ui-button");
-  return l(), s("div", Ln, [
-    c("div", Tn, [
+  return l(), s("div", Cn, [
+    c("div", Ln, [
       y(e.$slots, "meta", {}, () => [
         S(m(r.metaText), 1)
       ])
     ]),
-    c("div", In, [
+    c("div", Tn, [
       w(d, {
         type: "button",
         variant: "outline",
@@ -4541,7 +4556,7 @@ function zn(e, t, r, n, a, i) {
         "aria-label": r.prevAriaLabel,
         onClick: t[0] || (t[0] = (u) => e.$emit("prev"))
       }, null, 8, ["disabled", "aria-label"]),
-      c("div", An, m(r.pageLabel), 1),
+      c("div", In, m(r.pageLabel), 1),
       w(d, {
         type: "button",
         variant: "outline",
@@ -4556,13 +4571,13 @@ function zn(e, t, r, n, a, i) {
     ])
   ]);
 }
-const Mn = /* @__PURE__ */ x(Cn, [["render", zn]]), Pn = ["none", "soft", "strong"], Vn = {
+const zn = /* @__PURE__ */ x(Sn, [["render", An]]), Mn = ["none", "soft", "strong"], Pn = {
   name: "TableRow",
   props: {
     hover: {
       type: String,
       default: void 0,
-      validator: (e) => e == null || Pn.includes(e)
+      validator: (e) => e == null || Mn.includes(e)
     },
     clickable: {
       type: Boolean,
@@ -4592,14 +4607,14 @@ const Mn = /* @__PURE__ */ x(Cn, [["render", zn]]), Pn = ["none", "soft", "stron
     }
   }
 };
-function On(e, t, r, n, a, i) {
+function Vn(e, t, r, n, a, i) {
   return l(), s("tr", {
     class: k(i.rootClass)
   }, [
     y(e.$slots, "default")
   ], 2);
 }
-const En = /* @__PURE__ */ x(Vn, [["render", On]]), Rn = {
+const On = /* @__PURE__ */ x(Pn, [["render", Vn]]), En = {
   name: "TabPanel",
   inheritAttrs: !1,
   inject: {
@@ -4634,8 +4649,8 @@ const En = /* @__PURE__ */ x(Vn, [["render", On]]), Rn = {
   mounted() {
     !this.uiTabs && typeof import.meta < "u";
   }
-}, Bn = ["id", "aria-labelledby"];
-function Dn(e, t, r, n, a, i) {
+}, Rn = ["id", "aria-labelledby"];
+function Bn(e, t, r, n, a, i) {
   return Fe((l(), s("div", T({
     role: "tabpanel",
     id: i.panelDomId,
@@ -4643,15 +4658,15 @@ function Dn(e, t, r, n, a, i) {
     class: i.panelClass
   }, i.passthroughAttrs), [
     y(e.$slots, "default")
-  ], 16, Bn)), [
+  ], 16, Rn)), [
     [Ne, i.isActive]
   ]);
 }
-const Fn = /* @__PURE__ */ x(Rn, [["render", Dn]]), Nn = Ae("ui-timepicker"), re = 40;
+const Dn = /* @__PURE__ */ x(En, [["render", Bn]]), Fn = Ae("ui-timepicker"), re = 40;
 function $(e) {
   return String(e).padStart(2, "0");
 }
-const $n = {
+const Nn = {
   name: "TimePicker",
   inheritAttrs: !1,
   props: {
@@ -4693,7 +4708,7 @@ const $n = {
   emits: ["update:modelValue", "change"],
   data() {
     return {
-      fallbackId: Nn(),
+      fallbackId: Fn(),
       menuOpen: !1,
       draftHour: 0,
       draftMinute: 0,
@@ -4895,23 +4910,23 @@ const $n = {
       Math.abs(e.scrollTop - n) > 0.5 && (e.scrollTop = n), this.emitDraft();
     }
   }
-}, Hn = {
+}, $n = {
   key: 0,
   class: "ui-timepicker-panel w-full"
-}, Wn = { class: "ui-timepicker-wheels" }, Yn = { class: "ui-timepicker-wheels-row" }, Gn = ["aria-valuenow", "aria-label"], Un = {
+}, Hn = { class: "ui-timepicker-wheels" }, Wn = { class: "ui-timepicker-wheels-row" }, Yn = ["aria-valuenow", "aria-label"], Gn = {
   ref: "hourWheel",
   class: "ui-timepicker-wheel-viewport"
-}, Kn = { class: "ui-timepicker-wheel-spacer" }, jn = ["onClick"], qn = ["aria-valuenow", "aria-label"], Zn = {
+}, Un = { class: "ui-timepicker-wheel-spacer" }, Kn = ["onClick"], jn = ["aria-valuenow", "aria-label"], qn = {
   ref: "minuteWheel",
   class: "ui-timepicker-wheel-viewport"
-}, Qn = { class: "ui-timepicker-wheel-spacer" }, Xn = ["onClick"], Jn = { class: "min-w-0 flex-1 truncate text-foreground" }, es = { class: "ui-timepicker-panel w-full p-2" }, ts = { class: "ui-timepicker-wheels" }, is = { class: "ui-timepicker-wheels-row" }, rs = ["aria-valuenow", "aria-label"], ls = {
+}, Zn = { class: "ui-timepicker-wheel-spacer" }, Qn = ["onClick"], Xn = { class: "min-w-0 flex-1 truncate text-foreground" }, Jn = { class: "ui-timepicker-panel w-full p-2" }, es = { class: "ui-timepicker-wheels" }, ts = { class: "ui-timepicker-wheels-row" }, is = ["aria-valuenow", "aria-label"], rs = {
   ref: "hourWheel",
   class: "ui-timepicker-wheel-viewport"
-}, as = { class: "ui-timepicker-wheel-spacer" }, ns = ["onClick"], ss = ["aria-valuenow", "aria-label"], os = {
+}, ls = { class: "ui-timepicker-wheel-spacer" }, as = ["onClick"], ns = ["aria-valuenow", "aria-label"], ss = {
   ref: "minuteWheel",
   class: "ui-timepicker-wheel-viewport"
-}, us = { class: "ui-timepicker-wheel-spacer" }, cs = ["onClick"];
-function ds(e, t, r, n, a, i) {
+}, os = { class: "ui-timepicker-wheel-spacer" }, us = ["onClick"];
+function cs(e, t, r, n, a, i) {
   const d = _("ui-button"), u = _("ui-popover");
   return l(), s("div", {
     class: k([
@@ -4921,13 +4936,13 @@ function ds(e, t, r, n, a, i) {
       e.$attrs.class
     ])
   }, [
-    r.embedded ? (l(), s("div", Hn, [
-      c("div", Wn, [
+    r.embedded ? (l(), s("div", $n, [
+      c("div", Hn, [
         t[2] || (t[2] = c("div", {
           class: "ui-timepicker-selection-band",
           "aria-hidden": "true"
         }, null, -1)),
-        c("div", Yn, [
+        c("div", Wn, [
           c("div", {
             class: "min-h-0 min-w-0 flex-1",
             role: "spinbutton",
@@ -4936,8 +4951,8 @@ function ds(e, t, r, n, a, i) {
             "aria-valuemax": "23",
             "aria-label": i.hourAriaLabel
           }, [
-            c("div", Un, [
-              c("div", Kn, [
+            c("div", Gn, [
+              c("div", Un, [
                 (l(!0), s(I, null, z(i.hourOptions, (o) => (l(), s("button", {
                   key: "h-" + o,
                   type: "button",
@@ -4947,10 +4962,10 @@ function ds(e, t, r, n, a, i) {
                     o === a.draftHour ? "ui-timepicker-wheel-item--selected" : ""
                   ]),
                   onClick: (h) => i.selectHour(o)
-                }, m(i.pad2(o)), 11, jn))), 128))
+                }, m(i.pad2(o)), 11, Kn))), 128))
               ])
             ], 512)
-          ], 8, Gn),
+          ], 8, Yn),
           t[1] || (t[1] = c("span", {
             class: "ui-timepicker-colon",
             "aria-hidden": "true"
@@ -4963,8 +4978,8 @@ function ds(e, t, r, n, a, i) {
             "aria-valuemax": "59",
             "aria-label": i.minuteAriaLabel
           }, [
-            c("div", Zn, [
-              c("div", Qn, [
+            c("div", qn, [
+              c("div", Zn, [
                 (l(!0), s(I, null, z(i.minuteValues, (o, h) => (l(), s("button", {
                   key: "m-" + o,
                   type: "button",
@@ -4974,10 +4989,10 @@ function ds(e, t, r, n, a, i) {
                     o === a.draftMinute ? "ui-timepicker-wheel-item--selected" : ""
                   ]),
                   onClick: (p) => i.selectMinute(h)
-                }, m(i.pad2(o)), 11, Xn))), 128))
+                }, m(i.pad2(o)), 11, Qn))), 128))
               ])
             ], 512)
-          ], 8, qn)
+          ], 8, jn)
         ]),
         t[3] || (t[3] = c("div", {
           class: "ui-timepicker-wheels-fade ui-timepicker-wheels-fade--top",
@@ -5017,20 +5032,20 @@ function ds(e, t, r, n, a, i) {
             onClick: h
           }, {
             default: g(() => [
-              c("span", Jn, m(i.display), 1)
+              c("span", Xn, m(i.display), 1)
             ]),
             _: 1
           }, 8, ["id", "disabled", "aria-expanded", "onClick"])
         ])
       ]),
       content: g(() => [
-        c("div", es, [
-          c("div", ts, [
+        c("div", Jn, [
+          c("div", es, [
             t[6] || (t[6] = c("div", {
               class: "ui-timepicker-selection-band",
               "aria-hidden": "true"
             }, null, -1)),
-            c("div", is, [
+            c("div", ts, [
               c("div", {
                 class: "min-h-0 min-w-0 flex-1",
                 role: "spinbutton",
@@ -5039,8 +5054,8 @@ function ds(e, t, r, n, a, i) {
                 "aria-valuemax": "23",
                 "aria-label": i.hourAriaLabel
               }, [
-                c("div", ls, [
-                  c("div", as, [
+                c("div", rs, [
+                  c("div", ls, [
                     (l(!0), s(I, null, z(i.hourOptions, (o) => (l(), s("button", {
                       key: "h-" + o,
                       type: "button",
@@ -5050,10 +5065,10 @@ function ds(e, t, r, n, a, i) {
                         o === a.draftHour ? "ui-timepicker-wheel-item--selected" : ""
                       ]),
                       onClick: (h) => i.selectHour(o)
-                    }, m(i.pad2(o)), 11, ns))), 128))
+                    }, m(i.pad2(o)), 11, as))), 128))
                   ])
                 ], 512)
-              ], 8, rs),
+              ], 8, is),
               t[5] || (t[5] = c("span", {
                 class: "ui-timepicker-colon",
                 "aria-hidden": "true"
@@ -5066,8 +5081,8 @@ function ds(e, t, r, n, a, i) {
                 "aria-valuemax": "59",
                 "aria-label": i.minuteAriaLabel
               }, [
-                c("div", os, [
-                  c("div", us, [
+                c("div", ss, [
+                  c("div", os, [
                     (l(!0), s(I, null, z(i.minuteValues, (o, h) => (l(), s("button", {
                       key: "m-" + o,
                       type: "button",
@@ -5077,10 +5092,10 @@ function ds(e, t, r, n, a, i) {
                         o === a.draftMinute ? "ui-timepicker-wheel-item--selected" : ""
                       ]),
                       onClick: (p) => i.selectMinute(h)
-                    }, m(i.pad2(o)), 11, cs))), 128))
+                    }, m(i.pad2(o)), 11, us))), 128))
                   ])
                 ], 512)
-              ], 8, ss)
+              ], 8, ns)
             ]),
             t[7] || (t[7] = c("div", {
               class: "ui-timepicker-wheels-fade ui-timepicker-wheels-fade--top",
@@ -5097,12 +5112,12 @@ function ds(e, t, r, n, a, i) {
     }, 8, ["open", "width", "disabled"]))
   ], 2);
 }
-const Le = /* @__PURE__ */ x($n, [["render", ds]]), hs = ["square", "video", "auto"], fs = ["fill", "sm", "md", "lg"], Te = {
+const Le = /* @__PURE__ */ x(Nn, [["render", cs]]), ds = ["square", "video", "auto"], hs = ["fill", "sm", "md", "lg"], Te = {
   fill: "ui-photo--size-fill",
   sm: "ui-photo--size-sm",
   md: "ui-photo--size-md",
   lg: "ui-photo--size-lg"
-}, ps = {
+}, fs = {
   name: "Photo",
   inheritAttrs: !1,
   props: {
@@ -5121,12 +5136,12 @@ const Le = /* @__PURE__ */ x($n, [["render", ds]]), hs = ["square", "video", "au
     aspect: {
       type: String,
       default: "square",
-      validator: (e) => hs.includes(e)
+      validator: (e) => ds.includes(e)
     },
     size: {
       type: String,
       default: "fill",
-      validator: (e) => fs.includes(e)
+      validator: (e) => hs.includes(e)
     },
     interactive: {
       type: Boolean,
@@ -5257,18 +5272,18 @@ const Le = /* @__PURE__ */ x($n, [["render", ds]]), hs = ["square", "video", "au
       e.key === "Escape" ? (e.preventDefault(), this.closePreview()) : e.key === "ArrowLeft" ? (e.preventDefault(), this.goPrev()) : e.key === "ArrowRight" && (e.preventDefault(), this.goNext());
     }
   }
-}, ms = ["src", "alt"], gs = ["aria-hidden"], bs = {
+}, ps = ["src", "alt"], ms = ["aria-hidden"], gs = {
   key: 2,
   class: "ui-photo__favorite",
   "aria-hidden": "true"
-}, ys = {
+}, bs = {
   key: 3,
   class: "ui-photo__overflow"
-}, vs = ["aria-label"], _s = ["aria-label"], ks = { class: "ui-photo-preview__panel" }, ws = ["src", "alt"], xs = {
+}, ys = ["aria-label"], vs = ["aria-label"], _s = { class: "ui-photo-preview__panel" }, ks = ["src", "alt"], ws = {
   key: 3,
   class: "ui-photo-preview__counter"
 };
-function Ss(e, t, r, n, a, i) {
+function xs(e, t, r, n, a, i) {
   const d = _("ui-icon"), u = _("ui-button");
   return l(), s(I, null, [
     (l(), b(K(i.rootTag), T({
@@ -5284,7 +5299,7 @@ function Ss(e, t, r, n, a, i) {
           loading: "lazy",
           decoding: "async",
           onError: t[0] || (t[0] = (o) => a.imageFailed = !0)
-        }, null, 40, ms)) : (l(), s("span", {
+        }, null, 40, ps)) : (l(), s("span", {
           key: 1,
           class: "ui-photo__empty",
           "aria-hidden": r.interactive ? "true" : void 0
@@ -5294,15 +5309,15 @@ function Ss(e, t, r, n, a, i) {
             type: "light",
             class: "ui-photo__empty-icon"
           })
-        ], 8, gs)),
-        r.favorite ? (l(), s("span", bs, [
+        ], 8, ms)),
+        r.favorite ? (l(), s("span", gs, [
           w(d, {
             name: "star",
             type: "light",
             size: "xs"
           })
         ])) : f("", !0),
-        r.overflowLabel ? (l(), s("span", ys, m(r.overflowLabel), 1)) : f("", !0)
+        r.overflowLabel ? (l(), s("span", bs, m(r.overflowLabel), 1)) : f("", !0)
       ]),
       _: 1
     }, 16, ["type", "class", "onClick"])),
@@ -5325,8 +5340,8 @@ function Ss(e, t, r, n, a, i) {
               class: "ui-photo-preview__backdrop",
               "aria-label": i.closeLabel,
               onClick: t[1] || (t[1] = (...o) => i.closePreview && i.closePreview(...o))
-            }, null, 8, _s),
-            c("div", ks, [
+            }, null, 8, vs),
+            c("div", _s, [
               w(u, {
                 type: "button",
                 variant: "solid",
@@ -5353,7 +5368,7 @@ function Ss(e, t, r, n, a, i) {
                 src: i.activeSrc,
                 alt: i.activeAlt,
                 class: "ui-photo-preview__img"
-              }, null, 8, ws)) : f("", !0),
+              }, null, 8, ks)) : f("", !0),
               i.showNext ? (l(), b(u, {
                 key: 2,
                 type: "button",
@@ -5365,16 +5380,16 @@ function Ss(e, t, r, n, a, i) {
                 "aria-label": i.nextLabel,
                 onClick: P(i.goNext, ["stop"])
               }, null, 8, ["aria-label", "onClick"])) : f("", !0),
-              i.counterLabel ? (l(), s("p", xs, m(i.counterLabel), 1)) : f("", !0)
+              i.counterLabel ? (l(), s("p", ws, m(i.counterLabel), 1)) : f("", !0)
             ])
-          ], 40, vs)) : f("", !0)
+          ], 40, ys)) : f("", !0)
         ]),
         _: 1
       })
     ]))
   ], 64);
 }
-const Cs = /* @__PURE__ */ x(ps, [["render", Ss]]), Ls = ["square", "video", "auto"], Ts = {
+const Ss = /* @__PURE__ */ x(fs, [["render", xs]]), Cs = ["square", "video", "auto"], Ls = {
   name: "Photos",
   props: {
     items: {
@@ -5388,7 +5403,7 @@ const Cs = /* @__PURE__ */ x(ps, [["render", Ss]]), Ls = ["square", "video", "au
     aspect: {
       type: String,
       default: "square",
-      validator: (e) => Ls.includes(e)
+      validator: (e) => Cs.includes(e)
     },
     preview: {
       type: Boolean,
@@ -5493,11 +5508,11 @@ const Cs = /* @__PURE__ */ x(ps, [["render", Ss]]), Ls = ["square", "video", "au
       e.key === "Escape" ? (e.preventDefault(), this.closePreview()) : e.key === "ArrowLeft" ? (e.preventDefault(), this.goPrev()) : e.key === "ArrowRight" && (e.preventDefault(), this.goNext());
     }
   }
-}, Is = ["data-count"], As = ["aria-label"], zs = ["aria-label"], Ms = { class: "ui-photo-preview__panel" }, Ps = ["src", "alt"], Vs = {
+}, Ts = ["data-count"], Is = ["aria-label"], As = ["aria-label"], zs = { class: "ui-photo-preview__panel" }, Ms = ["src", "alt"], Ps = {
   key: 3,
   class: "ui-photo-preview__counter"
 };
-function Os(e, t, r, n, a, i) {
+function Vs(e, t, r, n, a, i) {
   const d = _("ui-photo"), u = _("ui-button");
   return l(), s(I, null, [
     c("div", {
@@ -5516,7 +5531,7 @@ function Os(e, t, r, n, a, i) {
         "aria-label": o.alt || void 0,
         onOpenPreview: i.openPreviewAt
       }, null, 8, ["src", "alt", "favorite", "aspect", "preview", "gallery-index", "overflow-label", "aria-label", "onOpenPreview"]))), 128))
-    ], 10, Is),
+    ], 10, Ts),
     (l(), b(Q, { to: "body" }, [
       w(X, {
         name: "ui-photo-preview",
@@ -5536,8 +5551,8 @@ function Os(e, t, r, n, a, i) {
               class: "ui-photo-preview__backdrop",
               "aria-label": i.closeLabel,
               onClick: t[0] || (t[0] = (...o) => i.closePreview && i.closePreview(...o))
-            }, null, 8, zs),
-            c("div", Ms, [
+            }, null, 8, As),
+            c("div", zs, [
               w(u, {
                 type: "button",
                 variant: "solid",
@@ -5564,7 +5579,7 @@ function Os(e, t, r, n, a, i) {
                 src: i.activeSrc,
                 alt: i.activeAlt,
                 class: "ui-photo-preview__img"
-              }, null, 8, Ps)) : f("", !0),
+              }, null, 8, Ms)) : f("", !0),
               i.showNext ? (l(), b(u, {
                 key: 2,
                 type: "button",
@@ -5576,20 +5591,20 @@ function Os(e, t, r, n, a, i) {
                 "aria-label": i.nextLabel,
                 onClick: P(i.goNext, ["stop"])
               }, null, 8, ["aria-label", "onClick"])) : f("", !0),
-              i.counterLabel ? (l(), s("p", Vs, m(i.counterLabel), 1)) : f("", !0)
+              i.counterLabel ? (l(), s("p", Ps, m(i.counterLabel), 1)) : f("", !0)
             ])
-          ], 40, As)) : f("", !0)
+          ], 40, Is)) : f("", !0)
         ]),
         _: 1
       })
     ]))
   ], 64);
 }
-const Es = /* @__PURE__ */ x(Ts, [["render", Os]]);
+const Os = /* @__PURE__ */ x(Ls, [["render", Vs]]);
 function U(e) {
   return e == null ? {} : typeof e == "string" ? { title: e } : typeof e == "object" ? e : {};
 }
-function $s() {
+function Ns() {
   return {
     push: N,
     dismiss: Ue,
@@ -5600,7 +5615,7 @@ function $s() {
     error: (e) => N({ ...U(e), variant: "error" })
   };
 }
-function Hs(e = !1) {
+function $s(e = !1) {
   return se({
     open: !!e,
     show() {
@@ -5614,7 +5629,7 @@ function Hs(e = !1) {
     }
   });
 }
-function Ws() {
+function Hs() {
   return {
     confirm: wi
   };
@@ -5623,10 +5638,10 @@ const ne = {
   en: je,
   tr: ze
 };
-function Ys(e = "tr") {
+function Ws(e = "tr") {
   return ne[e] ?? ne.tr;
 }
-const Gs = ze, Rs = [
+const Ys = ze, Es = [
   ["ui-action-card", Mt],
   ["ui-action-card-list", Et],
   ["ui-action-group", qe],
@@ -5666,37 +5681,37 @@ const Gs = ze, Rs = [
   ["ui-radio", ht],
   ["ui-radio-group", ft],
   ["ui-select", pt],
-  ["ui-sheet", ia],
-  ["ui-menu", ua],
-  ["ui-menu-group", pa],
-  ["ui-menu-item", ba],
-  ["ui-menu-nav", ka],
+  ["ui-sheet", ta],
+  ["ui-menu", oa],
+  ["ui-menu-group", fa],
+  ["ui-menu-item", ga],
+  ["ui-menu-nav", _a],
   ["ui-segment", mt],
   ["ui-segment-group", gt],
   ["ui-skeleton", bt],
-  ["ui-slider", Qa],
-  ["ui-stepper", Na],
-  ["ui-switch", tn],
-  ["ui-table", nn],
-  ["ui-table-body", cn],
-  ["ui-table-cell", gn],
-  ["ui-table-head", kn],
-  ["ui-table-header", Sn],
-  ["ui-table-pagination", Mn],
-  ["ui-table-row", En],
+  ["ui-slider", Za],
+  ["ui-stepper", Fa],
+  ["ui-switch", en],
+  ["ui-table", an],
+  ["ui-table-body", un],
+  ["ui-table-cell", mn],
+  ["ui-table-head", _n],
+  ["ui-table-header", xn],
+  ["ui-table-pagination", zn],
+  ["ui-table-row", On],
   ["ui-tag", yt],
   ["ui-tab-list", vt],
-  ["ui-tab-panel", Fn],
+  ["ui-tab-panel", Dn],
   ["ui-tabs", _t],
   ["ui-tab-trigger", kt],
   ["ui-time-picker", Le],
   ["ui-timepicker", Le],
   ["ui-tooltip", wt],
   ["ui-toast", xt],
-  ["ui-photo", Cs],
-  ["ui-photos", Es]
+  ["ui-photo", Ss],
+  ["ui-photos", Os]
 ];
-function Bs(e, t = {}) {
+function Rs(e, t = {}) {
   var u, o;
   const { i18n: r, locale: n, locales: a, theme: i, priceInput: d } = t;
   if (i && Ke(i), d && fl(d), (u = r == null ? void 0 : r.global) != null && u.mergeLocaleMessage) {
@@ -5708,11 +5723,11 @@ function Bs(e, t = {}) {
       v && r.global.mergeLocaleMessage(p, v);
     }
   }
-  for (const [h, p] of Rs)
+  for (const [h, p] of Es)
     e.component(h, p);
 }
-const Us = {
-  install: Bs
+const Gs = {
+  install: Rs
 };
 export {
   Mt as ActionCard,
@@ -5735,30 +5750,30 @@ export {
   Ie as Divider,
   rt as Dropdown,
   lt as Empty,
-  qs as FEW_COLOR_SCALE,
-  Zs as FEW_PALETTE_ID,
-  Qs as FEW_PRIMARY,
-  Xs as FEW_PRIMARY_FOREGROUND,
+  js as FEW_COLOR_SCALE,
+  qs as FEW_PALETTE_ID,
+  Zs as FEW_PRIMARY,
+  Qs as FEW_PRIMARY_FOREGROUND,
   qi as Field,
   or as FieldAction,
   _r as File,
   at as FormRow,
-  Js as GOOGLE_FONTS_CATALOG,
+  Xs as GOOGLE_FONTS_CATALOG,
   qr as Guidance,
   nt as Icon,
   cl as IconPicker,
   st as Input,
   ut as List,
   ct as ListItem,
-  ua as Menu,
-  pa as MenuGroup,
-  ba as MenuItem,
-  ka as MenuNav,
+  oa as Menu,
+  fa as MenuGroup,
+  ga as MenuItem,
+  _a as MenuNav,
   dl as PRICE_FORMATS,
   Sl as Password,
   ot as Phone,
-  Cs as Photo,
-  Es as Photos,
+  Ss as Photo,
+  Os as Photos,
   zl as Pin,
   dt as Popover,
   bl as PriceInput,
@@ -5768,70 +5783,70 @@ export {
   mt as Segment,
   gt as SegmentGroup,
   pt as Select,
-  ia as Sheet,
+  ta as Sheet,
   bt as Skeleton,
-  Qa as Slider,
-  Na as Stepper,
-  tn as Switch,
-  eo as THEME_CUSTOM_CSS_ID,
-  to as THEME_PRESETS,
-  io as THEME_PRESET_IDS,
+  Za as Slider,
+  Fa as Stepper,
+  en as Switch,
+  Js as THEME_CUSTOM_CSS_ID,
+  eo as THEME_PRESETS,
+  to as THEME_PRESET_IDS,
   vt as TabList,
-  Fn as TabPanel,
+  Dn as TabPanel,
   kt as TabTrigger,
-  nn as Table,
-  cn as TableBody,
-  gn as TableCell,
-  kn as TableHead,
-  Sn as TableHeader,
-  Mn as TablePagination,
-  En as TableRow,
+  an as Table,
+  un as TableBody,
+  mn as TableCell,
+  _n as TableHead,
+  xn as TableHeader,
+  zn as TablePagination,
+  On as TableRow,
   _t as Tabs,
   yt as Tag,
   Le as TimePicker,
   xt as Toast,
   wt as Tooltip,
-  ro as applyGoogleFontsForTheme,
-  lo as applyThemeCustomCss,
+  io as applyGoogleFontsForTheme,
+  ro as applyThemeCustomCss,
   Ke as applyUiTheme,
-  ao as buildGoogleFontsLinkTag,
-  no as buildGoogleFontsStylesheetUrl,
-  so as buildThemeStyleAttr,
-  oo as clearThemeCustomCss,
+  lo as buildGoogleFontsLinkTag,
+  ao as buildGoogleFontsStylesheetUrl,
+  no as buildThemeStyleAttr,
+  so as clearThemeCustomCss,
   Ge as clearToasts,
-  uo as createUiId,
+  oo as createUiId,
   Ae as createUiIdFactory,
-  Us as default,
-  co as deriveBrandColorsFromPrimary,
+  Gs as default,
+  uo as deriveBrandColorsFromPrimary,
   Ue as dismissToast,
-  Ns as formatCurrencyAmount,
+  Fs as formatCurrencyAmount,
   li as formatMoneyInput,
   Me as getCurrencySymbol,
-  ho as getFewPrimaryColors,
+  co as getFewPrimaryColors,
   Ve as getMoneySeparators,
   pl as getPriceInputConfig,
-  fo as getThemePreset,
-  Ys as getUiMessages,
-  po as googleFontSelectOptions,
-  mo as mergeUiTheme,
+  ho as getThemePreset,
+  Ws as getUiMessages,
+  fo as googleFontSelectOptions,
+  po as mergeUiTheme,
   ri as parseLocalizedMoneyInput,
   Ye as pickPassthroughAttrs,
   N as pushToast,
   wi as requestConfirm,
-  go as resetUiIds,
-  bo as resolveControlSize,
+  mo as resetUiIds,
+  go as resolveControlSize,
   J as resolveCurrencyCode,
-  yo as resolvePrimaryColor,
-  vo as resolveThemeFontFamilies,
-  _o as resolveThemePreset,
-  ko as resolveThemeVars,
+  bo as resolvePrimaryColor,
+  yo as resolveThemeFontFamilies,
+  vo as resolveThemePreset,
+  _o as resolveThemeVars,
   M as resolveUiText,
   Pe as sanitizeMoneyInput,
   fl as setPriceInputConfig,
-  Gs as uiMessagesTr,
-  Ws as useConfirm,
-  Hs as useDialog,
-  $s as useToast,
-  wo as withDerivedBrandColors
+  Ys as uiMessagesTr,
+  Hs as useConfirm,
+  $s as useDialog,
+  Ns as useToast,
+  ko as withDerivedBrandColors
 };
 //# sourceMappingURL=index.js.map

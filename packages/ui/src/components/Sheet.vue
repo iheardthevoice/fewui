@@ -119,6 +119,7 @@
           <div
             v-if="$slots.footer"
             class="ui-card-footer"
+            :class="{ 'ui-sheet-footer--borderless': !footerBorder }"
           >
             <slot name="footer" />
           </div>
@@ -225,6 +226,20 @@ export default {
       type: Boolean,
       default: false,
     },
+    /**
+     * Footer üst kenar çizgisi — `false` ile border-t kalkar.
+     */
+    footerBorder: {
+      type: Boolean,
+      default: true,
+    },
+    /**
+     * Dar viewport’ta (`max-width: 767px`) panel tam genişlik.
+     */
+    fullOnMobile: {
+      type: Boolean,
+      default: false,
+    },
     ariaLabel: {
       type: String,
       default: '',
@@ -295,6 +310,7 @@ export default {
         this.sizeClass,
         this.side === 'left' ? 'ui-sheet-panel--left' : 'ui-sheet-panel--right',
         this.bodyLayout === 'flex' ? 'ui-sheet-panel--body-flex' : '',
+        this.fullOnMobile ? 'ui-sheet-panel--full-mobile' : '',
         this.$attrs.class,
       )
     },

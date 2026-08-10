@@ -91,6 +91,7 @@ const PLACEMENTS = [
   'left-end',
   'top-start',
   'top-end',
+  'top',
 ]
 
 /** Görünüm kenarı ile panel arası minimum boşluk (px) */
@@ -373,6 +374,10 @@ export default {
         case 'top-end':
           top = r.top - margin - panelH
           left = r.right - panelW
+          break
+        case 'top':
+          top = r.top - margin - panelH
+          left = r.left + (r.width - panelW) / 2
           break
         case 'bottom-end':
           top = r.bottom + margin
