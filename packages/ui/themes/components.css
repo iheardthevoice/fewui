@@ -2748,11 +2748,11 @@
   }
 
   .ui-tabs--segmented-sm .ui-tab-trigger--segmented {
-    @apply gap-0.5 px-2 py-1;
+    @apply gap-0 px-2 py-1;
   }
 
   .ui-tabs--segmented-sm .ui-tab-trigger--segmented .ui-tab-trigger-label {
-    @apply text-[11px] leading-tight;
+    @apply text-[11px] leading-none;
   }
 
   .ui-tabs--segmented-sm .ui-tab-trigger-badge {
@@ -2764,15 +2764,15 @@
   }
 
   .ui-tabs--segmented-lg .ui-tab-trigger--segmented {
-    @apply gap-1.5 px-4 py-2;
+    @apply gap-0.5 px-4 py-2;
   }
 
   .ui-tabs--segmented-lg .ui-tab-trigger--segmented .ui-tab-trigger-label {
-    @apply text-xs leading-snug;
+    @apply text-xs leading-none;
   }
 
   .ui-tab-trigger--segmented {
-    @apply relative flex min-h-0 min-w-0 cursor-pointer select-none flex-col items-center justify-center gap-1 rounded-full border-0 bg-transparent px-2 py-1.5 outline-none transition-[color,background-color,box-shadow] duration-200 ease-out;
+    @apply relative flex min-h-0 min-w-0 cursor-pointer select-none flex-col items-center justify-center gap-0 rounded-full border-0 bg-transparent px-2 py-1.5 outline-none transition-[color,background-color,box-shadow] duration-200 ease-out;
   }
 
   .ui-tab-trigger-badge {
@@ -2780,7 +2780,7 @@
   }
 
   .ui-tab-trigger--segmented .ui-tab-trigger-icon {
-    @apply shrink-0 [&_.ui-icon]:leading-none;
+    @apply inline-flex shrink-0 items-center justify-center leading-none [&_.ui-icon]:leading-none;
   }
 
   .ui-tab-trigger--segmented:not(.ui-tab-trigger--segmented-selected):not(:disabled) .ui-tab-trigger-icon .ui-icon {
@@ -2792,7 +2792,7 @@
   }
 
   .ui-tab-trigger--segmented .ui-tab-trigger-label {
-    @apply min-w-0 max-w-none whitespace-nowrap text-center text-[11px] font-medium leading-tight tracking-tight text-base-600;
+    @apply min-w-0 max-w-none whitespace-nowrap text-center text-[11px] font-medium leading-none tracking-tight text-base-600;
   }
 
   .dark .ui-tab-trigger--segmented .ui-tab-trigger-label {
