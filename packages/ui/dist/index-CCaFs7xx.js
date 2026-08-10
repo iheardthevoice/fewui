@@ -124,10 +124,13 @@ const Ra = /* @__PURE__ */ w(xt, [["render", Tt]]), It = ["info", "success", "wa
       type: Boolean,
       default: !1
     },
-    /** Dialog / dar alan: kompakt, kart köşesi, bordersız. */
+    /**
+     * Dialog / form / sayfa çağrı kutusu (varsayılan).
+     * Bordersız, kompakt, `rounded-3xl` — banner ile birlikte kullanılmaz.
+     */
     soft: {
       type: Boolean,
-      default: !1
+      default: !0
     }
   },
   emits: ["dismiss"],
@@ -145,7 +148,7 @@ const Ra = /* @__PURE__ */ w(xt, [["render", Tt]]), It = ["info", "success", "wa
       return C(
         `ui-alert ui-alert--${this.variant}`,
         this.banner ? "ui-alert--banner" : "",
-        this.soft ? "ui-alert--soft" : "",
+        this.soft && !this.banner ? "ui-alert--soft" : "",
         this.$attrs.class
       );
     },
@@ -6275,4 +6278,4 @@ export {
   cl as y,
   Je as z
 };
-//# sourceMappingURL=index-J7P7EZTT.js.map
+//# sourceMappingURL=index-CCaFs7xx.js.map

@@ -107,10 +107,13 @@ export default {
       type: Boolean,
       default: false,
     },
-    /** Dialog / dar alan: kompakt, kart köşesi, bordersız. */
+    /**
+     * Dialog / form / sayfa çağrı kutusu (varsayılan).
+     * Bordersız, kompakt, `rounded-3xl` — banner ile birlikte kullanılmaz.
+     */
     soft: {
       type: Boolean,
-      default: false,
+      default: true,
     },
   },
   emits: ['dismiss'],
@@ -128,7 +131,7 @@ export default {
       return cn(
         `ui-alert ui-alert--${this.variant}`,
         this.banner ? 'ui-alert--banner' : '',
-        this.soft ? 'ui-alert--soft' : '',
+        this.soft && !this.banner ? 'ui-alert--soft' : '',
         this.$attrs.class,
       )
     },

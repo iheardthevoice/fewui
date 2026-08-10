@@ -3384,6 +3384,21 @@
     @apply p-0 text-xs leading-4 text-muted-foreground;
   }
 
+  .ui-alert--soft.ui-alert--error .ui-alert-slot {
+    @apply text-foreground;
+  }
+
+  /** Slot içi hata/satır listeleri — madde imi yok; Event soft alert ile aynı dil. */
+  .ui-alert-slot ul,
+  .ui-alert-lines {
+    @apply m-0 list-none space-y-1 p-0;
+  }
+
+  .ui-alert-slot li,
+  .ui-alert-lines > li {
+    @apply m-0 p-0;
+  }
+
   /**
    * Toast — `ui-surface` ile aynı kart gölgesi; hap şekil; yüzey üzerinde yüzen bildirim (blur yok = tema bütünlüğü).
    */
