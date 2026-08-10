@@ -107,7 +107,7 @@ export default {
       type: Boolean,
       default: false,
     },
-    /** Sidebar / dar alan: kompakt, daha yuvarlak, bordersız. */
+    /** Dialog / dar alan: kompakt, kart köşesi, bordersız. */
     soft: {
       type: Boolean,
       default: false,

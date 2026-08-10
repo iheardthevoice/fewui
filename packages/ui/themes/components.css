@@ -498,6 +498,39 @@
     @apply box-border h-11 min-h-11 rounded-lg px-4 py-0 text-base leading-6;
   }
 
+  /** `ui-button cubed` — TW utility purge’a bağlı kalmadan kare + daire */
+  .ui-control-cubed-sm,
+  .ui-control-cubed-md,
+  .ui-control-cubed-lg {
+    box-sizing: border-box;
+    aspect-ratio: 1 / 1;
+    flex-shrink: 0;
+    padding: 0;
+    min-height: 0;
+    border-radius: 9999px;
+  }
+
+  .ui-control-cubed-sm {
+    width: 2rem;
+    height: 2rem;
+    font-size: 0.75rem;
+    line-height: 1rem;
+  }
+
+  .ui-control-cubed-md {
+    width: 2.25rem;
+    height: 2.25rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+
+  .ui-control-cubed-lg {
+    width: 2.75rem;
+    height: 2.75rem;
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
   /** Tek satır input / textarea kabuğu — referans: 36px yükseklik, `rounded-lg` (`--radius`), 14/20 metin */
   .ui-input {
     @apply ui-field-control-fill box-border flex h-9 min-h-9 w-full min-w-0 cursor-text items-center gap-2 rounded-lg px-3 py-1 transition-colors transition-shadow duration-200 ease-out;
@@ -607,11 +640,12 @@
 
   /** Pin / OTP — hane kutuları (konteyner genişliğine yayılır, kare oran korunur) */
   .ui-pin {
-    @apply flex w-full min-w-0 items-stretch gap-1.5 sm:gap-2;
+    @apply flex w-full min-w-0 items-center justify-center gap-1.5 sm:gap-2;
   }
 
   .ui-pin-cell {
-    @apply ui-field-control-fill box-border min-h-10 min-w-0 flex-1 aspect-square rounded-lg text-center text-base font-medium tracking-[0.15em] outline-none transition-colors transition-shadow duration-200 ease-out sm:min-h-11 sm:text-lg sm:tracking-[0.2em];
+    @apply ui-field-control-fill box-border h-11 w-11 shrink-0 rounded-lg text-center text-base font-medium tracking-[0.15em] outline-none transition-colors transition-shadow duration-200 ease-out sm:h-12 sm:w-12 sm:text-lg sm:tracking-[0.2em];
+    border-color: color-mix(in oklab, var(--foreground) 14%, transparent);
   }
 
   .ui-pin-cell:focus-visible {
@@ -2041,20 +2075,27 @@
   }
 
   /**
-   * Select tetikleyici — dolgu yalnızca `field` varyantında.
+   * Select / ColorPicker / IconPicker tetikleyici — dolgu `field` varyantında.
    * `inline` (Phone prepend vb.) asla `ui-field-control-fill` almaz;
    * aksi halde input-background + backdrop-blur ülke kodunun arkasında kutu bırakır.
+   * ColorPicker ve IconPicker `ui-select-field` kullanır ama `.ui-select` içinde değildir.
    */
   .ui-select-field {
     @apply relative m-0 box-border flex h-9 min-h-9 w-full min-w-0 cursor-pointer items-center gap-2 appearance-none rounded-lg py-1 pl-3 pr-3 text-left outline-none transition-shadow;
   }
 
-  .ui-select:not(.ui-select--inline) .ui-select-field {
+  .ui-select:not(.ui-select--inline) .ui-select-field,
+  .ui-color-picker .ui-select-field,
+  .ui-icon-picker .ui-select-field {
     @apply ui-field-control-fill;
   }
 
   .ui-select:not(.ui-select--inline) .ui-select-field[aria-expanded='true'],
-  .ui-select:not(.ui-select--inline) .ui-select-field:focus-visible {
+  .ui-select:not(.ui-select--inline) .ui-select-field:focus-visible,
+  .ui-color-picker .ui-select-field[aria-expanded='true'],
+  .ui-color-picker .ui-select-field:focus-visible,
+  .ui-icon-picker .ui-select-field[aria-expanded='true'],
+  .ui-icon-picker .ui-select-field:focus-visible {
     @apply ui-field-control-focus;
   }
 
@@ -3233,7 +3274,7 @@
 
   /** Alert — kart yüzeyinden hafif tonlu çağrı kutusu (`rounded-lg` = `--radius`; gölgésiz, liste gap-3) */
   .ui-alert {
-    @apply flex items-start gap-3 rounded-2xl border border-border p-4 text-sm leading-5 text-foreground subpixel-antialiased;
+    @apply flex items-start gap-3 rounded-3xl border border-border p-4 text-sm leading-5 text-foreground subpixel-antialiased;
   }
 
   .ui-alert--info {
@@ -3318,13 +3359,13 @@
     @apply shrink-0 p-0;
   }
 
-  /** Dar alan / kart içi — kompakt tipografi, bordersız, yumuşak köşe. */
+  /** Dar alan / dialog içi — kompakt, bordersız, kart ile aynı köşe. */
   .ui-alert--soft {
-    @apply gap-2.5 rounded-2xl border-0 p-3 text-xs leading-4;
+    @apply items-center gap-2.5 rounded-3xl border-0 px-3 py-2.5 text-xs leading-4;
   }
 
   .ui-alert--soft .ui-alert-icon {
-    @apply mt-0 size-6 rounded-xl;
+    @apply mt-0 size-6 rounded-full;
   }
 
   .ui-alert--soft .ui-alert-body {
@@ -3340,7 +3381,7 @@
   }
 
   .ui-alert--soft .ui-alert-slot {
-    @apply pt-1 text-xs leading-4;
+    @apply p-0 text-xs leading-4 text-muted-foreground;
   }
 
   /**
@@ -3684,8 +3725,19 @@
     @apply w-full shrink-0;
   }
 
+  /**
+   * Dialog kapat — boyut/radius CSS’te sabit (landing gibi TW content scan
+   * olmayan tüketicilerde Button `cubed` utility sınıfları üretilmeyebilir).
+   */
   .ui-dialog-panel .ui-dialog-header__close {
-    @apply shrink-0;
+    box-sizing: border-box;
+    width: 2rem;
+    height: 2rem;
+    min-width: 2rem;
+    min-height: 2rem;
+    padding: 0;
+    flex-shrink: 0;
+    border-radius: 9999px;
   }
 
   .ui-dialog-panel .ui-dialog-header__description {

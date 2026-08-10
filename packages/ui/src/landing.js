@@ -14,6 +14,7 @@ import Input from './components/Input.vue'
 import List from './components/List.vue'
 import ListItem from './components/ListItem.vue'
 import Phone from './components/Phone.vue'
+import Pin from './components/Pin.vue'
 import Popover from './components/Popover.vue'
 import Radio from './components/Radio.vue'
 import RadioGroup from './components/RadioGroup.vue'
@@ -83,6 +84,7 @@ const GLOBAL_COMPONENTS = [
   ['ui-list', List],
   ['ui-list-item', ListItem],
   ['ui-phone', Phone],
+  ['ui-pin', Pin],
   ['ui-popover', Popover],
   ['ui-radio', Radio],
   ['ui-radio-group', RadioGroup],

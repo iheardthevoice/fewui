@@ -244,11 +244,11 @@ const sizeClasses = {
   lg: 'ui-control-h-lg',
 }
 
-/** `cubed` + ikon/kısa metin: kare kutular; `size` ile `ui-control-h-*` ölçüleri hizalanır */
+/** `cubed` + ikon/kısa metin: kare kutular; ölçü `themes/components.css` `.ui-control-cubed-*` */
 const cubedSizeClasses = {
-  sm: 'aspect-square size-8 shrink-0 p-0 !min-h-0 text-xs leading-4',
-  md: 'aspect-square size-9 shrink-0 p-0 !min-h-0 text-sm leading-5',
-  lg: 'aspect-square size-11 shrink-0 p-0 !min-h-0 text-base leading-6',
+  sm: 'ui-control-cubed-sm aspect-square',
+  md: 'ui-control-cubed-md aspect-square',
+  lg: 'ui-control-cubed-lg aspect-square',
 }
 
 /** İkon üstte, etiket altta — satır yüksekliğine (segment tab) uzanır, daire kalır */

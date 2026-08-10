@@ -9,7 +9,7 @@ const FIELD_SELECTOR = [
 /** Select / benzeri tetikleyiciler — gövdede metin alanı yoksa */
 const FIELD_FALLBACK_SELECTOR = [
   'button.ui-select-field:not([disabled])',
-  'button.ui-pin-cell:not([disabled])',
+  'input.ui-pin-cell:not([disabled])',
 ].join(',')
 
 /** Odak hedefi — dialog giriş animasyonunda opacity geçici 0 olabilir; opacity kontrolü yapılmaz */
