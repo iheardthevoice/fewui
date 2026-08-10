@@ -98,11 +98,8 @@ export default {
       const normalized = this.normalizeValue(v)
       if (normalized !== v) {
         this.$emit('update:modelValue', normalized)
-        return
       }
-      if (normalized.length === this.length) {
-        this.$emit('complete', normalized)
-      }
+      // `complete` is emitted from emitValue only — avoid duplicate auto-submit.
     },
   },
   methods: {

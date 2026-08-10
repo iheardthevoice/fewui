@@ -3374,11 +3374,7 @@ const Ua = /* @__PURE__ */ w(fr, [["render", pr]]), gr = ["numeric", "alphanumer
   watch: {
     modelValue(e) {
       const t = this.normalizeValue(e);
-      if (t !== e) {
-        this.$emit("update:modelValue", t);
-        return;
-      }
-      t.length === this.length && this.$emit("complete", t);
+      t !== e && this.$emit("update:modelValue", t);
     }
   },
   methods: {
@@ -6281,4 +6277,4 @@ export {
   cl as y,
   Je as z
 };
-//# sourceMappingURL=index-co1hc8zy.js.map
+//# sourceMappingURL=index-Bss8xEHZ.js.map
