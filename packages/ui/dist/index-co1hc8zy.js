@@ -3492,7 +3492,7 @@ function kr(e, t, i, r, s, n) {
     }, null, 40, vr))), 128))
   ], 10, yr);
 }
-const Qa = /* @__PURE__ */ w(br, [["render", kr]]), Sr = ["ul", "ol", "div"], _r = ["plain", "bordered"], wr = ["compact", "normal", "relaxed"], xr = {
+const Qa = /* @__PURE__ */ w(br, [["render", kr]]), Sr = ["ul", "ol", "div"], _r = ["plain", "bordered", "divided"], wr = ["compact", "normal", "relaxed"], xr = {
   name: "List",
   inheritAttrs: !1,
   props: {
@@ -3504,14 +3504,15 @@ const Qa = /* @__PURE__ */ w(br, [["render", kr]]), Sr = ["ul", "ol", "div"], _r
     },
     /**
      * `plain`: dikey gap’li liste.
-     * `bordered`: kenarlıklı, satır ayırıcılı grup (şarkı / menü satırları).
+     * `bordered`: kenarlıklı, satır ayırıcılı grup.
+     * `divided`: dış çerçeve yok; yalnızca satır ayırıcı (şarkı sırası vb.).
      */
     variant: {
       type: String,
       default: "plain",
       validator: (e) => _r.includes(e)
     },
-    /** Öğeler arası dikey boşluk — `bordered` iken yok sayılır. */
+    /** Öğeler arası dikey boşluk — `bordered` / `divided` iken yok sayılır. */
     density: {
       type: String,
       default: "normal",
@@ -3522,6 +3523,8 @@ const Qa = /* @__PURE__ */ w(br, [["render", kr]]), Sr = ["ul", "ol", "div"], _r
     listClass() {
       if (this.variant === "bordered")
         return C("ui-list", "ui-list--bordered", this.$attrs.class);
+      if (this.variant === "divided")
+        return C("ui-list", "ui-list--divided", this.$attrs.class);
       const e = this.density === "compact" ? "gap-3" : this.density === "relaxed" ? "gap-5" : "gap-4";
       return C("ui-list", e, this.$attrs.class);
     },
@@ -6278,4 +6281,4 @@ export {
   cl as y,
   Je as z
 };
-//# sourceMappingURL=index-CCaFs7xx.js.map
+//# sourceMappingURL=index-co1hc8zy.js.map

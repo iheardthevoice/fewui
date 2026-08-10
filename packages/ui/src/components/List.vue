@@ -13,7 +13,7 @@
 import { cn } from '../utils/cn.js'
 
 const TAGS = ['ul', 'ol', 'div']
-const VARIANTS = ['plain', 'bordered']
+const VARIANTS = ['plain', 'bordered', 'divided']
 const DENSITIES = ['compact', 'normal', 'relaxed']
 
 export default {
@@ -28,14 +28,15 @@ export default {
     },
     /**
      * `plain`: dikey gap’li liste.
-     * `bordered`: kenarlıklı, satır ayırıcılı grup (şarkı / menü satırları).
+     * `bordered`: kenarlıklı, satır ayırıcılı grup.
+     * `divided`: dış çerçeve yok; yalnızca satır ayırıcı (şarkı sırası vb.).
      */
     variant: {
       type: String,
       default: 'plain',
       validator: (v) => VARIANTS.includes(v),
     },
-    /** Öğeler arası dikey boşluk — `bordered` iken yok sayılır. */
+    /** Öğeler arası dikey boşluk — `bordered` / `divided` iken yok sayılır. */
     density: {
       type: String,
       default: 'normal',
@@ -46,6 +47,9 @@ export default {
     listClass() {
       if (this.variant === 'bordered') {
         return cn('ui-list', 'ui-list--bordered', this.$attrs.class)
+      }
+      if (this.variant === 'divided') {
+        return cn('ui-list', 'ui-list--divided', this.$attrs.class)
       }
       const gap =
         this.density === 'compact'

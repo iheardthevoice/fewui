@@ -1649,6 +1649,15 @@
     @apply px-3 py-3;
   }
 
+  /** Dış kart yok — yalnızca satır ayırıcı */
+  .ui-list--divided {
+    @apply divide-y divide-border;
+  }
+
+  .ui-list--divided > .ui-list-item {
+    @apply py-3;
+  }
+
   .ui-list-item {
     @apply flex min-w-0 list-none items-start gap-3;
   }
