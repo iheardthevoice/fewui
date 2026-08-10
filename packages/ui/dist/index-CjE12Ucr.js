@@ -5384,7 +5384,7 @@ const ll = /* @__PURE__ */ w(Us, [["render", Qs]]), Zs = ["solid", "regular", "b
     },
     tabIconSize() {
       var e;
-      return this.triggerKind === "segmented" ? ((e = this.uiTabs) == null ? void 0 : e.resolvedSize) === "lg" ? "lg" : "md" : "xs";
+      return this.triggerKind === "segmented" ? ((e = this.uiTabs) == null ? void 0 : e.resolvedSize) === "sm" ? "md" : "lg" : "xs";
     },
     /** FA Pro: segment kartlarında da varsayılan `light` kullanılır. */
     tabIconType() {
@@ -6277,4 +6277,4 @@ export {
   cl as y,
   Je as z
 };
-//# sourceMappingURL=index-Bss8xEHZ.js.map
+//# sourceMappingURL=index-CjE12Ucr.js.map

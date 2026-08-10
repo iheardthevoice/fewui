@@ -112,7 +112,8 @@ export default {
     },
     tabIconSize() {
       if (this.triggerKind === 'segmented') {
-        return this.uiTabs?.resolvedSize === 'lg' ? 'lg' : 'md'
+        // Bottom nav / segment kartları: varsayılan `lg`; `sm` boyutta bir kademe küçük.
+        return this.uiTabs?.resolvedSize === 'sm' ? 'md' : 'lg'
       }
       return 'xs'
     },

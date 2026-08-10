@@ -2748,7 +2748,7 @@
   }
 
   .ui-tabs--segmented-sm .ui-tab-trigger--segmented {
-    @apply gap-0 px-2 py-1;
+    @apply gap-0.5 px-2 py-1;
   }
 
   .ui-tabs--segmented-sm .ui-tab-trigger--segmented .ui-tab-trigger-label {
@@ -2764,7 +2764,7 @@
   }
 
   .ui-tabs--segmented-lg .ui-tab-trigger--segmented {
-    @apply gap-0.5 px-4 py-2;
+    @apply gap-1 px-4 py-2;
   }
 
   .ui-tabs--segmented-lg .ui-tab-trigger--segmented .ui-tab-trigger-label {
@@ -2772,7 +2772,7 @@
   }
 
   .ui-tab-trigger--segmented {
-    @apply relative flex min-h-0 min-w-0 cursor-pointer select-none flex-col items-center justify-center gap-0 rounded-full border-0 bg-transparent px-2 py-1.5 outline-none transition-[color,background-color,box-shadow] duration-200 ease-out;
+    @apply relative flex min-h-0 min-w-0 cursor-pointer select-none flex-col items-center justify-center gap-0.5 rounded-full border-0 bg-transparent px-2 py-1.5 outline-none transition-[color,background-color,box-shadow] duration-200 ease-out;
   }
 
   .ui-tab-trigger-badge {
