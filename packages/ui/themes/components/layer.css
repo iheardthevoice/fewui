@@ -3332,8 +3332,9 @@
   }
 
   /** Dar alan / dialog içi — kompakt, bordersız, kart ile aynı köşe. */
-  .ui-alert--soft {
-    @apply items-center gap-2.5 rounded-3xl border-0 px-3 py-2.5 text-xs leading-4;
+  .ui-alert.ui-alert--soft {
+    @apply items-start gap-2.5 rounded-3xl border-0 px-3 py-2.5 text-xs leading-4 shadow-none;
+    border-color: transparent;
   }
 
   .ui-alert--soft .ui-alert-icon {
