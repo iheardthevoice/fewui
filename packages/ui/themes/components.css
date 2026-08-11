@@ -1401,6 +1401,58 @@
     @apply max-w-lg gap-2.5 pt-2;
   }
 
+  /** Stacked avatars — children must be `ui-avatar` (or overflow chip). */
+  .ui-avatar-group {
+    @apply inline-flex max-w-full items-center;
+  }
+
+  .ui-avatar-group > .ui-avatar,
+  .ui-avatar-group > .ui-avatar-group-overflow {
+    @apply relative shrink-0 ring-2 ring-background;
+  }
+
+  .ui-avatar-group > .ui-avatar + .ui-avatar,
+  .ui-avatar-group > .ui-avatar + .ui-avatar-group-overflow,
+  .ui-avatar-group > .ui-avatar-group-overflow + .ui-avatar {
+    @apply -ml-2;
+  }
+
+  .ui-avatar-group--xs > .ui-avatar + .ui-avatar,
+  .ui-avatar-group--xs > .ui-avatar + .ui-avatar-group-overflow {
+    @apply -ml-1.5;
+  }
+
+  .ui-avatar-group--lg > .ui-avatar + .ui-avatar,
+  .ui-avatar-group--lg > .ui-avatar + .ui-avatar-group-overflow,
+  .ui-avatar-group--xl > .ui-avatar + .ui-avatar-group-overflow,
+  .ui-avatar-group--xl > .ui-avatar + .ui-avatar {
+    @apply -ml-3;
+  }
+
+  .ui-avatar-group-overflow {
+    @apply inline-flex select-none items-center justify-center rounded-full bg-muted font-medium tabular-nums text-muted-foreground;
+  }
+
+  .ui-avatar-group--xs .ui-avatar-group-overflow {
+    @apply h-5 w-5 min-h-5 min-w-5 text-[8px] leading-none;
+  }
+
+  .ui-avatar-group--sm .ui-avatar-group-overflow {
+    @apply h-8 w-8 min-h-8 min-w-8 text-[10px] leading-none;
+  }
+
+  .ui-avatar-group--md .ui-avatar-group-overflow {
+    @apply h-10 w-10 min-h-10 min-w-10 text-xs leading-none;
+  }
+
+  .ui-avatar-group--lg .ui-avatar-group-overflow {
+    @apply h-14 w-14 min-h-14 min-w-14 text-sm leading-none;
+  }
+
+  .ui-avatar-group--xl .ui-avatar-group-overflow {
+    @apply h-20 w-20 min-h-20 min-w-20 text-base leading-none;
+  }
+
   /** Avatar — dairesel görsel veya baş harf yedeği */
   .ui-avatar {
     @apply relative inline-flex shrink-0 select-none items-center justify-center overflow-hidden rounded-full bg-muted font-medium uppercase tracking-tight text-muted-foreground;
