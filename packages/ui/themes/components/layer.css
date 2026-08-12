@@ -4289,6 +4289,18 @@
     overflow-wrap: anywhere;
   }
 
+  /** Satır içi işlem grubu — sütun düğme genişliğine göre açılır, taşmaz. */
+  .ui-table-cell:has(.ui-action-group) {
+    width: 1%;
+    min-width: max-content;
+    overflow: visible;
+  }
+
+  .ui-table-cell:has(.ui-action-group) .ui-table-cell-content {
+    @apply max-w-none whitespace-nowrap;
+    overflow-wrap: normal;
+  }
+
   .ui-table-cell-content--nowrap {
     @apply whitespace-nowrap;
   }
@@ -4414,9 +4426,12 @@
     }
 
     .app-data-table .ui-table-head--w-sm,
-    .app-data-table .ui-table-cell:has(.ui-action-group),
     .app-data-table .ui-table-cell:has([data-app-row-menu]) {
       min-width: 3rem;
+    }
+
+    .app-data-table .ui-table-cell:has(.ui-action-group) {
+      min-width: max-content;
     }
 
     .app-data-table:not(.app-data-table--filter-empty) .ui-table-body .ui-table-row > .ui-table-cell {
