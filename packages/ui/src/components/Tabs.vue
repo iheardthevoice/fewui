@@ -74,7 +74,7 @@ export default {
     },
     rootClass() {
       return cn(
-        'ui-tabs flex min-w-0 flex-col gap-4',
+        'ui-tabs flex min-w-0 flex-col',
         this.variant === 'segmented' ? 'ui-tabs--segmented' : 'ui-tabs--line',
         this.orientation === 'vertical' ? 'ui-tabs--vertical' : '',
         this.fit === 'full' ? 'ui-tabs--fit-full' : '',

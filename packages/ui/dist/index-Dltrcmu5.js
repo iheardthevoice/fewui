@@ -5282,7 +5282,7 @@ const al = /* @__PURE__ */ w(Ys, [["render", Ks]]), qs = ["line", "segmented"], 
     },
     rootClass() {
       return C(
-        "ui-tabs flex min-w-0 flex-col gap-4",
+        "ui-tabs flex min-w-0 flex-col",
         this.variant === "segmented" ? "ui-tabs--segmented" : "ui-tabs--line",
         this.orientation === "vertical" ? "ui-tabs--vertical" : "",
         this.fit === "full" ? "ui-tabs--fit-full" : "",
@@ -6277,4 +6277,4 @@ export {
   cl as y,
   Je as z
 };
-//# sourceMappingURL=index-CjE12Ucr.js.map
+//# sourceMappingURL=index-Dltrcmu5.js.map

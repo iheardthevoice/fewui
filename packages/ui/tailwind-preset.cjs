@@ -81,10 +81,11 @@ module.exports = {
         },
       },
       borderRadius: {
+        sm: 'var(--radius-sm)',
+        md: 'var(--radius-md)',
         lg: 'var(--radius)',
-        md: 'calc(var(--radius) - 2px)',
-        sm: 'calc(var(--radius) - 4px)',
-        '4xl': '2rem',
+        '3xl': 'var(--radius-3xl)',
+        '4xl': 'var(--radius-4xl)',
       },
       ringWidth: {
         3: '3px',

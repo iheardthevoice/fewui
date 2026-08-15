@@ -4,7 +4,9 @@
  *
  * Yüzey kabuğu: `.ui-surface` — Card, Popover panel, Dialog panel (aynı `rounded-3xl`, `shadow-lg`, `bg-surface`).
  * Boyut referansı (md): h 36px, yatay padding 12px, gap 6px, kontrol metni 14px/20px, font-weight 500,
- * köşe `rounded-lg` → `--radius` (26px). Card: kökte `gap-4` + `p-6`, `border-border`.
+ * köşe `rounded-lg` / `ui-surface` (`rounded-3xl`) → `--radius` (26px).
+ * `xl`/`2xl` TW default bırakılır (küçük karolar; `--radius` üstüne basamaklama şişirir).
+ * Card: kökte `gap-4` + `p-6`, `border-border`.
  * Başlıklar: `ui-heading-3` = 16px / 24px satır / font-medium (text-base leading-6); üst seviyeler büyük, altı text-sm → text-xs.
  * Yardımcı / gövde varsayılanı: `ui-text-default` = 14px / 20px satır / `text-muted-foreground` (oklch ~0.556); kart gövdesi aynı tabanı kullanır.
  *

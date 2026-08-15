@@ -11,7 +11,17 @@
   --font-sans: Inter, ui-sans-serif;
   --font-heading: var(--font-sans);
 
+  /**
+   * Köşe merdiveni — `rounded-lg` = `--radius` (kontroller).
+   * `ui-surface` tarihsel olarak `rounded-3xl` → `--radius-3xl` = `--radius`.
+   * `xl` / `2xl` override edilmez (Tailwind default ~0.75rem / 1rem); POS karo vb.
+   * bu sınıfları küçük yarıçap için kullanır — `--radius` üstüne basamaklama kartları şişirir.
+   */
   --radius: 26px;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-3xl: var(--radius);
+  --radius-4xl: 2rem;
 
   /* Tailwind varsayılan `neutral` paleti → OKLCH (orijinal hex’lerden sRGB → Oklab dönüşümü) */
   --base-50: oklch(0.9851 0 0);

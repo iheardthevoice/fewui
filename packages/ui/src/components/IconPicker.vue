@@ -159,9 +159,10 @@ export default {
       type: String,
       default: '',
     },
+    /** 0 veya negatif = limit yok (tüm ikonlar). */
     maxResults: {
       type: Number,
-      default: 180,
+      default: 0,
     },
     panelWidth: {
       type: String,
@@ -213,7 +214,11 @@ export default {
       if (query) {
         rows = source.filter((name) => String(name).toLowerCase().includes(query))
       }
-      return rows.slice(0, this.maxResults)
+      const limit = Number(this.maxResults)
+      if (Number.isFinite(limit) && limit > 0) {
+        return rows.slice(0, limit)
+      }
+      return rows
     },
   },
   watch: {

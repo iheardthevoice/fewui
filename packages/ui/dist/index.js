@@ -1,6 +1,6 @@
 import { resolveComponent as _, openBlock as a, createElementBlock as s, normalizeClass as k, renderSlot as b, createBlock as y, createCommentVNode as f, createElementVNode as o, toDisplayString as m, normalizeStyle as E, createVNode as w, mergeProps as T, withCtx as g, withModifiers as P, createTextVNode as C, Fragment as I, renderList as M, withKeys as le, reactive as oe, createSlots as j, normalizeProps as Be, guardReactiveProps as De, Teleport as Q, Transition as X, readonly as Fe, resolveDynamicComponent as K, withDirectives as Ne, vShow as $e } from "vue";
-import { _ as x, V as S, af as z, aa as He, a1 as We, f as Ae, a0 as Ye, a6 as Ge, X as Me, U as Ue, Z as Ke, a7 as N, ag as ze, K as je, $ as qe, A as Ze, a as Qe, b as Xe, B as Je, c as et, C as tt, d as it, e as rt, g as at, E as lt, k as nt, I as st, l as ot, P as ut, n as ct, L as dt, m as ht, o as ft, R as pt, p as mt, r as gt, S as bt, q as yt, s as vt, x as _t, u as kt, w as wt, v as xt, z as St, y as Ct } from "./index-CjE12Ucr.js";
-import { F as qs, h as Zs, i as Qs, j as Xs, G as Js, D as eo, T as to, t as io, H as ro, J as ao, M as lo, N as no, O as so, Q as oo, W as uo, Y as co, a2 as ho, a3 as fo, a4 as po, a5 as mo, a8 as go, a9 as bo, ab as yo, ac as vo, ad as _o, ae as ko, ah as wo } from "./index-CjE12Ucr.js";
+import { _ as x, V as S, af as z, aa as He, a1 as We, f as Ae, a0 as Ye, a6 as Ge, X as Me, U as Ue, Z as Ke, a7 as N, ag as ze, K as je, $ as qe, A as Ze, a as Qe, b as Xe, B as Je, c as et, C as tt, d as it, e as rt, g as at, E as lt, k as nt, I as st, l as ot, P as ut, n as ct, L as dt, m as ht, o as ft, R as pt, p as mt, r as gt, S as bt, q as yt, s as vt, x as _t, u as kt, w as wt, v as xt, z as St, y as Ct } from "./index-Dltrcmu5.js";
+import { F as qs, h as Zs, i as Qs, j as Xs, G as Js, D as eo, T as to, t as io, H as ro, J as ao, M as lo, N as no, O as so, Q as oo, W as uo, Y as co, a2 as ho, a3 as fo, a4 as po, a5 as mo, a8 as go, a9 as bo, ab as yo, ac as vo, ad as _o, ae as ko, ah as wo } from "./index-Dltrcmu5.js";
 const Lt = ["solid", "regular", "brands", "light", "duotone", "thin"], Tt = {
   name: "ActionCard",
   props: {
@@ -2713,9 +2713,10 @@ const ia = /* @__PURE__ */ x(Er, [["render", ta]]), ra = ["solid", "regular", "b
       type: String,
       default: ""
     },
+    /** 0 veya negatif = limit yok (tüm ikonlar). */
     maxResults: {
       type: Number,
-      default: 180
+      default: 0
     },
     panelWidth: {
       type: String,
@@ -2763,7 +2764,9 @@ const ia = /* @__PURE__ */ x(Er, [["render", ta]]), ra = ["solid", "regular", "b
     filteredIcons() {
       const e = String(this.searchQuery || "").trim().toLowerCase(), r = Array.isArray(this.icons) ? this.icons : [];
       let i = r;
-      return e && (i = r.filter((n) => String(n).toLowerCase().includes(e))), i.slice(0, this.maxResults);
+      e && (i = r.filter((l) => String(l).toLowerCase().includes(e)));
+      const n = Number(this.maxResults);
+      return Number.isFinite(n) && n > 0 ? i.slice(0, n) : i;
     }
   },
   watch: {
