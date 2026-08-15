@@ -15,10 +15,28 @@ export default defineComponent({
       type: String,
       default: 'panel',
     },
+    /**
+     * false: host sayfaya tema uygulanmaz (ör. create.fewui — yalnızca iframe preview).
+     */
+    applyTheme: {
+      type: Boolean,
+      default: true,
+    },
+    /**
+     * Tema uygulanacak kök (preview paneli). Boşsa documentElement.
+     */
+    themeRoot: {
+      type: [Object, String],
+      default: null,
+    },
   },
   emits: ['theme-change'],
   setup(props, { emit }) {
-    const playground = useThemePlayground({ defaultPresetId: props.defaultPresetId })
+    const playground = useThemePlayground({
+      defaultPresetId: props.defaultPresetId,
+      applyTheme: props.applyTheme,
+      getThemeRoot: () => props.themeRoot,
+    })
 
     watch(
       [playground.theme, playground.customCss],

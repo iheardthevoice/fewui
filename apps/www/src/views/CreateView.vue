@@ -1,5 +1,6 @@
 <script>
 import { defineComponent } from 'vue'
+import { applyUiTheme, resolveThemePreset } from 'fewui'
 import ThemePlaygroundSidebar from '@fewui/theme-playground/ThemePlaygroundSidebar.vue'
 import { postThemeToFrame } from '@fewui/theme-playground/theme-bridge.js'
 import { PLAYGROUND_EMBED_URL } from '../site-urls.js'
@@ -16,6 +17,10 @@ export default defineComponent({
     previewSrc() {
       return PLAYGROUND_EMBED_URL
     },
+  },
+  mounted() {
+    // Host chrome kendi temasını korusun (sidebar applyTheme=false)
+    applyUiTheme(resolveThemePreset('panel'))
   },
   methods: {
     onThemeChange(payload) {
@@ -47,6 +52,7 @@ export default defineComponent({
     <div class="flex min-h-0 flex-1">
       <ThemePlaygroundSidebar
         default-preset-id="panel"
+        :apply-theme="false"
         @theme-change="onThemeChange"
       />
       <div class="min-h-0 flex-1 bg-muted/20">

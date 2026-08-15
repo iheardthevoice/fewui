@@ -1,5 +1,6 @@
 <script>
 import { defineComponent } from 'vue'
+import { applyUiTheme, resolveThemePreset } from 'fewui'
 import ThemePlaygroundSidebar from '@fewui/theme-playground/ThemePlaygroundSidebar.vue'
 import ComponentPreview from '../views/ComponentPreview.vue'
 import { i18n } from '../i18n.js'
@@ -21,6 +22,7 @@ export default defineComponent({
   data() {
     return {
       previewLocale: readStoredLocale() ?? 'tr',
+      previewRootEl: null,
     }
   },
   watch: {
@@ -38,6 +40,14 @@ export default defineComponent({
   },
   mounted() {
     this.previewLocale = readStoredLocale() ?? 'tr'
+    this.previewRootEl = this.$refs.previewRoot || null
+    // Shell (header + sidebar) site temasını korusun
+    applyUiTheme(resolveThemePreset('panel'))
+  },
+  updated() {
+    if (!this.previewRootEl && this.$refs.previewRoot) {
+      this.previewRootEl = this.$refs.previewRoot
+    }
   },
 })
 </script>
@@ -65,8 +75,14 @@ export default defineComponent({
     </header>
 
     <div class="flex min-h-0 flex-1">
-      <ThemePlaygroundSidebar default-preset-id="panel" />
-      <div class="min-h-0 flex-1 overflow-y-auto">
+      <ThemePlaygroundSidebar
+        default-preset-id="panel"
+        :theme-root="previewRootEl"
+      />
+      <div
+        ref="previewRoot"
+        class="fewui-theme-scope min-h-0 flex-1 overflow-y-auto bg-background text-foreground"
+      >
         <ComponentPreview />
       </div>
     </div>

@@ -30,7 +30,11 @@ function writeStored(payload) {
 }
 
 /**
- * @param {{ defaultPresetId?: string }} [options]
+ * @param {{
+ *   defaultPresetId?: string,
+ *   applyTheme?: boolean,
+ *   getThemeRoot?: () => string|HTMLElement|null|undefined,
+ * }} [options]
  */
 export function useThemePlayground(options = {}) {
   const stored = readStored()
@@ -39,6 +43,7 @@ export function useThemePlayground(options = {}) {
   const mode = ref(stored?.mode || 'dark')
   const fontFamily = ref(stored?.fontFamily || 'Inter')
   const customCss = ref(stored?.customCss || '')
+  const applyTheme = options.applyTheme !== false
 
   const theme = computed(() => {
     return mergeUiTheme(resolveThemePreset(presetId.value, { mode: mode.value, fontFamily: fontFamily.value }), {
@@ -48,7 +53,12 @@ export function useThemePlayground(options = {}) {
   })
 
   function apply() {
-    applyUiTheme(theme.value)
+    if (!applyTheme) return
+    const hasRootGetter = typeof options.getThemeRoot === 'function'
+    const root = hasRootGetter ? options.getThemeRoot() : undefined
+    // Preview kökü bekleniyorsa documentElement'e yazma (shell dark/light bozulmasın)
+    if (hasRootGetter && !root) return
+    applyUiTheme(theme.value, root ? { root } : {})
     applyThemeCustomCss(customCss.value, 'fewui-playground-custom-css')
   }
 
@@ -63,6 +73,14 @@ export function useThemePlayground(options = {}) {
     apply()
   }, { immediate: true })
 
+  if (typeof options.getThemeRoot === 'function') {
+    watch(
+      () => options.getThemeRoot(),
+      () => {
+        apply()
+      },
+    )
+  }
   const presetOptions = computed(() =>
     THEME_PRESET_IDS.map((id) => ({ value: id, label: id })),
   )
