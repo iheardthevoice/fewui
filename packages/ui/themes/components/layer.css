@@ -234,7 +234,7 @@
   .ui-button.ui-control[data-variant='outline'][data-color='secondary'] {
     @apply shadow-none;
     background-color: transparent;
-    border: 1px solid var(--control);
+    border: 1px solid var(--input-background);
     color: var(--foreground);
   }
 
@@ -720,21 +720,21 @@
     @apply truncate;
   }
 
-  /** Badge — boyut */
+  /** Badge — boyut (her boyutta hap / `rounded-full`) */
   .ui-badge--xs {
-    @apply rounded px-1.5 py-0.5 text-[0.65rem] leading-none;
+    @apply rounded-full px-1.5 py-0.5 text-[0.65rem] leading-none;
   }
 
   .ui-badge--sm {
-    @apply rounded-md px-2 py-0.5 text-xs leading-none;
+    @apply rounded-full px-2 py-0.5 text-xs leading-none;
   }
 
   .ui-badge--md {
-    @apply rounded-md px-2.5 py-1 text-xs leading-4;
+    @apply rounded-full px-2.5 py-1 text-xs leading-4;
   }
 
   .ui-badge--lg {
-    @apply rounded-lg px-3 py-1.5 text-sm leading-5;
+    @apply rounded-full px-3 py-1.5 text-sm leading-5;
   }
 
   /** Badge semantik dolgular — TW taraması kaçsa da token’lar çalışsın */
@@ -1364,6 +1364,58 @@
     @apply max-w-lg gap-2.5 pt-2;
   }
 
+  /** Stacked avatars — children must be `ui-avatar` (or overflow chip). */
+  .ui-avatar-group {
+    @apply inline-flex max-w-full items-center;
+  }
+
+  .ui-avatar-group > .ui-avatar,
+  .ui-avatar-group > .ui-avatar-group-overflow {
+    @apply relative shrink-0 ring-2 ring-background;
+  }
+
+  .ui-avatar-group > .ui-avatar + .ui-avatar,
+  .ui-avatar-group > .ui-avatar + .ui-avatar-group-overflow,
+  .ui-avatar-group > .ui-avatar-group-overflow + .ui-avatar {
+    @apply -ml-2;
+  }
+
+  .ui-avatar-group--xs > .ui-avatar + .ui-avatar,
+  .ui-avatar-group--xs > .ui-avatar + .ui-avatar-group-overflow {
+    @apply -ml-1.5;
+  }
+
+  .ui-avatar-group--lg > .ui-avatar + .ui-avatar,
+  .ui-avatar-group--lg > .ui-avatar + .ui-avatar-group-overflow,
+  .ui-avatar-group--xl > .ui-avatar + .ui-avatar-group-overflow,
+  .ui-avatar-group--xl > .ui-avatar + .ui-avatar {
+    @apply -ml-3;
+  }
+
+  .ui-avatar-group-overflow {
+    @apply inline-flex select-none items-center justify-center rounded-full bg-muted font-medium tabular-nums text-muted-foreground;
+  }
+
+  .ui-avatar-group--xs .ui-avatar-group-overflow {
+    @apply h-5 w-5 min-h-5 min-w-5 text-[8px] leading-none;
+  }
+
+  .ui-avatar-group--sm .ui-avatar-group-overflow {
+    @apply h-8 w-8 min-h-8 min-w-8 text-[10px] leading-none;
+  }
+
+  .ui-avatar-group--md .ui-avatar-group-overflow {
+    @apply h-10 w-10 min-h-10 min-w-10 text-xs leading-none;
+  }
+
+  .ui-avatar-group--lg .ui-avatar-group-overflow {
+    @apply h-14 w-14 min-h-14 min-w-14 text-sm leading-none;
+  }
+
+  .ui-avatar-group--xl .ui-avatar-group-overflow {
+    @apply h-20 w-20 min-h-20 min-w-20 text-base leading-none;
+  }
+
   /** Avatar — dairesel görsel veya baş harf yedeği */
   .ui-avatar {
     @apply relative inline-flex shrink-0 select-none items-center justify-center overflow-hidden rounded-full bg-muted font-medium uppercase tracking-tight text-muted-foreground;
@@ -1706,9 +1758,30 @@
     @apply relative isolate min-h-0 min-w-0 w-full;
   }
 
+  /**
+   * Host `flex` / `flex-1` ile tam yükseklik doldurunca (POS vb.)
+   * içerik sarmalayıcı da flex çocuğu olmalı — aksi halde paneller ortada kalır.
+   */
+  .ui-skeleton-host.flex > .ui-skeleton-placeholder--flow,
+  .ui-skeleton-host.flex > .ui-skeleton-content-wrap--ready,
+  .ui-skeleton-host.flex > .ui-skeleton-content-wrap--revealing,
+  .ui-skeleton-host.flex > .ui-skeleton-content-wrap--loading-hold {
+    @apply flex min-h-0 min-w-0 flex-1 flex-col;
+  }
+
+  .ui-skeleton-host.flex > .ui-skeleton-content-wrap--ready > .ui-skeleton-content,
+  .ui-skeleton-host.flex > .ui-skeleton-content-wrap--revealing > .ui-skeleton-content,
+  .ui-skeleton-host.flex > .ui-skeleton-content-wrap--loading-hold > .ui-skeleton-content {
+    @apply flex min-h-0 min-w-0 flex-1 flex-col;
+  }
+
   .ui-skeleton-host--height-active {
     @apply overflow-hidden;
     transition: height 0.48s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .ui-skeleton-host--height-locked {
+    @apply overflow-hidden;
   }
 
   .ui-skeleton-placeholder {
@@ -1721,6 +1794,10 @@
 
   .ui-skeleton-placeholder--overlay {
     @apply pointer-events-none absolute inset-x-0 top-0 z-[2];
+  }
+
+  .ui-skeleton-placeholder--fill {
+    @apply bottom-0 min-h-full;
   }
 
   .ui-skeleton-placeholder--fade-out {
@@ -1737,17 +1814,27 @@
     height: auto;
   }
 
+  /** Refetch: içerik yerinde kalır (yükseklik kilitli); üstte iskelet */
+  .ui-skeleton-content-wrap--loading-hold {
+    @apply pointer-events-none relative z-0 w-full opacity-0;
+  }
+
   .ui-skeleton-content-wrap--revealing {
     @apply relative z-[1] opacity-0;
-    transition: opacity 0.48s cubic-bezier(0.22, 1, 0.36, 1);
+    transform: translateY(0.5rem);
+    transition:
+      opacity 0.48s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.48s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .ui-skeleton-content-wrap--revealing-visible {
     opacity: 1;
+    transform: translateY(0);
   }
 
   .ui-skeleton-content-wrap--ready {
     @apply relative opacity-100;
+    transform: none;
   }
 
   .ui-skeleton-overlay {
@@ -2650,9 +2737,9 @@
     @apply shrink-0;
   }
 
-  /** Tabs — segmented: açık temada iz `control` ile karttan ayrışır; koyuda `surface-input` */
+  /** Tabs — segmented: control değil surface (kart ile aynı dolgu) + border */
   .ui-tab-list--horizontal.ui-tab-list--segmented {
-    @apply inline-flex min-h-[3.25rem] w-full max-w-full min-w-0 flex-row flex-nowrap items-stretch gap-0 overflow-x-auto overscroll-x-contain rounded-full border border-border bg-control p-1 ui-scrollbar-none;
+    @apply inline-flex min-h-[3.25rem] w-full max-w-full min-w-0 flex-row flex-nowrap items-stretch gap-0 overflow-x-auto overscroll-x-contain rounded-full border border-border bg-surface p-1 ui-scrollbar-none;
   }
 
   /** Tetikleyiciler küçülmez — taşınca liste kayar (mobil / dar kart). */
@@ -2667,10 +2754,6 @@
 
   .ui-tabs--scrollable .ui-tab-list--horizontal.ui-tab-list--segmented .ui-tab-trigger--segmented {
     @apply min-w-[5rem] shrink-0 flex-none;
-  }
-
-  .dark .ui-tab-list--horizontal.ui-tab-list--segmented {
-    @apply bg-surface-input;
   }
 
   .ui-tabs--transparent .ui-tab-list--horizontal.ui-tab-list--segmented {
@@ -2941,7 +3024,7 @@
     @apply px-3 text-base leading-6;
   }
 
-  .ui-segment-group--fit:not(.ui-segment-group--icon-only):not(.ui-segment-group--vertical) .ui-segment:not(.ui-segment--icon-only):not(.ui-segment--affixed) {
+  .ui-segment-group--fit:not(.ui-segment-group--icon-only):not(.ui-segment-group--vertical) .ui-segment:not(.ui-segment--icon-only) {
     @apply flex-none flex-grow-0;
   }
 
@@ -2957,10 +3040,6 @@
     @apply h-9 min-h-9 flex-none flex-grow-0 justify-start rounded-lg px-3;
   }
 
-  .ui-segment-group--vertical .ui-segment-main {
-    @apply justify-start;
-  }
-
   .ui-segment-group--vertical .ui-segment:not(.ui-segment--icon-only) {
     @apply w-full;
   }
@@ -2969,29 +3048,12 @@
     @apply inline-flex gap-1.5;
   }
 
-  /** Dil seçici vb. — etiket + ek düğme tek hap içinde */
+  /**
+   * `#prepend` / `#append` — etiket yanına badge, ikon veya ek düğme.
+   * Sayım badge’i için `gap` ile satır içi; dil seçici düğmeleri için button stilleri aşağıda.
+   */
   .ui-segment--affixed {
-    @apply inline-flex flex-none flex-grow-0 gap-0 px-0;
-  }
-
-  .ui-segment-main {
-    @apply flex min-h-0 min-w-0 flex-1 items-center justify-center;
-  }
-
-  .ui-segment-main--with-icon {
-    @apply gap-1.5;
-  }
-
-  .ui-segment--affixed .ui-segment-main {
-    @apply px-2.5 py-0;
-  }
-
-  .ui-segment-group.ui-segment-group--sm .ui-segment--affixed .ui-segment-main {
-    @apply px-2;
-  }
-
-  .ui-segment-group.ui-segment-group--lg .ui-segment--affixed .ui-segment-main {
-    @apply px-3;
+    @apply inline-flex flex-none flex-grow-0 gap-1.5;
   }
 
   .ui-segment-affix {
@@ -2999,11 +3061,11 @@
   }
 
   .ui-segment-affix--prepend {
-    @apply pl-1;
+    @apply -ml-0.5;
   }
 
   .ui-segment-affix--append {
-    @apply pr-0.5;
+    @apply -mr-0.5;
   }
 
   .ui-segment--affixed .ui-segment-affix .ui-button {
@@ -3029,6 +3091,14 @@
 
   .ui-segment--selected .ui-segment-affix .ui-button[data-variant='solid']:hover {
     background-color: color-mix(in oklab, var(--primary-foreground) 25%, transparent);
+  }
+
+  /** Seçili segment üzerinde sayım badge — primary yüzeyde okunur (utility `bg-muted`’i ezer) */
+  .ui-segment--selected .ui-segment-affix .ui-badge,
+  .ui-segment--selected .ui-segment-affix .ui-badge.bg-muted {
+    border-color: transparent;
+    background-color: color-mix(in oklab, var(--primary-foreground) 22%, transparent);
+    color: var(--primary-foreground);
   }
 
   .ui-segment-icon {
@@ -3777,8 +3847,6 @@
 
   .ui-dialog-panel.ui-card {
     --ui-card-gap: 0;
-    --ui-input-mix-from: var(--control);
-    --input-background: color-mix(in oklab, var(--ui-input-mix-from) var(--ui-input-opacity), transparent);
     padding: 0;
     gap: 0;
   }

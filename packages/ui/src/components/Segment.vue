@@ -7,65 +7,36 @@
     :disabled="disabled"
     @click="select"
   >
-    <template v-if="hasAffixes">
-      <span
-        v-if="hasPrepend"
-        class="ui-segment-affix ui-segment-affix--prepend"
-        @click.stop
-      >
-        <slot name="prepend" />
-      </span>
-      <span
-        class="ui-segment-main"
-        :class="{ 'ui-segment-main--with-icon': icon }"
-      >
-        <span
-          v-if="icon"
-          class="ui-segment-icon"
-          aria-hidden="true"
-        >
-          <ui-icon
-            :name="icon"
-            :size="iconSize"
-          />
-        </span>
-        <span
-          v-if="showLabel"
-          class="ui-segment-label"
-        >{{ label }}</span>
-        <span
-          v-else-if="label"
-          class="sr-only"
-        >{{ label }}</span>
-      </span>
-      <span
-        v-if="hasAppend"
-        class="ui-segment-affix ui-segment-affix--append"
-        @click.stop
-      >
-        <slot name="append" />
-      </span>
-    </template>
-    <template v-else>
-      <span
-        v-if="icon"
-        class="ui-segment-icon"
-        aria-hidden="true"
-      >
-        <ui-icon
-          :name="icon"
-          :size="iconSize"
-        />
-      </span>
-      <span
-        v-if="showLabel"
-        class="ui-segment-label"
-      >{{ label }}</span>
-      <span
-        v-else-if="label"
-        class="sr-only"
-      >{{ label }}</span>
-    </template>
+    <span
+      v-if="hasPrepend"
+      class="ui-segment-affix ui-segment-affix--prepend"
+    >
+      <slot name="prepend" />
+    </span>
+    <span
+      v-if="icon"
+      class="ui-segment-icon"
+      aria-hidden="true"
+    >
+      <ui-icon
+        :name="icon"
+        :size="iconSize"
+      />
+    </span>
+    <span
+      v-if="showLabel"
+      class="ui-segment-label"
+    >{{ label }}</span>
+    <span
+      v-else-if="label"
+      class="sr-only"
+    >{{ label }}</span>
+    <span
+      v-if="hasAppend"
+      class="ui-segment-affix ui-segment-affix--append"
+    >
+      <slot name="append" />
+    </span>
   </button>
 </template>
 
@@ -130,7 +101,7 @@ export default {
       return [
         'ui-segment',
         { 'ui-segment--selected': this.isSelected },
-        this.icon && !this.hasAffixes && 'ui-segment--with-icon',
+        this.icon && 'ui-segment--with-icon',
         this.iconOnly && 'ui-segment--icon-only',
         this.hasAffixes && 'ui-segment--affixed',
       ]

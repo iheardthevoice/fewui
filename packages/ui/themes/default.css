@@ -1,6 +1,6 @@
 /**
  * Design tokens: :root / .dark — OKLCH.
- * `--base-50` … `--base-950`: nötr skala (Tailwind neutral ile aynı uçlar). Sayfa ve nötr semantikler `var(--base-*)` ile türetilir.
+ * `--base-50` … `--base-950`: nötr skala (Tailwind neutral). Sayfa ve nötr semantikler `var(--base-*)` ile türetilir.
  * `--white`: Tailwind `white` (#fff); preset’te `bg-white` / `text-white` → `var(--white)`.
  * `warning` / `success` / `info`: renkli durumlar (doğrudan OKLCH; base dışı kroma).
  * `.ui-control` / `.ui-input` / `.ui-surface`: `themes/components.css` (Tailwind `@apply`).
@@ -23,7 +23,7 @@
   --radius-3xl: var(--radius);
   --radius-4xl: 2rem;
 
-  /* Tailwind varsayılan `neutral` paleti → OKLCH (orijinal hex’lerden sRGB → Oklab dönüşümü) */
+  /* Tailwind `neutral` paleti → OKLCH (chroma 0; hue yok) */
   --base-50: oklch(0.9851 0 0);
   --base-100: oklch(0.9702 0 0);
   --base-200: oklch(0.9219 0 0);
@@ -39,7 +39,12 @@
   /* Tailwind `white` ile aynı uç (#fff); `bg-white` → `var(--white)` */
   --white: #ffffff;
 
-  --background: var(--base-50);
+  /**
+   * Light yüzey basamağı (dark 950→900 ile aynı iş):
+   * canvas biraz gri → white surface/kart net ayrılır.
+   * control/input oyuk dolgu (kart üzerinde okunur); tab izi ayrı kural.
+   */
+  --background: var(--base-100);
   --foreground: var(--base-950);
 
   --surface: var(--white);
@@ -50,7 +55,7 @@
   --ui-surface-mix-from: var(--surface);
   --surface-bg: color-mix(in oklab, var(--ui-surface-mix-from) var(--ui-surface-opacity), transparent);
 
-  --control: var(--base-100);
+  --control: var(--base-200);
   --control-foreground: var(--base-950);
 
   --ui-control-opacity: 100%;
@@ -61,8 +66,8 @@
   --primary: #1B5CFF;
   --primary-foreground: #ffffff;
 
-  /* İkincil dolgu: ~gray-100 (#F3F4F6 civarı) */
-  --secondary: var(--base-100);
+  /* İkincil dolgu — input / segment / default button ile aynı basamak */
+  --secondary: var(--base-200);
   --secondary-foreground: var(--base-950);
 
   /** Durum renkleri — daha net chroma / güncel amber & mavi tonları */
@@ -104,15 +109,28 @@
 
   --ui-input-opacity: 100%;
   --ui-input-backdrop-blur: 0;
-  --ui-input-mix-from: oklab(0.965 0 0 / 0.92);
+  /**
+   * Input / segment / secondary button dolgusu — kart (white) ve canvas (100) üzerinde
+   * aynı oyuk kontrast; dialog override yok, global varsayılan.
+   */
+  --ui-input-mix-from: var(--control);
   --input-background: color-mix(in oklab, var(--ui-input-mix-from) var(--ui-input-opacity), transparent);
 
-  --border: var(--base-200);
+  /** Stroke = control dolgusu (input / segment / secondary ile aynı) */
+  --border: var(--input-background);
 
-  /** Kart / yüzey gölgesi */
+  /**
+   * Kart gölgesi + TW shadow-sm/md eşlemesi (yalnızca yumuşatma; dark ayrı).
+   */
+  --ui-shadow-sm:
+    0 4px 16px rgb(0 0 0 / 0.04),
+    0 1px 3px rgb(0 0 0 / 0.03);
+  --ui-shadow-md:
+    0 8px 28px rgb(0 0 0 / 0.05),
+    0 2px 8px rgb(0 0 0 / 0.035);
   --ui-shadow-surface:
-    0 1px 2px rgb(0 0 0 / 0.04),
-    0 10px 28px rgb(0 0 0 / 0.07);
+    0 4px 16px rgb(0 0 0 / 0.04),
+    0 16px 48px rgb(0 0 0 / 0.06);
 
   --ring: var(--base-400);
   /** Klavye odak halkası — `components.css` içinde `--tw-ring-color` ile kullanılır */
@@ -128,7 +146,7 @@
 .dark {
   --white: #ffffff;
 
-  /* Nötr skala türevleri — light `:root` `--base-*` OKLCH ile simetrik */
+  /* Nötr skala türevleri — light `:root` neutral `--base-*` OKLCH ile simetrik */
   --background: var(--base-950);
   --foreground: var(--base-50);
 
@@ -175,10 +193,21 @@
   --accent: var(--base-800);
   --accent-foreground: var(--base-50);
 
-  /** Input kabuğu — yüzeyden hafif ayrışır; kart üzerinde yapay çerçeve oluşturmaz */
-  --ui-input-mix-from: color-mix(in oklab, var(--surface) 55%, var(--control) 45%);
-  --border: color-mix(in oklab, var(--foreground) 12%, transparent);
+  /**
+   * Input / segment / secondary button — surface’ten açık oyuk (eskiden yalnız dialog’da).
+   * control + hafif foreground; canvas (950) ve kart (900) üzerinde net.
+   */
+  --ui-input-mix-from: color-mix(in oklab, var(--control) 65%, var(--foreground) 6%);
+  /** Stroke = control dolgusu */
+  --border: var(--input-background);
 
+  /** Kart / yüzey gölgesi — orijinal dark değerleri */
+  --ui-shadow-sm:
+    0 2px 8px rgb(0 0 0 / 0.2),
+    0 1px 3px rgb(0 0 0 / 0.14);
+  --ui-shadow-md:
+    0 6px 20px rgb(0 0 0 / 0.22),
+    0 2px 8px rgb(0 0 0 / 0.16);
   --ui-shadow-surface:
     0 2px 8px rgb(0 0 0 / 0.22),
     0 14px 36px rgb(0 0 0 / 0.18);

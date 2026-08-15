@@ -64,19 +64,6 @@
   z-index: 500;
 }
 
-@media (max-width: 767px) {
-  /**
-   * Panel mobil alt tab varken toast’lar chrome üstünden başlar
-   * (`--app-mobile-bottom-chrome-height` AppPanelMobileTabBar tarafından yazılır).
-   */
-  .ui-toast-host {
-    bottom: calc(
-      var(--app-mobile-bottom-chrome-height, env(safe-area-inset-bottom, 0px)) + 0.5rem
-    );
-    padding-bottom: 0.75rem;
-  }
-}
-
 /** Dialog footer — unlayered; border/padding tutarlılığı */
 .ui-dialog-panel.ui-card > .ui-card-footer {
   border-top: none;
@@ -85,20 +72,19 @@
   padding-bottom: var(--ui-card-padding);
 }
 
-/** Dialog içi picker/input tetikleyicileri — yüzeyden ayrışan dolgu */
-.ui-dialog-panel.ui-card {
-  --ui-input-mix-from: var(--control);
-  --input-background: color-mix(in oklab, var(--ui-input-mix-from) var(--ui-input-opacity), transparent);
-}
-
-.dark .ui-dialog-panel.ui-card {
-  --ui-input-mix-from: color-mix(in oklab, var(--control) 65%, var(--foreground) 6%);
-  --input-background: color-mix(in oklab, var(--ui-input-mix-from) var(--ui-input-opacity), transparent);
-}
-
 .ui-dialog-panel .ui-button[data-variant='solid'][data-color='input'] {
   background-color: var(--input-background);
   border-color: transparent;
+}
+
+/**
+ * Seçili segment + badge — TW `bg-muted` / `text-muted-foreground` utility’lerini ezer
+ * (layer sırası yüzünden @layer components yetmeyebilir).
+ */
+.ui-segment--selected .ui-segment-affix .ui-badge {
+  border-color: transparent;
+  background-color: color-mix(in oklab, var(--primary-foreground) 22%, transparent);
+  color: var(--primary-foreground);
 }
 
 /**

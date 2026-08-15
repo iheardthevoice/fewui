@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import { computed, useSlots, ref, watch, nextTick, onMounted } from 'vue'
+import { computed, useSlots, ref, watch, nextTick, onMounted, onBeforeUnmount } from 'vue'
 import { cn } from '../utils/cn.js'
 
 const VARIANTS = ['line', 'circle', 'block', 'pill']
@@ -98,9 +98,12 @@ export default {
     const contentWrapRef = ref(null)
     const hostHeightPx = ref(null)
     const heightAnimActive = ref(false)
+    /** Refetch: önceki içerik yüksekliğini kilitle — tek satır iskelete çökmesin */
+    const heightLocked = ref(false)
     const isRevealing = ref(false)
     const revealContentVisible = ref(false)
     const prefersReducedMotion = ref(false)
+    let revealTimer = null
 
     const showPlaceholder = computed(
       () => props.loading || isRevealing.value,
@@ -115,38 +118,64 @@ export default {
       ).matches
     })
 
+    onBeforeUnmount(() => {
+      clearRevealTimer()
+    })
+
+    function clearRevealTimer() {
+      if (revealTimer != null) {
+        clearTimeout(revealTimer)
+        revealTimer = null
+      }
+    }
+
     watch(
       () => props.loading,
       async (loading, prevLoading) => {
+        clearRevealTimer()
+
         if (loading) {
+          // flush: 'pre' — layout hâlâ önceki içerikte; yüksekliği ölç
+          const prevHeight = Math.max(
+            hostRef.value?.offsetHeight ?? 0,
+            contentWrapRef.value?.scrollHeight ?? 0,
+            placeholderRef.value?.offsetHeight ?? 0,
+          )
           isRevealing.value = false
           revealContentVisible.value = false
-          hostHeightPx.value = null
           heightAnimActive.value = false
+          heightLocked.value = prevHeight > 48
+          hostHeightPx.value = heightLocked.value ? prevHeight : null
           return
         }
         if (prevLoading !== true) return
 
         if (prefersReducedMotion.value) {
           isRevealing.value = false
+          heightLocked.value = false
           hostHeightPx.value = null
           heightAnimActive.value = false
           return
         }
 
         const from =
-          hostRef.value?.offsetHeight
+          hostHeightPx.value
+          ?? hostRef.value?.offsetHeight
           ?? placeholderRef.value?.offsetHeight
           ?? 0
 
         isRevealing.value = true
         revealContentVisible.value = false
+        heightLocked.value = false
         heightAnimActive.value = true
         hostHeightPx.value = from
 
         await nextTick()
 
-        const to = contentWrapRef.value?.scrollHeight ?? from
+        const to = Math.max(
+          contentWrapRef.value?.scrollHeight ?? 0,
+          from,
+        )
 
         if (from <= 0 && to <= 0) {
           finishReveal()
@@ -161,13 +190,15 @@ export default {
           })
         })
 
-        setTimeout(finishReveal, REVEAL_MS + 40)
+        revealTimer = setTimeout(finishReveal, REVEAL_MS + 40)
       },
     )
 
     function finishReveal() {
+      clearRevealTimer()
       isRevealing.value = false
       revealContentVisible.value = false
+      heightLocked.value = false
       hostHeightPx.value = null
       heightAnimActive.value = false
     }
@@ -186,13 +217,20 @@ export default {
     })
 
     const placeholderClass = computed(() => ({
-      'ui-skeleton-placeholder--flow': props.loading && !isRevealing.value,
-      'ui-skeleton-placeholder--overlay': isRevealing.value,
+      'ui-skeleton-placeholder--flow':
+        props.loading && !isRevealing.value && !heightLocked.value,
+      'ui-skeleton-placeholder--overlay':
+        isRevealing.value || (props.loading && heightLocked.value),
       'ui-skeleton-placeholder--fade-out': isRevealing.value,
+      'ui-skeleton-placeholder--fill':
+        props.loading && heightLocked.value && !isRevealing.value,
     }))
 
     const contentWrapClass = computed(() => ({
-      'ui-skeleton-content-wrap--loading': props.loading && !isRevealing.value,
+      'ui-skeleton-content-wrap--loading':
+        props.loading && !isRevealing.value && !heightLocked.value,
+      'ui-skeleton-content-wrap--loading-hold':
+        props.loading && heightLocked.value && !isRevealing.value,
       'ui-skeleton-content-wrap--revealing': isRevealing.value,
       'ui-skeleton-content-wrap--revealing-visible':
         isRevealing.value && revealContentVisible.value,
@@ -206,6 +244,7 @@ export default {
       contentWrapRef,
       hostStyle,
       heightAnimActive,
+      heightLocked,
       isRevealing,
       showPlaceholder,
       isBusy,
@@ -234,6 +273,7 @@ export default {
       return cn(
         'ui-skeleton-host',
         this.heightAnimActive && 'ui-skeleton-host--height-active',
+        this.heightLocked && 'ui-skeleton-host--height-locked',
         (this.loading || this.isRevealing) && 'ui-skeleton-host--busy',
         this.$attrs.class,
       )

@@ -3,7 +3,7 @@
  *
  * Düzen: `border` / `ring` tek değer; sayfa `background` + `foreground` (bg-background, text-foreground);
  * yüzey çiftleri hep `{ DEFAULT, foreground }` → `bg-surface`, `text-surface-foreground`, `bg-control`, …
- * Gri skala: `base` ve `neutral` aynı token’lar (`--base-50` … `--base-950`, OKLCH); Tailwind `neutral` paleti ile aynı uç noktalar.
+ * Gri skala: `base`, `neutral` ve `zinc` aynı token’lar (`--base-50` … `--base-950`, Tailwind neutral OKLCH).
  * `white` → `var(--white)` (Tailwind varsayılan #fff ile uyumlu).
  *
  * @type {import('tailwindcss').Config}
@@ -27,6 +27,7 @@ module.exports = {
     extend: {
       colors: {
         base: baseScale,
+        zinc: baseScale,
         neutral: baseScale,
 
         white: 'var(--white)',

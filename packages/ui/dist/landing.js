@@ -1,20 +1,20 @@
-import { K as c, ag as g, $ as p, A as d, a as T, b, B as h, c as F, C, d as L, e as P, g as A, E as O, k as f, I as y, l as E, L as v, m as G, P as S, n as R, o as _, R as I, p as U, S as k, q as w, r as B, s as D, u as M, w as N, v as W, y as Y } from "./index-Dltrcmu5.js";
-import { F as V, h as X, i as Z, j as $, G as z, H as aa, J as sa, M as ea, N as oa, O as ta, Q as ia, U as ra, W as la, X as na, Y as ua, Z as ma, a2 as ca, a3 as ga, a4 as pa, a5 as da, a7 as Ta, a8 as ba, ab as ha, ac as Fa, ad as Ca, ae as La, ah as Pa } from "./index-Dltrcmu5.js";
-const x = {
+import { i as g, t as c, j as p, A as d, k as T, l as h, B as F, m as b, C, n as L, o as P, q as f, E as A, F as O, I as y, s as E, L as v, v as G, P as S, u as R, w as _, R as I, x as U, y as k, z as w, S as B, G as D, H as M, J as N, K as W, N as x } from "./index-DEEtzBEQ.js";
+import { O as J, Q, U as $, V as X, W as Z, $ as aa, a0 as sa, a1 as ea, a2 as oa, a3 as ta, a4 as ia, e as ra, a5 as la, d as na, a6 as ua, g as ma, a7 as ga, a8 as ca, a9 as pa, aa as da, h as Ta, ab as ha, ad as Fa, ae as ba, af as Ca, ag as La, ah as Pa } from "./index-DEEtzBEQ.js";
+const K = {
   en: p,
-  tr: g
-}, K = [
+  tr: c
+}, V = [
   ["ui-action-group", d],
   ["ui-alert", T],
-  ["ui-avatar", b],
-  ["ui-badge", h],
-  ["ui-button", F],
+  ["ui-avatar", h],
+  ["ui-badge", F],
+  ["ui-button", b],
   ["ui-card", C],
   ["ui-date-picker", L],
   ["ui-dialog", P],
-  ["ui-dropdown", A],
-  ["ui-empty", O],
-  ["ui-form-row", f],
+  ["ui-dropdown", f],
+  ["ui-empty", A],
+  ["ui-form-row", O],
   ["ui-icon", y],
   ["ui-input", E],
   ["ui-list", v],
@@ -31,35 +31,35 @@ const x = {
   ["ui-tab-list", M],
   ["ui-tabs", N],
   ["ui-tab-trigger", W],
-  ["ui-toast", Y]
+  ["ui-toast", x]
 ];
-function j(n, u = {}) {
+function Y(n, u = {}) {
   var i, r;
   const { i18n: a, locale: o, locales: m, theme: t } = u;
-  if (t && c(t), (i = a == null ? void 0 : a.global) != null && i.mergeLocaleMessage) {
+  if (t && g(t), (i = a == null ? void 0 : a.global) != null && i.mergeLocaleMessage) {
     const e = m ?? (o != null ? [o] : [
       typeof a.global.locale == "string" ? a.global.locale : ((r = a.global.locale) == null ? void 0 : r.value) ?? "tr"
     ]);
     for (const s of e) {
-      const l = x[s];
+      const l = K[s];
       l && a.global.mergeLocaleMessage(s, l);
     }
   }
-  for (const [e, s] of K)
+  for (const [e, s] of V)
     n.component(e, s);
 }
-const H = {
-  install: j
+const q = {
+  install: Y
 };
 export {
-  V as FEW_COLOR_SCALE,
-  X as FEW_PALETTE_ID,
-  Z as FEW_PRIMARY,
-  $ as FEW_PRIMARY_FOREGROUND,
-  z as GOOGLE_FONTS_CATALOG,
+  J as FEW_COLOR_SCALE,
+  Q as FEW_PALETTE_ID,
+  $ as FEW_PRIMARY,
+  X as FEW_PRIMARY_FOREGROUND,
+  Z as GOOGLE_FONTS_CATALOG,
   aa as applyGoogleFontsForTheme,
   sa as applyThemeCustomCss,
-  c as applyUiTheme,
+  g as applyUiTheme,
   ea as buildGoogleFontsLinkTag,
   oa as buildGoogleFontsStylesheetUrl,
   ta as buildThemeStyleAttr,
@@ -67,17 +67,17 @@ export {
   ra as clearToasts,
   la as createUiId,
   na as createUiIdFactory,
-  H as default,
+  q as default,
   ua as deriveBrandColorsFromPrimary,
   ma as dismissToast,
-  ca as getFewPrimaryColors,
-  ga as getThemePreset,
+  ga as getFewPrimaryColors,
+  ca as getThemePreset,
   pa as googleFontSelectOptions,
   da as mergeUiTheme,
   Ta as pushToast,
-  ba as resetUiIds,
-  ha as resolvePrimaryColor,
-  Fa as resolveThemeFontFamilies,
+  ha as resetUiIds,
+  Fa as resolvePrimaryColor,
+  ba as resolveThemeFontFamilies,
   Ca as resolveThemePreset,
   La as resolveThemeVars,
   Pa as withDerivedBrandColors
