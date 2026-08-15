@@ -21,37 +21,27 @@ export default defineComponent({
       >
         FewUI
       </router-link>
-      <nav class="flex flex-wrap items-center gap-2">
-        <ui-button
-          variant="ghost"
-          color="secondary"
+      <nav class="flex flex-wrap items-center gap-1 sm:gap-2">
+        <router-link
           to="/projects"
+          class="inline-flex h-9 items-center rounded-xl px-3 text-sm text-foreground hover:bg-muted"
         >
           {{ $t('nav.projects') }}
-        </ui-button>
-        <ui-button
-          variant="ghost"
-          color="secondary"
-          to="/projects/restta"
-        >
-          {{ $t('nav.restta') }}
-        </ui-button>
-        <ui-button
-          variant="outline"
-          color="secondary"
+        </router-link>
+        <router-link
           to="/create"
+          class="inline-flex h-9 items-center rounded-xl border border-border px-3 text-sm font-medium text-foreground hover:bg-muted"
         >
           {{ $t('nav.create') }}
-        </ui-button>
-        <ui-button
-          variant="ghost"
-          color="secondary"
+        </router-link>
+        <a
           :href="kitDocsUrl"
           target="_blank"
           rel="noopener"
+          class="inline-flex h-9 items-center rounded-xl px-3 text-sm text-muted-foreground hover:bg-muted hover:text-foreground"
         >
           {{ $t('nav.docs') }}
-        </ui-button>
+        </a>
       </nav>
     </div>
   </header>

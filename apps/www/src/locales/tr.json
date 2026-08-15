@@ -2,44 +2,49 @@
   "nav": {
     "home": "Ana sayfa",
     "projects": "Projeler",
-    "create": "Tema oluştur",
-    "docs": "Dokümantasyon",
-    "restta": "Restta"
+    "create": "Create",
+    "docs": "Dokümantasyon"
   },
   "home": {
     "brand": "FewUI",
     "tagline": "İnsanlar ve ajanlarla birlikte ürün çıkaran ekipler için UI sistemi.",
-    "description": "FewUI; bileşenler, tasarım token'ları, Cursor kuralları ve agent skill'lerini tek dilde birleştiren bir arayüz şirketidir. Aynı kit hem panelde hem misafir deneyiminde tutarlı, hızlı ve ölçeklenebilir arayüzler üretir.",
+    "description": "FewUI bir arayüz şirketidir. Bileşenler, tasarım token'ları, Cursor kuralları ve agent skill'lerini tek dilde birleştirir; panelden misafir deneyimine kadar tutarlı ürün arayüzleri üretir.",
     "ctaCreate": "Tema oluştur",
-    "ctaRestta": "Restta'yı incele",
+    "ctaProjects": "Projeleri gör",
     "ctaDocs": "Kit dokümantasyonu",
-    "aboutTitle": "FewUI ne yapar?",
-    "aboutBody": "Hazır bileşen kütüphanesi, runtime tema motoru ve AI-native dokümantasyonla ekiplerin ürün arayüzünü sıfırdan icat etmek yerine ortak bir dil üzerinde kurmasını sağlar. Tasarım kararları token'larda yaşar; ajanlar ve insanlar aynı kurallarla çalışır.",
+    "aboutTitle": "FewUI hakkında",
+    "aboutBody": "Ürün ekiplerinin her ekranda sıfırdan UI icat etmesini engellemek için kuruldu. Ortak bir bileşen ve token dili; tasarım, mühendislik ve AI ajanlarının aynı kurallarla çalışmasını sağlar.",
     "aboutPoints": {
-      "components": "Panel, form, diyalog ve operasyon yüzeyleri için olgun bileşen seti",
+      "components": "Panel, form, diyalog, tablo ve operasyon yüzeyleri için olgun bileşen seti",
       "tokens": "Açık / koyu ve markaya özel token'larla runtime temalama",
-      "agents": "Cursor rules ve skill'lerle ajanların aynı UI dilini kullanması"
+      "agents": "Cursor rules ve skill'lerle ajanların aynı UI dilini kullanması",
+      "ship": "Gerçek ürünlerde kanıtlanmış hız: daha az özel CSS, daha hızlı iterasyon"
     },
-    "projectsTitle": "Geliştirdiğimiz ürünler",
-    "projectsDescription": "FewUI Kit ile üretilen gerçek ürünler — arayüzün operasyonda ne kadar etkili olduğunu burada görürsünüz.",
-    "resttaEyebrow": "Flagship",
+    "systemTitle": "Tek sistem, uçtan uca tutarlılık",
+    "systemBody": "FewUI yalnızca bir component gallery değil. Tema token'ları, erişilebilir kontroller, form satırları ve panel kabuğu birlikte tasarlanır — böylece yeni bir özellik eklemek dil kırmaz.",
+    "systemPoints": {
+      "preview": "Canlı önizleme ile temayı bileşenler üzerinde anında görün",
+      "export": "Kuralları ve skill'leri indirip Cursor / ajan iş akışına bağlayın",
+      "scale": "Küçük landing'den yoğun operasyon paneline kadar aynı dil"
+    },
+    "createTitle": "Yeni proje için tema oluştur",
+    "createBody": "Create deneyiminde renk, tipografi ve stil token'larını ayarlayın; bileşenleri canlı önizleyin; kuralları ve skill paketini projenize aktarın.",
+    "createCta": "Create'e git",
+    "projectsTitle": "FewUI ile geliştirilen ürünler",
+    "projectsBody": "Kit'in üretimde nasıl durduğunu görmek için projeler sayfasına bakın — flagship ürünler ve kullanım alanları orada.",
+    "projectsCta": "Projelere git"
+  },
+  "projects": {
+    "title": "Projeler",
+    "description": "FewUI Kit ile geliştirilen ürünler — arayüz dilinin operasyonda nasıl tutulduğunun kanıtı.",
     "resttaTitle": "Restta",
-    "resttaBody": "Restoran operasyonunu uçtan uca taşıyan ürün: POS, yönetim paneli, QR menü, misafir siteleri ve abonelik. FewUI bileşenleri Restta'nın her yüzeyinde — panelden masaya kadar — aynı dilde çalışır.",
+    "resttaDescription": "Restoran operasyonunu uçtan uca taşıyan ürün: POS, yönetim paneli, QR menü, misafir siteleri ve abonelik. FewUI her yüzeyde aynı dilde çalışır.",
     "resttaFeatures": {
       "pos": "Hızlı, dokunmatik dostu POS ve masa yönetimi",
       "web": "Çok kiracılı web / QR menü ve site oluşturucu",
       "ops": "Rol, ayar, faturalama ve operasyon panelleri"
     },
-    "resttaCta": "Restta hakkında",
-    "createTitle": "Yeni proje için tema oluştur",
-    "createBody": "create deneyiminde token'ları ayarlayın, bileşenleri anında önizleyin, kuralları ve skill'leri projenize indirin.",
-    "createCta": "create.fewui.com — başla"
-  },
-  "projects": {
-    "title": "Projeler",
-    "description": "FewUI Kit ile geliştirilen ürünler.",
-    "resttaTitle": "Restta",
-    "resttaDescription": "Restoran POS, web modülü ve tenant landing siteleri — FewUI'nin üretim ölçeğindeki vitrini."
+    "resttaCta": "Restta detayı"
   },
   "restta": {
     "title": "Restta",
@@ -49,10 +54,11 @@
       "web": "Web modülü",
       "landing": "Tenant landing"
     },
-    "ctaCreate": "Restta temasıyla dene"
+    "ctaCreate": "Temayla dene",
+    "ctaProjects": "Tüm projeler"
   },
   "create": {
-    "title": "Projeni yarat",
+    "title": "Create",
     "description": "Tema token'larını ayarlayın, bileşenleri önizleyin, kuralları ve skill'leri indirin."
   },
   "themePlayground": {

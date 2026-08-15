@@ -11,6 +11,8 @@ const playgroundRoot = resolve(__dirname, '../../packages/theme-playground')
 export default defineConfig({
   plugins: [vue(), tailwindcss()],
   resolve: {
+    // App router ile fewui Button.RouterLink aynı vue-router örneğini kullansın
+    dedupe: ['vue', 'vue-router', 'vue-i18n'],
     alias: [
       { find: 'fewui/style.css', replacement: join(uiRoot, 'themes/default.css') },
       { find: 'fewui/components.css', replacement: join(uiRoot, 'themes/components.css') },

@@ -8,14 +8,12 @@ export default defineComponent({
 
 <template>
   <main class="mx-auto max-w-6xl px-6 py-12">
-    <ui-button
-      variant="ghost"
-      color="secondary"
-      prefix-icon="arrow-left"
+    <router-link
       to="/projects"
+      class="inline-flex h-9 items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
     >
-      {{ $t('nav.projects') }}
-    </ui-button>
+      ← {{ $t('restta.ctaProjects') }}
+    </router-link>
 
     <h1 class="mt-6 text-3xl font-medium text-foreground">
       {{ $t('restta.title') }}
@@ -43,14 +41,12 @@ export default defineComponent({
     </div>
 
     <div class="mt-10">
-      <ui-button
-        variant="solid"
-        color="primary"
+      <router-link
         to="/create"
-        suffix-icon="arrow-right"
+        class="inline-flex h-11 items-center justify-center rounded-xl bg-primary px-5 text-sm font-medium text-primary-foreground hover:opacity-90"
       >
         {{ $t('restta.ctaCreate') }}
-      </ui-button>
+      </router-link>
     </div>
   </main>
 </template>

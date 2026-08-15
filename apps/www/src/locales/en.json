@@ -2,44 +2,49 @@
   "nav": {
     "home": "Home",
     "projects": "Projects",
-    "create": "Create theme",
-    "docs": "Documentation",
-    "restta": "Restta"
+    "create": "Create",
+    "docs": "Documentation"
   },
   "home": {
     "brand": "FewUI",
     "tagline": "A UI system for teams that ship with people and agents.",
-    "description": "FewUI is an interface company: components, design tokens, Cursor rules, and agent skills in one language. The same kit powers consistent, fast interfaces from admin panels to guest experiences.",
+    "description": "FewUI is an interface company. Components, design tokens, Cursor rules, and agent skills share one language — so products stay consistent from admin panels to guest experiences.",
     "ctaCreate": "Create a theme",
-    "ctaRestta": "Explore Restta",
+    "ctaProjects": "See projects",
     "ctaDocs": "Kit documentation",
-    "aboutTitle": "What FewUI does",
-    "aboutBody": "A mature component library, runtime theming, and AI-native docs so teams build on a shared language instead of reinventing UI. Design decisions live in tokens; agents and humans follow the same rules.",
+    "aboutTitle": "About FewUI",
+    "aboutBody": "Built so product teams stop reinventing UI on every screen. A shared component and token language lets design, engineering, and AI agents work from the same rules.",
     "aboutPoints": {
-      "components": "Production components for panels, forms, dialogs, and ops surfaces",
+      "components": "Mature components for panels, forms, dialogs, tables, and ops surfaces",
       "tokens": "Runtime theming with light / dark and brand tokens",
-      "agents": "Cursor rules and skills so agents speak the same UI language"
+      "agents": "Cursor rules and skills so agents speak the same UI language",
+      "ship": "Proven in production: less one-off CSS, faster iteration"
     },
-    "projectsTitle": "Products we build",
-    "projectsDescription": "Real products on FewUI Kit — proof of how the system holds up in production.",
-    "resttaEyebrow": "Flagship",
+    "systemTitle": "One system, end-to-end consistency",
+    "systemBody": "FewUI is more than a component gallery. Theme tokens, accessible controls, form rows, and panel chrome are designed together — so new features do not break the language.",
+    "systemPoints": {
+      "preview": "Live preview: see your theme on real components instantly",
+      "export": "Export rules and skills into your Cursor / agent workflow",
+      "scale": "Same language from a small landing page to a dense ops panel"
+    },
+    "createTitle": "Create a theme for your next project",
+    "createBody": "In Create, tune color, type, and style tokens; preview components live; then pull rules and a skill pack into your project.",
+    "createCta": "Go to Create",
+    "projectsTitle": "Products built with FewUI",
+    "projectsBody": "See how the kit holds up in production on the projects page — flagship products and use cases live there.",
+    "projectsCta": "Browse projects"
+  },
+  "projects": {
+    "title": "Projects",
+    "description": "Products built with FewUI Kit — proof of how the UI language holds up in real operations.",
     "resttaTitle": "Restta",
-    "resttaBody": "End-to-end restaurant operations: POS, admin panel, QR menus, guest sites, and billing. FewUI runs across every Restta surface — from the floor to the back office — in one visual language.",
+    "resttaDescription": "End-to-end restaurant operations: POS, admin panel, QR menus, guest sites, and billing. FewUI runs across every surface in one visual language.",
     "resttaFeatures": {
       "pos": "Fast, touch-friendly POS and table management",
       "web": "Multi-tenant web / QR menu and site builder",
       "ops": "Roles, settings, billing, and operations panels"
     },
-    "resttaCta": "About Restta",
-    "createTitle": "Create a theme for your next project",
-    "createBody": "Tune tokens, preview components live, then download rules and skills for your stack.",
-    "createCta": "Open create — start theming"
-  },
-  "projects": {
-    "title": "Projects",
-    "description": "Products built with FewUI Kit.",
-    "resttaTitle": "Restta",
-    "resttaDescription": "Restaurant POS, web module, and tenant landing sites — FewUI at production scale."
+    "resttaCta": "Restta details"
   },
   "restta": {
     "title": "Restta",
@@ -49,10 +54,11 @@
       "web": "Web site module",
       "landing": "Tenant landing"
     },
-    "ctaCreate": "Try with Restta theme"
+    "ctaCreate": "Try theming",
+    "ctaProjects": "All projects"
   },
   "create": {
-    "title": "Create your project",
+    "title": "Create",
     "description": "Tune theme tokens, preview components, and download rules and skills for your stack."
   },
   "themePlayground": {
