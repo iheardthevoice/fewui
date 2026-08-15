@@ -8,12 +8,16 @@
     "docs:dev": "pnpm --filter @fewui/docs dev",
     "docs:build": "pnpm --filter @fewui/docs build",
     "docs:preview": "pnpm --filter @fewui/docs preview",
+    "docs:deploy": "pnpm docs:build && npx wrangler pages deploy apps/docs/dist --project-name=fewui-docs --branch=main",
     "playground:dev": "pnpm --filter @fewui/docs dev",
     "kit-docs:dev": "pnpm --filter @fewui/kit-docs dev",
     "kit-docs:build": "pnpm --filter @fewui/kit-docs build",
     "kit-docs:preview": "pnpm --filter @fewui/kit-docs preview",
+    "kit-docs:deploy": "pnpm kit-docs:build && npx wrangler pages deploy apps/kit-docs/.vitepress/dist --project-name=fewui-kit --branch=main",
     "www:dev": "pnpm --filter @fewui/www dev",
     "www:build": "pnpm --filter @fewui/www build",
-    "www:preview": "pnpm --filter @fewui/www preview"
+    "www:preview": "pnpm --filter @fewui/www preview",
+    "www:deploy": "pnpm www:build && npx wrangler pages deploy apps/www/dist --project-name=fewui-www --branch=main",
+    "deploy:pages": "pnpm docs:deploy && pnpm www:deploy && pnpm kit-docs:deploy"
   }
 }

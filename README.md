@@ -13,6 +13,26 @@ Monorepo: **`fewui`**, **theme playground**, **docs playground**, **Kit docs (Vi
 | `pnpm kit-docs:dev` | Kit dokümantasyonu VitePress (`:5174`) |
 | `pnpm www:dev` | fewui.com marketing (`:5176`) |
 | `pnpm docs:build` / `kit-docs:build` / `www:build` | Üretim build |
+| `pnpm docs:deploy` / `www:deploy` / `kit-docs:deploy` | Cloudflare Pages’e tek app deploy |
+| `pnpm deploy:pages` | Üç Pages projesini sırayla deploy |
+
+## Cloudflare Pages
+
+| App | Local | Pages proje | URL |
+| --- | --- | --- | --- |
+| Docs playground | `:5175` | `fewui-docs` | https://fewui-docs.pages.dev |
+| Marketing (www) | `:5176` | `fewui-www` | https://fewui-www.pages.dev |
+| Kit docs (VitePress) | `:5174` | `fewui-kit` | https://fewui-kit.pages.dev |
+
+Git bağlı build (repo kökü):
+
+| Proje | Build command | Output |
+| --- | --- | --- |
+| `fewui-docs` | `pnpm docs:build` | `apps/docs/dist` |
+| `fewui-www` | `pnpm www:build` | `apps/www/dist` |
+| `fewui-kit` | `pnpm kit-docs:build` | `apps/kit-docs/.vitepress/dist` |
+
+Node 22 + pnpm 9 (`packageManager` alanı). Watch paths: ilgili `apps/...` + `packages/ui` + `packages/theme-playground` + kök `package.json` / `pnpm-lock.yaml` / `pnpm-workspace.yaml`.
 
 ## Tüketim
 

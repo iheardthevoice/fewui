@@ -4,11 +4,14 @@ export default defineConfig({
   title: 'FewUI Kit',
   description: 'AI-oriented UI framework — components, tokens, rules, and skills.',
   base: '/',
-  ignoreDeadLinks: [/^http:\/\/localhost:5175/],
+  ignoreDeadLinks: [
+    /^http:\/\/localhost:5175/,
+    /^https:\/\/fewui-docs\.pages\.dev/,
+  ],
   themeConfig: {
     nav: [
       { text: 'Kit', link: '/kit/' },
-      { text: 'Playground', link: 'http://localhost:5175', target: '_blank' },
+      { text: 'Playground', link: 'https://fewui-docs.pages.dev', target: '_blank' },
     ],
     sidebar: [
       {
