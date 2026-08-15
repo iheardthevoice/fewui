@@ -41,5 +41,16 @@ export default defineComponent({
         icon="store"
       />
     </div>
+
+    <div class="mt-10">
+      <ui-button
+        variant="solid"
+        color="primary"
+        to="/create"
+        suffix-icon="arrow-right"
+      >
+        {{ $t('restta.ctaCreate') }}
+      </ui-button>
+    </div>
   </main>
 </template>

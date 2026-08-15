@@ -1,8 +1,14 @@
 <script>
 import { defineComponent } from 'vue'
+import { KIT_DOCS_URL } from '../site-urls.js'
 
 export default defineComponent({
   name: 'SiteNav',
+  computed: {
+    kitDocsUrl() {
+      return KIT_DOCS_URL
+    },
+  },
 })
 </script>
 
@@ -26,14 +32,21 @@ export default defineComponent({
         <ui-button
           variant="ghost"
           color="secondary"
+          to="/projects/restta"
+        >
+          {{ $t('nav.restta') }}
+        </ui-button>
+        <ui-button
+          variant="outline"
+          color="secondary"
           to="/create"
         >
           {{ $t('nav.create') }}
         </ui-button>
         <ui-button
-          variant="outline"
+          variant="ghost"
           color="secondary"
-          href="http://localhost:5174/kit/"
+          :href="kitDocsUrl"
           target="_blank"
           rel="noopener"
         >

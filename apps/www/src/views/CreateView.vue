@@ -2,8 +2,7 @@
 import { defineComponent } from 'vue'
 import ThemePlaygroundSidebar from '@fewui/theme-playground/ThemePlaygroundSidebar.vue'
 import { postThemeToFrame } from '@fewui/theme-playground/theme-bridge.js'
-
-const PLAYGROUND_ORIGIN = import.meta.env.VITE_PLAYGROUND_ORIGIN || 'http://localhost:5175'
+import { PLAYGROUND_EMBED_URL } from '../site-urls.js'
 
 export default defineComponent({
   name: 'CreateView',
@@ -15,7 +14,7 @@ export default defineComponent({
   },
   computed: {
     previewSrc() {
-      return `${PLAYGROUND_ORIGIN}/?embed=1`
+      return PLAYGROUND_EMBED_URL
     },
   },
   methods: {
