@@ -27,6 +27,42 @@
   --tw-ring-color: var(--ui-focus-ring);
 }
 
+/** Dolgulu yüzey — yalnızca primary (`--ui-fill-base: var(--primary)`) */
+@utility ui-fill-gradient {
+  background: linear-gradient(
+    180deg,
+    color-mix(
+      in oklab,
+      var(--ui-fill-base) calc(100% - var(--ui-fill-grad-top, var(--ui-fill-grad-top-primary, 8%))),
+      var(--ui-fill-grad-light) var(--ui-fill-grad-top, var(--ui-fill-grad-top-primary, 8%))
+    ),
+    color-mix(
+      in oklab,
+      var(--ui-fill-base) calc(100% - var(--ui-fill-grad-bottom, var(--ui-fill-grad-bottom-primary, 5%))),
+      var(--ui-fill-grad-dark) var(--ui-fill-grad-bottom, var(--ui-fill-grad-bottom-primary, 5%))
+    )
+  );
+}
+
+@utility ui-button-fill-gradient {
+  @apply ui-fill-gradient;
+}
+
+/** Primary dolgulu seçili yüzey — segment, sekme vb. (`@apply` için utility) */
+@utility ui-fill-primary {
+  @apply border-0 ui-fill-gradient text-primary-foreground shadow-none;
+  --ui-fill-base: var(--primary);
+  --ui-fill-grad-top: var(--ui-fill-grad-top-primary);
+  --ui-fill-grad-bottom: var(--ui-fill-grad-bottom-primary);
+}
+
+/** Muted dolgulu seçili yüzey — menü aktif satır vb. */
+@utility ui-fill-muted {
+  @apply border-0 text-foreground shadow-none;
+  background-color: var(--muted);
+  background-image: none;
+}
+
 /** Kaydırma çubuğunu gizle (yatay sekme listesi, sidebar nav vb.) */
 @utility ui-scrollbar-none {
   scrollbar-width: none;

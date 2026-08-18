@@ -1,4 +1,7 @@
 const FONT_LINK_ID = 'fewui-google-fonts'
+const FONT_CATALOG_PREVIEW_LINK_ID = 'fewui-google-fonts-catalog-preview'
+
+let catalogPreviewApplied = false
 
 /**
  * Google Fonts with latin-ext (Türkçe karakter desteği).
@@ -25,10 +28,25 @@ export const GOOGLE_FONTS_CATALOG = Object.freeze([
 ])
 
 /**
- * @returns {Array<{ value: string, label: string }>}
+ * @param {string} name
+ * @returns {string}
+ */
+export function formatGoogleFontFamilyName(name) {
+  const trimmed = String(name || '').trim()
+  if (!trimmed) return ''
+  const needsQuotes = /\s/.test(trimmed) && !/^["'].*["']$/.test(trimmed)
+  const family = needsQuotes ? `"${trimmed.replace(/"/g, '')}"` : trimmed
+  return `${family}, sans-serif`
+}
+
+/**
+ * @returns {Array<{ value: string, label: string, fontFamily: string }>}
  */
 export function googleFontSelectOptions() {
-  return GOOGLE_FONTS_CATALOG.map((row) => ({ ...row }))
+  return GOOGLE_FONTS_CATALOG.map((row) => ({
+    ...row,
+    fontFamily: formatGoogleFontFamilyName(row.value),
+  }))
 }
 
 /**
@@ -95,5 +113,36 @@ export function applyGoogleFontsForTheme(theme = {}, options = {}) {
     el.setAttribute('href', href)
   }
 
+  return href
+}
+
+/**
+ * Font seçici önizlemesi — katalog tek istekte yüklenir (açılışta bir kez).
+ * @param {{ force?: boolean, id?: string }} [options]
+ * @returns {string | null}
+ */
+export function applyGoogleFontsCatalogPreview(options = {}) {
+  if (typeof document === 'undefined') return null
+  if (catalogPreviewApplied && !options.force) {
+    return document.getElementById(options.id || FONT_CATALOG_PREVIEW_LINK_ID)?.getAttribute('href') || null
+  }
+
+  const href = buildGoogleFontsStylesheetUrl(GOOGLE_FONTS_CATALOG.map((row) => row.value))
+  if (!href) return null
+
+  const id = options.id || FONT_CATALOG_PREVIEW_LINK_ID
+  let el = document.getElementById(id)
+  if (!el) {
+    el = document.createElement('link')
+    el.id = id
+    el.rel = 'stylesheet'
+    document.head.appendChild(el)
+  }
+
+  if (el.getAttribute('href') !== href) {
+    el.setAttribute('href', href)
+  }
+
+  catalogPreviewApplied = true
   return href
 }

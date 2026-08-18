@@ -36,7 +36,10 @@ export default {
       default: 'plain',
       validator: (v) => VARIANTS.includes(v),
     },
-    /** Öğeler arası dikey boşluk — `bordered` / `divided` iken yok sayılır. */
+    /**
+     * Öğeler arası dikey boşluk.
+     * `plain`: gap. `divided` / `bordered`: satır içi dikey padding.
+     */
     density: {
       type: String,
       default: 'normal',
@@ -45,11 +48,17 @@ export default {
   },
   computed: {
     listClass() {
+      const densityClass =
+        this.density === 'compact'
+          ? 'ui-list--compact'
+          : this.density === 'relaxed'
+            ? 'ui-list--relaxed'
+            : ''
       if (this.variant === 'bordered') {
-        return cn('ui-list', 'ui-list--bordered', this.$attrs.class)
+        return cn('ui-list', 'ui-list--bordered', densityClass, this.$attrs.class)
       }
       if (this.variant === 'divided') {
-        return cn('ui-list', 'ui-list--divided', this.$attrs.class)
+        return cn('ui-list', 'ui-list--divided', densityClass, this.$attrs.class)
       }
       const gap =
         this.density === 'compact'

@@ -136,6 +136,18 @@
   /** Klavye odak halkası — `components.css` içinde `--tw-ring-color` ile kullanılır */
   --ui-focus-ring: color-mix(in oklab, var(--ring) 45%, transparent);
 
+  /** Dolgulu primary yüzey gradient — yalnızca primary renkli öğeler */
+  --ui-fill-grad-top-primary: 8%;
+  --ui-fill-grad-bottom-primary: 5%;
+  --ui-fill-grad-light: white;
+  --ui-fill-grad-dark: black;
+
+  /** Geriye dönük alias — `ui-button-*-gradient` */
+  --ui-button-grad-top: var(--ui-fill-grad-top-primary);
+  --ui-button-grad-bottom: var(--ui-fill-grad-bottom-primary);
+  --ui-button-grad-light: var(--ui-fill-grad-light);
+  --ui-button-grad-dark: var(--ui-fill-grad-dark);
+
   /** Global scrollbar — şeffaf track; yalnızca thumb görünür */
   --ui-scrollbar-size: 8px;
   --ui-scrollbar-track: transparent;
@@ -214,6 +226,11 @@
 
   --ring: var(--base-500);
   --ui-focus-ring: color-mix(in oklab, var(--ring) 45%, transparent);
+
+  --ui-fill-grad-top-primary: 7%;
+  --ui-fill-grad-bottom-primary: 4%;
+  --ui-button-grad-top: var(--ui-fill-grad-top-primary);
+  --ui-button-grad-bottom: var(--ui-fill-grad-bottom-primary);
 
   --ui-scrollbar-track: transparent;
   --ui-scrollbar-thumb: color-mix(in oklab, var(--foreground) 30%, transparent);

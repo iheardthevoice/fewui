@@ -38,6 +38,7 @@ export {
   mergeUiTheme,
   resolveThemeVars,
   buildThemeStyleAttr,
+  buildThemeEnforcementCss,
 } from './theme/apply-theme.js'
 export {
   deriveBrandColorsFromPrimary,
@@ -57,6 +58,8 @@ export {
   buildGoogleFontsLinkTag,
   buildGoogleFontsStylesheetUrl,
   googleFontSelectOptions,
+  formatGoogleFontFamilyName,
+  applyGoogleFontsCatalogPreview,
   GOOGLE_FONTS_CATALOG,
   resolveThemeFontFamilies,
 } from './theme/google-fonts.js'

@@ -90,6 +90,7 @@
               v-else
               class="ui-select-value"
               :class="{ 'ui-select-value--placeholder': isPlaceholderDisplay }"
+              :style="selectedDisplayStyle"
               data-popover-align
             >{{ displayLabel }}</span>
             <span class="ui-select-field-suffix">
@@ -184,6 +185,7 @@
                   <span
                     data-popover-align
                     class="min-w-0 truncate"
+                    :style="optionDisplayStyle(opt)"
                   >{{ opt.label }}</span>
                   <ui-badge
                     v-if="opt.badge"
@@ -469,6 +471,11 @@ export default {
       const m = this.normalizedOptions.find((o) => String(o.value) === this.stringValue)
       return m ? m.label : this.stringValue
     },
+    selectedDisplayStyle() {
+      if (this.multiple || this.isPlaceholderDisplay) return undefined
+      const opt = this.normalizedOptions.find((o) => String(o.value) === this.stringValue)
+      return this.optionDisplayStyle(opt)
+    },
     multipleInputPlaceholder() {
       if (this.selectedValues.length > 0) {
         return ''
@@ -612,6 +619,14 @@ export default {
     labelForValue(val) {
       const m = this.normalizedOptions.find((o) => String(o.value) === String(val))
       return m ? m.label : String(val)
+    },
+    optionDisplayStyle(opt) {
+      if (!opt || typeof opt !== 'object') return undefined
+      if (opt.style && typeof opt.style === 'object') return opt.style
+      if (typeof opt.fontFamily === 'string' && opt.fontFamily.trim()) {
+        return { fontFamily: opt.fontFamily.trim() }
+      }
+      return undefined
     },
     isSelected(opt) {
       if (this.multiple) {

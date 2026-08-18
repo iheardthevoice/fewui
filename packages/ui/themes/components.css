@@ -27,6 +27,42 @@
   --tw-ring-color: var(--ui-focus-ring);
 }
 
+/** Dolgulu yüzey — yalnızca primary (`--ui-fill-base: var(--primary)`) */
+@utility ui-fill-gradient {
+  background: linear-gradient(
+    180deg,
+    color-mix(
+      in oklab,
+      var(--ui-fill-base) calc(100% - var(--ui-fill-grad-top, var(--ui-fill-grad-top-primary, 8%))),
+      var(--ui-fill-grad-light) var(--ui-fill-grad-top, var(--ui-fill-grad-top-primary, 8%))
+    ),
+    color-mix(
+      in oklab,
+      var(--ui-fill-base) calc(100% - var(--ui-fill-grad-bottom, var(--ui-fill-grad-bottom-primary, 5%))),
+      var(--ui-fill-grad-dark) var(--ui-fill-grad-bottom, var(--ui-fill-grad-bottom-primary, 5%))
+    )
+  );
+}
+
+@utility ui-button-fill-gradient {
+  @apply ui-fill-gradient;
+}
+
+/** Primary dolgulu seçili yüzey — segment, sekme vb. (`@apply` için utility) */
+@utility ui-fill-primary {
+  @apply border-0 ui-fill-gradient text-primary-foreground shadow-none;
+  --ui-fill-base: var(--primary);
+  --ui-fill-grad-top: var(--ui-fill-grad-top-primary);
+  --ui-fill-grad-bottom: var(--ui-fill-grad-bottom-primary);
+}
+
+/** Muted dolgulu seçili yüzey — menü aktif satır vb. */
+@utility ui-fill-muted {
+  @apply border-0 text-foreground shadow-none;
+  background-color: var(--muted);
+  background-image: none;
+}
+
 /** Kaydırma çubuğunu gizle (yatay sekme listesi, sidebar nav vb.) */
 @utility ui-scrollbar-none {
   scrollbar-width: none;
@@ -94,7 +130,7 @@
    * Link varyantı (`border-0`): ring yerine underline odak (metin bağlantısı).
    */
   .ui-button {
-    @apply shadow-none outline-none transition-[transform,opacity,color,background-color,border-color] duration-150 ease-out;
+    @apply shadow-none outline-none transition-[transform,opacity,color,background-color,background-image,border-color] duration-150 ease-out;
     @apply focus-visible:z-10 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-background;
     @apply enabled:active:scale-[0.98];
   }
@@ -131,6 +167,7 @@
   .ui-button.ui-control[data-variant='solid'][data-color='input'] {
     @apply border border-transparent text-foreground shadow-none;
     background-color: var(--input-background);
+    background-image: none;
     -webkit-backdrop-filter: blur(var(--ui-input-backdrop-blur));
     backdrop-filter: blur(var(--ui-input-backdrop-blur));
   }
@@ -141,6 +178,8 @@
 
   .ui-button.ui-control[data-variant='solid'][data-color='input']:hover:not(:disabled) {
     @apply opacity-100;
+    background-color: color-mix(in oklab, var(--input-background) 88%, var(--foreground) 8%);
+    background-image: none;
   }
 
   /**
@@ -148,14 +187,17 @@
    * `bg-primary` vb. utility'ler üretilmez; token tabanlı attribute selector zorunlu.
    */
   .ui-button.ui-control[data-variant='solid'][data-color='primary'] {
-    @apply border-0 shadow-none;
-    background-color: var(--primary);
+    @apply border-0 shadow-none ui-button-fill-gradient;
+    --ui-fill-base: var(--primary);
+    --ui-fill-grad-top: var(--ui-fill-grad-top-primary);
+    --ui-fill-grad-bottom: var(--ui-fill-grad-bottom-primary);
     color: var(--primary-foreground);
   }
 
   .ui-button.ui-control[data-variant='solid'][data-color='secondary'] {
     @apply border border-transparent shadow-none;
     background-color: var(--input-background);
+    background-image: none;
     color: var(--foreground);
     -webkit-backdrop-filter: blur(var(--ui-input-backdrop-blur));
     backdrop-filter: blur(var(--ui-input-backdrop-blur));
@@ -163,29 +205,34 @@
 
   .ui-button.ui-control[data-variant='solid'][data-color='secondary']:hover:not(:disabled) {
     background-color: color-mix(in oklab, var(--input-background) 82%, var(--foreground) 10%);
+    background-image: none;
   }
 
   .ui-button.ui-control[data-variant='solid'][data-color='warning'] {
     @apply border-0 shadow-none;
     background-color: var(--warning);
+    background-image: none;
     color: var(--warning-foreground);
   }
 
   .ui-button.ui-control[data-variant='solid'][data-color='success'] {
     @apply border-0 shadow-none;
     background-color: var(--success);
+    background-image: none;
     color: var(--success-foreground);
   }
 
   .ui-button.ui-control[data-variant='solid'][data-color='info'] {
     @apply border-0 shadow-none;
     background-color: var(--info);
+    background-image: none;
     color: var(--info-foreground);
   }
 
   .ui-button.ui-control[data-variant='solid'][data-color='danger'] {
     @apply border-0 shadow-none;
     background-color: var(--destructive);
+    background-image: none;
     color: var(--destructive-foreground);
   }
 
@@ -193,140 +240,150 @@
     opacity: 0.9;
   }
 
+  /** Ghost / outline — dinlenmede şeffaf; gradient yalnızca hover’da */
+  .ui-button.ui-control[data-variant='ghost'],
+  .ui-button.ui-control[data-variant='outline'] {
+    background-color: transparent;
+    background-image: none;
+  }
+
   .ui-button.ui-control[data-variant='ghost'][data-color='primary'] {
     @apply border-0 shadow-none;
-    background-color: transparent;
     color: var(--foreground);
   }
 
   .ui-button.ui-control[data-variant='ghost'][data-color='primary']:hover:not(:disabled) {
-    background-color: var(--primary);
+    @apply ui-button-fill-gradient;
+    --ui-fill-base: var(--primary);
+    --ui-fill-grad-top: var(--ui-fill-grad-top-primary);
+    --ui-fill-grad-bottom: var(--ui-fill-grad-bottom-primary);
     color: var(--primary-foreground);
   }
 
   .ui-button.ui-control[data-variant='ghost'][data-color='secondary'] {
     @apply border-0 shadow-none;
-    background-color: transparent;
     color: var(--secondary-foreground);
   }
 
   .ui-button.ui-control[data-variant='ghost'][data-color='secondary']:hover:not(:disabled) {
-    background-color: var(--secondary);
-    color: var(--secondary-foreground);
+    background-color: var(--muted);
+    background-image: none;
+    color: var(--foreground);
   }
 
   .ui-button.ui-control[data-variant='ghost'][data-color='warning'] {
     @apply border-0 shadow-none;
-    background-color: transparent;
     color: var(--warning);
   }
 
   .ui-button.ui-control[data-variant='ghost'][data-color='warning']:hover:not(:disabled) {
     background-color: var(--warning);
+    background-image: none;
     color: var(--warning-foreground);
   }
 
   .ui-button.ui-control[data-variant='ghost'][data-color='success'] {
     @apply border-0 shadow-none;
-    background-color: transparent;
     color: var(--success);
   }
 
   .ui-button.ui-control[data-variant='ghost'][data-color='success']:hover:not(:disabled) {
     background-color: var(--success);
+    background-image: none;
     color: var(--success-foreground);
   }
 
   .ui-button.ui-control[data-variant='ghost'][data-color='info'] {
     @apply border-0 shadow-none;
-    background-color: transparent;
     color: var(--info);
   }
 
   .ui-button.ui-control[data-variant='ghost'][data-color='info']:hover:not(:disabled) {
     background-color: var(--info);
+    background-image: none;
     color: var(--info-foreground);
   }
 
   .ui-button.ui-control[data-variant='ghost'][data-color='danger'] {
     @apply border-0 shadow-none;
-    background-color: transparent;
     color: var(--destructive);
   }
 
   .ui-button.ui-control[data-variant='ghost'][data-color='danger']:hover:not(:disabled) {
     background-color: var(--destructive);
+    background-image: none;
     color: var(--destructive-foreground);
   }
 
   .ui-button.ui-control[data-variant='outline'][data-color='primary'] {
     @apply shadow-none;
-    background-color: transparent;
     border: 1px solid currentColor;
     color: var(--primary);
   }
 
   .ui-button.ui-control[data-variant='outline'][data-color='primary']:hover:not(:disabled) {
     background-color: color-mix(in oklab, var(--primary) 10%, transparent);
+    background-image: none;
   }
 
   .ui-button.ui-control[data-variant='outline'][data-color='secondary'] {
     @apply shadow-none;
-    background-color: transparent;
-    border: 1px solid var(--input-background);
+    border: 1px solid var(--border);
     color: var(--foreground);
   }
 
   .ui-button.ui-control[data-variant='outline'][data-color='secondary']:hover:not(:disabled) {
     background-color: var(--input-background);
+    background-image: none;
   }
 
   .ui-button.ui-control[data-variant='outline'][data-color='warning'] {
     @apply shadow-none;
-    background-color: transparent;
     border: 1px solid currentColor;
     color: var(--warning);
   }
 
   .ui-button.ui-control[data-variant='outline'][data-color='warning']:hover:not(:disabled) {
     background-color: color-mix(in oklab, var(--warning) 10%, transparent);
+    background-image: none;
   }
 
   .ui-button.ui-control[data-variant='outline'][data-color='success'] {
     @apply shadow-none;
-    background-color: transparent;
     border: 1px solid currentColor;
     color: var(--success);
   }
 
   .ui-button.ui-control[data-variant='outline'][data-color='success']:hover:not(:disabled) {
     background-color: color-mix(in oklab, var(--success) 10%, transparent);
+    background-image: none;
   }
 
   .ui-button.ui-control[data-variant='outline'][data-color='info'] {
     @apply shadow-none;
-    background-color: transparent;
     border: 1px solid currentColor;
     color: var(--info);
   }
 
   .ui-button.ui-control[data-variant='outline'][data-color='info']:hover:not(:disabled) {
     background-color: color-mix(in oklab, var(--info) 10%, transparent);
+    background-image: none;
   }
 
   .ui-button.ui-control[data-variant='outline'][data-color='danger'] {
     @apply shadow-none;
-    background-color: transparent;
     border: 1px solid currentColor;
     color: var(--destructive);
   }
 
   .ui-button.ui-control[data-variant='outline'][data-color='danger']:hover:not(:disabled) {
     background-color: color-mix(in oklab, var(--destructive) 10%, transparent);
+    background-image: none;
   }
 
   .ui-button.ui-control[data-variant='link'] {
     background-color: transparent;
+    background-image: none;
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
   }
@@ -370,11 +427,13 @@
   /** Nav panel — şeffaf, tam genişlik satır düğmesi (sidebar / profil tetikleyici). */
   .ui-button[data-variant='nav'] {
     @apply border-0 bg-transparent shadow-none;
+    background-image: none;
   }
 
   .ui-button[data-variant='nav']:hover:not(:disabled),
   .ui-button[data-variant='nav']:active:not(:disabled) {
     @apply bg-transparent;
+    background-image: none;
   }
 
   .ui-button[data-variant='nav']:focus-visible {
@@ -472,15 +531,23 @@
     backdrop-filter: blur(var(--ui-control-backdrop-blur));
   }
 
+  /**
+   * Ghost / outline / link / nav — `.ui-control` arka planını ezer;
+   * dinlenmede şeffaf kalır (sidebar pasif ikonlar, profil menüsü vb.).
+   */
+  .ui-button.ui-control[data-variant='ghost'],
+  .ui-button.ui-control[data-variant='outline'],
+  .ui-button.ui-control[data-variant='link'],
+  .ui-button.ui-control[data-variant='nav'] {
+    background-color: transparent;
+    background-image: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
   /** FA webfont gliflerini buton içinde optik olarak ortala */
   .ui-button .ui-icon {
     @apply inline-flex size-[1em] items-center justify-center leading-none;
-  }
-
-  .ui-button.ui-control[data-variant='ghost'],
-  .ui-button.ui-control[data-variant='link'] {
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
   }
 
   .ui-button[data-variant='solid'] {
@@ -658,6 +725,11 @@
     @apply cursor-not-allowed opacity-60;
   }
 
+  .ui-pin[data-mask='true'] .ui-pin-cell {
+    @apply tracking-normal;
+    -webkit-text-security: disc;
+  }
+
   /** Progress — ince çubuk (şifre, slider) ve daire (kullanım / kota) */
   .ui-progress {
     @apply min-w-0;
@@ -774,6 +846,15 @@
 
   .ui-badge--lg {
     @apply rounded-full px-3 py-1.5 text-sm leading-5;
+  }
+
+  .ui-badge--clickable {
+    @apply cursor-pointer appearance-none text-inherit;
+  }
+
+  .ui-badge--clickable:focus-visible {
+    @apply outline-none ring-2 ring-offset-2 ring-offset-background;
+    --tw-ring-color: var(--ui-focus-ring);
   }
 
   /** Badge semantik dolgular — TW taraması kaçsa da token’lar çalışsın */
@@ -1703,6 +1784,14 @@
     @apply px-3 py-3;
   }
 
+  .ui-list--bordered.ui-list--compact > .ui-list-item {
+    @apply py-1.5;
+  }
+
+  .ui-list--bordered.ui-list--relaxed > .ui-list-item {
+    @apply py-4;
+  }
+
   /** Dış kart yok — yalnızca satır ayırıcı */
   .ui-list--divided {
     @apply divide-y divide-border;
@@ -1710,6 +1799,14 @@
 
   .ui-list--divided > .ui-list-item {
     @apply py-3;
+  }
+
+  .ui-list--divided.ui-list--compact > .ui-list-item {
+    @apply py-1;
+  }
+
+  .ui-list--divided.ui-list--relaxed > .ui-list-item {
+    @apply py-4;
   }
 
   .ui-list-item {
@@ -2373,7 +2470,8 @@
   }
 
   .ui-select-listbox .ui-select-option.ui-button[data-variant='ghost']:hover:not(:disabled) {
-    @apply bg-muted/50;
+    background-color: var(--muted);
+    background-image: none;
   }
 
   .ui-select-listbox .ui-empty {
@@ -2426,7 +2524,7 @@
   /** Seçili satır — `Select` solid/primary; ghost sınıflarının üstüne çıkmak için attribute seçicisi */
   .ui-select-option.ui-button.ui-select-option--selected[data-variant='solid'][data-color='primary'],
   .ui-select-option.ui-button.ui-select-option--selected[data-variant='solid'][data-color='primary']:hover {
-    @apply border-0 bg-primary text-primary-foreground shadow-none;
+    @apply ui-fill-primary;
   }
 
   .ui-select-option.ui-button.ui-select-option--selected[data-variant='solid'][data-color='primary'] .ui-icon,
@@ -2577,7 +2675,8 @@
   }
 
   .ui-radio--checked .ui-radio-indicator {
-    @apply border-0 bg-primary;
+    @apply border-0 ui-fill-gradient;
+    --ui-fill-base: var(--primary);
   }
 
   .ui-radio-body {
@@ -2640,7 +2739,8 @@
   }
 
   .ui-checkbox--checked .ui-checkbox-box {
-    @apply border-0 bg-primary;
+    @apply border-0 ui-fill-gradient;
+    --ui-fill-base: var(--primary);
   }
 
   .ui-checkbox-body {
@@ -2698,15 +2798,17 @@
   }
 
   .ui-switch-track--on {
-    @apply bg-primary/30;
+    background-color: color-mix(in oklab, var(--primary) 88%, var(--muted));
+    background-image: none;
   }
 
   .ui-switch-thumb {
-    @apply pointer-events-none block h-5 w-[1.375rem] translate-x-0 rounded-full bg-white shadow-sm transition-transform duration-150 ease-out;
+    @apply pointer-events-none block h-5 w-[1.375rem] translate-x-0 rounded-full bg-white shadow-sm transition-[transform,background,background-image] duration-150 ease-out;
   }
 
   .ui-switch-thumb--on {
-    @apply translate-x-[1.125rem] bg-primary;
+    @apply translate-x-[1.125rem] ui-fill-gradient;
+    --ui-fill-base: var(--primary);
   }
 
   /** Menu — düz liste; kabuk yok (card içinde / dışında). Yüzen panel: dışarıda `ui-card` / `ui-surface`. */
@@ -2748,13 +2850,13 @@
   }
 
   .ui-menu-item.ui-button:not(.ui-menu-item--active):not(:disabled):hover {
-    @apply bg-transparent;
-    background-color: color-mix(in oklab, var(--muted) 70%, transparent);
+    @apply bg-muted text-foreground shadow-none;
+    background-image: none;
   }
 
   .ui-menu-item--active.ui-button,
   .ui-menu-item--active.ui-button:hover {
-    @apply bg-muted text-foreground;
+    @apply ui-fill-muted;
   }
 
   .ui-menu-item.ui-button .ui-icon {
@@ -2857,7 +2959,7 @@
   }
 
   .ui-tab-trigger--segmented {
-    @apply relative flex min-h-0 min-w-0 cursor-pointer select-none flex-col items-center justify-center gap-0.5 rounded-full border-0 bg-transparent px-1.5 py-1.5 outline-none transition-[color,background-color,box-shadow] duration-200 ease-out;
+    @apply relative flex min-h-0 min-w-0 cursor-pointer select-none flex-col items-center justify-center gap-0.5 rounded-full border-0 bg-transparent px-1.5 py-1.5 outline-none transition-[color,background-color,background-image,box-shadow] duration-200 ease-out;
   }
 
   .ui-tab-trigger-badge {
@@ -2898,7 +3000,7 @@
   }
 
   .ui-tab-trigger--segmented-selected {
-    @apply border-0 bg-primary text-primary-foreground shadow-none;
+    @apply ui-fill-primary;
   }
 
   .ui-tab-trigger--segmented-selected .ui-tab-trigger-label {
@@ -2918,7 +3020,7 @@
   }
 
   .dark .ui-tab-trigger--segmented-selected {
-    @apply border-0 bg-primary text-primary-foreground shadow-none;
+    @apply ui-fill-primary;
   }
 
   .ui-tab-list--vertical.ui-tab-list--line {
@@ -3072,7 +3174,7 @@
   }
 
   .ui-segment {
-    @apply box-border flex h-full min-h-0 min-w-0 flex-1 cursor-pointer select-none items-center justify-center rounded-full border-0 bg-transparent px-2.5 text-center outline-none transition-[color,box-shadow,background-color] duration-150 ease-out;
+    @apply box-border flex h-full min-h-0 min-w-0 flex-1 cursor-pointer select-none items-center justify-center rounded-full border-0 bg-transparent px-2.5 text-center outline-none transition-[color,box-shadow,background-color,background-image] duration-150 ease-out;
   }
 
   .ui-segment-group--vertical .ui-segment {
@@ -3120,16 +3222,19 @@
   }
 
   .ui-segment--selected .ui-segment-affix .ui-button[data-variant='ghost']:hover {
-    background-color: color-mix(in oklab, var(--primary-foreground) 15%, transparent);
+    background-color: color-mix(in oklab, var(--primary-foreground) 14%, transparent);
+    background-image: none;
   }
 
   .ui-segment--selected .ui-segment-affix .ui-button[data-variant='solid'] {
     @apply text-primary-foreground;
-    background-color: color-mix(in oklab, var(--primary-foreground) 20%, transparent);
+    background-color: color-mix(in oklab, var(--primary-foreground) 18%, transparent);
+    background-image: none;
   }
 
   .ui-segment--selected .ui-segment-affix .ui-button[data-variant='solid']:hover {
-    background-color: color-mix(in oklab, var(--primary-foreground) 25%, transparent);
+    background-color: color-mix(in oklab, var(--primary-foreground) 24%, transparent);
+    background-image: none;
   }
 
   /** Seçili segment üzerinde sayım badge — primary yüzeyde okunur (utility `bg-muted`’i ezer) */
@@ -3185,7 +3290,8 @@
   }
 
   .ui-segment:hover:not(:disabled):not(.ui-segment--selected) {
-    @apply text-foreground;
+    @apply bg-muted text-foreground;
+    background-image: none;
   }
 
   .ui-segment:focus-visible {
@@ -3194,7 +3300,7 @@
   }
 
   .ui-segment--selected {
-    @apply bg-primary text-primary-foreground shadow-none;
+    @apply ui-fill-primary;
   }
 
   .ui-segment-label {
@@ -3218,7 +3324,8 @@
   }
 
   .dark .ui-radio--checked .ui-radio-indicator {
-    @apply border-0 bg-primary;
+    @apply border-0 ui-fill-gradient;
+    --ui-fill-base: var(--primary);
   }
 
   .dark .ui-checkbox-box {
@@ -3226,7 +3333,8 @@
   }
 
   .dark .ui-checkbox--checked .ui-checkbox-box {
-    @apply border-0 bg-primary;
+    @apply border-0 ui-fill-gradient;
+    --ui-fill-base: var(--primary);
   }
 
   /**
@@ -3306,15 +3414,20 @@
   }
 
   .ui-stepper-indicator--complete {
-    @apply bg-primary font-medium text-primary-foreground;
+    @apply ui-fill-gradient font-medium text-primary-foreground;
+    --ui-fill-base: var(--primary);
+    --ui-fill-grad-top: var(--ui-fill-grad-top-primary);
+    --ui-fill-grad-bottom: var(--ui-fill-grad-bottom-primary);
   }
 
   .ui-stepper-indicator--current {
     @apply bg-muted font-medium text-foreground;
+    background-image: none;
   }
 
   .ui-stepper-indicator--upcoming {
     @apply bg-surface-input font-normal text-muted-foreground;
+    background-image: none;
   }
 
   .ui-stepper-rail--h {
@@ -3330,7 +3443,8 @@
   }
 
   .ui-stepper-rail--done {
-    @apply bg-primary;
+    @apply ui-fill-gradient;
+    --ui-fill-base: var(--primary);
   }
 
   .ui-stepper-title {
@@ -4014,7 +4128,8 @@
   }
 
   .ui-datepicker-grid > .ui-button[data-variant='ghost']:hover:not(:disabled) {
-    @apply bg-muted/50;
+    background-color: var(--muted);
+    background-image: none;
   }
 
   .ui-datepicker-grid > .ui-button[data-variant='outline'] {
@@ -4038,7 +4153,8 @@
   }
 
   .ui-datepicker-quick > .ui-button[data-variant='ghost']:hover:not(:disabled) {
-    @apply bg-muted/50;
+    background-color: var(--muted);
+    background-image: none;
   }
 
   .ui-datepicker-grid > .ui-button[data-in-range='true'] {
@@ -4075,7 +4191,8 @@
   }
 
   .ui-daterangepicker-quick > .ui-button[data-variant='ghost']:hover:not(:disabled) {
-    @apply bg-muted/50;
+    background-color: var(--muted);
+    background-image: none;
   }
 
   .ui-daterangepicker-calendars {
@@ -4743,6 +4860,14 @@
   box-shadow: none;
 }
 
+.ui-select-listbox .ui-select-option.ui-button.ui-select-option--selected[data-variant='solid'][data-color='primary'],
+.ui-datepicker-grid > .ui-button[data-variant='solid'][data-color='primary'] {
+  @apply ui-fill-gradient text-primary-foreground;
+  --ui-fill-base: var(--primary);
+  --ui-fill-grad-top: var(--ui-fill-grad-top-primary);
+  --ui-fill-grad-bottom: var(--ui-fill-grad-bottom-primary);
+}
+
 .ui-datepicker-grid > .ui-button[data-today='true']:not([data-variant='solid']) {
   position: relative;
   box-shadow: none;
@@ -4789,6 +4914,7 @@
 
 .ui-dialog-panel .ui-button[data-variant='solid'][data-color='input'] {
   background-color: var(--input-background);
+  background-image: none;
   border-color: transparent;
 }
 

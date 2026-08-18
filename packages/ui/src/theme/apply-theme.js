@@ -399,6 +399,37 @@ export function resolveThemeVars(theme = {}) {
 }
 
 /**
+ * Tenant brand/layout CSS (`font-family` vb.) sonrasında tema token’larını zorlar.
+ * Yalnızca CSS değişkenleri yetmez; doğrudan `font-family` kuralı da gerekir.
+ * @param {UiThemeConfig} [theme]
+ * @returns {string}
+ */
+export function buildThemeEnforcementCss(theme = {}) {
+  const vars = resolveThemeVars(theme)
+  const chunks = []
+
+  const varDecl = Object.entries(vars)
+    .map(([prop, value]) => `${prop}: ${value} !important`)
+    .join('; ')
+
+  if (varDecl) {
+    chunks.push(`:root, html, html.dark { ${varDecl} }`)
+  }
+
+  const bodyFont = vars['--font-sans']
+  const headingFont = vars['--font-heading'] || bodyFont
+
+  if (bodyFont) {
+    chunks.push(`html, body { font-family: ${bodyFont} !important; }`)
+  }
+  if (headingFont) {
+    chunks.push(`h1, h2, h3, h4, h5, h6 { font-family: ${headingFont} !important; }`)
+  }
+
+  return chunks.join('\n')
+}
+
+/**
  * SSR için html öznitelikleri üretir.
  * @param {UiThemeConfig} [theme]
  * @returns {{ classAttr: string, styleAttr: string }}

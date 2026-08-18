@@ -2,6 +2,7 @@
   <div
     role="group"
     :aria-label="resolvedAriaLabel"
+    :data-mask="mask ? 'true' : undefined"
     :class="[
       'ui-pin',
       isDisabled ? 'pointer-events-none opacity-50' : '',
@@ -14,12 +15,12 @@
       ref="cells"
       class="ui-pin-cell"
       :value="cells[index] ?? ''"
-      :type="type === 'numeric' ? 'tel' : 'text'"
+      :type="cellInputType"
       :inputmode="type === 'numeric' ? 'numeric' : 'text'"
       :pattern="type === 'numeric' ? '[0-9]*' : undefined"
       :disabled="disabled"
       :readonly="readonly"
-      :autocomplete="index === 0 ? autocomplete : 'off'"
+      :autocomplete="index === 0 ? resolvedAutocomplete : 'off'"
       maxlength="1"
       :aria-label="cellAriaLabel(index)"
       @input="onCellInput(index, $event)"
@@ -62,6 +63,11 @@ export default {
       type: Boolean,
       default: false,
     },
+    /** Haneleri gizler (PIN / şifre); OTP için kapalı bırakın. */
+    mask: {
+      type: Boolean,
+      default: false,
+    },
     autocomplete: {
       type: String,
       default: 'one-time-code',
@@ -84,6 +90,14 @@ export default {
     cells() {
       const raw = String(this.modelValue ?? '').slice(0, this.length)
       return raw.split('')
+    },
+    cellInputType() {
+      if (this.mask) return 'password'
+      return this.type === 'numeric' ? 'tel' : 'text'
+    },
+    resolvedAutocomplete() {
+      if (this.mask && this.autocomplete === 'one-time-code') return 'off'
+      return this.autocomplete
     },
     resolvedAriaLabel() {
       if (this.ariaLabel) return this.ariaLabel

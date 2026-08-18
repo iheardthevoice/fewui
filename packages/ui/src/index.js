@@ -74,12 +74,20 @@ import { setPriceInputConfig } from './price-input-config.js'
 export {
   GOOGLE_FONTS_CATALOG,
   googleFontSelectOptions,
+  formatGoogleFontFamilyName,
   buildGoogleFontsStylesheetUrl,
   buildGoogleFontsLinkTag,
   applyGoogleFontsForTheme,
+  applyGoogleFontsCatalogPreview,
   resolveThemeFontFamilies,
 } from './theme/google-fonts.js'
-export { applyUiTheme, mergeUiTheme, resolveThemeVars, buildThemeStyleAttr } from './theme/apply-theme.js'
+export {
+  applyUiTheme,
+  mergeUiTheme,
+  resolveThemeVars,
+  buildThemeStyleAttr,
+  buildThemeEnforcementCss,
+} from './theme/apply-theme.js'
 export {
   deriveBrandColorsFromPrimary,
   withDerivedBrandColors,

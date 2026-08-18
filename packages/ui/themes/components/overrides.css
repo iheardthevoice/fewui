@@ -28,6 +28,14 @@
   box-shadow: none;
 }
 
+.ui-select-listbox .ui-select-option.ui-button.ui-select-option--selected[data-variant='solid'][data-color='primary'],
+.ui-datepicker-grid > .ui-button[data-variant='solid'][data-color='primary'] {
+  @apply ui-fill-gradient text-primary-foreground;
+  --ui-fill-base: var(--primary);
+  --ui-fill-grad-top: var(--ui-fill-grad-top-primary);
+  --ui-fill-grad-bottom: var(--ui-fill-grad-bottom-primary);
+}
+
 .ui-datepicker-grid > .ui-button[data-today='true']:not([data-variant='solid']) {
   position: relative;
   box-shadow: none;
@@ -74,6 +82,7 @@
 
 .ui-dialog-panel .ui-button[data-variant='solid'][data-color='input'] {
   background-color: var(--input-background);
+  background-image: none;
   border-color: transparent;
 }
 
