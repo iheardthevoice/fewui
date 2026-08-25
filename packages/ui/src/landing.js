@@ -4,6 +4,7 @@ import Avatar from './components/Avatar.vue'
 import Badge from './components/Badge.vue'
 import Button from './components/Button.vue'
 import Card from './components/Card.vue'
+import ConfirmDialog from './components/ConfirmDialog.vue'
 import DatePicker from './components/DatePicker.vue'
 import Dialog from './components/Dialog.vue'
 import Dropdown from './components/Dropdown.vue'
@@ -32,6 +33,7 @@ import { applyUiTheme } from './theme/apply-theme.js'
 
 export { createUiId, createUiIdFactory, resetUiIds } from './utils/ui-id.js'
 export { pushToast, dismissToast, clearToasts } from './toast-queue.js'
+export { requestConfirm } from './confirm-state.js'
 
 export {
   applyUiTheme,
@@ -77,6 +79,7 @@ const GLOBAL_COMPONENTS = [
   ['ui-badge', Badge],
   ['ui-button', Button],
   ['ui-card', Card],
+  ['ui-confirm-dialog', ConfirmDialog],
   ['ui-date-picker', DatePicker],
   ['ui-dialog', Dialog],
   ['ui-dropdown', Dropdown],

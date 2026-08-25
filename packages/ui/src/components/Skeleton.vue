@@ -120,6 +120,7 @@ export default {
 
     onBeforeUnmount(() => {
       clearRevealTimer()
+      finishReveal()
     })
 
     function clearRevealTimer() {
@@ -172,10 +173,9 @@ export default {
 
         await nextTick()
 
-        const to = Math.max(
-          contentWrapRef.value?.scrollHeight ?? 0,
-          from,
-        )
+        // İçerik yüksekliğine küçülmeye izin ver (max(from) 8→1 satırda kartı kilitliyordu)
+        const measured = contentWrapRef.value?.scrollHeight ?? 0
+        const to = measured > 0 ? measured : from
 
         if (from <= 0 && to <= 0) {
           finishReveal()

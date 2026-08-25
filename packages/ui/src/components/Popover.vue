@@ -18,7 +18,10 @@
       v-if="portalReady"
       to="body"
     >
-      <Transition name="ui-overlay-popover-backdrop">
+      <Transition
+        name="ui-overlay-popover-backdrop"
+        appear
+      >
         <div
           v-if="showMobileBackdrop"
           class="ui-popover-backdrop fixed inset-0 bg-black/50"
@@ -29,7 +32,9 @@
       </Transition>
       <Transition
         name="ui-overlay-popover"
+        appear
         @before-enter="onPopoverBeforeEnter"
+        @after-leave="onPopoverAfterLeave"
       >
         <div
           v-if="open"
@@ -37,7 +42,7 @@
           class="ui-popover-layer fixed"
           :style="layerStyle"
           :data-popover-align-active="alignSelectedOptionToTrigger ? '' : undefined"
-          :data-ui-popover-mobile-centered="mobileCenteredActive ? '' : undefined"
+          :data-ui-popover-mobile-centered="popoverMobileCenteredAttr ? '' : undefined"
           data-ui-popover-layer
         >
           <div
@@ -202,12 +207,16 @@ export default {
       layerZIndex: POPOVER_BASE_Z_INDEX,
       rafId: 0,
       mobileCenteredActive: false,
+      mobileCenteredLeaving: false,
       portalReady: false,
     }
   },
   computed: {
     showMobileBackdrop() {
-      return this.open && this.mobileCenteredActive
+      return this.open && this.mobileCentered && isMobileViewport()
+    },
+    popoverMobileCenteredAttr() {
+      return this.mobileCenteredActive || this.mobileCenteredLeaving
     },
     backdropStyle() {
       return { zIndex: String(this.layerZIndex) }
@@ -237,12 +246,18 @@ export default {
   watch: {
     open(v) {
       if (v) {
+        this.mobileCenteredLeaving = false
+        this.mobileCenteredActive = this.mobileCentered && isMobileViewport()
         this.$nextTick(() => {
           this.updatePosition()
           this.schedulePosition()
           this.bindGlobalListeners()
         })
       } else {
+        if (this.mobileCenteredActive) {
+          this.mobileCenteredLeaving = true
+        }
+        this.mobileCenteredActive = false
         this.teardownGlobalListeners()
       }
     },
@@ -267,6 +282,9 @@ export default {
   methods: {
     onPopoverBeforeEnter() {
       this.updatePosition()
+    },
+    onPopoverAfterLeave() {
+      this.mobileCenteredLeaving = false
     },
     toggle() {
       if (this.disabled) return

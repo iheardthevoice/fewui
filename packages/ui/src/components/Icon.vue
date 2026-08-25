@@ -24,13 +24,14 @@ const typeToFaPrefix = {
   thin: 'fa-thin',
 }
 
-const SIZES = ['xs', 'sm', 'md', 'lg']
+const SIZES = ['xs', 'sm', 'md', 'lg', 'xl']
 
 const sizeClasses = {
   xs: 'text-xs leading-none',
   sm: 'text-sm leading-none',
   md: 'text-base leading-none',
   lg: 'text-lg leading-none',
+  xl: 'text-2xl leading-none',
 }
 
 export default {

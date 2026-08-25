@@ -7,11 +7,12 @@
     <Transition
       name="ui-overlay-dialog"
       appear
+      @before-leave="onBeforeLeave"
       @after-enter="onOverlayAfterEnter"
       @after-leave="onOverlayAfterLeave"
     >
       <div
-        v-if="open"
+        v-if="layerPresented"
         ref="layerRef"
         :class="rootLayerClasses"
         tabindex="-1"
@@ -47,7 +48,8 @@
           </div>
           <div
             v-if="hasHeaderBlock"
-            class="ui-card-header shrink-0"
+            class="ui-card-header ui-dialog-sheet-drag shrink-0"
+            @pointerdown="onSheetPointerDown"
           >
             <slot name="header">
               <div
@@ -298,19 +300,24 @@ export default {
       portalReady: false,
       focusFallbackTimer: null,
       sheetDragCleanup: null,
+      layerPresented: false,
     }
   },
   watch: {
     open: {
+      immediate: true,
       handler(isOpen) {
         if (isOpen) {
-          this.scheduleInitialFocus()
-        } else {
+          this.layerPresented = true
+          this.$nextTick(() => {
+            this.resetPanelMotionStyles()
+          })
+        } else if (this.layerPresented) {
           this.clearFocusFallback()
-          this.teardownSheetDrag()
+          this.teardownSheetDrag(false)
+          this.dismissLayer()
         }
       },
-      flush: 'post',
     },
   },
   mounted() {
@@ -406,6 +413,19 @@ export default {
     },
   },
   methods: {
+    resetPanelMotionStyles() {
+      const panel = this.$refs.panelRef
+      if (!panel) return
+      panel.style.removeProperty('transform')
+      panel.style.removeProperty('transition')
+    },
+    dismissLayer() {
+      if (!this.layerPresented) return
+      this.layerPresented = false
+    },
+    onBeforeLeave() {
+      this.resetPanelMotionStyles()
+    },
     onOverlayAfterEnter() {
       this.scheduleInitialFocus()
     },
@@ -445,6 +465,9 @@ export default {
       })
     },
     onOverlayAfterLeave() {
+      if (this.open) {
+        this.$emit('update:open', false)
+      }
       this.$emit('after-leave')
     },
     focusInitialField() {
@@ -454,8 +477,11 @@ export default {
       panel?.focus?.()
     },
     close() {
-      if (!this.open) return
-      this.$emit('update:open', false)
+      if (!this.open || !this.layerPresented) return
+      this.clearFocusFallback()
+      this.teardownSheetDrag(false)
+      this.resetPanelMotionStyles()
+      this.dismissLayer()
     },
     onBackdrop() {
       if (this.closeOnBackdrop) this.close()
@@ -466,19 +492,29 @@ export default {
         this.close()
       }
     },
-    teardownSheetDrag() {
+    teardownSheetDrag(resetStyles = true) {
       if (this.sheetDragCleanup) {
         this.sheetDragCleanup()
         this.sheetDragCleanup = null
       }
+      if (!resetStyles) return
       const panel = this.$refs.panelRef
       if (panel) {
         panel.style.transform = ''
         panel.style.transition = ''
       }
     },
+    isSheetDragBlockedTarget(target) {
+      if (!(target instanceof Element)) return false
+      return Boolean(
+        target.closest(
+          'button, a, input, textarea, select, label, [role="button"], [contenteditable="true"], [data-no-sheet-drag]',
+        ),
+      )
+    },
     onSheetPointerDown(e) {
       if (!isMobileViewport() || e.button !== 0) return
+      if (this.isSheetDragBlockedTarget(e.target)) return
       const panel = this.$refs.panelRef
       if (!panel) return
       e.preventDefault()
@@ -492,17 +528,26 @@ export default {
       }
       const onUp = (ev) => {
         const dy = Math.max(0, ev.clientY - startY)
+        if (this.sheetDragCleanup) {
+          this.sheetDragCleanup()
+          this.sheetDragCleanup = null
+        }
+        if (dy >= 72) {
+          panel.style.removeProperty('transition')
+          panel.style.removeProperty('transform')
+          this.close()
+          return
+        }
         panel.style.transition = prevTransition
         panel.style.transform = ''
-        if (dy >= 72) {
-          this.close()
-        }
-        this.teardownSheetDrag()
       }
       const onCancel = () => {
+        if (this.sheetDragCleanup) {
+          this.sheetDragCleanup()
+          this.sheetDragCleanup = null
+        }
         panel.style.transition = prevTransition
         panel.style.transform = ''
-        this.teardownSheetDrag()
       }
       window.addEventListener('pointermove', onMove)
       window.addEventListener('pointerup', onUp)

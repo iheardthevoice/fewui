@@ -4,7 +4,7 @@
  * `--white`: Tailwind `white` (#fff); preset’te `bg-white` / `text-white` → `var(--white)`.
  * `warning` / `success` / `info`: renkli durumlar (doğrudan OKLCH; base dışı kroma).
  * `.ui-control` / `.ui-input` / `.ui-surface`: `themes/components.css` (Tailwind `@apply`).
- * Inter font: uygulama `index.html` link ile yükler (`@import` CSS birleştirmede kırılır).
+ * Fontlar: uygulama `fewui/fonts.css` (yerel woff2) ile yükler — Google CDN yok.
  */
 
 :root {

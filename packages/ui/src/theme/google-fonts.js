@@ -1,10 +1,10 @@
-const FONT_LINK_ID = 'fewui-google-fonts'
-const FONT_CATALOG_PREVIEW_LINK_ID = 'fewui-google-fonts-catalog-preview'
+const FONT_LINK_ID = 'fewui-local-fonts'
+const FONT_CATALOG_PREVIEW_LINK_ID = 'fewui-local-fonts-catalog-preview'
 
 let catalogPreviewApplied = false
 
 /**
- * Google Fonts with latin-ext (Türkçe karakter desteği).
+ * Self-hosted font catalog (latin + latin-ext). Files live in `themes/fonts.css`.
  * @type {ReadonlyArray<{ value: string, label: string }>}
  */
 export const GOOGLE_FONTS_CATALOG = Object.freeze([
@@ -59,90 +59,50 @@ export function resolveThemeFontFamilies(theme = {}) {
 }
 
 /**
- * @param {string[]} families
- * @returns {string | null}
+ * Legacy helper — remote Google Fonts URLs are no longer used.
+ * Fonts ship via `fewui/fonts.css` (self-hosted woff2).
+ * @param {string[]} [_families]
+ * @returns {null}
  */
-export function buildGoogleFontsStylesheetUrl(families) {
-  const unique = [...new Set(
-    (families || [])
-      .map((name) => String(name || '').trim())
-      .filter(Boolean),
-  )]
-  if (!unique.length) return null
-
-  const query = unique
-    .map((name) => `family=${encodeURIComponent(name).replace(/%20/g, '+')}:wght@400;500;600`)
-    .join('&')
-
-  return `https://fonts.googleapis.com/css2?${query}&display=swap`
+export function buildGoogleFontsStylesheetUrl(_families) {
+  return null
 }
 
 /**
- * @param {import('./apply-theme.js').UiThemeConfig} [theme]
+ * SSR: fonts are bundled with app CSS (`fewui/fonts.css`); no extra link tag.
+ * @param {import('./apply-theme.js').UiThemeConfig} [_theme]
  * @returns {string}
  */
-export function buildGoogleFontsLinkTag(theme = {}) {
-  const { body, heading } = resolveThemeFontFamilies(theme)
-  const href = buildGoogleFontsStylesheetUrl([body, heading])
-  if (!href) return ''
-  return `<link rel="stylesheet" href="${href}">`
+export function buildGoogleFontsLinkTag(_theme = {}) {
+  return ''
 }
 
 /**
- * @param {import('./apply-theme.js').UiThemeConfig} [theme]
- * @param {{ id?: string }} [options]
+ * Ensures local catalog fonts are available. No remote requests.
+ * Prefer importing `fewui/fonts.css` in the app stylesheet; this is a safe no-op fallback.
+ * @param {import('./apply-theme.js').UiThemeConfig} [_theme]
+ * @param {{ id?: string }} [_options]
  * @returns {string | null}
  */
-export function applyGoogleFontsForTheme(theme = {}, options = {}) {
+export function applyGoogleFontsForTheme(_theme = {}, _options = {}) {
   if (typeof document === 'undefined') return null
-
-  const { body, heading } = resolveThemeFontFamilies(theme)
-  const href = buildGoogleFontsStylesheetUrl([body, heading])
-  if (!href) return null
-
-  const id = options.id || FONT_LINK_ID
-  let el = document.getElementById(id)
-  if (!el) {
-    el = document.createElement('link')
-    el.id = id
-    el.rel = 'stylesheet'
-    document.head.appendChild(el)
-  }
-
-  if (el.getAttribute('href') !== href) {
-    el.setAttribute('href', href)
-  }
-
-  return href
+  // Fonts come from bundled `fewui/fonts.css`; keep API for callers (web design select, landing).
+  return document.getElementById(_options.id || FONT_LINK_ID)?.getAttribute('href') || 'local'
 }
 
 /**
- * Font seçici önizlemesi — katalog tek istekte yüklenir (açılışta bir kez).
+ * Font seçici önizlemesi — katalog `fonts.css` ile zaten yüklü (uzak istek yok).
  * @param {{ force?: boolean, id?: string }} [options]
  * @returns {string | null}
  */
 export function applyGoogleFontsCatalogPreview(options = {}) {
   if (typeof document === 'undefined') return null
   if (catalogPreviewApplied && !options.force) {
-    return document.getElementById(options.id || FONT_CATALOG_PREVIEW_LINK_ID)?.getAttribute('href') || null
+    return (
+      document.getElementById(options.id || FONT_CATALOG_PREVIEW_LINK_ID)?.getAttribute('href') ||
+      'local'
+    )
   }
-
-  const href = buildGoogleFontsStylesheetUrl(GOOGLE_FONTS_CATALOG.map((row) => row.value))
-  if (!href) return null
-
-  const id = options.id || FONT_CATALOG_PREVIEW_LINK_ID
-  let el = document.getElementById(id)
-  if (!el) {
-    el = document.createElement('link')
-    el.id = id
-    el.rel = 'stylesheet'
-    document.head.appendChild(el)
-  }
-
-  if (el.getAttribute('href') !== href) {
-    el.setAttribute('href', href)
-  }
-
   catalogPreviewApplied = true
-  return href
+  return 'local'
 }

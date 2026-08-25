@@ -5,7 +5,8 @@
   "type": "module",
   "sideEffects": [
     "./themes/*.css",
-    "./themes/components/*.css"
+    "./themes/components/*.css",
+    "./themes/fonts.css"
   ],
   "files": [
     "dist",
@@ -22,11 +23,13 @@
       "import": "./dist/landing.js"
     },
     "./style.css": "./themes/default.css",
+    "./fonts.css": "./themes/fonts.css",
     "./components.css": "./themes/components.css",
     "./tailwind-preset": "./tailwind-preset.cjs"
   },
   "scripts": {
     "build": "vite build",
+    "fonts:download": "node ./scripts/download-fonts.mjs",
     "postbuild": "node ../../../frontend/scripts/sync-fewui-pin.mjs"
   },
   "peerDependencies": {
