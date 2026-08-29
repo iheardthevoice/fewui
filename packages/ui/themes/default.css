@@ -155,6 +155,37 @@
   --ui-scrollbar-thumb-hover: color-mix(in oklab, var(--foreground) 36%, transparent);
 }
 
+/**
+ * iOS Liquid Glass — Capacitor iOS kabuğu (`html.cap-native.cap-ios`).
+ * Yüzey / kontrol token’ları yarı saydam + blur; web ve Android etkilenmez.
+ */
+html.cap-native.cap-ios {
+  --ui-ios-glass-bg: color-mix(in srgb, var(--foreground) 11%, transparent);
+  --ui-ios-glass-bg-popover: color-mix(in srgb, var(--foreground) 5%, transparent);
+  --ui-ios-glass-bg-chrome: color-mix(in srgb, var(--foreground) 5%, transparent);
+  --ui-ios-glass-edge: color-mix(in srgb, var(--foreground) 22%, transparent);
+  --ui-ios-glass-border: transparent;
+  --ui-ios-glass-highlight: transparent;
+  --ui-ios-glass-shadow: transparent;
+  --ui-surface-opacity: 48%;
+  --ui-surface-backdrop-blur: 24px;
+  --ui-control-opacity: 52%;
+  --ui-control-backdrop-blur: 24px;
+  --ui-input-opacity: 52%;
+  --ui-input-backdrop-blur: 24px;
+  --ui-shadow-surface: none;
+}
+
+html.cap-native.cap-ios.dark {
+  --ui-ios-glass-bg: color-mix(in srgb, var(--foreground) 9%, transparent);
+  --ui-ios-glass-bg-popover: color-mix(in srgb, var(--foreground) 4%, transparent);
+  --ui-ios-glass-bg-chrome: color-mix(in srgb, var(--foreground) 4%, transparent);
+  --ui-ios-glass-edge: color-mix(in srgb, var(--foreground) 18%, transparent);
+  --ui-surface-opacity: 42%;
+  --ui-control-opacity: 46%;
+  --ui-input-opacity: 46%;
+}
+
 .dark {
   --white: #ffffff;
 

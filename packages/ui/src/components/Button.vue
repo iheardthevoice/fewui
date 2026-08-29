@@ -556,6 +556,7 @@ export default {
         return
       }
       this.$emit('click', e)
+      if (e.defaultPrevented) return
       navigate(e)
     },
   },

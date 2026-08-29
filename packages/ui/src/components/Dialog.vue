@@ -4,21 +4,14 @@
     v-if="portalReady"
     to="body"
   >
-    <Transition
-      name="ui-overlay-dialog"
-      appear
-      @before-leave="onBeforeLeave"
-      @after-enter="onOverlayAfterEnter"
-      @after-leave="onOverlayAfterLeave"
+    <div
+      v-if="layerMounted"
+      ref="layerRef"
+      :class="rootLayerClasses"
+      tabindex="-1"
+      role="presentation"
+      @keydown="onLayerKeydown"
     >
-      <div
-        v-if="layerPresented"
-        ref="layerRef"
-        :class="rootLayerClasses"
-        tabindex="-1"
-        role="presentation"
-        @keydown="onLayerKeydown"
-      >
         <div
           class="ui-dialog-backdrop absolute inset-0 bg-black/50"
           aria-hidden="true"
@@ -37,6 +30,7 @@
           v-bind="passthroughAttrs"
           @click.stop
         >
+          <div class="ui-dialog-motion">
           <div
             class="ui-dialog-sheet-grab shrink-0"
             @pointerdown="onSheetPointerDown"
@@ -135,9 +129,9 @@
           >
             <slot name="footer" />
           </div>
+          </div>
         </div>
       </div>
-    </Transition>
   </Teleport>
 </template>
 
@@ -300,7 +294,8 @@ export default {
       portalReady: false,
       focusFallbackTimer: null,
       sheetDragCleanup: null,
-      layerPresented: false,
+      layerMounted: false,
+      layerClosing: false,
     }
   },
   watch: {
@@ -308,13 +303,13 @@ export default {
       immediate: true,
       handler(isOpen) {
         if (isOpen) {
-          this.layerPresented = true
+          if (this.layerMounted || this.layerClosing) return
+          this.layerMounted = true
           this.$nextTick(() => {
             this.resetPanelMotionStyles()
+            this.animateLayerIn(this.$refs.layerRef)
           })
-        } else if (this.layerPresented) {
-          this.clearFocusFallback()
-          this.teardownSheetDrag(false)
+        } else if (this.layerMounted && !this.layerClosing) {
           this.dismissLayer()
         }
       },
@@ -325,7 +320,9 @@ export default {
   },
   beforeUnmount() {
     this.clearFocusFallback()
-    this.teardownSheetDrag()
+    this.clearSheetDragListeners()
+    this.layerMounted = false
+    this.layerClosing = false
   },
   computed: {
     hasTitle() {
@@ -413,18 +410,154 @@ export default {
     },
   },
   methods: {
+    prefersReducedMotion() {
+      if (typeof window === 'undefined') return false
+      return window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    },
+    layerMotionParts(el) {
+      return {
+        panel: el.querySelector('.ui-dialog-panel'),
+        motion: el.querySelector('.ui-dialog-motion'),
+        backdrop: el.querySelector('.ui-dialog-backdrop'),
+      }
+    },
+    clearLayerInlineMotion(el) {
+      const { panel, motion, backdrop } = this.layerMotionParts(el)
+      if (motion) {
+        motion.style.removeProperty('transform')
+        motion.style.removeProperty('transition')
+      }
+      if (panel) {
+        panel.style.removeProperty('transform')
+        panel.style.removeProperty('transition')
+        panel.style.removeProperty('opacity')
+      }
+      if (backdrop) {
+        backdrop.style.removeProperty('opacity')
+        backdrop.style.removeProperty('transition')
+      }
+    },
+    waitLayerTransition(target, fallbackMs, done) {
+      if (!target) {
+        done()
+        return
+      }
+      let finished = false
+      const finish = () => {
+        if (finished) return
+        finished = true
+        done()
+      }
+      target.addEventListener(
+        'transitionend',
+        (event) => {
+          if (event.target === target) finish()
+        },
+        { once: true },
+      )
+      window.setTimeout(finish, fallbackMs)
+    },
+    animateLayerIn(el) {
+      if (!el) {
+        this.onOverlayAfterEnter()
+        return
+      }
+      if (this.prefersReducedMotion()) {
+        this.onOverlayAfterEnter()
+        return
+      }
+      const { panel, motion, backdrop } = this.layerMotionParts(el)
+      const mobile = isMobileViewport()
+      if (backdrop) backdrop.style.opacity = '0'
+      if (panel) panel.style.opacity = '0'
+      if (motion) {
+        if (mobile) {
+          motion.style.transform = 'translate3d(0, 100%, 0)'
+        } else {
+          motion.style.transform = 'scale3d(0.96, 0.96, 1)'
+        }
+      }
+      void el.offsetHeight
+      requestAnimationFrame(() => {
+        if (backdrop) {
+          backdrop.style.transition = 'opacity 0.32s cubic-bezier(0.22, 1, 0.36, 1)'
+          backdrop.style.opacity = '1'
+        }
+        if (panel) {
+          panel.style.transition = 'opacity 0.38s cubic-bezier(0.22, 1, 0.36, 1)'
+          panel.style.opacity = '1'
+        }
+        if (motion) {
+          if (mobile) {
+            motion.style.transition = 'transform 0.42s cubic-bezier(0.22, 1, 0.36, 1)'
+            motion.style.transform = 'translate3d(0, 0, 0)'
+          } else {
+            motion.style.transition = 'transform 0.42s cubic-bezier(0.22, 1, 0.36, 1)'
+            motion.style.transform = 'scale3d(1, 1, 1)'
+          }
+        }
+        this.waitLayerTransition(motion || panel || backdrop, mobile ? 460 : 460, () => {
+          this.onOverlayAfterEnter()
+        })
+      })
+    },
+    animateLayerOut(el, done) {
+      if (!el || this.prefersReducedMotion()) {
+        done()
+        return
+      }
+      this.clearLayerInlineMotion(el)
+      const { panel, motion, backdrop } = this.layerMotionParts(el)
+      const mobile = isMobileViewport()
+      void el.offsetHeight
+      requestAnimationFrame(() => {
+        if (backdrop) {
+          backdrop.style.transition = 'opacity 0.38s cubic-bezier(0.4, 0, 0.2, 1)'
+          backdrop.style.opacity = '0'
+        }
+        if (panel) {
+          panel.style.transition = 'opacity 0.36s cubic-bezier(0.4, 0, 0.2, 1)'
+          panel.style.opacity = '0'
+        }
+        if (motion) {
+          if (mobile) {
+            motion.style.transition = 'transform 0.38s cubic-bezier(0.32, 0.72, 0, 1)'
+            motion.style.transform = 'translate3d(0, 100%, 0)'
+          } else {
+            motion.style.transition = 'transform 0.38s cubic-bezier(0.32, 0.72, 0, 1)'
+            motion.style.transform = 'scale3d(0.96, 0.96, 1)'
+          }
+        }
+        this.waitLayerTransition(motion || panel || backdrop, mobile ? 400 : 400, done)
+      })
+    },
+    dismissLayer() {
+      if (!this.layerMounted || this.layerClosing) return
+      this.clearFocusFallback()
+      this.clearSheetDragListeners()
+      this.layerClosing = true
+      const el = this.$refs.layerRef
+      this.animateLayerOut(el, () => {
+        this.layerMounted = false
+        this.layerClosing = false
+        this.resetPanelMotionStyles()
+        if (this.open) {
+          this.$emit('update:open', false)
+        }
+        this.$emit('after-leave')
+      })
+    },
     resetPanelMotionStyles() {
       const panel = this.$refs.panelRef
+      const motion = panel?.querySelector('.ui-dialog-motion')
+      if (motion) {
+        motion.style.removeProperty('transform')
+        motion.style.removeProperty('transition')
+      }
       if (!panel) return
       panel.style.removeProperty('transform')
       panel.style.removeProperty('transition')
-    },
-    dismissLayer() {
-      if (!this.layerPresented) return
-      this.layerPresented = false
-    },
-    onBeforeLeave() {
-      this.resetPanelMotionStyles()
+      panel.style.removeProperty('opacity')
     },
     onOverlayAfterEnter() {
       this.scheduleInitialFocus()
@@ -440,19 +573,21 @@ export default {
       this.clearFocusFallback()
       this.$nextTick(() => {
         const panel = this.$refs.panelRef
-        if (!panel) {
+        const motion = panel?.querySelector('.ui-dialog-motion')
+        const motionTarget = motion || panel
+        if (!motionTarget) {
           this.runInitialFocus()
           return
         }
         const onTransitionEnd = (event) => {
-          if (event.target !== panel) return
-          panel.removeEventListener('transitionend', onTransitionEnd)
+          if (event.target !== motionTarget) return
+          motionTarget.removeEventListener('transitionend', onTransitionEnd)
           this.clearFocusFallback()
           this.runInitialFocus()
         }
-        panel.addEventListener('transitionend', onTransitionEnd)
+        motionTarget.addEventListener('transitionend', onTransitionEnd)
         this.focusFallbackTimer = setTimeout(() => {
-          panel.removeEventListener('transitionend', onTransitionEnd)
+          motionTarget.removeEventListener('transitionend', onTransitionEnd)
           this.focusFallbackTimer = null
           this.runInitialFocus()
         }, 440)
@@ -464,12 +599,6 @@ export default {
         this.focusInitialField()
       })
     },
-    onOverlayAfterLeave() {
-      if (this.open) {
-        this.$emit('update:open', false)
-      }
-      this.$emit('after-leave')
-    },
     focusInitialField() {
       if (isMobileViewport()) return
       const panel = this.$refs.panelRef
@@ -477,10 +606,6 @@ export default {
       panel?.focus?.()
     },
     close() {
-      if (!this.open || !this.layerPresented) return
-      this.clearFocusFallback()
-      this.teardownSheetDrag(false)
-      this.resetPanelMotionStyles()
       this.dismissLayer()
     },
     onBackdrop() {
@@ -492,17 +617,16 @@ export default {
         this.close()
       }
     },
-    teardownSheetDrag(resetStyles = true) {
+    clearSheetDragListeners() {
       if (this.sheetDragCleanup) {
         this.sheetDragCleanup()
         this.sheetDragCleanup = null
       }
+    },
+    teardownSheetDrag(resetStyles = true) {
+      this.clearSheetDragListeners()
       if (!resetStyles) return
-      const panel = this.$refs.panelRef
-      if (panel) {
-        panel.style.transform = ''
-        panel.style.transition = ''
-      }
+      this.resetPanelMotionStyles()
     },
     isSheetDragBlockedTarget(target) {
       if (!(target instanceof Element)) return false

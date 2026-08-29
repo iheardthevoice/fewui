@@ -52,29 +52,31 @@
             tabindex="-1"
             @keydown="onPanelKeydown"
           >
-            <div
-              v-if="$slots.header"
-              class="ui-popover-header"
-            >
-              <slot
-                name="header"
-                :close="close"
-              />
-            </div>
-            <div class="ui-popover-body min-h-0 min-w-0">
-              <slot
-                name="content"
-                :close="close"
-              />
-            </div>
-            <div
-              v-if="$slots.footer"
-              class="ui-popover-footer"
-            >
-              <slot
-                name="footer"
-                :close="close"
-              />
+            <div class="ui-popover-motion">
+              <div
+                v-if="$slots.header"
+                class="ui-popover-header"
+              >
+                <slot
+                  name="header"
+                  :close="close"
+                />
+              </div>
+              <div class="ui-popover-body min-h-0 min-w-0">
+                <slot
+                  name="content"
+                  :close="close"
+                />
+              </div>
+              <div
+                v-if="$slots.footer"
+                class="ui-popover-footer"
+              >
+                <slot
+                  name="footer"
+                  :close="close"
+                />
+              </div>
             </div>
           </div>
         </div>

@@ -57,6 +57,14 @@ export default {
       type: Boolean,
       default: true,
     },
+    /**
+     * Native mobil alt dock — `cap-ios` / `cap-android` ile liquid glass veya opak blur.
+     * Web’de etkisiz; yalnızca `variant="segmented"` ile kullanılır.
+     */
+    nativeChrome: {
+      type: Boolean,
+      default: false,
+    },
   },
   emits: ['update:modelValue'],
   setup() {
@@ -81,6 +89,7 @@ export default {
         this.variant === 'segmented' && this.resolvedSize === 'lg' ? 'ui-tabs--segmented-lg' : '',
         this.variant === 'segmented' && this.resolvedSize === 'sm' ? 'ui-tabs--segmented-sm' : '',
         this.transparent ? 'ui-tabs--transparent' : '',
+        this.nativeChrome ? 'ui-tabs--native-chrome' : '',
         this.scrollable ? 'ui-tabs--scrollable' : '',
         this.$attrs.class,
       )
