@@ -23,6 +23,7 @@ import Segment from './components/Segment.vue'
 import SegmentGroup from './components/SegmentGroup.vue'
 import Select from './components/Select.vue'
 import Skeleton from './components/Skeleton.vue'
+import Switch from './components/Switch.vue'
 import TabList from './components/TabList.vue'
 import Tabs from './components/Tabs.vue'
 import TabTrigger from './components/TabTrigger.vue'
@@ -98,6 +99,7 @@ const GLOBAL_COMPONENTS = [
   ['ui-segment-group', SegmentGroup],
   ['ui-select', Select],
   ['ui-skeleton', Skeleton],
+  ['ui-switch', Switch],
   ['ui-tab-list', TabList],
   ['ui-tabs', Tabs],
   ['ui-tab-trigger', TabTrigger],

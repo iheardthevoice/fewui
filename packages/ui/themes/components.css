@@ -516,6 +516,33 @@
     border-bottom-right-radius: 0;
   }
 
+  /** Joined + Select: köşe yuvarlaklığı tetikleyici alana uygulanır */
+  .ui-action-group--joined.ui-action-group--horizontal > .ui-select:not(:first-child) .ui-select-field {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  .ui-action-group--joined.ui-action-group--horizontal > .ui-select:not(:last-child) .ui-select-field {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .ui-action-group--joined.ui-action-group--vertical > .ui-select:not(:first-child) .ui-select-field {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  .ui-action-group--joined.ui-action-group--vertical > .ui-select:not(:last-child) .ui-select-field {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  /** Joined + Input: odak halkası bitişik kenarda üstte kalsın */
+  .ui-action-group--joined > .ui-select:focus-within,
+  .ui-action-group--joined > .ui-input:focus-within {
+    @apply relative z-[1];
+  }
+
   .ui-action-group--joined.ui-action-group--horizontal > * + * {
     margin-inline-start: -1px;
   }
