@@ -215,7 +215,8 @@
 </template>
 
 <script>
-import { formatDateDisplay, resolveDateDisplayLocale } from '../utils/format-ymd-display.js'
+import { formatDateDisplay, resolveDateDisplayLocale, formatYmdDisplay } from '../utils/format-ymd-display.js'
+import { resolveThemeDateFormat } from '../theme/resolve-theme-default.js'
 
 let dpCounter = 0
 
@@ -326,7 +327,8 @@ export default {
     },
     displayText() {
       if (!this.selectedDate) return this.placeholder
-      return formatDateDisplay(this.selectedDate, this.locale)
+      const format = resolveThemeDateFormat(undefined, 'dateFormat')
+      return formatDateDisplay(this.selectedDate, this.locale, format)
     },
     monthTitle() {
       return new Date(this.viewYear, this.viewMonth, 1).toLocaleString(this.locale, {

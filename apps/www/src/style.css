@@ -7,7 +7,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@import "fewui/style.css";
+@import "fewui/themes/fewui.css";
 @import "fewui/fonts.css";
 
 @theme {

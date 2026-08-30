@@ -52,7 +52,7 @@
                 >
                   <ui-icon
                     :name="icon"
-                    :type="iconType"
+                    :type="resolvedIconType"
                     size="sm"
                   />
                 </span>
@@ -136,6 +136,7 @@ import { createUiIdFactory } from '../utils/ui-id.js'
 import { resolveUiText } from '../utils/resolve-ui-text.js'
 import { pickPassthroughAttrs } from '../utils/pick-passthrough-attrs.js'
 import { focusFirstField } from '../utils/focus-first-field.js'
+import { resolveThemeIconType } from '../theme/resolve-theme-default.js'
 
 const nextSheetId = createUiIdFactory('ui-sheet')
 
@@ -201,8 +202,8 @@ export default {
     },
     iconType: {
       type: String,
-      default: 'light',
-      validator: (v) => ICON_TYPES.includes(v),
+      default: undefined,
+      validator: (v) => v == null || ICON_TYPES.includes(v),
     },
     showClose: {
       type: Boolean,
@@ -278,6 +279,9 @@ export default {
     this.clearFocusFallback()
   },
   computed: {
+    resolvedIconType() {
+      return resolveThemeIconType(this.iconType)
+    },
     hasDefaultHeader() {
       return !!(
         this.icon ||

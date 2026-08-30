@@ -1,0 +1,4 @@
+/** Material 3 — filled tonal buttons, daha az gölge. */
+.ui-button.ui-control[data-variant='solid'] {
+  box-shadow: none;
+}

@@ -77,7 +77,7 @@
 
 <script>
 import { cn } from '../utils/cn.js'
-import { resolveControlSize } from '../utils/control-size.js'
+import { resolveThemeControlSize } from '../theme/resolve-theme-default.js'
 import { useId } from 'vue'
 import { pickPassthroughAttrs } from '../utils/pick-passthrough-attrs.js'
 
@@ -102,8 +102,8 @@ export default {
     /** `sm` 32px, `md` 36px (varsayılan), `lg` 44px — select / segment ile hizalı */
     size: {
       type: String,
-      default: 'md',
-      validator: (v) => SIZES.includes(v),
+      default: undefined,
+      validator: (v) => v == null || SIZES.includes(v),
     },
     /** `v-model` */
     modelValue: {
@@ -167,7 +167,7 @@ export default {
   },
   computed: {
     resolvedSize() {
-      let size = resolveControlSize(this.size, { defaultSize: 'md' })
+      let size = resolveThemeControlSize(this.size, { key: 'controlSize', defaultSize: 'md' })
       if (size !== 'md') return size
       const fromRow = typeof this.uiFormRowPrimary === 'function'
         ? this.uiFormRowPrimary()

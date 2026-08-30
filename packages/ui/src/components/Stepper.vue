@@ -146,6 +146,7 @@
 
 <script>
 import { cn } from '../utils/cn.js'
+import { resolveThemeIconType } from '../theme/resolve-theme-default.js'
 
 const DIRECTIONS = ['horizontal', 'vertical']
 const VARIANTS = ['default', 'pills']
@@ -198,7 +199,7 @@ export default {
         title: s?.title ?? '',
         description: s?.description ?? '',
         icon: s?.icon ?? null,
-        iconType: s?.iconType ?? 'light',
+        iconType: s?.iconType ?? resolveThemeIconType(undefined),
       }))
     },
     rootClass() {

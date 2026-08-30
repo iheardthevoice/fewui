@@ -138,6 +138,7 @@
 
 <script>
 import { formatYmdDisplay, resolveDateDisplayLocale } from '../utils/format-ymd-display.js'
+import { resolveThemeDateFormat } from '../theme/resolve-theme-default.js'
 
 let drpCounter = 0
 
@@ -402,9 +403,10 @@ export default {
       }
     },
     formatDisplay(from, to) {
+      const format = resolveThemeDateFormat(undefined, 'dateRangeFormat')
       const fmt = (s) => {
         if (!s) return '…'
-        return formatYmdDisplay(s, this.locale) || s
+        return formatYmdDisplay(s, this.locale, format) || s
       }
       if (!from && !to) return this.resolvedPlaceholder
       if (from === to || !to) return fmt(from || to)

@@ -57,7 +57,7 @@
                   >
                     <ui-icon
                       :name="icon"
-                      :type="iconType"
+                      :type="resolvedIconType"
                       size="sm"
                     />
                   </span>
@@ -142,6 +142,10 @@ import { createUiIdFactory } from '../utils/ui-id.js'
 import { resolveUiText } from '../utils/resolve-ui-text.js'
 import { pickPassthroughAttrs } from '../utils/pick-passthrough-attrs.js'
 import { focusFirstField } from '../utils/focus-first-field.js'
+import {
+  resolveThemeDialogMaxWidth,
+  resolveThemeIconType,
+} from '../theme/resolve-theme-default.js'
 import { isMobileViewport } from '../utils/viewport.js'
 
 const nextDialogId = createUiIdFactory('ui-dialog')
@@ -192,8 +196,8 @@ export default {
     /** İç panel genişliği (`max-w-*`). */
     maxWidth: {
       type: String,
-      default: 'lg',
-      validator: (v) => MAX_WIDTHS.includes(v),
+      default: undefined,
+      validator: (v) => v == null || MAX_WIDTHS.includes(v),
     },
     /** Dış çerçeve (1px `border-border`) — `ui-card` ile aynı. */
     border: {
@@ -222,8 +226,8 @@ export default {
     /** `ui-icon` `type` prop’u. */
     iconType: {
       type: String,
-      default: 'light',
-      validator: (v) => ICON_TYPES.includes(v),
+      default: undefined,
+      validator: (v) => v == null || ICON_TYPES.includes(v),
     },
     /** Sağ üst kapat düğmesi. */
     showClose: {
@@ -357,8 +361,14 @@ export default {
     borderStyleClass() {
       return BORDER_TYPE_CLASS[this.borderType] || BORDER_TYPE_CLASS.solid
     },
+    resolvedIconType() {
+      return resolveThemeIconType(this.iconType)
+    },
+    resolvedMaxWidth() {
+      return resolveThemeDialogMaxWidth(this.maxWidth)
+    },
     maxWidthClass() {
-      return MAX_WIDTH_CLASS[this.maxWidth] || MAX_WIDTH_CLASS.lg
+      return MAX_WIDTH_CLASS[this.resolvedMaxWidth] || MAX_WIDTH_CLASS.lg
     },
     panelClasses() {
       const borderPart = this.border

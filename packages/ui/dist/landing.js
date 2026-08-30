@@ -1,91 +1,104 @@
-import { O as c, am as g, a3 as p, A as d, a as T, b as h, B as F, c as C, C as f, d as b, e as L, f as P, h as y, E as A, l as E, I as G, m as O, L as S, n as v, P as R, o as _, p as w, R as I, q as k, S as U, r as D, s as B, t as M, u as N, w as W, y as x, x as Y, H as j } from "./index-BYs0S1Xh.js";
-import { F as z, i as J, j as Z, k as aa, G as sa, K as ea, M as oa, N as ta, Q as ia, U as ra, V as la, W as na, X as ua, Y as ma, $ as ca, a0 as ga, a1 as pa, a2 as da, a5 as Ta, a7 as ha, a8 as Fa, a9 as Ca, aa as fa, ac as ba, ad as La, ae as Pa, ah as ya, ai as Aa, aj as Ea, ak as Ga, an as Oa } from "./index-BYs0S1Xh.js";
-const q = {
-  en: p,
-  tr: g
-}, K = [
-  ["ui-action-group", d],
-  ["ui-alert", T],
-  ["ui-avatar", h],
-  ["ui-badge", F],
-  ["ui-button", C],
-  ["ui-card", f],
-  ["ui-confirm-dialog", b],
-  ["ui-date-picker", L],
-  ["ui-dialog", P],
-  ["ui-dropdown", y],
-  ["ui-empty", A],
-  ["ui-form-row", E],
-  ["ui-icon", G],
-  ["ui-input", O],
-  ["ui-list", S],
-  ["ui-list-item", v],
-  ["ui-phone", R],
-  ["ui-pin", _],
-  ["ui-popover", w],
-  ["ui-radio", I],
-  ["ui-radio-group", k],
-  ["ui-segment", U],
-  ["ui-segment-group", D],
-  ["ui-select", B],
-  ["ui-skeleton", M],
-  ["ui-switch", N],
-  ["ui-tab-list", W],
-  ["ui-tabs", x],
-  ["ui-tab-trigger", Y],
-  ["ui-toast", j]
+import { aA as p, Y as m, ak as d, aG as T, a9 as h, A as f, a as C, b as F, c as b, d as P, C as E, e as v, f as A, g as y, i as G, E as L, m as S, I as O, n as _, o as I, p as R, P as k, q as w, r as D, R as M, s as U, S as B, t as N, u as W, v as x, w as K, H, K as Y, J as j, N as q } from "./index-D9bCwCpk.js";
+import { F as aa, j as ea, k as sa, l as oa, G as ta, T as ia, x as ra, V as la, W as na, X as ma, Z as ua, $ as ga, a0 as ca, a1 as pa, a2 as da, a3 as Ta, a5 as ha, a6 as fa, a7 as Ca, a8 as Fa, ab as ba, ad as Pa, ae as Ea, af as va, ag as Aa, ah as ya, an as Ga, ao as La, ap as Sa, as as Oa, ax as _a, az as Ia, aB as Ra, aD as ka, aK as wa } from "./index-D9bCwCpk.js";
+const V = {
+  en: h,
+  tr: T
+}, z = [
+  ["ui-action-group", f],
+  ["ui-alert", C],
+  ["ui-avatar", F],
+  ["ui-badge", b],
+  ["ui-button", P],
+  ["ui-card", E],
+  ["ui-confirm-dialog", v],
+  ["ui-date-picker", A],
+  ["ui-dialog", y],
+  ["ui-dropdown", G],
+  ["ui-empty", L],
+  ["ui-form-row", S],
+  ["ui-icon", O],
+  ["ui-input", _],
+  ["ui-list", I],
+  ["ui-list-item", R],
+  ["ui-phone", k],
+  ["ui-pin", w],
+  ["ui-popover", D],
+  ["ui-radio", M],
+  ["ui-radio-group", U],
+  ["ui-segment", B],
+  ["ui-segment-group", N],
+  ["ui-select", W],
+  ["ui-skeleton", x],
+  ["ui-switch", K],
+  ["ui-tab-list", H],
+  ["ui-tabs", Y],
+  ["ui-tab-trigger", j],
+  ["ui-toast", q]
 ];
-function V(n, u = {}) {
-  var i, r;
-  const { i18n: a, locale: o, locales: m, theme: t } = u;
-  if (t && c(t), (i = a == null ? void 0 : a.global) != null && i.mergeLocaleMessage) {
-    const e = m ?? (o != null ? [o] : [
-      typeof a.global.locale == "string" ? a.global.locale : ((r = a.global.locale) == null ? void 0 : r.value) ?? "tr"
+function J(u, g = {}) {
+  var r, l;
+  const { i18n: a, locale: i, locales: c, theme: s, themeOverrides: t } = g;
+  if (typeof s == "string") {
+    const e = p(s, t || {});
+    m(e.config);
+  } else if (s && typeof s == "object") {
+    const e = t ? d(s, t) : s;
+    m(e);
+  }
+  if ((r = a == null ? void 0 : a.global) != null && r.mergeLocaleMessage) {
+    const e = c ?? (i != null ? [i] : [
+      typeof a.global.locale == "string" ? a.global.locale : ((l = a.global.locale) == null ? void 0 : l.value) ?? "tr"
     ]);
-    for (const s of e) {
-      const l = q[s];
-      l && a.global.mergeLocaleMessage(s, l);
+    for (const o of e) {
+      const n = V[o];
+      n && a.global.mergeLocaleMessage(o, n);
     }
   }
-  for (const [e, s] of K)
-    n.component(e, s);
+  for (const [e, o] of z)
+    u.component(e, o);
 }
-const Q = {
-  install: V
+const Z = {
+  install: J
 };
 export {
-  z as FEW_COLOR_SCALE,
-  J as FEW_PALETTE_ID,
-  Z as FEW_PRIMARY,
-  aa as FEW_PRIMARY_FOREGROUND,
-  sa as GOOGLE_FONTS_CATALOG,
-  ea as applyGoogleFontsCatalogPreview,
-  oa as applyGoogleFontsForTheme,
-  ta as applyThemeCustomCss,
-  c as applyUiTheme,
-  ia as buildGoogleFontsLinkTag,
-  ra as buildGoogleFontsStylesheetUrl,
-  la as buildThemeEnforcementCss,
-  na as buildThemeStyleAttr,
-  ua as clearThemeCustomCss,
-  ma as clearToasts,
-  ca as createUiId,
-  ga as createUiIdFactory,
-  Q as default,
-  pa as deriveBrandColorsFromPrimary,
-  da as dismissToast,
-  Ta as formatGoogleFontFamilyName,
-  ha as getFewPrimaryColors,
-  Fa as getThemePreset,
-  Ca as googleFontSelectOptions,
-  fa as mergeUiTheme,
-  ba as pushToast,
+  aa as FEW_COLOR_SCALE,
+  ea as FEW_PALETTE_ID,
+  sa as FEW_PRIMARY,
+  oa as FEW_PRIMARY_FOREGROUND,
+  ta as GOOGLE_FONTS_CATALOG,
+  ia as THEME_IDS,
+  ra as THEME_PACKAGES,
+  la as applyGoogleFontsCatalogPreview,
+  na as applyGoogleFontsForTheme,
+  ma as applyThemeCustomCss,
+  m as applyUiTheme,
+  ua as buildGoogleFontsLinkTag,
+  ga as buildGoogleFontsStylesheetUrl,
+  ca as buildThemeEnforcementCss,
+  pa as buildThemeStyleAttr,
+  da as clearThemeCustomCss,
+  Ta as clearToasts,
+  ha as createUiId,
+  fa as createUiIdFactory,
+  Z as default,
+  Ca as deriveBrandColorsFromPrimary,
+  Fa as dismissToast,
+  ba as formatGoogleFontFamilyName,
+  Pa as getFewPrimaryColors,
+  Ea as getThemeCssPath,
+  va as getThemePackage,
+  Aa as getThemePreset,
+  ya as googleFontSelectOptions,
+  d as mergeUiTheme,
+  Ga as pushToast,
   La as requestConfirm,
-  Pa as resetUiIds,
-  ya as resolvePrimaryColor,
-  Aa as resolveThemeFontFamilies,
-  Ea as resolveThemePreset,
-  Ga as resolveThemeVars,
-  Oa as withDerivedBrandColors
+  Sa as resetUiIds,
+  Oa as resolvePrimaryColor,
+  _a as resolveThemeFontFamilies,
+  Ia as resolveThemeId,
+  p as resolveThemePackage,
+  Ra as resolveThemePreset,
+  ka as resolveThemeVars,
+  wa as withDerivedBrandColors
 };
 //# sourceMappingURL=landing.js.map

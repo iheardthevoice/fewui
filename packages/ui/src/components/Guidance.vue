@@ -7,7 +7,7 @@
     <ui-card
       v-if="mode === 'card'"
       :icon="icon"
-      :icon-type="iconType"
+      :icon-type="resolvedIconType"
       :title="title"
       :description="description"
       border
@@ -54,7 +54,7 @@
       v-else-if="mode === 'dialog'"
       v-model:open="syncOpen"
       :icon="icon"
-      :icon-type="iconType"
+      :icon-type="resolvedIconType"
       :title="title"
       :description="description"
       :max-width="maxWidth"
@@ -112,7 +112,7 @@
             >
               <ui-icon
                 :name="icon"
-                :type="iconType"
+                :type="resolvedIconType"
                 size="sm"
               />
             </span>
@@ -212,7 +212,7 @@
                   >
                     <ui-icon
                       :name="icon"
-                      :type="iconType"
+                      :type="resolvedIconType"
                       size="sm"
                     />
                   </span>
@@ -298,9 +298,9 @@ import {
   normalizeTourTarget,
   tourHighlightObserveNodes,
 } from '../utils/tour-target-bounds.js'
+import { iconTypeProp, themeIconTypeComputed } from '../theme/icon-type-prop.js'
 
 const MODES = ['dialog', 'popover', 'card', 'tour']
-const ICON_TYPES = ['solid', 'regular', 'brands', 'light', 'duotone', 'thin']
 const PLACEMENTS = [
   'bottom-start',
   'bottom-end',
@@ -337,11 +337,7 @@ export default {
       type: String,
       default: null,
     },
-    iconType: {
-      type: String,
-      default: 'light',
-      validator: (v) => ICON_TYPES.includes(v),
-    },
+    iconType: iconTypeProp,
     title: {
       type: String,
       default: '',
@@ -433,6 +429,7 @@ export default {
     }
   },
   computed: {
+    ...themeIconTypeComputed(),
     shouldRender() {
       return this.repeatable || !this.seen
     },

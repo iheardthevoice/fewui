@@ -1,0 +1,280 @@
+/**
+ * Liquid Glass — cam chrome (Restta `app-ios-glass-bar` + iOS native kontrol katmanı).
+ * Tokenlar: `platform/ios.css`. Uygulama POS düzeni `frontend/src/style.css` içinde kalır.
+ */
+
+.app-ios-glass-bar,
+.app-ios-glass-bar--header,
+.app-ios-glass-bar--footer,
+.app-ios-glass-bar--pos-footer {
+  position: relative;
+  isolation: isolate;
+  background-color: var(--background);
+}
+
+/**
+ * Web / Android fallback — header ve footer aynı opak chrome (`--background`).
+ * `cap-ios` altında liquid glass ile override edilir.
+ */
+.app-ios-glass-bar--header {
+  border-bottom: 1px solid var(--border);
+}
+
+.app-ios-glass-bar--footer,
+.app-ios-glass-bar--pos-footer {
+  border-top: 1px solid var(--border);
+}
+
+/** Kart yüzeyi (`ui-surface`) chrome ile birleşince `--surface-bg` karışmasın. */
+.app-ios-glass-bar.ui-surface {
+  border-radius: 0;
+  box-shadow: none;
+  background-color: var(--background);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+/**
+ * iOS Liquid Glass — unlayered: Tailwind `bg-*` utilities (@layer utilities) üstüne.
+ */
+html.cap-native.cap-ios {
+  --app-ios-glass-edge-fade: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--ui-ios-glass-edge) 22%,
+    var(--ui-ios-glass-edge) 78%,
+    transparent 100%
+  );
+}
+
+html.cap-native.cap-ios .app-ios-glass-bar,
+html.cap-native.cap-ios .app-ios-glass-bar--header,
+html.cap-native.cap-ios .app-ios-glass-bar--footer,
+html.cap-native.cap-ios .app-ios-glass-bar--pos-footer {
+  border: none !important;
+  background-color: var(--ui-ios-glass-bg-chrome) !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: blur(28px) saturate(190%);
+  backdrop-filter: blur(28px) saturate(190%);
+  transform: translateZ(0);
+}
+
+html.cap-native.cap-ios .app-ios-glass-bar.ui-surface {
+  background-color: var(--ui-ios-glass-bg-chrome) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+html.cap-native.cap-ios .app-ios-glass-bar--header {
+  padding-bottom: 0.75rem;
+}
+
+html.cap-native.cap-ios .app-ios-glass-bar:not(.app-ios-glass-bar--footer):not(.app-ios-glass-bar--pos-footer)::after {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  bottom: 0;
+  height: 0.5px;
+  background: var(--app-ios-glass-edge-fade);
+}
+
+html.cap-native.cap-ios .app-ios-glass-bar--footer::before,
+html.cap-native.cap-ios .app-ios-glass-bar--pos-footer::before {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  top: 0;
+  height: 0.5px;
+  background: var(--app-ios-glass-edge-fade);
+}
+
+html.cap-native.cap-ios .app-ios-glass-bar--footer::after,
+html.cap-native.cap-ios .app-ios-glass-bar--pos-footer::after {
+  content: none;
+}
+
+html.cap-native.cap-ios .ui-segment-group:not(.ui-segment-group--vertical) {
+  background-color: var(--input-background) !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  border-color: transparent !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+html.cap-native.cap-ios .ui-segment-group:not(.ui-segment-group--vertical)::before,
+html.cap-native.cap-ios .ui-segment-group:not(.ui-segment-group--vertical)::after {
+  content: none !important;
+}
+
+html.cap-native.cap-ios .ui-input,
+html.cap-native.cap-ios .ui-select-field,
+html.cap-native.cap-ios .ui-textarea-field,
+html.cap-native.cap-ios .ui-input .ui-field-control-fill,
+html.cap-native.cap-ios .ui-select-field .ui-field-control-fill {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+html.cap-native.cap-ios .ui-tab-list--horizontal.ui-tab-list--segmented {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: none !important;
+  background-color: var(--ui-ios-glass-bg) !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(24px) saturate(180%);
+  transform: translateZ(0);
+}
+
+html.cap-native.cap-ios .ui-popover-panel.ui-surface {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: none !important;
+  background-color: var(--ui-ios-glass-bg-popover) !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: blur(28px) saturate(190%);
+  backdrop-filter: blur(28px) saturate(190%);
+  transform: translateZ(0);
+}
+
+html.cap-native.cap-ios .ui-tab-list--horizontal.ui-tab-list--segmented::before,
+html.cap-native.cap-ios .ui-popover-panel.ui-surface::before {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: none;
+  box-shadow:
+    inset 0 0.5px 0 0 var(--ui-ios-glass-edge),
+    inset 0 -0.5px 0 0 var(--ui-ios-glass-edge);
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    #000 16%,
+    #000 84%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    #000 16%,
+    #000 84%,
+    transparent 100%
+  );
+  z-index: 1;
+}
+
+html.cap-native.cap-ios .ui-tab-list--horizontal.ui-tab-list--segmented::after,
+html.cap-native.cap-ios .ui-popover-panel.ui-surface::after {
+  content: none;
+}
+
+html.cap-native.cap-ios .ui-button.ui-control:not([data-variant='link']):not([data-variant='nav']) {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: none !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+}
+
+html.cap-native.cap-ios .ui-button.ui-control[data-variant='outline'],
+html.cap-native.cap-ios .ui-button.ui-control[data-variant='ghost'],
+html.cap-native.cap-ios .ui-button.ui-control[data-variant='solid'][data-color='secondary'],
+html.cap-native.cap-ios .ui-button.ui-control[data-variant='solid'][data-color='input'] {
+  background-color: var(--ui-ios-glass-bg) !important;
+  background-image: none !important;
+}
+
+html.cap-native.cap-ios .ui-button.ui-control:not([data-variant='link']):not([data-variant='nav'])::before {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: none;
+  box-shadow:
+    inset 0 0.5px 0 0 var(--ui-ios-glass-edge),
+    inset 0 -0.5px 0 0 var(--ui-ios-glass-edge);
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    #000 14%,
+    #000 86%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    #000 14%,
+    #000 86%,
+    transparent 100%
+  );
+  z-index: 1;
+}
+
+html.cap-native.cap-ios .ui-button.ui-control:not([data-variant='link']):not([data-variant='nav'])::after {
+  content: none;
+}
+
+html.cap-native.cap-ios .ui-popover-panel .ui-button.ui-control:not([data-variant='link']):not([data-variant='nav']),
+html.cap-native.cap-ios .ui-popover-panel .ui-button.ui-control:not([data-variant='link']):not([data-variant='nav'])::before {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+html.cap-native.cap-ios .ui-popover-panel .ui-button.ui-control:not([data-variant='link']):not([data-variant='nav'])::before {
+  content: none !important;
+}
+
+@media (max-width: 767px) {
+  html.cap-native.cap-ios .ui-dialog-panel.ui-surface {
+    background-color: var(--muted) !important;
+    border: none !important;
+    box-shadow: none !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+
+  html.cap-native.cap-ios .ui-dialog-panel.ui-surface::before,
+  html.cap-native.cap-ios .ui-dialog-panel.ui-surface::after {
+    content: none !important;
+  }
+}
+
+html.cap-native.cap-ios .app-ios-glass-bar--pos-footer {
+  padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0px));
+}
+
+/**
+ * iOS — basılı geri bildirim: kontroller hafif büyür (dock sekme, buton, segment).
+ * Varsayılan `active:scale-[0.98]` butonlarda geçersiz kılınır.
+ */
+html.cap-native.cap-ios .ui-tab-trigger--segmented,
+html.cap-native.cap-ios .ui-button.ui-control:not([data-variant='link']):not([data-variant='nav']),
+html.cap-native.cap-ios .ui-segment {
+  transition-property: transform, color, background-color, background-image, box-shadow, opacity;
+  transition-duration: 150ms;
+  transition-timing-function: ease-out;
+}
+
+html.cap-native.cap-ios .ui-tab-trigger--segmented:active:not(:disabled),
+html.cap-native.cap-ios .ui-button.ui-control:active:not(:disabled):not([data-variant='link']):not([data-variant='nav']),
+html.cap-native.cap-ios .ui-segment:active:not(:disabled) {
+  transform: scale(1.06);
+}

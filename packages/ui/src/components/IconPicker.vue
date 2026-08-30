@@ -27,7 +27,7 @@
             >
               <ui-icon
                 :name="localIcon || 'grid'"
-                :type="iconType"
+                :type="resolvedIconType"
                 size="xs"
               />
             </span>
@@ -102,7 +102,7 @@
             >
               <ui-icon
                 :name="iconName"
-                :type="iconType"
+                :type="resolvedIconType"
                 size="sm"
               />
             </button>
@@ -115,8 +115,7 @@
 
 <script>
 import { cn } from '../utils/cn.js'
-
-const ICON_TYPES = ['solid', 'regular', 'brands', 'light', 'duotone', 'thin']
+import { iconTypeProp, themeIconTypeComputed } from '../theme/icon-type-prop.js'
 
 export default {
   name: 'IconPicker',
@@ -130,11 +129,7 @@ export default {
       type: Array,
       default: () => [],
     },
-    iconType: {
-      type: String,
-      default: 'light',
-      validator: (v) => ICON_TYPES.includes(v),
-    },
+    iconType: iconTypeProp,
     disabled: {
       type: Boolean,
       default: false,
@@ -177,6 +172,7 @@ export default {
     }
   },
   computed: {
+    ...themeIconTypeComputed(),
     rootClass() {
       return cn(
         'ui-icon-picker ui-icon-picker--fulled w-full min-w-0',

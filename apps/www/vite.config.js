@@ -15,6 +15,8 @@ export default defineConfig({
     dedupe: ['vue', 'vue-router', 'vue-i18n'],
     alias: [
       { find: 'fewui/style.css', replacement: join(uiRoot, 'themes/default.css') },
+      { find: 'fewui/themes/fewui.css', replacement: join(uiRoot, 'themes/fewui.css') },
+      { find: 'fewui/themes/web.css', replacement: join(uiRoot, 'themes/web.css') },
       { find: 'fewui/fonts.css', replacement: join(uiRoot, 'themes/fonts.css') },
       { find: 'fewui/components.css', replacement: join(uiRoot, 'themes/components.css') },
       { find: 'fewui', replacement: resolve(uiRoot, 'src/index.js') },

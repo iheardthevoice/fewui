@@ -75,8 +75,8 @@ export default {
   props: {
     size: {
       type: String,
-      default: 'md',
-      validator: (v) => SIZES.includes(v),
+      default: undefined,
+      validator: (v) => v == null || SIZES.includes(v),
     },
     modelValue: {
       type: String,

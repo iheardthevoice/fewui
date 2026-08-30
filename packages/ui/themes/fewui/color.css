@@ -1,0 +1,125 @@
+/**
+ * Fewui marketing — fewui.com
+ */
+
+:root {
+  --font-sans: Inter, ui-sans-serif;
+  --font-heading: var(--font-sans);
+
+  --radius: 18px;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-3xl: var(--radius);
+  --radius-4xl: 2rem;
+
+  --base-50: oklch(0.985 0 0);
+  --base-100: oklch(0.967 0.001 286);
+  --base-200: oklch(0.92 0.004 286);
+  --base-300: oklch(0.871 0.006 286);
+  --base-400: oklch(0.705 0.015 286);
+  --base-500: oklch(0.552 0.016 286);
+  --base-600: oklch(0.442 0.017 286);
+  --base-700: oklch(0.37 0.018 286);
+  --base-800: oklch(0.274 0.018 286);
+  --base-900: oklch(0.21 0.018 286);
+  --base-950: oklch(0.141 0.018 286);
+
+  --white: #ffffff;
+
+  --background: #fafafa;
+  --foreground: #09090b;
+  --surface: #ffffff;
+  --surface-foreground: #09090b;
+
+  --ui-surface-opacity: 100%;
+  --ui-surface-backdrop-blur: 0;
+  --ui-surface-mix-from: var(--surface);
+  --surface-bg: color-mix(in oklab, var(--ui-surface-mix-from) var(--ui-surface-opacity), transparent);
+
+  --control: var(--base-100);
+  --control-foreground: var(--base-950);
+
+  --ui-control-opacity: 100%;
+  --ui-control-backdrop-blur: 0;
+  --ui-control-mix-from: var(--control);
+  --control-bg: color-mix(in oklab, var(--ui-control-mix-from) var(--ui-control-opacity), transparent);
+
+  --primary: #6366f1;
+  --primary-foreground: #ffffff;
+  --secondary: var(--base-200);
+  --secondary-foreground: var(--base-950);
+
+  --warning: oklch(0.78 0.15 72);
+  --warning-foreground: oklch(0.26 0.055 72);
+  --success: oklch(0.58 0.155 152);
+  --success-foreground: oklch(0.99 0.01 152);
+  --info: oklch(0.54 0.125 252);
+  --info-foreground: oklch(0.99 0.01 252);
+  --destructive: oklch(0.55 0.22 27);
+  --destructive-foreground: oklch(0.985 0.01 27);
+
+  --muted: var(--base-200);
+  --muted-foreground: var(--base-500);
+  --accent: #eef2ff;
+  --accent-foreground: #312e81;
+  --brand-accent: #a5b4fc;
+
+  --ui-input-opacity: 100%;
+  --ui-input-backdrop-blur: 0;
+  --ui-input-mix-from: var(--control);
+  --input-background: color-mix(in oklab, var(--ui-input-mix-from) var(--ui-input-opacity), transparent);
+  --border: var(--input-background);
+
+  --ui-shadow-sm: 0 4px 16px rgb(0 0 0 / 0.04);
+  --ui-shadow-md: 0 8px 28px rgb(0 0 0 / 0.05);
+  --ui-shadow-surface: 0 4px 16px rgb(0 0 0 / 0.04), 0 16px 48px rgb(0 0 0 / 0.06);
+
+  --ring: #6366f1;
+  --ui-focus-ring: color-mix(in oklab, var(--ring) 45%, transparent);
+
+  --ui-fill-grad-top-primary: 8%;
+  --ui-fill-grad-bottom-primary: 5%;
+  --ui-fill-grad-light: white;
+  --ui-fill-grad-dark: black;
+  --ui-button-grad-top: var(--ui-fill-grad-top-primary);
+  --ui-button-grad-bottom: var(--ui-fill-grad-bottom-primary);
+  --ui-button-grad-light: var(--ui-fill-grad-light);
+  --ui-button-grad-dark: var(--ui-fill-grad-dark);
+
+  --ui-scrollbar-size: 8px;
+  --ui-scrollbar-track: transparent;
+  --ui-scrollbar-thumb: color-mix(in oklab, var(--foreground) 22%, transparent);
+  --ui-scrollbar-thumb-hover: color-mix(in oklab, var(--foreground) 36%, transparent);
+}
+
+.dark {
+  --background: #09090b;
+  --foreground: #fafafa;
+  --surface: #18181b;
+  --surface-foreground: #fafafa;
+  --control: #27272a;
+  --control-foreground: #fafafa;
+  --primary: #818cf8;
+  --primary-foreground: #1e1b4b;
+  --secondary: #27272a;
+  --secondary-foreground: #fafafa;
+  --muted: var(--base-800);
+  --muted-foreground: var(--base-400);
+  --accent: #312e81;
+  --accent-foreground: #e0e7ff;
+  --brand-accent: #a5b4fc;
+  --ui-surface-opacity: 4%;
+  --ui-surface-backdrop-blur: 8px;
+  --ui-surface-mix-from: var(--foreground);
+  --ui-control-opacity: 6%;
+  --ui-control-backdrop-blur: 8px;
+  --ui-control-mix-from: var(--foreground);
+  --ui-input-opacity: 6%;
+  --ui-input-backdrop-blur: 8px;
+  --ui-input-mix-from: color-mix(in oklab, var(--control) 65%, var(--foreground) 6%);
+  --border: var(--input-background);
+  --ui-shadow-sm: 0 2px 8px rgb(0 0 0 / 0.2);
+  --ui-shadow-md: 0 6px 20px rgb(0 0 0 / 0.22);
+  --ui-shadow-surface: 0 2px 8px rgb(0 0 0 / 0.22), 0 14px 36px rgb(0 0 0 / 0.18);
+  --ring: #818cf8;
+}

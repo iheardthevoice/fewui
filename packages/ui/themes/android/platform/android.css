@@ -1,0 +1,51 @@
+/**
+ * Android native — Material 3 token override (`html.cap-native.cap-android`).
+ * Tam palet `../color.css`; burada yalnızca Capacitor kabuğu için runtime sınıf override.
+ */
+
+html.cap-native.cap-android {
+  --font-sans: Roboto, ui-sans-serif;
+  --font-heading: var(--font-sans);
+  --radius: 16px;
+  --radius-sm: 12px;
+  --radius-md: 14px;
+  --radius-3xl: 16px;
+  --radius-4xl: 28px;
+
+  --primary: #6750a4;
+  --primary-foreground: #ffffff;
+  --secondary: #e8def8;
+  --secondary-foreground: #1d192b;
+
+  --ui-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.08);
+  --ui-shadow-md: 0 2px 6px rgb(0 0 0 / 0.1);
+  --ui-shadow-surface: 0 1px 3px rgb(0 0 0 / 0.08), 0 4px 12px rgb(0 0 0 / 0.06);
+}
+
+html.cap-native.cap-android.dark {
+  --primary: #d0bcff;
+  --primary-foreground: #381e72;
+  --secondary: #4a4458;
+  --secondary-foreground: #e8def8;
+  --ui-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.35);
+  --ui-shadow-md: 0 2px 8px rgb(0 0 0 / 0.4);
+  --ui-shadow-surface: 0 2px 8px rgb(0 0 0 / 0.35);
+}
+
+/** M3 — düz tonal chrome; header / footer aynı `--background` */
+html.cap-native.cap-android .app-ios-glass-bar--header {
+  background-color: var(--background);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--ui-shadow-sm);
+}
+
+html.cap-native.cap-android .app-ios-glass-bar--footer,
+html.cap-native.cap-android .app-ios-glass-bar--pos-footer {
+  background-color: var(--background);
+  border-top: 1px solid var(--border);
+  box-shadow: 0 -1px 3px rgb(0 0 0 / 0.06);
+}
+
+html.cap-native.cap-android .ui-button.ui-control[data-variant='solid'] {
+  box-shadow: none;
+}

@@ -44,8 +44,7 @@
 
 <script>
 import { cn } from '../utils/cn.js'
-
-const ICON_TYPES = ['solid', 'regular', 'brands', 'light', 'duotone', 'thin']
+import { iconTypeProp, themeIconTypeComputed } from '../theme/icon-type-prop.js'
 
 export default {
   name: 'TabTrigger',
@@ -71,11 +70,7 @@ export default {
       default: null,
     },
     /** `ui-icon` `type` prop’u. */
-    iconType: {
-      type: String,
-      default: 'light',
-      validator: (v) => ICON_TYPES.includes(v),
-    },
+    iconType: iconTypeProp,
     disabled: {
       type: Boolean,
       default: false,
@@ -102,6 +97,7 @@ export default {
     },
   },
   computed: {
+    ...themeIconTypeComputed(),
     /** `segmented` yalnızca yatay `ui-tabs` içinde geçerlidir. */
     triggerKind() {
       if (!this.uiTabs) return 'line'
@@ -119,7 +115,7 @@ export default {
     },
     /** FA Pro: segment kartlarında da varsayılan `light` kullanılır. */
     tabIconType() {
-      return this.iconType
+      return this.resolvedIconType
     },
     isSelected() {
       if (typeof this.active === 'boolean') return this.active

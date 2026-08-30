@@ -27,7 +27,7 @@
             >
               <ui-icon
                 :name="icon"
-                :type="iconType"
+                :type="resolvedIconType"
                 size="lg"
               />
             </span>
@@ -87,6 +87,7 @@
 <script>
 import Divider from './Divider.vue'
 import { cn } from '../utils/cn.js'
+import { resolveThemeIconType } from '../theme/resolve-theme-default.js'
 
 const BORDER_TYPES = ['solid', 'dashed', 'dotted', 'double']
 
@@ -131,8 +132,8 @@ export default {
     /** `ui-icon` `type` prop’u. */
     iconType: {
       type: String,
-      default: 'light',
-      validator: (v) => ICON_TYPES.includes(v),
+      default: undefined,
+      validator: (v) => v == null || ICON_TYPES.includes(v),
     },
     /** Gövde: yatay satır (buton / ikon sıraları). */
     row: {
@@ -172,6 +173,9 @@ export default {
     },
   },
   computed: {
+    resolvedIconType() {
+      return resolveThemeIconType(this.iconType)
+    },
     hasDefaultHeader() {
       return !!(
         this.icon ||

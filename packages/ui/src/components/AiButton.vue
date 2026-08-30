@@ -17,7 +17,7 @@
         type="button"
         variant="solid"
         color="secondary"
-        :size="size"
+        :size="resolvedSize"
         :prefix-icon="prefixIcon"
         :disabled="disabled"
         :loading="loading"
@@ -32,6 +32,8 @@
 </template>
 
 <script>
+import { resolveThemeControlSize } from '../theme/resolve-theme-default.js'
+
 /**
  * AI eylem düğmesi — animasyonlu gradient çerçeve + `ui-button` (solid secondary).
  * Köşe yarıçapı `ui-control-h-*` ile aynıdır (`sm` → rounded-md, diğerleri → `--radius`).
@@ -46,7 +48,7 @@ export default {
     },
     size: {
       type: String,
-      default: 'md',
+      default: undefined,
     },
     disabled: {
       type: Boolean,
@@ -71,7 +73,8 @@ export default {
       return this.fulled || this.block
     },
     resolvedSize() {
-      return this.size === 'sm' || this.size === 'lg' ? this.size : 'md'
+      const raw = resolveThemeControlSize(this.size, { key: 'controlSize', defaultSize: 'md' })
+      return raw === 'sm' || raw === 'lg' ? raw : 'md'
     },
     rootStyle() {
       const radius =

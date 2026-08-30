@@ -68,7 +68,9 @@ import Photo from './components/Photo.vue'
 import Photos from './components/Photos.vue'
 import en from './locales/en.js'
 import tr from './locales/tr.js'
-import { applyUiTheme } from './theme/apply-theme.js'
+import { applyUiTheme, mergeUiTheme } from './theme/apply-theme.js'
+import { resolveThemePackage } from './theme/registry.js'
+import { provideUiDefaults, uiDefaultsToCssVars } from './theme/ui-defaults.js'
 import { setPriceInputConfig } from './price-input-config.js'
 
 export {
@@ -107,6 +109,32 @@ export {
   getThemePreset,
   resolveThemePreset,
 } from './theme/presets/index.js'
+export {
+  THEME_IDS,
+  THEME_PACKAGES,
+  getThemePackage,
+  resolveThemePackage,
+  resolveThemeId,
+  getThemeCssPath,
+  LEGACY_PRESET_TO_THEME,
+} from './theme/registry.js'
+export {
+  provideUiDefaults,
+  useUiDefaults,
+  useUiDefaultsOptions,
+  mergeUiDefaults,
+  BASE_UI_DEFAULTS,
+  UI_DEFAULTS_KEY,
+} from './theme/ui-defaults.js'
+export { iconTypeProp, themeIconTypeComputed, UI_ICON_TYPES } from './theme/icon-type-prop.js'
+export {
+  resolveThemeDefault,
+  resolveThemeControlSize,
+  resolveThemeIconType,
+  resolveThemeDialogMaxWidth,
+  resolveThemeDateFormat,
+  resolveThemeTimeFormat,
+} from './theme/resolve-theme-default.js'
 export { createUiId, createUiIdFactory, resetUiIds } from './utils/ui-id.js'
 export { resolveControlSize } from './utils/control-size.js'
 export { resolveUiText } from './utils/resolve-ui-text.js'
@@ -298,7 +326,8 @@ const GLOBAL_COMPONENTS = [
  * @property {import('vue-i18n').I18n} i18n vue-i18n örneği (zorunlu — UI metinleri buraya yazılır)
  * @property {string} [locale] Birleştirilecek paket kodu (`LOCALE_PACKS` anahtarı). Verilmezse `i18n.global.locale` kullanılır.
  * @property {string[]} [locales] Birden fazla dil paketini aynı anda birleştir (örn. `['tr','en']`). Verilirse `locale` yok sayılır.
- * @property {UiThemeConfig} [theme] Tasarım token’ları (`primaryColor`, `baseColor`, `surface`, `control`, `fontFamily`, …)
+ * @property {string|UiThemeConfig} [theme] Tema adı (`web`, `liquidglass`, `android`, `landing`, `fewui`) veya doğrudan `UiThemeConfig`
+ * @property {UiThemeConfig} [themeOverrides] Tema adı verildiğinde anlık override (`primaryColor`, `mode`, …)
  * @property {{currency?: string, format?: string, locale?: string}} [priceInput] `ui-price-input` global para birimi ve fiyat biçimi
  */
 
@@ -308,10 +337,19 @@ const GLOBAL_COMPONENTS = [
  * @param {UiLibInstallOptions} options
  */
 function install(app, options = {}) {
-  const { i18n, locale, locales, theme, priceInput } = options
+  const { i18n, locale, locales, theme, themeOverrides, priceInput } = options
 
-  if (theme) {
-    applyUiTheme(theme)
+  if (typeof theme === 'string') {
+    const resolved = resolveThemePackage(theme, themeOverrides || {})
+    provideUiDefaults(app, resolved.defaults)
+    app.config.globalProperties.$uiDefaults = resolved.defaults
+    applyUiTheme({
+      ...resolved.config,
+      ...uiDefaultsToCssVars(resolved.defaults),
+    })
+  } else if (theme && typeof theme === 'object') {
+    const merged = themeOverrides ? mergeUiTheme(theme, themeOverrides) : theme
+    applyUiTheme(merged)
   }
   if (priceInput) {
     setPriceInputConfig(priceInput)

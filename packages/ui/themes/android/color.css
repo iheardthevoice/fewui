@@ -1,0 +1,130 @@
+/**
+ * Android / Material 3 — tonal surfaces, pill controls.
+ * Light + dark tokenları bu pakette; runtime `mode` ile `.dark` sınıfı.
+ */
+
+:root {
+  --font-sans: Roboto, ui-sans-serif;
+  --font-heading: var(--font-sans);
+
+  --radius: 16px;
+  --radius-sm: 12px;
+  --radius-md: 14px;
+  --radius-3xl: 28px;
+  --radius-4xl: 32px;
+
+  --base-50: oklch(0.99 0.002 285);
+  --base-100: oklch(0.97 0.004 285);
+  --base-200: oklch(0.93 0.006 285);
+  --base-300: oklch(0.87 0.008 285);
+  --base-400: oklch(0.72 0.01 285);
+  --base-500: oklch(0.58 0.012 285);
+  --base-600: oklch(0.48 0.014 285);
+  --base-700: oklch(0.4 0.016 285);
+  --base-800: oklch(0.32 0.018 285);
+  --base-900: oklch(0.24 0.02 285);
+  --base-950: oklch(0.18 0.022 285);
+
+  --white: #ffffff;
+
+  --background: #fffbfe;
+  --foreground: #1c1b1f;
+
+  --surface: #fffbfe;
+  --surface-foreground: #1c1b1f;
+
+  --ui-surface-opacity: 100%;
+  --ui-surface-backdrop-blur: 0;
+  --ui-surface-mix-from: var(--surface);
+  --surface-bg: color-mix(in oklab, var(--ui-surface-mix-from) var(--ui-surface-opacity), transparent);
+
+  --control: #e7e0ec;
+  --control-foreground: #1c1b1f;
+
+  --ui-control-opacity: 100%;
+  --ui-control-backdrop-blur: 0;
+  --ui-control-mix-from: var(--control);
+  --control-bg: color-mix(in oklab, var(--ui-control-mix-from) var(--ui-control-opacity), transparent);
+
+  --primary: #6750a4;
+  --primary-foreground: #ffffff;
+
+  --secondary: #e8def8;
+  --secondary-foreground: #1d192b;
+
+  --warning: oklch(0.78 0.15 72);
+  --warning-foreground: oklch(0.26 0.055 72);
+  --success: oklch(0.58 0.155 152);
+  --success-foreground: oklch(0.99 0.01 152);
+  --info: oklch(0.54 0.125 252);
+  --info-foreground: oklch(0.99 0.01 252);
+  --destructive: oklch(0.55 0.22 27);
+  --destructive-foreground: oklch(0.985 0.01 27);
+
+  --muted: var(--base-200);
+  --muted-foreground: var(--base-600);
+
+  --accent: #e8def8;
+  --accent-foreground: #1d192b;
+
+  --ui-input-opacity: 100%;
+  --ui-input-backdrop-blur: 0;
+  --ui-input-mix-from: var(--control);
+  --input-background: color-mix(in oklab, var(--ui-input-mix-from) var(--ui-input-opacity), transparent);
+
+  --border: color-mix(in oklab, var(--foreground) 12%, transparent);
+
+  --ui-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.08);
+  --ui-shadow-md: 0 2px 6px rgb(0 0 0 / 0.1);
+  --ui-shadow-surface: 0 1px 3px rgb(0 0 0 / 0.08), 0 4px 12px rgb(0 0 0 / 0.06);
+
+  --ring: #6750a4;
+  --ui-focus-ring: color-mix(in oklab, var(--ring) 45%, transparent);
+
+  --ui-fill-grad-top-primary: 0%;
+  --ui-fill-grad-bottom-primary: 0%;
+  --ui-fill-grad-light: white;
+  --ui-fill-grad-dark: black;
+  --ui-button-grad-top: var(--ui-fill-grad-top-primary);
+  --ui-button-grad-bottom: var(--ui-fill-grad-bottom-primary);
+  --ui-button-grad-light: var(--ui-fill-grad-light);
+  --ui-button-grad-dark: var(--ui-fill-grad-dark);
+
+  --ui-scrollbar-size: 8px;
+  --ui-scrollbar-track: transparent;
+  --ui-scrollbar-thumb: color-mix(in oklab, var(--foreground) 22%, transparent);
+  --ui-scrollbar-thumb-hover: color-mix(in oklab, var(--foreground) 36%, transparent);
+}
+
+.dark {
+  --background: #1c1b1f;
+  --foreground: #e6e1e5;
+
+  --surface: #1c1b1f;
+  --surface-foreground: #e6e1e5;
+
+  --control: #49454f;
+  --control-foreground: #e6e1e5;
+
+  --primary: #d0bcff;
+  --primary-foreground: #381e72;
+
+  --secondary: #4a4458;
+  --secondary-foreground: #e8def8;
+
+  --muted: var(--base-800);
+  --muted-foreground: var(--base-400);
+
+  --accent: #4a4458;
+  --accent-foreground: #e8def8;
+
+  --ui-input-mix-from: var(--control);
+  --border: color-mix(in oklab, var(--foreground) 14%, transparent);
+
+  --ui-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.35);
+  --ui-shadow-md: 0 2px 8px rgb(0 0 0 / 0.4);
+  --ui-shadow-surface: 0 2px 8px rgb(0 0 0 / 0.35);
+
+  --ring: #d0bcff;
+  --ui-focus-ring: color-mix(in oklab, var(--ring) 45%, transparent);
+}

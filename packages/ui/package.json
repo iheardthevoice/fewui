@@ -23,6 +23,11 @@
       "import": "./dist/landing.js"
     },
     "./style.css": "./themes/default.css",
+    "./themes/web.css": "./themes/web.css",
+    "./themes/liquidglass.css": "./themes/liquidglass.css",
+    "./themes/android.css": "./themes/android.css",
+    "./themes/landing.css": "./themes/landing.css",
+    "./themes/fewui.css": "./themes/fewui.css",
     "./fonts.css": "./themes/fonts.css",
     "./components.css": "./themes/components.css",
     "./tailwind-preset": "./tailwind-preset.cjs"

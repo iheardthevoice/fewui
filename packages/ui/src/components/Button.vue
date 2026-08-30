@@ -229,8 +229,11 @@
 <script>
 import { Comment, Fragment, Text } from 'vue'
 import { RouterLink } from 'vue-router'
-import { resolveControlSize } from '../utils/control-size.js'
+import { resolveThemeControlSize } from '../theme/resolve-theme-default.js'
 import { resolveUiText } from '../utils/resolve-ui-text.js'
+import {
+  resolveThemeDefault,
+} from '../theme/resolve-theme-default.js'
 
 const sizes = ['sm', 'md', 'lg']
 const variants = ['solid', 'outline', 'ghost', 'link', 'nav']
@@ -369,8 +372,8 @@ export default {
     },
     size: {
       type: String,
-      default: 'md',
-      validator: (value) => sizes.includes(value),
+      default: undefined,
+      validator: (value) => value == null || sizes.includes(value),
     },
     prefixIcon: {
       type: String,
@@ -455,7 +458,10 @@ export default {
       return this.disabled || this.loading
     },
     resolvedSize() {
-      return resolveControlSize(this.size, { defaultSize: 'md' })
+      return resolveThemeControlSize(this.size, { key: 'controlSize', defaultSize: 'md' })
+    },
+    themeButtonRounded() {
+      return resolveThemeDefault(undefined, 'buttonRounded', 'lg')
     },
     resolvedLoadingText() {
       if (this.loadingText != null && this.loadingText !== '') {
@@ -510,7 +516,12 @@ export default {
 
       let roundedClass = ''
       if (!isLink && !isNav) {
-        if (this.stack || this.rounded || this.cubed) roundedClass = 'rounded-full'
+        const usePill =
+          this.stack ||
+          this.rounded ||
+          this.cubed ||
+          this.themeButtonRounded === 'full'
+        if (usePill) roundedClass = 'rounded-full'
       }
 
       const variantColor =

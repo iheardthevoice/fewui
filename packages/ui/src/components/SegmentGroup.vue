@@ -11,7 +11,7 @@
 
 <script>
 import { cn } from '../utils/cn.js'
-import { resolveControlSize } from '../utils/control-size.js'
+import { resolveThemeControlSize } from '../theme/resolve-theme-default.js'
 import { isMobileViewport } from '../utils/viewport.js'
 
 const SIZES = ['sm', 'md', 'lg']
@@ -32,8 +32,8 @@ export default {
     },
     size: {
       type: String,
-      default: 'md',
-      validator: (v) => SIZES.includes(v),
+      default: undefined,
+      validator: (v) => v == null || SIZES.includes(v),
     },
     /** `horizontal` (varsayılan) veya `vertical` — dar yan menü gibi düzenler */
     direction: {
@@ -68,7 +68,7 @@ export default {
   },
   computed: {
     resolvedSize() {
-      return resolveControlSize(this.size, { defaultSize: 'md' })
+      return resolveThemeControlSize(this.size, { key: 'controlSize', defaultSize: 'md' })
     },
     /** Segment çocukları bunu okur (`iconOnly` ham prop değil). */
     resolvedIconOnly() {

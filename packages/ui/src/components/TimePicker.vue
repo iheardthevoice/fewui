@@ -211,6 +211,8 @@
 <script>
 import { createUiIdFactory } from '../utils/ui-id.js'
 import { resolveUiText } from '../utils/resolve-ui-text.js'
+import { formatTimeParts, formatTimeString } from '../utils/format-time-display.js'
+import { resolveThemeTimeFormat } from '../theme/resolve-theme-default.js'
 
 const nextTimePickerId = createUiIdFactory('ui-timepicker')
 
@@ -303,12 +305,15 @@ export default {
     minuteAriaLabel() {
       return resolveUiText(this, 'ui.timePicker.minuteAria', 'Minute')
     },
+    resolvedTimeFormat() {
+      return resolveThemeTimeFormat(undefined)
+    },
     display() {
       if (this.menuOpen) {
-        return `${pad2(this.draftHour)}:${pad2(this.draftMinute)}`
+        return formatTimeParts(this.draftHour, this.draftMinute, this.resolvedTimeFormat)
       }
       if (!this.hasValue) return this.resolvedPlaceholder
-      return String(this.modelValue)
+      return formatTimeString(String(this.modelValue), this.resolvedTimeFormat)
     },
     supportsScrollEnd() {
       if (typeof window === 'undefined') return false

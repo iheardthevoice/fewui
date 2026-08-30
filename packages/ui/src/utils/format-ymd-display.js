@@ -19,9 +19,13 @@ export function resolveDateDisplayLocale(locale) {
  * @param {string} [locale]
  * @returns {string}
  */
-export function formatDateDisplay(date, locale = 'tr-TR') {
+export function formatDateDisplay(date, locale = 'tr-TR', format) {
   if (!(date instanceof Date) || Number.isNaN(date.getTime())) return ''
-  return date.toLocaleDateString(resolveDateDisplayLocale(locale), {
+  const loc = resolveDateDisplayLocale(locale)
+  if (format === 'd MMM yyyy') {
+    return date.toLocaleDateString(loc, { day: 'numeric', month: 'short', year: 'numeric' })
+  }
+  return date.toLocaleDateString(loc, {
     day: 'numeric',
     month: 'long',
     year: 'numeric',
@@ -33,7 +37,7 @@ export function formatDateDisplay(date, locale = 'tr-TR') {
  * @param {string} [locale]
  * @returns {string}
  */
-export function formatYmdDisplay(ymd, locale = 'tr-TR') {
+export function formatYmdDisplay(ymd, locale = 'tr-TR', format) {
   if (ymd == null || ymd === '') return ''
   const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(ymd).trim())
   if (!m) return ''
@@ -42,5 +46,5 @@ export function formatYmdDisplay(ymd, locale = 'tr-TR') {
   const da = Number(m[3])
   const d = new Date(y, mo, da)
   if (d.getFullYear() !== y || d.getMonth() !== mo || d.getDate() !== da) return ''
-  return formatDateDisplay(d, locale)
+  return formatDateDisplay(d, locale, format)
 }

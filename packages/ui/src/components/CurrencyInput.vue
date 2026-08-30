@@ -57,8 +57,8 @@ export default {
     },
     size: {
       type: String,
-      default: 'md',
-      validator: (v) => SIZES.includes(v),
+      default: undefined,
+      validator: (v) => v == null || SIZES.includes(v),
     },
     disabled: {
       type: Boolean,

@@ -10,7 +10,7 @@
       <ui-icon
         v-if="showDefaultLeading"
         :name="icon"
-        :type="iconType"
+        :type="resolvedIconType"
         size="md"
         class="ui-action-card__icon"
         aria-hidden="true"
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-const ICON_TYPES = ['solid', 'regular', 'brands', 'light', 'duotone', 'thin']
+import { iconTypeProp, themeIconTypeComputed } from '../theme/icon-type-prop.js'
 
 export default {
   name: 'ActionCard',
@@ -60,11 +60,7 @@ export default {
       type: String,
       default: '',
     },
-    iconType: {
-      type: String,
-      default: 'light',
-      validator: (v) => ICON_TYPES.includes(v),
-    },
+    iconType: iconTypeProp,
     selected: {
       type: Boolean,
       default: false,
@@ -80,6 +76,7 @@ export default {
   },
   emits: ['click'],
   computed: {
+    ...themeIconTypeComputed(),
     hasLeadingSlot() {
       return Boolean(this.$slots.leading)
     },

@@ -7,13 +7,7 @@
 
 <script>
 import { cn } from '../utils/cn.js'
-
-/**
- * Font Awesome webfont (`<i class="fa-…">`) — Lucide/Heroicons değil.
- * Tüketen uygulama FA web CSS + webfont yüklemelidir (`all.css` / `all.min.css`).
- * Varsayılan ağırlık `light` (Pro webfont). Free pakette yalnızca `solid` / `regular` / `brands` vardır.
- */
-const ICON_TYPES = ['solid', 'regular', 'brands', 'light', 'duotone', 'thin']
+import { iconTypeProp, themeIconTypeComputed } from '../theme/icon-type-prop.js'
 
 const typeToFaPrefix = {
   solid: 'fa-solid',
@@ -44,11 +38,7 @@ export default {
       required: true,
     },
     /** Font Awesome ağırlığı (`fa-light`, `fa-solid`, …). */
-    type: {
-      type: String,
-      default: 'light',
-      validator: (v) => ICON_TYPES.includes(v),
-    },
+    type: iconTypeProp,
     /** Visual size (maps to Tailwind `text-*`). */
     size: {
       type: String,
@@ -65,8 +55,9 @@ export default {
     },
   },
   computed: {
+    ...themeIconTypeComputed('type'),
     faWeightClass() {
-      return typeToFaPrefix[this.type] || typeToFaPrefix.light
+      return typeToFaPrefix[this.resolvedIconType] || typeToFaPrefix.light
     },
     iconClass() {
       return cn(

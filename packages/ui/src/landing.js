@@ -30,7 +30,8 @@ import TabTrigger from './components/TabTrigger.vue'
 import Toast from './components/Toast.vue'
 import en from './locales/en.js'
 import tr from './locales/tr.js'
-import { applyUiTheme } from './theme/apply-theme.js'
+import { applyUiTheme, mergeUiTheme } from './theme/apply-theme.js'
+import { resolveThemePackage } from './theme/registry.js'
 
 export { createUiId, createUiIdFactory, resetUiIds } from './utils/ui-id.js'
 export { pushToast, dismissToast, clearToasts } from './toast-queue.js'
@@ -67,6 +68,14 @@ export {
   resolveThemeFontFamilies,
 } from './theme/google-fonts.js'
 export { getThemePreset, resolveThemePreset } from './theme/presets/index.js'
+export {
+  THEME_IDS,
+  THEME_PACKAGES,
+  getThemePackage,
+  resolveThemePackage,
+  resolveThemeId,
+  getThemeCssPath,
+} from './theme/registry.js'
 
 const LOCALE_PACKS = {
   en,
@@ -115,7 +124,8 @@ const GLOBAL_COMPONENTS = [
  * @property {import('vue-i18n').I18n} i18n
  * @property {string} [locale]
  * @property {string[]} [locales]
- * @property {UiThemeConfig} [theme]
+ * @property {string|UiThemeConfig} [theme]
+ * @property {UiThemeConfig} [themeOverrides]
  */
 
 /**
@@ -124,10 +134,14 @@ const GLOBAL_COMPONENTS = [
  * @param {UiLibInstallOptions} options
  */
 function install(app, options = {}) {
-  const { i18n, locale, locales, theme } = options
+  const { i18n, locale, locales, theme, themeOverrides } = options
 
-  if (theme) {
-    applyUiTheme(theme)
+  if (typeof theme === 'string') {
+    const resolved = resolveThemePackage(theme, themeOverrides || {})
+    applyUiTheme(resolved.config)
+  } else if (theme && typeof theme === 'object') {
+    const merged = themeOverrides ? mergeUiTheme(theme, themeOverrides) : theme
+    applyUiTheme(merged)
   }
 
   if (i18n?.global?.mergeLocaleMessage) {

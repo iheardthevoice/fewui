@@ -154,6 +154,9 @@ const NAMED_ICON_COLORS = {
   emerald: 'text-emerald-600',
 }
 
+import { resolveThemeIconType } from '../theme/resolve-theme-default.js'
+import { iconTypeProp } from '../theme/icon-type-prop.js'
+
 export default {
   name: 'File',
   props: {
@@ -180,10 +183,7 @@ export default {
       default: '',
     },
     /** FA ağırlığı — çoğu ikon `solid`; gerekirse `brands` vb. */
-    iconType: {
-      type: String,
-      default: 'light',
-    },
+    iconType: iconTypeProp,
     /** İkon rengi: `NAMED_ICON_COLORS` anahtarı veya doğrudan Tailwind sınıfı (`text-red-500`) */
     color: {
       type: String,
@@ -228,8 +228,8 @@ export default {
       return this.inferredMeta.icon
     },
     resolvedIconType() {
-      if (this.icon) return this.iconType
-      return this.inferredMeta.type || 'light'
+      if (this.icon) return resolveThemeIconType(this.iconType)
+      return this.inferredMeta.type || resolveThemeIconType(undefined)
     },
     resolvedColorClass() {
       if (this.color) {

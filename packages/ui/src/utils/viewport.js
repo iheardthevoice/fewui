@@ -23,3 +23,9 @@ if (typeof window !== 'undefined') {
 export function isMobileViewport() {
   return mobileViewport.value
 }
+
+/** Capacitor iOS kabuğu — `index.html` / `native-app.js` `cap-ios` sınıfı. */
+export function isNativeIos() {
+  if (typeof document === 'undefined') return false
+  return document.documentElement.classList.contains('cap-ios')
+}

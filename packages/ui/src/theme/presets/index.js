@@ -1,26 +1,28 @@
-import { panelPreset } from './panel.js'
-import { flatPreset } from './flat.js'
-import { landingPreset } from './landing.js'
 import { mergeUiTheme } from '../apply-theme.js'
+import { resolveThemePackage } from '../registry.js'
 
-/** @type {Record<string, import('../apply-theme.js').UiThemeConfig>} */
+/** @deprecated `THEME_PACKAGES` / `resolveThemePackage` kullanın. */
 export const THEME_PRESETS = {
-  panel: panelPreset,
-  flat: flatPreset,
-  landing: landingPreset,
+  get panel() {
+    return resolveThemePackage('panel').config
+  },
+  get flat() {
+    return resolveThemePackage('flat').config
+  },
+  get landing() {
+    return resolveThemePackage('landing').config
+  },
 }
 
-/** @type {Array<'panel'|'flat'|'landing'>} */
+/** @deprecated `THEME_IDS` kullanın. */
 export const THEME_PRESET_IDS = ['panel', 'flat', 'landing']
 
 /**
- * @param {string} [id]
+ * @param {string} [id] Tema adı veya eski preset kimliği
  * @returns {import('../apply-theme.js').UiThemeConfig}
  */
 export function getThemePreset(id = 'panel') {
-  const key = String(id || 'panel').trim()
-  const base = THEME_PRESETS[key] || panelPreset
-  return structuredClone(base)
+  return structuredClone(resolveThemePackage(id).config)
 }
 
 /**
@@ -31,3 +33,5 @@ export function getThemePreset(id = 'panel') {
 export function resolveThemePreset(presetId, overrides = {}) {
   return mergeUiTheme(getThemePreset(presetId), overrides)
 }
+
+export { resolveThemePackage, getThemePackage, resolveThemeId, THEME_IDS, THEME_PACKAGES } from '../registry.js'

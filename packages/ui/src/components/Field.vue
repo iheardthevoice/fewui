@@ -14,7 +14,7 @@
       >
         <ui-icon
           :name="icon"
-          :type="iconType"
+          :type="resolvedIconType"
           size="md"
         />
       </span>
@@ -42,8 +42,7 @@
 
 <script>
 import { cn } from '../utils/cn.js'
-
-const ICON_TYPES = ['solid', 'regular', 'brands', 'light', 'duotone', 'thin']
+import { iconTypeProp, themeIconTypeComputed } from '../theme/icon-type-prop.js'
 
 export default {
   name: 'Field',
@@ -66,13 +65,10 @@ export default {
       type: String,
       default: '',
     },
-    iconType: {
-      type: String,
-      default: 'light',
-      validator: (v) => ICON_TYPES.includes(v),
-    },
+    iconType: iconTypeProp,
   },
   computed: {
+    ...themeIconTypeComputed(),
     passthroughAttrs() {
       const { class: _c, ...rest } = this.$attrs
       return rest

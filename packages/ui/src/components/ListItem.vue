@@ -10,7 +10,7 @@
     >
       <ui-icon
         :name="prefixIcon"
-        :type="prefixIconType"
+        :type="resolvedPrefixIconType"
         size="xs"
         class="ui-list-item-prefix-icon"
       />
@@ -35,8 +35,9 @@
 
 <script>
 import { cn } from '../utils/cn.js'
+import { iconTypeProp } from '../theme/icon-type-prop.js'
+import { resolveThemeIconType } from '../theme/resolve-theme-default.js'
 
-const ICON_TYPES = ['solid', 'regular', 'brands', 'light', 'duotone', 'thin']
 const ALIGNS = ['start', 'center']
 
 export default {
@@ -47,11 +48,7 @@ export default {
       type: String,
       default: null,
     },
-    prefixIconType: {
-      type: String,
-      default: 'light',
-      validator: (v) => ICON_TYPES.includes(v),
-    },
+    prefixIconType: iconTypeProp,
     /** Prefiks / trailing ile dikey hizalama (`center` medya satırları için). */
     align: {
       type: String,
@@ -60,6 +57,9 @@ export default {
     },
   },
   computed: {
+    resolvedPrefixIconType() {
+      return resolveThemeIconType(this.prefixIconType)
+    },
     itemClass() {
       return cn(
         'ui-list-item',

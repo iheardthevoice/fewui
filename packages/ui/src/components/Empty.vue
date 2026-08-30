@@ -9,7 +9,7 @@
     >
       <ui-icon
         :name="resolvedIcon"
-        :type="iconType"
+        :type="resolvedIconType"
         :size="iconSize"
       />
     </div>
@@ -36,8 +36,9 @@
 
 <script>
 import { cn } from '../utils/cn.js'
+import { iconTypeProp, themeIconTypeComputed } from '../theme/icon-type-prop.js'
+import { resolveThemeControlSize } from '../theme/resolve-theme-default.js'
 
-const ICON_TYPES = ['solid', 'regular', 'brands', 'light', 'duotone', 'thin']
 const SIZES = ['sm', 'md', 'lg']
 
 const ICON_SIZE_BY_EMPTY = {
@@ -64,21 +65,20 @@ export default {
       default: '',
     },
     /** `ui-icon` `type` */
-    iconType: {
-      type: String,
-      default: 'light',
-      validator: (v) => ICON_TYPES.includes(v),
-    },
-    /** `sm` | `md` | `lg` — padding, ikon kutusu, başlık ve açıklama ölçeği */
+    iconType: iconTypeProp,
     size: {
       type: String,
-      default: 'md',
-      validator: (v) => SIZES.includes(v),
+      default: undefined,
+      validator: (v) => v == null || SIZES.includes(v),
     },
   },
   computed: {
+    ...themeIconTypeComputed(),
+    resolvedSize() {
+      return resolveThemeControlSize(this.size, { key: 'controlSize', defaultSize: 'md' })
+    },
     iconSize() {
-      return ICON_SIZE_BY_EMPTY[this.size] ?? 'md'
+      return ICON_SIZE_BY_EMPTY[this.resolvedSize] ?? 'md'
     },
     resolvedIcon() {
       if (this.icon == null || this.icon === '') {
@@ -87,7 +87,7 @@ export default {
       return this.icon
     },
     rootClass() {
-      return cn('ui-empty', `ui-empty--${this.size}`, this.$attrs.class)
+      return cn('ui-empty', `ui-empty--${this.resolvedSize}`, this.$attrs.class)
     },
     passthroughAttrs() {
       const { class: _c, ...rest } = this.$attrs

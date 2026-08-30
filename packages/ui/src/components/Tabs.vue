@@ -9,7 +9,8 @@
 
 <script>
 import { cn } from '../utils/cn.js'
-import { resolveControlSize } from '../utils/control-size.js'
+import { resolveThemeControlSize } from '../theme/resolve-theme-default.js'
+import { resolveSegmentedTabSize } from '../utils/resolve-segmented-tab-size.js'
 import { useId } from 'vue'
 
 const VARIANTS = ['line', 'segmented']
@@ -44,8 +45,8 @@ export default {
     /** Segmented yükseklik / tipografi — `sm` | `md` (varsayılan) | `lg`. */
     size: {
       type: String,
-      default: 'md',
-      validator: (v) => v === 'sm' || v === 'md' || v === 'lg',
+      default: undefined,
+      validator: (v) => v == null || v === 'sm' || v === 'md' || v === 'lg',
     },
     /** Segmented iz arka planını kaldırır (mobil sabit üst şerit vb.). */
     transparent: {
@@ -56,6 +57,14 @@ export default {
     scrollable: {
       type: Boolean,
       default: true,
+    },
+    /**
+     * Button ile aynı satırda / hizada — tab yüksekliği button ile aynı kalır (`--ui-control-h-*`).
+     * Varsayılan kapalı: segmented tab bir kademe büyük (`--ui-tab-h-*`).
+     */
+    inlineControls: {
+      type: Boolean,
+      default: false,
     },
     /**
      * Native mobil alt dock — `cap-ios` / `cap-android` ile liquid glass veya opak blur.
@@ -78,7 +87,13 @@ export default {
   },
   computed: {
     resolvedSize() {
-      return resolveControlSize(this.size, { defaultSize: 'md' })
+      if (this.variant === 'segmented') {
+        return resolveSegmentedTabSize(this.size, {
+          inlineControls: this.inlineControls,
+          nativeChrome: this.nativeChrome,
+        })
+      }
+      return resolveThemeControlSize(this.size, { key: 'controlSize', defaultSize: 'md' })
     },
     rootClass() {
       return cn(
@@ -88,6 +103,7 @@ export default {
         this.fit === 'full' ? 'ui-tabs--fit-full' : '',
         this.variant === 'segmented' && this.resolvedSize === 'lg' ? 'ui-tabs--segmented-lg' : '',
         this.variant === 'segmented' && this.resolvedSize === 'sm' ? 'ui-tabs--segmented-sm' : '',
+        this.inlineControls ? 'ui-tabs--inline-controls' : '',
         this.transparent ? 'ui-tabs--transparent' : '',
         this.nativeChrome ? 'ui-tabs--native-chrome' : '',
         this.scrollable ? 'ui-tabs--scrollable' : '',
