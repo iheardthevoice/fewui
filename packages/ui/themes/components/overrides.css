@@ -104,7 +104,7 @@
 .ui-ai-button {
   --ui-ai-button-border: 1.5px;
   --ui-ai-button-radius: var(--radius);
-  --ui-ai-button-height: 2.25rem; /* md / ui-control-h-md */
+  --ui-ai-button-height: var(--ui-control-h-md);
   box-sizing: border-box;
   position: relative;
   display: inline-flex;
@@ -120,11 +120,11 @@
 }
 
 .ui-ai-button[data-size='sm'] {
-  --ui-ai-button-height: 2rem; /* ui-control-h-sm */
+  --ui-ai-button-height: var(--ui-control-h-sm);
 }
 
 .ui-ai-button[data-size='lg'] {
-  --ui-ai-button-height: 2.75rem; /* ui-control-h-lg */
+  --ui-ai-button-height: var(--ui-control-h-lg);
 }
 
 .ui-ai-button--block {

@@ -3977,6 +3977,12 @@
     @apply overflow-y-auto overscroll-contain;
   }
 
+  .ui-popover-body:has(.ui-dropdown-menu) {
+    @apply overflow-y-auto overscroll-contain ui-scrollbar-none;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
+  }
+
   .ui-popover-footer {
     @apply shrink-0 px-3.5 pb-3.5;
   }
