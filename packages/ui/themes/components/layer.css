@@ -4901,21 +4901,16 @@
     }
 
     .ui-overlay-dialog-enter-active .ui-dialog-backdrop,
-    .ui-overlay-dialog-leave-active .ui-dialog-backdrop {
-      transition: opacity 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+    .ui-overlay-dialog-leave-active .ui-dialog-backdrop,
+    .ui-overlay-dialog-enter-active .ui-dialog-panel,
+    .ui-overlay-dialog-leave-active .ui-dialog-panel {
+      transition-duration: 0.36s;
+      transition-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
     }
 
     .ui-overlay-dialog-enter-from .ui-dialog-backdrop,
     .ui-overlay-dialog-leave-to .ui-dialog-backdrop {
       opacity: 0;
-    }
-
-    .ui-overlay-dialog-enter-active .ui-dialog-panel {
-      transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
-    .ui-overlay-dialog-leave-active .ui-dialog-panel {
-      transition: transform 0.36s cubic-bezier(0.32, 0.72, 0, 1);
     }
 
     .ui-overlay-dialog-enter-from .ui-dialog-panel {
@@ -4928,11 +4923,17 @@
       transform: translate3d(0, 100%, 0);
     }
 
+    .ui-overlay-dialog-enter-from .ui-dialog-motion,
+    .ui-overlay-dialog-leave-to .ui-dialog-motion {
+      transform: none;
+    }
+
     .ui-dialog-sheet-grab {
       display: flex;
     }
 
     .ui-dialog-panel {
+      will-change: transform;
       max-width: none;
       max-height: min(92dvh, 100%);
       padding-bottom: env(safe-area-inset-bottom, 0px);

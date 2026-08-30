@@ -424,6 +424,12 @@ export default {
       if (typeof window === 'undefined') return false
       return window.matchMedia('(prefers-reduced-motion: reduce)').matches
     },
+    mobileSheetEasing() {
+      return 'cubic-bezier(0.32, 0.72, 0, 1)'
+    },
+    mobileSheetDurationMs() {
+      return 360
+    },
     layerMotionParts(el) {
       return {
         panel: el.querySelector('.ui-dialog-panel'),
@@ -431,18 +437,31 @@ export default {
         backdrop: el.querySelector('.ui-dialog-backdrop'),
       }
     },
-    clearLayerInlineMotion(el) {
+    resolveTransformTarget(mobile, parts) {
+      if (mobile) return parts.panel
+      return parts.motion || parts.panel
+    },
+    sheetBackdropOpacityForDrag(panel, dy) {
+      if (!panel) return 1
+      const height = Math.max(panel.offsetHeight || 0, 240)
+      const progress = Math.min(1, Math.max(0, dy) / height)
+      return Math.max(0, 1 - progress)
+    },
+    clearLayerInlineMotion(el, { preserveMobilePanelTransform = false, preserveBackdrop = false } = {}) {
+      const mobile = isMobileViewport()
       const { panel, motion, backdrop } = this.layerMotionParts(el)
       if (motion) {
         motion.style.removeProperty('transform')
         motion.style.removeProperty('transition')
       }
       if (panel) {
-        panel.style.removeProperty('transform')
+        if (!preserveMobilePanelTransform || !mobile) {
+          panel.style.removeProperty('transform')
+        }
         panel.style.removeProperty('transition')
         panel.style.removeProperty('opacity')
       }
-      if (backdrop) {
+      if (backdrop && !preserveBackdrop) {
         backdrop.style.removeProperty('opacity')
         backdrop.style.removeProperty('transition')
       }
@@ -476,37 +495,42 @@ export default {
         this.onOverlayAfterEnter()
         return
       }
-      const { panel, motion, backdrop } = this.layerMotionParts(el)
+      const parts = this.layerMotionParts(el)
+      const { panel, motion, backdrop } = parts
       const mobile = isMobileViewport()
+      const transformTarget = this.resolveTransformTarget(mobile, parts)
+      const durationMs = mobile ? this.mobileSheetDurationMs() : 420
+      const duration = `${durationMs / 1000}s`
+      const easing = mobile ? this.mobileSheetEasing() : 'cubic-bezier(0.22, 1, 0.36, 1)'
+
       if (backdrop) backdrop.style.opacity = '0'
-      if (panel) panel.style.opacity = '0'
-      if (motion) {
-        if (mobile) {
-          motion.style.transform = 'translate3d(0, 100%, 0)'
-        } else {
-          motion.style.transform = 'scale3d(0.96, 0.96, 1)'
+      if (mobile) {
+        if (panel) {
+          panel.style.opacity = '1'
+          panel.style.transform = 'translate3d(0, 100%, 0)'
         }
+        if (motion) motion.style.removeProperty('transform')
+      } else {
+        if (panel) panel.style.opacity = '0'
+        if (motion) motion.style.transform = 'scale3d(0.96, 0.96, 1)'
       }
       void el.offsetHeight
       requestAnimationFrame(() => {
         if (backdrop) {
-          backdrop.style.transition = 'opacity 0.32s cubic-bezier(0.22, 1, 0.36, 1)'
+          backdrop.style.transition = `opacity ${duration} ${easing}`
           backdrop.style.opacity = '1'
         }
-        if (panel) {
-          panel.style.transition = 'opacity 0.38s cubic-bezier(0.22, 1, 0.36, 1)'
+        if (!mobile && panel) {
+          panel.style.transition = `opacity ${duration} ${easing}`
           panel.style.opacity = '1'
         }
-        if (motion) {
-          if (mobile) {
-            motion.style.transition = 'transform 0.42s cubic-bezier(0.22, 1, 0.36, 1)'
-            motion.style.transform = 'translate3d(0, 0, 0)'
-          } else {
-            motion.style.transition = 'transform 0.42s cubic-bezier(0.22, 1, 0.36, 1)'
-            motion.style.transform = 'scale3d(1, 1, 1)'
-          }
+        if (transformTarget) {
+          transformTarget.style.transition = `transform ${duration} ${easing}`
+          transformTarget.style.transform = mobile
+            ? 'translate3d(0, 0, 0)'
+            : 'scale3d(1, 1, 1)'
         }
-        this.waitLayerTransition(motion || panel || backdrop, mobile ? 460 : 460, () => {
+        this.waitLayerTransition(transformTarget || backdrop, durationMs + 40, () => {
           this.onOverlayAfterEnter()
         })
       })
@@ -516,29 +540,39 @@ export default {
         done()
         return
       }
-      this.clearLayerInlineMotion(el)
-      const { panel, motion, backdrop } = this.layerMotionParts(el)
       const mobile = isMobileViewport()
+      const parts = this.layerMotionParts(el)
+      const dragged =
+        mobile && Boolean(parts.panel?.style.transform && parts.panel.style.transform !== 'none')
+      this.clearLayerInlineMotion(el, {
+        preserveMobilePanelTransform: mobile,
+        preserveBackdrop: dragged,
+      })
+      const { panel, motion, backdrop } = parts
+      const transformTarget = this.resolveTransformTarget(mobile, parts)
+      const durationMs = mobile ? 320 : 380
+      const duration = `${durationMs / 1000}s`
+      const easing = mobile ? this.mobileSheetEasing() : 'cubic-bezier(0.4, 0, 0.2, 1)'
       void el.offsetHeight
       requestAnimationFrame(() => {
         if (backdrop) {
-          backdrop.style.transition = 'opacity 0.38s cubic-bezier(0.4, 0, 0.2, 1)'
+          backdrop.style.transition = `opacity ${duration} ${easing}`
           backdrop.style.opacity = '0'
         }
-        if (panel) {
-          panel.style.transition = 'opacity 0.36s cubic-bezier(0.4, 0, 0.2, 1)'
-          panel.style.opacity = '0'
-        }
-        if (motion) {
-          if (mobile) {
-            motion.style.transition = 'transform 0.38s cubic-bezier(0.32, 0.72, 0, 1)'
-            motion.style.transform = 'translate3d(0, 100%, 0)'
-          } else {
-            motion.style.transition = 'transform 0.38s cubic-bezier(0.32, 0.72, 0, 1)'
+        if (mobile && panel) {
+          panel.style.transition = `transform ${duration} ${easing}`
+          panel.style.transform = 'translate3d(0, 100%, 0)'
+        } else {
+          if (panel) {
+            panel.style.transition = `opacity ${duration} ${easing}`
+            panel.style.opacity = '0'
+          }
+          if (motion) {
+            motion.style.transition = `transform ${duration} ${easing}`
             motion.style.transform = 'scale3d(0.96, 0.96, 1)'
           }
         }
-        this.waitLayerTransition(motion || panel || backdrop, mobile ? 400 : 400, done)
+        this.waitLayerTransition(transformTarget || backdrop, durationMs + 40, done)
       })
     },
     dismissLayer() {
@@ -558,8 +592,10 @@ export default {
       })
     },
     resetPanelMotionStyles() {
+      const layer = this.$refs.layerRef
       const panel = this.$refs.panelRef
       const motion = panel?.querySelector('.ui-dialog-motion')
+      const backdrop = layer?.querySelector('.ui-dialog-backdrop')
       if (motion) {
         motion.style.removeProperty('transform')
         motion.style.removeProperty('transition')
@@ -568,6 +604,10 @@ export default {
       panel.style.removeProperty('transform')
       panel.style.removeProperty('transition')
       panel.style.removeProperty('opacity')
+      if (backdrop) {
+        backdrop.style.removeProperty('opacity')
+        backdrop.style.removeProperty('transition')
+      }
     },
     onOverlayAfterEnter() {
       this.scheduleInitialFocus()
@@ -584,7 +624,8 @@ export default {
       this.$nextTick(() => {
         const panel = this.$refs.panelRef
         const motion = panel?.querySelector('.ui-dialog-motion')
-        const motionTarget = motion || panel
+        const mobile = isMobileViewport()
+        const motionTarget = mobile ? panel : (motion || panel)
         if (!motionTarget) {
           this.runInitialFocus()
           return
@@ -649,39 +690,63 @@ export default {
     onSheetPointerDown(e) {
       if (!isMobileViewport() || e.button !== 0) return
       if (this.isSheetDragBlockedTarget(e.target)) return
+      const layer = this.$refs.layerRef
       const panel = this.$refs.panelRef
-      if (!panel) return
+      if (!layer || !panel) return
       e.preventDefault()
       this.teardownSheetDrag()
+      const backdrop = layer.querySelector('.ui-dialog-backdrop')
       const startY = e.clientY
-      const prevTransition = panel.style.transition
+      const prevPanelTransition = panel.style.transition
+      const prevBackdropTransition = backdrop?.style.transition || ''
       panel.style.transition = 'none'
+      if (backdrop) backdrop.style.transition = 'none'
       const onMove = (ev) => {
         const dy = Math.max(0, ev.clientY - startY)
-        panel.style.transform = `translateY(${dy}px)`
+        panel.style.transform = `translate3d(0, ${dy}px, 0)`
+        if (backdrop) {
+          backdrop.style.opacity = String(this.sheetBackdropOpacityForDrag(panel, dy))
+        }
       }
-      const onUp = (ev) => {
-        const dy = Math.max(0, ev.clientY - startY)
+      const finishSheetDrag = (dy, dismiss) => {
         if (this.sheetDragCleanup) {
           this.sheetDragCleanup()
           this.sheetDragCleanup = null
         }
-        if (dy >= 72) {
+        if (dismiss) {
           panel.style.removeProperty('transition')
-          panel.style.removeProperty('transform')
+          if (backdrop) backdrop.style.removeProperty('transition')
           this.close()
           return
         }
-        panel.style.transition = prevTransition
-        panel.style.transform = ''
+        const duration = '0.28s'
+        const easing = this.mobileSheetEasing()
+        panel.style.transition = `transform ${duration} ${easing}`
+        panel.style.transform = 'translate3d(0, 0, 0)'
+        if (backdrop) {
+          backdrop.style.transition = `opacity ${duration} ${easing}`
+          backdrop.style.opacity = '1'
+        }
+        const onSnapEnd = (event) => {
+          if (event.target !== panel && event.target !== backdrop) return
+          panel.removeEventListener('transitionend', onSnapEnd)
+          backdrop?.removeEventListener('transitionend', onSnapEnd)
+          panel.style.transition = prevPanelTransition
+          panel.style.removeProperty('transform')
+          if (backdrop) {
+            backdrop.style.transition = prevBackdropTransition
+            backdrop.style.removeProperty('opacity')
+          }
+        }
+        panel.addEventListener('transitionend', onSnapEnd)
+        backdrop?.addEventListener('transitionend', onSnapEnd)
+      }
+      const onUp = (ev) => {
+        const dy = Math.max(0, ev.clientY - startY)
+        finishSheetDrag(dy, dy >= 72)
       }
       const onCancel = () => {
-        if (this.sheetDragCleanup) {
-          this.sheetDragCleanup()
-          this.sheetDragCleanup = null
-        }
-        panel.style.transition = prevTransition
-        panel.style.transform = ''
+        finishSheetDrag(0, false)
       }
       window.addEventListener('pointermove', onMove)
       window.addEventListener('pointerup', onUp)
