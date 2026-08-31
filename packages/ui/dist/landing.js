@@ -1,41 +1,41 @@
-import { aA as p, Y as m, ak as d, aG as T, a9 as h, A as f, a as C, b as F, c as b, d as P, C as E, e as v, f as A, g as y, i as G, E as L, m as S, I as O, n as _, o as I, p as R, P as k, q as w, r as D, R as M, s as U, S as B, t as N, u as W, v as x, w as K, H, K as Y, J as j, N as q } from "./index-DkE80ZLW.js";
-import { F as aa, j as ea, k as sa, l as oa, G as ta, T as ia, x as ra, V as la, W as na, X as ma, Z as ua, $ as ga, a0 as ca, a1 as pa, a2 as da, a3 as Ta, a5 as ha, a6 as fa, a7 as Ca, a8 as Fa, ab as ba, ad as Pa, ae as Ea, af as va, ag as Aa, ah as ya, an as Ga, ao as La, ap as Sa, as as Oa, ax as _a, az as Ia, aB as Ra, aD as ka, aK as wa } from "./index-DkE80ZLW.js";
+import { aB as p, Y as m, al as d, aH as T, a9 as h, A as f, a as C, b as F, c as b, d as E, C as P, e as v, f as y, g as A, i as L, E as G, m as S, I as O, n as _, o as I, p as R, P as w, q as k, r as D, R as M, s as U, S as B, t as N, u as W, v as H, w as q, H as x, K, J as Y, N as j } from "./index-BVvp-vC_.js";
+import { F as aa, j as ea, k as sa, l as oa, G as ta, T as ia, x as ra, V as la, W as na, X as ma, Z as ua, $ as ga, a0 as ca, a1 as pa, a2 as da, a3 as Ta, a5 as ha, a6 as fa, a7 as Ca, a8 as Fa, ab as ba, ad as Ea, ae as Pa, af as va, ag as ya, ah as Aa, ao as La, ap as Ga, aq as Sa, at as Oa, ay as _a, aA as Ia, aC as Ra, aE as wa, aL as ka } from "./index-BVvp-vC_.js";
 const V = {
   en: h,
   tr: T
-}, z = [
+}, J = [
   ["ui-action-group", f],
   ["ui-alert", C],
   ["ui-avatar", F],
   ["ui-badge", b],
-  ["ui-button", P],
-  ["ui-card", E],
+  ["ui-button", E],
+  ["ui-card", P],
   ["ui-confirm-dialog", v],
-  ["ui-date-picker", A],
-  ["ui-dialog", y],
-  ["ui-dropdown", G],
-  ["ui-empty", L],
+  ["ui-date-picker", y],
+  ["ui-dialog", A],
+  ["ui-dropdown", L],
+  ["ui-empty", G],
   ["ui-form-row", S],
   ["ui-icon", O],
   ["ui-input", _],
   ["ui-list", I],
   ["ui-list-item", R],
-  ["ui-phone", k],
-  ["ui-pin", w],
+  ["ui-phone", w],
+  ["ui-pin", k],
   ["ui-popover", D],
   ["ui-radio", M],
   ["ui-radio-group", U],
   ["ui-segment", B],
   ["ui-segment-group", N],
   ["ui-select", W],
-  ["ui-skeleton", x],
-  ["ui-switch", K],
-  ["ui-tab-list", H],
-  ["ui-tabs", Y],
-  ["ui-tab-trigger", j],
-  ["ui-toast", q]
+  ["ui-skeleton", H],
+  ["ui-switch", q],
+  ["ui-tab-list", x],
+  ["ui-tabs", K],
+  ["ui-tab-trigger", Y],
+  ["ui-toast", j]
 ];
-function J(u, g = {}) {
+function X(u, g = {}) {
   var r, l;
   const { i18n: a, locale: i, locales: c, theme: s, themeOverrides: t } = g;
   if (typeof s == "string") {
@@ -54,11 +54,11 @@ function J(u, g = {}) {
       n && a.global.mergeLocaleMessage(o, n);
     }
   }
-  for (const [e, o] of z)
+  for (const [e, o] of J)
     u.component(e, o);
 }
-const Z = {
-  install: J
+const $ = {
+  install: X
 };
 export {
   aa as FEW_COLOR_SCALE,
@@ -80,25 +80,25 @@ export {
   Ta as clearToasts,
   ha as createUiId,
   fa as createUiIdFactory,
-  Z as default,
+  $ as default,
   Ca as deriveBrandColorsFromPrimary,
   Fa as dismissToast,
   ba as formatGoogleFontFamilyName,
-  Pa as getFewPrimaryColors,
-  Ea as getThemeCssPath,
+  Ea as getFewPrimaryColors,
+  Pa as getThemeCssPath,
   va as getThemePackage,
-  Aa as getThemePreset,
-  ya as googleFontSelectOptions,
+  ya as getThemePreset,
+  Aa as googleFontSelectOptions,
   d as mergeUiTheme,
-  Ga as pushToast,
-  La as requestConfirm,
+  La as pushToast,
+  Ga as requestConfirm,
   Sa as resetUiIds,
   Oa as resolvePrimaryColor,
   _a as resolveThemeFontFamilies,
   Ia as resolveThemeId,
   p as resolveThemePackage,
   Ra as resolveThemePreset,
-  ka as resolveThemeVars,
-  wa as withDerivedBrandColors
+  wa as resolveThemeVars,
+  ka as withDerivedBrandColors
 };
 //# sourceMappingURL=landing.js.map

@@ -87,11 +87,11 @@
               variant="ghost"
               color="secondary"
               size="sm"
+              cubed
+              prefix-icon="eraser"
               :aria-label="resolvedClearLabel"
               @click="onClear(closePanel)"
-            >
-              {{ resolvedClearLabel }}
-            </ui-button>
+            />
           </div>
         </slot>
       </template>
@@ -186,10 +186,12 @@
                 type="button"
                 variant="ghost"
                 color="secondary"
+                size="sm"
+                cubed
+                prefix-icon="eraser"
+                :aria-label="resolvedClearLabel"
                 @click="onClear(close)"
-              >
-                {{ resolvedClearLabel }}
-              </ui-button>
+              />
               <ui-button
                 type="button"
                 variant="solid"

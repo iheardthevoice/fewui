@@ -2104,15 +2104,23 @@
   }
 
   .ui-form-row--vertical .ui-form-row-control {
-    @apply w-full min-w-0 shrink;
+    @apply flex w-full min-w-0 shrink flex-col gap-1.5;
   }
 
-  .ui-form-row--vertical .ui-form-row-text .ui-text-default {
+  .ui-form-row--vertical .ui-form-row-control .ui-form-row-description {
     @apply text-muted-foreground;
   }
 
   .ui-form-row--horizontal {
-    @apply flex flex-row flex-wrap items-center justify-between gap-4;
+    @apply flex flex-row flex-wrap items-start justify-between gap-4;
+  }
+
+  .ui-form-row--horizontal .ui-form-row-control {
+    @apply flex flex-col items-end gap-1.5;
+  }
+
+  .ui-form-row--horizontal .ui-form-row-control .ui-form-row-description {
+    @apply text-end text-muted-foreground;
   }
 
   /** `stack-on-mobile` — yatay satır dar ekranda dikey (FormRow prop). */
@@ -2158,7 +2166,11 @@
   }
 
   .ui-form-row--card-horizontal .ui-form-row-control {
-    @apply flex w-auto min-w-[8rem] max-w-[min(100%,20rem)] shrink-0 items-center justify-end;
+    @apply flex w-auto min-w-[8rem] max-w-[min(100%,20rem)] shrink-0 flex-col items-end justify-end gap-1.5;
+  }
+
+  .ui-form-row--card-horizontal .ui-form-row-control .ui-form-row-description {
+    @apply text-end text-muted-foreground;
   }
 
   @media (max-width: 639px) {
@@ -2814,6 +2826,14 @@
 
   .ui-checkbox-group--button {
     @apply flex w-full min-w-0 flex-row gap-3;
+  }
+
+  .ui-checkbox-group--button.ui-checkbox-group--vertical {
+    @apply flex-col;
+  }
+
+  .ui-checkbox-group--button.ui-checkbox-group--vertical > .ui-checkbox--button {
+    @apply w-full flex-none;
   }
 
   .ui-checkbox {
@@ -3585,6 +3605,14 @@
     @apply border-border shadow-none;
   }
 
+  .dark .ui-checkbox--button:not(.ui-checkbox--checked) {
+    @apply opacity-75;
+  }
+
+  .dark .ui-checkbox--button.ui-checkbox--checked {
+    @apply border-border shadow-none;
+  }
+
   .dark .ui-radio-indicator {
     @apply border border-border bg-transparent;
   }
@@ -4043,6 +4071,18 @@
 
   .ui-dialog-panel .ui-dialog-header--no-icon {
     grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .ui-dialog-panel .ui-dialog-header--with-back {
+    grid-template-columns: auto auto minmax(0, 1fr) auto;
+  }
+
+  .ui-dialog-panel .ui-dialog-header--with-back.ui-dialog-header--no-icon {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+
+  .ui-dialog-panel .ui-dialog-header__back {
+    @apply shrink-0 justify-self-start;
   }
 
   .ui-dialog-panel .ui-dialog-header__icon {

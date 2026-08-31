@@ -18,6 +18,7 @@ export default {
     },
     dialog: {
       close: 'Kapat',
+      back: 'Geri',
     },
     guidance: {
       go: 'Devam',

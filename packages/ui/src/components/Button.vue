@@ -247,6 +247,13 @@ const sizeClasses = {
   lg: 'ui-control-h-lg',
 }
 
+/** Pill (`rounded-full`) — yükseklik/padding; köşe yuvarlaklığı size sınıfından gelmez */
+const pillSizeClasses = {
+  sm: 'box-border h-[var(--ui-control-h-sm)] min-h-[var(--ui-control-h-sm)] px-2.5 py-0 text-xs leading-4',
+  md: 'box-border h-[var(--ui-control-h-md)] min-h-[var(--ui-control-h-md)] px-3 py-0 text-sm leading-5',
+  lg: 'box-border h-[var(--ui-control-h-lg)] min-h-[var(--ui-control-h-lg)] px-4 py-0 text-base leading-6',
+}
+
 /** `cubed` + ikon/kısa metin: kare kutular; ölçü `themes/components.css` `.ui-control-cubed-*` */
 const cubedSizeClasses = {
   sm: 'ui-control-cubed-sm aspect-square',
@@ -515,13 +522,19 @@ export default {
       }
 
       let roundedClass = ''
+      let sizeOrCubedResolved = sizeOrCubed
       if (!isLink && !isNav) {
         const usePill =
           this.stack ||
           this.rounded ||
           this.cubed ||
           this.themeButtonRounded === 'full'
-        if (usePill) roundedClass = 'rounded-full'
+        if (usePill) {
+          roundedClass = 'rounded-full'
+          if (!this.stack && !this.cubed) {
+            sizeOrCubedResolved = pillSizeClasses[this.resolvedSize] || pillSizeClasses.md
+          }
+        }
       }
 
       const variantColor =
@@ -535,7 +548,7 @@ export default {
         'ui-button ui-control font-sans',
         this.stack ? 'ui-button--stack' : '',
         variantColor,
-        sizeOrCubed,
+        sizeOrCubedResolved,
         isBlock ? 'ui-button--fulled w-full' : '',
         roundedClass,
         this.isDisabled ? 'cursor-not-allowed opacity-50' : '',

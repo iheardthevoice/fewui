@@ -49,8 +49,23 @@
               <div
                 v-if="hasDefaultHeader"
                 class="ui-dialog-header"
-                :class="{ 'ui-dialog-header--no-icon': !icon }"
+                :class="{
+                  'ui-dialog-header--no-icon': !icon,
+                  'ui-dialog-header--with-back': withBack,
+                }"
               >
+                <ui-button
+                  v-if="withBack"
+                  type="button"
+                  variant="link"
+                  color="secondary"
+                  size="sm"
+                  prefix-icon="arrow-left"
+                  class="ui-dialog-header__back"
+                  @click="onBack"
+                >
+                  {{ resolvedBackLabel }}
+                </ui-button>
                 <span
                     v-if="icon"
                     class="ui-dialog-header__icon"
@@ -239,6 +254,16 @@ export default {
       type: String,
       default: '',
     },
+    /** Başlıkta geri düğmesi; `@back` ile birlikte kullanılır. */
+    withBack: {
+      type: Boolean,
+      default: false,
+    },
+    /** Geri düğmesi metni; boşsa `ui.dialog.back` (i18n). */
+    backLabel: {
+      type: String,
+      default: '',
+    },
     /** Gövde: yatay satır (buton / ikon sıraları). */
     row: {
       type: Boolean,
@@ -289,7 +314,7 @@ export default {
       validator: (v) => v === 'default' || v === 'confirm',
     },
   },
-  emits: ['update:open', 'after-leave'],
+  emits: ['update:open', 'after-leave', 'back'],
   data() {
     const id = nextDialogId()
     return {
@@ -345,7 +370,8 @@ export default {
         this.hasDescription ||
         this.$slots.actions ||
         this.$slots.append ||
-        this.showClose
+        this.showClose ||
+        this.withBack
       )
     },
     hasHeaderBlock() {
@@ -411,6 +437,12 @@ export default {
         return this.closeLabel
       }
       return resolveUiText(this, 'ui.dialog.close', 'Close')
+    },
+    resolvedBackLabel() {
+      if (this.backLabel != null && this.backLabel !== '') {
+        return this.backLabel
+      }
+      return resolveUiText(this, 'ui.dialog.back', 'Back')
     },
     rootLayerClasses() {
       return cn(
@@ -658,6 +690,9 @@ export default {
     },
     close() {
       this.dismissLayer()
+    },
+    onBack() {
+      this.$emit('back')
     },
     onBackdrop() {
       if (this.closeOnBackdrop) this.close()

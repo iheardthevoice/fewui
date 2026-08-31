@@ -507,6 +507,11 @@
     border-color: transparent;
   }
 
+  /** Pill düğmeler — `ui-control-h-*` içindeki köşe yuvarlaklığını ezer */
+  .ui-button.ui-control.rounded-full {
+    border-radius: 9999px;
+  }
+
   .ui-control-h-sm {
     @apply box-border rounded-md px-2.5 py-0 text-xs leading-4;
     height: var(--ui-control-h-sm);
@@ -588,6 +593,100 @@
 
   .ui-input--plain.ui-input--multiline {
     @apply min-h-0 rounded-none py-0;
+  }
+
+  /** Salt okunur fiyat satırı — input kabuğu ile aynı dolgu / köşe (`rounded-lg`) */
+  .ui-price-display {
+    @apply ui-field-control-fill box-border flex w-full min-w-0 items-center justify-between gap-3 rounded-lg px-3;
+    height: var(--ui-control-h-md);
+    min-height: var(--ui-control-h-md);
+  }
+
+  .ui-price-display--sm {
+    height: var(--ui-control-h-sm);
+    min-height: var(--ui-control-h-sm);
+  }
+
+  .ui-price-display--lg {
+    height: var(--ui-control-h-lg);
+    min-height: var(--ui-control-h-lg);
+  }
+
+  .ui-price-display__label {
+    @apply min-w-0 truncate text-sm font-medium text-muted-foreground;
+  }
+
+  .ui-price-display-group {
+    @apply ui-field-control-fill box-border w-full min-w-0 space-y-2 rounded-lg px-3 py-3;
+  }
+
+  .ui-price-display-row {
+    @apply flex items-center justify-between gap-3 text-sm;
+  }
+
+  .ui-price-display-row--divider {
+    @apply border-t border-border pt-2;
+  }
+
+  .ui-price-display-row--emphasis .ui-price-display-row__label {
+    @apply font-medium text-foreground;
+  }
+
+  .ui-price-display-row__label {
+    @apply min-w-0 text-muted-foreground;
+  }
+
+  /** Gösterim fiyatları — giriş alanları (`ui-price-input`) hariç monospace */
+  .ui-price-text {
+    @apply shrink-0 font-mono font-medium tabular-nums;
+  }
+
+  .ui-price-text--sm {
+    @apply text-xs;
+  }
+
+  .ui-price-text--md {
+    @apply text-sm;
+  }
+
+  .ui-price-text--lg {
+    @apply text-lg;
+  }
+
+  .ui-price-text--xl {
+    @apply text-xl;
+  }
+
+  .ui-price-text--2xl {
+    @apply text-2xl;
+  }
+
+  .ui-price-text--foreground {
+    @apply text-foreground;
+  }
+
+  .ui-price-text--muted {
+    @apply text-muted-foreground;
+  }
+
+  .ui-price-text--success {
+    @apply text-emerald-600 dark:text-emerald-400;
+  }
+
+  .ui-price-text--destructive {
+    @apply text-destructive;
+  }
+
+  .ui-price-text--primary {
+    @apply text-primary;
+  }
+
+  .ui-price-text--strike {
+    @apply line-through;
+  }
+
+  .ui-price-text--truncate {
+    @apply min-w-0 truncate;
   }
 
   .ui-input--plain .ui-input-field--textarea {
@@ -2029,15 +2128,23 @@
   }
 
   .ui-form-row--vertical .ui-form-row-control {
-    @apply w-full min-w-0 shrink;
+    @apply flex w-full min-w-0 shrink flex-col gap-1.5;
   }
 
-  .ui-form-row--vertical .ui-form-row-text .ui-text-default {
+  .ui-form-row--vertical .ui-form-row-control .ui-form-row-description {
     @apply text-muted-foreground;
   }
 
   .ui-form-row--horizontal {
-    @apply flex flex-row flex-wrap items-center justify-between gap-4;
+    @apply flex flex-row flex-wrap items-start justify-between gap-4;
+  }
+
+  .ui-form-row--horizontal .ui-form-row-control {
+    @apply flex flex-col items-end gap-1.5;
+  }
+
+  .ui-form-row--horizontal .ui-form-row-control .ui-form-row-description {
+    @apply text-end text-muted-foreground;
   }
 
   /** `stack-on-mobile` — yatay satır dar ekranda dikey (FormRow prop). */
@@ -2083,7 +2190,11 @@
   }
 
   .ui-form-row--card-horizontal .ui-form-row-control {
-    @apply flex w-auto min-w-[8rem] max-w-[min(100%,20rem)] shrink-0 items-center justify-end;
+    @apply flex w-auto min-w-[8rem] max-w-[min(100%,20rem)] shrink-0 flex-col items-end justify-end gap-1.5;
+  }
+
+  .ui-form-row--card-horizontal .ui-form-row-control .ui-form-row-description {
+    @apply text-end text-muted-foreground;
   }
 
   @media (max-width: 639px) {
@@ -2739,6 +2850,14 @@
 
   .ui-checkbox-group--button {
     @apply flex w-full min-w-0 flex-row gap-3;
+  }
+
+  .ui-checkbox-group--button.ui-checkbox-group--vertical {
+    @apply flex-col;
+  }
+
+  .ui-checkbox-group--button.ui-checkbox-group--vertical > .ui-checkbox--button {
+    @apply w-full flex-none;
   }
 
   .ui-checkbox {
@@ -3510,6 +3629,14 @@
     @apply border-border shadow-none;
   }
 
+  .dark .ui-checkbox--button:not(.ui-checkbox--checked) {
+    @apply opacity-75;
+  }
+
+  .dark .ui-checkbox--button.ui-checkbox--checked {
+    @apply border-border shadow-none;
+  }
+
   .dark .ui-radio-indicator {
     @apply border border-border bg-transparent;
   }
@@ -3526,6 +3653,11 @@
   .dark .ui-checkbox--checked .ui-checkbox-box {
     @apply border-0 ui-fill-gradient;
     --ui-fill-base: var(--primary);
+  }
+
+  /** Çok adımlı form paneli — görünür olduğunda `focusFirstField` ile ilk alana odaklanır */
+  .ui-step {
+    @apply min-w-0;
   }
 
   /**
@@ -3968,6 +4100,18 @@
 
   .ui-dialog-panel .ui-dialog-header--no-icon {
     grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .ui-dialog-panel .ui-dialog-header--with-back {
+    grid-template-columns: auto auto minmax(0, 1fr) auto;
+  }
+
+  .ui-dialog-panel .ui-dialog-header--with-back.ui-dialog-header--no-icon {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+
+  .ui-dialog-panel .ui-dialog-header__back {
+    @apply shrink-0 justify-self-start;
   }
 
   .ui-dialog-panel .ui-dialog-header__icon {

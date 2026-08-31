@@ -14,6 +14,7 @@ export default {
     },
     dialog: {
       close: 'Close',
+      back: 'Back',
     },
     guidance: {
       go: 'Continue',

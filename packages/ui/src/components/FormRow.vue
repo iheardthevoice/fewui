@@ -27,19 +27,19 @@
           <slot name="action" />
         </div>
       </div>
-      <p
-        v-if="description"
-        :id="descriptionId"
-        class="ui-text-default"
-      >
-        {{ description }}
-      </p>
     </div>
     <div class="ui-form-row-control">
       <slot
         :control-id="controlId"
         :description-id="descriptionId"
       />
+      <p
+        v-if="description"
+        :id="descriptionId"
+        class="ui-form-row-description ui-text-default"
+      >
+        {{ description }}
+      </p>
     </div>
   </div>
 </template>
@@ -123,7 +123,7 @@ export default {
       return this.description ? this.fallbackDescId : undefined
     },
     hasTextBlock() {
-      return !!(this.label || this.description || this.$slots.action)
+      return !!(this.label || this.$slots.action)
     },
     rootLayoutClass() {
       const stack =

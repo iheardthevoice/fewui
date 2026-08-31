@@ -27,7 +27,11 @@ import Guidance from './components/Guidance.vue'
 import Icon from './components/Icon.vue'
 import IconPicker from './components/IconPicker.vue'
 import Input from './components/Input.vue'
+import PriceDisplay from './components/PriceDisplay.vue'
+import PriceDisplayGroup from './components/PriceDisplayGroup.vue'
+import PriceDisplayRow from './components/PriceDisplayRow.vue'
 import PriceInput from './components/PriceInput.vue'
+import PriceText from './components/PriceText.vue'
 import Password from './components/Password.vue'
 import Phone from './components/Phone.vue'
 import Pin from './components/Pin.vue'
@@ -45,6 +49,7 @@ import MenuItem from './components/MenuItem.vue'
 import MenuNav from './components/MenuNav.vue'
 import Segment from './components/Segment.vue'
 import SegmentGroup from './components/SegmentGroup.vue'
+import Step from './components/Step.vue'
 import Stepper from './components/Stepper.vue'
 import Skeleton from './components/Skeleton.vue'
 import Slider from './components/Slider.vue'
@@ -206,6 +211,7 @@ export {
   SegmentGroup,
   Skeleton,
   Slider,
+  Step,
   Stepper,
   Switch,
   Table,
@@ -275,7 +281,11 @@ const GLOBAL_COMPONENTS = [
   ['ui-icon', Icon],
   ['ui-icon-picker', IconPicker],
   ['ui-input', Input],
+  ['ui-price-display', PriceDisplay],
+  ['ui-price-display-group', PriceDisplayGroup],
+  ['ui-price-display-row', PriceDisplayRow],
   ['ui-price-input', PriceInput],
+  ['ui-price-text', PriceText],
   ['ui-password', Password],
   ['ui-phone', Phone],
   ['ui-pin', Pin],
@@ -295,6 +305,7 @@ const GLOBAL_COMPONENTS = [
   ['ui-segment-group', SegmentGroup],
   ['ui-skeleton', Skeleton],
   ['ui-slider', Slider],
+  ['ui-step', Step],
   ['ui-stepper', Stepper],
   ['ui-switch', Switch],
   ['ui-table', Table],
