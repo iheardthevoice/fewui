@@ -669,6 +669,111 @@
     @apply min-h-0 resize-none;
   }
 
+  /** Salt okunur fiyat satırı — input kabuğu ile aynı dolgu / köşe (`rounded-lg`) */
+  .ui-price-display {
+    @apply ui-field-control-fill box-border flex w-full min-w-0 items-center justify-between gap-3 rounded-lg px-3;
+    height: var(--ui-control-h-md);
+    min-height: var(--ui-control-h-md);
+  }
+
+  .ui-price-display--sm {
+    height: var(--ui-control-h-sm);
+    min-height: var(--ui-control-h-sm);
+  }
+
+  .ui-price-display--lg {
+    height: var(--ui-control-h-lg);
+    min-height: var(--ui-control-h-lg);
+  }
+
+  .ui-price-display__label {
+    @apply min-w-0 truncate text-sm font-medium text-muted-foreground;
+  }
+
+  .ui-price-display-group {
+    @apply ui-field-control-fill box-border w-full min-w-0 space-y-2 rounded-lg px-3 py-3;
+  }
+
+  .ui-price-display-row {
+    @apply flex items-center justify-between gap-3 text-sm;
+  }
+
+  .ui-price-display-row--divider {
+    @apply border-t border-border pt-2;
+  }
+
+  .ui-price-display-row--emphasis .ui-price-display-row__label {
+    @apply font-medium text-foreground;
+  }
+
+  .ui-price-display-row__label {
+    @apply min-w-0 text-muted-foreground;
+  }
+
+  /** Gösterim fiyatları — giriş alanları (`ui-price-input`) hariç monospace */
+  .ui-price-text {
+    @apply shrink-0 font-medium tabular-nums;
+    font-family: var(
+      --font-mono,
+      ui-monospace,
+      SFMono-Regular,
+      Menlo,
+      Monaco,
+      Consolas,
+      'Liberation Mono',
+      'Courier New',
+      monospace
+    );
+  }
+
+  .ui-price-text--sm {
+    @apply text-xs;
+  }
+
+  .ui-price-text--md {
+    @apply text-sm;
+  }
+
+  .ui-price-text--lg {
+    @apply text-lg;
+  }
+
+  .ui-price-text--xl {
+    @apply text-xl;
+  }
+
+  .ui-price-text--2xl {
+    @apply text-2xl;
+  }
+
+  .ui-price-text--foreground {
+    @apply text-foreground;
+  }
+
+  .ui-price-text--muted {
+    @apply text-muted-foreground;
+  }
+
+  .ui-price-text--success {
+    @apply text-emerald-600 dark:text-emerald-400;
+  }
+
+  .ui-price-text--destructive {
+    @apply text-destructive;
+  }
+
+  .ui-price-text--primary {
+    @apply text-primary;
+  }
+
+  .ui-price-text--strike {
+    @apply line-through;
+  }
+
+  .ui-price-text--truncate {
+    @apply min-w-0 truncate;
+  }
+
   .ui-input-field {
     @apply m-0 min-h-0 w-full min-w-0 flex-1 cursor-text border-0 bg-transparent p-0 text-left text-foreground outline-none appearance-auto placeholder:text-muted-foreground;
   }

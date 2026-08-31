@@ -3,7 +3,7 @@ const FIELD_SELECTOR = [
   'input.ui-input-field:not([disabled])',
   'textarea:not([disabled])',
   'select:not([disabled])',
-  'input:not([disabled]):not([type="hidden"]):not([type="submit"]):not([type="button"]):not([type="reset"])',
+  'input:not([disabled]):not([type="hidden"]):not([type="submit"]):not([type="button"]):not([type="reset"]):not([type="file"])',
 ].join(',')
 
 /** Select / benzeri tetikleyiciler — gövdede metin alanı yoksa */

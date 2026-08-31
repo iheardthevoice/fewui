@@ -2307,7 +2307,7 @@ const Yn = [
   "input.ui-input-field:not([disabled])",
   "textarea:not([disabled])",
   "select:not([disabled])",
-  'input:not([disabled]):not([type="hidden"]):not([type="submit"]):not([type="button"]):not([type="reset"])'
+  'input:not([disabled]):not([type="hidden"]):not([type="submit"]):not([type="button"]):not([type="reset"]):not([type="file"])'
 ].join(","), Kn = [
   "button.ui-select-field:not([disabled])",
   "input.ui-pin-cell:not([disabled])"
@@ -7108,4 +7108,4 @@ export {
   Oo as y,
   $o as z
 };
-//# sourceMappingURL=index-BVvp-vC_.js.map
+//# sourceMappingURL=index-BvMm608h.js.map

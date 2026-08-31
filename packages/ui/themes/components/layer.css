@@ -507,11 +507,6 @@
     border-color: transparent;
   }
 
-  /** Pill düğmeler — `ui-control-h-*` içindeki köşe yuvarlaklığını ezer */
-  .ui-button.ui-control.rounded-full {
-    border-radius: 9999px;
-  }
-
   .ui-control-h-sm {
     @apply box-border rounded-md px-2.5 py-0 text-xs leading-4;
     height: var(--ui-control-h-sm);
@@ -595,6 +590,10 @@
     @apply min-h-0 rounded-none py-0;
   }
 
+  .ui-input--plain .ui-input-field--textarea {
+    @apply min-h-0 resize-none;
+  }
+
   /** Salt okunur fiyat satırı — input kabuğu ile aynı dolgu / köşe (`rounded-lg`) */
   .ui-price-display {
     @apply ui-field-control-fill box-border flex w-full min-w-0 items-center justify-between gap-3 rounded-lg px-3;
@@ -638,7 +637,18 @@
 
   /** Gösterim fiyatları — giriş alanları (`ui-price-input`) hariç monospace */
   .ui-price-text {
-    @apply shrink-0 font-mono font-medium tabular-nums;
+    @apply shrink-0 font-medium tabular-nums;
+    font-family: var(
+      --font-mono,
+      ui-monospace,
+      SFMono-Regular,
+      Menlo,
+      Monaco,
+      Consolas,
+      'Liberation Mono',
+      'Courier New',
+      monospace
+    );
   }
 
   .ui-price-text--sm {
@@ -687,10 +697,6 @@
 
   .ui-price-text--truncate {
     @apply min-w-0 truncate;
-  }
-
-  .ui-input--plain .ui-input-field--textarea {
-    @apply min-h-0 resize-none;
   }
 
   .ui-input-field {
@@ -3653,11 +3659,6 @@
   .dark .ui-checkbox--checked .ui-checkbox-box {
     @apply border-0 ui-fill-gradient;
     --ui-fill-base: var(--primary);
-  }
-
-  /** Çok adımlı form paneli — görünür olduğunda `focusFirstField` ile ilk alana odaklanır */
-  .ui-step {
-    @apply min-w-0;
   }
 
   /**
