@@ -1929,23 +1929,24 @@
 
   /** ActionCard — tıklanabilir eylem kutusu (show sidebar, sihirbaz seçimi). */
   .ui-action-card-list {
-    @apply flex w-full min-w-0 flex-col gap-2;
+    @apply flex w-full min-w-0 flex-col gap-2.5;
   }
 
   .ui-action-card {
-    @apply flex w-full min-w-0 items-center gap-3 rounded-2xl border border-border bg-transparent px-4 py-4 text-left transition-colors duration-200 hover:bg-control focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50;
+    @apply flex w-full min-w-0 items-center gap-3.5 rounded-2xl border-0 bg-muted px-3.5 py-3.5 text-left transition-colors duration-200 hover:bg-control focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50;
   }
 
   .ui-action-card--selected {
-    @apply border-ring bg-control;
+    @apply bg-control ring-1 ring-ring;
   }
 
   .ui-action-card__icon {
-    @apply shrink-0 text-muted-foreground;
+    @apply flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-primary;
+    background-color: color-mix(in oklab, var(--primary) 12%, var(--muted));
   }
 
   .ui-action-card__content {
-    @apply flex min-w-0 flex-1 flex-col gap-1 pr-1;
+    @apply flex min-w-0 flex-1 flex-col gap-0.5;
   }
 
   .ui-action-card__title {
@@ -1953,7 +1954,7 @@
   }
 
   .ui-action-card__description {
-    @apply text-sm font-normal leading-relaxed text-muted-foreground;
+    @apply text-sm font-normal leading-normal text-muted-foreground;
   }
 
   .ui-action-card__trailing {
@@ -4196,15 +4197,20 @@
   }
 
   .ui-dialog-panel .ui-dialog-header__back {
-    @apply shrink-0 justify-self-start;
+    @apply shrink-0 justify-self-start -ml-1 rounded-lg;
+    min-height: 2.25rem;
   }
 
   .ui-dialog-panel .ui-dialog-header__icon {
-    @apply flex h-6 shrink-0 items-center justify-center text-muted-foreground;
+    @apply flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-muted/50 text-foreground;
   }
 
   .ui-dialog-panel .ui-dialog-header__title {
     @apply min-w-0 truncate;
+  }
+
+  .ui-dialog-panel .ui-dialog-header--with-back .ui-dialog-header__title {
+    @apply text-lg leading-7;
   }
 
   .ui-dialog-panel .ui-dialog-header__actions {
@@ -4747,11 +4753,11 @@
     }
 
     .ui-table-head {
-      @apply px-3 py-2;
+      @apply px-2 py-1.5;
     }
 
     .ui-table-cell {
-      @apply px-3 py-2;
+      @apply px-2 py-1.5;
     }
   }
 
@@ -4892,12 +4898,12 @@
   }
 
   .ui-table-head {
-    @apply min-w-0 overflow-hidden px-4 py-2.5 text-left align-middle text-muted-foreground;
+    @apply min-w-0 overflow-hidden px-3 py-1.5 text-left align-middle text-muted-foreground;
     @apply [&:has([role=checkbox])]:pr-0;
   }
 
   .ui-table-head--icon-col {
-    @apply w-14 max-w-14 px-3;
+    @apply w-12 max-w-12 px-2;
   }
 
   .ui-table-head--w-sm {
@@ -4925,8 +4931,20 @@
   }
 
   .ui-table-cell {
-    @apply min-w-0 overflow-hidden px-4 py-3 align-top;
+    @apply min-w-0 overflow-hidden px-3 py-1.5 align-middle;
     @apply [&:has([role=checkbox])]:pr-0;
+  }
+
+  .ui-table-cell--w-sm {
+    @apply w-16;
+  }
+
+  .ui-table-cell--w-md {
+    @apply w-24;
+  }
+
+  .ui-table-cell--w-lg {
+    @apply w-32;
   }
 
   .ui-table-cell--w-fill {
@@ -4935,7 +4953,7 @@
 
   /** Hücre içeriği: sığmayan metin alt satıra kırılır (DataTable / app-col). */
   .ui-table-cell-content {
-    @apply min-w-0 max-w-full whitespace-normal break-words;
+    @apply flex min-w-0 max-w-full items-center whitespace-normal break-words;
     overflow-wrap: anywhere;
   }
 
@@ -4957,7 +4975,7 @@
 
   /** İki satırlı hücre: üst başlık + alt yardımcı metin (DataTable / app-col). */
   .ui-table-cell-stack {
-    @apply flex min-w-0 flex-col gap-0.5;
+    @apply flex min-w-0 w-full flex-col gap-0.5;
   }
 
   .ui-table-cell-title {
@@ -4987,12 +5005,12 @@
   }
 
   .ui-table-cell--icon-col {
-    @apply w-14 max-w-14 px-3;
+    @apply w-12 max-w-12 px-2;
   }
 
   /** DataTable — `icon` prop ile gelen önde ikon sütunu (satır içi tekrar etme) */
   .ui-data-table-row-icon-shell {
-    @apply flex h-8 w-8 shrink-0 items-center justify-center rounded-2xl text-primary;
+    @apply flex h-7 w-7 shrink-0 items-center justify-center rounded-xl text-primary;
     background-color: color-mix(in oklab, var(--primary) 10%, transparent);
   }
 
@@ -5022,10 +5040,18 @@
 
   .ui-table-cell--align-center {
     @apply text-center;
+
+    .ui-table-cell-content {
+      @apply justify-center;
+    }
   }
 
   .ui-table-cell--align-end {
     @apply text-right;
+
+    .ui-table-cell-content {
+      @apply justify-end;
+    }
   }
 
   /**
@@ -5054,9 +5080,9 @@
     }
 
     .app-data-table:not(.app-data-table--filter-empty) .ui-table {
-      table-layout: auto;
-      width: max-content;
-      min-width: 100%;
+      table-layout: fixed;
+      width: 100%;
+      min-width: 0;
     }
 
     .app-data-table--filter-empty .ui-table {
@@ -5081,14 +5107,43 @@
       background-color: var(--app-data-table-cell-bg, var(--surface-bg, var(--surface)));
     }
 
-    .app-data-table:not(.app-data-table--filter-empty) .ui-table-head:not(.ui-table-head--icon-col):not(.ui-table-head--w-sm):not(:last-child),
-    .app-data-table:not(.app-data-table--filter-empty) .ui-table-cell:not(.ui-table-cell--icon-col):not(.ui-table-cell--w-sm):not(:last-child) {
-      min-width: 7rem;
+    .app-data-table .ui-table-head,
+    .app-data-table .ui-table-cell {
+      @apply px-3 py-1.5;
+    }
+
+    .app-data-table:not(.app-data-table--filter-empty) .ui-table-head:not(.ui-table-head--icon-col):not(.ui-table-head--w-sm):not(.ui-table-head--w-md):not(.ui-table-head--w-lg):not(:last-child),
+    .app-data-table:not(.app-data-table--filter-empty) .ui-table-cell:not(.ui-table-cell--icon-col):not(.ui-table-cell--w-sm):not(.ui-table-cell--w-md):not(.ui-table-cell--w-lg):not(:last-child):not(:has([data-app-row-menu])) {
+      min-width: 0;
     }
 
     .app-data-table .ui-table-head--w-sm,
+    .app-data-table .ui-table-cell--w-sm,
     .app-data-table .ui-table-cell:has([data-app-row-menu]) {
+      width: 3rem;
       min-width: 3rem;
+      max-width: 3rem;
+    }
+
+    .app-data-table .ui-table-head--w-md,
+    .app-data-table .ui-table-cell--w-md {
+      width: 5.5rem;
+      min-width: 5.5rem;
+      max-width: 5.5rem;
+    }
+
+    .app-data-table .ui-table-head--w-lg,
+    .app-data-table .ui-table-cell--w-lg {
+      width: 7rem;
+      min-width: 7rem;
+      max-width: 7rem;
+    }
+
+    .app-data-table .ui-table-head--w-fill,
+    .app-data-table .ui-table-cell--w-fill {
+      width: auto;
+      min-width: 0;
+      max-width: none;
     }
 
     .app-data-table .ui-table-cell:has(.ui-action-group) {
@@ -5105,7 +5160,8 @@
       right: 0;
       z-index: 2;
       background-color: var(--app-data-table-cell-bg, var(--surface-bg, var(--surface)));
-      box-shadow: -0.5rem 0 0.75rem color-mix(in oklab, var(--background) 72%, transparent);
+      border-left: none;
+      box-shadow: none;
     }
 
     .app-data-table:not(.app-data-table--filter-empty) .ui-table-head:last-child {

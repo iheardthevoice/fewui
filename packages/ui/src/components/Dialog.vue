@@ -57,9 +57,9 @@
                 <ui-button
                   v-if="withBack"
                   type="button"
-                  variant="link"
+                  variant="ghost"
                   color="secondary"
-                  size="sm"
+                  size="md"
                   prefix-icon="arrow-left"
                   class="ui-dialog-header__back"
                   @click="onBack"
@@ -73,13 +73,14 @@
                     <ui-icon
                       :name="icon"
                       :type="resolvedIconType"
-                      size="sm"
+                      size="md"
                     />
                   </span>
                   <h3
                     v-if="hasTitle"
                     :id="titleId"
-                    class="ui-dialog-header__title ui-heading-3"
+                    class="ui-dialog-header__title"
+                    :class="withBack ? 'ui-heading-2' : 'ui-heading-3'"
                   >
                     <slot name="title">{{ title }}</slot>
                   </h3>

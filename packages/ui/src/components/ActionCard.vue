@@ -11,7 +11,7 @@
         v-if="showDefaultLeading"
         :name="icon"
         :type="resolvedIconType"
-        size="md"
+        size="lg"
         class="ui-action-card__icon"
         aria-hidden="true"
       />
@@ -34,7 +34,7 @@
         v-if="showTrailing"
         name="chevron-right"
         type="light"
-        size="xs"
+        size="sm"
         class="ui-action-card__trailing"
         aria-hidden="true"
       />

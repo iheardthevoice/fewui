@@ -39,10 +39,11 @@ html.cap-native.cap-ios {
   --ui-input-opacity: 7%;
   --ui-input-backdrop-blur: 18px;
   /**
-   * Mobil sheet — `--muted` üzerinde bir basamak daha açık grouped yüzey.
+   * Grouped yüzey basamağı — canvas (`--background`) ile form (`--control`) arası.
+   * Sheet: `--surface`; alanlar bir kademe daha açık/kontrastlı `--control`.
    */
-  --ui-ios-dialog-sheet-bg: color-mix(in oklab, var(--surface) 34%, var(--muted));
-  --ui-ios-dialog-field-bg: var(--surface);
+  --ui-ios-dialog-sheet-bg: var(--surface);
+  --ui-ios-dialog-field-bg: var(--control);
   /** Kart yüzeyi — dialog sheet ile aynı opak grouped arka plan. */
   --ui-ios-card-surface-bg: var(--ui-ios-dialog-sheet-bg);
   /** DataTable sticky hücreler — kart yüzeyi ile aynı opak ton. */
@@ -61,6 +62,4 @@ html.cap-native.cap-ios.dark {
   --ui-control-opacity: 34%;
   --ui-input-opacity: 6%;
   --app-data-table-cell-bg: var(--ui-ios-card-surface-bg);
-  --ui-ios-dialog-sheet-bg: color-mix(in oklab, var(--foreground) 9%, var(--muted));
-  --ui-ios-dialog-field-bg: color-mix(in oklab, var(--foreground) 13%, var(--muted));
 }
