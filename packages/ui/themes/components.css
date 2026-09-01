@@ -3107,7 +3107,7 @@
 
   /** Tabs — segmented: `--ui-tab-h-*` (button’dan bir kademe büyük); içerik kadar genişlik */
   .ui-tab-list--horizontal.ui-tab-list--segmented {
-    @apply inline-flex box-border w-auto max-w-full min-w-0 flex-row flex-nowrap items-stretch gap-0 overflow-x-auto overscroll-x-contain rounded-full border border-border bg-surface p-0.5 ui-scrollbar-none;
+    @apply inline-flex box-border w-auto max-w-full min-w-0 flex-row flex-nowrap items-stretch gap-1 overflow-x-auto overscroll-x-contain rounded-full border border-border bg-surface p-1 ui-scrollbar-none;
     height: var(--ui-tab-h-md);
     min-height: var(--ui-tab-h-md);
   }

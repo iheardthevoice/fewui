@@ -113,8 +113,9 @@ export default {
       }
       return 'xs'
     },
-    /** FA Pro: segment kartlarında da varsayılan `light` kullanılır. */
+    /** Segmented kartlarında `solid`; çizgi sekmelerde tema varsayılanı. */
     tabIconType() {
+      if (this.triggerKind === 'segmented') return 'solid'
       return this.resolvedIconType
     },
     isSelected() {

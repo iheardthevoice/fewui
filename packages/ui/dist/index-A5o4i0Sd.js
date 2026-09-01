@@ -5917,9 +5917,9 @@ const mo = /* @__PURE__ */ x(Pa, [["render", Ra]]), Ea = {
       var e;
       return this.triggerKind === "segmented" ? ((e = this.uiTabs) == null ? void 0 : e.resolvedSize) === "sm" ? "md" : "lg" : "xs";
     },
-    /** FA Pro: segment kartlarında da varsayılan `light` kullanılır. */
+    /** Segmented kartlarında `solid`; çizgi sekmelerde tema varsayılanı. */
     tabIconType() {
-      return this.resolvedIconType;
+      return this.triggerKind === "segmented" ? "solid" : this.resolvedIconType;
     },
     isSelected() {
       return typeof this.active == "boolean" ? this.active : this.uiTabs ? this.uiTabs.isSelected(this.value) : !1;
@@ -7114,4 +7114,4 @@ export {
   Oo as y,
   $o as z
 };
-//# sourceMappingURL=index-BgCi0_c6.js.map
+//# sourceMappingURL=index-A5o4i0Sd.js.map
