@@ -93,7 +93,10 @@ export default {
       quickAria: 'Hızlı tarih aralığı',
       today: 'Bugün',
       yesterday: 'Dün',
+      tomorrow: 'Yarın',
+      thisWeek: 'Bu hafta',
       thisMonth: 'Bu ay ({month})',
+      thisYear: 'Bu yıl ({year})',
       lastMonth: 'Geçen ay ({month})',
     },
     timePicker: {

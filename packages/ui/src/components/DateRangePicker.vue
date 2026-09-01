@@ -171,6 +171,34 @@ function monthName(year, monthIndex, locale) {
   return new Date(year, monthIndex, 1).toLocaleString(locale, { month: 'long' })
 }
 
+function weekBoundsFrom(todayYmd, maxYmd, minYmd) {
+  const { year, month, day } = parseIsoParts(todayYmd)
+  const dt = new Date(year, month - 1, day)
+  const wd = dt.getDay()
+  const diff = wd === 0 ? -6 : 1 - wd
+  const mondayDate = new Date(year, month - 1, day + diff)
+  const from = toYmd(mondayDate)
+  const sundayDate = new Date(mondayDate.getFullYear(), mondayDate.getMonth(), mondayDate.getDate() + 6)
+  let to = toYmd(sundayDate)
+  if (maxYmd && to > maxYmd) to = maxYmd
+  if (minYmd && from < minYmd && to < minYmd) return null
+  let safeFrom = from
+  if (minYmd && safeFrom < minYmd) safeFrom = minYmd
+  if (compareYmd(safeFrom, to) > 0) return null
+  return [safeFrom, to]
+}
+
+function yearBoundsFrom(todayYmd, maxYmd, minYmd) {
+  const { year } = parseIsoParts(todayYmd)
+  const from = `${year}-01-01`
+  let to = `${year}-12-31`
+  if (maxYmd && to > maxYmd) to = maxYmd
+  if (minYmd && from < minYmd && to < minYmd) return null
+  let safeFrom = from
+  if (minYmd && safeFrom < minYmd) safeFrom = minYmd
+  if (compareYmd(safeFrom, to) > 0) return null
+  return [safeFrom, to]
+}
 function calendarMonthBounds(year, monthIndex, maxYmd, minYmd) {
   const from = `${year}-${pad2(monthIndex + 1)}-01`
   const lastDay = new Date(year, monthIndex + 1, 0).getDate()
@@ -211,6 +239,14 @@ export default {
     max: {
       type: String,
       default: '',
+    },
+    /**
+     * Hızlı aralık listesi. Verilmezse varsayılan set kullanılır.
+     * @type {Array<{ key: string, label: string, range: [string, string] | null }>}
+     */
+    presets: {
+      type: Array,
+      default: undefined,
     },
   },
   emits: ['update:modelValue', 'change'],
@@ -300,11 +336,21 @@ export default {
       return this.endYmd
     },
     quickPresets() {
+      if (Array.isArray(this.presets) && this.presets.length) {
+        return this.presets.map((preset) => ({
+          ...preset,
+          disabled: !preset.range || this.isRangeDisabled(preset.range[0], preset.range[1]),
+        }))
+      }
+
       const now = new Date()
       const today = toYmd(now)
       const yesterdayDate = new Date(now)
       yesterdayDate.setDate(yesterdayDate.getDate() - 1)
       const yesterday = toYmd(yesterdayDate)
+      const tomorrowDate = new Date(now)
+      tomorrowDate.setDate(tomorrowDate.getDate() + 1)
+      const tomorrow = toYmd(tomorrowDate)
 
       const thisMonthIndex = now.getMonth()
       const thisYear = now.getFullYear()
@@ -327,6 +373,16 @@ export default {
           range: [yesterday, yesterday],
         },
         {
+          key: 'tomorrow',
+          label: t('ui.datePicker.tomorrow'),
+          range: [tomorrow, tomorrow],
+        },
+        {
+          key: 'thisWeek',
+          label: t('ui.dateRangePicker.thisWeek'),
+          range: weekBoundsFrom(today, this.maxYmd, this.minYmd),
+        },
+        {
           key: 'thisMonth',
           label: t('ui.dateRangePicker.thisMonth', {
             month: monthName(thisYear, thisMonthIndex, this.locale),
@@ -339,6 +395,11 @@ export default {
             month: monthName(lastYear, lastMonthIndex, this.locale),
           }),
           range: calendarMonthBounds(lastYear, lastMonthIndex, this.maxYmd, this.minYmd),
+        },
+        {
+          key: 'thisYear',
+          label: t('ui.dateRangePicker.thisYear', { year: thisYear }),
+          range: yearBoundsFrom(today, this.maxYmd, this.minYmd),
         },
       ]
 
