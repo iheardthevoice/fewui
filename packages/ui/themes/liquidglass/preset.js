@@ -8,17 +8,17 @@ export const liquidglassPreset = {
   primaryForeground: '#ffffff',
   surfaceStyle: {
     mixFrom: 'surface',
-    opacity: 48,
-    backdropBlur: '24px',
+    opacity: 36,
+    backdropBlur: '18px',
   },
   controlStyle: {
     mixFrom: 'control',
-    opacity: 52,
-    backdropBlur: '24px',
+    opacity: 38,
+    backdropBlur: '18px',
   },
   inputStyle: {
     mixFrom: 'control',
-    opacity: 52,
-    backdropBlur: '24px',
+    opacity: 38,
+    backdropBlur: '18px',
   },
 }

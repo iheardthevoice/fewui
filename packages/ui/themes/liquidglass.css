@@ -1,4 +1,4 @@
 @import './_shared/global.css';
 @import './liquidglass/color.css';
-@import './liquidglass/styles.css';
 @import './liquidglass/platform/ios.css';
+@import './liquidglass/styles.css';

@@ -55,8 +55,8 @@ html.cap-native.cap-ios .app-ios-glass-bar--pos-footer {
   background-color: var(--ui-ios-glass-bg-chrome) !important;
   background-image: none !important;
   box-shadow: none !important;
-  -webkit-backdrop-filter: blur(28px) saturate(190%);
-  backdrop-filter: blur(28px) saturate(190%);
+  -webkit-backdrop-filter: blur(var(--ui-ios-glass-blur-chrome, 20px)) saturate(190%);
+  backdrop-filter: blur(var(--ui-ios-glass-blur-chrome, 20px)) saturate(190%);
   transform: translateZ(0);
 }
 
@@ -67,18 +67,24 @@ html.cap-native.cap-ios .app-ios-glass-bar.ui-surface {
 }
 
 html.cap-native.cap-ios .app-ios-glass-bar--header {
-  padding-bottom: 0.75rem;
+  padding-bottom: 0.25rem;
 }
 
 html.cap-native.cap-ios .app-ios-glass-bar:not(.app-ios-glass-bar--footer):not(.app-ios-glass-bar--pos-footer)::after {
   content: '';
   pointer-events: none;
   position: absolute;
-  left: 6%;
-  right: 6%;
+  left: 4%;
+  right: 4%;
   bottom: 0;
-  height: 0.5px;
-  background: var(--app-ios-glass-edge-fade);
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--ui-ios-glass-edge-top) 18%,
+    var(--ui-ios-glass-edge-top) 82%,
+    transparent 100%
+  );
 }
 
 html.cap-native.cap-ios .app-ios-glass-bar--footer::before,
@@ -86,16 +92,46 @@ html.cap-native.cap-ios .app-ios-glass-bar--pos-footer::before {
   content: '';
   pointer-events: none;
   position: absolute;
-  left: 6%;
-  right: 6%;
+  left: 4%;
+  right: 4%;
   top: 0;
-  height: 0.5px;
-  background: var(--app-ios-glass-edge-fade);
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--ui-ios-glass-edge-bottom) 14%,
+    var(--ui-ios-glass-edge-bottom) 86%,
+    transparent 100%
+  );
 }
 
 html.cap-native.cap-ios .app-ios-glass-bar--footer::after,
 html.cap-native.cap-ios .app-ios-glass-bar--pos-footer::after {
   content: none;
+}
+
+html.cap-native.cap-ios .ui-dialog-panel .ui-card-header {
+  flex-shrink: 0;
+}
+
+html.cap-native.cap-ios .ui-dialog-panel .ui-dialog-header__title {
+  color: var(--foreground);
+}
+
+html.cap-native.cap-ios .ui-dialog-panel .ui-dialog-header__icon {
+  color: var(--muted-foreground);
+}
+
+html.cap-native.cap-ios .ui-action-card-list {
+  gap: 0.625rem;
+}
+
+html.cap-native.cap-ios .ui-action-card {
+  padding: 1rem 1.125rem;
+}
+
+html.cap-native.cap-ios .ui-action-card__content {
+  gap: 0.375rem;
 }
 
 html.cap-native.cap-ios .ui-segment-group:not(.ui-segment-group--vertical) {
@@ -117,6 +153,9 @@ html.cap-native.cap-ios .ui-select-field,
 html.cap-native.cap-ios .ui-textarea-field,
 html.cap-native.cap-ios .ui-input .ui-field-control-fill,
 html.cap-native.cap-ios .ui-select-field .ui-field-control-fill {
+  background-color: var(--input-background) !important;
+  background-image: none !important;
+  box-shadow: none !important;
   -webkit-backdrop-filter: none !important;
   backdrop-filter: none !important;
 }
@@ -129,8 +168,8 @@ html.cap-native.cap-ios .ui-tab-list--horizontal.ui-tab-list--segmented {
   background-color: var(--ui-ios-glass-bg) !important;
   background-image: none !important;
   box-shadow: none !important;
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--ui-ios-glass-blur-surface, 18px)) saturate(180%);
+  backdrop-filter: blur(var(--ui-ios-glass-blur-surface, 18px)) saturate(180%);
   transform: translateZ(0);
 }
 
@@ -142,8 +181,8 @@ html.cap-native.cap-ios .ui-popover-panel.ui-surface {
   background-color: var(--ui-ios-glass-bg-popover) !important;
   background-image: none !important;
   box-shadow: none !important;
-  -webkit-backdrop-filter: blur(28px) saturate(190%);
-  backdrop-filter: blur(28px) saturate(190%);
+  -webkit-backdrop-filter: blur(var(--ui-ios-glass-blur-popover, 20px)) saturate(190%);
+  backdrop-filter: blur(var(--ui-ios-glass-blur-popover, 20px)) saturate(190%);
   transform: translateZ(0);
 }
 
@@ -180,25 +219,25 @@ html.cap-native.cap-ios .ui-popover-panel.ui-surface::after {
   content: none;
 }
 
-html.cap-native.cap-ios .ui-button.ui-control:not([data-variant='link']):not([data-variant='nav']) {
+html.cap-native.cap-ios .ui-button.ui-control:not([data-variant='link']):not([data-variant='nav']):not([data-pos-category-chip]) {
   position: relative;
   isolation: isolate;
   overflow: hidden;
   border: none !important;
   box-shadow: none !important;
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--ui-ios-glass-blur-control, 16px)) saturate(180%);
+  backdrop-filter: blur(var(--ui-ios-glass-blur-control, 16px)) saturate(180%);
 }
 
-html.cap-native.cap-ios .ui-button.ui-control[data-variant='outline'],
-html.cap-native.cap-ios .ui-button.ui-control[data-variant='ghost'],
-html.cap-native.cap-ios .ui-button.ui-control[data-variant='solid'][data-color='secondary'],
-html.cap-native.cap-ios .ui-button.ui-control[data-variant='solid'][data-color='input'] {
+html.cap-native.cap-ios .ui-button.ui-control[data-variant='outline']:not([data-pos-category-chip]),
+html.cap-native.cap-ios .ui-button.ui-control[data-variant='ghost']:not([data-pos-category-chip]),
+html.cap-native.cap-ios .ui-button.ui-control[data-variant='solid'][data-color='secondary']:not([data-pos-category-chip]),
+html.cap-native.cap-ios .ui-button.ui-control[data-variant='solid'][data-color='input']:not([data-pos-category-chip]) {
   background-color: var(--ui-ios-glass-bg) !important;
   background-image: none !important;
 }
 
-html.cap-native.cap-ios .ui-button.ui-control:not([data-variant='link']):not([data-variant='nav'])::before {
+html.cap-native.cap-ios .ui-button.ui-control:not([data-variant='link']):not([data-variant='nav']):not([data-pos-category-chip])::before {
   content: '';
   pointer-events: none;
   position: absolute;
@@ -225,7 +264,7 @@ html.cap-native.cap-ios .ui-button.ui-control:not([data-variant='link']):not([da
   z-index: 1;
 }
 
-html.cap-native.cap-ios .ui-button.ui-control:not([data-variant='link']):not([data-variant='nav'])::after {
+html.cap-native.cap-ios .ui-button.ui-control:not([data-variant='link']):not([data-variant='nav']):not([data-pos-category-chip])::after {
   content: none;
 }
 
@@ -244,8 +283,26 @@ html.cap-native.cap-ios .ui-popover-panel .ui-button.ui-control:not([data-varian
 
 @media (max-width: 767px) {
   html.cap-native.cap-ios .ui-dialog-panel.ui-surface {
-    background-color: var(--muted) !important;
+    background-color: var(--ui-ios-dialog-sheet-bg) !important;
     border: none !important;
+    box-shadow: none !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+
+  html.cap-native.cap-ios .ui-card.ui-surface:not(.ui-dialog-panel):not(.ui-card--transparent) {
+    background-color: var(--ui-ios-card-surface-bg, var(--ui-ios-dialog-sheet-bg)) !important;
+    border: none !important;
+    box-shadow: none !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+
+  html.cap-native.cap-ios .ui-dialog-panel .ui-input,
+  html.cap-native.cap-ios .ui-dialog-panel .ui-select-field {
+    background-color: var(--ui-ios-dialog-field-bg) !important;
+    border: none !important;
+    background-image: none !important;
     box-shadow: none !important;
     -webkit-backdrop-filter: none !important;
     backdrop-filter: none !important;
@@ -258,7 +315,13 @@ html.cap-native.cap-ios .ui-popover-panel .ui-button.ui-control:not([data-varian
 }
 
 html.cap-native.cap-ios .app-ios-glass-bar--pos-footer {
-  padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0px));
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+@media (max-width: 767px) {
+  html.cap-native.cap-ios .ui-dialog-panel .ui-card-footer {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
 }
 
 /**

@@ -2220,12 +2220,17 @@
     @apply flex flex-row flex-wrap items-start justify-between gap-4;
   }
 
+  .ui-form-row--horizontal .ui-form-row-text {
+    @apply min-w-0 flex-1;
+  }
+
   .ui-form-row--horizontal .ui-form-row-control {
-    @apply flex flex-col items-end gap-1.5;
+    @apply flex min-w-0 max-w-full shrink-0 flex-col items-end gap-1.5;
   }
 
   .ui-form-row--horizontal .ui-form-row-control .ui-form-row-description {
-    @apply text-end text-muted-foreground;
+    @apply min-w-0 max-w-full text-end text-muted-foreground;
+    overflow-wrap: anywhere;
   }
 
   /** `stack-on-mobile` — yatay satır dar ekranda dikey (FormRow prop). */
@@ -2235,7 +2240,11 @@
     }
 
     .ui-form-row--horizontal.ui-form-row--stack-mobile .ui-form-row-control {
-      @apply w-full min-w-0 shrink;
+      @apply w-full min-w-0 shrink items-end;
+    }
+
+    .ui-form-row--horizontal.ui-form-row--stack-mobile .ui-form-row-control .ui-form-row-description {
+      @apply w-full self-stretch text-start;
     }
 
     .ui-form-row--card-horizontal.ui-form-row--stack-mobile {
@@ -3296,16 +3305,16 @@
   html.cap-native.cap-ios .ui-tab-list--horizontal.ui-tab-list--segmented {
     border-color: transparent;
     background-color: var(--ui-ios-glass-bg);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(var(--ui-ios-glass-blur-surface, 18px)) saturate(180%);
+    backdrop-filter: blur(var(--ui-ios-glass-blur-surface, 18px)) saturate(180%);
     box-shadow: none;
   }
 
   html.cap-native.cap-ios .ui-popover-panel.ui-surface {
     border-color: transparent;
     background-color: var(--ui-ios-glass-bg-popover);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(var(--ui-ios-glass-blur-popover, 20px)) saturate(180%);
+    backdrop-filter: blur(var(--ui-ios-glass-blur-popover, 20px)) saturate(180%);
     box-shadow: none;
   }
 
@@ -3387,8 +3396,8 @@
   html.cap-native.cap-ios .ui-native-dock-fab .ui-button.ui-control {
     border-color: transparent;
     background-color: var(--ui-ios-glass-bg);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(var(--ui-ios-glass-blur-control, 16px)) saturate(180%);
+    backdrop-filter: blur(var(--ui-ios-glass-blur-control, 16px)) saturate(180%);
     box-shadow: none;
   }
 
@@ -5024,6 +5033,13 @@
    * `app-data-table` sınıfı frontend `DataTable.vue` kökünde kullanılır.
    */
   @media (max-width: 767px) {
+    .app-data-table .ui-card--data-table > .ui-card-toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 12;
+      background-color: var(--app-data-table-cell-bg, var(--surface-bg, var(--surface)));
+    }
+
     .app-data-table .ui-table-scroll {
       overflow-x: auto;
       overscroll-behavior-x: contain;
@@ -5061,6 +5077,10 @@
       display: none;
     }
 
+    .app-data-table:not(.app-data-table--filter-empty) .ui-table-header .ui-table-head {
+      background-color: var(--app-data-table-cell-bg, var(--surface-bg, var(--surface)));
+    }
+
     .app-data-table:not(.app-data-table--filter-empty) .ui-table-head:not(.ui-table-head--icon-col):not(.ui-table-head--w-sm):not(:last-child),
     .app-data-table:not(.app-data-table--filter-empty) .ui-table-cell:not(.ui-table-cell--icon-col):not(.ui-table-cell--w-sm):not(:last-child) {
       min-width: 7rem;
@@ -5076,7 +5096,7 @@
     }
 
     .app-data-table:not(.app-data-table--filter-empty) .ui-table-body .ui-table-row > .ui-table-cell {
-      background-color: var(--surface);
+      background-color: var(--app-data-table-cell-bg, var(--surface-bg, var(--surface)));
     }
 
     .app-data-table:not(.app-data-table--filter-empty) .ui-table-head:last-child,
@@ -5084,11 +5104,13 @@
       position: sticky;
       right: 0;
       z-index: 2;
-      background-color: var(--surface);
+      background-color: var(--app-data-table-cell-bg, var(--surface-bg, var(--surface)));
+      box-shadow: -0.5rem 0 0.75rem color-mix(in oklab, var(--background) 72%, transparent);
     }
 
     .app-data-table:not(.app-data-table--filter-empty) .ui-table-head:last-child {
       z-index: 3;
+      box-shadow: none;
     }
 
     .app-data-table .ui-table-cell:has([data-app-row-menu]) [data-app-row-menu] .ui-button[data-variant='ghost']:hover:not(:disabled),

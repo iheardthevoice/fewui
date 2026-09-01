@@ -3221,16 +3221,16 @@
   html.cap-native.cap-ios .ui-tab-list--horizontal.ui-tab-list--segmented {
     border-color: transparent;
     background-color: var(--ui-ios-glass-bg);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(var(--ui-ios-glass-blur-surface, 18px)) saturate(180%);
+    backdrop-filter: blur(var(--ui-ios-glass-blur-surface, 18px)) saturate(180%);
     box-shadow: none;
   }
 
   html.cap-native.cap-ios .ui-popover-panel.ui-surface {
     border-color: transparent;
     background-color: var(--ui-ios-glass-bg-popover);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(var(--ui-ios-glass-blur-popover, 20px)) saturate(180%);
+    backdrop-filter: blur(var(--ui-ios-glass-blur-popover, 20px)) saturate(180%);
     box-shadow: none;
   }
 
@@ -3312,8 +3312,8 @@
   html.cap-native.cap-ios .ui-native-dock-fab .ui-button.ui-control {
     border-color: transparent;
     background-color: var(--ui-ios-glass-bg);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(var(--ui-ios-glass-blur-control, 16px)) saturate(180%);
+    backdrop-filter: blur(var(--ui-ios-glass-blur-control, 16px)) saturate(180%);
     box-shadow: none;
   }
 

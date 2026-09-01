@@ -15,28 +15,52 @@ html.cap-native.cap-ios {
   --ui-tab-h-sm: 2.5rem;
   --ui-tab-h-md: 3.0625rem;
   --ui-tab-h-lg: 3.375rem;
-  --ui-ios-glass-bg: color-mix(in srgb, var(--foreground) 11%, transparent);
-  --ui-ios-glass-bg-popover: color-mix(in srgb, var(--foreground) 5%, transparent);
-  --ui-ios-glass-bg-chrome: color-mix(in srgb, var(--foreground) 5%, transparent);
+  --ui-ios-glass-bg: color-mix(in srgb, var(--foreground) 7%, transparent);
+  --ui-ios-glass-bg-popover: color-mix(in srgb, var(--foreground) 3%, transparent);
+  --ui-ios-glass-bg-chrome: color-mix(in srgb, var(--foreground) 3%, transparent);
   --ui-ios-glass-edge: color-mix(in srgb, var(--foreground) 22%, transparent);
+  --ui-ios-glass-edge-top: color-mix(in srgb, var(--foreground) 30%, transparent);
+  --ui-ios-glass-edge-bottom: color-mix(in srgb, var(--foreground) 44%, transparent);
   --ui-ios-glass-border: transparent;
   --ui-ios-glass-highlight: transparent;
   --ui-ios-glass-shadow: transparent;
-  --ui-surface-opacity: 48%;
-  --ui-surface-backdrop-blur: 24px;
-  --ui-control-opacity: 52%;
-  --ui-control-backdrop-blur: 24px;
-  --ui-input-opacity: 52%;
-  --ui-input-backdrop-blur: 24px;
+  --ui-ios-glass-blur-chrome: 20px;
+  --ui-ios-glass-blur-popover: 20px;
+  --ui-ios-glass-blur-surface: 18px;
+  --ui-ios-glass-blur-control: 16px;
+  --ui-surface-opacity: 36%;
+  --ui-surface-backdrop-blur: 18px;
+  --ui-control-opacity: 38%;
+  --ui-control-backdrop-blur: 18px;
+  /**
+   * Form dolgusu — `--control` yerine foreground cam tonu; dialog / muted üzerinde kaybolmasın.
+   */
+  --ui-input-mix-from: var(--foreground);
+  --ui-input-opacity: 7%;
+  --ui-input-backdrop-blur: 18px;
+  /**
+   * Mobil sheet — `--muted` üzerinde bir basamak daha açık grouped yüzey.
+   */
+  --ui-ios-dialog-sheet-bg: color-mix(in oklab, var(--surface) 34%, var(--muted));
+  --ui-ios-dialog-field-bg: var(--surface);
+  /** Kart yüzeyi — dialog sheet ile aynı opak grouped arka plan. */
+  --ui-ios-card-surface-bg: var(--ui-ios-dialog-sheet-bg);
+  /** DataTable sticky hücreler — kart yüzeyi ile aynı opak ton. */
+  --app-data-table-cell-bg: var(--ui-ios-card-surface-bg);
   --ui-shadow-surface: none;
 }
 
 html.cap-native.cap-ios.dark {
-  --ui-ios-glass-bg: color-mix(in srgb, var(--foreground) 9%, transparent);
-  --ui-ios-glass-bg-popover: color-mix(in srgb, var(--foreground) 4%, transparent);
-  --ui-ios-glass-bg-chrome: color-mix(in srgb, var(--foreground) 4%, transparent);
+  --ui-ios-glass-bg: color-mix(in srgb, var(--foreground) 6%, transparent);
+  --ui-ios-glass-bg-popover: color-mix(in srgb, var(--foreground) 3%, transparent);
+  --ui-ios-glass-bg-chrome: color-mix(in srgb, var(--foreground) 3%, transparent);
   --ui-ios-glass-edge: color-mix(in srgb, var(--foreground) 18%, transparent);
-  --ui-surface-opacity: 42%;
-  --ui-control-opacity: 46%;
-  --ui-input-opacity: 46%;
+  --ui-ios-glass-edge-top: color-mix(in srgb, var(--foreground) 24%, transparent);
+  --ui-ios-glass-edge-bottom: color-mix(in srgb, var(--foreground) 38%, transparent);
+  --ui-surface-opacity: 32%;
+  --ui-control-opacity: 34%;
+  --ui-input-opacity: 6%;
+  --app-data-table-cell-bg: var(--ui-ios-card-surface-bg);
+  --ui-ios-dialog-sheet-bg: color-mix(in oklab, var(--foreground) 9%, var(--muted));
+  --ui-ios-dialog-field-bg: color-mix(in oklab, var(--foreground) 13%, var(--muted));
 }
