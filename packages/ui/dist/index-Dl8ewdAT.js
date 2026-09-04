@@ -2457,6 +2457,14 @@ const Xn = Yn("ui-dialog"), Jn = ["solid", "dashed", "dotted", "double"], it = {
       default: "default",
       validator: (e) => e === "default" || e === "flex"
     },
+    /**
+     * Footer şeffaf — arka plan/border yok; gövde üzerine biner.
+     * Kaydırılabilir içerik footer altında görünür; gövde alt boşluğu otomatik artar.
+     */
+    footerTransparent: {
+      type: Boolean,
+      default: !1
+    },
     /** Panel `max-height` — örn. `min(85vh, 36rem)`. */
     panelMaxHeight: {
       type: String,
@@ -2557,6 +2565,7 @@ const Xn = Yn("ui-dialog"), Jn = ["solid", "dashed", "dotted", "double"], it = {
         this.maxWidthClass,
         e,
         this.bodyLayout === "flex" ? "ui-dialog-panel--body-flex" : "",
+        this.footerTransparent ? "ui-dialog-panel--footer-transparent" : "",
         this.$attrs.class
       );
     },
@@ -2769,18 +2778,15 @@ const Xn = Yn("ui-dialog"), Jn = ["solid", "dashed", "dotted", "double"], it = {
       };
     }
   }
-}, nr = ["aria-labelledby", "aria-describedby", "aria-label"], rr = { class: "ui-dialog-motion" }, sr = {
-  key: 1,
+}, nr = ["aria-labelledby", "aria-describedby", "aria-label"], rr = { class: "ui-dialog-motion" }, sr = { class: "ui-dialog-header__lead" }, ar = {
+  key: 0,
   class: "ui-dialog-header__icon"
-}, ar = ["id"], lr = {
-  key: 3,
+}, lr = ["id"], or = {
+  key: 1,
   class: "ui-dialog-header__actions"
-}, or = ["id"], ur = {
+}, ur = ["id"], dr = {
   key: 1,
   class: "ui-card-toolbar shrink-0"
-}, dr = {
-  key: 4,
-  class: "ui-card-footer"
 };
 function cr(e, t, i, r, s, n) {
   const a = b("ui-button"), o = b("ui-icon"), u = b("Divider");
@@ -2853,23 +2859,25 @@ function cr(e, t, i, r, s, n) {
                   ]),
                   _: 1
                 }, 8, ["onClick"])) : f("", !0),
-                i.icon ? (l(), d("span", sr, [
-                  y(o, {
-                    name: i.icon,
-                    type: n.resolvedIconType,
-                    size: "md"
-                  }, null, 8, ["name", "type"])
-                ])) : f("", !0),
-                n.hasTitle ? (l(), d("h3", {
-                  key: 2,
-                  id: s.titleId,
-                  class: v(["ui-dialog-header__title", i.withBack ? "ui-heading-2" : "ui-heading-3"])
-                }, [
-                  p(e.$slots, "title", {}, () => [
-                    D(g(i.title), 1)
-                  ])
-                ], 10, ar)) : f("", !0),
-                i.showClose || e.$slots.append || e.$slots.actions ? (l(), d("div", lr, [
+                h("div", sr, [
+                  i.icon ? (l(), d("span", ar, [
+                    y(o, {
+                      name: i.icon,
+                      type: n.resolvedIconType,
+                      size: "md"
+                    }, null, 8, ["name", "type"])
+                  ])) : f("", !0),
+                  n.hasTitle ? (l(), d("h3", {
+                    key: 1,
+                    id: s.titleId,
+                    class: "ui-dialog-header__title ui-heading-2"
+                  }, [
+                    p(e.$slots, "title", {}, () => [
+                      D(g(i.title), 1)
+                    ])
+                  ], 8, lr)) : f("", !0)
+                ]),
+                i.showClose || e.$slots.append || e.$slots.actions ? (l(), d("div", or, [
                   p(e.$slots, "append"),
                   p(e.$slots, "actions"),
                   i.showClose ? (l(), w(a, {
@@ -2886,18 +2894,18 @@ function cr(e, t, i, r, s, n) {
                   }, null, 8, ["aria-label", "onClick"])) : f("", !0)
                 ])) : f("", !0),
                 n.hasDescription ? (l(), d("p", {
-                  key: 4,
+                  key: 2,
                   id: s.descriptionId,
                   class: "ui-dialog-header__description ui-text-default"
                 }, [
                   p(e.$slots, "description", {}, () => [
                     D(g(i.description), 1)
                   ])
-                ], 8, or)) : f("", !0)
+                ], 8, ur)) : f("", !0)
               ], 2)) : f("", !0)
             ])
           ], 32)) : f("", !0),
-          e.$slots.toolbar ? (l(), d("div", ur, [
+          e.$slots.toolbar ? (l(), d("div", dr, [
             p(e.$slots, "toolbar")
           ])) : f("", !0),
           n.showHeaderDivider ? (l(), w(u, {
@@ -2915,9 +2923,12 @@ function cr(e, t, i, r, s, n) {
           }, [
             p(e.$slots, "default")
           ], 2)) : f("", !0),
-          e.$slots.footer ? (l(), d("div", dr, [
+          e.$slots.footer ? (l(), d("div", {
+            key: 4,
+            class: v(["ui-card-footer", { "ui-dialog-footer--transparent": i.footerTransparent }])
+          }, [
             p(e.$slots, "footer")
-          ])) : f("", !0)
+          ], 2)) : f("", !0)
         ])
       ], 16, nr)
     ], 34)) : f("", !0)
@@ -7114,4 +7125,4 @@ export {
   Oo as y,
   $o as z
 };
-//# sourceMappingURL=index-DBHvLe75.js.map
+//# sourceMappingURL=index-Dl8ewdAT.js.map

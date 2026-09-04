@@ -1340,7 +1340,10 @@
   }
 
   .ui-card--data-table > .ui-card-body {
-    @apply min-w-0 grow-0 text-foreground;
+    @apply min-w-0 text-foreground;
+    /* `.ui-card-body` flex-1 shorthand’dan sonra gelmeli; aksi halde basis:0% + grow-0
+       gövdeyi çökertebilir / flex zincirinde tablo satırları şişebilir (Chrome). */
+    flex: 0 1 auto;
   }
 
   /**
@@ -1352,7 +1355,8 @@
   }
 
   .ui-card--data-table > .ui-card-toolbar {
-    @apply px-3 py-3 sm:px-4;
+    /* Tablo hücresi `px-3` ile aynı — filtre / arama sol kenarı sütun başlıklarıyla hizalı */
+    @apply px-3 py-3;
   }
 
   .ui-card--data-table > .ui-card-toolbar > * {
@@ -1360,7 +1364,7 @@
   }
 
   .ui-card--data-table > .ui-card-footer {
-    @apply w-full px-4 pb-4 pt-3 max-md:px-3;
+    @apply w-full px-3 pb-4 pt-3;
   }
 
   .ui-card--data-table > .ui-card-footer > .ui-table-pagination {
@@ -1866,7 +1870,7 @@
   }
 
   .ui-action-card__icon {
-    @apply flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-primary;
+    @apply inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-primary [&_.ui-icon]:leading-none;
     background-color: color-mix(in oklab, var(--primary) 12%, var(--muted));
   }
 
@@ -4102,22 +4106,14 @@
    */
   .ui-dialog-panel .ui-dialog-header {
     display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-columns: minmax(0, 1fr) auto;
     align-items: center;
     column-gap: 0.75rem;
-    row-gap: 0.20rem;
+    row-gap: 0.35rem;
     min-width: 0;
   }
 
-  .ui-dialog-panel .ui-dialog-header--no-icon {
-    grid-template-columns: minmax(0, 1fr) auto;
-  }
-
   .ui-dialog-panel .ui-dialog-header--with-back {
-    grid-template-columns: auto auto minmax(0, 1fr) auto;
-  }
-
-  .ui-dialog-panel .ui-dialog-header--with-back.ui-dialog-header--no-icon {
     grid-template-columns: auto minmax(0, 1fr) auto;
   }
 
@@ -4126,16 +4122,20 @@
     min-height: 2.25rem;
   }
 
+  .ui-dialog-panel .ui-dialog-header__lead {
+    @apply flex min-w-0 items-center gap-3;
+  }
+
   .ui-dialog-panel .ui-dialog-header__icon {
     @apply flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-muted/50 text-foreground;
   }
 
   .ui-dialog-panel .ui-dialog-header__title {
-    @apply min-w-0 truncate;
+    @apply min-w-0 truncate text-xl leading-7;
   }
 
   .ui-dialog-panel .ui-dialog-header--with-back .ui-dialog-header__title {
-    @apply text-lg leading-7;
+    @apply text-xl leading-7;
   }
 
   .ui-dialog-panel .ui-dialog-header__actions {
@@ -4382,7 +4382,7 @@
   .ui-dialog-panel .ui-card-header + .ui-card-body,
   .ui-dialog-panel .ui-card-toolbar + .ui-card-body,
   .ui-dialog-panel .ui-divider + .ui-card-body {
-    padding-top: 0;
+    padding-top: 0.75rem;
   }
 
   .ui-dialog-panel .ui-card-body:has(+ .ui-card-footer) {
@@ -4399,6 +4399,49 @@
     padding-inline: var(--ui-card-padding);
     padding-top: 0.75rem;
     padding-bottom: var(--ui-card-padding);
+  }
+
+  /**
+   * Şeffaf footer — gövde üzerine biner; arka plan/border yok.
+   * Gövde alt boşluğu buton yüksekliği kadar artar (içerik kesilmez).
+   */
+  .ui-dialog-panel--footer-transparent {
+    --ui-dialog-footer-clearance: 4.25rem;
+  }
+
+  .ui-dialog-panel--footer-transparent .ui-dialog-motion {
+    @apply relative;
+  }
+
+  .ui-dialog-panel--footer-transparent .ui-card-footer.ui-dialog-footer--transparent {
+    @apply absolute inset-x-0 bottom-0 z-10 border-0 shadow-none;
+    background-color: transparent;
+    background-image: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    pointer-events: none;
+  }
+
+  .ui-dialog-panel--footer-transparent .ui-card-footer.ui-dialog-footer--transparent > * {
+    pointer-events: auto;
+  }
+
+  .ui-dialog-panel--footer-transparent .ui-card-body:has(+ .ui-card-footer) {
+    padding-bottom: calc(var(--ui-dialog-footer-clearance) + var(--ui-dialog-body-ring-inset));
+    scroll-padding-bottom: calc(var(--ui-dialog-footer-clearance) + 0.75rem);
+  }
+
+  .ui-dialog-panel--footer-transparent.ui-dialog-panel--body-flex .ui-card-body--flex {
+    padding-inline: var(--ui-card-padding);
+    padding-top: 0.75rem;
+    padding-bottom: calc(var(--ui-dialog-footer-clearance) + var(--ui-card-padding));
+  }
+
+  .ui-dialog-panel--footer-transparent.ui-dialog-panel--body-flex
+    .ui-card-body--flex.ui-card-body--flush {
+    padding-inline: 0;
+    padding-top: 0;
+    padding-bottom: var(--ui-dialog-footer-clearance);
   }
 
   .ui-dialog-panel .ui-card-body .ui-input:focus-within,
@@ -4656,7 +4699,8 @@
   }
 
   .ui-table {
-    @apply w-full max-w-full table-fixed caption-bottom border-separate border-spacing-0 text-sm;
+    /* h-max: flex:1 ata içinde Chrome’un tabloyu kapsayıcı yüksekliğine yaymasını engeller */
+    @apply h-max w-full max-w-full table-fixed caption-bottom border-separate border-spacing-0 text-sm;
   }
 
   @media (max-width: 767px) {
@@ -4678,11 +4722,11 @@
     }
 
     .ui-table-head {
-      @apply px-2 py-1.5;
+      @apply px-2 py-2;
     }
 
     .ui-table-cell {
-      @apply px-2 py-1.5;
+      @apply px-2 py-2.5;
     }
   }
 
@@ -4823,7 +4867,7 @@
   }
 
   .ui-table-head {
-    @apply min-w-0 overflow-hidden px-3 py-1.5 text-left align-middle text-muted-foreground;
+    @apply min-w-0 overflow-hidden px-3 py-2 text-left align-middle text-muted-foreground;
     @apply [&:has([role=checkbox])]:pr-0;
   }
 
@@ -4844,7 +4888,8 @@
   }
 
   .ui-table-head--w-fill {
-    @apply w-full min-w-0;
+    @apply min-w-0;
+    width: auto;
   }
 
   .ui-table-head--align-center {
@@ -4856,7 +4901,7 @@
   }
 
   .ui-table-cell {
-    @apply min-w-0 overflow-hidden px-3 py-1.5 align-middle;
+    @apply min-w-0 overflow-hidden px-3 py-2.5 align-middle;
     @apply [&:has([role=checkbox])]:pr-0;
   }
 
@@ -4873,7 +4918,8 @@
   }
 
   .ui-table-cell--w-fill {
-    @apply w-full min-w-0;
+    @apply min-w-0;
+    width: auto;
   }
 
   /** Hücre içeriği: sığmayan metin alt satıra kırılır (DataTable / app-col). */
@@ -5032,9 +5078,12 @@
       background-color: var(--app-data-table-cell-bg, var(--surface-bg, var(--surface)));
     }
 
-    .app-data-table .ui-table-head,
+    .app-data-table .ui-table-head {
+      @apply px-3 py-2;
+    }
+
     .app-data-table .ui-table-cell {
-      @apply px-3 py-1.5;
+      @apply px-3 py-2.5;
     }
 
     .app-data-table:not(.app-data-table--filter-empty) .ui-table-head:not(.ui-table-head--icon-col):not(.ui-table-head--w-sm):not(.ui-table-head--w-md):not(.ui-table-head--w-lg):not(:last-child),
@@ -5212,15 +5261,22 @@
     .ui-dialog-panel .ui-card-header {
       padding-top: 0.75rem;
       padding-inline: var(--ui-dialog-inset-x);
-      padding-bottom: 0.75rem;
+      padding-bottom: 0.5rem;
     }
 
     .ui-dialog-panel .ui-card-body {
       max-height: calc(min(92dvh, 100%) - 9.5rem);
       padding-inline: var(--ui-dialog-inset-x);
-      padding-block: 0.75rem;
+      padding-top: 0.75rem;
+      padding-bottom: 0.75rem;
       scroll-padding-inline: var(--ui-dialog-inset-x);
       scroll-padding-block: 0.75rem;
+    }
+
+    .ui-dialog-panel .ui-card-header + .ui-card-body,
+    .ui-dialog-panel .ui-card-toolbar + .ui-card-body,
+    .ui-dialog-panel .ui-divider + .ui-card-body {
+      padding-top: 0.75rem;
     }
 
     .ui-dialog-panel .ui-card-body:has(+ .ui-card-footer) {
@@ -5239,7 +5295,29 @@
       border-top: none;
     }
 
+    .ui-dialog-panel--footer-transparent .ui-card-body:has(+ .ui-card-footer) {
+      padding-bottom: calc(
+        var(--ui-dialog-footer-clearance) + var(--ui-dialog-inset-bottom)
+      );
+    }
+
+    .ui-dialog-panel--footer-transparent.ui-dialog-panel--body-flex .ui-card-body--flex {
+      padding-inline: var(--ui-dialog-inset-x);
+      padding-bottom: calc(
+        var(--ui-dialog-footer-clearance) + var(--ui-dialog-inset-bottom)
+      );
+    }
+
+    .ui-dialog-panel--footer-transparent .ui-card-footer.ui-dialog-footer--transparent {
+      padding-inline: var(--ui-dialog-inset-x);
+      padding-bottom: var(--ui-dialog-inset-bottom);
+    }
+
     .ui-dialog-panel .ui-dialog-header {
+      grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    .ui-dialog-panel .ui-dialog-header--with-back {
       grid-template-columns: auto minmax(0, 1fr) auto;
     }
 

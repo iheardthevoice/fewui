@@ -66,7 +66,8 @@
                 >
                   {{ resolvedBackLabel }}
                 </ui-button>
-                <span
+                <div class="ui-dialog-header__lead">
+                  <span
                     v-if="icon"
                     class="ui-dialog-header__icon"
                   >
@@ -79,30 +80,30 @@
                   <h3
                     v-if="hasTitle"
                     :id="titleId"
-                    class="ui-dialog-header__title"
-                    :class="withBack ? 'ui-heading-2' : 'ui-heading-3'"
+                    class="ui-dialog-header__title ui-heading-2"
                   >
                     <slot name="title">{{ title }}</slot>
                   </h3>
-                  <div
-                    v-if="showClose || $slots.append || $slots.actions"
-                    class="ui-dialog-header__actions"
-                  >
-                    <slot name="append" />
-                    <slot name="actions" />
-                    <ui-button
-                      v-if="showClose"
-                      type="button"
-                      variant="solid"
-                      color="secondary"
-                      size="sm"
-                      cubed
-                      prefix-icon="xmark"
-                      class="ui-dialog-header__close"
-                      :aria-label="resolvedCloseLabel"
-                      @click="close"
-                    />
-                  </div>
+                </div>
+                <div
+                  v-if="showClose || $slots.append || $slots.actions"
+                  class="ui-dialog-header__actions"
+                >
+                  <slot name="append" />
+                  <slot name="actions" />
+                  <ui-button
+                    v-if="showClose"
+                    type="button"
+                    variant="solid"
+                    color="secondary"
+                    size="sm"
+                    cubed
+                    prefix-icon="xmark"
+                    class="ui-dialog-header__close"
+                    :aria-label="resolvedCloseLabel"
+                    @click="close"
+                  />
+                </div>
                 <p
                   v-if="hasDescription"
                   :id="descriptionId"
@@ -142,6 +143,7 @@
           <div
             v-if="$slots.footer"
             class="ui-card-footer"
+            :class="{ 'ui-dialog-footer--transparent': footerTransparent }"
           >
             <slot name="footer" />
           </div>
@@ -282,6 +284,14 @@ export default {
       default: 'default',
       validator: (v) => v === 'default' || v === 'flex',
     },
+    /**
+     * Footer şeffaf — arka plan/border yok; gövde üzerine biner.
+     * Kaydırılabilir içerik footer altında görünür; gövde alt boşluğu otomatik artar.
+     */
+    footerTransparent: {
+      type: Boolean,
+      default: false,
+    },
     /** Panel `max-height` — örn. `min(85vh, 36rem)`. */
     panelMaxHeight: {
       type: String,
@@ -406,6 +416,7 @@ export default {
         this.maxWidthClass,
         borderPart,
         this.bodyLayout === 'flex' ? 'ui-dialog-panel--body-flex' : '',
+        this.footerTransparent ? 'ui-dialog-panel--footer-transparent' : '',
         this.$attrs.class,
       )
     },

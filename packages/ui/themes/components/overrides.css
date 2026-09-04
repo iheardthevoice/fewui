@@ -73,11 +73,21 @@
 }
 
 /** Dialog footer — unlayered; border/padding tutarlılığı */
+.ui-dialog-panel.ui-card > .ui-dialog-motion > .ui-card-footer,
 .ui-dialog-panel.ui-card > .ui-card-footer {
   border-top: none;
   box-shadow: none;
   padding-top: 0.75rem;
   padding-bottom: var(--ui-card-padding);
+}
+
+.ui-dialog-panel--footer-transparent .ui-card-footer.ui-dialog-footer--transparent {
+  background-color: transparent !important;
+  background-image: none !important;
+  border-top: none !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
 }
 
 .ui-dialog-panel .ui-button[data-variant='solid'][data-color='input'] {

@@ -7,14 +7,17 @@
     @click="$emit('click', $event)"
   >
     <slot name="leading">
-      <ui-icon
+      <span
         v-if="showDefaultLeading"
-        :name="icon"
-        :type="resolvedIconType"
-        size="lg"
         class="ui-action-card__icon"
         aria-hidden="true"
-      />
+      >
+        <ui-icon
+          :name="icon"
+          :type="resolvedIconType"
+          size="lg"
+        />
+      </span>
     </slot>
 
     <span class="ui-action-card__content">
