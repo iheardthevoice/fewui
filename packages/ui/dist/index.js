@@ -1952,6 +1952,11 @@ const we = {
     basenameOnly: {
       type: Boolean,
       default: !0
+    },
+    /** true: yalnızca ikon kabuğu (dışarıda etiket gösteren grid’ler için) */
+    hideLabel: {
+      type: Boolean,
+      default: !1
     }
   },
   computed: {
@@ -2003,7 +2008,7 @@ const we = {
       return this.preset.label;
     },
     rootSizeClass() {
-      return this.preset.root;
+      return this.hideLabel ? "" : this.preset.root;
     }
   }
 }, Rr = ["aria-label"], Br = ["title"];
@@ -2024,11 +2029,12 @@ function Dr(e, r, t, s, l, i) {
         class: _(i.iconClasses)
       }, null, 8, ["name", "type", "size", "class"])
     ], 2),
-    u("span", {
+    t.hideLabel ? p("", !0) : (a(), n("span", {
+      key: 0,
       class: _(["ui-file-name w-full truncate px-0.5 text-center font-medium leading-snug tracking-tight text-foreground", i.labelClass]),
       "aria-hidden": "true",
       title: i.fullLabel
-    }, m(i.displayLabel), 11, Br)
+    }, m(i.displayLabel), 11, Br))
   ], 10, Rr);
 }
 const Fr = /* @__PURE__ */ w(Vr, [["render", Dr]]);

@@ -76,6 +76,14 @@ export {
   resolveThemeId,
   getThemeCssPath,
 } from './theme/registry.js'
+export {
+  provideUiDefaults,
+  useUiDefaults,
+  useUiDefaultsOptions,
+  mergeUiDefaults,
+  BASE_UI_DEFAULTS,
+  UI_DEFAULTS_KEY,
+} from './theme/ui-defaults.js'
 
 const LOCALE_PACKS = {
   en,
