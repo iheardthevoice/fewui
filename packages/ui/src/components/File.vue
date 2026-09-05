@@ -17,6 +17,7 @@
       />
     </div>
     <span
+      v-if="!hideLabel"
       class="ui-file-name w-full truncate px-0.5 text-center font-medium leading-snug tracking-tight text-foreground"
       :class="labelClass"
       aria-hidden="true"
@@ -194,6 +195,11 @@ export default {
       type: Boolean,
       default: true,
     },
+    /** true: yalnızca ikon kabuğu (dışarıda etiket gösteren grid’ler için) */
+    hideLabel: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     preset() {
@@ -257,7 +263,7 @@ export default {
       return this.preset.label
     },
     rootSizeClass() {
-      return this.preset.root
+      return this.hideLabel ? '' : this.preset.root
     },
   },
 }
