@@ -203,6 +203,44 @@
   }
 }
 
+/**
+ * Icon-button host + spinning AI ring (does not change the inner control size).
+ * Use around cubed `ui-button` while an AI job is queued or running.
+ */
+.ui-ai-busy-host {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.ui-ai-busy-ring {
+  pointer-events: none;
+  position: absolute;
+  inset: -2px;
+  z-index: 1;
+  border-radius: 9999px;
+  padding: var(--ui-ai-button-border, 1.5px);
+  background: conic-gradient(
+    from var(--ui-ai-border-angle, 0deg),
+    #38bdf8,
+    color-mix(in oklab, var(--primary) 85%, white),
+    #f472b6,
+    #fbbf24,
+    #38bdf8
+  );
+  animation: ui-ai-button-spin 2.8s linear infinite;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .ui-ai-button {
     transition: none;
@@ -212,7 +250,8 @@
     transform: none;
   }
 
-  .ui-ai-button__glow {
+  .ui-ai-button__glow,
+  .ui-ai-busy-ring {
     animation: none;
     background: linear-gradient(
       135deg,

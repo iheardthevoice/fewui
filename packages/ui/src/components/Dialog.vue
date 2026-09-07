@@ -336,6 +336,7 @@ export default {
       sheetDragCleanup: null,
       layerMounted: false,
       layerClosing: false,
+      layerMotionActive: false,
     }
   },
   watch: {
@@ -363,6 +364,7 @@ export default {
     this.clearSheetDragListeners()
     this.layerMounted = false
     this.layerClosing = false
+    this.layerMotionActive = false
   },
   computed: {
     hasTitle() {
@@ -460,6 +462,7 @@ export default {
       return cn(
         'ui-dialog-root fixed inset-0 flex outline-none',
         this.stackLayer === 'confirm' && 'ui-dialog-root--confirm',
+        this.layerMotionActive && 'ui-dialog-root--motion',
       )
     },
   },
@@ -472,7 +475,40 @@ export default {
       return 'cubic-bezier(0.32, 0.72, 0, 1)'
     },
     mobileSheetDurationMs() {
-      return 360
+      return 320
+    },
+    layerMotionTimings() {
+      const mobile = isMobileViewport()
+      if (mobile) {
+        return {
+          enterMs: this.mobileSheetDurationMs(),
+          leaveMs: 280,
+          snapMs: 280,
+          easing: this.mobileSheetEasing(),
+          leaveEasing: this.mobileSheetEasing(),
+        }
+      }
+      return {
+        enterMs: 260,
+        leaveMs: 180,
+        snapMs: 220,
+        easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+        leaveEasing: 'cubic-bezier(0.4, 0, 1, 1)',
+      }
+    },
+    desktopEnterTransform() {
+      return 'translate3d(0, 8px, 0) scale3d(0.97, 0.97, 1)'
+    },
+    desktopLeaveTransform() {
+      return 'translate3d(0, 6px, 0) scale3d(0.98, 0.98, 1)'
+    },
+    desktopRestTransform() {
+      return 'translate3d(0, 0, 0) scale3d(1, 1, 1)'
+    },
+    runOnNextFrames(fn) {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(fn)
+      })
     },
     layerMotionParts(el) {
       return {
@@ -480,10 +516,6 @@ export default {
         motion: el.querySelector('.ui-dialog-motion'),
         backdrop: el.querySelector('.ui-dialog-backdrop'),
       }
-    },
-    resolveTransformTarget(mobile, parts) {
-      if (mobile) return parts.panel
-      return parts.motion || parts.panel
     },
     sheetBackdropOpacityForDrag(panel, dy) {
       if (!panel) return 1
@@ -521,14 +553,18 @@ export default {
         finished = true
         done()
       }
-      target.addEventListener(
-        'transitionend',
-        (event) => {
-          if (event.target === target) finish()
-        },
-        { once: true },
-      )
-      window.setTimeout(finish, fallbackMs)
+      const onEnd = (event) => {
+        if (event.target !== target) return
+        const prop = event.propertyName || ''
+        if (prop && prop !== 'transform' && prop !== 'opacity') return
+        target.removeEventListener('transitionend', onEnd)
+        finish()
+      }
+      target.addEventListener('transitionend', onEnd)
+      window.setTimeout(() => {
+        target.removeEventListener('transitionend', onEnd)
+        finish()
+      }, fallbackMs)
     },
     animateLayerIn(el) {
       if (!el) {
@@ -542,46 +578,59 @@ export default {
       const parts = this.layerMotionParts(el)
       const { panel, motion, backdrop } = parts
       const mobile = isMobileViewport()
-      const transformTarget = this.resolveTransformTarget(mobile, parts)
-      const durationMs = mobile ? this.mobileSheetDurationMs() : 420
-      const duration = `${durationMs / 1000}s`
-      const easing = mobile ? this.mobileSheetEasing() : 'cubic-bezier(0.22, 1, 0.36, 1)'
-
-      if (backdrop) backdrop.style.opacity = '0'
-      if (mobile) {
-        if (panel) {
+      const { enterMs, easing } = this.layerMotionTimings()
+      const duration = `${enterMs / 1000}s`
+      const backdropMs = Math.round(enterMs * 0.72)
+      const backdropDuration = `${backdropMs / 1000}s`
+      this.layerMotionActive = true
+      if (motion) {
+        motion.style.removeProperty('transform')
+        motion.style.removeProperty('transition')
+      }
+      if (backdrop) {
+        backdrop.style.transition = 'none'
+        backdrop.style.opacity = '0'
+      }
+      if (panel) {
+        panel.style.transition = 'none'
+        if (mobile) {
           panel.style.opacity = '1'
           panel.style.transform = 'translate3d(0, 100%, 0)'
+        } else {
+          panel.style.opacity = '0'
+          panel.style.transform = this.desktopEnterTransform()
         }
-        if (motion) motion.style.removeProperty('transform')
-      } else {
-        if (panel) panel.style.opacity = '0'
-        if (motion) motion.style.transform = 'scale3d(0.96, 0.96, 1)'
       }
       void el.offsetHeight
-      requestAnimationFrame(() => {
+      this.runOnNextFrames(() => {
+        if (!this.layerMounted || this.layerClosing) return
         if (backdrop) {
-          backdrop.style.transition = `opacity ${duration} ${easing}`
+          backdrop.style.transition = `opacity ${backdropDuration} ${easing}`
           backdrop.style.opacity = '1'
         }
-        if (!mobile && panel) {
-          panel.style.transition = `opacity ${duration} ${easing}`
+        if (panel) {
+          panel.style.transition = mobile
+            ? `transform ${duration} ${easing}`
+            : `opacity ${duration} ${easing}, transform ${duration} ${easing}`
           panel.style.opacity = '1'
-        }
-        if (transformTarget) {
-          transformTarget.style.transition = `transform ${duration} ${easing}`
-          transformTarget.style.transform = mobile
+          panel.style.transform = mobile
             ? 'translate3d(0, 0, 0)'
-            : 'scale3d(1, 1, 1)'
+            : this.desktopRestTransform()
         }
-        this.waitLayerTransition(transformTarget || backdrop, durationMs + 40, () => {
+        this.waitLayerTransition(panel || backdrop, enterMs + 80, () => {
+          if (this.layerClosing) return
+          this.finishLayerMotion(el)
           this.onOverlayAfterEnter()
         })
       })
     },
     animateLayerOut(el, done) {
-      if (!el || this.prefersReducedMotion()) {
+      const finish = () => {
+        this.finishLayerMotion(el)
         done()
+      }
+      if (!el || this.prefersReducedMotion()) {
+        finish()
         return
       }
       const mobile = isMobileViewport()
@@ -593,31 +642,34 @@ export default {
         preserveBackdrop: dragged,
       })
       const { panel, motion, backdrop } = parts
-      const transformTarget = this.resolveTransformTarget(mobile, parts)
-      const durationMs = mobile ? 320 : 380
-      const duration = `${durationMs / 1000}s`
-      const easing = mobile ? this.mobileSheetEasing() : 'cubic-bezier(0.4, 0, 0.2, 1)'
+      const { leaveMs, leaveEasing } = this.layerMotionTimings()
+      const duration = `${leaveMs / 1000}s`
+      const backdropDuration = `${Math.round(leaveMs * 0.85) / 1000}s`
+      this.layerMotionActive = true
+      if (motion) {
+        motion.style.removeProperty('transform')
+        motion.style.removeProperty('transition')
+      }
       void el.offsetHeight
-      requestAnimationFrame(() => {
+      this.runOnNextFrames(() => {
         if (backdrop) {
-          backdrop.style.transition = `opacity ${duration} ${easing}`
+          backdrop.style.transition = `opacity ${backdropDuration} ${leaveEasing}`
           backdrop.style.opacity = '0'
         }
         if (mobile && panel) {
-          panel.style.transition = `transform ${duration} ${easing}`
+          panel.style.transition = `transform ${duration} ${leaveEasing}`
           panel.style.transform = 'translate3d(0, 100%, 0)'
-        } else {
-          if (panel) {
-            panel.style.transition = `opacity ${duration} ${easing}`
-            panel.style.opacity = '0'
-          }
-          if (motion) {
-            motion.style.transition = `transform ${duration} ${easing}`
-            motion.style.transform = 'scale3d(0.96, 0.96, 1)'
-          }
+        } else if (panel) {
+          panel.style.transition = `opacity ${duration} ${leaveEasing}, transform ${duration} ${leaveEasing}`
+          panel.style.opacity = '0'
+          panel.style.transform = this.desktopLeaveTransform()
         }
-        this.waitLayerTransition(transformTarget || backdrop, durationMs + 40, done)
+        this.waitLayerTransition(panel || backdrop, leaveMs + 80, finish)
       })
+    },
+    finishLayerMotion(el) {
+      this.layerMotionActive = false
+      if (el) this.clearLayerInlineMotion(el)
     },
     dismissLayer() {
       if (!this.layerMounted || this.layerClosing) return
@@ -667,15 +719,15 @@ export default {
       this.clearFocusFallback()
       this.$nextTick(() => {
         const panel = this.$refs.panelRef
-        const motion = panel?.querySelector('.ui-dialog-motion')
-        const mobile = isMobileViewport()
-        const motionTarget = mobile ? panel : (motion || panel)
+        const motionTarget = panel
         if (!motionTarget) {
           this.runInitialFocus()
           return
         }
         const onTransitionEnd = (event) => {
           if (event.target !== motionTarget) return
+          const prop = event.propertyName || ''
+          if (prop && prop !== 'transform' && prop !== 'opacity') return
           motionTarget.removeEventListener('transitionend', onTransitionEnd)
           this.clearFocusFallback()
           this.runInitialFocus()
@@ -685,7 +737,7 @@ export default {
           motionTarget.removeEventListener('transitionend', onTransitionEnd)
           this.focusFallbackTimer = null
           this.runInitialFocus()
-        }, 440)
+        }, this.layerMotionTimings().enterMs + 80)
       })
     },
     runInitialFocus() {
@@ -766,7 +818,7 @@ export default {
           this.close()
           return
         }
-        const duration = '0.28s'
+        const duration = `${this.layerMotionTimings().snapMs / 1000}s`
         const easing = this.mobileSheetEasing()
         panel.style.transition = `transform ${duration} ${easing}`
         panel.style.transform = 'translate3d(0, 0, 0)'
