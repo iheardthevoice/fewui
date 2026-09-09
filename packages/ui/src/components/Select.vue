@@ -21,6 +21,8 @@
           :open="open"
           :toggle="toggle"
           :close="close"
+          :label="displayLabel"
+          :has-value="!isPlaceholderDisplay"
         >
           <button
             type="button"

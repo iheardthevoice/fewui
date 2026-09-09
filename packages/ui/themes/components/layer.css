@@ -1101,16 +1101,35 @@
   }
 
   /**
-   * Dialog — backdrop ve panel ayrı; kapanış girişten daha yavaş ve hafif (kök opacity yok).
-   * `<Transition>` çocuğu `v-if` olmalı (`v-show` leave tetiklemez).
+   * Dialog — backdrop ve panel ayrı; kapanış girişten biraz daha kısa.
+   * Açılış/kapanış JS ile (inline transform); `.ui-dialog-root--motion` GPU + blur kapaması.
    */
+  .ui-dialog-root--motion {
+    pointer-events: none;
+  }
+
+  .ui-dialog-root--motion .ui-dialog-backdrop {
+    will-change: opacity;
+  }
+
+  .ui-dialog-root--motion .ui-dialog-panel {
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  .ui-dialog-root--motion .ui-dialog-panel.ui-surface {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
   .ui-overlay-dialog-enter-active .ui-dialog-backdrop {
-    transition: opacity 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     will-change: opacity;
   }
 
   .ui-overlay-dialog-leave-active .ui-dialog-backdrop {
-    transition: opacity 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 0.16s cubic-bezier(0.4, 0, 1, 1);
     will-change: opacity;
   }
 
@@ -1120,39 +1139,43 @@
   }
 
   .ui-overlay-dialog-enter-active .ui-dialog-panel {
-    transition: opacity 0.38s cubic-bezier(0.22, 1, 0.36, 1);
-    will-change: opacity;
+    transition:
+      opacity 0.26s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.26s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
   }
 
   .ui-overlay-dialog-leave-active .ui-dialog-panel {
-    transition: opacity 0.36s cubic-bezier(0.4, 0, 0.2, 1);
-    will-change: opacity;
+    transition:
+      opacity 0.18s cubic-bezier(0.4, 0, 1, 1),
+      transform 0.18s cubic-bezier(0.4, 0, 1, 1);
+    will-change: opacity, transform;
   }
 
   .ui-overlay-dialog-enter-active .ui-dialog-motion {
-    transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
-    will-change: transform;
+    transition: none;
   }
 
   .ui-overlay-dialog-leave-active .ui-dialog-motion {
-    transition: transform 0.38s cubic-bezier(0.32, 0.72, 0, 1);
-    will-change: transform;
+    transition: none;
   }
 
   .ui-overlay-dialog-enter-from .ui-dialog-panel {
     opacity: 0;
+    transform: translate3d(0, 8px, 0) scale3d(0.97, 0.97, 1);
   }
 
   .ui-overlay-dialog-leave-to .ui-dialog-panel {
     opacity: 0;
+    transform: translate3d(0, 6px, 0) scale3d(0.98, 0.98, 1);
   }
 
   .ui-overlay-dialog-enter-from .ui-dialog-motion {
-    transform: scale3d(0.96, 0.96, 1);
+    transform: none;
   }
 
   .ui-overlay-dialog-leave-to .ui-dialog-motion {
-    transform: scale3d(0.96, 0.96, 1);
+    transform: none;
   }
 
   .ui-dialog-motion {
@@ -4366,6 +4389,7 @@
   .ui-dialog-panel {
     @apply relative z-[1] flex max-h-[min(90dvh,100%)] w-full min-h-0 min-w-0 flex-col overflow-hidden outline-none;
     --ui-dialog-body-ring-inset: 0.5rem;
+    transform-origin: center center;
   }
 
   .ui-dialog-panel--max-sm {
@@ -4447,16 +4471,16 @@
   .ui-dialog-panel .ui-card-footer {
     @apply relative z-[2] flex shrink-0 flex-nowrap items-center justify-end gap-3;
     padding-inline: var(--ui-card-padding);
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
+    padding-top: 0.75rem;
+    padding-bottom: var(--ui-card-padding);
   }
 
   /**
    * Şeffaf footer — gövde üzerine biner; arka plan/border yok.
-   * Gövde alt boşluğu buton yüksekliği kadar artar (içerik kesilmez).
+   * Gövde alt boşluğu buton yüksekliği + footer padding kadar artar (içerik kesilmez).
    */
   .ui-dialog-panel--footer-transparent {
-    --ui-dialog-footer-clearance: 4.25rem;
+    --ui-dialog-footer-clearance: calc(3.25rem + var(--ui-card-padding));
   }
 
   .ui-dialog-panel--footer-transparent .ui-dialog-motion {
@@ -5152,11 +5176,23 @@
     }
 
     .app-data-table .ui-table-head--w-sm,
-    .app-data-table .ui-table-cell--w-sm,
-    .app-data-table .ui-table-cell:has([data-app-row-menu]) {
+    .app-data-table .ui-table-cell--w-sm {
       width: 3rem;
       min-width: 3rem;
       max-width: 3rem;
+    }
+
+    .app-data-table .ui-table-cell:has([data-app-row-menu]) {
+      width: 2.75rem;
+      min-width: 2.75rem;
+      max-width: 2.75rem;
+      padding-inline: 0.25rem;
+      overflow: visible;
+    }
+
+    .app-data-table .ui-table-cell:has([data-app-row-menu]) .ui-table-cell-content {
+      justify-content: flex-end;
+      overflow: visible;
     }
 
     .app-data-table .ui-table-head--w-md,
@@ -5236,7 +5272,7 @@
     .ui-overlay-dialog-leave-active .ui-dialog-backdrop,
     .ui-overlay-dialog-enter-active .ui-dialog-panel,
     .ui-overlay-dialog-leave-active .ui-dialog-panel {
-      transition-duration: 0.36s;
+      transition-duration: 0.32s;
       transition-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
     }
 
@@ -5265,7 +5301,6 @@
     }
 
     .ui-dialog-panel {
-      will-change: transform;
       max-width: none;
       max-height: min(92dvh, 100%);
       padding-bottom: env(safe-area-inset-bottom, 0px);
@@ -5315,8 +5350,7 @@
   @media (max-width: 767px) {
     .ui-dialog-panel {
       --ui-dialog-inset-x: max(1rem, env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
-      /* Home indicator kadar; ekstra 0.75rem eklenmez (buton yukarı kaçmasın). */
-      --ui-dialog-inset-bottom: env(safe-area-inset-bottom, 0px);
+      --ui-dialog-inset-bottom: max(0.75rem, env(safe-area-inset-bottom, 0px));
       padding-bottom: 0;
     }
 

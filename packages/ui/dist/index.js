@@ -1,5 +1,5 @@
-import { _ as w, ai as W, aG as X, au as Ge, a4 as T, aF as P, av as Ye, as as Ue, ac as Ke, az as j, h as Me, aa as Pe, am as je, a6 as Ee, aj as qe, aD as Ze, a3 as Qe, a8 as Xe, ao as F, ap as Je, aH as Oe, aB as et, an as tt, Y as me, aI as it, al as rt, a9 as at, A as lt, a as st, b as nt, c as ot, d as ut, C as ct, e as dt, f as ht, g as ft, i as pt, E as mt, m as gt, I as yt, n as bt, P as vt, q as _t, o as kt, p as wt, r as St, R as xt, s as Ct, u as Tt, S as Lt, t as It, v as At, w as zt, M as Mt, H as Pt, K as Et, J as Ot, O as Vt, N as Rt } from "./index-Cdy1l1nG.js";
-import { B as Io, F as Ao, j as zo, k as Mo, l as Po, G as Eo, L as Oo, D as Vo, T as Ro, x as Bo, y as Do, z as Fo, U as $o, Q as No, V as Ho, W as Wo, X as Go, Z as Yo, $ as Uo, a0 as Ko, a1 as jo, a2 as qo, a5 as Zo, a7 as Qo, ab as Xo, ad as Jo, ae as eu, af as tu, ag as iu, ah as ru, ak as au, aq as lu, ar as su, at as nu, aw as ou, ax as uu, ay as cu, aA as du, aC as hu, aE as fu, aJ as pu, aK as mu, aL as gu } from "./index-Cdy1l1nG.js";
+import { _ as w, ai as W, aG as X, au as Ge, a4 as T, aF as P, av as Ye, as as Ue, ac as Ke, az as j, h as Me, aa as Pe, am as je, a6 as Ee, aj as qe, aD as Ze, a3 as Qe, a8 as Xe, ao as F, ap as Je, aH as Oe, aB as et, an as tt, Y as me, aI as it, al as rt, a9 as at, A as lt, a as st, b as nt, c as ot, d as ut, C as ct, e as dt, f as ht, g as ft, i as pt, E as mt, m as gt, I as yt, n as bt, P as vt, q as _t, o as kt, p as wt, r as St, R as xt, s as Ct, u as Tt, S as Lt, t as It, v as At, w as zt, M as Mt, H as Pt, K as Et, J as Ot, O as Vt, N as Rt } from "./index-CfJR2Zvo.js";
+import { B as Io, F as Ao, j as zo, k as Mo, l as Po, G as Eo, L as Oo, D as Vo, T as Ro, x as Bo, y as Do, z as Fo, U as $o, Q as No, V as Ho, W as Wo, X as Go, Z as Yo, $ as Uo, a0 as Ko, a1 as jo, a2 as qo, a5 as Zo, a7 as Qo, ab as Xo, ad as Jo, ae as eu, af as tu, ag as iu, ah as ru, ak as au, aq as lu, ar as su, at as nu, aw as ou, ax as uu, ay as cu, aA as du, aC as hu, aE as fu, aJ as pu, aK as mu, aL as gu } from "./index-CfJR2Zvo.js";
 import { resolveComponent as k, openBlock as a, createElementBlock as n, normalizeClass as _, renderSlot as g, createVNode as S, createCommentVNode as p, createElementVNode as u, toDisplayString as m, createBlock as v, normalizeStyle as V, mergeProps as I, withCtx as y, withModifiers as E, createTextVNode as L, Fragment as A, renderList as z, withKeys as ne, createSlots as q, normalizeProps as Bt, guardReactiveProps as Dt, Teleport as J, Transition as ee, readonly as Ft, reactive as Ve, withDirectives as Re, vShow as Be, resolveDynamicComponent as K } from "vue";
 const $t = {
   name: "ActionCard",
@@ -1578,7 +1578,7 @@ const pr = /* @__PURE__ */ w(nr, [["render", fr]]), mr = ["popover", "dialog"], 
       return this.title ? this.title : this.triggerLabel || this.actionName || "Field action";
     },
     triggerVariant() {
-      return this.hasValue || this.resolvedOpen ? "soft" : "solid";
+      return this.iconOnly && (this.hasValue || this.resolvedOpen) ? "soft" : "solid";
     },
     triggerColor() {
       return this.hasValue || this.resolvedOpen ? "primary" : "secondary";

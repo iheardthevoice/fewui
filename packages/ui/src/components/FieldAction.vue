@@ -363,7 +363,11 @@ export default {
       return this.triggerLabel || this.actionName || 'Field action'
     },
     triggerVariant() {
-      return this.hasValue || this.resolvedOpen ? 'soft' : 'solid'
+      // İkon-only (Görev saat/atanan): soft; etiketli chip: solid (AppDataFilterChip / tarih)
+      if (this.iconOnly) {
+        return this.hasValue || this.resolvedOpen ? 'soft' : 'solid'
+      }
+      return 'solid'
     },
     triggerColor() {
       if (this.hasValue || this.resolvedOpen) return 'primary'

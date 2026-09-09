@@ -4546,16 +4546,16 @@
   .ui-dialog-panel .ui-card-footer {
     @apply relative z-[2] flex shrink-0 flex-nowrap items-center justify-end gap-3;
     padding-inline: var(--ui-card-padding);
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
+    padding-top: 0.75rem;
+    padding-bottom: var(--ui-card-padding);
   }
 
   /**
    * Şeffaf footer — gövde üzerine biner; arka plan/border yok.
-   * Gövde alt boşluğu buton yüksekliği kadar artar (içerik kesilmez).
+   * Gövde alt boşluğu buton yüksekliği + footer padding kadar artar (içerik kesilmez).
    */
   .ui-dialog-panel--footer-transparent {
-    --ui-dialog-footer-clearance: 4.25rem;
+    --ui-dialog-footer-clearance: calc(3.25rem + var(--ui-card-padding));
   }
 
   .ui-dialog-panel--footer-transparent .ui-dialog-motion {
@@ -5251,11 +5251,23 @@
     }
 
     .app-data-table .ui-table-head--w-sm,
-    .app-data-table .ui-table-cell--w-sm,
-    .app-data-table .ui-table-cell:has([data-app-row-menu]) {
+    .app-data-table .ui-table-cell--w-sm {
       width: 3rem;
       min-width: 3rem;
       max-width: 3rem;
+    }
+
+    .app-data-table .ui-table-cell:has([data-app-row-menu]) {
+      width: 2.75rem;
+      min-width: 2.75rem;
+      max-width: 2.75rem;
+      padding-inline: 0.25rem;
+      overflow: visible;
+    }
+
+    .app-data-table .ui-table-cell:has([data-app-row-menu]) .ui-table-cell-content {
+      justify-content: flex-end;
+      overflow: visible;
     }
 
     .app-data-table .ui-table-head--w-md,
@@ -5413,7 +5425,7 @@
   @media (max-width: 767px) {
     .ui-dialog-panel {
       --ui-dialog-inset-x: max(1rem, env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
-      --ui-dialog-inset-bottom: env(safe-area-inset-bottom, 0px);
+      --ui-dialog-inset-bottom: max(0.75rem, env(safe-area-inset-bottom, 0px));
       padding-bottom: 0;
     }
 
@@ -5645,20 +5657,20 @@
   z-index: 500;
 }
 
-/** Dialog footer — unlayered; üst nefes payı dar; mobilde yalnızca safe-area alt boşluk */
+/** Dialog footer — unlayered; web’de kart kenarıyla aynı alt boşluk; mobilde min 0.75rem + safe-area */
 .ui-dialog-panel.ui-card > .ui-dialog-motion > .ui-card-footer,
 .ui-dialog-panel.ui-card > .ui-card-footer {
   border-top: none;
   box-shadow: none;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding-top: 0.75rem;
+  padding-bottom: var(--ui-card-padding);
 }
 
 @media (max-width: 767px) {
   .ui-dialog-panel.ui-card > .ui-dialog-motion > .ui-card-footer,
   .ui-dialog-panel.ui-card > .ui-card-footer {
     padding-top: 0.5rem;
-    padding-bottom: var(--ui-dialog-inset-bottom, env(safe-area-inset-bottom, 0px));
+    padding-bottom: var(--ui-dialog-inset-bottom, max(0.75rem, env(safe-area-inset-bottom, 0px)));
   }
 }
 

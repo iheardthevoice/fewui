@@ -5067,7 +5067,9 @@ function ra(e, t, i, r, s, n) {
         p(e.$slots, "trigger", {
           open: C,
           toggle: S,
-          close: A
+          close: A,
+          label: n.displayLabel,
+          hasValue: !n.isPlaceholderDisplay
         }, () => [
           h("button", L({
             type: "button",
@@ -7175,4 +7177,4 @@ export {
   $o as y,
   Vo as z
 };
-//# sourceMappingURL=index-Cdy1l1nG.js.map
+//# sourceMappingURL=index-CfJR2Zvo.js.map
