@@ -15,29 +15,60 @@ html.cap-native.cap-ios {
   --ui-tab-h-sm: 2.5rem;
   --ui-tab-h-md: 3.0625rem;
   --ui-tab-h-lg: 3.375rem;
+  /**
+   * Tipografi — her Tailwind kademesi bir üst boyuta kayar (~+2px alt uçta).
+   * xs→sm, sm→base, base→lg, lg→xl, xl→2xl, …
+   */
+  --text-xs: 0.875rem;
+  --text-xs--line-height: calc(1.25 / 0.875);
+  --text-sm: 1rem;
+  --text-sm--line-height: calc(1.5 / 1);
+  --text-base: 1.125rem;
+  --text-base--line-height: calc(1.75 / 1.125);
+  --text-lg: 1.25rem;
+  --text-lg--line-height: calc(1.75 / 1.25);
+  --text-xl: 1.5rem;
+  --text-xl--line-height: calc(2 / 1.5);
+  --text-2xl: 1.875rem;
+  --text-2xl--line-height: calc(2.25 / 1.875);
+  --text-3xl: 2.25rem;
+  --text-3xl--line-height: calc(2.5 / 2.25);
+  --text-4xl: 3rem;
+  --text-4xl--line-height: 1;
+  --text-5xl: 3.75rem;
+  --text-5xl--line-height: 1;
+  --text-6xl: 4.5rem;
+  --text-6xl--line-height: 1;
+  --text-7xl: 6rem;
+  --text-7xl--line-height: 1;
+  --text-8xl: 8rem;
+  --text-8xl--line-height: 1;
   --ui-ios-glass-bg: color-mix(in srgb, var(--foreground) 7%, transparent);
   --ui-ios-glass-bg-popover: color-mix(in srgb, var(--foreground) 3%, transparent);
   --ui-ios-glass-bg-chrome: color-mix(in srgb, var(--foreground) 3%, transparent);
-  --ui-ios-glass-edge: color-mix(in srgb, var(--foreground) 22%, transparent);
-  --ui-ios-glass-edge-top: color-mix(in srgb, var(--foreground) 30%, transparent);
-  --ui-ios-glass-edge-bottom: color-mix(in srgb, var(--foreground) 44%, transparent);
+  /** Header / footer chrome hairline — aynı token, hafif kontrast (iOS separator). */
+  --ui-ios-glass-edge: color-mix(in srgb, var(--foreground) 20%, transparent);
+  --ui-ios-glass-edge-top: var(--ui-ios-glass-edge);
+  --ui-ios-glass-edge-bottom: var(--ui-ios-glass-edge);
   --ui-ios-glass-border: transparent;
   --ui-ios-glass-highlight: transparent;
   --ui-ios-glass-shadow: transparent;
-  --ui-ios-glass-blur-chrome: 20px;
-  --ui-ios-glass-blur-popover: 20px;
-  --ui-ios-glass-blur-surface: 18px;
-  --ui-ios-glass-blur-control: 16px;
+  --ui-ios-glass-blur-chrome: 16px;
+  --ui-ios-glass-blur-popover: 16px;
+  --ui-ios-glass-blur-surface: 14px;
+  --ui-ios-glass-blur-control: 12px;
   --ui-surface-opacity: 36%;
-  --ui-surface-backdrop-blur: 18px;
+  --ui-surface-backdrop-blur: 14px;
   --ui-control-opacity: 38%;
-  --ui-control-backdrop-blur: 18px;
+  --ui-control-backdrop-blur: 14px;
   /**
    * Form dolgusu — `--control` yerine foreground cam tonu; dialog / muted üzerinde kaybolmasın.
    */
   --ui-input-mix-from: var(--foreground);
   --ui-input-opacity: 7%;
-  --ui-input-backdrop-blur: 18px;
+  --ui-input-backdrop-blur: 14px;
+  /** Divider / kart stroke — input dolgusundan bağımsız, okunaklı separator. */
+  --border: color-mix(in oklab, var(--foreground) 14%, transparent);
   /**
    * Grouped yüzey basamağı — canvas (`--background`) ile form (`--control`) arası.
    * Sheet: `--surface`; alanlar bir kademe daha açık/kontrastlı `--control`.
@@ -56,10 +87,11 @@ html.cap-native.cap-ios.dark {
   --ui-ios-glass-bg-popover: color-mix(in srgb, var(--foreground) 3%, transparent);
   --ui-ios-glass-bg-chrome: color-mix(in srgb, var(--foreground) 3%, transparent);
   --ui-ios-glass-edge: color-mix(in srgb, var(--foreground) 18%, transparent);
-  --ui-ios-glass-edge-top: color-mix(in srgb, var(--foreground) 24%, transparent);
-  --ui-ios-glass-edge-bottom: color-mix(in srgb, var(--foreground) 38%, transparent);
+  --ui-ios-glass-edge-top: var(--ui-ios-glass-edge);
+  --ui-ios-glass-edge-bottom: var(--ui-ios-glass-edge);
   --ui-surface-opacity: 32%;
   --ui-control-opacity: 34%;
   --ui-input-opacity: 6%;
+  --border: color-mix(in oklab, var(--foreground) 18%, transparent);
   --app-data-table-cell-bg: var(--ui-ios-card-surface-bg);
 }

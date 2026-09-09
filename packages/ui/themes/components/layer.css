@@ -540,22 +540,22 @@
   .ui-control-cubed-sm {
     width: var(--ui-control-h-sm);
     height: var(--ui-control-h-sm);
-    font-size: 0.75rem;
-    line-height: 1rem;
+    font-size: var(--text-xs);
+    line-height: var(--text-xs--line-height);
   }
 
   .ui-control-cubed-md {
     width: var(--ui-control-h-md);
     height: var(--ui-control-h-md);
-    font-size: 0.875rem;
-    line-height: 1.25rem;
+    font-size: var(--text-sm);
+    line-height: var(--text-sm--line-height);
   }
 
   .ui-control-cubed-lg {
     width: var(--ui-control-h-lg);
     height: var(--ui-control-h-lg);
-    font-size: 1rem;
-    line-height: 1.5rem;
+    font-size: var(--text-base);
+    line-height: var(--text-base--line-height);
   }
 
   /** Tek satır input / textarea kabuğu — referans: `--ui-control-h-md`, `rounded-lg` (`--radius`), 14/20 metin */
@@ -983,38 +983,32 @@
     transform: translateY(0.125rem) scale(0.97);
   }
 
-  /** Popover — panel blur sürekli; yalnızca `.ui-popover-motion` opacity + transform animasyonu. */
+  /** Popover — animasyon katman kökünde (Vue Transition sniff); iOS child-only transition atlar. */
   .ui-overlay-popover-enter-active {
-    transition: none;
-  }
-
-  .ui-overlay-popover-leave-active {
-    transition: none;
-    pointer-events: none;
-  }
-
-  .ui-overlay-popover-enter-active .ui-popover-motion,
-  .ui-overlay-popover-leave-active .ui-popover-motion {
     transition:
       opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1),
       transform 0.26s cubic-bezier(0.16, 1, 0.3, 1);
     will-change: opacity, transform;
+    transform-origin: top center;
   }
 
-  .ui-overlay-popover-leave-active .ui-popover-motion {
-    transition-duration: 0.28s;
-    transition-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
+  .ui-overlay-popover-leave-active {
+    transition:
+      opacity 0.28s cubic-bezier(0.32, 0.72, 0, 1),
+      transform 0.28s cubic-bezier(0.32, 0.72, 0, 1);
+    will-change: opacity, transform;
+    transform-origin: top center;
+    pointer-events: none;
   }
 
-  .ui-overlay-popover-enter-from .ui-popover-motion,
-  .ui-overlay-popover-leave-to .ui-popover-motion {
+  .ui-overlay-popover-enter-from,
+  .ui-overlay-popover-leave-to {
     opacity: 0;
     transform: translate3d(0, 0.375rem, 0) scale3d(0.97, 0.97, 1);
   }
 
   .ui-popover-motion {
     @apply flex min-h-0 min-w-0 flex-1 flex-col;
-    transform-origin: top center;
   }
 
   /**
@@ -1024,17 +1018,23 @@
   .ui-overlay-popover-enter-active[data-popover-align-active],
   .ui-overlay-popover-leave-active[data-popover-align-active] {
     transition: opacity 0.12s ease-out;
+    transform: none;
   }
 
-  .ui-overlay-popover-enter-from[data-popover-align-active] .ui-popover-motion,
-  .ui-overlay-popover-leave-to[data-popover-align-active] .ui-popover-motion {
+  .ui-overlay-popover-enter-from[data-popover-align-active],
+  .ui-overlay-popover-leave-to[data-popover-align-active] {
     opacity: 0;
     transform: none;
   }
 
   @media (max-width: 767px) {
-    .ui-overlay-popover-enter-from[data-ui-popover-mobile-centered] .ui-popover-motion,
-    .ui-overlay-popover-leave-to[data-ui-popover-mobile-centered] .ui-popover-motion {
+    .ui-overlay-popover-enter-active[data-ui-popover-mobile-centered],
+    .ui-overlay-popover-leave-active[data-ui-popover-mobile-centered] {
+      transform-origin: center center;
+    }
+
+    .ui-overlay-popover-enter-from[data-ui-popover-mobile-centered],
+    .ui-overlay-popover-leave-to[data-ui-popover-mobile-centered] {
       transform: translate3d(0, 1.25rem, 0) scale3d(0.98, 0.98, 1);
     }
 
@@ -1061,6 +1061,8 @@
 
   .ui-popover-backdrop {
     z-index: 409;
+    pointer-events: auto;
+    touch-action: none;
   }
 
   /**
@@ -1267,6 +1269,11 @@
     .ui-overlay-dialog-leave-to .ui-dialog-motion,
     .ui-overlay-popover-enter-from .ui-popover-motion,
     .ui-overlay-popover-leave-to .ui-popover-motion {
+      transform: none;
+    }
+
+    .ui-overlay-popover-enter-from,
+    .ui-overlay-popover-leave-to {
       transform: none;
     }
   }
@@ -3012,7 +3019,11 @@
 
   /** MenuItem — `ui-button` ghost; köşe yarıçapı `ui-control-h-*` (ek rounded yok) */
   .ui-menu-item.ui-button {
-    @apply justify-start shadow-none;
+    @apply justify-start gap-2.5 shadow-none;
+  }
+
+  .ui-menu-item.ui-button > [aria-hidden='true']:has(.ui-icon) {
+    @apply inline-flex w-5 shrink-0 items-center justify-center;
   }
 
   .ui-menu-item.ui-button:not(.ui-menu-item--active):not(:disabled):hover {
@@ -3855,6 +3866,10 @@
     @apply min-w-0 flex-1 space-y-1;
   }
 
+  .ui-alert-copy {
+    @apply min-w-0 space-y-1;
+  }
+
   .ui-alert-title {
     @apply text-sm font-medium leading-5 text-foreground;
   }
@@ -3871,25 +3886,40 @@
     @apply self-start;
   }
 
-  /** Sayfa üstü durum çubuğu — tek satırlık, tam genişlikte ve köşesiz. */
+  /**
+   * Sayfa üstü durum çubuğu — tam genişlik, köşesiz.
+   * Mobilde metin + CTA dikey; sm+ tek satırda sıkışmadan yan yana.
+   */
   .ui-alert--banner {
-    @apply items-center gap-2 rounded-none border-x-0 border-t-0 px-4 py-2;
+    @apply min-w-0 items-start gap-2.5 rounded-none border-x-0 border-t-0 px-3 py-2.5 sm:items-center sm:gap-2 sm:px-4 sm:py-2;
   }
 
   .ui-alert--banner .ui-alert-icon {
-    @apply mt-0 size-6 rounded-md;
+    @apply mt-0.5 size-6 shrink-0 rounded-md sm:mt-0;
   }
 
   .ui-alert--banner .ui-alert-body {
-    @apply flex flex-1 flex-wrap items-center gap-x-2 gap-y-1 space-y-0;
+    @apply flex min-w-0 flex-1 flex-col items-stretch gap-2 space-y-0 sm:flex-row sm:items-center sm:gap-x-3 sm:gap-y-1;
+  }
+
+  .ui-alert--banner .ui-alert-copy {
+    @apply min-w-0 flex-1 space-y-0.5;
+  }
+
+  .ui-alert--banner .ui-alert-title {
+    @apply text-sm leading-5;
   }
 
   .ui-alert--banner .ui-alert-description {
-    @apply min-w-0 flex-1 text-xs leading-4;
+    @apply min-w-0 text-xs leading-4;
   }
 
   .ui-alert--banner .ui-alert-slot {
-    @apply shrink-0 p-0;
+    @apply w-full shrink-0 p-0 sm:ml-auto sm:w-auto;
+  }
+
+  .ui-alert--banner .ui-alert-slot .ui-button {
+    @apply w-full sm:w-auto;
   }
 
   /** Dar alan / dialog içi — kompakt, bordersız, kart ile aynı köşe. */
@@ -3903,6 +3933,10 @@
   }
 
   .ui-alert--soft .ui-alert-body {
+    @apply space-y-0.5;
+  }
+
+  .ui-alert--soft .ui-alert-copy {
     @apply space-y-0.5;
   }
 
@@ -4395,10 +4429,10 @@
   }
 
   .ui-dialog-panel .ui-card-footer {
-    @apply relative z-0 flex shrink-0 flex-nowrap items-center justify-end gap-3;
+    @apply relative z-[2] flex shrink-0 flex-nowrap items-center justify-end gap-3;
     padding-inline: var(--ui-card-padding);
     padding-top: 0.75rem;
-    padding-bottom: var(--ui-card-padding);
+    padding-bottom: 0.75rem;
   }
 
   /**
@@ -4503,7 +4537,12 @@
   }
 
   .ui-dropdown-menu > .ui-button {
-    @apply w-full min-w-0 justify-start;
+    @apply w-full min-w-0 justify-start gap-2.5;
+  }
+
+  /** FA glifleri em kutusuna yapışık; sabit ikon sütunu + gap metni ayırır. */
+  .ui-dropdown-menu > .ui-button > [aria-hidden='true']:has(.ui-icon) {
+    @apply inline-flex w-5 shrink-0 items-center justify-center;
   }
 
   /** DatePicker — gün ızgarası (`ui-button` + varyantlar) */
@@ -4871,6 +4910,11 @@
     @apply [&:has([role=checkbox])]:pr-0;
   }
 
+  /** Başlık metni hücre genişliğini bilsin — aksi halde th clip eder, … görünmez. */
+  .ui-table-head .ui-section-label {
+    @apply block max-w-full truncate;
+  }
+
   .ui-table-head--icon-col {
     @apply w-12 max-w-12 px-2;
   }
@@ -5212,8 +5256,8 @@
       border-bottom-width: 0;
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
-      border-top-left-radius: 1.25rem;
-      border-top-right-radius: 1.25rem;
+      border-top-left-radius: 1.75rem;
+      border-top-right-radius: 1.75rem;
     }
 
     .ui-dialog-panel.ui-surface,
@@ -5221,8 +5265,8 @@
       max-width: none;
       width: 100%;
       border-radius: 0;
-      border-top-left-radius: 1.25rem;
-      border-top-right-radius: 1.25rem;
+      border-top-left-radius: 1.75rem;
+      border-top-right-radius: 1.75rem;
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
     }
@@ -5254,12 +5298,12 @@
   @media (max-width: 767px) {
     .ui-dialog-panel {
       --ui-dialog-inset-x: max(1rem, env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
-      --ui-dialog-inset-bottom: max(1rem, env(safe-area-inset-bottom, 0px));
+      --ui-dialog-inset-bottom: max(0.75rem, env(safe-area-inset-bottom, 0px));
       padding-bottom: 0;
     }
 
     .ui-dialog-panel .ui-card-header {
-      padding-top: 0.75rem;
+      padding-top: 0;
       padding-inline: var(--ui-dialog-inset-x);
       padding-bottom: 0.5rem;
     }
@@ -5271,6 +5315,15 @@
       padding-bottom: 0.75rem;
       scroll-padding-inline: var(--ui-dialog-inset-x);
       scroll-padding-block: 0.75rem;
+      flex: 1 1 auto;
+    }
+
+    /** `body-padding="none"` — mobil inset kurallarından sonra da flush kalsın. */
+    .ui-dialog-panel .ui-card-body--flush {
+      padding-inline: 0;
+      padding-block: 0;
+      scroll-padding: 0;
+      max-height: none;
     }
 
     .ui-dialog-panel .ui-card-header + .ui-card-body,
@@ -5279,9 +5332,21 @@
       padding-top: 0.75rem;
     }
 
+    .ui-dialog-panel .ui-card-toolbar + .ui-card-body--flush,
+    .ui-dialog-panel .ui-card-header + .ui-card-body--flush,
+    .ui-dialog-panel .ui-divider + .ui-card-body--flush {
+      padding-top: 0;
+    }
+
     .ui-dialog-panel .ui-card-body:has(+ .ui-card-footer) {
       padding-bottom: var(--ui-dialog-body-ring-inset);
       scroll-padding-bottom: calc(0.75rem + var(--ui-dialog-body-ring-inset));
+    }
+
+    .ui-dialog-panel .ui-card-body--flush:has(+ .ui-card-footer),
+    .ui-dialog-panel .ui-card-body--flush:not(:has(+ .ui-card-footer)) {
+      padding-bottom: 0;
+      scroll-padding-bottom: 0;
     }
 
     .ui-dialog-panel .ui-card-body:not(:has(+ .ui-card-footer)) {
@@ -5327,29 +5392,53 @@
   }
 
   /**
-   * Native shell — klavye açıkken bottom sheet dialog klavye yüksekliği kadar yukarı kayar.
-   * `--ui-keyboard-inset` `native-app.js` / Capacitor Keyboard olayları ile güncellenir.
+   * Native shell — klavye:
+   * - Backdrop tam ekran kalır (root’a padding yok → köşelerde sayfa sızmaz).
+   * - Yalnızca panel `margin-bottom` ile yükselir; max-height tek sefer inset düşer.
+   * - Üstte her zaman safe-area + nefes payı kalır (status bar’a yapışmaz).
+   * - Panel altına surface “etek” (box-shadow) klavye rounded boşluklarını doldurur.
+   * Capacitor Keyboard resize: `none` — tek kaynak `--ui-keyboard-inset`.
    */
-  html.cap-native .ui-dialog-root {
-    padding-bottom: var(--ui-keyboard-inset, 0px);
-    transition: padding-bottom 0.25s cubic-bezier(0.36, 0.66, 0.04, 1);
+  html.cap-native {
+    --ui-dialog-keyboard-top-gap: 0.75rem;
+    --ui-dialog-max-height-cap: min(
+      92dvh,
+      calc(
+        100dvh - env(safe-area-inset-top, 0px) - var(--ui-dialog-keyboard-top-gap, 0.75rem) -
+          var(--ui-keyboard-inset, 0px)
+      )
+    );
   }
 
   html.cap-native .ui-dialog-panel {
-    max-height: calc(min(90dvh, 100%) - var(--ui-keyboard-inset, 0px));
+    margin-bottom: var(--ui-keyboard-inset, 0px);
+    max-height: var(--ui-dialog-max-height-cap);
+    transition:
+      margin-bottom 0.25s cubic-bezier(0.36, 0.66, 0.04, 1),
+      max-height 0.25s cubic-bezier(0.36, 0.66, 0.04, 1);
+  }
+
+  html.cap-native.cap-keyboard-open .ui-dialog-panel {
+    --ui-dialog-inset-bottom: 0.75rem;
+    box-shadow: 0 var(--ui-keyboard-inset, 0px) 0 0 var(--ui-ios-dialog-sheet-bg, var(--surface));
   }
 
   html.cap-native .ui-dialog-panel .ui-card-body {
-    max-height: calc(min(90dvh, 100%) - 9.5rem - var(--ui-keyboard-inset, 0px));
+    max-height: none;
   }
 
   @media (max-width: 767px) {
     html.cap-native .ui-dialog-panel {
-      max-height: calc(min(92dvh, 100%) - var(--ui-keyboard-inset, 0px));
+      max-height: var(--ui-dialog-max-height-cap);
     }
 
-    html.cap-native .ui-dialog-panel .ui-card-body {
-      max-height: calc(min(92dvh, 100%) - 9.5rem - var(--ui-keyboard-inset, 0px));
+    .ui-dialog-panel .ui-card-body {
+      flex: 1 1 auto;
+      max-height: none;
+    }
+
+    .ui-dialog-panel .ui-card-footer {
+      @apply relative z-[2];
     }
   }
 

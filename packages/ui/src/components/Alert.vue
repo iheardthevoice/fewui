@@ -17,18 +17,23 @@
       </slot>
     </span>
     <div class="ui-alert-body">
-      <p
-        v-if="title"
-        class="ui-alert-title"
+      <div
+        v-if="title || description"
+        class="ui-alert-copy"
       >
-        {{ title }}
-      </p>
-      <p
-        v-if="description"
-        class="ui-alert-description ui-text-default"
-      >
-        {{ description }}
-      </p>
+        <p
+          v-if="title"
+          class="ui-alert-title"
+        >
+          {{ title }}
+        </p>
+        <p
+          v-if="description"
+          class="ui-alert-description ui-text-default"
+        >
+          {{ description }}
+        </p>
+      </div>
       <div
         v-if="$slots.default"
         class="ui-alert-slot"

@@ -27,7 +27,8 @@
           class="ui-popover-backdrop fixed inset-0 bg-black/50"
           :style="backdropStyle"
           aria-hidden="true"
-          @click="close"
+          @pointerdown.stop.prevent="onBackdropDismiss"
+          @click.stop.prevent="onBackdropDismiss"
         />
       </Transition>
       <Transition
@@ -44,6 +45,7 @@
           :data-popover-align-active="alignSelectedOptionToTrigger ? '' : undefined"
           :data-ui-popover-mobile-centered="popoverMobileCenteredAttr ? '' : undefined"
           data-ui-popover-layer
+          @pointerdown.stop
         >
           <div
             ref="panelRef"
@@ -221,6 +223,7 @@ export default {
       return this.mobileCenteredActive || this.mobileCenteredLeaving
     },
     backdropStyle() {
+      // Panel her zaman backdrop üstünde; aynı z-index iOS’ta tıklama sızıntısı yapar.
       return { zIndex: String(this.layerZIndex) }
     },
     rootShellClass() {
@@ -288,6 +291,9 @@ export default {
     onPopoverAfterLeave() {
       this.mobileCenteredLeaving = false
     },
+    onBackdropDismiss() {
+      this.close()
+    },
     toggle() {
       if (this.disabled) return
       this.$emit('update:open', !this.open)
@@ -321,7 +327,7 @@ export default {
       this.layerZIndex = z
       return {
         ...style,
-        zIndex: String(z),
+        zIndex: String(z + 1),
       }
     },
     resolveTriggerEl() {
@@ -545,6 +551,9 @@ export default {
       const panel = this.$refs.panelRef
       if (trigger?.contains(t) || panel?.contains(t)) return
       if (this.shouldIgnoreOutsideClick(t)) return
+      // Overlay açıkken alttaki kontrole tıklama gitmesin (iOS hit-test sızıntısı).
+      e.preventDefault()
+      e.stopPropagation()
       this.close()
     },
     isOpenedInsidePopoverLayer(layerEl) {

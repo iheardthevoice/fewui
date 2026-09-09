@@ -72,13 +72,20 @@
   z-index: 500;
 }
 
-/** Dialog footer — unlayered; border/padding tutarlılığı */
+/** Dialog footer — unlayered; üst/alt nefes payı eşit (0.75rem); mobilde safe-area */
 .ui-dialog-panel.ui-card > .ui-dialog-motion > .ui-card-footer,
 .ui-dialog-panel.ui-card > .ui-card-footer {
   border-top: none;
   box-shadow: none;
   padding-top: 0.75rem;
-  padding-bottom: var(--ui-card-padding);
+  padding-bottom: 0.75rem;
+}
+
+@media (max-width: 767px) {
+  .ui-dialog-panel.ui-card > .ui-dialog-motion > .ui-card-footer,
+  .ui-dialog-panel.ui-card > .ui-card-footer {
+    padding-bottom: var(--ui-dialog-inset-bottom, max(0.75rem, env(safe-area-inset-bottom, 0px)));
+  }
 }
 
 .ui-dialog-panel--footer-transparent .ui-card-footer.ui-dialog-footer--transparent {

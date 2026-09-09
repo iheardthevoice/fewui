@@ -424,7 +424,13 @@ export default {
     },
     panelStyle() {
       if (!this.panelMaxHeight) return undefined
-      return { maxHeight: this.panelMaxHeight }
+      /**
+       * Inline maxHeight CSS’teki native klavye tavanını ezmesin.
+       * `--ui-dialog-max-height-cap` yoksa (web) yalnızca prop değeri kullanılır.
+       */
+      return {
+        maxHeight: `min(${this.panelMaxHeight}, var(--ui-dialog-max-height-cap, ${this.panelMaxHeight}))`,
+      }
     },
     passthroughAttrs() {
       return pickPassthroughAttrs(this.$attrs, ['class'])

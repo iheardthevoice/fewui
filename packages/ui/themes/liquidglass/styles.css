@@ -13,6 +13,26 @@
 }
 
 /**
+ * Unlayered glass CSS, Tailwind `@layer utilities` içindeki `sticky` / `max-md:sticky`
+ * değerini ezerdi — sticky chrome için position’ı geri yükle.
+ */
+.app-ios-glass-bar.sticky,
+.app-ios-glass-bar--header.sticky,
+.app-ios-glass-bar--footer.sticky,
+.app-ios-glass-bar--pos-footer.sticky {
+  position: sticky;
+}
+
+@media (max-width: 767px) {
+  .app-ios-glass-bar.max-md\:sticky,
+  .app-ios-glass-bar--header.max-md\:sticky,
+  .app-ios-glass-bar--footer.max-md\:sticky,
+  .app-ios-glass-bar--pos-footer.max-md\:sticky {
+    position: sticky;
+  }
+}
+
+/**
  * Web / Android fallback — header ve footer aynı opak chrome (`--background`).
  * `cap-ios` altında liquid glass ile override edilir.
  */
@@ -55,8 +75,8 @@ html.cap-native.cap-ios .app-ios-glass-bar--pos-footer {
   background-color: var(--ui-ios-glass-bg-chrome) !important;
   background-image: none !important;
   box-shadow: none !important;
-  -webkit-backdrop-filter: blur(var(--ui-ios-glass-blur-chrome, 20px)) saturate(190%);
-  backdrop-filter: blur(var(--ui-ios-glass-blur-chrome, 20px)) saturate(190%);
+  -webkit-backdrop-filter: blur(var(--ui-ios-glass-blur-chrome, 16px)) saturate(190%);
+  backdrop-filter: blur(var(--ui-ios-glass-blur-chrome, 16px)) saturate(190%);
   transform: translateZ(0);
 }
 
@@ -81,8 +101,8 @@ html.cap-native.cap-ios .app-ios-glass-bar:not(.app-ios-glass-bar--footer):not(.
   background: linear-gradient(
     90deg,
     transparent 0%,
-    var(--ui-ios-glass-edge-top) 18%,
-    var(--ui-ios-glass-edge-top) 82%,
+    var(--ui-ios-glass-edge) 18%,
+    var(--ui-ios-glass-edge) 82%,
     transparent 100%
   );
 }
@@ -99,8 +119,8 @@ html.cap-native.cap-ios .app-ios-glass-bar--pos-footer::before {
   background: linear-gradient(
     90deg,
     transparent 0%,
-    var(--ui-ios-glass-edge-bottom) 14%,
-    var(--ui-ios-glass-edge-bottom) 86%,
+    var(--ui-ios-glass-edge) 18%,
+    var(--ui-ios-glass-edge) 82%,
     transparent 100%
   );
 }
@@ -168,8 +188,8 @@ html.cap-native.cap-ios .ui-tab-list--horizontal.ui-tab-list--segmented {
   background-color: var(--ui-ios-glass-bg) !important;
   background-image: none !important;
   box-shadow: none !important;
-  -webkit-backdrop-filter: blur(var(--ui-ios-glass-blur-surface, 18px)) saturate(180%);
-  backdrop-filter: blur(var(--ui-ios-glass-blur-surface, 18px)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--ui-ios-glass-blur-surface, 14px)) saturate(180%);
+  backdrop-filter: blur(var(--ui-ios-glass-blur-surface, 14px)) saturate(180%);
   transform: translateZ(0);
 }
 
@@ -181,9 +201,17 @@ html.cap-native.cap-ios .ui-popover-panel.ui-surface {
   background-color: var(--ui-ios-glass-bg-popover) !important;
   background-image: none !important;
   box-shadow: none !important;
-  -webkit-backdrop-filter: blur(var(--ui-ios-glass-blur-popover, 20px)) saturate(190%);
-  backdrop-filter: blur(var(--ui-ios-glass-blur-popover, 20px)) saturate(190%);
-  transform: translateZ(0);
+  -webkit-backdrop-filter: blur(var(--ui-ios-glass-blur-popover, 16px)) saturate(190%);
+  backdrop-filter: blur(var(--ui-ios-glass-blur-popover, 16px)) saturate(190%);
+  /* translateZ(0) katman animasyonunu iOS’ta öldürür — kullanma. */
+}
+
+/** Açılış/kapanış sırasında blur + transform çakışmasın. */
+html.cap-native.cap-ios .ui-overlay-popover-enter-active .ui-popover-panel.ui-surface,
+html.cap-native.cap-ios .ui-overlay-popover-leave-active .ui-popover-panel.ui-surface {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  background-color: color-mix(in srgb, var(--surface) 92%, transparent) !important;
 }
 
 html.cap-native.cap-ios .ui-tab-list--horizontal.ui-tab-list--segmented::before,
@@ -225,8 +253,8 @@ html.cap-native.cap-ios .ui-button.ui-control:not([data-variant='link']):not([da
   overflow: hidden;
   border: none !important;
   box-shadow: none !important;
-  -webkit-backdrop-filter: blur(var(--ui-ios-glass-blur-control, 16px)) saturate(180%);
-  backdrop-filter: blur(var(--ui-ios-glass-blur-control, 16px)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--ui-ios-glass-blur-control, 12px)) saturate(180%);
+  backdrop-filter: blur(var(--ui-ios-glass-blur-control, 12px)) saturate(180%);
 }
 
 html.cap-native.cap-ios .ui-button.ui-control[data-variant='outline']:not([data-pos-category-chip]),
@@ -281,6 +309,21 @@ html.cap-native.cap-ios .ui-popover-panel .ui-button.ui-control:not([data-varian
   content: none !important;
 }
 
+/**
+ * Skeleton — iOS’ta stroke/border yok; cam kenar token’ları yükleme kartlarını sert göstermesin.
+ */
+html.cap-native.cap-ios .ui-skeleton,
+html.cap-native.cap-ios .ui-skeleton-placeholder,
+html.cap-native.cap-ios .ui-skeleton-host {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+html.cap-native.cap-ios .ui-skeleton {
+  background-color: color-mix(in oklab, var(--foreground) 8%, transparent);
+}
+
 @media (max-width: 767px) {
   html.cap-native.cap-ios .ui-dialog-panel.ui-surface {
     background-color: var(--ui-ios-dialog-sheet-bg) !important;
@@ -288,6 +331,11 @@ html.cap-native.cap-ios .ui-popover-panel .ui-button.ui-control:not([data-varian
     box-shadow: none !important;
     -webkit-backdrop-filter: none !important;
     backdrop-filter: none !important;
+  }
+
+  /** Klavye açıkken sheet eteği (surface dolgu) — rounded klavye köşelerini kapatır. */
+  html.cap-native.cap-ios.cap-keyboard-open .ui-dialog-panel.ui-surface {
+    box-shadow: 0 var(--ui-keyboard-inset, 0px) 0 0 var(--ui-ios-dialog-sheet-bg, var(--surface)) !important;
   }
 
   html.cap-native.cap-ios .ui-card.ui-surface:not(.ui-dialog-panel):not(.ui-card--transparent) {
@@ -327,6 +375,10 @@ html.cap-native.cap-ios .app-ios-glass-bar--pos-footer {
 @media (max-width: 767px) {
   html.cap-native.cap-ios .ui-dialog-panel .ui-card-footer {
     padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  html.cap-native.cap-ios.cap-keyboard-open .ui-dialog-panel .ui-card-footer {
+    padding-bottom: 0.75rem;
   }
 }
 
