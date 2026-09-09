@@ -907,11 +907,11 @@
   }
 
   .ui-badge--md {
-    @apply rounded-full px-2.5 py-1 text-xs leading-4;
+    @apply rounded-full px-3 py-1.5 text-sm leading-5;
   }
 
   .ui-badge--lg {
-    @apply rounded-full px-3 py-1.5 text-sm leading-5;
+    @apply rounded-full px-3.5 py-2 text-sm leading-5;
   }
 
   .ui-badge--clickable {
@@ -2334,6 +2334,21 @@
     @apply flex w-full min-w-0 max-w-full;
   }
 
+  .ui-icon-picker--inline,
+  .ui-color-picker--inline {
+    @apply inline-flex w-auto max-w-full;
+  }
+
+  .ui-icon-picker--inline > .ui-popover,
+  .ui-color-picker--inline > .ui-popover {
+    @apply inline-flex w-auto max-w-full;
+  }
+
+  .ui-icon-picker--inline .ui-popover-trigger,
+  .ui-color-picker--inline .ui-popover-trigger {
+    @apply inline-flex w-auto max-w-full;
+  }
+
   .ui-icon-picker-panel,
   .ui-color-picker-panel {
     @apply flex min-w-0 flex-col gap-3 p-3;
@@ -3060,6 +3075,7 @@
     @apply inline-flex box-border w-auto max-w-full min-w-0 flex-row flex-nowrap items-stretch gap-1 overflow-x-auto overscroll-x-contain rounded-full border border-border bg-surface p-1 ui-scrollbar-none;
     height: var(--ui-tab-h-md);
     min-height: var(--ui-tab-h-md);
+    -webkit-overflow-scrolling: touch;
   }
 
   /** Button ile aynı hizada — `--ui-control-h-*` */
@@ -4431,8 +4447,8 @@
   .ui-dialog-panel .ui-card-footer {
     @apply relative z-[2] flex shrink-0 flex-nowrap items-center justify-end gap-3;
     padding-inline: var(--ui-card-padding);
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
   }
 
   /**
@@ -5256,8 +5272,9 @@
       border-bottom-width: 0;
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
-      border-top-left-radius: 1.75rem;
-      border-top-right-radius: 1.75rem;
+      --ui-dialog-sheet-radius: 2.25rem;
+      border-top-left-radius: var(--ui-dialog-sheet-radius);
+      border-top-right-radius: var(--ui-dialog-sheet-radius);
     }
 
     .ui-dialog-panel.ui-surface,
@@ -5265,8 +5282,8 @@
       max-width: none;
       width: 100%;
       border-radius: 0;
-      border-top-left-radius: 1.75rem;
-      border-top-right-radius: 1.75rem;
+      border-top-left-radius: var(--ui-dialog-sheet-radius, 2.25rem);
+      border-top-right-radius: var(--ui-dialog-sheet-radius, 2.25rem);
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
     }
@@ -5298,7 +5315,8 @@
   @media (max-width: 767px) {
     .ui-dialog-panel {
       --ui-dialog-inset-x: max(1rem, env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
-      --ui-dialog-inset-bottom: max(0.75rem, env(safe-area-inset-bottom, 0px));
+      /* Home indicator kadar; ekstra 0.75rem eklenmez (buton yukarı kaçmasın). */
+      --ui-dialog-inset-bottom: env(safe-area-inset-bottom, 0px);
       padding-bottom: 0;
     }
 
@@ -5355,7 +5373,7 @@
 
     .ui-dialog-panel .ui-card-footer {
       padding-inline: var(--ui-dialog-inset-x);
-      padding-top: 0.75rem;
+      padding-top: 0.5rem;
       padding-bottom: var(--ui-dialog-inset-bottom);
       border-top: none;
     }
@@ -5375,6 +5393,7 @@
 
     .ui-dialog-panel--footer-transparent .ui-card-footer.ui-dialog-footer--transparent {
       padding-inline: var(--ui-dialog-inset-x);
+      padding-top: 0.5rem;
       padding-bottom: var(--ui-dialog-inset-bottom);
     }
 

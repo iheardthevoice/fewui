@@ -183,7 +183,11 @@ html.cap-native.cap-ios .ui-select-field .ui-field-control-fill {
 html.cap-native.cap-ios .ui-tab-list--horizontal.ui-tab-list--segmented {
   position: relative;
   isolation: isolate;
-  overflow: hidden;
+  /* Glass clip için overflow:hidden yatay kaydırmayı öldürüyordu — sığmayan sekmelere ulaşılamıyordu. */
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
   border: none !important;
   background-color: var(--ui-ios-glass-bg) !important;
   background-image: none !important;
@@ -374,11 +378,12 @@ html.cap-native.cap-ios .app-ios-glass-bar--pos-footer {
 
 @media (max-width: 767px) {
   html.cap-native.cap-ios .ui-dialog-panel .ui-card-footer {
+    padding-top: 0.5rem;
     padding-bottom: env(safe-area-inset-bottom, 0px);
   }
 
   html.cap-native.cap-ios.cap-keyboard-open .ui-dialog-panel .ui-card-footer {
-    padding-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
   }
 }
 

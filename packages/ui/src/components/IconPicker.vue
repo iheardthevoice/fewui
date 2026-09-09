@@ -163,6 +163,13 @@ export default {
       type: String,
       default: '22rem',
     },
+    /**
+     * Form satırı: tam genişlik. Rozet / satır içi tetikleyici için `false`.
+     */
+    fulled: {
+      type: Boolean,
+      default: true,
+    },
   },
   emits: ['update:modelValue'],
   data() {
@@ -175,7 +182,8 @@ export default {
     ...themeIconTypeComputed(),
     rootClass() {
       return cn(
-        'ui-icon-picker ui-icon-picker--fulled w-full min-w-0',
+        'ui-icon-picker min-w-0',
+        this.fulled ? 'ui-icon-picker--fulled w-full' : 'ui-icon-picker--inline w-auto',
         this.disabled && 'pointer-events-none opacity-50',
         this.$attrs.class,
       )

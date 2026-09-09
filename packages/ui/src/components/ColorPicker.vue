@@ -164,6 +164,13 @@ export default {
       type: String,
       default: '',
     },
+    /**
+     * Form satırı: tam genişlik. Rozet / satır içi tetikleyici için `false`.
+     */
+    fulled: {
+      type: Boolean,
+      default: true,
+    },
   },
   emits: ['update:modelValue'],
   data() {
@@ -175,7 +182,8 @@ export default {
   computed: {
     rootClass() {
       return cn(
-        'ui-color-picker ui-color-picker--fulled w-full min-w-0',
+        'ui-color-picker min-w-0',
+        this.fulled ? 'ui-color-picker--fulled w-full' : 'ui-color-picker--inline w-auto',
         this.disabled && 'pointer-events-none opacity-50',
         this.$attrs.class,
       )

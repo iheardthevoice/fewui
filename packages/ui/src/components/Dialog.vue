@@ -287,10 +287,11 @@ export default {
     /**
      * Footer şeffaf — arka plan/border yok; gövde üzerine biner.
      * Kaydırılabilir içerik footer altında görünür; gövde alt boşluğu otomatik artar.
+     * Varsayılan açık: yalnızca eylem butonları görünür.
      */
     footerTransparent: {
       type: Boolean,
-      default: false,
+      default: true,
     },
     /** Panel `max-height` — örn. `min(85vh, 36rem)`. */
     panelMaxHeight: {

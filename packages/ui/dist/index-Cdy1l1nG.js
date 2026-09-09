@@ -2465,10 +2465,11 @@ const Jn = Gn("ui-dialog"), er = ["solid", "dashed", "dotted", "double"], it = {
     /**
      * Footer şeffaf — arka plan/border yok; gövde üzerine biner.
      * Kaydırılabilir içerik footer altında görünür; gövde alt boşluğu otomatik artar.
+     * Varsayılan açık: yalnızca eylem butonları görünür.
      */
     footerTransparent: {
       type: Boolean,
-      default: !1
+      default: !0
     },
     /** Panel `max-height` — örn. `min(85vh, 36rem)`. */
     panelMaxHeight: {
@@ -7174,4 +7175,4 @@ export {
   $o as y,
   Vo as z
 };
-//# sourceMappingURL=index-uhsF2_pe.js.map
+//# sourceMappingURL=index-Cdy1l1nG.js.map
