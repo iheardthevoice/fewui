@@ -4,22 +4,21 @@
     stack-layer="confirm"
     max-width="sm"
     :title="confirmState.title"
-    :description="confirmState.description"
     :close-on-backdrop="true"
     :close-on-escape="true"
     :aria-label="confirmState.title || fallbackAriaLabel"
   >
+    <p
+      v-if="confirmState.description"
+      class="text-sm text-muted-foreground"
+    >
+      {{ confirmState.description }}
+    </p>
     <template #footer>
       <ui-button
-        color="secondary"
-        rounded
-        @click="onCancel"
-      >
-        {{ cancelText }}
-      </ui-button>
-      <ui-button
-        rounded
         :color="confirmState.destructive ? 'danger' : 'primary'"
+        block
+        size="lg"
         @click="onConfirm"
       >
         {{ confirmText }}
@@ -55,11 +54,6 @@ export default {
       if (typeof this.$t === 'function') return this.$t('ui.confirm.ok')
       return 'Tamam'
     },
-    cancelText() {
-      if (confirmState.cancelLabel) return confirmState.cancelLabel
-      if (typeof this.$t === 'function') return this.$t('ui.confirm.cancel')
-      return 'İptal'
-    },
     fallbackAriaLabel() {
       if (typeof this.$t === 'function') return this.$t('ui.confirm.fallbackAria')
       return 'Onay'
@@ -68,9 +62,6 @@ export default {
   methods: {
     onConfirm() {
       answerConfirm(true)
-    },
-    onCancel() {
-      answerConfirm(false)
     },
   },
 }

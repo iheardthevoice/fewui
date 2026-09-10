@@ -347,15 +347,27 @@ export default {
       const margin = VIEW_MARGIN
       const explicitW = this.resolvedWidth
       const r = trigger.getBoundingClientRect()
-      const panelW =
-        explicitW != null
-          ? panel.offsetWidth || 200
-          : panel.offsetWidth || (this.matchTriggerWidth ? r.width : 200)
+      const contentW = panel.offsetWidth || 0
+      const triggerW = Math.ceil(r.width)
+      /**
+       * Mobil ortalanmış panelde `offsetWidth` bazen çok dar (içerik henüz ölçülmemiş /
+       * min-w-0 shrink) kalır; `matchTriggerWidth` iken tetikleyici genişliğini taban al.
+       */
+      let panelW
+      if (explicitW != null) {
+        panelW = contentW || 200
+      } else if (this.matchTriggerWidth) {
+        panelW = Math.max(contentW, triggerW)
+      } else {
+        panelW = contentW || 200
+      }
       const panelH = panel.offsetHeight || 120
 
       if (isMobileViewport() && this.mobileCentered) {
         this.mobileCenteredActive = true
-        const left = Math.max(margin, Math.round((vw - panelW) / 2))
+        const maxW = vw - margin * 2
+        const widthPx = Math.min(panelW, maxW)
+        const left = Math.max(margin, Math.round((vw - widthPx) / 2))
         const top = Math.max(margin, Math.round((vh - panelH) / 2))
         const style = {
           top: `${top}px`,
@@ -365,7 +377,10 @@ export default {
           style.width = explicitW
           style.minWidth = explicitW
         } else {
-          style.width = `${Math.min(panelW, vw - margin * 2)}px`
+          style.width = `${widthPx}px`
+          if (this.matchTriggerWidth) {
+            style.minWidth = `${Math.min(triggerW, maxW)}px`
+          }
           style.maxWidth = `calc(100vw - ${margin * 2}px)`
         }
         this.layerStyle = this.withLayerZIndex(style)

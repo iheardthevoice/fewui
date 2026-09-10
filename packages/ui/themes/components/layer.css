@@ -4353,6 +4353,11 @@
     @apply ml-auto flex w-auto max-w-full flex-row flex-wrap items-center justify-end gap-2;
   }
 
+  /** Joined split-button: footer gap-2 birleşik grubu ayırmasın */
+  .ui-sheet-panel .ui-card-footer .ui-action-group--joined {
+    @apply flex-nowrap gap-0;
+  }
+
   .ui-sheet-panel .ui-card-footer .ui-action-group--grow {
     @apply ml-0 w-full;
   }
@@ -4555,6 +4560,11 @@
 
   .ui-dialog-panel .ui-card-footer .ui-action-group {
     @apply ml-auto flex w-auto max-w-full flex-row flex-wrap items-center justify-end gap-2;
+  }
+
+  /** Joined split-button: footer gap-2 birleşik grubu ayırmasın */
+  .ui-dialog-panel .ui-card-footer .ui-action-group--joined {
+    @apply flex-nowrap gap-0;
   }
 
   .ui-dialog-panel .ui-card-footer .ui-action-group--grow > * {
@@ -5441,6 +5451,14 @@
 
     .ui-dialog-panel .ui-dialog-header__close {
       display: none;
+    }
+
+    /**
+     * Onay katmanı — mobilde X gizli kalmasın (footer’da İptal yok;
+     * kapatma başlıktaki X / backdrop / Escape ile).
+     */
+    .ui-dialog-root--confirm .ui-dialog-panel .ui-dialog-header__close {
+      display: inline-flex;
     }
   }
 

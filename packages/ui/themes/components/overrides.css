@@ -64,6 +64,12 @@
   z-index: 420;
 }
 
+@media (max-width: 767px) {
+  .ui-dialog-root--confirm .ui-dialog-panel .ui-dialog-header__close {
+    display: inline-flex;
+  }
+}
+
 .ui-popover-layer {
   z-index: 410;
 }
