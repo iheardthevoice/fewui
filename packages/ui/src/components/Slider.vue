@@ -52,8 +52,9 @@
 
 <script>
 import { cn } from '../utils/cn.js'
+import { createUiIdFactory } from '../utils/ui-id.js'
 
-let sliderCounter = 0
+const nextSliderId = createUiIdFactory('ui-slider')
 
 export default {
   name: 'Slider',
@@ -107,8 +108,7 @@ export default {
   },
   emits: ['update:modelValue', 'input', 'change'],
   data() {
-    sliderCounter += 1
-    return { fallbackId: `ui-slider-${sliderCounter}` }
+    return { fallbackId: nextSliderId() }
   },
   computed: {
     resolvedId() {

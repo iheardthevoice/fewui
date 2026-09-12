@@ -234,9 +234,11 @@
 <script>
 import { cn } from '../utils/cn.js'
 import { resolveThemeControlSize } from '../theme/resolve-theme-default.js'
+import { createUiIdFactory } from '../utils/ui-id.js'
 import Tag from './Tag.vue'
 
-let selectCounter = 0
+/** Reset via `resetUiIds()` — module counters drift on Cloudflare Worker isolates. */
+const nextSelectId = createUiIdFactory('ui-select')
 
 const VARIANTS = ['field', 'inline']
 const SIZES = ['sm', 'md', 'lg']
@@ -335,11 +337,11 @@ export default {
   },
   emits: ['update:modelValue', 'change', 'dropdownOpenChange', 'filterChange'],
   data() {
-    selectCounter += 1
-    const id = selectCounter
+    const fallbackId = nextSelectId()
+    const seq = fallbackId.slice('ui-select-'.length)
     return {
-      fallbackId: `ui-select-${id}`,
-      listboxId: `ui-select-listbox-${id}`,
+      fallbackId,
+      fallbackListboxId: `ui-select-listbox-${seq}`,
       menuOpen: false,
       filterQuery: '',
       filterDebounceTimer: null,
@@ -402,6 +404,12 @@ export default {
         return this.id
       }
       return this.fallbackId
+    },
+    listboxId() {
+      if (this.id != null && this.id !== '') {
+        return `${this.id}-listbox`
+      }
+      return this.fallbackListboxId
     },
     resolvedPlaceholder() {
       if (this.placeholder !== undefined && this.placeholder !== null) {

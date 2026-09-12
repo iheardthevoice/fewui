@@ -64,8 +64,9 @@
 
 <script>
 import { scorePassword } from '../utils/passwordStrength.js'
+import { createUiIdFactory } from '../utils/ui-id.js'
 
-let passwordCounter = 0
+const nextPasswordId = createUiIdFactory('ui-password')
 
 const SIZES = ['sm', 'md', 'lg']
 
@@ -118,10 +119,11 @@ export default {
   },
   emits: ['update:modelValue', 'focus', 'blur'],
   data() {
-    passwordCounter += 1
+    const fallbackId = nextPasswordId()
+    const seq = fallbackId.slice('ui-password-'.length)
     return {
-      fallbackId: `ui-password-${passwordCounter}`,
-      fallbackStrengthId: `ui-password-strength-${passwordCounter}`,
+      fallbackId,
+      fallbackStrengthId: `ui-password-strength-${seq}`,
       visible: false,
     }
   },

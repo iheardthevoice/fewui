@@ -32,7 +32,9 @@
 </template>
 
 <script>
-let tooltipUid = 0
+import { createUiIdFactory } from '../utils/ui-id.js'
+
+const nextTooltipId = createUiIdFactory('ui-tooltip')
 
 const PLACEMENTS = ['top', 'bottom', 'left', 'right']
 const VIEW_MARGIN = 8
@@ -70,7 +72,7 @@ export default {
       open: false,
       portalReady: false,
       panelStyle: {},
-      tooltipId: `ui-tooltip-${++tooltipUid}`,
+      tooltipId: nextTooltipId(),
       showTimer: null,
       hideTimer: null,
     }

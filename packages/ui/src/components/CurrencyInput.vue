@@ -32,8 +32,9 @@ import {
   parseLocalizedMoneyInput,
   resolveCurrencyCode,
 } from '../utils/currency.js'
+import { createUiIdFactory } from '../utils/ui-id.js'
 
-let currencyInputCounter = 0
+const nextCurrencyInputId = createUiIdFactory('ui-currency-input')
 
 const SIZES = ['sm', 'md', 'lg']
 
@@ -91,8 +92,7 @@ export default {
   },
   emits: ['update:modelValue', 'input', 'change', 'focus', 'blur'],
   data() {
-    currencyInputCounter += 1
-    return { fallbackId: `ui-currency-input-${currencyInputCounter}` }
+    return { fallbackId: nextCurrencyInputId() }
   },
   computed: {
     displaySymbol() {

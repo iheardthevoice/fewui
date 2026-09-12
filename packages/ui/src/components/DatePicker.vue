@@ -217,8 +217,9 @@
 <script>
 import { formatDateDisplay, resolveDateDisplayLocale, formatYmdDisplay } from '../utils/format-ymd-display.js'
 import { resolveThemeDateFormat } from '../theme/resolve-theme-default.js'
+import { createUiIdFactory } from '../utils/ui-id.js'
 
-let dpCounter = 0
+const nextDatePickerId = createUiIdFactory('ui-datepicker')
 
 function pad2(n) {
   return String(n).padStart(2, '0')
@@ -305,11 +306,9 @@ export default {
   },
   emits: ['update:modelValue', 'change'],
   data() {
-    dpCounter += 1
-    const id = dpCounter
     const initial = parseYmd(this.modelValue) || new Date()
     return {
-      fallbackId: `ui-datepicker-${id}`,
+      fallbackId: nextDatePickerId(),
       menuOpen: false,
       viewYear: initial.getFullYear(),
       viewMonth: initial.getMonth(),

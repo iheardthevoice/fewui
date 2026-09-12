@@ -10,11 +10,12 @@
 
 <script>
 import { cn } from '../utils/cn.js'
+import { createUiIdFactory } from '../utils/ui-id.js'
 
 const VARIANTS = ['list', 'button', 'List', 'Button']
 const ORIENTATIONS = ['vertical', 'horizontal']
 
-let cgCounter = 0
+const nextCheckboxGroupId = createUiIdFactory('ui-checkbox-group')
 
 export default {
   name: 'CheckboxGroup',
@@ -45,8 +46,7 @@ export default {
   },
   emits: ['update:modelValue'],
   data() {
-    cgCounter += 1
-    return { groupName: `ui-checkbox-group-${cgCounter}` }
+    return { groupName: nextCheckboxGroupId() }
   },
   computed: {
     normalizedVariant() {

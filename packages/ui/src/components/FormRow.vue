@@ -45,7 +45,9 @@
 </template>
 
 <script>
-let rowCounter = 0
+import { createUiIdFactory } from '../utils/ui-id.js'
+
+const nextFormRowId = createUiIdFactory('ui-form-control')
 
 const DIRECTIONS = ['vertical', 'horizontal']
 const VARIANTS = ['default', 'card']
@@ -105,11 +107,11 @@ export default {
     }
   },
   data() {
-    rowCounter += 1
-    const n = rowCounter
+    const fallbackId = nextFormRowId()
+    const seq = fallbackId.slice('ui-form-control-'.length)
     return {
-      fallbackId: `ui-form-control-${n}`,
-      fallbackDescId: `ui-form-desc-${n}`,
+      fallbackId,
+      fallbackDescId: `ui-form-desc-${seq}`,
     }
   },
   computed: {

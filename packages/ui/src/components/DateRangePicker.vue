@@ -139,8 +139,9 @@
 <script>
 import { formatYmdDisplay, resolveDateDisplayLocale } from '../utils/format-ymd-display.js'
 import { resolveThemeDateFormat } from '../theme/resolve-theme-default.js'
+import { createUiIdFactory } from '../utils/ui-id.js'
 
-let drpCounter = 0
+const nextDateRangePickerId = createUiIdFactory('ui-daterangepicker')
 
 function pad2(n) {
   return String(n).padStart(2, '0')
@@ -251,12 +252,10 @@ export default {
   },
   emits: ['update:modelValue', 'change'],
   data() {
-    drpCounter += 1
-    const id = drpCounter
     const start = this.modelValue?.[0] || ''
     const initial = parseYmd(start) || parseYmd(this.modelValue?.[1]) || new Date()
     return {
-      fallbackId: `ui-daterangepicker-${id}`,
+      fallbackId: nextDateRangePickerId(),
       menuOpen: false,
       viewYear: initial.getFullYear(),
       viewMonth: initial.getMonth(),

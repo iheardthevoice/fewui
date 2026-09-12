@@ -48,8 +48,9 @@
 <script>
 import { cn } from '../utils/cn.js'
 import { resolveThemeControlSize } from '../theme/resolve-theme-default.js'
+import { createUiIdFactory } from '../utils/ui-id.js'
 
-let phoneCounter = 0
+const nextPhoneId = createUiIdFactory('ui-phone-number')
 
 const SIZES = ['sm', 'md', 'lg']
 
@@ -120,8 +121,7 @@ export default {
   },
   emits: ['update:country', 'update:number', 'focus', 'blur'],
   data() {
-    phoneCounter += 1
-    return { fallbackId: `ui-phone-number-${phoneCounter}` }
+    return { fallbackId: nextPhoneId() }
   },
   computed: {
     countryOptions() {

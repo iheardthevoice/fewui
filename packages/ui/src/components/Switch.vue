@@ -29,7 +29,9 @@
 </template>
 
 <script>
-let switchCounter = 0
+import { createUiIdFactory } from '../utils/ui-id.js'
+
+const nextSwitchId = createUiIdFactory('ui-switch')
 
 export default {
   name: 'Switch',
@@ -55,8 +57,7 @@ export default {
   },
   emits: ['update:modelValue', 'change'],
   data() {
-    switchCounter += 1
-    return { fallbackId: `ui-switch-${switchCounter}` }
+    return { fallbackId: nextSwitchId() }
   },
   computed: {
     isDisabled() {

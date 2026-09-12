@@ -10,8 +10,9 @@
 
 <script>
 import { cn } from '../utils/cn.js'
+import { createUiIdFactory } from '../utils/ui-id.js'
 
-let rgCounter = 0
+const nextRadioGroupId = createUiIdFactory('ui-radio-group')
 
 const VARIANTS = ['list', 'button', 'List', 'Button']
 const ORIENTATIONS = ['vertical', 'horizontal']
@@ -46,8 +47,7 @@ export default {
   },
   emits: ['update:modelValue'],
   data() {
-    rgCounter += 1
-    return { groupName: `ui-radio-group-${rgCounter}` }
+    return { groupName: nextRadioGroupId() }
   },
   computed: {
     normalizedVariant() {
