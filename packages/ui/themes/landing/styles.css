@@ -1,1 +1,25 @@
 /** Landing tenant — cam kart / tab stilleri uygulama katmanında genişletilir. */
+
+/**
+ * Cam yüzey (12px blur): overlay açılışında backdrop-filter’ı aç/kapa yapma.
+ * Transform + canlı blur kasar; yalnızca opacity fade (dim backdrop ile aynı desen).
+ */
+.ui-overlay-popover-enter-active:not([data-popover-align-active]),
+.ui-overlay-popover-leave-active:not([data-popover-align-active]) {
+  transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: none;
+  will-change: opacity;
+}
+
+.ui-overlay-popover-enter-from:not([data-popover-align-active]),
+.ui-overlay-popover-leave-to:not([data-popover-align-active]) {
+  opacity: 0;
+  transform: none;
+}
+
+@media (max-width: 767px) {
+  .ui-overlay-popover-enter-from[data-ui-popover-mobile-centered],
+  .ui-overlay-popover-leave-to[data-ui-popover-mobile-centered] {
+    transform: none;
+  }
+}

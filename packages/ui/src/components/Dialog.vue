@@ -512,6 +512,18 @@ export default {
     desktopRestTransform() {
       return 'translate3d(0, 0, 0) scale3d(1, 1, 1)'
     },
+    /** Cam yüzeyde transform + canlı backdrop-filter kasar; opacity-only aç. */
+    surfaceBackdropBlurPx() {
+      if (typeof window === 'undefined' || typeof document === 'undefined') return 0
+      const raw = getComputedStyle(document.documentElement)
+        .getPropertyValue('--ui-surface-backdrop-blur')
+        .trim()
+      const n = Number.parseFloat(raw)
+      return Number.isFinite(n) ? n : 0
+    },
+    preferGlassSafeOverlayMotion() {
+      return this.surfaceBackdropBlurPx() > 0
+    },
     runOnNextFrames(fn) {
       requestAnimationFrame(() => {
         requestAnimationFrame(fn)
@@ -585,6 +597,7 @@ export default {
       const parts = this.layerMotionParts(el)
       const { panel, motion, backdrop } = parts
       const mobile = isMobileViewport()
+      const glassSafe = this.preferGlassSafeOverlayMotion()
       const { enterMs, easing } = this.layerMotionTimings()
       const duration = `${enterMs / 1000}s`
       const backdropMs = Math.round(enterMs * 0.72)
@@ -600,9 +613,16 @@ export default {
       }
       if (panel) {
         panel.style.transition = 'none'
-        if (mobile) {
+        if (mobile && !glassSafe) {
           panel.style.opacity = '1'
           panel.style.transform = 'translate3d(0, 100%, 0)'
+        } else if (mobile && glassSafe) {
+          // Cam: sheet slide + blur kasar; opacity fade (blur sabit).
+          panel.style.opacity = '0'
+          panel.style.transform = this.desktopRestTransform()
+        } else if (glassSafe) {
+          panel.style.opacity = '0'
+          panel.style.transform = this.desktopRestTransform()
         } else {
           panel.style.opacity = '0'
           panel.style.transform = this.desktopEnterTransform()
@@ -616,13 +636,19 @@ export default {
           backdrop.style.opacity = '1'
         }
         if (panel) {
-          panel.style.transition = mobile
-            ? `transform ${duration} ${easing}`
-            : `opacity ${duration} ${easing}, transform ${duration} ${easing}`
-          panel.style.opacity = '1'
-          panel.style.transform = mobile
-            ? 'translate3d(0, 0, 0)'
-            : this.desktopRestTransform()
+          if (mobile && !glassSafe) {
+            panel.style.transition = `transform ${duration} ${easing}`
+            panel.style.opacity = '1'
+            panel.style.transform = 'translate3d(0, 0, 0)'
+          } else if (glassSafe) {
+            panel.style.transition = `opacity ${duration} ${easing}`
+            panel.style.opacity = '1'
+            panel.style.transform = this.desktopRestTransform()
+          } else {
+            panel.style.transition = `opacity ${duration} ${easing}, transform ${duration} ${easing}`
+            panel.style.opacity = '1'
+            panel.style.transform = this.desktopRestTransform()
+          }
         }
         this.waitLayerTransition(panel || backdrop, enterMs + 80, () => {
           if (this.layerClosing) return
@@ -641,11 +667,14 @@ export default {
         return
       }
       const mobile = isMobileViewport()
+      const glassSafe = this.preferGlassSafeOverlayMotion()
       const parts = this.layerMotionParts(el)
       const dragged =
-        mobile && Boolean(parts.panel?.style.transform && parts.panel.style.transform !== 'none')
+        mobile &&
+        !glassSafe &&
+        Boolean(parts.panel?.style.transform && parts.panel.style.transform !== 'none')
       this.clearLayerInlineMotion(el, {
-        preserveMobilePanelTransform: mobile,
+        preserveMobilePanelTransform: mobile && !glassSafe,
         preserveBackdrop: dragged,
       })
       const { panel, motion, backdrop } = parts
@@ -663,9 +692,13 @@ export default {
           backdrop.style.transition = `opacity ${backdropDuration} ${leaveEasing}`
           backdrop.style.opacity = '0'
         }
-        if (mobile && panel) {
+        if (mobile && panel && !glassSafe) {
           panel.style.transition = `transform ${duration} ${leaveEasing}`
           panel.style.transform = 'translate3d(0, 100%, 0)'
+        } else if (panel && glassSafe) {
+          panel.style.transition = `opacity ${duration} ${leaveEasing}`
+          panel.style.opacity = '0'
+          panel.style.transform = this.desktopRestTransform()
         } else if (panel) {
           panel.style.transition = `opacity ${duration} ${leaveEasing}, transform ${duration} ${leaveEasing}`
           panel.style.opacity = '0'

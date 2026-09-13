@@ -210,12 +210,21 @@ html.cap-native.cap-ios .ui-popover-panel.ui-surface {
   /* translateZ(0) katman animasyonunu iOS’ta öldürür — kullanma. */
 }
 
-/** Açılış/kapanış sırasında blur + transform çakışmasın. */
-html.cap-native.cap-ios .ui-overlay-popover-enter-active .ui-popover-panel.ui-surface,
-html.cap-native.cap-ios .ui-overlay-popover-leave-active .ui-popover-panel.ui-surface {
-  -webkit-backdrop-filter: none !important;
-  backdrop-filter: none !important;
-  background-color: color-mix(in srgb, var(--surface) 92%, transparent) !important;
+/**
+ * iOS liquid glass popover — blur’ı enter/leave’de kapatma (snap).
+ * Transform + canlı backdrop-filter kasmasın diye yalnızca opacity fade.
+ */
+html.cap-native.cap-ios .ui-overlay-popover-enter-active,
+html.cap-native.cap-ios .ui-overlay-popover-leave-active {
+  transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  transform: none !important;
+  will-change: opacity;
+}
+
+html.cap-native.cap-ios .ui-overlay-popover-enter-from,
+html.cap-native.cap-ios .ui-overlay-popover-leave-to {
+  opacity: 0;
+  transform: none !important;
 }
 
 html.cap-native.cap-ios .ui-tab-list--horizontal.ui-tab-list--segmented::before,

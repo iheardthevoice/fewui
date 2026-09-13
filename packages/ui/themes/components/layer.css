@@ -1102,7 +1102,9 @@
 
   /**
    * Dialog — backdrop ve panel ayrı; kapanış girişten biraz daha kısa.
-   * Açılış/kapanış JS ile (inline transform); `.ui-dialog-root--motion` GPU + blur kapaması.
+   * Açılış/kapanış JS ile (inline transform/opacity).
+   * Blur (`backdrop-filter`) motion sırasında kapatılmaz — aç/kapa snap ve jank üretir;
+   * cam yüzeyi opacity ile fade edilir, blur sabit kalır.
    */
   .ui-dialog-root--motion {
     pointer-events: none;
@@ -1116,11 +1118,6 @@
     will-change: transform, opacity;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
-  }
-
-  .ui-dialog-root--motion .ui-dialog-panel.ui-surface {
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
   }
 
   .ui-overlay-dialog-enter-active .ui-dialog-backdrop {
