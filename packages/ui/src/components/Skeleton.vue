@@ -12,9 +12,8 @@
     v-else
     ref="hostRef"
     :class="hostClass"
-    :style="hostStyle"
+    v-bind="hostStyle ? { style: hostStyle, ...passthroughAttrs } : passthroughAttrs"
     :aria-busy="isBusy ? 'true' : undefined"
-    v-bind="passthroughAttrs"
     @transitionend="onHostTransitionEnd"
   >
     <div

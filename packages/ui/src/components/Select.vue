@@ -92,7 +92,7 @@
               v-else
               class="ui-select-value"
               :class="{ 'ui-select-value--placeholder': isPlaceholderDisplay }"
-              :style="selectedDisplayStyle"
+              v-bind="selectedDisplayStyle ? { style: selectedDisplayStyle } : {}"
               data-popover-align
             >{{ displayLabel }}</span>
             <span class="ui-select-field-suffix">
@@ -187,7 +187,7 @@
                   <span
                     data-popover-align
                     class="min-w-0 truncate"
-                    :style="optionDisplayStyle(opt)"
+                    v-bind="optionDisplayStyle(opt) ? { style: optionDisplayStyle(opt) } : {}"
                   >{{ opt.label }}</span>
                   <ui-badge
                     v-if="opt.badge"

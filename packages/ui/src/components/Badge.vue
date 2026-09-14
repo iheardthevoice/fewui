@@ -6,9 +6,8 @@
   >
     <component
       :is="rootTag"
-      v-bind="rootAttrs"
+      v-bind="hexBadgeStyle ? { ...rootAttrs, style: hexBadgeStyle } : rootAttrs"
       :class="badgeClasses"
-      :style="hexBadgeStyle"
     >
       <span
         v-if="prefixIcon"
