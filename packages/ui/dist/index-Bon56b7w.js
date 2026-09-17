@@ -9,14 +9,14 @@ if (typeof window < "u") {
   const e = window.matchMedia(_t);
   typeof e.addEventListener == "function" ? e.addEventListener("change", se) : typeof e.addListener == "function" && e.addListener(se);
 }
-function O() {
+function R() {
   return Ct.value;
 }
 function qt() {
   return typeof document > "u" ? !1 : document.documentElement.classList.contains("cap-ios");
 }
 function Yt() {
-  return O() || qt();
+  return R() || qt();
 }
 function Re(e, { defaultSize: t = "md" } = {}) {
   if (e !== t)
@@ -559,7 +559,7 @@ function jl() {
   for (const e of zt)
     e();
 }
-const ki = j("ui-tooltip"), Si = ["top", "bottom", "left", "right"], E = 8, xi = {
+const ki = j("ui-tooltip"), Si = ["top", "bottom", "left", "right"], O = 8, xi = {
   name: "Tooltip",
   inheritAttrs: !1,
   props: {
@@ -649,7 +649,7 @@ const ki = j("ui-tooltip"), Si = ["top", "bottom", "left", "right"], E = 8, xi =
     updatePosition() {
       const e = this.$refs.wrapperRef;
       if (!e) return;
-      const t = e.getBoundingClientRect(), i = E, r = t.left + t.width / 2, s = t.top + t.height / 2;
+      const t = e.getBoundingClientRect(), i = O, r = t.left + t.width / 2, s = t.top + t.height / 2;
       let n = this.placement, a = {};
       switch (n) {
         case "bottom":
@@ -690,17 +690,17 @@ const ki = j("ui-tooltip"), Si = ["top", "bottom", "left", "right"], E = 8, xi =
       if (!r) return;
       const s = window.innerWidth, n = window.innerHeight;
       let a = r.getBoundingClientRect();
-      t === "top" && a.top < E ? (this.panelStyle = {
+      t === "top" && a.top < O ? (this.panelStyle = {
         left: `${e.left + e.width / 2}px`,
         top: `${e.bottom + i}px`,
         transform: "translate(-50%, 0)"
-      }, a = r.getBoundingClientRect()) : t === "bottom" && a.bottom > n - E && (this.panelStyle = {
+      }, a = r.getBoundingClientRect()) : t === "bottom" && a.bottom > n - O && (this.panelStyle = {
         left: `${e.left + e.width / 2}px`,
         top: `${e.top - i}px`,
         transform: "translate(-50%, -100%)"
       }, a = r.getBoundingClientRect());
       let o = 0, d = 0;
-      if (a.left < E ? o = E - a.left : a.right > s - E && (o = s - E - a.right), a.top < E ? d = E - a.top : a.bottom > n - E && (d = n - E - a.bottom), o === 0 && d === 0) return;
+      if (a.left < O ? o = O - a.left : a.right > s - O && (o = s - O - a.right), a.top < O ? d = O - a.top : a.bottom > n - O && (d = n - O - a.bottom), o === 0 && d === 0) return;
       const c = parseFloat(this.panelStyle.left), p = parseFloat(this.panelStyle.top);
       !Number.isFinite(c) || !Number.isFinite(p) || (this.panelStyle = {
         ...this.panelStyle,
@@ -2606,7 +2606,7 @@ const Un = j("ui-dialog"), Qn = ["solid", "dashed", "dotted", "double"], it = {
       return 320;
     },
     layerMotionTimings() {
-      return O() ? {
+      return R() ? {
         enterMs: this.mobileSheetDurationMs(),
         leaveMs: 280,
         snapMs: 280,
@@ -2635,8 +2635,12 @@ const Un = j("ui-dialog"), Qn = ["solid", "dashed", "dotted", "double"], it = {
       const e = getComputedStyle(document.documentElement).getPropertyValue("--ui-surface-backdrop-blur").trim(), t = Number.parseFloat(e);
       return Number.isFinite(t) ? t : 0;
     },
+    /**
+     * Desktop cam: opacity-only (hafif scale jank’i önler).
+     * Mobil sheet (alttan kayma) her zaman açık — blur artık animasyon boyunca sabit.
+     */
     preferGlassSafeOverlayMotion() {
-      return this.surfaceBackdropBlurPx() > 0;
+      return R() ? !1 : this.surfaceBackdropBlurPx() > 0;
     },
     runOnNextFrames(e) {
       requestAnimationFrame(() => {
@@ -2656,7 +2660,7 @@ const Un = j("ui-dialog"), Qn = ["solid", "dashed", "dotted", "double"], it = {
       return Math.max(0, 1 - r);
     },
     clearLayerInlineMotion(e, { preserveMobilePanelTransform: t = !1, preserveBackdrop: i = !1 } = {}) {
-      const r = O(), { panel: s, motion: n, backdrop: a } = this.layerMotionParts(e);
+      const r = R(), { panel: s, motion: n, backdrop: a } = this.layerMotionParts(e);
       n && (n.style.removeProperty("transform"), n.style.removeProperty("transition")), s && ((!t || !r) && s.style.removeProperty("transform"), s.style.removeProperty("transition"), s.style.removeProperty("opacity")), a && !i && (a.style.removeProperty("opacity"), a.style.removeProperty("transition"));
     },
     waitLayerTransition(e, t, i) {
@@ -2685,9 +2689,9 @@ const Un = j("ui-dialog"), Qn = ["solid", "dashed", "dotted", "double"], it = {
         this.onOverlayAfterEnter();
         return;
       }
-      const t = this.layerMotionParts(e), { panel: i, motion: r, backdrop: s } = t, n = O(), a = this.preferGlassSafeOverlayMotion(), { enterMs: o, easing: d } = this.layerMotionTimings(), c = `${o / 1e3}s`, y = `${Math.round(o * 0.72) / 1e3}s`;
-      this.layerMotionActive = !0, r && (r.style.removeProperty("transform"), r.style.removeProperty("transition")), s && (s.style.transition = "none", s.style.opacity = "0"), i && (i.style.transition = "none", n && !a ? (i.style.opacity = "1", i.style.transform = "translate3d(0, 100%, 0)") : n && a ? (i.style.opacity = "0", i.style.transform = this.desktopRestTransform()) : a ? (i.style.opacity = "0", i.style.transform = this.desktopRestTransform()) : (i.style.opacity = "0", i.style.transform = this.desktopEnterTransform())), e.offsetHeight, this.runOnNextFrames(() => {
-        !this.layerMounted || this.layerClosing || (s && (s.style.transition = `opacity ${y} ${d}`, s.style.opacity = "1"), i && (n && !a ? (i.style.transition = `transform ${c} ${d}`, i.style.opacity = "1", i.style.transform = "translate3d(0, 0, 0)") : a ? (i.style.transition = `opacity ${c} ${d}`, i.style.opacity = "1", i.style.transform = this.desktopRestTransform()) : (i.style.transition = `opacity ${c} ${d}, transform ${c} ${d}`, i.style.opacity = "1", i.style.transform = this.desktopRestTransform())), this.waitLayerTransition(i || s, o + 80, () => {
+      const t = this.layerMotionParts(e), { panel: i, motion: r, backdrop: s } = t, n = R(), a = this.preferGlassSafeOverlayMotion(), { enterMs: o, easing: d } = this.layerMotionTimings(), c = `${o / 1e3}s`, y = `${Math.round(o * 0.72) / 1e3}s`;
+      this.layerMotionActive = !0, r && (r.style.removeProperty("transform"), r.style.removeProperty("transition")), s && (s.style.transition = "none", s.style.opacity = "0"), i && (i.style.transition = "none", n ? (i.style.opacity = "1", i.style.transform = "translate3d(0, 100%, 0)") : a ? (i.style.opacity = "0", i.style.transform = this.desktopRestTransform()) : (i.style.opacity = "0", i.style.transform = this.desktopEnterTransform())), e.offsetHeight, this.runOnNextFrames(() => {
+        !this.layerMounted || this.layerClosing || (s && (s.style.transition = `opacity ${y} ${d}`, s.style.opacity = "1"), i && (n ? (i.style.transition = `transform ${c} ${d}`, i.style.opacity = "1", i.style.transform = "translate3d(0, 0, 0)") : a ? (i.style.transition = `opacity ${c} ${d}`, i.style.opacity = "1", i.style.transform = this.desktopRestTransform()) : (i.style.transition = `opacity ${c} ${d}, transform ${c} ${d}`, i.style.opacity = "1", i.style.transform = this.desktopRestTransform())), this.waitLayerTransition(i || s, o + 80, () => {
           this.layerClosing || (this.finishLayerMotion(e), this.onOverlayAfterEnter());
         }));
       });
@@ -2701,14 +2705,14 @@ const Un = j("ui-dialog"), Qn = ["solid", "dashed", "dotted", "double"], it = {
         i();
         return;
       }
-      const r = O(), s = this.preferGlassSafeOverlayMotion(), n = this.layerMotionParts(e), a = r && !s && !!((k = n.panel) != null && k.style.transform && n.panel.style.transform !== "none");
+      const r = R(), s = this.preferGlassSafeOverlayMotion(), n = this.layerMotionParts(e), a = r && !!((k = n.panel) != null && k.style.transform && n.panel.style.transform !== "none");
       this.clearLayerInlineMotion(e, {
-        preserveMobilePanelTransform: r && !s,
+        preserveMobilePanelTransform: r,
         preserveBackdrop: a
       });
       const { panel: o, motion: d, backdrop: c } = n, { leaveMs: p, leaveEasing: y } = this.layerMotionTimings(), b = `${p / 1e3}s`, I = `${Math.round(p * 0.85) / 1e3}s`;
       this.layerMotionActive = !0, d && (d.style.removeProperty("transform"), d.style.removeProperty("transition")), e.offsetHeight, this.runOnNextFrames(() => {
-        c && (c.style.transition = `opacity ${I} ${y}`, c.style.opacity = "0"), r && o && !s ? (o.style.transition = `transform ${b} ${y}`, o.style.transform = "translate3d(0, 100%, 0)") : o && s ? (o.style.transition = `opacity ${b} ${y}`, o.style.opacity = "0", o.style.transform = this.desktopRestTransform()) : o && (o.style.transition = `opacity ${b} ${y}, transform ${b} ${y}`, o.style.opacity = "0", o.style.transform = this.desktopLeaveTransform()), this.waitLayerTransition(o || c, p + 80, i);
+        c && (c.style.transition = `opacity ${I} ${y}`, c.style.opacity = "0"), r && o ? (o.style.transition = `transform ${b} ${y}`, o.style.transform = "translate3d(0, 100%, 0)") : o && s ? (o.style.transition = `opacity ${b} ${y}`, o.style.opacity = "0", o.style.transform = this.desktopRestTransform()) : o && (o.style.transition = `opacity ${b} ${y}, transform ${b} ${y}`, o.style.opacity = "0", o.style.transform = this.desktopLeaveTransform()), this.waitLayerTransition(o || c, p + 80, i);
       });
     },
     finishLayerMotion(e) {
@@ -2756,7 +2760,7 @@ const Un = j("ui-dialog"), Qn = ["solid", "dashed", "dotted", "double"], it = {
     },
     focusInitialField() {
       var t;
-      if (O()) return;
+      if (R()) return;
       const e = this.$refs.panelRef;
       e && Kn(e) || (t = e == null ? void 0 : e.focus) == null || t.call(e);
     },
@@ -2784,7 +2788,7 @@ const Un = j("ui-dialog"), Qn = ["solid", "dashed", "dotted", "double"], it = {
       ) : !1;
     },
     onSheetPointerDown(e) {
-      if (!O() || e.button !== 0 || this.isSheetDragBlockedTarget(e.target)) return;
+      if (!R() || e.button !== 0 || this.isSheetDragBlockedTarget(e.target)) return;
       const t = this.$refs.layerRef, i = this.$refs.panelRef;
       if (!t || !i) return;
       e.preventDefault(), this.teardownSheetDrag();
@@ -4166,7 +4170,7 @@ const so = /* @__PURE__ */ C(os, [["render", hs]]), ms = [
   },
   computed: {
     showMobileBackdrop() {
-      return this.open && this.mobileCentered && O();
+      return this.open && this.mobileCentered && R();
     },
     popoverMobileCenteredAttr() {
       return this.mobileCenteredActive || this.mobileCenteredLeaving;
@@ -4187,7 +4191,7 @@ const so = /* @__PURE__ */ C(os, [["render", hs]]), ms = [
   },
   watch: {
     open(e) {
-      e ? (this.mobileCenteredLeaving = !1, this.mobileCenteredActive = this.mobileCentered && O(), this.$nextTick(() => {
+      e ? (this.mobileCenteredLeaving = !1, this.mobileCenteredActive = this.mobileCentered && R(), this.$nextTick(() => {
         this.updatePosition(), this.schedulePosition(), this.bindGlobalListeners();
       })) : (this.mobileCenteredActive && (this.mobileCenteredLeaving = !0), this.mobileCenteredActive = !1, this.teardownGlobalListeners());
     },
@@ -4253,13 +4257,13 @@ const so = /* @__PURE__ */ C(os, [["render", hs]]), ms = [
       let c;
       n != null ? c = o || 200 : this.matchTriggerWidth ? c = Math.max(o, d) : c = o || 200;
       const p = t.offsetHeight || 120;
-      if (O() && this.mobileCentered) {
+      if (R() && this.mobileCentered) {
         this.mobileCenteredActive = !0;
-        const A = i - s * 2, T = Math.min(c, A), $ = Math.max(s, Math.round((i - T) / 2)), R = {
+        const A = i - s * 2, T = Math.min(c, A), $ = Math.max(s, Math.round((i - T) / 2)), E = {
           top: `${Math.max(s, Math.round((r - p) / 2))}px`,
           left: `${$}px`
         };
-        n != null ? (R.width = n, R.minWidth = n) : (R.width = `${T}px`, this.matchTriggerWidth && (R.minWidth = `${Math.min(d, A)}px`), R.maxWidth = `calc(100vw - ${s * 2}px)`), this.layerStyle = this.withLayerZIndex(R);
+        n != null ? (E.width = n, E.minWidth = n) : (E.width = `${T}px`, this.matchTriggerWidth && (E.minWidth = `${Math.min(d, A)}px`), E.maxWidth = `calc(100vw - ${s * 2}px)`), this.layerStyle = this.withLayerZIndex(E);
         return;
       }
       this.mobileCenteredActive = !1;
@@ -4325,8 +4329,8 @@ const so = /* @__PURE__ */ C(os, [["render", hs]]), ms = [
       let k = typeof b == "string" && b !== "" ? parseFloat(b) : y.top, A = typeof I == "string" && I !== "" ? parseFloat(I) : y.left;
       Number.isNaN(k) && (k = y.top), Number.isNaN(A) && (A = y.left);
       let T = k - c, $ = A - p;
-      const M = at, R = window.innerHeight, U = window.innerWidth, W = y.height, Q = y.width;
-      T + W > R - M && (T = Math.max(M, R - M - W)), T < M && (T = M), $ + Q > U - M && ($ = Math.max(M, U - M - Q)), $ < M && ($ = M), this.layerStyle = this.withLayerZIndex({
+      const M = at, E = window.innerHeight, U = window.innerWidth, W = y.height, Q = y.width;
+      T + W > E - M && (T = Math.max(M, E - M - W)), T < M && (T = M), $ + Q > U - M && ($ = Math.max(M, U - M - Q)), $ < M && ($ = M), this.layerStyle = this.withLayerZIndex({
         ...this.layerStyle,
         top: `${Math.round(T)}px`,
         left: `${Math.round($)}px`
@@ -5408,7 +5412,7 @@ const ya = {
     },
     /** Segment çocukları bunu okur (`iconOnly` ham prop değil). */
     resolvedIconOnly() {
-      return this.iconOnly === "mobile" ? O() : !!this.iconOnly;
+      return this.iconOnly === "mobile" ? R() : !!this.iconOnly;
     },
     rootClass() {
       return z(
@@ -5524,7 +5528,7 @@ const fo = /* @__PURE__ */ C(ya, [["render", ba]]), va = ["line", "circle", "blo
     const M = q(() => {
       if (a.value != null)
         return { height: `${a.value}px` };
-    }), R = q(() => ({
+    }), E = q(() => ({
       "ui-skeleton-placeholder--flow": e.loading && !c.value && !d.value,
       "ui-skeleton-placeholder--overlay": c.value || e.loading && d.value,
       "ui-skeleton-placeholder--fade-out": c.value,
@@ -5547,7 +5551,7 @@ const fo = /* @__PURE__ */ C(ya, [["render", ba]]), va = ["line", "circle", "blo
       isRevealing: c,
       showPlaceholder: I,
       isBusy: k,
-      placeholderClass: R,
+      placeholderClass: E,
       contentWrapClass: U,
       onHostTransitionEnd: $
     };
@@ -7117,7 +7121,7 @@ export {
   Dl as ag,
   wo as ah,
   ne as ai,
-  O as aj,
+  R as aj,
   ve as ak,
   ge as al,
   Se as am,
@@ -7160,4 +7164,4 @@ export {
   Vo as y,
   No as z
 };
-//# sourceMappingURL=index-DEhpGXt6.js.map
+//# sourceMappingURL=index-Bon56b7w.js.map
