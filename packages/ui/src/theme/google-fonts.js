@@ -5,38 +5,61 @@ let catalogPreviewApplied = false
 
 /**
  * Self-hosted font catalog (latin + latin-ext). Files live in `themes/fonts.css`.
- * @type {ReadonlyArray<{ value: string, label: string }>}
+ * Ordered for restaurant-site variety: sans → serif → display → script.
+ * @type {ReadonlyArray<{ value: string, label: string, fallback?: string }>}
  */
 export const GOOGLE_FONTS_CATALOG = Object.freeze([
+  // Sans — readable body / modern UI
   { value: 'Inter', label: 'Inter' },
   { value: 'Poppins', label: 'Poppins' },
-  { value: 'Roboto', label: 'Roboto' },
-  { value: 'Open Sans', label: 'Open Sans' },
-  { value: 'Lato', label: 'Lato' },
   { value: 'Montserrat', label: 'Montserrat' },
   { value: 'Nunito', label: 'Nunito' },
-  { value: 'Raleway', label: 'Raleway' },
-  { value: 'Work Sans', label: 'Work Sans' },
-  { value: 'Source Sans 3', label: 'Source Sans 3' },
-  { value: 'DM Sans', label: 'DM Sans' },
   { value: 'Outfit', label: 'Outfit' },
-  { value: 'Manrope', label: 'Manrope' },
   { value: 'Plus Jakarta Sans', label: 'Plus Jakarta Sans' },
-  { value: 'Merriweather', label: 'Merriweather' },
-  { value: 'Playfair Display', label: 'Playfair Display' },
-  { value: 'Libre Baskerville', label: 'Libre Baskerville' },
+  { value: 'Space Grotesk', label: 'Space Grotesk' },
+  { value: 'Josefin Sans', label: 'Josefin Sans' },
+  { value: 'Oswald', label: 'Oswald' },
+  { value: 'DM Sans', label: 'DM Sans' },
+
+  // Serif — editorial / classic hospitality
+  { value: 'Merriweather', label: 'Merriweather', fallback: 'serif' },
+  { value: 'Lora', label: 'Lora', fallback: 'serif' },
+  { value: 'Libre Baskerville', label: 'Libre Baskerville', fallback: 'serif' },
+  { value: 'Cormorant Garamond', label: 'Cormorant Garamond', fallback: 'serif' },
+  { value: 'EB Garamond', label: 'EB Garamond', fallback: 'serif' },
+  { value: 'Crimson Pro', label: 'Crimson Pro', fallback: 'serif' },
+  { value: 'Spectral', label: 'Spectral', fallback: 'serif' },
+  { value: 'Bitter', label: 'Bitter', fallback: 'serif' },
+
+  // Display — strong headlines
+  { value: 'Playfair Display', label: 'Playfair Display', fallback: 'serif' },
+  { value: 'DM Serif Display', label: 'DM Serif Display', fallback: 'serif' },
+  { value: 'Fraunces', label: 'Fraunces', fallback: 'serif' },
+  { value: 'Bodoni Moda', label: 'Bodoni Moda', fallback: 'serif' },
+  { value: 'Cinzel', label: 'Cinzel', fallback: 'serif' },
+  { value: 'Abril Fatface', label: 'Abril Fatface', fallback: 'serif' },
+  { value: 'Anton', label: 'Anton' },
+
+  // Script — accent / logo-like titles
+  { value: 'Pacifico', label: 'Pacifico', fallback: 'cursive' },
+  { value: 'Great Vibes', label: 'Great Vibes', fallback: 'cursive' },
+  { value: 'Dancing Script', label: 'Dancing Script', fallback: 'cursive' },
+  { value: 'Caveat', label: 'Caveat', fallback: 'cursive' },
+  { value: 'Satisfy', label: 'Satisfy', fallback: 'cursive' },
 ])
 
 /**
  * @param {string} name
+ * @param {string} [fallback='sans-serif']
  * @returns {string}
  */
-export function formatGoogleFontFamilyName(name) {
+export function formatGoogleFontFamilyName(name, fallback = 'sans-serif') {
   const trimmed = String(name || '').trim()
   if (!trimmed) return ''
   const needsQuotes = /\s/.test(trimmed) && !/^["'].*["']$/.test(trimmed)
   const family = needsQuotes ? `"${trimmed.replace(/"/g, '')}"` : trimmed
-  return `${family}, sans-serif`
+  const stack = String(fallback || 'sans-serif').trim() || 'sans-serif'
+  return `${family}, ${stack}`
 }
 
 /**
@@ -44,8 +67,9 @@ export function formatGoogleFontFamilyName(name) {
  */
 export function googleFontSelectOptions() {
   return GOOGLE_FONTS_CATALOG.map((row) => ({
-    ...row,
-    fontFamily: formatGoogleFontFamilyName(row.value),
+    value: row.value,
+    label: row.label,
+    fontFamily: formatGoogleFontFamilyName(row.value, row.fallback),
   }))
 }
 

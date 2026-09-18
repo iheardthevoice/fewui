@@ -9,23 +9,40 @@ const OUT_DIR = join(THEMES_DIR, 'fonts')
 const CSS_OUT = join(THEMES_DIR, 'fonts.css')
 
 const FAMILIES = [
+  // Sans
   { name: 'Inter', weights: [400, 500, 600, 700] },
   { name: 'Poppins', weights: [400, 500, 600] },
-  { name: 'Roboto', weights: [400, 500, 600] },
-  { name: 'Open Sans', weights: [400, 500, 600] },
-  { name: 'Lato', weights: [400, 500, 600] },
   { name: 'Montserrat', weights: [400, 500, 600] },
   { name: 'Nunito', weights: [400, 500, 600] },
-  { name: 'Raleway', weights: [400, 500, 600] },
-  { name: 'Work Sans', weights: [400, 500, 600] },
-  { name: 'Source Sans 3', weights: [400, 500, 600] },
-  { name: 'DM Sans', weights: [400, 500, 600] },
   { name: 'Outfit', weights: [400, 500, 600] },
-  { name: 'Manrope', weights: [400, 500, 600] },
   { name: 'Plus Jakarta Sans', weights: [400, 500, 600] },
+  { name: 'Space Grotesk', weights: [400, 500, 600] },
+  { name: 'Josefin Sans', weights: [400, 500, 600] },
+  { name: 'Oswald', weights: [400, 500, 600] },
+  { name: 'DM Sans', weights: [400, 500, 600] },
+  // Serif
   { name: 'Merriweather', weights: [400, 500, 600] },
-  { name: 'Playfair Display', weights: [400, 500, 600] },
+  { name: 'Lora', weights: [400, 500, 600] },
   { name: 'Libre Baskerville', weights: [400, 500, 600] },
+  { name: 'Cormorant Garamond', weights: [400, 500, 600] },
+  { name: 'EB Garamond', weights: [400, 500, 600] },
+  { name: 'Crimson Pro', weights: [400, 500, 600] },
+  { name: 'Spectral', weights: [400, 500, 600] },
+  { name: 'Bitter', weights: [400, 500, 600] },
+  // Display
+  { name: 'Playfair Display', weights: [400, 500, 600] },
+  { name: 'DM Serif Display', weights: [400] },
+  { name: 'Fraunces', weights: [400, 500, 600] },
+  { name: 'Bodoni Moda', weights: [400, 500, 600] },
+  { name: 'Cinzel', weights: [400, 500, 600] },
+  { name: 'Abril Fatface', weights: [400] },
+  { name: 'Anton', weights: [400] },
+  // Script
+  { name: 'Pacifico', weights: [400] },
+  { name: 'Great Vibes', weights: [400] },
+  { name: 'Dancing Script', weights: [400, 500, 600] },
+  { name: 'Caveat', weights: [400, 500, 600] },
+  { name: 'Satisfy', weights: [400] },
 ]
 
 mkdirSync(OUT_DIR, { recursive: true })
