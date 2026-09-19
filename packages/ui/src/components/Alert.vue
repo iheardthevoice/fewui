@@ -107,7 +107,7 @@ export default {
       type: Boolean,
       default: false,
     },
-    /** Sayfa üstünde ince, tam genişlikte durum çubuğu. */
+    /** Sayfa üstünde ince, tam genişlikte durum çubuğu. Metin + CTA tek satır. */
     banner: {
       type: Boolean,
       default: false,

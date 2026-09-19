@@ -3924,38 +3924,38 @@
 
   /**
    * Sayfa üstü durum çubuğu — tam genişlik, köşesiz.
-   * Mobilde metin + CTA dikey; sm+ tek satırda sıkışmadan yan yana.
+   * Tek satır: metin + CTA yan yana; CTA asla tam genişlik olmaz.
    */
   .ui-alert--banner {
-    @apply min-w-0 items-start gap-2.5 rounded-none border-x-0 border-t-0 px-3 py-2.5 sm:items-center sm:gap-2 sm:px-4 sm:py-2;
+    @apply min-w-0 items-center gap-2 rounded-none border-x-0 border-t-0 px-3 py-1.5 sm:gap-2 sm:px-4 sm:py-2;
   }
 
   .ui-alert--banner .ui-alert-icon {
-    @apply mt-0.5 size-6 shrink-0 rounded-md sm:mt-0;
+    @apply mt-0 size-6 shrink-0 rounded-md;
   }
 
   .ui-alert--banner .ui-alert-body {
-    @apply flex min-w-0 flex-1 flex-col items-stretch gap-2 space-y-0 sm:flex-row sm:items-center sm:gap-x-3 sm:gap-y-1;
+    @apply flex min-w-0 flex-1 flex-row items-center gap-x-2 space-y-0 sm:gap-x-3;
   }
 
   .ui-alert--banner .ui-alert-copy {
-    @apply min-w-0 flex-1 space-y-0.5;
+    @apply min-w-0 flex-1 space-y-0;
   }
 
   .ui-alert--banner .ui-alert-title {
-    @apply text-sm leading-5;
+    @apply text-xs leading-4 sm:text-sm sm:leading-5;
   }
 
   .ui-alert--banner .ui-alert-description {
-    @apply min-w-0 text-xs leading-4;
+    @apply hidden min-w-0 text-xs leading-4 sm:mt-0.5 sm:block;
   }
 
   .ui-alert--banner .ui-alert-slot {
-    @apply w-full shrink-0 p-0 sm:ml-auto sm:w-auto;
+    @apply ml-auto w-auto shrink-0 p-0;
   }
 
   .ui-alert--banner .ui-alert-slot .ui-button {
-    @apply w-full sm:w-auto;
+    @apply w-auto;
   }
 
   /** Dar alan / dialog içi — kompakt, bordersız, kart ile aynı köşe. */
