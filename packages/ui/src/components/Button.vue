@@ -254,6 +254,13 @@ const pillSizeClasses = {
   lg: 'box-border h-[var(--ui-control-h-lg)] min-h-[var(--ui-control-h-lg)] px-4 py-0 text-base leading-6',
 }
 
+/** Çok satırlı etiket / açıklama — sabit kontrol yüksekliği yok. */
+const wrapSizeClasses = {
+  sm: 'box-border h-auto min-h-[var(--ui-control-h-sm)] items-start px-2.5 py-2 text-xs leading-4',
+  md: 'box-border h-auto min-h-[var(--ui-control-h-md)] items-start px-3 py-2 text-sm leading-5',
+  lg: 'box-border h-auto min-h-[var(--ui-control-h-lg)] items-start px-4 py-2 text-base leading-6',
+}
+
 /** `cubed` + ikon/kısa metin: kare kutular; ölçü `themes/components.css` `.ui-control-cubed-*` */
 const cubedSizeClasses = {
   sm: 'ui-control-cubed-sm aspect-square',
@@ -436,6 +443,11 @@ export default {
       default: 'center',
       validator: (v) => v === 'left' || v === 'center',
     },
+    /** Çok satırlı etiket / açıklama — truncate ve nowrap kapatılır. */
+    wrap: {
+      type: Boolean,
+      default: false,
+    },
   },
   emits: ['click'],
   computed: {
@@ -479,6 +491,9 @@ export default {
     textContentClass() {
       const align = this.textAlign === 'left' ? 'text-left' : 'text-center'
       const isBlock = this.fulled || this.block
+      if (this.wrap) {
+        return ['ui-button-text min-w-0 flex-1 whitespace-normal', align].join(' ')
+      }
       /**
        * Tam genişlik / nav: taşmayı kısalt.
        * Normal düğmelerde truncate yok — grow/flex içinde `min-w-0` ile “QR …” gibi okunaksız kesilmeyi önler.
@@ -517,6 +532,8 @@ export default {
         sizeOrCubed = linkSizeClasses[this.resolvedSize]
       } else if (isNav) {
         sizeOrCubed = 'h-auto min-h-0 w-full max-w-full justify-start overflow-hidden p-0 !min-h-0'
+      } else if (this.wrap) {
+        sizeOrCubed = wrapSizeClasses[this.resolvedSize] || wrapSizeClasses.md
       } else {
         sizeOrCubed = sizeClasses[this.resolvedSize] || sizeClasses.md
       }
@@ -524,15 +541,19 @@ export default {
       let roundedClass = ''
       let sizeOrCubedResolved = sizeOrCubed
       if (!isLink && !isNav) {
-        const usePill =
-          this.stack ||
-          this.rounded ||
-          this.cubed ||
-          this.themeButtonRounded === 'full'
-        if (usePill) {
-          roundedClass = 'rounded-full'
-          if (!this.stack && !this.cubed) {
-            sizeOrCubedResolved = pillSizeClasses[this.resolvedSize] || pillSizeClasses.md
+        if (this.wrap) {
+          roundedClass = 'rounded-xl'
+        } else {
+          const usePill =
+            this.stack ||
+            this.rounded ||
+            this.cubed ||
+            this.themeButtonRounded === 'full'
+          if (usePill) {
+            roundedClass = 'rounded-full'
+            if (!this.stack && !this.cubed) {
+              sizeOrCubedResolved = pillSizeClasses[this.resolvedSize] || pillSizeClasses.md
+            }
           }
         }
       }

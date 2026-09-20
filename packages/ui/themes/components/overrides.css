@@ -7,6 +7,10 @@
   border-color: transparent;
 }
 
+.ui-dropdown-menu > .ui-button:has(.ui-dropdown-item-description) {
+  @apply rounded-xl;
+}
+
 .ui-datepicker-grid > .ui-button,
 .ui-datepicker-quick > .ui-button,
 .ui-daterangepicker-quick > .ui-button {
@@ -118,6 +122,13 @@
   border-color: transparent;
   background-color: color-mix(in oklab, var(--primary-foreground) 22%, transparent);
   color: var(--primary-foreground);
+}
+
+.ui-segment:not(.ui-segment--selected) .ui-segment-affix .ui-badge,
+.ui-segment:not(.ui-segment--selected) .ui-segment-affix .ui-badge.bg-muted {
+  border-color: transparent;
+  background-color: color-mix(in oklab, var(--foreground) 16%, transparent);
+  color: var(--foreground);
 }
 
 /**

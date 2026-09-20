@@ -2162,7 +2162,7 @@
   }
 
   .ui-form-row--vertical {
-    @apply flex flex-col gap-3;
+    @apply flex flex-col gap-1.5;
   }
 
   .ui-form-row--vertical .ui-form-row-control {
@@ -2193,7 +2193,7 @@
   /** `stack-on-mobile` — yatay satır dar ekranda dikey (FormRow prop). */
   @media (max-width: 767px) {
     .ui-form-row--horizontal.ui-form-row--stack-mobile {
-      @apply flex-col flex-nowrap items-stretch gap-2;
+      @apply flex-col flex-nowrap items-stretch gap-1.5;
     }
 
     .ui-form-row--horizontal.ui-form-row--stack-mobile .ui-form-row-control {
@@ -2205,7 +2205,7 @@
     }
 
     .ui-form-row--card-horizontal.ui-form-row--stack-mobile {
-      @apply flex-col items-stretch gap-3;
+      @apply flex-col items-stretch gap-1.5;
     }
 
     .ui-form-row--card-horizontal.ui-form-row--stack-mobile .ui-form-row-control {
@@ -2215,16 +2215,20 @@
 
   /** Kart çerçevesi — input kabuğu ile aynı köşe (`rounded-lg`); ayarlar listesinde hafif vurgulu satır */
   .ui-form-row--card {
-    @apply flex gap-4 rounded-lg border border-border bg-transparent p-4;
+    @apply flex rounded-lg border border-border bg-transparent p-4;
   }
 
-  /** Kart + `direction="vertical"`: etiket üstte, kontrol altta */
+  /** Kart + `direction="vertical"`: etiket üstte, kontrol altta — başlık / kontrol / açıklama aynı boşluk */
   .ui-form-row--card-vertical {
-    @apply flex-col gap-2;
+    @apply flex-col gap-1.5;
   }
 
   .ui-form-row--card-vertical .ui-form-row-control {
-    @apply w-full min-w-0 shrink;
+    @apply flex w-full min-w-0 shrink flex-col gap-1.5;
+  }
+
+  .ui-form-row--card-vertical .ui-form-row-control .ui-form-row-description {
+    @apply m-0 text-muted-foreground;
   }
 
   /** Kart + `direction="horizontal"`: etiket solda, kontrol sağda */
@@ -2246,7 +2250,7 @@
 
   @media (max-width: 639px) {
     .ui-form-row--card-horizontal {
-      @apply flex-col items-stretch gap-3;
+      @apply flex-col items-stretch gap-1.5;
     }
 
     .ui-form-row--card-horizontal .ui-form-row-control {
@@ -3622,6 +3626,13 @@
     color: var(--primary-foreground);
   }
 
+  .ui-segment:not(.ui-segment--selected) .ui-segment-affix .ui-badge,
+  .ui-segment:not(.ui-segment--selected) .ui-segment-affix .ui-badge.bg-muted {
+    border-color: transparent;
+    background-color: color-mix(in oklab, var(--foreground) 16%, transparent);
+    color: var(--foreground);
+  }
+
   .ui-segment-icon {
     @apply inline-flex shrink-0 items-center justify-center leading-none [&_.ui-icon]:leading-none;
   }
@@ -4580,16 +4591,76 @@
   }
 
   .ui-dropdown-menu {
-    @apply flex min-w-0 flex-col text-sm text-surface-foreground;
+    @apply flex min-w-[10rem] flex-col text-sm text-surface-foreground;
+  }
+
+  .ui-dropdown-menu--described {
+    @apply min-w-[18rem] max-w-[22rem];
+  }
+
+  .ui-dropdown-menu > .ui-input {
+    @apply mb-2;
+  }
+
+  .ui-dropdown-heading {
+    @apply mt-2 border-t border-border px-3 pb-1 pt-2 text-xs font-medium text-muted-foreground;
+  }
+
+  .ui-dropdown-menu > .ui-input + .ui-dropdown-heading,
+  .ui-dropdown-menu > .ui-dropdown-heading:first-child {
+    @apply mt-0 border-t-0 pt-0;
   }
 
   .ui-dropdown-menu > .ui-button {
     @apply w-full min-w-0 justify-start gap-2.5;
   }
 
+  .ui-dropdown-menu > .ui-button:has(.ui-dropdown-item-description) {
+    @apply h-auto min-h-10 items-start py-2;
+  }
+
+  .ui-dropdown-menu > .ui-button:has(.ui-dropdown-item-description) .ui-button-text {
+    @apply min-w-0 flex-1 overflow-visible whitespace-normal;
+    text-overflow: clip;
+  }
+
+  .ui-dropdown-item-copy {
+    @apply grid min-w-0 items-center gap-x-2.5 gap-y-0.5 text-left;
+    grid-template-columns: 1.25rem minmax(0, 1fr);
+  }
+
+  .ui-dropdown-item-copy:not(:has(.ui-dropdown-item-icon)) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ui-dropdown-item-icon {
+    @apply col-start-1 row-start-1 inline-flex h-5 w-5 items-center justify-center;
+  }
+
+  .ui-dropdown-item-label {
+    @apply col-start-2 row-start-1 break-words font-medium leading-5;
+  }
+
+  .ui-dropdown-item-description {
+    @apply col-start-2 row-start-2 break-words text-sm font-normal leading-5 text-muted-foreground;
+  }
+
+  .ui-dropdown-item-copy:not(:has(.ui-dropdown-item-icon)) .ui-dropdown-item-label,
+  .ui-dropdown-item-copy:not(:has(.ui-dropdown-item-icon)) .ui-dropdown-item-description {
+    @apply col-start-1;
+  }
+
+  .ui-dropdown-menu > .ui-button[data-color='primary'] .ui-dropdown-item-description {
+    @apply text-primary-foreground/80;
+  }
+
   /** FA glifleri em kutusuna yapışık; sabit ikon sütunu + gap metni ayırır. */
   .ui-dropdown-menu > .ui-button > [aria-hidden='true']:has(.ui-icon) {
     @apply inline-flex w-5 shrink-0 items-center justify-center;
+  }
+
+  .ui-dropdown-menu > .ui-button:has(.ui-dropdown-item-description) > [aria-hidden='true']:has(.ui-icon) {
+    @apply h-5;
   }
 
   /** DatePicker — gün ızgarası (`ui-button` + varyantlar) */

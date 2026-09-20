@@ -23,6 +23,20 @@
   position: sticky;
 }
 
+.app-ios-glass-bar.absolute,
+.app-ios-glass-bar--header.absolute,
+.app-ios-glass-bar--footer.absolute,
+.app-ios-glass-bar--pos-footer.absolute {
+  position: absolute;
+}
+
+.app-ios-glass-bar.fixed,
+.app-ios-glass-bar--header.fixed,
+.app-ios-glass-bar--footer.fixed,
+.app-ios-glass-bar--pos-footer.fixed {
+  position: fixed;
+}
+
 @media (max-width: 767px) {
   .app-ios-glass-bar.max-md\:sticky,
   .app-ios-glass-bar--header.max-md\:sticky,

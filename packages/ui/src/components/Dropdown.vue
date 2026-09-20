@@ -19,10 +19,15 @@
     </template>
     <template #content="{ close }">
       <div
-        class="ui-dropdown-menu min-w-[10rem] p-3"
+        class="ui-dropdown-menu p-3"
+        :class="hasDescribedItems ? 'ui-dropdown-menu--described' : ''"
         role="menu"
         @click.stop
       >
+        <slot
+          name="before"
+          :close="close"
+        />
         <template v-if="$slots.menu">
           <slot
             name="menu"
@@ -38,20 +43,43 @@
               v-if="it.divider"
               spacing="sm"
             />
+            <span
+              v-else-if="it.heading"
+              class="ui-dropdown-heading"
+              role="presentation"
+            >{{ it.heading }}</span>
             <ui-button
               v-else
               variant="ghost"
               :color="itemColor(it)"
-              rounded
+              :rounded="!it.description"
               fulled
               text-align="left"
               role="menuitem"
-              :prefix-icon="it.icon || null"
-              :suffix-icon="it.suffixIcon || it.suffix_icon || null"
+              :prefix-icon="it.description ? null : (it.icon || null)"
+              :suffix-icon="itemSuffixIcon(it)"
               :disabled="it.disabled"
+              :wrap="Boolean(it.description)"
               @click.stop="onItem(it, close)"
             >
-              {{ it.label }}
+              <span
+                v-if="it.description"
+                class="ui-dropdown-item-copy"
+              >
+                <span
+                  v-if="it.icon"
+                  class="ui-dropdown-item-icon"
+                  aria-hidden="true"
+                >
+                  <ui-icon
+                    :name="it.icon"
+                    size="sm"
+                  />
+                </span>
+                <span class="ui-dropdown-item-label">{{ it.label }}</span>
+                <span class="ui-dropdown-item-description">{{ it.description }}</span>
+              </span>
+              <template v-else>{{ it.label }}</template>
             </ui-button>
           </template>
         </template>
@@ -140,6 +168,9 @@ export default {
         }
       },
     },
+    hasDescribedItems() {
+      return Boolean(this.$slots.before) || this.items.some((it) => it && !it.divider && it.description)
+    },
   },
   methods: {
     onOpenChange(value) {
@@ -148,13 +179,19 @@ export default {
     /** `color`, veya `variant: 'destructive'` → danger (sil / yıkıcı eylem). */
     itemColor(it) {
       if (it?.color) return it.color
+      if (it?.selected) return 'primary'
       if (it?.variant === 'destructive' || it?.destructive) return 'danger'
       return 'secondary'
+    },
+    itemSuffixIcon(it) {
+      if (it?.suffixIcon || it?.suffix_icon) return it.suffixIcon || it.suffix_icon
+      if (it?.selected) return 'check'
+      return null
     },
     onItem(it, close) {
       if (it.disabled) return
       this.$emit('select', it)
-      close()
+      if (!it.keepOpen && !it.keep_open) close()
     },
   },
 }
