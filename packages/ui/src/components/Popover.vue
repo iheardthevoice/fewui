@@ -24,7 +24,7 @@
       >
         <div
           v-if="showMobileBackdrop"
-          class="ui-popover-backdrop fixed inset-0 bg-black/50"
+          class="ui-popover-backdrop fixed inset-0 bg-black/70"
           :style="backdropStyle"
           aria-hidden="true"
           @pointerdown.stop.prevent="onBackdropDismiss"
@@ -34,6 +34,7 @@
       <Transition
         name="ui-overlay-popover"
         appear
+        :duration="{ enter: 220, leave: 180 }"
         @before-enter="onPopoverBeforeEnter"
         @after-leave="onPopoverAfterLeave"
       >
@@ -106,8 +107,14 @@ const PLACEMENTS = [
 /** Görünüm kenarı ile panel arası minimum boşluk (px) */
 const VIEW_MARGIN = 10
 
-/** `components.css` ile uyumlu; açık dialog varsa üstüne çıkar */
-const POPOVER_BASE_Z_INDEX = 410
+/**
+ * Overlay sırası (unlayered CSS ile uyumlu):
+ * modal 400 → onay 420 → popover 450 → photo 460 → toast 500.
+ * Popover, açık dialog / sheet üstünde kalmalı (Visits tarih aralığı vb.).
+ */
+const POPOVER_BASE_Z_INDEX = 450
+/** Dialog/sheet kökünün üzerinde tutulacak minimum boşluk */
+const POPOVER_ABOVE_OVERLAY_GAP = 30
 
 /**
  * Dış tıklama: alt popover katmanına tıklanınca üst popover kapanmaz.
@@ -253,6 +260,9 @@ export default {
       if (v) {
         this.mobileCenteredLeaving = false
         this.mobileCenteredActive = this.mobileCentered && isMobileViewport()
+        // Panel ölçülmeden önce de z-index ver — aksi halde ilk karede z-auto
+        // kalıp dialog (400) altında boyanabiliyor.
+        this.applyLayerZIndex()
         this.$nextTick(() => {
           this.updatePosition()
           this.schedulePosition()
@@ -273,6 +283,7 @@ export default {
   mounted() {
     this.portalReady = true
     if (this.open) {
+      this.applyLayerZIndex()
       this.$nextTick(() => {
         this.updatePosition()
         this.schedulePosition()
@@ -315,18 +326,22 @@ export default {
       if (typeof document === 'undefined') return POPOVER_BASE_Z_INDEX
 
       let top = POPOVER_BASE_Z_INDEX
-      for (const root of document.querySelectorAll('.ui-dialog-root')) {
+      for (const root of document.querySelectorAll('.ui-dialog-root, .ui-sheet-root')) {
         const z = Number.parseInt(getComputedStyle(root).zIndex, 10)
-        if (Number.isFinite(z)) top = Math.max(top, z + 10)
+        if (Number.isFinite(z)) top = Math.max(top, z + POPOVER_ABOVE_OVERLAY_GAP)
       }
 
       return top
+    },
+    applyLayerZIndex() {
+      this.layerStyle = this.withLayerZIndex({ ...this.layerStyle })
     },
     withLayerZIndex(style) {
       const z = this.resolveLayerZIndex()
       this.layerZIndex = z
       return {
         ...style,
+        // Panel, mobil backdrop (`layerZIndex`) üzerinde kalsın.
         zIndex: String(z + 1),
       }
     },

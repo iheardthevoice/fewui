@@ -75,7 +75,7 @@ export default {
     },
     /**
      * `direction="horizontal"` iken dar viewport’ta dikey yığılır
-     * (`max-width: 767px` — segment `icon-only="mobile"` ile aynı kırılım).
+     * (`max-width: 1023px` — segment `icon-only="mobile"` ile aynı kırılım).
      */
     stackOnMobile: {
       type: Boolean,

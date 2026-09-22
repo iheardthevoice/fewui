@@ -37,11 +37,11 @@
   position: fixed;
 }
 
-@media (max-width: 767px) {
-  .app-ios-glass-bar.max-md\:sticky,
-  .app-ios-glass-bar--header.max-md\:sticky,
-  .app-ios-glass-bar--footer.max-md\:sticky,
-  .app-ios-glass-bar--pos-footer.max-md\:sticky {
+@media (max-width: 1023px) {
+  .app-ios-glass-bar.max-lg\:sticky,
+  .app-ios-glass-bar--header.max-lg\:sticky,
+  .app-ios-glass-bar--footer.max-lg\:sticky,
+  .app-ios-glass-bar--pos-footer.max-lg\:sticky {
     position: sticky;
   }
 }
@@ -213,32 +213,60 @@ html.cap-native.cap-ios .ui-tab-list--horizontal.ui-tab-list--segmented {
 
 html.cap-native.cap-ios .ui-popover-panel.ui-surface {
   position: relative;
-  isolation: isolate;
+  isolation: auto;
   overflow: hidden;
   border: none !important;
   background-color: var(--ui-ios-glass-bg-popover) !important;
   background-image: none !important;
   box-shadow: none !important;
-  -webkit-backdrop-filter: blur(var(--ui-ios-glass-blur-popover, 16px)) saturate(190%);
-  backdrop-filter: blur(var(--ui-ios-glass-blur-popover, 16px)) saturate(190%);
-  /* translateZ(0) katman animasyonunu iOS’ta öldürür — kullanma. */
+  /* Blur her zaman açık — aç/kapa’da kapatmak “blur birden gelir” snap’i üretir. */
+  -webkit-backdrop-filter: blur(var(--ui-ios-glass-blur-popover, 24px)) saturate(190%);
+  backdrop-filter: blur(var(--ui-ios-glass-blur-popover, 24px)) saturate(190%);
 }
 
 /**
- * iOS liquid glass popover — blur’ı enter/leave’de kapatma (snap).
- * Transform + canlı backdrop-filter kasmasın diye yalnızca opacity fade.
+ * iOS popover motion — WebKit’te blur’lu panel üzerinde opacity fade bozulur.
+ * Katman/panel sabit (blur sabit); yalnızca iç içerik fade + hafif kayma.
+ * Süre: Popover.vue Transition `duration` ile senkron.
  */
 html.cap-native.cap-ios .ui-overlay-popover-enter-active,
 html.cap-native.cap-ios .ui-overlay-popover-leave-active {
-  transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  opacity: 1 !important;
   transform: none !important;
-  will-change: opacity;
+  transition: none !important;
 }
 
 html.cap-native.cap-ios .ui-overlay-popover-enter-from,
 html.cap-native.cap-ios .ui-overlay-popover-leave-to {
-  opacity: 0;
+  opacity: 1 !important;
   transform: none !important;
+}
+
+html.cap-native.cap-ios .ui-overlay-popover-leave-active {
+  pointer-events: none;
+}
+
+html.cap-native.cap-ios .ui-overlay-popover-enter-active .ui-popover-motion,
+html.cap-native.cap-ios .ui-overlay-popover-leave-active .ui-popover-motion {
+  transition:
+    opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+html.cap-native.cap-ios .ui-overlay-popover-enter-from .ui-popover-motion,
+html.cap-native.cap-ios .ui-overlay-popover-leave-to .ui-popover-motion {
+  opacity: 0;
+  transform: translate3d(0, 6px, 0);
+}
+
+/**
+ * `blur(0px)` hâlâ compositing katmanı — opak yüzeylerde filter tamamen kapalı.
+ * Popover / glass-bar kendi blur kurallarını korur.
+ */
+html.cap-native.cap-ios .ui-surface:not(.ui-popover-panel):not(.app-ios-glass-bar) {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
 
 html.cap-native.cap-ios .ui-tab-list--horizontal.ui-tab-list--segmented::before,
@@ -323,6 +351,28 @@ html.cap-native.cap-ios .ui-button.ui-control:not([data-variant='link']):not([da
   content: none;
 }
 
+/**
+ * Panel sidebar — menü öğeleri `ui-sidebar-item`; kalan chrome düğmeleri liquid glass almaz.
+ */
+html.cap-native.cap-ios aside .ui-button.ui-control {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  isolation: auto;
+  overflow: visible;
+}
+
+html.cap-native.cap-ios aside .ui-button.ui-control::before,
+html.cap-native.cap-ios aside .ui-button.ui-control::after {
+  content: none !important;
+}
+
+html.cap-native.cap-ios aside .ui-button.ui-control[data-variant='ghost'],
+html.cap-native.cap-ios aside .ui-button.ui-control[data-variant='outline'],
+html.cap-native.cap-ios aside .ui-button.ui-control[data-variant='nav'] {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
 html.cap-native.cap-ios .ui-popover-panel .ui-button.ui-control:not([data-variant='link']):not([data-variant='nav']),
 html.cap-native.cap-ios .ui-popover-panel .ui-button.ui-control:not([data-variant='link']):not([data-variant='nav'])::before {
   -webkit-backdrop-filter: none !important;
@@ -351,79 +401,125 @@ html.cap-native.cap-ios .ui-skeleton {
   background-color: color-mix(in oklab, var(--foreground) 8%, transparent);
 }
 
-@media (max-width: 767px) {
-  html.cap-native.cap-ios .ui-dialog-panel.ui-surface {
-    background-color: var(--ui-ios-dialog-sheet-bg) !important;
-    border: none !important;
-    box-shadow: none !important;
-    -webkit-backdrop-filter: none !important;
-    backdrop-filter: none !important;
-  }
+html.cap-native.cap-ios .ui-card.ui-surface:not(.ui-dialog-panel):not(.ui-card--transparent) {
+  background-color: var(--ui-ios-card-surface-bg, var(--ui-ios-dialog-sheet-bg)) !important;
+  background-image: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
 
-  /** Klavye açıkken sheet eteği (surface dolgu) — rounded klavye köşelerini kapatır. */
-  html.cap-native.cap-ios.cap-keyboard-open .ui-dialog-panel.ui-surface {
-    box-shadow: 0 var(--ui-keyboard-inset, 0px) 0 0 var(--ui-ios-dialog-sheet-bg, var(--surface)) !important;
-  }
+html.cap-native.cap-ios .ui-card.ui-surface:not(.ui-dialog-panel):not(.ui-card--transparent) .ui-input,
+html.cap-native.cap-ios .ui-card.ui-surface:not(.ui-dialog-panel):not(.ui-card--transparent) .ui-select-field,
+html.cap-native.cap-ios .ui-card.ui-surface:not(.ui-dialog-panel):not(.ui-card--transparent) .ui-textarea-field,
+html.cap-native.cap-ios .ui-card.ui-surface:not(.ui-dialog-panel):not(.ui-card--transparent) .ui-input .ui-field-control-fill,
+html.cap-native.cap-ios .ui-card.ui-surface:not(.ui-dialog-panel):not(.ui-card--transparent) .ui-select-field .ui-field-control-fill {
+  background-color: var(--ui-ios-dialog-field-bg) !important;
+  border: none !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
 
-  html.cap-native.cap-ios .ui-card.ui-surface:not(.ui-dialog-panel):not(.ui-card--transparent) {
-    background-color: var(--ui-ios-card-surface-bg, var(--ui-ios-dialog-sheet-bg)) !important;
-    border: none !important;
-    box-shadow: none !important;
-    -webkit-backdrop-filter: none !important;
-    backdrop-filter: none !important;
-  }
+/**
+ * Solid sheet dialog — telefon + iPad (viewport kapısı yok; tablet’te web cam/border kalmasın).
+ */
+html.cap-native.cap-ios .ui-dialog-panel.ui-surface {
+  background-color: var(--ui-ios-dialog-sheet-bg) !important;
+  background-image: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
 
-  html.cap-native.cap-ios .ui-dialog-panel .ui-input,
-  html.cap-native.cap-ios .ui-dialog-panel .ui-select-field,
-  html.cap-native.cap-ios .ui-dialog-panel .ui-textarea-field,
-  html.cap-native.cap-ios .ui-card.ui-surface:not(.ui-dialog-panel):not(.ui-card--transparent) .ui-input,
-  html.cap-native.cap-ios .ui-card.ui-surface:not(.ui-dialog-panel):not(.ui-card--transparent) .ui-select-field,
-  html.cap-native.cap-ios .ui-card.ui-surface:not(.ui-dialog-panel):not(.ui-card--transparent) .ui-textarea-field,
-  html.cap-native.cap-ios .ui-card.ui-surface:not(.ui-dialog-panel):not(.ui-card--transparent) .ui-input .ui-field-control-fill,
-  html.cap-native.cap-ios .ui-card.ui-surface:not(.ui-dialog-panel):not(.ui-card--transparent) .ui-select-field .ui-field-control-fill {
-    background-color: var(--ui-ios-dialog-field-bg) !important;
-    border: none !important;
-    background-image: none !important;
-    box-shadow: none !important;
-    -webkit-backdrop-filter: none !important;
-    backdrop-filter: none !important;
-  }
+/** Klavye açıkken sheet eteği (surface dolgu) — rounded klavye köşelerini kapatır. */
+html.cap-native.cap-ios.cap-keyboard-open .ui-dialog-panel.ui-surface {
+  box-shadow: 0 var(--ui-keyboard-inset, 0px) 0 0 var(--ui-ios-dialog-sheet-bg, var(--surface)) !important;
+}
 
-  html.cap-native.cap-ios .ui-dialog-panel.ui-surface::before,
-  html.cap-native.cap-ios .ui-dialog-panel.ui-surface::after {
-    content: none !important;
-  }
+html.cap-native.cap-ios .ui-dialog-panel .ui-input,
+html.cap-native.cap-ios .ui-dialog-panel .ui-select-field,
+html.cap-native.cap-ios .ui-dialog-panel .ui-textarea-field {
+  background-color: var(--ui-ios-dialog-field-bg) !important;
+  border: none !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+html.cap-native.cap-ios .ui-dialog-panel.ui-surface::before,
+html.cap-native.cap-ios .ui-dialog-panel.ui-surface::after {
+  content: none !important;
 }
 
 html.cap-native.cap-ios .app-ios-glass-bar--pos-footer {
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
-@media (max-width: 767px) {
+/**
+ * Dialog footer — iPhone + iPad: alt safe-area / nefes payı (viewport kapısı yok).
+ * Telefonda sheet zaten safe-area alır; tablette centered dialog da aynı payı ister.
+ */
+html.cap-native.cap-ios .ui-dialog-panel .ui-card-footer {
+  padding-bottom: max(1rem, env(safe-area-inset-bottom, 0px));
+}
+
+html.cap-native.cap-ios .ui-dialog-panel--footer-transparent .ui-card-footer.ui-dialog-footer--transparent {
+  background-color: transparent !important;
+  background-image: none !important;
+  border-top: none !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+/** Şeffaf footer — iOS cam butonları da opak yüzey (liste metni sızmasın). */
+html.cap-native.cap-ios
+  .ui-dialog-panel--footer-transparent
+  .ui-card-footer.ui-dialog-footer--transparent
+  .ui-button.ui-control[data-variant='ghost'],
+html.cap-native.cap-ios
+  .ui-dialog-panel--footer-transparent
+  .ui-card-footer.ui-dialog-footer--transparent
+  .ui-button.ui-control[data-variant='outline'],
+html.cap-native.cap-ios
+  .ui-dialog-panel--footer-transparent
+  .ui-card-footer.ui-dialog-footer--transparent
+  .ui-button.ui-control[data-variant='link'] {
+  background-color: var(--surface) !important;
+  background-image: none !important;
+}
+
+html.cap-native.cap-ios.cap-keyboard-open .ui-dialog-panel .ui-card-footer {
+  padding-bottom: 0.75rem;
+}
+
+@media (max-width: 1023px) {
   html.cap-native.cap-ios .ui-dialog-panel .ui-card-footer {
     padding-top: 0.5rem;
-    padding-bottom: env(safe-area-inset-bottom, 0px);
-  }
-
-  html.cap-native.cap-ios.cap-keyboard-open .ui-dialog-panel .ui-card-footer {
-    padding-bottom: 0.5rem;
   }
 }
 
 /**
- * iOS — basılı geri bildirim: kontroller hafif büyür (dock sekme, buton, segment).
- * Varsayılan `active:scale-[0.98]` butonlarda geçersiz kılınır.
+ * iOS — basılı geri bildirim: kontroller hafif büyür (sekme, buton, segment, dock).
+ * Varsayılan `active:scale-[0.98]` geçersiz kılınır; link metin butonları hariç.
  */
-html.cap-native.cap-ios .ui-tab-trigger--segmented,
-html.cap-native.cap-ios .ui-button.ui-control:not([data-variant='link']):not([data-variant='nav']),
-html.cap-native.cap-ios .ui-segment {
+html.cap-native.cap-ios .ui-tab-trigger,
+html.cap-native.cap-ios .ui-button.ui-control:not([data-variant='link']),
+html.cap-native.cap-ios .ui-segment,
+html.cap-native.cap-ios .ui-native-dock-fab .ui-button {
   transition-property: transform, color, background-color, background-image, box-shadow, opacity;
   transition-duration: 150ms;
   transition-timing-function: ease-out;
 }
 
-html.cap-native.cap-ios .ui-tab-trigger--segmented:active:not(:disabled),
-html.cap-native.cap-ios .ui-button.ui-control:active:not(:disabled):not([data-variant='link']):not([data-variant='nav']),
-html.cap-native.cap-ios .ui-segment:active:not(:disabled) {
+html.cap-native.cap-ios .ui-tab-trigger:active:not(:disabled),
+html.cap-native.cap-ios .ui-button.ui-control:active:not(:disabled):not([data-variant='link']),
+html.cap-native.cap-ios .ui-segment:active:not(:disabled),
+html.cap-native.cap-ios .ui-native-dock-fab .ui-button:active:not(:disabled) {
   transform: scale(1.06);
 }

@@ -24,6 +24,13 @@ export default {
       go: 'Devam',
       close: 'Kapat',
     },
+    intro: {
+      skip: 'Geç',
+      next: 'Sonraki',
+      finish: 'Başla',
+      stepsAria: 'Tanıtım',
+      carouselRole: 'karusel',
+    },
     confirm: {
       ok: 'Tamam',
       cancel: 'İptal',

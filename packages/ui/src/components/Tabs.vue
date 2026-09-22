@@ -11,9 +11,14 @@
 import { cn } from '../utils/cn.js'
 import { resolveThemeControlSize } from '../theme/resolve-theme-default.js'
 import { resolveSegmentedTabSize } from '../utils/resolve-segmented-tab-size.js'
+import { isMobileViewport } from '../utils/viewport.js'
 import { useId } from 'vue'
 
 const VARIANTS = ['line', 'segmented']
+
+function isIconOnlyProp(v) {
+  return typeof v === 'boolean' || v === 'mobile'
+}
 
 export default {
   name: 'Tabs',
@@ -24,7 +29,7 @@ export default {
       type: [String, Number],
       default: null,
     },
-    /** `line` — alt çizgi; `segmented` — Apple tarzı segment kontrolü (ikon + etiket, yatay). */
+    /** `line` — alt çizgi; `segmented` — düğme kartları (yatay: ikon üstte; dikey: yan ray). */
     variant: {
       type: String,
       default: 'line',
@@ -74,6 +79,15 @@ export default {
       type: Boolean,
       default: false,
     },
+    /**
+     * Dikey segmented ray — yalnız ikon; etiketler ekran okuyucu için gizli kalır.
+     * `true` — her zaman; `mobile` — dar viewport (`max-width: 1023px`).
+     */
+    iconOnly: {
+      type: [Boolean, String],
+      default: false,
+      validator: isIconOnlyProp,
+    },
   },
   emits: ['update:modelValue'],
   setup() {
@@ -95,11 +109,16 @@ export default {
       }
       return resolveThemeControlSize(this.size, { key: 'controlSize', defaultSize: 'md' })
     },
+    resolvedIconOnly() {
+      if (this.iconOnly === 'mobile') return isMobileViewport()
+      return Boolean(this.iconOnly)
+    },
     rootClass() {
       return cn(
         'ui-tabs flex min-w-0 flex-col',
         this.variant === 'segmented' ? 'ui-tabs--segmented' : 'ui-tabs--line',
         this.orientation === 'vertical' ? 'ui-tabs--vertical' : '',
+        this.resolvedIconOnly ? 'ui-tabs--icon-only' : '',
         this.fit === 'full' ? 'ui-tabs--fit-full' : '',
         this.variant === 'segmented' && this.resolvedSize === 'lg' ? 'ui-tabs--segmented-lg' : '',
         this.variant === 'segmented' && this.resolvedSize === 'sm' ? 'ui-tabs--segmented-sm' : '',

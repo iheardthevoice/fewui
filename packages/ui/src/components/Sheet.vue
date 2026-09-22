@@ -20,7 +20,7 @@
       >
         <div
           v-if="overlay"
-          class="ui-sheet-backdrop absolute inset-0 bg-black/50"
+          class="ui-sheet-backdrop absolute inset-0 bg-black/70"
           aria-hidden="true"
           @click="onBackdrop"
         />
@@ -235,7 +235,7 @@ export default {
       default: true,
     },
     /**
-     * Dar viewport’ta (`max-width: 767px`) panel tam genişlik.
+     * Dar viewport’ta (`max-width: 1023px`) panel tam genişlik.
      */
     fullOnMobile: {
       type: Boolean,

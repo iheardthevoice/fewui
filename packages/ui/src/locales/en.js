@@ -20,6 +20,13 @@ export default {
       go: 'Continue',
       close: 'Close',
     },
+    intro: {
+      skip: 'Skip',
+      next: 'Next',
+      finish: 'Get started',
+      stepsAria: 'Introduction',
+      carouselRole: 'carousel',
+    },
     confirm: {
       ok: 'OK',
       cancel: 'Cancel',

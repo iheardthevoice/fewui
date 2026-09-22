@@ -43,7 +43,7 @@ export default {
     },
     /**
      * Yalnız ikon; etiketler ekran okuyucu için gizli kalır.
-     * `true` — her zaman; `mobile` — yalnızca dar viewport (`max-width: 767px`).
+     * `true` — her zaman; `mobile` — yalnızca dar viewport (`max-width: 1023px`).
      */
     iconOnly: {
       type: [Boolean, String],

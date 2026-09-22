@@ -1,7 +1,7 @@
 import { ref } from 'vue'
 
-/** Tailwind `md` ile uyumlu mobil üst sınır */
-export const MOBILE_MAX_WIDTH_MEDIA = '(max-width: 767px)'
+/** Tailwind `lg` altı — telefon ve dikey tablet (web arayüzü ≥1024px) */
+export const MOBILE_MAX_WIDTH_MEDIA = '(max-width: 1023px)'
 
 const mobileViewport = ref(false)
 

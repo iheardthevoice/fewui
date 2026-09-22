@@ -56,26 +56,31 @@
 
 /**
  * Overlay z-index — unlayered; @layer/components ve sabit chrome (tab bar, header) üstünde kalır.
+ * Sıra: modal 400, onay 420, popover 450, photo 460, toast 500.
  */
 .ui-dialog-root {
   position: fixed;
   inset: 0;
   z-index: 400;
-  isolation: isolate;
 }
 
 .ui-dialog-root.ui-dialog-root--confirm {
   z-index: 420;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 1023px) {
   .ui-dialog-root--confirm .ui-dialog-panel .ui-dialog-header__close {
     display: inline-flex;
   }
 }
 
 .ui-popover-layer {
-  z-index: 410;
+  z-index: 450;
+}
+
+/** Lightbox — popover üstünde; toast altında */
+.ui-photo-preview {
+  z-index: 460;
 }
 
 .ui-toast-host {
@@ -91,7 +96,7 @@
   padding-bottom: var(--ui-card-padding);
 }
 
-@media (max-width: 767px) {
+@media (max-width: 1023px) {
   .ui-dialog-panel.ui-card > .ui-dialog-motion > .ui-card-footer,
   .ui-dialog-panel.ui-card > .ui-card-footer {
     padding-top: 0.5rem;
@@ -106,6 +111,28 @@
   box-shadow: none !important;
   -webkit-backdrop-filter: none !important;
   backdrop-filter: none !important;
+}
+
+/**
+ * Şeffaf dialog footer — kaydırılan metin butonların içinden görünmesin.
+ * Ghost / outline / link: opak yüzey + blur; solid zaten dolu, blur ek yalıtım.
+ */
+.ui-dialog-panel--footer-transparent .ui-card-footer.ui-dialog-footer--transparent .ui-button.ui-control {
+  -webkit-backdrop-filter: blur(var(--ui-control-backdrop-blur, 16px)) saturate(180%) !important;
+  backdrop-filter: blur(var(--ui-control-backdrop-blur, 16px)) saturate(180%) !important;
+}
+
+.ui-dialog-panel--footer-transparent
+  .ui-card-footer.ui-dialog-footer--transparent
+  .ui-button.ui-control[data-variant='ghost'],
+.ui-dialog-panel--footer-transparent
+  .ui-card-footer.ui-dialog-footer--transparent
+  .ui-button.ui-control[data-variant='outline'],
+.ui-dialog-panel--footer-transparent
+  .ui-card-footer.ui-dialog-footer--transparent
+  .ui-button.ui-control[data-variant='link'] {
+  background-color: var(--surface) !important;
+  background-image: none !important;
 }
 
 .ui-dialog-panel .ui-button[data-variant='solid'][data-color='input'] {

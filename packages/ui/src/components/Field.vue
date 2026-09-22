@@ -28,6 +28,7 @@
     <div
       v-if="hasValue"
       class="ui-field__value"
+      :class="fill ? 'mt-auto' : undefined"
     >
       <slot />
     </div>
@@ -61,6 +62,11 @@ export default {
       type: Boolean,
       default: false,
     },
+    /** Grid / flex hücrede kart yüksekliğini eşitlemek için `h-full`. */
+    fill: {
+      type: Boolean,
+      default: false,
+    },
     icon: {
       type: String,
       default: '',
@@ -80,7 +86,12 @@ export default {
       return Boolean(this.icon)
     },
     rootClass() {
-      return cn('ui-field', this.card && 'ui-field--card', this.$attrs.class)
+      return cn(
+        'ui-field',
+        this.card && 'ui-field--card',
+        this.fill && 'h-full min-h-0 flex flex-col',
+        this.$attrs.class,
+      )
     },
   },
 }

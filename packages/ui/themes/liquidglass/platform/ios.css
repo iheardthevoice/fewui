@@ -1,19 +1,20 @@
 /**
  * iOS Liquid Glass — Capacitor iOS kabuğu (`html.cap-native.cap-ios`).
- * Yüzey / kontrol token’ları yarı saydam + blur; web ve Android etkilenmez.
+ * Kart/dialog/form opak grouped; cam chrome / popover / kontrol. Web ve Android etkilenmez.
  */
 html.cap-native.cap-ios {
   --font-sans: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   --font-heading: var(--font-sans);
   /**
-   * Kontrol yükseklikleri — Apple HIG (varsayılan `lg` ≥ 44pt).
-   * Önceki kademeden bir tık kompakt; web’den hâlâ biraz daha ferah.
+   * Kontrol yükseklikleri — Apple HIG iOS/iPadOS:
+   * varsayılan kontrol / UITextField satırı 44×44 pt, minimum 28×28 pt.
+   * `md` ve `lg` aynı 44pt (mobilde varsayılan `md` → `lg` çözülür).
    */
   --ui-control-h-sm: 2.125rem;
-  --ui-control-h-md: 2.625rem;
-  --ui-control-h-lg: 2.875rem;
+  --ui-control-h-md: 2.75rem;
+  --ui-control-h-lg: 2.75rem;
   --ui-tab-h-sm: 2.375rem;
-  --ui-tab-h-md: 2.875rem;
+  --ui-tab-h-md: 2.75rem;
   --ui-tab-h-lg: 3.125rem;
   /**
    * Tipografi — önceki “bir kademe büyüt” ile web arası; hafif kompakt.
@@ -43,7 +44,11 @@ html.cap-native.cap-ios {
   --text-8xl: 7.5rem;
   --text-8xl--line-height: 1;
   --ui-ios-glass-bg: color-mix(in srgb, var(--foreground) 7%, transparent);
-  --ui-ios-glass-bg-popover: color-mix(in srgb, var(--foreground) 3%, transparent);
+  /**
+   * Popover cam — dialog sheet ile aynı gri (`--surface`), yarı saydam + blur.
+   * `--background` (#000) karışımı siyah gösterir; WebKit motion’da blur kapatılır.
+   */
+  --ui-ios-glass-bg-popover: color-mix(in srgb, var(--surface) 72%, transparent);
   --ui-ios-glass-bg-chrome: color-mix(in srgb, var(--foreground) 3%, transparent);
   /** Header / footer chrome hairline — aynı token, hafif kontrast (iOS separator). */
   --ui-ios-glass-edge: color-mix(in srgb, var(--foreground) 20%, transparent);
@@ -53,19 +58,23 @@ html.cap-native.cap-ios {
   --ui-ios-glass-highlight: transparent;
   --ui-ios-glass-shadow: transparent;
   --ui-ios-glass-blur-chrome: 16px;
-  --ui-ios-glass-blur-popover: 16px;
+  --ui-ios-glass-blur-popover: 24px;
   --ui-ios-glass-blur-surface: 14px;
   --ui-ios-glass-blur-control: 12px;
-  --ui-surface-opacity: 36%;
-  --ui-surface-backdrop-blur: 14px;
-  --ui-control-opacity: 38%;
-  --ui-control-backdrop-blur: 14px;
   /**
-   * Form dolgusu — `--control` yerine foreground cam tonu; dialog / muted üzerinde kaybolmasın.
+   * Kart / dialog — opak. `blur(0px)` compositing katmanı opacity animasyonunu bozar;
+   * yüzeylerde filter `none` (styles.css / kart override).
    */
-  --ui-input-mix-from: var(--foreground);
-  --ui-input-opacity: 7%;
-  --ui-input-backdrop-blur: 14px;
+  --ui-surface-opacity: 100%;
+  --ui-surface-backdrop-blur: 0px;
+  --ui-control-opacity: 100%;
+  --ui-control-backdrop-blur: 0px;
+  /**
+   * Form dolgusu — opak control; cam karışımı yok.
+   */
+  --ui-input-mix-from: var(--control);
+  --ui-input-opacity: 100%;
+  --ui-input-backdrop-blur: 0px;
   /** Divider / kart stroke — input dolgusundan bağımsız, okunaklı separator. */
   --border: color-mix(in oklab, var(--foreground) 14%, transparent);
   /**
@@ -83,14 +92,14 @@ html.cap-native.cap-ios {
 
 html.cap-native.cap-ios.dark {
   --ui-ios-glass-bg: color-mix(in srgb, var(--foreground) 6%, transparent);
-  --ui-ios-glass-bg-popover: color-mix(in srgb, var(--foreground) 3%, transparent);
+  --ui-ios-glass-bg-popover: color-mix(in srgb, var(--surface) 78%, transparent);
   --ui-ios-glass-bg-chrome: color-mix(in srgb, var(--foreground) 3%, transparent);
   --ui-ios-glass-edge: color-mix(in srgb, var(--foreground) 18%, transparent);
   --ui-ios-glass-edge-top: var(--ui-ios-glass-edge);
   --ui-ios-glass-edge-bottom: var(--ui-ios-glass-edge);
-  --ui-surface-opacity: 32%;
-  --ui-control-opacity: 34%;
-  --ui-input-opacity: 6%;
+  --ui-surface-opacity: 100%;
+  --ui-control-opacity: 100%;
+  --ui-input-opacity: 100%;
   --border: color-mix(in oklab, var(--foreground) 18%, transparent);
   --app-data-table-cell-bg: var(--ui-ios-card-surface-bg);
 }

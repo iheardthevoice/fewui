@@ -13,7 +13,7 @@
       @keydown="onLayerKeydown"
     >
         <div
-          class="ui-dialog-backdrop absolute inset-0 bg-black/50"
+          class="ui-dialog-backdrop absolute inset-0 bg-black/70"
           aria-hidden="true"
           @click="onBackdrop"
         />
@@ -142,6 +142,7 @@
 
           <div
             v-if="$slots.footer"
+            ref="footerRef"
             class="ui-card-footer"
             :class="{ 'ui-dialog-footer--transparent': footerTransparent }"
           >
@@ -164,6 +165,7 @@ import {
   resolveThemeDialogMaxWidth,
   resolveThemeIconType,
 } from '../theme/resolve-theme-default.js'
+import { lockBodyScroll, unlockBodyScroll } from '../utils/scroll-lock.js'
 import { isMobileViewport } from '../utils/viewport.js'
 
 const nextDialogId = createUiIdFactory('ui-dialog')
@@ -338,6 +340,8 @@ export default {
       layerMounted: false,
       layerClosing: false,
       layerMotionActive: false,
+      /** Şeffaf footer gerçek yüksekliği (px) — gövde alt padding */
+      footerClearancePx: null,
     }
   },
   watch: {
@@ -347,14 +351,28 @@ export default {
         if (isOpen) {
           if (this.layerMounted || this.layerClosing) return
           this.layerMounted = true
+          lockBodyScroll()
           this.$nextTick(() => {
             this.resetPanelMotionStyles()
+            this.resetBodyScroll()
+            this.syncFooterClearance()
             this.animateLayerIn(this.$refs.layerRef)
           })
         } else if (this.layerMounted && !this.layerClosing) {
           this.dismissLayer()
         }
       },
+    },
+    footerTransparent() {
+      this.$nextTick(() => {
+        this.bindFooterClearanceObserver()
+      })
+    },
+    hasFooterSlot(hasFooter) {
+      if (!hasFooter || !this.open) return
+      this.$nextTick(() => {
+        this.bindFooterClearanceObserver()
+      })
     },
   },
   mounted() {
@@ -363,6 +381,10 @@ export default {
   beforeUnmount() {
     this.clearFocusFallback()
     this.clearSheetDragListeners()
+    this.unbindFooterClearanceObserver()
+    if (this.layerMounted) {
+      unlockBodyScroll()
+    }
     this.layerMounted = false
     this.layerClosing = false
     this.layerMotionActive = false
@@ -390,6 +412,16 @@ export default {
     },
     hasHeaderBlock() {
       return !!this.$slots.header || this.hasDefaultHeader
+    },
+    hasFooterSlot() {
+      return !!this.$slots.footer
+    },
+    /**
+     * Şeffaf footer yalnızca gövde varken anlamlıdır (kaydırılabilir içerik altına biner).
+     * Gövdesiz uyarı / onay diyaloglarında absolute footer başlık metninin üstüne biner.
+     */
+    usesFooterTransparentLayout() {
+      return this.footerTransparent && this.hasFooterSlot && !!this.$slots.default
     },
     showHeaderDivider() {
       return (
@@ -419,19 +451,23 @@ export default {
         this.maxWidthClass,
         borderPart,
         this.bodyLayout === 'flex' ? 'ui-dialog-panel--body-flex' : '',
-        this.footerTransparent ? 'ui-dialog-panel--footer-transparent' : '',
+        this.usesFooterTransparentLayout ? 'ui-dialog-panel--footer-transparent' : '',
         this.$attrs.class,
       )
     },
     panelStyle() {
-      if (!this.panelMaxHeight) return undefined
-      /**
-       * Inline maxHeight CSS’teki native klavye tavanını ezmesin.
-       * `--ui-dialog-max-height-cap` yoksa (web) yalnızca prop değeri kullanılır.
-       */
-      return {
-        maxHeight: `min(${this.panelMaxHeight}, var(--ui-dialog-max-height-cap, ${this.panelMaxHeight}))`,
+      const style = {}
+      if (this.panelMaxHeight) {
+        /**
+         * Inline maxHeight CSS’teki native klavye tavanını ezmesin.
+         * `--ui-dialog-max-height-cap` yoksa (web) yalnızca prop değeri kullanılır.
+         */
+        style.maxHeight = `min(${this.panelMaxHeight}, var(--ui-dialog-max-height-cap, ${this.panelMaxHeight}))`
       }
+      if (this.usesFooterTransparentLayout && this.footerClearancePx != null) {
+        style['--ui-dialog-footer-clearance'] = `${this.footerClearancePx}px`
+      }
+      return Object.keys(style).length ? style : undefined
     },
     passthroughAttrs() {
       return pickPassthroughAttrs(this.$attrs, ['class'])
@@ -470,6 +506,7 @@ export default {
         'ui-dialog-root fixed inset-0 flex outline-none',
         this.stackLayer === 'confirm' && 'ui-dialog-root--confirm',
         this.layerMotionActive && 'ui-dialog-root--motion',
+        this.layerClosing && 'ui-dialog-root--leaving',
       )
     },
   },
@@ -658,6 +695,20 @@ export default {
         })
       })
     },
+    /**
+     * Kapanışta klavye inset / max-height / footer padding o anki değerde donsun.
+     * Aksi halde `--ui-keyboard-inset` veya safe-area değişince footer aşağı kayıp öyle kapanır.
+     */
+    freezeSheetGeometry(panel) {
+      if (!panel) return
+      const cs = getComputedStyle(panel)
+      panel.style.marginBottom = cs.marginBottom
+      panel.style.maxHeight = cs.maxHeight
+      const footer = panel.querySelector('.ui-card-footer')
+      if (footer) {
+        footer.style.paddingBottom = getComputedStyle(footer).paddingBottom
+      }
+    },
     animateLayerOut(el, done) {
       const finish = () => {
         this.finishLayerMotion(el)
@@ -670,6 +721,7 @@ export default {
       const mobile = isMobileViewport()
       const glassSafe = this.preferGlassSafeOverlayMotion()
       const parts = this.layerMotionParts(el)
+      this.freezeSheetGeometry(parts.panel)
       const dragged =
         mobile &&
         Boolean(parts.panel?.style.transform && parts.panel.style.transform !== 'none')
@@ -715,11 +767,13 @@ export default {
       if (!this.layerMounted || this.layerClosing) return
       this.clearFocusFallback()
       this.clearSheetDragListeners()
+      this.unbindFooterClearanceObserver()
       this.layerClosing = true
       const el = this.$refs.layerRef
       this.animateLayerOut(el, () => {
         this.layerMounted = false
         this.layerClosing = false
+        unlockBodyScroll()
         this.resetPanelMotionStyles()
         if (this.open) {
           this.$emit('update:open', false)
@@ -746,7 +800,50 @@ export default {
       }
     },
     onOverlayAfterEnter() {
+      this.bindFooterClearanceObserver()
       this.scheduleInitialFocus()
+    },
+    resetBodyScroll() {
+      const panel = this.$refs.panelRef
+      const body = panel?.querySelector?.('.ui-card-body')
+      if (body) body.scrollTop = 0
+    },
+    syncFooterClearance() {
+      if (!this.usesFooterTransparentLayout || !this.open) {
+        this.footerClearancePx = null
+        return
+      }
+      const footer = this.$refs.footerRef
+      if (!footer) {
+        this.footerClearancePx = null
+        return
+      }
+      const height = Math.ceil(footer.getBoundingClientRect().height)
+      this.footerClearancePx = height > 0 ? height : null
+    },
+    bindFooterClearanceObserver() {
+      this.unbindFooterClearanceObserver()
+      if (!this.usesFooterTransparentLayout || !this.open) {
+        this.footerClearancePx = null
+        return
+      }
+      this.$nextTick(() => {
+        const footer = this.$refs.footerRef
+        if (!footer) {
+          this.footerClearancePx = null
+          return
+        }
+        this.syncFooterClearance()
+        if (typeof ResizeObserver === 'undefined') return
+        this._footerResizeObserver = new ResizeObserver(() => {
+          this.syncFooterClearance()
+        })
+        this._footerResizeObserver.observe(footer)
+      })
+    },
+    unbindFooterClearanceObserver() {
+      this._footerResizeObserver?.disconnect?.()
+      this._footerResizeObserver = null
     },
     clearFocusFallback() {
       if (this.focusFallbackTimer != null) {

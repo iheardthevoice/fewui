@@ -6,19 +6,23 @@ export const liquidglassPreset = {
   bodyFontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif',
   primaryColor: '#1B5CFF',
   primaryForeground: '#ffffff',
+  /**
+   * Kart / dialog / form — opak grouped yüzey (iPhone + iPad).
+   * Cam yalnızca chrome / popover / kontrol (`--ui-ios-glass-*`) üzerinde kalır.
+   */
   surfaceStyle: {
     mixFrom: 'surface',
-    opacity: 36,
-    backdropBlur: '18px',
+    opacity: 100,
+    backdropBlur: '0px',
   },
   controlStyle: {
     mixFrom: 'control',
-    opacity: 38,
-    backdropBlur: '18px',
+    opacity: 100,
+    backdropBlur: '0px',
   },
   inputStyle: {
     mixFrom: 'control',
-    opacity: 38,
-    backdropBlur: '18px',
+    opacity: 100,
+    backdropBlur: '0px',
   },
 }

@@ -36,8 +36,7 @@ export default {
     listClass() {
       const vert = this.uiTabs?.orientation === 'vertical'
       const variant = this.uiTabs?.variant
-      /** `segmented` yalnızca yatay; dikeyde `line` düzeni kullanılır. */
-      const kind = variant === 'segmented' && !vert ? 'segmented' : 'line'
+      const kind = variant === 'segmented' ? 'segmented' : 'line'
 
       return cn(
         'ui-tab-list',

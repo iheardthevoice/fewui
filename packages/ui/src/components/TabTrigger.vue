@@ -23,7 +23,10 @@
         :size="tabIconSize"
       />
     </span>
-    <span class="ui-tab-trigger-label min-w-0 whitespace-nowrap">
+    <span
+      :class="labelClass"
+      class="ui-tab-trigger-label min-w-0 whitespace-nowrap"
+    >
       <slot>{{ label }}</slot>
     </span>
     <span
@@ -98,25 +101,28 @@ export default {
   },
   computed: {
     ...themeIconTypeComputed(),
-    /** `segmented` yalnızca yatay `ui-tabs` içinde geçerlidir. */
     triggerKind() {
       if (!this.uiTabs) return 'line'
-      const v = this.uiTabs.variant
-      const vertical = this.uiTabs.orientation === 'vertical'
-      if (v === 'segmented' && !vertical) return 'segmented'
+      if (this.uiTabs.variant === 'segmented') return 'segmented'
       return 'line'
     },
     tabIconSize() {
       if (this.triggerKind === 'segmented') {
-        // Bottom nav / segment kartları: varsayılan `lg`; `sm` boyutta bir kademe küçük.
+        // Segmented kartları (yatay / dikey): varsayılan `lg`; `sm` boyutta bir kademe küçük.
         return this.uiTabs?.resolvedSize === 'sm' ? 'md' : 'lg'
       }
       return 'xs'
     },
-    /** Segmented kartlarında `solid`; çizgi sekmelerde tema varsayılanı. */
+    labelClass() {
+      if (this.uiTabs?.resolvedIconOnly) return 'sr-only'
+      return ''
+    },
+    /** Varsayılan `duotone`; `icon-type` verilirse o kullanılır. */
     tabIconType() {
-      if (this.triggerKind === 'segmented') return 'solid'
-      return this.resolvedIconType
+      if (this.iconType != null && this.iconType !== '') {
+        return this.resolvedIconType
+      }
+      return 'duotone'
     },
     isSelected() {
       if (typeof this.active === 'boolean') return this.active

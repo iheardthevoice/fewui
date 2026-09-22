@@ -5,7 +5,7 @@ import { liquidglassPreset } from './preset.js'
 export const liquidglassTheme = {
   id: 'liquidglass',
   label: 'Liquid Glass',
-  description: 'iOS native — yarı saydam yüzeyler, blur, cam chrome.',
+  description: 'iOS native — opak grouped yüzeyler; cam chrome / popover / kontrol.',
   defaults,
   preset: liquidglassPreset,
   css: {

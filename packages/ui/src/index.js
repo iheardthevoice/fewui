@@ -27,6 +27,7 @@ import Guidance from './components/Guidance.vue'
 import Icon from './components/Icon.vue'
 import IconPicker from './components/IconPicker.vue'
 import Input from './components/Input.vue'
+import Intro from './components/Intro.vue'
 import PriceDisplay from './components/PriceDisplay.vue'
 import PriceDisplayGroup from './components/PriceDisplayGroup.vue'
 import PriceDisplayRow from './components/PriceDisplayRow.vue'
@@ -47,6 +48,7 @@ import Menu from './components/Menu.vue'
 import MenuGroup from './components/MenuGroup.vue'
 import MenuItem from './components/MenuItem.vue'
 import MenuNav from './components/MenuNav.vue'
+import SidebarItem from './components/SidebarItem.vue'
 import Segment from './components/Segment.vue'
 import SegmentGroup from './components/SegmentGroup.vue'
 import Step from './components/Step.vue'
@@ -190,6 +192,7 @@ export {
   Guidance,
   Icon,
   IconPicker,
+  Intro,
   Input,
   PriceInput,
   Password,
@@ -207,6 +210,7 @@ export {
   MenuGroup,
   MenuItem,
   MenuNav,
+  SidebarItem,
   Segment,
   SegmentGroup,
   Skeleton,
@@ -280,6 +284,7 @@ const GLOBAL_COMPONENTS = [
   ['ui-guidance', Guidance],
   ['ui-icon', Icon],
   ['ui-icon-picker', IconPicker],
+  ['ui-intro', Intro],
   ['ui-input', Input],
   ['ui-price-display', PriceDisplay],
   ['ui-price-display-group', PriceDisplayGroup],
@@ -301,6 +306,7 @@ const GLOBAL_COMPONENTS = [
   ['ui-menu-group', MenuGroup],
   ['ui-menu-item', MenuItem],
   ['ui-menu-nav', MenuNav],
+  ['ui-sidebar-item', SidebarItem],
   ['ui-segment', Segment],
   ['ui-segment-group', SegmentGroup],
   ['ui-skeleton', Skeleton],

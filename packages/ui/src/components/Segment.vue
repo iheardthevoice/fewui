@@ -20,6 +20,7 @@
     >
       <ui-icon
         :name="icon"
+        :type="segmentIconType"
         :size="iconSize"
       />
     </span>
@@ -41,6 +42,8 @@
 </template>
 
 <script>
+import { iconTypeProp, themeIconTypeComputed } from '../theme/icon-type-prop.js'
+
 export default {
   name: 'Segment',
   inject: {
@@ -62,12 +65,21 @@ export default {
       type: String,
       default: null,
     },
+    iconType: iconTypeProp,
     disabled: {
       type: Boolean,
       default: false,
     },
   },
   computed: {
+    ...themeIconTypeComputed('iconType'),
+    /** Varsayılan `duotone`; `icon-type` verilirse o kullanılır. */
+    segmentIconType() {
+      if (this.iconType != null && this.iconType !== '') {
+        return this.resolvedIconType
+      }
+      return 'duotone'
+    },
     hasPrepend() {
       return Boolean(this.$slots.prepend)
     },
