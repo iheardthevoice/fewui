@@ -2019,7 +2019,7 @@
   }
 
   .ui-photo-preview__close {
-    @apply absolute -right-1 -top-1 z-[2];
+    @apply absolute left-3 top-3 z-[2];
   }
 
   .ui-photo-preview__nav {
@@ -2027,11 +2027,11 @@
   }
 
   .ui-photo-preview__nav--prev {
-    @apply -left-12;
+    @apply left-3;
   }
 
   .ui-photo-preview__nav--next {
-    @apply -right-12;
+    @apply right-3;
   }
 
   .ui-photo-preview__counter {
@@ -2339,20 +2339,20 @@
   }
 
   .ui-form-row--horizontal {
-    @apply flex flex-row flex-wrap items-start justify-between gap-4;
+    @apply flex flex-row flex-wrap items-center justify-between gap-4;
   }
 
   .ui-form-row--horizontal .ui-form-row-text {
     @apply min-w-0 flex-1;
   }
 
-  .ui-form-row--horizontal .ui-form-row-control {
-    @apply flex min-w-0 max-w-full shrink-0 flex-col items-end gap-1.5;
+  .ui-form-row--horizontal .ui-form-row-text .ui-form-row-description {
+    @apply m-0 min-w-0 text-start text-muted-foreground;
+    overflow-wrap: anywhere;
   }
 
-  .ui-form-row--horizontal .ui-form-row-control .ui-form-row-description {
-    @apply min-w-0 max-w-full text-end text-muted-foreground;
-    overflow-wrap: anywhere;
+  .ui-form-row--horizontal .ui-form-row-control {
+    @apply flex min-w-0 max-w-full shrink-0 flex-col items-end justify-center gap-1.5;
   }
 
   /** `stack-on-mobile` — yatay satır dar ekranda dikey (FormRow prop). */
@@ -2362,11 +2362,7 @@
     }
 
     .ui-form-row--horizontal.ui-form-row--stack-mobile .ui-form-row-control {
-      @apply w-full min-w-0 shrink items-end;
-    }
-
-    .ui-form-row--horizontal.ui-form-row--stack-mobile .ui-form-row-control .ui-form-row-description {
-      @apply w-full self-stretch text-start;
+      @apply w-full min-w-0 shrink items-stretch;
     }
 
     .ui-form-row--card-horizontal.ui-form-row--stack-mobile {
@@ -2405,12 +2401,12 @@
     @apply min-w-0 flex-1;
   }
 
-  .ui-form-row--card-horizontal .ui-form-row-control {
-    @apply flex w-auto min-w-[8rem] max-w-[min(100%,20rem)] shrink-0 flex-col items-end justify-end gap-1.5;
+  .ui-form-row--card-horizontal .ui-form-row-text .ui-form-row-description {
+    @apply m-0 text-start text-muted-foreground;
   }
 
-  .ui-form-row--card-horizontal .ui-form-row-control .ui-form-row-description {
-    @apply text-end text-muted-foreground;
+  .ui-form-row--card-horizontal .ui-form-row-control {
+    @apply flex w-auto min-w-[8rem] max-w-[min(100%,20rem)] shrink-0 flex-col items-end justify-center gap-1.5;
   }
 
   @media (max-width: 639px) {
@@ -4502,8 +4498,16 @@
     min-width: 0;
   }
 
+  .ui-dialog-panel .ui-dialog-header--with-close {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+
   .ui-dialog-panel .ui-dialog-header--with-back {
     grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+
+  .ui-dialog-panel .ui-dialog-header--with-close.ui-dialog-header--with-back {
+    grid-template-columns: auto auto minmax(0, 1fr) auto;
   }
 
   .ui-dialog-panel .ui-dialog-header__back {
@@ -4512,11 +4516,11 @@
   }
 
   .ui-dialog-panel .ui-dialog-header__lead {
-    @apply flex min-w-0 items-center gap-3;
+    @apply flex min-w-0 items-center gap-2.5;
   }
 
   .ui-dialog-panel .ui-dialog-header__icon {
-    @apply flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-muted/50 text-foreground;
+    @apply flex shrink-0 items-center justify-center text-muted-foreground;
   }
 
   .ui-dialog-panel .ui-dialog-header__title {
@@ -4534,7 +4538,7 @@
 
   .ui-sheet-panel .ui-sheet-header {
     display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto auto;
+    grid-template-columns: minmax(0, 1fr) auto auto auto;
     align-items: center;
     column-gap: 0.75rem;
     row-gap: 0.2rem;
@@ -4878,7 +4882,6 @@
     @apply flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain;
     flex: 1 1 auto;
     max-height: none;
-    padding: 0;
   }
 
   .ui-dialog-panel .ui-card-body--flush {
@@ -5853,6 +5856,14 @@
       grid-template-columns: auto minmax(0, 1fr) auto;
     }
 
+    .ui-dialog-panel .ui-dialog-header--with-close:not(.ui-dialog-header--with-back) {
+      grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    .ui-dialog-panel .ui-dialog-header--with-close.ui-dialog-header--with-back {
+      grid-template-columns: auto minmax(0, 1fr) auto;
+    }
+
     .ui-dialog-panel .ui-dialog-header__close {
       display: none;
     }
@@ -5863,6 +5874,14 @@
      */
     .ui-dialog-root--confirm .ui-dialog-panel .ui-dialog-header__close {
       display: inline-flex;
+    }
+
+    .ui-dialog-root--confirm .ui-dialog-panel .ui-dialog-header--with-close:not(.ui-dialog-header--with-back) {
+      grid-template-columns: auto minmax(0, 1fr) auto;
+    }
+
+    .ui-dialog-root--confirm .ui-dialog-panel .ui-dialog-header--with-close.ui-dialog-header--with-back {
+      grid-template-columns: auto auto minmax(0, 1fr) auto;
     }
   }
 

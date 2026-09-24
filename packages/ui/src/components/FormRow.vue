@@ -27,6 +27,13 @@
           <slot name="action" />
         </div>
       </div>
+      <p
+        v-if="description && descriptionWithLabel"
+        :id="descriptionId"
+        class="ui-form-row-description ui-text-default"
+      >
+        {{ description }}
+      </p>
     </div>
     <div class="ui-form-row-control">
       <slot
@@ -34,7 +41,7 @@
         :description-id="descriptionId"
       />
       <p
-        v-if="description"
+        v-if="description && !descriptionWithLabel"
         :id="descriptionId"
         class="ui-form-row-description ui-text-default"
       >
@@ -65,8 +72,8 @@ export default {
       default: '',
     },
     /**
-     * `vertical`: etiket ve açıklama üstte, kontrol altta (tam genişlik).
-     * `horizontal`: metin solda, kontrol sağda (`justify-between`).
+     * `vertical`: etiket üstte, kontrol altta, açıklama kontrolün altında.
+     * `horizontal`: etiket + açıklama solda, kontrol sağda (Preferences).
      */
     direction: {
       type: String,
@@ -124,8 +131,16 @@ export default {
     descriptionId() {
       return this.description ? this.fallbackDescId : undefined
     },
+    /** Yatay / Preferences: açıklama etiketle solda. */
+    descriptionWithLabel() {
+      return this.direction === 'horizontal'
+    },
     hasTextBlock() {
-      return !!(this.label || this.$slots.action)
+      return !!(
+        this.label
+        || this.$slots.action
+        || (this.description && this.descriptionWithLabel)
+      )
     },
     rootLayoutClass() {
       const stack =

@@ -46,6 +46,13 @@
                 class="ui-sheet-header"
                 :class="{ 'ui-sheet-header--no-icon': !icon }"
               >
+                <h3
+                  v-if="title"
+                  :id="titleId"
+                  class="ui-sheet-header__title ui-heading-3"
+                >
+                  {{ title }}
+                </h3>
                 <span
                   v-if="icon"
                   class="ui-sheet-header__icon"
@@ -56,13 +63,6 @@
                     size="sm"
                   />
                 </span>
-                <h3
-                  v-if="title"
-                  :id="titleId"
-                  class="ui-sheet-header__title ui-heading-3"
-                >
-                  {{ title }}
-                </h3>
                 <div
                   v-if="$slots.append || $slots.actions"
                   class="ui-sheet-header__actions"

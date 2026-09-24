@@ -52,8 +52,21 @@
                 :class="{
                   'ui-dialog-header--no-icon': !icon,
                   'ui-dialog-header--with-back': withBack,
+                  'ui-dialog-header--with-close': showClose,
                 }"
               >
+                <ui-button
+                  v-if="showClose"
+                  type="button"
+                  variant="solid"
+                  color="secondary"
+                  size="sm"
+                  cubed
+                  prefix-icon="xmark"
+                  class="ui-dialog-header__close"
+                  :aria-label="resolvedCloseLabel"
+                  @click="close"
+                />
                 <ui-button
                   v-if="withBack"
                   type="button"
@@ -67,6 +80,13 @@
                   {{ resolvedBackLabel }}
                 </ui-button>
                 <div class="ui-dialog-header__lead">
+                  <h3
+                    v-if="hasTitle"
+                    :id="titleId"
+                    class="ui-dialog-header__title ui-heading-2"
+                  >
+                    <slot name="title">{{ title }}</slot>
+                  </h3>
                   <span
                     v-if="icon"
                     class="ui-dialog-header__icon"
@@ -77,32 +97,13 @@
                       size="md"
                     />
                   </span>
-                  <h3
-                    v-if="hasTitle"
-                    :id="titleId"
-                    class="ui-dialog-header__title ui-heading-2"
-                  >
-                    <slot name="title">{{ title }}</slot>
-                  </h3>
                 </div>
                 <div
-                  v-if="showClose || $slots.append || $slots.actions"
+                  v-if="$slots.append || $slots.actions"
                   class="ui-dialog-header__actions"
                 >
                   <slot name="append" />
                   <slot name="actions" />
-                  <ui-button
-                    v-if="showClose"
-                    type="button"
-                    variant="solid"
-                    color="secondary"
-                    size="sm"
-                    cubed
-                    prefix-icon="xmark"
-                    class="ui-dialog-header__close"
-                    :aria-label="resolvedCloseLabel"
-                    @click="close"
-                  />
                 </div>
                 <p
                   v-if="hasDescription"
