@@ -139,7 +139,7 @@ const ni = ["horizontal", "vertical"], ri = {
   name: "ActionGroup",
   inheritAttrs: !1,
   props: {
-    /** Satır veya sütun dizilimi */
+    /** Satır (`horizontal`) veya sütun (`vertical`) dizilimi — form alanları için `vertical` + `joined` */
     orientation: {
       type: String,
       default: "horizontal",
@@ -148,14 +148,23 @@ const ni = ["horizontal", "vertical"], ri = {
     /**
      * true: doğrudan çocukların bitişik iç köşelerinde border-radius sıfırlanır (dış uçlar korunur).
      * Kapsayıcıya border, arka plan veya divide eklenmez.
+     * Dikeyde Input / Select / Button yan yana yığılmış tek kontrol gibi görünür.
      */
     joined: {
       type: Boolean,
       default: !1
     },
     /**
-     * Yatayda çocuklar eşit büyür; içerik genişliğinin altına inmez
-     * (`min-width: max-content` — erken “…” kesilmesini önler).
+     * `joined` ile birlikte: çocuklar arasında ince ayırıcı çizgi
+     * (dikeyde üst kenar, yatayda sol kenar — inset).
+     */
+    divided: {
+      type: Boolean,
+      default: !1
+    },
+    /**
+     * Yatayda çocuklar eşit büyür; dikeyde grup ve çocuklar tam genişlik.
+     * (`min-width` / `min-height: max-content` — erken “…” kesilmesini önler).
      */
     grow: {
       type: Boolean,
@@ -173,6 +182,7 @@ const ni = ["horizontal", "vertical"], ri = {
         "ui-action-group",
         `ui-action-group--${this.orientation}`,
         this.joined && "ui-action-group--joined",
+        this.divided && this.joined && "ui-action-group--divided",
         this.grow && "ui-action-group--grow",
         this.$attrs.class
       );
@@ -7387,4 +7397,4 @@ export {
   eu as y,
   tu as z
 };
-//# sourceMappingURL=index-dBreYG7a.js.map
+//# sourceMappingURL=index-CnjQDauI.js.map

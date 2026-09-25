@@ -387,7 +387,11 @@
   }
 
   .ui-action-group--joined.ui-action-group--vertical {
-    @apply flex max-w-full min-w-0 flex-col flex-nowrap items-stretch;
+    @apply flex w-full max-w-full min-w-0 flex-col flex-nowrap items-stretch;
+  }
+
+  .ui-action-group--joined.ui-action-group--vertical.ui-action-group--grow {
+    @apply w-full;
   }
 
   .ui-action-group--grow.ui-action-group--horizontal > * {
@@ -396,7 +400,7 @@
   }
 
   .ui-action-group--grow.ui-action-group--vertical > * {
-    @apply w-full flex-1 basis-auto;
+    @apply w-full flex-none basis-auto;
     min-height: max-content;
   }
 
@@ -462,6 +466,27 @@
     border-bottom-right-radius: 0;
   }
 
+  /** Joined + Input: kök kabuk köşeleri (Select ile aynı desen) */
+  .ui-action-group--joined.ui-action-group--horizontal > .ui-input:not(:first-child) {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  .ui-action-group--joined.ui-action-group--horizontal > .ui-input:not(:last-child) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .ui-action-group--joined.ui-action-group--vertical > .ui-input:not(:first-child) {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  .ui-action-group--joined.ui-action-group--vertical > .ui-input:not(:last-child) {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
   /** Joined + Input: odak halkası bitişik kenarda üstte kalsın */
   .ui-action-group--joined > .ui-select:focus-within,
   .ui-action-group--joined > .ui-input:focus-within {
@@ -474,6 +499,34 @@
 
   .ui-action-group--joined.ui-action-group--vertical > * + * {
     margin-top: -1px;
+  }
+
+  /** Joined + divided: çocuklar arasında inset ayırıcı çizgi */
+  .ui-action-group--joined.ui-action-group--divided > * {
+    @apply relative;
+  }
+
+  .ui-action-group--joined.ui-action-group--divided.ui-action-group--vertical > *:not(:first-child)::before {
+    content: '';
+    pointer-events: none;
+    position: absolute;
+    inset-inline: 0.75rem;
+    top: 0;
+    z-index: 2;
+    height: 1px;
+    /* `--border` bazı temalarda `--input-background` ile aynı; ayırıcı görünür kalsın */
+    background-color: color-mix(in oklab, var(--foreground) 16%, transparent);
+  }
+
+  .ui-action-group--joined.ui-action-group--divided.ui-action-group--horizontal > *:not(:first-child)::before {
+    content: '';
+    pointer-events: none;
+    position: absolute;
+    inset-block: 0.5rem;
+    inset-inline-start: 0;
+    z-index: 2;
+    width: 1px;
+    background-color: color-mix(in oklab, var(--foreground) 16%, transparent);
   }
 
   .ui-control {
