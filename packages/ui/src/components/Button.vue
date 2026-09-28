@@ -34,19 +34,16 @@
       </template>
       <template v-else-if="loading">
         <span
-          class="ui-button-loading-inner inline-flex size-full min-h-0 min-w-0 flex-1 items-center justify-center [&_.ui-icon]:leading-none"
-          aria-hidden="true"
+          class="ui-button-loading-inner inline-flex size-full min-h-0 min-w-0 flex-1 items-center justify-center gap-2 [&_.ui-icon]:leading-none"
         >
           <ui-icon
             :size="inlineIconSize"
             name="spinner"
             class="fa-spin"
+            aria-hidden="true"
           />
+          <span :class="textContentClass">{{ resolvedLoadingText }}</span>
         </span>
-        <span
-          v-if="resolvedLoadingText"
-          class="sr-only"
-        >{{ resolvedLoadingText }}</span>
       </template>
       <template v-else-if="stack">
         <span
@@ -144,19 +141,16 @@
     </template>
     <template v-else-if="loading">
       <span
-        class="ui-button-loading-inner inline-flex size-full min-h-0 min-w-0 flex-1 items-center justify-center [&_.ui-icon]:leading-none"
-        aria-hidden="true"
+        class="ui-button-loading-inner inline-flex size-full min-h-0 min-w-0 flex-1 items-center justify-center gap-2 [&_.ui-icon]:leading-none"
       >
         <ui-icon
           :size="inlineIconSize"
           name="spinner"
           class="fa-spin"
+          aria-hidden="true"
         />
+        <span :class="textContentClass">{{ resolvedLoadingText }}</span>
       </span>
-      <span
-        v-if="resolvedLoadingText"
-        class="sr-only"
-      >{{ resolvedLoadingText }}</span>
     </template>
     <template v-else-if="stack">
       <span

@@ -21,6 +21,7 @@
         :prefix-icon="prefixIcon"
         :disabled="disabled"
         :loading="loading"
+        :loading-text="loadingText"
         :fulled="isBlock"
         v-bind="$attrs"
         @click="$emit('click', $event)"
@@ -57,6 +58,11 @@ export default {
     loading: {
       type: Boolean,
       default: false,
+    },
+    /** Boş bırakılırsa `ui.button.loading` (i18n) kullanılır */
+    loadingText: {
+      type: String,
+      default: null,
     },
     fulled: {
       type: Boolean,
