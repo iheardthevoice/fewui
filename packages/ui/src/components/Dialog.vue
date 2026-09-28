@@ -8,6 +8,7 @@
       v-if="layerMounted"
       ref="layerRef"
       :class="rootLayerClasses"
+      :style="rootLayerStyle"
       tabindex="-1"
       role="presentation"
       @keydown="onLayerKeydown"
@@ -170,6 +171,12 @@ import { lockBodyScroll, unlockBodyScroll } from '../utils/scroll-lock.js'
 import { isMobileViewport } from '../utils/viewport.js'
 
 const nextDialogId = createUiIdFactory('ui-dialog')
+
+/** Overlay sırası: modal 400 → onay 420 → popover 450 → photo 460 → toast 500. */
+const DIALOG_BASE_Z_INDEX = 400
+const DIALOG_CONFIRM_Z_INDEX = 420
+/** Açık popover katmanının üzerinde tutulacak minimum boşluk */
+const DIALOG_ABOVE_POPOVER_GAP = 20
 
 const BORDER_TYPES = ['solid', 'dashed', 'dotted', 'double']
 
@@ -343,6 +350,8 @@ export default {
       layerMotionActive: false,
       /** Şeffaf footer gerçek yüksekliği (px) — gövde alt padding */
       footerClearancePx: null,
+      /** Açık popover üstünde kalmak için dinamik z-index */
+      rootZIndex: null,
     }
   },
   watch: {
@@ -351,6 +360,7 @@ export default {
       handler(isOpen) {
         if (isOpen) {
           if (this.layerMounted || this.layerClosing) return
+          this.rootZIndex = this.resolveRootZIndex()
           this.layerMounted = true
           lockBodyScroll()
           this.$nextTick(() => {
@@ -510,8 +520,29 @@ export default {
         this.layerClosing && 'ui-dialog-root--leaving',
       )
     },
+    rootLayerStyle() {
+      if (this.rootZIndex == null) return undefined
+      return { zIndex: String(this.rootZIndex) }
+    },
   },
   methods: {
+    resolveRootZIndex() {
+      const base =
+        this.stackLayer === 'confirm' ? DIALOG_CONFIRM_Z_INDEX : DIALOG_BASE_Z_INDEX
+      if (typeof document === 'undefined') return base
+
+      let top = base
+      for (const layer of document.querySelectorAll('.ui-popover-layer')) {
+        const z = Number.parseInt(getComputedStyle(layer).zIndex, 10)
+        if (Number.isFinite(z)) top = Math.max(top, z + DIALOG_ABOVE_POPOVER_GAP)
+      }
+      for (const root of document.querySelectorAll('.ui-dialog-root, .ui-sheet-root')) {
+        if (root === this.$refs.layerRef) continue
+        const z = Number.parseInt(getComputedStyle(root).zIndex, 10)
+        if (Number.isFinite(z)) top = Math.max(top, z + 10)
+      }
+      return top
+    },
     prefersReducedMotion() {
       if (typeof window === 'undefined') return false
       return window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -774,6 +805,7 @@ export default {
       this.animateLayerOut(el, () => {
         this.layerMounted = false
         this.layerClosing = false
+        this.rootZIndex = null
         unlockBodyScroll()
         this.resetPanelMotionStyles()
         if (this.open) {

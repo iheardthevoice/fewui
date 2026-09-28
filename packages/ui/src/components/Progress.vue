@@ -52,12 +52,12 @@
 import { cn } from '../utils/cn.js'
 
 const TYPES = ['bar', 'circle']
-const CIRCLE_SIZES = ['sm', 'md', 'lg']
+const CIRCLE_SIZES = ['sm', 'md', 'lg', 'xl', '2xl']
 const BAR_SIZES = ['thin', 'md']
 const VARIANTS = ['default', 'weak', 'fair', 'good', 'strong']
 
-const CIRCLE_PX = { sm: 16, md: 20, lg: 24 }
-const CIRCLE_STROKE = { sm: 1.5, md: 2, lg: 2 }
+const CIRCLE_PX = { sm: 16, md: 20, lg: 24, xl: 40, '2xl': 56 }
+const CIRCLE_STROKE = { sm: 1.5, md: 2, lg: 2, xl: 3, '2xl': 3.5 }
 
 export default {
   name: 'Progress',
@@ -79,7 +79,7 @@ export default {
       default: 100,
     },
     /**
-     * Daire: sm 16px, md 20px, lg 24px.
+     * Daire: sm 16px, md 20px, lg 24px, xl 40px, 2xl 56px.
      * Çubuk: thin 4px (şifre gücü), md 8px (slider izi).
      */
     size: {

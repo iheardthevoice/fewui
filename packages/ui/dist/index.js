@@ -3657,7 +3657,7 @@ function Cs(e, t, r, l, s, i) {
     ], 8, Ss)) : f("", !0)
   ], 2);
 }
-const Ts = /* @__PURE__ */ x(ws, [["render", Cs]]), Ls = ["bar", "circle"], ke = ["sm", "md", "lg"], we = ["thin", "md"], Is = ["default", "weak", "fair", "good", "strong"], q = { sm: 16, md: 20, lg: 24 }, zs = { sm: 1.5, md: 2, lg: 2 }, As = {
+const Ts = /* @__PURE__ */ x(ws, [["render", Cs]]), Ls = ["bar", "circle"], ke = ["sm", "md", "lg", "xl", "2xl"], we = ["thin", "md"], Is = ["default", "weak", "fair", "good", "strong"], q = { sm: 16, md: 20, lg: 24, xl: 40, "2xl": 56 }, zs = { sm: 1.5, md: 2, lg: 2, xl: 3, "2xl": 3.5 }, As = {
   name: "Progress",
   inheritAttrs: !1,
   props: {
@@ -3677,7 +3677,7 @@ const Ts = /* @__PURE__ */ x(ws, [["render", Cs]]), Ls = ["bar", "circle"], ke =
       default: 100
     },
     /**
-     * Daire: sm 16px, md 20px, lg 24px.
+     * Daire: sm 16px, md 20px, lg 24px, xl 40px, 2xl 56px.
      * Çubuk: thin 4px (şifre gücü), md 8px (slider izi).
      */
     size: {

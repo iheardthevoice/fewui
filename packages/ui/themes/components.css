@@ -4479,7 +4479,9 @@
   }
 
   .ui-popover-body {
-    @apply min-h-0 min-w-0 flex-1 overflow-hidden;
+    @apply min-h-0 min-w-0 flex-1 overflow-y-auto overscroll-contain ui-scrollbar-none;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
   }
 
   .ui-popover-body:has(.ui-color-picker-panel),
