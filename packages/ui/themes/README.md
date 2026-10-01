@@ -66,8 +66,8 @@ Bileşenler prop verilmediğinde `resolveThemeDefault` / `useUiDefaults` ile bu 
 | id | Kullanım |
 |----|----------|
 | `web` | Restta panel (web) |
-| `liquidglass` | iOS native cam |
-| `android` | Material 3 / Capacitor Android |
+| `liquidglass` | iOS native cam (chrome / popover blur; kart opak) |
+| `android` | Material 3 — surface containers, filled/tonal button, elevated card (`cap-android`) |
 | `landing` | Tenant public siteler |
 | `fewui` | fewui.com marketing |
 

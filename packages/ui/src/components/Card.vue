@@ -165,6 +165,11 @@ export default {
       type: Boolean,
       default: false,
     },
+    /** Üst flex satırında kardeşlerle aynı yüksekliğe yayılır (`h-full`). */
+    fullHeight: {
+      type: Boolean,
+      default: false,
+    },
     /** `data-table` — sıfır kök padding; toolbar/footer DataTable boşlukları. */
     layout: {
       type: String,
@@ -216,6 +221,9 @@ export default {
       }
       if (this.emphasized) {
         base.push('ui-card--emphasized')
+      }
+      if (this.fullHeight) {
+        base.push('ui-card--full-height')
       }
       return cn(base.join(' '), this.$attrs.class)
     },

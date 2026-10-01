@@ -1,5 +1,6 @@
 /**
- * Varsayılan giriş — Restta panel (web tokenları + iOS liquid glass platform katmanı).
+ * Varsayılan giriş — Restta panel (web tokenları + native platform katmanları).
+ * iOS: liquidglass · Android: Material 3 (`cap-ios` / `cap-android` altında).
  * Tema seçimi: `fewui/themes/{web|liquidglass|android|landing|fewui}.css`
  */
 @import './_shared/global.css';
@@ -8,3 +9,4 @@
 @import './liquidglass/platform/ios.css';
 @import './liquidglass/styles.css';
 @import './android/platform/android.css';
+@import './android/styles.css';

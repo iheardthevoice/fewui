@@ -1,44 +1,64 @@
 /**
- * Android / Material 3 — tonal surfaces, pill controls.
- * Light + dark tokenları bu pakette; runtime `mode` ile `.dark` sınıfı.
+ * Android / Material 3 — tonal base, surface container, filled controls.
+ * Light + dark; runtime `mode` ile `.dark` sınıfı.
+ * Capacitor kabuğu ek tokenları `platform/android.css` içinde ezer.
  */
 
 :root {
-  --font-sans: Roboto, ui-sans-serif;
+  --font-sans: Roboto, ui-sans-serif, system-ui, sans-serif;
   --font-heading: var(--font-sans);
 
+  /** M3 shape — filled button pill; kart / sheet 16–28dp */
   --radius: 16px;
   --radius-sm: 12px;
   --radius-md: 14px;
-  --radius-3xl: 28px;
-  --radius-4xl: 32px;
+  --radius-3xl: 16px;
+  --radius-4xl: 28px;
 
-  --base-50: oklch(0.99 0.002 285);
-  --base-100: oklch(0.97 0.004 285);
-  --base-200: oklch(0.93 0.006 285);
-  --base-300: oklch(0.87 0.008 285);
-  --base-400: oklch(0.72 0.01 285);
-  --base-500: oklch(0.58 0.012 285);
-  --base-600: oklch(0.48 0.014 285);
-  --base-700: oklch(0.4 0.016 285);
-  --base-800: oklch(0.32 0.018 285);
+  /**
+   * Base skala — nötr + hafif primary hue (Material You surface tint, ~285°).
+   * Web’deki chroma-0 neutraller yerine Android yüzey hiyerarşisi.
+   */
+  --base-50: oklch(0.99 0.004 285);
+  --base-100: oklch(0.97 0.008 285);
+  --base-200: oklch(0.93 0.012 285);
+  --base-300: oklch(0.87 0.016 285);
+  --base-400: oklch(0.72 0.02 285);
+  --base-500: oklch(0.58 0.022 285);
+  --base-600: oklch(0.48 0.024 285);
+  --base-700: oklch(0.4 0.026 285);
+  --base-800: oklch(0.32 0.024 285);
   --base-900: oklch(0.24 0.02 285);
-  --base-950: oklch(0.18 0.022 285);
+  --base-950: oklch(0.18 0.018 285);
 
   --white: #ffffff;
 
+  /** M3 baseline surface */
   --background: #fffbfe;
   --foreground: #1c1b1f;
 
   --surface: #fffbfe;
   --surface-foreground: #1c1b1f;
 
+  /**
+   * Surface container basamağı (M3):
+   * lowest → kart üstü / elevated; high → input oyuğu; highest → tonal chip.
+   */
+  --ui-m3-surface-lowest: #ffffff;
+  --ui-m3-surface-low: #f7f2fa;
+  --ui-m3-surface-container: #f3edf7;
+  --ui-m3-surface-high: #ece6f0;
+  --ui-m3-surface-highest: #e6e0e9;
+  --ui-m3-outline: #79747e;
+  --ui-m3-outline-variant: #cac4d0;
+
   --ui-surface-opacity: 100%;
   --ui-surface-backdrop-blur: 0;
-  --ui-surface-mix-from: var(--surface);
+  --ui-surface-mix-from: var(--ui-m3-surface-low);
   --surface-bg: color-mix(in oklab, var(--ui-surface-mix-from) var(--ui-surface-opacity), transparent);
 
-  --control: #e7e0ec;
+  /** Tonal control / secondary container */
+  --control: var(--ui-m3-surface-highest);
   --control-foreground: #1c1b1f;
 
   --ui-control-opacity: 100%;
@@ -58,29 +78,31 @@
   --success-foreground: oklch(0.99 0.01 152);
   --info: oklch(0.54 0.125 252);
   --info-foreground: oklch(0.99 0.01 252);
-  --destructive: oklch(0.55 0.22 27);
-  --destructive-foreground: oklch(0.985 0.01 27);
+  --destructive: #b3261e;
+  --destructive-foreground: #ffffff;
 
-  --muted: var(--base-200);
-  --muted-foreground: var(--base-600);
+  --muted: var(--ui-m3-surface-container);
+  --muted-foreground: #49454f;
 
-  --accent: #e8def8;
+  --accent: var(--ui-m3-surface-high);
   --accent-foreground: #1d192b;
 
   --ui-input-opacity: 100%;
   --ui-input-backdrop-blur: 0;
-  --ui-input-mix-from: var(--control);
+  --ui-input-mix-from: var(--ui-m3-surface-highest);
   --input-background: color-mix(in oklab, var(--ui-input-mix-from) var(--ui-input-opacity), transparent);
 
-  --border: color-mix(in oklab, var(--foreground) 12%, transparent);
+  --border: var(--ui-m3-outline-variant);
 
-  --ui-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.08);
-  --ui-shadow-md: 0 2px 6px rgb(0 0 0 / 0.1);
+  /** M3 elevation (level 1–2) — yumuşak, flat değil tonal + hafif gölge */
+  --ui-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.08), 0 1px 3px rgb(0 0 0 / 0.06);
+  --ui-shadow-md: 0 1px 2px rgb(0 0 0 / 0.08), 0 2px 6px rgb(0 0 0 / 0.1);
   --ui-shadow-surface: 0 1px 3px rgb(0 0 0 / 0.08), 0 4px 12px rgb(0 0 0 / 0.06);
 
   --ring: #6750a4;
-  --ui-focus-ring: color-mix(in oklab, var(--ring) 45%, transparent);
+  --ui-focus-ring: color-mix(in oklab, var(--ring) 40%, transparent);
 
+  /** Filled button — düz tonal; web gradient yok */
   --ui-fill-grad-top-primary: 0%;
   --ui-fill-grad-bottom-primary: 0%;
   --ui-fill-grad-light: white;
@@ -94,6 +116,19 @@
   --ui-scrollbar-track: transparent;
   --ui-scrollbar-thumb: color-mix(in oklab, var(--foreground) 22%, transparent);
   --ui-scrollbar-thumb-hover: color-mix(in oklab, var(--foreground) 36%, transparent);
+
+  --chart-50: #f3edf7;
+  --chart-100: #e8def8;
+  --chart-200: #d0bcff;
+  --chart-300: #b69df8;
+  --chart-400: #9a82db;
+  --chart-500: #7f67be;
+  --chart-600: #6750a4;
+  --chart-700: #4f378b;
+  --chart-800: #381e72;
+  --chart-900: #21005d;
+  --chart: var(--chart-500);
+  --chart-foreground: #ffffff;
 }
 
 .dark {
@@ -103,7 +138,16 @@
   --surface: #1c1b1f;
   --surface-foreground: #e6e1e5;
 
-  --control: #49454f;
+  --ui-m3-surface-lowest: #0f0d13;
+  --ui-m3-surface-low: #1d1b20;
+  --ui-m3-surface-container: #211f26;
+  --ui-m3-surface-high: #2b2930;
+  --ui-m3-surface-highest: #36343b;
+  --ui-m3-outline: #938f99;
+  --ui-m3-outline-variant: #49454f;
+
+  --ui-surface-mix-from: var(--ui-m3-surface-low);
+  --control: var(--ui-m3-surface-highest);
   --control-foreground: #e6e1e5;
 
   --primary: #d0bcff;
@@ -112,19 +156,35 @@
   --secondary: #4a4458;
   --secondary-foreground: #e8def8;
 
-  --muted: var(--base-800);
-  --muted-foreground: var(--base-400);
+  --destructive: #f2b8b5;
+  --destructive-foreground: #601410;
 
-  --accent: #4a4458;
+  --muted: var(--ui-m3-surface-container);
+  --muted-foreground: #cac4d0;
+
+  --accent: var(--ui-m3-surface-high);
   --accent-foreground: #e8def8;
 
-  --ui-input-mix-from: var(--control);
-  --border: color-mix(in oklab, var(--foreground) 14%, transparent);
+  --ui-input-mix-from: var(--ui-m3-surface-highest);
+  --border: var(--ui-m3-outline-variant);
 
   --ui-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.35);
-  --ui-shadow-md: 0 2px 8px rgb(0 0 0 / 0.4);
+  --ui-shadow-md: 0 2px 6px rgb(0 0 0 / 0.4);
   --ui-shadow-surface: 0 2px 8px rgb(0 0 0 / 0.35);
 
   --ring: #d0bcff;
   --ui-focus-ring: color-mix(in oklab, var(--ring) 45%, transparent);
+
+  --chart-50: #21005d;
+  --chart-100: #381e72;
+  --chart-200: #4f378b;
+  --chart-300: #6750a4;
+  --chart-400: #7f67be;
+  --chart-500: #9a82db;
+  --chart-600: #b69df8;
+  --chart-700: #d0bcff;
+  --chart-800: #e8def8;
+  --chart-900: #f3edf7;
+  --chart: var(--chart-500);
+  --chart-foreground: #381e72;
 }

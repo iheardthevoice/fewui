@@ -1545,6 +1545,11 @@
     box-shadow: 0 12px 32px color-mix(in oklab, var(--primary) 30%, transparent);
   }
 
+  /** Yatay kart şeridinde / grid satırında kardeşlerle aynı yükseklik. */
+  .ui-card--full-height {
+    @apply flex h-full min-h-0 flex-col self-stretch;
+  }
+
   .ui-card-header {
     @apply min-w-0 shrink-0;
   }
@@ -2472,8 +2477,12 @@
     }
   }
 
+  /**
+   * Etiket bloğu — dikey satırda `flex-1` olmamalı: yan yana grid’de satırlar
+   * eşitlenince kısa sütundaki input alta kaymasın. `flex-1` yalnız yatayda.
+   */
   .ui-form-row-text {
-    @apply min-w-0 flex-1 space-y-1.5;
+    @apply min-w-0 shrink-0 space-y-1.5;
   }
 
   /** Etiket satırı — solda label, sağda `#action` (ör. “Şifremi unuttum”) */
@@ -2498,8 +2507,8 @@
   }
 
   .ui-field--card {
-    @apply rounded-2xl px-4 py-3.5;
-    background-color: color-mix(in oklab, var(--muted) 20%, transparent);
+    @apply rounded-2xl border border-border/60 px-4 py-3.5;
+    background-color: color-mix(in oklab, var(--muted) 45%, var(--surface-bg));
   }
 
   .ui-field__title-row {

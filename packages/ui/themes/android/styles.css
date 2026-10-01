@@ -1,4 +1,258 @@
-/** Material 3 — filled tonal buttons, daha az gölge. */
-.ui-button.ui-control[data-variant='solid'] {
-  box-shadow: none;
+/**
+ * Android Material 3 — chrome, kart, buton, form (liquidglass/styles.css paralel).
+ * Yalnızca `html.cap-native.cap-android` altında; web / iOS etkilenmez.
+ */
+
+/** M3 — düz tonal chrome; header / footer aynı surface + elevation */
+html.cap-native.cap-android .app-ios-glass-bar,
+html.cap-native.cap-android .app-ios-glass-bar--header,
+html.cap-native.cap-android .app-ios-glass-bar--footer,
+html.cap-native.cap-android .app-ios-glass-bar--pos-footer {
+  border: none !important;
+  background-color: var(--background) !important;
+  background-image: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+html.cap-native.cap-android .app-ios-glass-bar--header {
+  border-bottom: 1px solid var(--border) !important;
+  box-shadow: var(--ui-shadow-sm);
+}
+
+html.cap-native.cap-android .app-ios-glass-bar--footer,
+html.cap-native.cap-android .app-ios-glass-bar--pos-footer {
+  border-top: 1px solid var(--border) !important;
+  box-shadow: 0 -1px 3px rgb(0 0 0 / 0.06);
+}
+
+html.cap-native.cap-android .app-ios-glass-bar.ui-surface {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background-color: var(--background) !important;
+}
+
+html.cap-native.cap-android .app-ios-glass-bar--pos-footer {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/**
+ * Kart — surface-container-low, soft elevation, outline yok (M3 elevated card).
+ */
+html.cap-native.cap-android .ui-card.ui-surface:not(.ui-dialog-panel):not(.ui-card--transparent) {
+  background-color: var(--ui-m3-card-surface-bg, var(--ui-m3-surface-low)) !important;
+  background-image: none !important;
+  border: none !important;
+  box-shadow: var(--ui-shadow-surface) !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+html.cap-native.cap-android .ui-surface:not(.ui-popover-panel):not(.app-ios-glass-bar):not(.ui-dialog-panel) {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+html.cap-native.cap-android .ui-card.ui-surface:not(.ui-dialog-panel):not(.ui-card--transparent) .ui-input,
+html.cap-native.cap-android .ui-card.ui-surface:not(.ui-dialog-panel):not(.ui-card--transparent) .ui-select-field,
+html.cap-native.cap-android .ui-card.ui-surface:not(.ui-dialog-panel):not(.ui-card--transparent) .ui-textarea-field,
+html.cap-native.cap-android .ui-card.ui-surface:not(.ui-dialog-panel):not(.ui-card--transparent) .ui-input .ui-field-control-fill,
+html.cap-native.cap-android .ui-card.ui-surface:not(.ui-dialog-panel):not(.ui-card--transparent) .ui-select-field .ui-field-control-fill {
+  background-color: var(--ui-m3-dialog-field-bg) !important;
+  border: none !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+/**
+ * Filled / tonal / outline butonlar — düz, gölgesiz; state layer (opacity) ile basılı.
+ */
+html.cap-native.cap-android .ui-button.ui-control:not([data-variant='link']):not([data-variant='nav']):not([data-pos-category-chip]) {
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+html.cap-native.cap-android .ui-button.ui-control[data-variant='solid'] {
+  box-shadow: none !important;
+  background-image: none !important;
+}
+
+html.cap-native.cap-android .ui-button.ui-control[data-variant='solid'][data-color='primary'] {
+  background-image: none !important;
+}
+
+html.cap-native.cap-android .ui-button.ui-control[data-variant='solid'][data-color='secondary'],
+html.cap-native.cap-android .ui-button.ui-control[data-variant='solid'][data-color='input'] {
+  background-color: var(--secondary) !important;
+  background-image: none !important;
+  color: var(--secondary-foreground);
+}
+
+html.cap-native.cap-android .ui-button.ui-control[data-variant='outline']:not([data-pos-category-chip]) {
+  border-color: var(--ui-m3-outline, var(--border)) !important;
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+html.cap-native.cap-android .ui-button.ui-control[data-variant='ghost']:not([data-pos-category-chip]) {
+  background-image: none !important;
+}
+
+html.cap-native.cap-android .ui-button.ui-control:active:not(:disabled):not([data-variant='link']) {
+  opacity: 0.88;
+}
+
+html.cap-native.cap-android .ui-tab-trigger:active:not(:disabled),
+html.cap-native.cap-android .ui-segment:active:not(:disabled) {
+  opacity: 0.88;
+}
+
+html.cap-native.cap-android .ui-button.ui-control:not([data-variant='link']),
+html.cap-native.cap-android .ui-tab-trigger,
+html.cap-native.cap-android .ui-segment {
+  transition-property: transform, color, background-color, background-image, box-shadow, opacity;
+  transition-duration: 120ms;
+  transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
+}
+
+/** Segment / input — surface-container-highest oyuk */
+html.cap-native.cap-android .ui-segment-group:not(.ui-segment-group--vertical) {
+  background-color: var(--input-background) !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  border-color: transparent !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+html.cap-native.cap-android .ui-segment-group:not(.ui-segment-group--vertical)::before,
+html.cap-native.cap-android .ui-segment-group:not(.ui-segment-group--vertical)::after {
+  content: none !important;
+}
+
+html.cap-native.cap-android .ui-input,
+html.cap-native.cap-android .ui-select-field,
+html.cap-native.cap-android .ui-textarea-field,
+html.cap-native.cap-android .ui-input .ui-field-control-fill,
+html.cap-native.cap-android .ui-select-field .ui-field-control-fill {
+  background-color: var(--input-background) !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+html.cap-native.cap-android .ui-tab-list--horizontal.ui-tab-list--segmented {
+  background-color: var(--ui-m3-surface-container) !important;
+  background-image: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+html.cap-native.cap-android .ui-tab-list--horizontal.ui-tab-list--segmented::before,
+html.cap-native.cap-android .ui-tab-list--horizontal.ui-tab-list--segmented::after {
+  content: none !important;
+}
+
+/** Popover / menu — surface-container, elevation 2 */
+html.cap-native.cap-android .ui-popover-panel.ui-surface {
+  background-color: var(--ui-m3-surface-container) !important;
+  background-image: none !important;
+  border: 1px solid var(--border) !important;
+  box-shadow: var(--ui-shadow-md) !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+html.cap-native.cap-android .ui-popover-panel.ui-surface::before,
+html.cap-native.cap-android .ui-popover-panel.ui-surface::after {
+  content: none !important;
+}
+
+/**
+ * Dialog sheet — surface-container; alanlar surface-highest.
+ */
+html.cap-native.cap-android .ui-dialog-panel.ui-surface {
+  background-color: var(--ui-m3-dialog-sheet-bg) !important;
+  background-image: none !important;
+  border: none !important;
+  box-shadow: var(--ui-shadow-md) !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+html.cap-native.cap-android .ui-dialog-panel.ui-surface::before,
+html.cap-native.cap-android .ui-dialog-panel.ui-surface::after {
+  content: none !important;
+}
+
+html.cap-native.cap-android .ui-dialog-panel .ui-input,
+html.cap-native.cap-android .ui-dialog-panel .ui-select-field,
+html.cap-native.cap-android .ui-dialog-panel .ui-textarea-field {
+  background-color: var(--ui-m3-dialog-field-bg) !important;
+  border: none !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+html.cap-native.cap-android .ui-dialog-panel .ui-card-footer {
+  padding-bottom: max(1rem, env(safe-area-inset-bottom, 0px));
+}
+
+html.cap-native.cap-android .ui-dialog-panel--footer-transparent .ui-card-footer.ui-dialog-footer--transparent {
+  background-color: transparent !important;
+  background-image: none !important;
+  border-top: none !important;
+  box-shadow: none !important;
+}
+
+html.cap-native.cap-android
+  .ui-dialog-panel--footer-transparent
+  .ui-card-footer.ui-dialog-footer--transparent
+  .ui-button.ui-control[data-variant='ghost'],
+html.cap-native.cap-android
+  .ui-dialog-panel--footer-transparent
+  .ui-card-footer.ui-dialog-footer--transparent
+  .ui-button.ui-control[data-variant='outline'],
+html.cap-native.cap-android
+  .ui-dialog-panel--footer-transparent
+  .ui-card-footer.ui-dialog-footer--transparent
+  .ui-button.ui-control[data-variant='link'] {
+  background-color: var(--ui-m3-surface-high) !important;
+  background-image: none !important;
+}
+
+html.cap-native.cap-android .ui-action-card-list {
+  gap: 0.75rem;
+}
+
+html.cap-native.cap-android .ui-action-card {
+  background-color: var(--ui-m3-card-surface-bg) !important;
+  box-shadow: var(--ui-shadow-sm);
+  border: none !important;
+}
+
+html.cap-native.cap-android .ui-skeleton {
+  border: none !important;
+  box-shadow: none !important;
+  background-color: color-mix(in oklab, var(--foreground) 8%, transparent);
+}
+
+/** Sidebar — cam/blur yok; düz ghost */
+html.cap-native.cap-android aside .ui-button.ui-control {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+html.cap-native.cap-android aside .ui-button.ui-control[data-variant='ghost'],
+html.cap-native.cap-android aside .ui-button.ui-control[data-variant='outline'],
+html.cap-native.cap-android aside .ui-button.ui-control[data-variant='nav'] {
+  background-image: none !important;
 }

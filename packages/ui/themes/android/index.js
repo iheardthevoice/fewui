@@ -5,7 +5,7 @@ import { androidPreset } from './preset.js'
 export const androidTheme = {
   id: 'android',
   label: 'Android',
-  description: 'Material 3 — Roboto, tonal surfaces, pill controls.',
+  description: 'Material 3 — Roboto, surface containers, filled/tonal buttons, elevated cards.',
   defaults,
   preset: androidPreset,
   css: {

@@ -1,51 +1,141 @@
 /**
  * Android native — Material 3 token override (`html.cap-native.cap-android`).
- * Tam palet `../color.css`; burada yalnızca Capacitor kabuğu için runtime sınıf override.
+ * Restta `default.css` web tokenlarını bu sınıf altında ezer (liquidglass/ios.css paralel).
  */
 
 html.cap-native.cap-android {
-  --font-sans: Roboto, ui-sans-serif;
+  --font-sans: Roboto, ui-sans-serif, system-ui, sans-serif;
   --font-heading: var(--font-sans);
+
+  /**
+   * Dokunma hedefleri — Material 3:
+   * varsayılan 40dp (2.5rem), büyük 48dp (3rem), küçük 32dp.
+   */
+  --ui-control-h-sm: 2rem;
+  --ui-control-h-md: 2.5rem;
+  --ui-control-h-lg: 3rem;
+  --ui-tab-h-sm: 2.5rem;
+  --ui-tab-h-md: 3rem;
+  --ui-tab-h-lg: 3.25rem;
+
   --radius: 16px;
   --radius-sm: 12px;
   --radius-md: 14px;
   --radius-3xl: 16px;
   --radius-4xl: 28px;
 
-  --primary: #6750a4;
-  --primary-foreground: #ffffff;
+  --base-50: oklch(0.99 0.004 285);
+  --base-100: oklch(0.97 0.008 285);
+  --base-200: oklch(0.93 0.012 285);
+  --base-300: oklch(0.87 0.016 285);
+  --base-400: oklch(0.72 0.02 285);
+  --base-500: oklch(0.58 0.022 285);
+  --base-600: oklch(0.48 0.024 285);
+  --base-700: oklch(0.4 0.026 285);
+  --base-800: oklch(0.32 0.024 285);
+  --base-900: oklch(0.24 0.02 285);
+  --base-950: oklch(0.18 0.018 285);
+
+  --background: #fffbfe;
+  --foreground: #1c1b1f;
+  --surface: #fffbfe;
+  --surface-foreground: #1c1b1f;
+
+  --ui-m3-surface-lowest: #ffffff;
+  --ui-m3-surface-low: #f7f2fa;
+  --ui-m3-surface-container: #f3edf7;
+  --ui-m3-surface-high: #ece6f0;
+  --ui-m3-surface-highest: #e6e0e9;
+  --ui-m3-outline: #79747e;
+  --ui-m3-outline-variant: #cac4d0;
+
+  --ui-surface-opacity: 100%;
+  --ui-surface-backdrop-blur: 0px;
+  --ui-surface-mix-from: var(--ui-m3-surface-low);
+  --surface-bg: color-mix(in oklab, var(--ui-surface-mix-from) var(--ui-surface-opacity), transparent);
+
+  --control: var(--ui-m3-surface-highest);
+  --control-foreground: #1c1b1f;
+  --ui-control-opacity: 100%;
+  --ui-control-backdrop-blur: 0px;
+  --ui-control-mix-from: var(--control);
+
   --secondary: #e8def8;
   --secondary-foreground: #1d192b;
 
-  --ui-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.08);
-  --ui-shadow-md: 0 2px 6px rgb(0 0 0 / 0.1);
+  --muted: var(--ui-m3-surface-container);
+  --muted-foreground: #49454f;
+  --accent: var(--ui-m3-surface-high);
+  --accent-foreground: #1d192b;
+
+  --ui-input-mix-from: var(--ui-m3-surface-highest);
+  --ui-input-opacity: 100%;
+  --ui-input-backdrop-blur: 0px;
+  --input-background: color-mix(in oklab, var(--ui-input-mix-from) var(--ui-input-opacity), transparent);
+
+  --border: var(--ui-m3-outline-variant);
+
+  --ui-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.08), 0 1px 3px rgb(0 0 0 / 0.06);
+  --ui-shadow-md: 0 1px 2px rgb(0 0 0 / 0.08), 0 2px 6px rgb(0 0 0 / 0.1);
   --ui-shadow-surface: 0 1px 3px rgb(0 0 0 / 0.08), 0 4px 12px rgb(0 0 0 / 0.06);
+
+  --ui-fill-grad-top-primary: 0%;
+  --ui-fill-grad-bottom-primary: 0%;
+  --ui-button-grad-top: 0%;
+  --ui-button-grad-bottom: 0%;
+
+  /**
+   * Kart / dialog — surface-container-low (tonal), outline-variant stroke yok veya soft.
+   * liquidglass’taki `--ui-ios-card-surface-bg` paralel.
+   */
+  --ui-m3-card-surface-bg: var(--ui-m3-surface-low);
+  --ui-m3-dialog-sheet-bg: var(--ui-m3-surface-container);
+  --ui-m3-dialog-field-bg: var(--ui-m3-surface-highest);
+  --app-data-table-cell-bg: var(--ui-m3-card-surface-bg);
+
+  /** Tipografi — Roboto Material ölçeğine yakın */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
 }
 
 html.cap-native.cap-android.dark {
-  --primary: #d0bcff;
-  --primary-foreground: #381e72;
+  --background: #1c1b1f;
+  --foreground: #e6e1e5;
+  --surface: #1c1b1f;
+  --surface-foreground: #e6e1e5;
+
+  --ui-m3-surface-lowest: #0f0d13;
+  --ui-m3-surface-low: #1d1b20;
+  --ui-m3-surface-container: #211f26;
+  --ui-m3-surface-high: #2b2930;
+  --ui-m3-surface-highest: #36343b;
+  --ui-m3-outline: #938f99;
+  --ui-m3-outline-variant: #49454f;
+
+  --ui-surface-mix-from: var(--ui-m3-surface-low);
+  --control: var(--ui-m3-surface-highest);
+  --control-foreground: #e6e1e5;
+
   --secondary: #4a4458;
   --secondary-foreground: #e8def8;
+
+  --muted: var(--ui-m3-surface-container);
+  --muted-foreground: #cac4d0;
+  --accent: var(--ui-m3-surface-high);
+  --accent-foreground: #e8def8;
+
+  --ui-input-mix-from: var(--ui-m3-surface-highest);
+  --border: var(--ui-m3-outline-variant);
+
   --ui-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.35);
-  --ui-shadow-md: 0 2px 8px rgb(0 0 0 / 0.4);
+  --ui-shadow-md: 0 2px 6px rgb(0 0 0 / 0.4);
   --ui-shadow-surface: 0 2px 8px rgb(0 0 0 / 0.35);
-}
 
-/** M3 — düz tonal chrome; header / footer aynı `--background` */
-html.cap-native.cap-android .app-ios-glass-bar--header {
-  background-color: var(--background);
-  border-bottom: 1px solid var(--border);
-  box-shadow: var(--ui-shadow-sm);
-}
-
-html.cap-native.cap-android .app-ios-glass-bar--footer,
-html.cap-native.cap-android .app-ios-glass-bar--pos-footer {
-  background-color: var(--background);
-  border-top: 1px solid var(--border);
-  box-shadow: 0 -1px 3px rgb(0 0 0 / 0.06);
-}
-
-html.cap-native.cap-android .ui-button.ui-control[data-variant='solid'] {
-  box-shadow: none;
+  --ui-m3-card-surface-bg: var(--ui-m3-surface-low);
+  --ui-m3-dialog-sheet-bg: var(--ui-m3-surface-container);
+  --ui-m3-dialog-field-bg: var(--ui-m3-surface-highest);
+  --app-data-table-cell-bg: var(--ui-m3-card-surface-bg);
 }
