@@ -4825,15 +4825,16 @@
     gap: 0;
   }
 
-  .ui-dialog-panel .ui-card-header {
+  /* Yalnız panel iskeleti — iç içe ui-card gövdelerine overflow/max-height sızmasın */
+  .ui-dialog-panel > .ui-dialog-motion > .ui-card-header {
     padding: var(--ui-card-padding) var(--ui-card-padding) 0.75rem;
   }
 
-  .ui-dialog-panel .ui-card-toolbar {
+  .ui-dialog-panel > .ui-dialog-motion > .ui-card-toolbar {
     padding: 0 var(--ui-card-padding) 0.75rem;
   }
 
-  .ui-dialog-panel .ui-card-body {
+  .ui-dialog-panel > .ui-dialog-motion > .ui-card-body {
     @apply relative z-[1] min-h-0 overflow-y-auto overscroll-contain;
     flex: 0 1 auto;
     max-height: calc(min(90dvh, 100%) - 9.5rem);
@@ -4843,22 +4844,22 @@
     scroll-padding-block: 0.75rem;
   }
 
-  .ui-dialog-panel .ui-card-header + .ui-card-body,
-  .ui-dialog-panel .ui-card-toolbar + .ui-card-body,
-  .ui-dialog-panel .ui-divider + .ui-card-body {
+  .ui-dialog-panel > .ui-dialog-motion > .ui-card-header + .ui-card-body,
+  .ui-dialog-panel > .ui-dialog-motion > .ui-card-toolbar + .ui-card-body,
+  .ui-dialog-panel > .ui-dialog-motion > .ui-divider + .ui-card-body {
     padding-top: 0.75rem;
   }
 
-  .ui-dialog-panel .ui-card-body:has(+ .ui-card-footer) {
+  .ui-dialog-panel > .ui-dialog-motion > .ui-card-body:has(+ .ui-card-footer) {
     padding-bottom: var(--ui-dialog-body-ring-inset);
     scroll-padding-bottom: calc(0.75rem + var(--ui-dialog-body-ring-inset));
   }
 
-  .ui-dialog-panel .ui-card-body:not(:has(+ .ui-card-footer)) {
+  .ui-dialog-panel > .ui-dialog-motion > .ui-card-body:not(:has(+ .ui-card-footer)) {
     padding-bottom: var(--ui-card-padding);
   }
 
-  .ui-dialog-panel .ui-card-footer {
+  .ui-dialog-panel > .ui-dialog-motion > .ui-card-footer {
     @apply relative z-[2] flex shrink-0 flex-nowrap items-center justify-end gap-3;
     padding-inline: var(--ui-card-padding);
     padding-top: 0.75rem;
@@ -4912,12 +4913,14 @@
     background-image: none;
   }
 
-  .ui-dialog-panel--footer-transparent .ui-card-body:has(+ .ui-card-footer) {
+  .ui-dialog-panel--footer-transparent > .ui-dialog-motion > .ui-card-body:has(+ .ui-card-footer) {
     padding-bottom: calc(var(--ui-dialog-footer-clearance) + var(--ui-dialog-body-ring-inset));
     scroll-padding-bottom: calc(var(--ui-dialog-footer-clearance) + 0.75rem);
   }
 
-  .ui-dialog-panel--footer-transparent.ui-dialog-panel--body-flex .ui-card-body--flex {
+  .ui-dialog-panel--footer-transparent.ui-dialog-panel--body-flex
+    > .ui-dialog-motion
+    > .ui-card-body--flex {
     padding-inline: var(--ui-card-padding);
     padding-top: 0.75rem;
     padding-bottom: calc(var(--ui-dialog-footer-clearance) + var(--ui-card-padding));
@@ -4925,16 +4928,17 @@
   }
 
   .ui-dialog-panel--footer-transparent.ui-dialog-panel--body-flex
-    .ui-card-body--flex.ui-card-body--flush {
+    > .ui-dialog-motion
+    > .ui-card-body--flex.ui-card-body--flush {
     padding-inline: 0;
     padding-top: 0;
     padding-bottom: var(--ui-dialog-footer-clearance);
     scroll-padding-bottom: var(--ui-dialog-footer-clearance);
   }
 
-  .ui-dialog-panel .ui-card-body .ui-input:focus-within,
-  .ui-dialog-panel .ui-card-body .ui-select-field:focus-visible,
-  .ui-dialog-panel .ui-card-body .ui-select-field[aria-expanded='true'] {
+  .ui-dialog-panel > .ui-dialog-motion > .ui-card-body .ui-input:focus-within,
+  .ui-dialog-panel > .ui-dialog-motion > .ui-card-body .ui-select-field:focus-visible,
+  .ui-dialog-panel > .ui-dialog-motion > .ui-card-body .ui-select-field[aria-expanded='true'] {
     @apply relative z-[2];
   }
 
@@ -4942,19 +4946,19 @@
     @apply flex flex-col;
   }
 
-  .ui-dialog-panel--body-flex .ui-card-body--flex {
+  .ui-dialog-panel--body-flex > .ui-dialog-motion > .ui-card-body--flex {
     @apply flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain;
     flex: 1 1 auto;
     max-height: none;
   }
 
-  .ui-dialog-panel .ui-card-body--flush {
+  .ui-dialog-panel > .ui-dialog-motion > .ui-card-body--flush {
     padding-inline: 0;
     padding-block: 0;
     scroll-padding: 0;
   }
 
-  .ui-dialog-panel .ui-card-body--flush:not(:has(+ .ui-card-footer)) {
+  .ui-dialog-panel > .ui-dialog-motion > .ui-card-body--flush:not(:has(+ .ui-card-footer)) {
     padding-bottom: 0;
   }
 
@@ -5832,13 +5836,13 @@
       padding-bottom: 0;
     }
 
-    .ui-dialog-panel .ui-card-header {
+    .ui-dialog-panel > .ui-dialog-motion > .ui-card-header {
       padding-top: 0;
       padding-inline: var(--ui-dialog-inset-x);
       padding-bottom: 0.5rem;
     }
 
-    .ui-dialog-panel .ui-card-body {
+    .ui-dialog-panel > .ui-dialog-motion > .ui-card-body {
       max-height: calc(min(92dvh, 100%) - 9.5rem);
       padding-inline: var(--ui-dialog-inset-x);
       padding-top: 0.75rem;
@@ -5849,54 +5853,58 @@
     }
 
     /** `body-padding="none"` — mobil inset kurallarından sonra da flush kalsın. */
-    .ui-dialog-panel .ui-card-body--flush {
+    .ui-dialog-panel > .ui-dialog-motion > .ui-card-body--flush {
       padding-inline: 0;
       padding-block: 0;
       scroll-padding: 0;
       max-height: none;
     }
 
-    .ui-dialog-panel .ui-card-header + .ui-card-body,
-    .ui-dialog-panel .ui-card-toolbar + .ui-card-body,
-    .ui-dialog-panel .ui-divider + .ui-card-body {
+    .ui-dialog-panel > .ui-dialog-motion > .ui-card-header + .ui-card-body,
+    .ui-dialog-panel > .ui-dialog-motion > .ui-card-toolbar + .ui-card-body,
+    .ui-dialog-panel > .ui-dialog-motion > .ui-divider + .ui-card-body {
       padding-top: 0.75rem;
     }
 
-    .ui-dialog-panel .ui-card-toolbar + .ui-card-body--flush,
-    .ui-dialog-panel .ui-card-header + .ui-card-body--flush,
-    .ui-dialog-panel .ui-divider + .ui-card-body--flush {
+    .ui-dialog-panel > .ui-dialog-motion > .ui-card-toolbar + .ui-card-body--flush,
+    .ui-dialog-panel > .ui-dialog-motion > .ui-card-header + .ui-card-body--flush,
+    .ui-dialog-panel > .ui-dialog-motion > .ui-divider + .ui-card-body--flush {
       padding-top: 0;
     }
 
-    .ui-dialog-panel .ui-card-body:has(+ .ui-card-footer) {
+    .ui-dialog-panel > .ui-dialog-motion > .ui-card-body:has(+ .ui-card-footer) {
       padding-bottom: var(--ui-dialog-body-ring-inset);
       scroll-padding-bottom: calc(0.75rem + var(--ui-dialog-body-ring-inset));
     }
 
-    .ui-dialog-panel .ui-card-body--flush:has(+ .ui-card-footer),
-    .ui-dialog-panel .ui-card-body--flush:not(:has(+ .ui-card-footer)) {
+    .ui-dialog-panel > .ui-dialog-motion > .ui-card-body--flush:has(+ .ui-card-footer),
+    .ui-dialog-panel > .ui-dialog-motion > .ui-card-body--flush:not(:has(+ .ui-card-footer)) {
       padding-bottom: 0;
       scroll-padding-bottom: 0;
     }
 
-    .ui-dialog-panel .ui-card-body:not(:has(+ .ui-card-footer)) {
+    .ui-dialog-panel > .ui-dialog-motion > .ui-card-body:not(:has(+ .ui-card-footer)) {
       padding-bottom: 1rem;
     }
 
-    .ui-dialog-panel .ui-card-footer {
+    .ui-dialog-panel > .ui-dialog-motion > .ui-card-footer {
       padding-inline: var(--ui-dialog-inset-x);
       padding-top: 0.5rem;
       padding-bottom: var(--ui-dialog-inset-bottom);
       border-top: none;
     }
 
-    .ui-dialog-panel--footer-transparent .ui-card-body:has(+ .ui-card-footer) {
+    .ui-dialog-panel--footer-transparent
+      > .ui-dialog-motion
+      > .ui-card-body:has(+ .ui-card-footer) {
       padding-bottom: calc(
         var(--ui-dialog-footer-clearance) + var(--ui-dialog-inset-bottom)
       );
     }
 
-    .ui-dialog-panel--footer-transparent.ui-dialog-panel--body-flex .ui-card-body--flex {
+    .ui-dialog-panel--footer-transparent.ui-dialog-panel--body-flex
+      > .ui-dialog-motion
+      > .ui-card-body--flex {
       padding-inline: var(--ui-dialog-inset-x);
       padding-bottom: calc(
         var(--ui-dialog-footer-clearance) + var(--ui-dialog-inset-bottom)
@@ -5990,7 +5998,7 @@
     box-shadow: 0 var(--ui-keyboard-inset, 0px) 0 0 var(--ui-ios-dialog-sheet-bg, var(--surface));
   }
 
-  html.cap-native .ui-dialog-panel .ui-card-body {
+  html.cap-native .ui-dialog-panel > .ui-dialog-motion > .ui-card-body {
     max-height: none;
   }
 
@@ -5999,12 +6007,12 @@
       max-height: var(--ui-dialog-max-height-cap);
     }
 
-    .ui-dialog-panel .ui-card-body {
+    .ui-dialog-panel > .ui-dialog-motion > .ui-card-body {
       flex: 1 1 auto;
       max-height: none;
     }
 
-    .ui-dialog-panel .ui-card-footer {
+    .ui-dialog-panel > .ui-dialog-motion > .ui-card-footer {
       @apply relative z-[2];
     }
   }
