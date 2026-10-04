@@ -3890,6 +3890,21 @@
     @apply max-w-none;
   }
 
+  /** Yatay taşma: kaydırma grup içinde; seçili segment JS ile ortalanır */
+  .ui-segment-group--scrollable {
+    @apply min-w-0 max-w-full flex-nowrap overflow-x-auto overscroll-x-contain ui-scrollbar-none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .ui-segment-group--scrollable.ui-segment-group--fit,
+  .ui-segment-group--scrollable.ui-segment-group--inline {
+    @apply w-full min-w-0 shrink;
+  }
+
+  .ui-segment-group--scrollable .ui-segment {
+    @apply flex-none flex-grow-0 whitespace-nowrap;
+  }
+
   .ui-segment-group.ui-segment-group--sm:not(.ui-segment-group--vertical) {
     @apply gap-0.5 p-0.5;
     height: var(--ui-control-h-sm);
