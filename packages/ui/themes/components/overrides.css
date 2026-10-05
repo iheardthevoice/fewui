@@ -12,8 +12,7 @@
 }
 
 .ui-datepicker-grid > .ui-button,
-.ui-datepicker-quick > .ui-button,
-.ui-daterangepicker-quick > .ui-button {
+.ui-datepicker-quick > .ui-button {
   @apply rounded-full border-0 shadow-none;
   border-color: transparent;
 }
@@ -24,6 +23,10 @@
 
 .ui-datepicker-quick > .ui-button {
   @apply rounded-md;
+}
+
+.ui-daterangepicker-quick > .ui-button {
+  @apply rounded-full shadow-none;
 }
 
 .ui-select-listbox .ui-select-option.ui-button.ui-select-option--selected,

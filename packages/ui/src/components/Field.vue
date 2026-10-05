@@ -9,7 +9,7 @@
     >
       <span
         v-if="showIcon"
-        class="ui-field__title-icon"
+        :class="titleIconClass"
         aria-hidden="true"
       >
         <ui-icon
@@ -72,6 +72,16 @@ export default {
       default: '',
     },
     iconType: iconTypeProp,
+    /**
+     * Başlık ikonu rengi: `success` | `warning` | `danger` | `info` | `muted` | ''.
+     * Boş / muted → varsayılan muted-foreground.
+     */
+    iconTone: {
+      type: String,
+      default: '',
+      validator: (v) =>
+        !v || ['success', 'warning', 'danger', 'info', 'muted'].includes(v),
+    },
   },
   computed: {
     ...themeIconTypeComputed(),
@@ -84,6 +94,10 @@ export default {
     },
     showIcon() {
       return Boolean(this.icon)
+    },
+    titleIconClass() {
+      const tone = this.iconTone || 'muted'
+      return cn('ui-field__title-icon', `ui-field__title-icon--${tone}`)
     },
     rootClass() {
       return cn(

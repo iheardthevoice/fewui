@@ -3,7 +3,7 @@
     :class="['ui-daterangepicker', disabled ? 'pointer-events-none opacity-50' : '', $attrs.class]"
   >
     <ui-popover
-      v-model:open="menuOpen"
+      v-model:open="resolvedOpen"
       placement="bottom-end"
       :match-trigger-width="false"
       :width="popoverWidth"
@@ -37,6 +37,7 @@
         <div class="ui-datepicker-panel ui-daterangepicker-panel p-2">
           <div class="ui-daterangepicker-layout">
             <aside
+              v-if="quickPresets.length"
               class="ui-daterangepicker-quick"
               :aria-label="resolvedQuickAriaLabel"
             >
@@ -44,11 +45,13 @@
                 v-for="preset in quickPresets"
                 :key="preset.key"
                 type="button"
-                variant="ghost"
-                color="secondary"
+                :variant="isPresetActive(preset) ? 'solid' : 'outline'"
+                :color="isPresetActive(preset) ? 'primary' : 'secondary'"
                 size="sm"
-                fulled
+                rounded
                 :disabled="preset.disabled"
+                :aria-pressed="isPresetActive(preset) ? 'true' : 'false'"
+                :data-active="isPresetActive(preset) ? 'true' : undefined"
                 @click="applyQuick(preset, close)"
               >
                 {{ preset.label }}
@@ -249,8 +252,13 @@ export default {
       type: Array,
       default: undefined,
     },
+    /** Kontrollü aç/kapa (`undefined` = dahili state). */
+    open: {
+      type: Boolean,
+      default: undefined,
+    },
   },
-  emits: ['update:modelValue', 'change'],
+  emits: ['update:modelValue', 'change', 'update:open'],
   data() {
     const start = this.modelValue?.[0] || ''
     const initial = parseYmd(start) || parseYmd(this.modelValue?.[1]) || new Date()
@@ -267,6 +275,16 @@ export default {
   computed: {
     resolvedId() {
       return this.id != null && this.id !== '' ? this.id : this.fallbackId
+    },
+    resolvedOpen: {
+      get() {
+        return this.open !== undefined ? this.open : this.menuOpen
+      },
+      set(value) {
+        const next = Boolean(value)
+        if (this.open !== undefined) this.$emit('update:open', next)
+        else this.menuOpen = next
+      },
     },
     popoverWidth() {
       return 'min(calc(100vw - 2rem), 50rem)'
@@ -335,7 +353,7 @@ export default {
       return this.endYmd
     },
     quickPresets() {
-      if (Array.isArray(this.presets) && this.presets.length) {
+      if (Array.isArray(this.presets)) {
         return this.presets.map((preset) => ({
           ...preset,
           disabled: !preset.range || this.isRangeDisabled(preset.range[0], preset.range[1]),
@@ -434,14 +452,14 @@ export default {
       deep: true,
       handler() {
         this.syncViewFromValue()
-        if (!this.menuOpen) {
+        if (!this.resolvedOpen) {
           this.pickingStart = ''
           this.pickingEnd = ''
           this.hoverYmd = ''
         }
       },
     },
-    menuOpen(open) {
+    resolvedOpen(open) {
       if (open) {
         this.pickingStart = this.startYmd
         this.pickingEnd = this.endYmd
@@ -537,6 +555,12 @@ export default {
       this.$emit('update:modelValue', [start, end])
       this.$emit('change', [start, end])
       close()
+    },
+    isPresetActive(preset) {
+      if (!preset?.range) return false
+      if (this.pickingStart && !this.pickingEnd) return false
+      const [start, end] = preset.range
+      return this.startYmd === start && this.endYmd === end
     },
     pick(cell, close) {
       if (!cell.date || cell.disabled) return
