@@ -143,6 +143,7 @@
 import { formatYmdDisplay, resolveDateDisplayLocale } from '../utils/format-ymd-display.js'
 import { resolveThemeDateFormat } from '../theme/resolve-theme-default.js'
 import { createUiIdFactory } from '../utils/ui-id.js'
+import { isMobileViewport, MOBILE_MAX_WIDTH_MEDIA } from '../utils/viewport.js'
 
 const nextDateRangePickerId = createUiIdFactory('ui-daterangepicker')
 
@@ -270,6 +271,29 @@ export default {
       pickingStart: '',
       pickingEnd: '',
       hoverYmd: '',
+      /** Mobilde tek ay — çift ay dikey yığılınca panel sığmıyor. */
+      narrowViewport: typeof window !== 'undefined' ? isMobileViewport() : false,
+    }
+  },
+  mounted() {
+    if (typeof window === 'undefined') return
+    this._viewportMq = window.matchMedia(MOBILE_MAX_WIDTH_MEDIA)
+    this._onViewportMq = () => {
+      this.narrowViewport = this._viewportMq.matches
+    }
+    this._onViewportMq()
+    if (typeof this._viewportMq.addEventListener === 'function') {
+      this._viewportMq.addEventListener('change', this._onViewportMq)
+    } else if (typeof this._viewportMq.addListener === 'function') {
+      this._viewportMq.addListener(this._onViewportMq)
+    }
+  },
+  beforeUnmount() {
+    if (!this._viewportMq || !this._onViewportMq) return
+    if (typeof this._viewportMq.removeEventListener === 'function') {
+      this._viewportMq.removeEventListener('change', this._onViewportMq)
+    } else if (typeof this._viewportMq.removeListener === 'function') {
+      this._viewportMq.removeListener(this._onViewportMq)
     }
   },
   computed: {
@@ -426,6 +450,19 @@ export default {
       }))
     },
     calendarPanes() {
+      if (this.narrowViewport) {
+        return [
+          {
+            key: 'single',
+            year: this.viewYear,
+            month: this.viewMonth,
+            showPrev: true,
+            showNext: true,
+            title: monthName(this.viewYear, this.viewMonth, this.locale),
+            cells: this.buildCellsForMonth(this.viewYear, this.viewMonth),
+          },
+        ]
+      }
       const left = {
         key: 'left',
         year: this.viewYear,

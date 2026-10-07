@@ -5161,13 +5161,13 @@
     @apply z-[1];
   }
 
-  /** DateRangePicker — çift takvim + hızlı seçim; varsayılan popover 24rem sınırını aşar */
+  /** DateRangePicker — çift takvim + hızlı seçim; mobil viewport’a sığsın, taşarsa kaydır */
   .ui-popover-panel:has(.ui-daterangepicker-panel) {
-    @apply max-h-[min(100vh-2rem,36rem)] max-w-[min(100vw-1rem,52rem)] overflow-visible;
+    @apply max-h-[min(100dvh-5.5rem,36rem)] max-w-[min(100vw-1rem,52rem)] overflow-x-hidden overflow-y-auto;
   }
 
   .ui-popover-body:has(.ui-daterangepicker-panel) {
-    @apply overflow-visible;
+    @apply max-h-[inherit] overflow-x-hidden overflow-y-auto;
   }
 
   .ui-daterangepicker-panel {
@@ -5179,7 +5179,7 @@
   }
 
   .ui-daterangepicker-quick {
-    @apply flex w-full shrink-0 flex-row flex-wrap gap-2 pb-3 sm:w-[10.5rem] sm:flex-col sm:gap-1.5 sm:border-r sm:border-border sm:pb-0 sm:pr-4;
+    @apply flex w-full shrink-0 flex-row flex-nowrap gap-2 overflow-x-auto pb-3 sm:w-[10.5rem] sm:flex-col sm:flex-wrap sm:gap-1.5 sm:overflow-visible sm:border-r sm:border-border sm:pb-0 sm:pr-4;
   }
 
   .ui-daterangepicker-quick > .ui-button {
