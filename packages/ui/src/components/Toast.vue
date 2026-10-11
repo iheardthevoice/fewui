@@ -11,53 +11,89 @@
           :key="item.id"
           class="pointer-events-none flex w-full justify-center"
         >
+          <!-- Açık grup: her bildirim ayrı toast -->
           <div
-            :class="toastClasses(item)"
-            class="pointer-events-auto"
-            v-bind="toastA11y(item)"
-            @click="onToastClick(item)"
-            @keydown.enter.prevent="onToastClick(item)"
-            @keydown.space.prevent="onToastClick(item)"
+            v-if="isGrouped(item) && item.expanded"
+            class="ui-toast-expanded-stack"
+            role="group"
+            :aria-label="groupHeading(item)"
+          >
+            <div
+              v-for="child in item.children"
+              :key="child.id"
+              :class="childToastClasses(child)"
+              class="pointer-events-auto"
+              v-bind="childA11y(child)"
+              @click="onToastClick(item)"
+              @keydown.enter.prevent="onToastClick(item)"
+              @keydown.space.prevent="onToastClick(item)"
+            >
+              <span
+                :class="['ui-alert-icon', iconToneClass(child.variant)]"
+                aria-hidden="true"
+              >
+                <ui-icon
+                  :name="iconFor(child.variant)"
+                  size="sm"
+                />
+              </span>
+              <div class="ui-alert-body min-w-0 flex-1">
+                <p
+                  v-if="child.title"
+                  class="ui-alert-title"
+                >
+                  {{ child.title }}
+                </p>
+                <p
+                  v-if="child.description"
+                  class="ui-alert-description ui-text-default"
+                >
+                  {{ child.description }}
+                </p>
+              </div>
+              <ui-button
+                native-type="button"
+                variant="ghost"
+                color="secondary"
+                cubed
+                size="sm"
+                class="ui-toast-dismiss shrink-0"
+                prefix-icon="xmark"
+                :aria-label="dismissLabel"
+                @click.stop="queueDismissToastChild(item.id, child.id)"
+              />
+            </div>
+          </div>
+
+          <!-- Tek / kapalı grup -->
+          <div
+            v-else
+            :class="deckClasses(item)"
           >
             <span
-              :class="['ui-alert-icon', iconToneClass(item.variant)]"
+              v-for="n in stackSheetCount(item)"
+              :key="`${item.id}-sheet-${n}`"
+              class="ui-toast-deck-sheet"
               aria-hidden="true"
+            />
+            <div
+              :class="toastClasses(item)"
+              class="pointer-events-auto"
+              v-bind="toastA11y(item)"
+              @click="onToastClick(item)"
+              @keydown.enter.prevent="onToastClick(item)"
+              @keydown.space.prevent="onToastClick(item)"
             >
-              <ui-icon
-                :name="iconFor(item.variant)"
-                size="sm"
-              />
-            </span>
-            <div class="ui-alert-body min-w-0 flex-1">
-              <template v-if="isGrouped(item) && item.expanded">
-                <p class="ui-alert-title">
-                  {{ groupHeading(item) }}
-                </p>
-                <ul
-                  class="ui-toast-group-list"
-                  :aria-label="groupHeading(item)"
-                >
-                  <li
-                    v-for="child in item.children"
-                    :key="child.id"
-                    class="ui-toast-group-item"
-                  >
-                    <p
-                      v-if="child.title"
-                      class="ui-toast-group-item-title"
-                    >
-                      {{ child.title }}
-                    </p>
-                    <p
-                      v-if="child.description"
-                      class="ui-alert-description ui-text-default"
-                    >
-                      {{ child.description }}
-                    </p>
-                  </li>
-                </ul>
-              </template>
-              <template v-else>
+              <span
+                :class="['ui-alert-icon', iconToneClass(item.variant)]"
+                aria-hidden="true"
+              >
+                <ui-icon
+                  :name="iconFor(item.variant)"
+                  size="sm"
+                />
+              </span>
+              <div class="ui-alert-body min-w-0 flex-1">
                 <p
                   v-if="collapsedTitle(item)"
                   class="ui-alert-title"
@@ -70,19 +106,19 @@
                 >
                   {{ collapsedDescription(item) }}
                 </p>
-              </template>
+              </div>
+              <ui-button
+                native-type="button"
+                variant="ghost"
+                color="secondary"
+                cubed
+                size="sm"
+                class="ui-toast-dismiss shrink-0"
+                prefix-icon="xmark"
+                :aria-label="dismissLabel"
+                @click.stop="queueDismissToast(item.id)"
+              />
             </div>
-            <ui-button
-              native-type="button"
-              variant="ghost"
-              color="secondary"
-              cubed
-              size="sm"
-              class="ui-toast-dismiss shrink-0"
-              prefix-icon="xmark"
-              :aria-label="dismissLabel"
-              @click.stop="queueDismissToast(item.id)"
-            />
           </div>
         </div>
       </TransitionGroup>
@@ -94,6 +130,7 @@
 import {
   toastState,
   dismissToast as queueDismissToast,
+  dismissToastChild as queueDismissToastChild,
   toggleToastExpanded,
 } from '../toast-queue.js'
 
@@ -126,9 +163,24 @@ export default {
   },
   methods: {
     queueDismissToast,
+    queueDismissToastChild,
     toggleToastExpanded,
     isGrouped(item) {
       return Array.isArray(item.children) && item.children.length > 1
+    },
+    /** Kapalı grupta arkada görünen katman sayısı (1–2). */
+    stackSheetCount(item) {
+      if (!this.isGrouped(item) || item.expanded) return 0
+      return Math.min(item.children.length - 1, 2)
+    },
+    deckClasses(item) {
+      if (!this.isGrouped(item)) return 'ui-toast-deck'
+      const layers = this.stackSheetCount(item)
+      return [
+        'ui-toast-deck',
+        'ui-toast-deck--grouped',
+        layers > 0 ? `ui-toast-deck--layers-${layers}` : '',
+      ].filter(Boolean)
     },
     t(key, params) {
       if (typeof this.$t === 'function') {
@@ -183,8 +235,14 @@ export default {
       return [
         `ui-alert ui-alert--${v} ui-alert--toast`,
         this.isGrouped(item) ? 'ui-alert--toast-grouped' : '',
-        item.expanded ? 'ui-alert--toast-expanded' : '',
       ].filter(Boolean)
+    },
+    childToastClasses(child) {
+      const v = child.variant ?? 'info'
+      return [
+        `ui-alert ui-alert--${v} ui-alert--toast`,
+        'ui-alert--toast-grouped',
+      ]
     },
     toastA11y(item) {
       const assertive = item.variant === 'error'
@@ -194,10 +252,19 @@ export default {
         'aria-live': assertive ? 'assertive' : 'polite',
         ...(grouped
           ? {
-              'aria-expanded': item.expanded ? 'true' : 'false',
+              'aria-expanded': 'false',
               tabindex: 0,
             }
           : {}),
+      }
+    },
+    childA11y(child) {
+      const assertive = child.variant === 'error'
+      return {
+        role: assertive ? 'alert' : 'status',
+        'aria-live': assertive ? 'assertive' : 'polite',
+        'aria-expanded': 'true',
+        tabindex: 0,
       }
     },
   },

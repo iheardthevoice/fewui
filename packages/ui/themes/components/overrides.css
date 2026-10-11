@@ -116,28 +116,6 @@
   backdrop-filter: none !important;
 }
 
-/**
- * Şeffaf dialog footer — kaydırılan metin butonların içinden görünmesin.
- * Ghost / outline / link: opak yüzey + blur; solid zaten dolu, blur ek yalıtım.
- */
-.ui-dialog-panel--footer-transparent .ui-card-footer.ui-dialog-footer--transparent .ui-button.ui-control {
-  -webkit-backdrop-filter: blur(var(--ui-control-backdrop-blur, 16px)) saturate(180%) !important;
-  backdrop-filter: blur(var(--ui-control-backdrop-blur, 16px)) saturate(180%) !important;
-}
-
-.ui-dialog-panel--footer-transparent
-  .ui-card-footer.ui-dialog-footer--transparent
-  .ui-button.ui-control[data-variant='ghost'],
-.ui-dialog-panel--footer-transparent
-  .ui-card-footer.ui-dialog-footer--transparent
-  .ui-button.ui-control[data-variant='outline'],
-.ui-dialog-panel--footer-transparent
-  .ui-card-footer.ui-dialog-footer--transparent
-  .ui-button.ui-control[data-variant='link'] {
-  background-color: var(--surface) !important;
-  background-image: none !important;
-}
-
 .ui-dialog-panel .ui-button[data-variant='solid'][data-color='input'] {
   background-color: var(--input-background);
   background-image: none;

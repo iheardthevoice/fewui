@@ -212,6 +212,34 @@ export function dismissToast(id) {
   toastState.items.splice(idx, 1)
 }
 
+/**
+ * Grup içinden tek bildirimi kaldırır. Son çocuk kalırsa grup tek toasta düşer.
+ * @param {number} groupId
+ * @param {number} childId
+ */
+export function dismissToastChild(groupId, childId) {
+  const item = toastState.items.find((row) => row.id === groupId)
+  if (!item) return
+  const idx = item.children.findIndex((c) => c.id === childId)
+  if (idx === -1) return
+  item.children.splice(idx, 1)
+  if (item.children.length === 0) {
+    dismissToast(groupId)
+    return
+  }
+  const head = item.children[0]
+  item.title = head.title
+  item.description = head.description
+  item.variant = item.children.reduce(
+    (acc, c) => maxVariant(acc, c.variant),
+    head.variant,
+  )
+  if (item.children.length < 2) {
+    item.expanded = false
+    bumpDismissTimer(item)
+  }
+}
+
 export function clearToasts() {
   clearSealTimer()
   openGroupId = null

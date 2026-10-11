@@ -4479,6 +4479,65 @@
     @apply self-center;
   }
 
+  /**
+   * Gruplu toast — kapalıyken 1–2 katman peeki; açıkken kart köşesi (hap değil).
+   */
+  .ui-toast-deck {
+    @apply relative w-auto max-w-[min(100vw-2rem,20rem)];
+  }
+
+  .ui-toast-deck--grouped:not(.ui-toast-deck--expanded).ui-toast-deck--layers-1 {
+    margin-bottom: 0.35rem;
+  }
+
+  .ui-toast-deck--grouped:not(.ui-toast-deck--expanded).ui-toast-deck--layers-2 {
+    margin-bottom: 0.55rem;
+  }
+
+  .ui-toast-deck-sheet {
+    @apply pointer-events-none absolute inset-0 rounded-full border border-border bg-surface shadow-md;
+    z-index: 0;
+  }
+
+  .ui-toast-deck--layers-1 .ui-toast-deck-sheet:nth-child(1) {
+    transform: translateY(0.28rem) scaleX(0.95);
+    opacity: 0.9;
+  }
+
+  .ui-toast-deck--layers-2 .ui-toast-deck-sheet:nth-child(1) {
+    transform: translateY(0.25rem) scaleX(0.96);
+    opacity: 0.92;
+  }
+
+  .ui-toast-deck--layers-2 .ui-toast-deck-sheet:nth-child(2) {
+    transform: translateY(0.5rem) scaleX(0.9);
+    opacity: 0.78;
+  }
+
+  .ui-toast-deck:has(.ui-alert--info) .ui-toast-deck-sheet {
+    border-color: color-mix(in oklab, var(--info) 26%, var(--border));
+    background-color: color-mix(in oklab, var(--info) 5%, var(--surface));
+  }
+
+  .ui-toast-deck:has(.ui-alert--success) .ui-toast-deck-sheet {
+    border-color: color-mix(in oklab, var(--success) 26%, var(--border));
+    background-color: color-mix(in oklab, var(--success) 5%, var(--surface));
+  }
+
+  .ui-toast-deck:has(.ui-alert--warning) .ui-toast-deck-sheet {
+    border-color: color-mix(in oklab, var(--warning) 26%, var(--border));
+    background-color: color-mix(in oklab, var(--warning) 5%, var(--surface));
+  }
+
+  .ui-toast-deck:has(.ui-alert--error) .ui-toast-deck-sheet {
+    border-color: color-mix(in oklab, var(--destructive) 26%, var(--border));
+    background-color: color-mix(in oklab, var(--destructive) 5%, var(--surface));
+  }
+
+  .ui-toast-deck .ui-alert--toast {
+    @apply relative z-[1] w-full max-w-none;
+  }
+
   .ui-alert--toast-grouped {
     @apply cursor-pointer;
   }
@@ -4488,33 +4547,30 @@
     outline-offset: 2px;
   }
 
-  .ui-toast-group-list {
-    @apply mt-1.5 max-h-[min(40vh,16rem)] space-y-2 overflow-y-auto;
+  /** Açık grup — her bildirim ayrı toast olarak alt alta. */
+  .ui-toast-expanded-stack {
+    @apply flex w-auto max-w-[min(100vw-2rem,20rem)] flex-col items-stretch gap-2;
   }
 
-  .ui-toast-group-item {
-    @apply border-t border-border/60 pt-2 first:border-t-0 first:pt-0;
+  .ui-toast-expanded-stack .ui-alert--toast {
+    @apply w-full max-w-none;
   }
 
-  .ui-toast-group-item-title {
-    @apply text-sm font-medium text-foreground;
+  .ui-toast-expanded-stack .ui-alert--toast .ui-alert-title,
+  .ui-toast-expanded-stack .ui-alert--toast .ui-alert-description {
+    @apply whitespace-normal;
   }
 
-  /** Toast kapsayıcı — Teleport içi; mobilde alt tab chrome üstünden başlar. */
+  /** Toast kapsayıcı — Teleport içi; varsayılan üstte, safe-area ile. */
   .ui-toast-host {
-    @apply pointer-events-none fixed inset-x-0 bottom-0 flex flex-col items-center gap-2 p-4 pb-6;
+    @apply pointer-events-none fixed inset-x-0 top-0 flex flex-col items-center gap-2 px-4 pb-4;
+    padding-top: max(1rem, env(safe-area-inset-top, 0px));
     z-index: 500;
   }
 
   @media (max-width: 1023px) {
     .ui-toast-host {
-      /**
-       * `--app-mobile-bottom-chrome-height` tab + dock + safe-area (AppPanelMobileTabBar).
-       * Yoksa yalnızca safe-area; toast tab’ın üstünde kalır.
-       */
-      bottom: calc(
-        var(--app-mobile-bottom-chrome-height, env(safe-area-inset-bottom, 0px)) + 0.5rem
-      );
+      padding-top: max(0.75rem, env(safe-area-inset-top, 0px));
       padding-bottom: 0.75rem;
     }
   }
@@ -5291,7 +5347,7 @@
   .ui-toast-enter-from,
   .ui-toast-leave-to {
     opacity: 0;
-    transform: translateY(0.5rem);
+    transform: translateY(-0.5rem);
   }
 
   .ui-toast-move {
