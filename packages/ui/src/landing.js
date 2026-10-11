@@ -34,7 +34,14 @@ import { applyUiTheme, mergeUiTheme } from './theme/apply-theme.js'
 import { resolveThemePackage } from './theme/registry.js'
 
 export { createUiId, createUiIdFactory, resetUiIds } from './utils/ui-id.js'
-export { pushToast, dismissToast, clearToasts } from './toast-queue.js'
+export {
+  pushToast,
+  dismissToast,
+  clearToasts,
+  setToastExpanded,
+  toggleToastExpanded,
+  TOAST_GROUP_WINDOW_MS,
+} from './toast-queue.js'
 export { requestConfirm } from './confirm-state.js'
 
 export {

@@ -146,7 +146,14 @@ export { createUiId, createUiIdFactory, resetUiIds } from './utils/ui-id.js'
 export { resolveControlSize } from './utils/control-size.js'
 export { resolveUiText } from './utils/resolve-ui-text.js'
 export { pickPassthroughAttrs } from './utils/pick-passthrough-attrs.js'
-export { pushToast, dismissToast, clearToasts } from './toast-queue.js'
+export {
+  pushToast,
+  dismissToast,
+  clearToasts,
+  setToastExpanded,
+  toggleToastExpanded,
+  TOAST_GROUP_WINDOW_MS,
+} from './toast-queue.js'
 export { requestConfirm } from './confirm-state.js'
 export { getPriceInputConfig, setPriceInputConfig, PRICE_FORMATS } from './price-input-config.js'
 export {

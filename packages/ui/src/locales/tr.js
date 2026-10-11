@@ -16,6 +16,12 @@ export default {
       /** Alert / Toast kapat düğmesi */
       dismiss: 'Kapat',
     },
+    toast: {
+      /** Daraltılmış grup özeti */
+      groupCount: '{count} bildirim',
+      /** Açılmış grup başlığı */
+      groupHeading: '{count} bildirim',
+    },
     dialog: {
       close: 'Kapat',
       back: 'Geri',

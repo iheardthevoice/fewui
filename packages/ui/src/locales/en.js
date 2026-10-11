@@ -12,6 +12,10 @@ export default {
     alert: {
       dismiss: 'Dismiss',
     },
+    toast: {
+      groupCount: '{count} notifications',
+      groupHeading: '{count} notifications',
+    },
     dialog: {
       close: 'Close',
       back: 'Back',
