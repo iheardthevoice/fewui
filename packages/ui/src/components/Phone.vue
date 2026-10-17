@@ -49,6 +49,7 @@
 import { cn } from '../utils/cn.js'
 import { resolveThemeControlSize } from '../theme/resolve-theme-default.js'
 import { createUiIdFactory } from '../utils/ui-id.js'
+import { uiDefaultsMixin } from '../theme/ui-defaults.js'
 
 const nextPhoneId = createUiIdFactory('ui-phone-number')
 
@@ -63,6 +64,7 @@ const DEFAULT_COUNTRIES = [
 
 export default {
   name: 'Phone',
+  mixins: [uiDefaultsMixin],
   inheritAttrs: false,
   props: {
     country: {
@@ -131,7 +133,7 @@ export default {
       return this.countryOptions.length === 1
     },
     resolvedSize() {
-      return resolveThemeControlSize(this.size, { key: 'controlSize', defaultSize: 'md' })
+      return resolveThemeControlSize(this.uiDefaults, this.size, { key: 'controlSize', defaultSize: 'md' })
     },
     rootClass() {
       return cn(

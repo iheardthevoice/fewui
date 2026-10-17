@@ -1,4 +1,4 @@
-/** @type {import('../../src/theme/registry.js').UiThemeDefaults} */
+/** @type {import('../../src/theme/defaults-base.js').UiThemeDefaults} */
 export default {
   iconType: 'light',
   buttonRounded: 'full',
@@ -9,6 +9,4 @@ export default {
   dateRangeFormat: 'd MMM yyyy',
   timeFormat: 'HH:mm',
   dialogMaxWidth: 'sm',
-  cardPadding: 'comfortable',
-  radius: '16px',
 }

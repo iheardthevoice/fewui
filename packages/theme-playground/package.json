@@ -5,12 +5,14 @@
   "main": "./src/index.js",
   "exports": {
     ".": "./src/index.js",
-    "./ThemePlaygroundSidebar.vue": "./src/ThemePlaygroundSidebar.vue",
-    "./theme-bridge.js": "./src/theme-bridge.js"
+    "./*": "./src/*"
   },
   "peerDependencies": {
     "fewui": "workspace:*",
     "vue": "^3.5.0",
     "vue-i18n": "^9.14.0"
+  },
+  "dependencies": {
+    "fflate": "^0.8.3"
   }
 }

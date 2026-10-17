@@ -30,8 +30,9 @@ import TabTrigger from './components/TabTrigger.vue'
 import Toast from './components/Toast.vue'
 import en from './locales/en.js'
 import tr from './locales/tr.js'
-import { applyUiTheme, mergeUiTheme } from './theme/apply-theme.js'
-import { resolveThemePackage } from './theme/registry.js'
+import { applyUiTheme } from './theme/apply-theme.js'
+import { resolveTheme } from './theme/registry.js'
+import { provideUiDefaults } from './theme/ui-defaults.js'
 
 export { createUiId, createUiIdFactory, resetUiIds } from './utils/ui-id.js'
 export {
@@ -46,16 +47,23 @@ export { requestConfirm } from './confirm-state.js'
 
 export {
   applyUiTheme,
-  mergeUiTheme,
-  resolveThemeVars,
+  setUiThemeMode,
+  clearUiTheme,
+  computeThemeVars,
   buildThemeStyleAttr,
   buildThemeEnforcementCss,
+  themeConfigToTokens,
+  withDerivedConfigBrandColors,
 } from './theme/apply-theme.js'
+export { defineTheme, extendTheme } from './theme/define-theme.js'
+export { resolveThemeVars } from './theme/build-theme-css.js'
+export { expandTokens, mergeTokens, formatFontFamily } from './theme/tokens.js'
 export {
+  pickContrastForeground,
+  ensureContrastForMode,
   deriveBrandColorsFromPrimary,
-  withDerivedBrandColors,
-  resolvePrimaryColor,
-} from './theme/derive-theme.js'
+} from './theme/color-utils.js'
+export { withDerivedBrandTokens } from './theme/derive-theme.js'
 export {
   FEW_PALETTE_ID,
   FEW_PRIMARY,
@@ -74,19 +82,19 @@ export {
   GOOGLE_FONTS_CATALOG,
   resolveThemeFontFamilies,
 } from './theme/google-fonts.js'
-export { getThemePreset, resolveThemePreset } from './theme/presets/index.js'
 export {
-  THEME_IDS,
-  THEME_PACKAGES,
+  DEFAULT_THEME_ID,
+  registerTheme,
   getThemePackage,
-  resolveThemePackage,
-  resolveThemeId,
+  listThemes,
+  resolveTheme,
   getThemeCssPath,
 } from './theme/registry.js'
 export {
   provideUiDefaults,
+  setUiDefaults,
   useUiDefaults,
-  useUiDefaultsOptions,
+  uiDefaultsMixin,
   mergeUiDefaults,
   BASE_UI_DEFAULTS,
   UI_DEFAULTS_KEY,
@@ -131,16 +139,14 @@ const GLOBAL_COMPONENTS = [
 ]
 
 /**
- * @typedef {import('./theme/apply-theme.js').UiThemeConfig} UiThemeConfig
- */
-
-/**
  * @typedef {object} UiLibInstallOptions
  * @property {import('vue-i18n').I18n} i18n
  * @property {string} [locale]
  * @property {string[]} [locales]
- * @property {string|UiThemeConfig} [theme]
- * @property {UiThemeConfig} [themeOverrides]
+ * @property {string|import('./theme/define-theme.js').ThemePackage} [theme]
+ * @property {'light'|'dark'} [mode]
+ * @property {import('./theme/apply-theme.js').UiThemeOverrides} [overrides]
+ * @property {boolean} [inline]
  */
 
 /**
@@ -149,14 +155,12 @@ const GLOBAL_COMPONENTS = [
  * @param {UiLibInstallOptions} options
  */
 function install(app, options = {}) {
-  const { i18n, locale, locales, theme, themeOverrides } = options
+  const { i18n, locale, locales, theme, mode, overrides, inline } = options
 
-  if (typeof theme === 'string') {
-    const resolved = resolveThemePackage(theme, themeOverrides || {})
-    applyUiTheme(resolved.config)
-  } else if (theme && typeof theme === 'object') {
-    const merged = themeOverrides ? mergeUiTheme(theme, themeOverrides) : theme
-    applyUiTheme(merged)
+  const pkg = theme ? resolveTheme(theme) : null
+  provideUiDefaults(app, pkg?.defaults)
+  if (pkg) {
+    applyUiTheme(pkg, { mode, overrides, inline })
   }
 
   if (i18n?.global?.mergeLocaleMessage) {

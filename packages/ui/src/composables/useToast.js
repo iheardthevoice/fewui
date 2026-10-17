@@ -15,7 +15,7 @@ function normalizeToastPayload(opts) {
  *   info: (opts: string | Record<string, unknown>) => number,
  *   success: (opts: string | Record<string, unknown>) => number,
  *   warning: (opts: string | Record<string, unknown>) => number,
- *   error: (opts: string | Record<string, unknown>) => number,
+ *   danger: (opts: string | Record<string, unknown>) => number,
  * }}
  */
 export function useToast() {
@@ -23,9 +23,9 @@ export function useToast() {
     push: pushToast,
     dismiss: dismissToast,
     clear: clearToasts,
-    info: (opts) => pushToast({ ...normalizeToastPayload(opts), variant: 'info' }),
-    success: (opts) => pushToast({ ...normalizeToastPayload(opts), variant: 'success' }),
-    warning: (opts) => pushToast({ ...normalizeToastPayload(opts), variant: 'warning' }),
-    error: (opts) => pushToast({ ...normalizeToastPayload(opts), variant: 'error' }),
+    info: (opts) => pushToast({ ...normalizeToastPayload(opts), color: 'info' }),
+    success: (opts) => pushToast({ ...normalizeToastPayload(opts), color: 'success' }),
+    warning: (opts) => pushToast({ ...normalizeToastPayload(opts), color: 'warning' }),
+    danger: (opts) => pushToast({ ...normalizeToastPayload(opts), color: 'danger' }),
   }
 }

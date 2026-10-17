@@ -26,15 +26,14 @@ Templates use `ui-*` tags globally (no per-view imports for standard markup):
 </ui-form-row>
 ```
 
-## Theme preset
+## Theme
 
 ```js
-import { resolveThemePreset } from 'fewui'
-
 app.use(UiLib, {
   i18n,
-  theme: resolveThemePreset('panel'),
+  theme: 'web',
+  mode: 'dark',
 })
 ```
 
-See [Theming](./theming) for presets and custom CSS.
+See [Theming](./theming) for theme packages, tokens and scoped preview.

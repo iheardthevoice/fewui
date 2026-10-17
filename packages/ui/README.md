@@ -46,7 +46,8 @@ Stil zinciri (Tailwind v4 uygulamalarda):
 
 ## Programatik API
 
-- `applyUiTheme`, `mergeUiTheme` — runtime tema
+- `defineTheme`, `setUiTheme`, `setUiThemeMode`, `buildThemeCss` — tema paketleri (bkz. `themes/README.md`)
+- `<ui-theme-provider>` — sayfa içi kapsamlı tema önizlemesi
 - `pushToast`, `dismissToast`, `clearToasts`, `useToast`
 - `requestConfirm`, `useConfirm`, `useDialog`
 - `resolveUiText`, `pickPassthroughAttrs`, `createUiId` — yardımcılar

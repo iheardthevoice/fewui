@@ -116,7 +116,7 @@
               type="button"
               color="primary"
               rounded
-              fulled
+              block
               @click="goNext"
             >
               {{ primaryLabel }}
@@ -133,6 +133,7 @@ import { cn } from '../utils/cn.js'
 import { pickPassthroughAttrs } from '../utils/pick-passthrough-attrs.js'
 import { resolveUiText } from '../utils/resolve-ui-text.js'
 import { resolveThemeIconType } from '../theme/resolve-theme-default.js'
+import { uiDefaultsMixin } from '../theme/ui-defaults.js'
 
 const SWIPE_MIN_PX = 56
 const SWIPE_AXIS_RATIO = 1.15
@@ -140,6 +141,7 @@ const RUBBER = 0.28
 
 export default {
   name: 'Intro',
+  mixins: [uiDefaultsMixin],
   inheritAttrs: false,
   props: {
     /** Overlay iken görünürlük; `overlay` kapalıysa yok sayılır. */
@@ -206,7 +208,7 @@ export default {
       return raw.map((step, index) => ({
         key: step?.key ?? `intro-${index}`,
         icon: step?.icon ?? '',
-        iconType: step?.iconType ?? resolveThemeIconType(undefined),
+        iconType: step?.iconType ?? resolveThemeIconType(this.uiDefaults, undefined),
         title: step?.title ?? '',
         description: step?.description ?? '',
         ariaLabel: step?.ariaLabel ?? '',

@@ -43,9 +43,11 @@
 
 <script>
 import { iconTypeProp, themeIconTypeComputed } from '../theme/icon-type-prop.js'
+import { uiDefaultsMixin } from '../theme/ui-defaults.js'
 
 export default {
   name: 'Segment',
+  mixins: [uiDefaultsMixin],
   inject: {
     uiSegmentGroup: {
       default: null,

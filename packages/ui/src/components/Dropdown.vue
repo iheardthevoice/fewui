@@ -53,7 +53,7 @@
               variant="ghost"
               :color="itemColor(it)"
               :rounded="!it.description"
-              fulled
+              block
               text-align="left"
               role="menuitem"
               :prefix-icon="it.description ? null : (it.icon || null)"
@@ -176,11 +176,10 @@ export default {
     onOpenChange(value) {
       this.isOpen = value
     },
-    /** `color`, veya `variant: 'destructive'` → danger (sil / yıkıcı eylem). */
+    /** Öğe `color` (ör. `'danger'` sil eylemi); seçili öğe `primary`. */
     itemColor(it) {
       if (it?.color) return it.color
       if (it?.selected) return 'primary'
-      if (it?.variant === 'destructive' || it?.destructive) return 'danger'
       return 'secondary'
     },
     itemSuffixIcon(it) {

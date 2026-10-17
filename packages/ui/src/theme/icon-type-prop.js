@@ -10,14 +10,14 @@ export const iconTypeProp = {
 }
 
 /**
- * Options API — `resolvedIconType` computed ekler.
+ * Options API — `resolvedIconType` computed ekler (bileşende `uiDefaultsMixin` gerekir).
  * @param {string} [propKey='iconType'] — prop adı (`Icon` bileşeninde `type`).
  * @returns {Record<string, unknown>}
  */
 export function themeIconTypeComputed(propKey = 'iconType') {
   return {
     resolvedIconType() {
-      return resolveThemeIconType(this[propKey])
+      return resolveThemeIconType(this.uiDefaults, this[propKey])
     },
   }
 }

@@ -88,6 +88,7 @@
 import Divider from './Divider.vue'
 import { cn } from '../utils/cn.js'
 import { resolveThemeIconType } from '../theme/resolve-theme-default.js'
+import { uiDefaultsMixin } from '../theme/ui-defaults.js'
 
 const BORDER_TYPES = ['solid', 'dashed', 'dotted', 'double']
 
@@ -102,6 +103,7 @@ const ICON_TYPES = ['solid', 'regular', 'brands', 'light', 'duotone', 'thin']
 
 export default {
   name: 'Card',
+  mixins: [uiDefaultsMixin],
   components: { Divider },
   inheritAttrs: false,
   props: {
@@ -179,7 +181,7 @@ export default {
   },
   computed: {
     resolvedIconType() {
-      return resolveThemeIconType(this.iconType)
+      return resolveThemeIconType(this.uiDefaults, this.iconType)
     },
     hasDefaultHeader() {
       return !!(

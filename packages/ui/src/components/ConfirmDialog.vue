@@ -16,7 +16,7 @@
     </p>
     <template #footer>
       <ui-button
-        :color="confirmState.destructive ? 'danger' : 'primary'"
+        :color="confirmState.color"
         block
         size="lg"
         @click="onConfirm"

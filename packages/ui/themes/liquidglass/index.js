@@ -1,11 +1,13 @@
+import { defineTheme } from '../../src/theme/define-theme.js'
+import webTheme from '../web/index.js'
 import defaults from './defaults.js'
 import { liquidglassPreset } from './preset.js'
 
-/** @type {import('../../src/theme/registry.js').ThemePackage} */
-export const liquidglassTheme = {
+export const liquidglassTheme = defineTheme({
   id: 'liquidglass',
   label: 'Liquid Glass',
   description: 'iOS native — opak grouped yüzeyler; cam chrome / popover / kontrol.',
+  extends: webTheme,
   defaults,
   preset: liquidglassPreset,
   css: {
@@ -15,6 +17,6 @@ export const liquidglassTheme = {
       ios: 'fewui/themes/liquidglass/platform/ios.css',
     },
   },
-}
+})
 
 export default liquidglassTheme

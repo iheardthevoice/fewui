@@ -13,6 +13,7 @@
 import { cn } from '../utils/cn.js'
 import { resolveThemeControlSize } from '../theme/resolve-theme-default.js'
 import { isMobileViewport } from '../utils/viewport.js'
+import { uiDefaultsMixin } from '../theme/ui-defaults.js'
 
 const SIZES = ['sm', 'md', 'lg']
 const DIRECTIONS = ['horizontal', 'vertical']
@@ -23,6 +24,7 @@ function isIconOnlyProp(v) {
 
 export default {
   name: 'SegmentGroup',
+  mixins: [uiDefaultsMixin],
   inheritAttrs: false,
   emits: ['update:modelValue'],
   props: {
@@ -76,7 +78,7 @@ export default {
   },
   computed: {
     resolvedSize() {
-      return resolveThemeControlSize(this.size, { key: 'controlSize', defaultSize: 'md' })
+      return resolveThemeControlSize(this.uiDefaults, this.size, { key: 'controlSize', defaultSize: 'md' })
     },
     /** Segment çocukları bunu okur (`iconOnly` ham prop değil). */
     resolvedIconOnly() {

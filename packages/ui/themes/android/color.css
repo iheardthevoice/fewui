@@ -1,24 +1,12 @@
-/**
- * Android / Material 3 — tonal base, surface container, filled controls.
- * Light + dark; runtime `mode` ile `.dark` sınıfı.
- * Capacitor kabuğu ek tokenları `platform/android.css` içinde ezer.
- */
-
+/* fewui theme "android" — preset.js'ten üretildi (buildThemeCss); elle düzenlemeyin. */
 :root {
   --font-sans: Roboto, ui-sans-serif, system-ui, sans-serif;
-  --font-heading: var(--font-sans);
-
-  /** M3 shape — filled button pill; kart / sheet 16–28dp */
+  --font-heading: Roboto, ui-sans-serif, system-ui, sans-serif;
   --radius: 16px;
   --radius-sm: 12px;
   --radius-md: 14px;
   --radius-3xl: 16px;
   --radius-4xl: 28px;
-
-  /**
-   * Base skala — nötr + hafif primary hue (Material You surface tint, ~285°).
-   * Web’deki chroma-0 neutraller yerine Android yüzey hiyerarşisi.
-   */
   --base-50: oklch(0.99 0.004 285);
   --base-100: oklch(0.97 0.008 285);
   --base-200: oklch(0.93 0.012 285);
@@ -30,20 +18,11 @@
   --base-800: oklch(0.32 0.024 285);
   --base-900: oklch(0.24 0.02 285);
   --base-950: oklch(0.18 0.018 285);
-
   --white: #ffffff;
-
-  /** M3 baseline surface */
   --background: #fffbfe;
   --foreground: #1c1b1f;
-
   --surface: #fffbfe;
   --surface-foreground: #1c1b1f;
-
-  /**
-   * Surface container basamağı (M3):
-   * lowest → kart üstü / elevated; high → input oyuğu; highest → tonal chip.
-   */
   --ui-m3-surface-lowest: #ffffff;
   --ui-m3-surface-low: #f7f2fa;
   --ui-m3-surface-container: #f3edf7;
@@ -51,72 +30,47 @@
   --ui-m3-surface-highest: #e6e0e9;
   --ui-m3-outline: #79747e;
   --ui-m3-outline-variant: #cac4d0;
-
   --ui-surface-opacity: 100%;
-  --ui-surface-backdrop-blur: 0;
-  --ui-surface-mix-from: var(--ui-m3-surface-low);
-  --surface-bg: color-mix(in oklab, var(--ui-surface-mix-from) var(--ui-surface-opacity), transparent);
-
-  /** Tonal control / secondary container */
+  --ui-surface-backdrop-blur: 0px;
+  --ui-surface-mix-from: var(--surface);
   --control: var(--ui-m3-surface-highest);
   --control-foreground: #1c1b1f;
-
   --ui-control-opacity: 100%;
-  --ui-control-backdrop-blur: 0;
+  --ui-control-backdrop-blur: 0px;
   --ui-control-mix-from: var(--control);
-  --control-bg: color-mix(in oklab, var(--ui-control-mix-from) var(--ui-control-opacity), transparent);
-
-  --primary: #6750a4;
+  --primary: #6750A4;
   --primary-foreground: #ffffff;
-
-  --secondary: #e8def8;
-  --secondary-foreground: #1d192b;
-
+  --secondary: #E8DEF8;
+  --secondary-foreground: #1D192B;
   --warning: oklch(0.78 0.15 72);
   --warning-foreground: oklch(0.26 0.055 72);
   --success: oklch(0.58 0.155 152);
   --success-foreground: oklch(0.99 0.01 152);
   --info: oklch(0.54 0.125 252);
   --info-foreground: oklch(0.99 0.01 252);
-  --destructive: #b3261e;
-  --destructive-foreground: #ffffff;
-
+  --danger: #b3261e;
+  --danger-foreground: #ffffff;
   --muted: var(--ui-m3-surface-container);
   --muted-foreground: #49454f;
-
   --accent: var(--ui-m3-surface-high);
   --accent-foreground: #1d192b;
-
   --ui-input-opacity: 100%;
-  --ui-input-backdrop-blur: 0;
-  --ui-input-mix-from: var(--ui-m3-surface-highest);
-  --input-background: color-mix(in oklab, var(--ui-input-mix-from) var(--ui-input-opacity), transparent);
-
+  --ui-input-backdrop-blur: 0px;
+  --ui-input-mix-from: var(--control);
   --border: var(--ui-m3-outline-variant);
-
-  /** M3 elevation (level 1–2) — yumuşak, flat değil tonal + hafif gölge */
   --ui-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.08), 0 1px 3px rgb(0 0 0 / 0.06);
   --ui-shadow-md: 0 1px 2px rgb(0 0 0 / 0.08), 0 2px 6px rgb(0 0 0 / 0.1);
   --ui-shadow-surface: 0 1px 3px rgb(0 0 0 / 0.08), 0 4px 12px rgb(0 0 0 / 0.06);
-
   --ring: #6750a4;
   --ui-focus-ring: color-mix(in oklab, var(--ring) 40%, transparent);
-
-  /** Filled button — düz tonal; web gradient yok */
   --ui-fill-grad-top-primary: 0%;
   --ui-fill-grad-bottom-primary: 0%;
   --ui-fill-grad-light: white;
   --ui-fill-grad-dark: black;
-  --ui-button-grad-top: var(--ui-fill-grad-top-primary);
-  --ui-button-grad-bottom: var(--ui-fill-grad-bottom-primary);
-  --ui-button-grad-light: var(--ui-fill-grad-light);
-  --ui-button-grad-dark: var(--ui-fill-grad-dark);
-
   --ui-scrollbar-size: 8px;
   --ui-scrollbar-track: transparent;
   --ui-scrollbar-thumb: color-mix(in oklab, var(--foreground) 22%, transparent);
   --ui-scrollbar-thumb-hover: color-mix(in oklab, var(--foreground) 36%, transparent);
-
   --chart-50: #f3edf7;
   --chart-100: #e8def8;
   --chart-200: #d0bcff;
@@ -129,15 +83,19 @@
   --chart-900: #21005d;
   --chart: var(--chart-500);
   --chart-foreground: #ffffff;
+  --surface-bg: color-mix(in oklab, var(--ui-surface-mix-from) var(--ui-surface-opacity), transparent);
+  --control-bg: color-mix(in oklab, var(--ui-control-mix-from) var(--ui-control-opacity), transparent);
+  --input-background: color-mix(in oklab, var(--ui-input-mix-from) var(--ui-input-opacity), transparent);
+  --ui-button-grad-top: var(--ui-fill-grad-top-primary);
+  --ui-button-grad-bottom: var(--ui-fill-grad-bottom-primary);
+  --ui-button-grad-light: var(--ui-fill-grad-light);
+  --ui-button-grad-dark: var(--ui-fill-grad-dark);
 }
-
 .dark {
   --background: #1c1b1f;
   --foreground: #e6e1e5;
-
   --surface: #1c1b1f;
   --surface-foreground: #e6e1e5;
-
   --ui-m3-surface-lowest: #0f0d13;
   --ui-m3-surface-low: #1d1b20;
   --ui-m3-surface-container: #211f26;
@@ -145,36 +103,16 @@
   --ui-m3-surface-highest: #36343b;
   --ui-m3-outline: #938f99;
   --ui-m3-outline-variant: #49454f;
-
-  --ui-surface-mix-from: var(--ui-m3-surface-low);
-  --control: var(--ui-m3-surface-highest);
   --control-foreground: #e6e1e5;
-
-  --primary: #d0bcff;
-  --primary-foreground: #381e72;
-
-  --secondary: #4a4458;
-  --secondary-foreground: #e8def8;
-
-  --destructive: #f2b8b5;
-  --destructive-foreground: #601410;
-
-  --muted: var(--ui-m3-surface-container);
+  --danger: #f2b8b5;
+  --danger-foreground: #601410;
   --muted-foreground: #cac4d0;
-
-  --accent: var(--ui-m3-surface-high);
   --accent-foreground: #e8def8;
-
-  --ui-input-mix-from: var(--ui-m3-surface-highest);
-  --border: var(--ui-m3-outline-variant);
-
   --ui-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.35);
   --ui-shadow-md: 0 2px 6px rgb(0 0 0 / 0.4);
   --ui-shadow-surface: 0 2px 8px rgb(0 0 0 / 0.35);
-
   --ring: #d0bcff;
   --ui-focus-ring: color-mix(in oklab, var(--ring) 45%, transparent);
-
   --chart-50: #21005d;
   --chart-100: #381e72;
   --chart-200: #4f378b;
@@ -185,6 +123,5 @@
   --chart-700: #d0bcff;
   --chart-800: #e8def8;
   --chart-900: #f3edf7;
-  --chart: var(--chart-500);
   --chart-foreground: #381e72;
 }

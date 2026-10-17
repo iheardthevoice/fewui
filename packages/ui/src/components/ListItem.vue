@@ -37,11 +37,13 @@
 import { cn } from '../utils/cn.js'
 import { iconTypeProp } from '../theme/icon-type-prop.js'
 import { resolveThemeIconType } from '../theme/resolve-theme-default.js'
+import { uiDefaultsMixin } from '../theme/ui-defaults.js'
 
 const ALIGNS = ['start', 'center']
 
 export default {
   name: 'ListItem',
+  mixins: [uiDefaultsMixin],
   props: {
     /** Dolu daire içinde `ui-icon` (ör. `check`). */
     prefixIcon: {
@@ -58,7 +60,7 @@ export default {
   },
   computed: {
     resolvedPrefixIconType() {
-      return resolveThemeIconType(this.prefixIconType)
+      return resolveThemeIconType(this.uiDefaults, this.prefixIconType)
     },
     itemClass() {
       return cn(

@@ -1,13 +1,13 @@
 import { reactive } from 'vue'
 
-/** @typedef {'info' | 'success' | 'warning' | 'error'} ToastVariant */
+/** @typedef {'info' | 'success' | 'warning' | 'danger'} ToastColor */
 
 /**
  * @typedef {object} ToastChild
  * @property {number} id
  * @property {string} title
  * @property {string} [description]
- * @property {ToastVariant} variant
+ * @property {ToastColor} color
  */
 
 /**
@@ -15,7 +15,7 @@ import { reactive } from 'vue'
  * @property {number} id
  * @property {string} title
  * @property {string} [description]
- * @property {ToastVariant} variant
+ * @property {ToastColor} color
  * @property {number} duration
  * @property {ToastChild[]} children
  * @property {boolean} sealed
@@ -27,7 +27,7 @@ import { reactive } from 'vue'
 /** Consecutive toasts within this gap join the open (unsealed) group. */
 export const TOAST_GROUP_WINDOW_MS = 300
 
-const VARIANT_RANK = { info: 0, success: 1, warning: 2, error: 3 }
+const COLOR_RANK = { info: 0, success: 1, warning: 2, danger: 3 }
 
 export const toastState = reactive({
   /** @type {ToastItem[]} */
@@ -82,9 +82,9 @@ function bumpDismissTimer(item) {
   }
 }
 
-function maxVariant(a, b) {
-  const ra = VARIANT_RANK[a] ?? 0
-  const rb = VARIANT_RANK[b] ?? 0
+function maxColor(a, b) {
+  const ra = COLOR_RANK[a] ?? 0
+  const rb = COLOR_RANK[b] ?? 0
   return rb > ra ? b : a
 }
 
@@ -93,7 +93,7 @@ function makeChild(payload, id) {
     id,
     title: payload.title ?? '',
     description: payload.description ?? '',
-    variant: payload.variant ?? 'info',
+    color: payload.color ?? 'info',
   }
 }
 
@@ -105,7 +105,7 @@ function makeChild(payload, id) {
  * @param {{
  *   title?: string,
  *   description?: string,
- *   variant?: ToastVariant,
+ *   color?: ToastColor,
  *   duration?: number,
  *   group?: boolean,
  * }} payload
@@ -117,14 +117,14 @@ export function pushToast(payload = {}) {
   const now = Date.now()
   const allowGroup = payload.group !== false
   const duration = payload.duration !== undefined ? payload.duration : 4500
-  const childVariant = payload.variant ?? 'info'
+  const childColor = payload.color ?? 'info'
 
   if (allowGroup) {
     const open = findOpenGroup()
     if (open && now - open.lastAt <= TOAST_GROUP_WINDOW_MS) {
       seq += 1
       open.children.push(makeChild(payload, seq))
-      open.variant = maxVariant(open.variant, childVariant)
+      open.color = maxColor(open.color, childColor)
       open.lastAt = now
       if (duration === 0 || open.duration === 0) {
         open.duration = 0
@@ -147,7 +147,7 @@ export function pushToast(payload = {}) {
     id,
     title: child.title,
     description: child.description,
-    variant: childVariant,
+    color: childColor,
     duration,
     children: [child],
     sealed: !allowGroup,
@@ -230,9 +230,9 @@ export function dismissToastChild(groupId, childId) {
   const head = item.children[0]
   item.title = head.title
   item.description = head.description
-  item.variant = item.children.reduce(
-    (acc, c) => maxVariant(acc, c.variant),
-    head.variant,
+  item.color = item.children.reduce(
+    (acc, c) => maxColor(acc, c.color),
+    head.color,
   )
   if (item.children.length < 2) {
     item.expanded = false

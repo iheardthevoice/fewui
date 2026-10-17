@@ -1,5 +1,6 @@
 /**
- * fewui bileşen varsayılanları — tema paketi `defaults.js` ile birleştirilir.
+ * fewui bileşen prop varsayılanları — tema paketi `defaults.js` ile birleştirilir.
+ * Görsel ölçüler (`radius`, `cardPadding`) token'dır, burada yer almaz.
  * @typedef {object} UiThemeDefaults
  * @property {'solid'|'regular'|'brands'|'light'|'duotone'|'thin'} [iconType]
  * @property {'lg'|'full'} [buttonRounded]
@@ -10,8 +11,6 @@
  * @property {string} [dateRangeFormat]
  * @property {string} [timeFormat]
  * @property {string} [dialogMaxWidth]
- * @property {'default'|'comfortable'|'spacious'|'compact'} [cardPadding]
- * @property {string} [radius]
  */
 
 /** @type {UiThemeDefaults} */
@@ -25,8 +24,6 @@ export const BASE_UI_DEFAULTS = {
   dateRangeFormat: 'd MMM yyyy',
   timeFormat: 'HH:mm',
   dialogMaxWidth: 'sm',
-  cardPadding: 'default',
-  radius: '26px',
 }
 
 /**
@@ -37,10 +34,13 @@ export function mergeUiDefaults(themeDefaults) {
   if (!themeDefaults || typeof themeDefaults !== 'object') {
     return { ...BASE_UI_DEFAULTS }
   }
-  return {
-    ...BASE_UI_DEFAULTS,
-    ...themeDefaults,
+  /** @type {UiThemeDefaults} */
+  const merged = { ...BASE_UI_DEFAULTS }
+  for (const key of Object.keys(BASE_UI_DEFAULTS)) {
+    const value = themeDefaults[key]
+    if (value != null && value !== '') merged[key] = value
   }
+  return merged
 }
 
 export const UI_DEFAULTS_KEY = Symbol('uiDefaults')

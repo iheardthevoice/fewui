@@ -16,7 +16,7 @@
     </div>
     <Teleport
       v-if="portalReady"
-      to="body"
+      :to="portalTarget"
     >
       <Transition
         name="ui-overlay-popover-backdrop"
@@ -90,6 +90,7 @@
 
 <script>
 import { isMobileViewport } from '../utils/viewport.js'
+import { uiPortalMixin } from '../theme/ui-portal.js'
 
 const PLACEMENTS = [
   'bottom-start',
@@ -130,6 +131,7 @@ const BUILTIN_OUTSIDE_CLICK_IGNORE_SELECTORS = [
 
 export default {
   name: 'Popover',
+  mixins: [uiPortalMixin],
   inheritAttrs: false,
   props: {
     /** `v-model:open` */

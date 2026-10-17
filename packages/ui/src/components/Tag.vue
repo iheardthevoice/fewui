@@ -1,5 +1,6 @@
 <template>
   <Badge
+    :color="color"
     :variant="variant"
     :size="size"
     class="ui-tag max-w-[min(100%,14rem)] shrink-0"
@@ -37,10 +38,16 @@ export default {
   name: 'Tag',
   components: { Badge, Tooltip },
   props: {
-    variant: {
+    /** Ton — Badge ile aynı sözlük */
+    color: {
       type: String,
       default: 'secondary',
-      validator: (v) => ['solid', 'secondary', 'outline'].includes(v),
+      validator: (v) => ['primary', 'secondary', 'success', 'warning', 'info', 'danger'].includes(v),
+    },
+    variant: {
+      type: String,
+      default: 'solid',
+      validator: (v) => ['solid', 'outline', 'muted'].includes(v),
     },
     size: {
       type: String,

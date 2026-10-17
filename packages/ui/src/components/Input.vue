@@ -80,12 +80,14 @@ import { cn } from '../utils/cn.js'
 import { resolveThemeControlSize } from '../theme/resolve-theme-default.js'
 import { useId } from 'vue'
 import { pickPassthroughAttrs } from '../utils/pick-passthrough-attrs.js'
+import { uiDefaultsMixin } from '../theme/ui-defaults.js'
 
 const SIZES = ['sm', 'md', 'lg']
 const VARIANTS = ['default', 'plain']
 
 export default {
   name: 'Input',
+  mixins: [uiDefaultsMixin],
   inheritAttrs: false,
   inject: {
     uiFormRowPrimary: {
@@ -167,7 +169,7 @@ export default {
   },
   computed: {
     resolvedSize() {
-      let size = resolveThemeControlSize(this.size, { key: 'controlSize', defaultSize: 'md' })
+      let size = resolveThemeControlSize(this.uiDefaults, this.size, { key: 'controlSize', defaultSize: 'md' })
       if (size !== 'md') return size
       const fromRow = typeof this.uiFormRowPrimary === 'function'
         ? this.uiFormRowPrimary()

@@ -38,6 +38,7 @@
 import { cn } from '../utils/cn.js'
 import { iconTypeProp, themeIconTypeComputed } from '../theme/icon-type-prop.js'
 import { resolveThemeControlSize } from '../theme/resolve-theme-default.js'
+import { uiDefaultsMixin } from '../theme/ui-defaults.js'
 
 const SIZES = ['sm', 'md', 'lg']
 
@@ -49,6 +50,7 @@ const ICON_SIZE_BY_EMPTY = {
 
 export default {
   name: 'Empty',
+  mixins: [uiDefaultsMixin],
   inheritAttrs: false,
   props: {
     /** `ui-icon` `name` (örn. `plus`). Boş string → ikon kutusu gösterilmez. */
@@ -75,7 +77,7 @@ export default {
   computed: {
     ...themeIconTypeComputed(),
     resolvedSize() {
-      return resolveThemeControlSize(this.size, { key: 'controlSize', defaultSize: 'md' })
+      return resolveThemeControlSize(this.uiDefaults, this.size, { key: 'controlSize', defaultSize: 'md' })
     },
     iconSize() {
       return ICON_SIZE_BY_EMPTY[this.resolvedSize] ?? 'md'

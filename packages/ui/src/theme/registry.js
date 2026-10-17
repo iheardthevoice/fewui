@@ -1,5 +1,4 @@
-import { mergeUiTheme } from './apply-theme.js'
-import { mergeUiDefaults } from './defaults-base.js'
+import { isThemePackage } from './define-theme.js'
 import webTheme from '../../themes/web/index.js'
 import liquidglassTheme from '../../themes/liquidglass/index.js'
 import androidTheme from '../../themes/android/index.js'
@@ -7,128 +6,67 @@ import landingTheme from '../../themes/landing/index.js'
 import fewuiTheme from '../../themes/fewui/index.js'
 
 /**
- * @typedef {import('./defaults-base.js').UiThemeDefaults} UiThemeDefaults
+ * @typedef {import('./define-theme.js').ThemePackage} ThemePackage
  */
 
-/**
- * @typedef {import('./apply-theme.js').UiThemeConfig} UiThemeConfig
- */
+export const DEFAULT_THEME_ID = 'web'
+
+/** @type {Map<string, ThemePackage>} */
+const THEMES = new Map()
 
 /**
- * @typedef {object} ThemePackageCss
- * @property {string} color
- * @property {string} [styles]
- * @property {{ ios?: string }} [platform]
- */
-
-/**
- * @typedef {object} ThemePackage
- * @property {string} id
- * @property {string} label
- * @property {string} [description]
- * @property {UiThemeDefaults} defaults
- * @property {UiThemeConfig} preset
- * @property {ThemePackageCss} css
- */
-
-/** @type {Record<string, ThemePackage>} */
-export const THEME_PACKAGES = {
-  web: webTheme,
-  liquidglass: liquidglassTheme,
-  android: androidTheme,
-  landing: landingTheme,
-  fewui: fewuiTheme,
-}
-
-/** @type {Array<'web'|'liquidglass'|'android'|'landing'|'fewui'>} */
-export const THEME_IDS = ['web', 'liquidglass', 'android', 'landing', 'fewui']
-
-/** Eski preset kimlikleri → tema paketi. */
-export const LEGACY_PRESET_TO_THEME = {
-  panel: 'web',
-  flat: 'web',
-  landing: 'landing',
-}
-
-/** Eski preset’lerin tema preset’ine ek override’ları. */
-/** @type {Record<string, Partial<UiThemeConfig>>} */
-export const LEGACY_PRESET_OVERRIDES = {
-  panel: {
-    mode: 'dark',
-  },
-  flat: {
-    mode: 'dark',
-    surfaceStyle: {
-      mixFrom: 'background',
-      opacity: 100,
-      backdropBlur: 'none',
-    },
-    controlStyle: {
-      mixFrom: 'background',
-      opacity: 100,
-      backdropBlur: 'none',
-    },
-    inputStyle: {
-      mixFrom: 'background',
-      opacity: 100,
-      backdropBlur: 'none',
-    },
-  },
-}
-
-/**
- * @param {string} [input]
- * @returns {'web'|'liquidglass'|'android'|'landing'|'fewui'}
- */
-export function resolveThemeId(input = 'web') {
-  const key = String(input || 'web').trim()
-  if (THEME_PACKAGES[key]) {
-    return /** @type {'web'|'liquidglass'|'android'|'landing'|'fewui'} */ (key)
-  }
-  const mapped = LEGACY_PRESET_TO_THEME[key]
-  if (mapped && THEME_PACKAGES[mapped]) {
-    return /** @type {'web'|'liquidglass'|'android'|'landing'|'fewui'} */ (mapped)
-  }
-  return 'web'
-}
-
-/**
- * @param {string} [id]
+ * Tema paketini id ile kaydeder (aynı id'yi ezer).
+ * @param {ThemePackage} pkg
  * @returns {ThemePackage}
  */
-export function getThemePackage(id = 'web') {
-  return THEME_PACKAGES[resolveThemeId(id)]
+export function registerTheme(pkg) {
+  if (!isThemePackage(pkg)) {
+    throw new Error('[fewui] registerTheme: geçerli bir tema paketi bekleniyor (defineTheme).')
+  }
+  THEMES.set(pkg.id, pkg)
+  return pkg
+}
+
+for (const pkg of [webTheme, liquidglassTheme, androidTheme, landingTheme, fewuiTheme]) {
+  registerTheme(pkg)
 }
 
 /**
- * Tema paketi + birleştirilmiş runtime config ve defaults.
- * @param {string} [id] Tema adı (`web`, `liquidglass`, …) veya eski preset (`panel`, `flat`, `landing`)
- * @param {Partial<UiThemeConfig>} [overrides] Anlık override (`primaryColor`, `mode`, …)
- * @returns {{ package: ThemePackage, id: string, config: UiThemeConfig, defaults: UiThemeDefaults }}
+ * @param {string} id
+ * @returns {ThemePackage|null}
  */
-export function resolveThemePackage(id = 'web', overrides = {}) {
-  const rawId = String(id || 'web').trim()
-  const themeId = resolveThemeId(rawId)
-  const pkg = THEME_PACKAGES[themeId]
-  const legacyOverrides = LEGACY_PRESET_OVERRIDES[rawId] || {}
-  const basePreset = structuredClone(pkg.preset)
-  const config = mergeUiTheme(mergeUiTheme(basePreset, legacyOverrides), overrides)
-  const defaults = mergeUiDefaults(pkg.defaults)
+export function getThemePackage(id) {
+  return THEMES.get(String(id || '').trim()) ?? null
+}
 
-  return {
-    package: pkg,
-    id: themeId,
-    config,
-    defaults,
+/**
+ * Kayıtlı temalar (kayıt sırasıyla).
+ * @returns {ThemePackage[]}
+ */
+export function listThemes() {
+  return [...THEMES.values()]
+}
+
+/**
+ * Id veya paket → paket. Bilinmeyen id varsayılan temaya düşer.
+ * @param {string|ThemePackage|null|undefined} input
+ * @returns {ThemePackage}
+ */
+export function resolveTheme(input) {
+  if (isThemePackage(input)) return input
+  const pkg = getThemePackage(/** @type {string} */ (input) || DEFAULT_THEME_ID)
+  if (pkg) return pkg
+  if (typeof import.meta !== 'undefined' && import.meta.env?.DEV) {
+    console.warn(`[fewui] Bilinmeyen tema "${input}", "${DEFAULT_THEME_ID}" kullanılıyor.`)
   }
+  return /** @type {ThemePackage} */ (THEMES.get(DEFAULT_THEME_ID))
 }
 
 /**
  * Tema CSS bundle yolu (`fewui/themes/{id}.css`).
- * @param {string} [id]
+ * @param {string} id
  * @returns {string}
  */
-export function getThemeCssPath(id = 'web') {
-  const themeId = resolveThemeId(id)
-  return `fewui/themes/${themeId}.css`
+export function getThemeCssPath(id) {
+  return `fewui/themes/${resolveTheme(id).id}.css`
 }

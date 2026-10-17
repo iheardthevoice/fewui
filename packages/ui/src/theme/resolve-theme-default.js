@@ -1,77 +1,51 @@
 import { resolveControlSize } from '../utils/control-size.js'
-import { useUiDefaultsOptions } from './ui-defaults.js'
+import { BASE_UI_DEFAULTS } from './defaults-base.js'
 
 const ICON_TYPES = ['solid', 'regular', 'brands', 'light', 'duotone', 'thin']
 
 /**
- * Prop verilmediyse tema `defaults.js` değerini döndürür.
+ * @typedef {import('./defaults-base.js').UiThemeDefaults} UiThemeDefaults
+ */
+
+/**
+ * Prop verilmediyse tema varsayılanını döndürür.
  * @template {string} T
+ * @param {UiThemeDefaults|undefined} defaults `this.uiDefaults` (uiDefaultsMixin)
  * @param {T|undefined|null} propValue
- * @param {keyof import('./defaults-base.js').UiThemeDefaults} defaultsKey
- * @param {T} fallback
+ * @param {keyof UiThemeDefaults} key
  * @returns {T}
  */
-export function resolveThemeDefault(propValue, defaultsKey, fallback) {
+export function resolveThemeDefault(defaults, propValue, key) {
   if (propValue != null && propValue !== '') {
     return propValue
   }
-  const fromTheme = useUiDefaultsOptions()[defaultsKey]
+  const fromTheme = defaults?.[key]
   if (fromTheme != null && fromTheme !== '') {
     return /** @type {T} */ (fromTheme)
   }
-  return fallback
+  return /** @type {T} */ (BASE_UI_DEFAULTS[key])
 }
 
 /**
+ * @param {UiThemeDefaults|undefined} defaults
  * @param {'sm'|'md'|'lg'|undefined|null} propSize
- * @param {{ key?: keyof import('./defaults-base.js').UiThemeDefaults, defaultSize?: 'sm'|'md'|'lg' }} [options]
+ * @param {{ key?: 'controlSize'|'buttonSize'|'inputSize', defaultSize?: 'sm'|'md'|'lg' }} [options]
  * @returns {'sm'|'md'|'lg'}
  */
-export function resolveThemeControlSize(propSize, { key = 'controlSize', defaultSize = 'md' } = {}) {
+export function resolveThemeControlSize(defaults, propSize, { key = 'controlSize', defaultSize = 'md' } = {}) {
   if (propSize != null && propSize !== '') {
     return resolveControlSize(propSize, { defaultSize })
   }
-  const defaults = useUiDefaultsOptions()
-  const raw =
-    defaults[key] ??
-    defaults.controlSize ??
-    defaults.buttonSize ??
-    defaults.inputSize ??
-    defaultSize
+  const raw = defaults?.[key] ?? defaults?.controlSize ?? defaultSize
   return resolveControlSize(raw, { defaultSize })
 }
 
 /**
+ * @param {UiThemeDefaults|undefined} defaults
  * @param {string|undefined|null} propType
  * @returns {string}
  */
-export function resolveThemeIconType(propType) {
-  const raw = resolveThemeDefault(propType, 'iconType', 'light')
+export function resolveThemeIconType(defaults, propType) {
+  const raw = resolveThemeDefault(defaults, propType, 'iconType')
   return ICON_TYPES.includes(raw) ? raw : 'light'
-}
-
-/**
- * @param {string|undefined|null} propMaxWidth
- * @returns {string}
- */
-export function resolveThemeDialogMaxWidth(propMaxWidth) {
-  return resolveThemeDefault(propMaxWidth, 'dialogMaxWidth', 'lg')
-}
-
-/**
- * @param {string|undefined|null} propFormat
- * @param {'dateFormat'|'dateRangeFormat'} [key]
- * @returns {string|undefined}
- */
-export function resolveThemeDateFormat(propFormat, key = 'dateFormat') {
-  const value = resolveThemeDefault(propFormat, key, '')
-  return value || undefined
-}
-
-/**
- * @param {string|undefined|null} propFormat
- * @returns {string}
- */
-export function resolveThemeTimeFormat(propFormat) {
-  return resolveThemeDefault(propFormat, 'timeFormat', 'HH:mm')
 }

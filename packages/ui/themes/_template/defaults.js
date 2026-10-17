@@ -9,6 +9,4 @@ export default {
   dateRangeFormat: 'd MMM yyyy',
   timeFormat: 'HH:mm',
   dialogMaxWidth: 'sm',
-  cardPadding: 'default',
-  radius: '20px',
 }

@@ -57,33 +57,42 @@ import Tooltip from './Tooltip.vue'
 import { cn } from '../utils/cn.js'
 import { pickPassthroughAttrs } from '../utils/pick-passthrough-attrs.js'
 
-const VARIANTS = [
-  'solid',
-  'secondary',
-  'outline',
-  'success',
-  'warning',
-  'danger',
-  'error',
-  'destructive',
-  'muted',
-  'info',
-]
+const COLORS = ['primary', 'secondary', 'success', 'warning', 'info', 'danger']
+const VARIANTS = ['solid', 'outline', 'muted']
 
 const SIZES = ['xs', 'sm', 'md', 'lg']
 
-const variantClasses = {
-  solid: 'border border-transparent bg-primary text-primary-foreground',
+/** @type {Record<string, string>} */
+const SOLID_CLASSES = {
+  primary: 'border border-transparent bg-primary text-primary-foreground',
   secondary: 'border border-transparent bg-secondary text-secondary-foreground',
-  outline: 'border border-border bg-transparent text-foreground',
   success: 'border border-transparent bg-success text-success-foreground',
   warning: 'border border-transparent bg-warning text-warning-foreground',
-  danger: 'border border-transparent bg-destructive text-destructive-foreground',
-  error: 'border border-transparent bg-destructive text-destructive-foreground',
-  destructive: 'border border-transparent bg-destructive text-destructive-foreground',
-  muted: 'border border-transparent bg-muted text-muted-foreground',
   info: 'border border-transparent bg-info text-info-foreground',
+  danger: 'border border-transparent bg-danger text-danger-foreground',
 }
+
+/** @type {Record<string, string>} */
+const OUTLINE_CLASSES = {
+  primary: 'border border-current bg-transparent text-primary',
+  secondary: 'border border-border bg-transparent text-foreground',
+  success: 'border border-current bg-transparent text-success',
+  warning: 'border border-current bg-transparent text-warning',
+  info: 'border border-current bg-transparent text-info',
+  danger: 'border border-current bg-transparent text-danger',
+}
+
+/** @type {Record<string, string>} */
+const MUTED_CLASSES = {
+  primary: 'border border-transparent bg-primary/12 text-primary',
+  secondary: 'border border-transparent bg-muted text-muted-foreground',
+  success: 'border border-transparent bg-success/12 text-success',
+  warning: 'border border-transparent bg-warning/15 text-warning',
+  info: 'border border-transparent bg-info/12 text-info',
+  danger: 'border border-transparent bg-danger/12 text-danger',
+}
+
+const VARIANT_CLASSES = { solid: SOLID_CLASSES, outline: OUTLINE_CLASSES, muted: MUTED_CLASSES }
 
 const sizeClasses = {
   xs: 'ui-badge--xs',
@@ -126,6 +135,14 @@ export default {
   components: { Tooltip },
   inheritAttrs: false,
   props: {
+    /** Ton — `primary | secondary | success | warning | info | danger` */
+    /** Ton; boşsa `solid`/`outline` için `primary`, `muted` için nötr (`secondary`). */
+    color: {
+      type: String,
+      default: undefined,
+      validator: (v) => v == null || COLORS.includes(v),
+    },
+    /** Görsel stil — `solid` dolgu, `outline` çerçeve, `muted` tonun soluk zemini */
     variant: {
       type: String,
       default: 'solid',
@@ -180,6 +197,10 @@ export default {
     }
   },
   computed: {
+    toneClasses() {
+      const map = VARIANT_CLASSES[this.variant] || SOLID_CLASSES
+      return map[this.color || (this.variant === 'muted' ? 'secondary' : 'primary')]
+    },
     isClickable() {
       return this.clickable || typeof this.$attrs.onClick === 'function'
     },
@@ -223,7 +244,7 @@ export default {
         this.hasAdornment ? 'gap-1' : 'justify-center',
         sizeClasses[this.size] || sizeClasses.sm,
         this.isClickable ? 'ui-badge--clickable' : '',
-        !this.normalizedHex && (variantClasses[this.variant] || variantClasses.solid),
+        !this.normalizedHex && this.toneClasses,
         this.$attrs.class,
       )
     },

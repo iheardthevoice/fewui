@@ -59,24 +59,12 @@
   },
   "create": {
     "title": "Create",
-    "description": "Tema token'larını ayarlayın, bileşenleri önizleyin, kuralları ve skill'leri indirin."
-  },
-  "themePlayground": {
-    "title": "Tema",
-    "description": "Token ayarlarını yapın ve projeniz için kuralları dışa aktarın.",
-    "mode": { "dark": "Koyu", "light": "Açık" },
-    "fields": {
-      "preset": "Stil",
-      "mode": "Mod",
-      "primary": "Ana renk",
-      "font": "Yazı tipi",
-      "customCss": "Özel CSS",
-      "customCssPlaceholder": ":root { … }"
-    },
-    "actions": {
-      "copyJson": "Tema JSON kopyala",
-      "downloadRules": "Kuralları indir",
-      "downloadSkill": "Skill indir"
+    "description": "Panel temanızı canlı tasarlayın: renkleri, yüzeyleri ve yazı tipini ayarlayın, açık ve koyu modu yan yana görün, ardından uygulamanızda doğrudan kullanılacak tema paketini indirin.",
+    "preview": {
+      "label": "Önizleme modu",
+      "light": "Açık",
+      "dark": "Koyu",
+      "split": "Yan yana"
     }
   }
 }

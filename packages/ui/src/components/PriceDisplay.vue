@@ -19,7 +19,7 @@ import PriceText from './PriceText.vue'
 
 const SIZES = ['sm', 'md', 'lg']
 const VALUE_SIZES = ['sm', 'md', 'lg', 'xl', '2xl']
-const TONES = ['default', 'foreground', 'muted', 'success', 'destructive', 'primary']
+const TONES = ['default', 'foreground', 'muted', 'success', 'danger', 'primary']
 
 export default {
   name: 'PriceDisplay',

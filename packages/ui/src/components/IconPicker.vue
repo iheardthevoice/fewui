@@ -116,9 +116,11 @@
 <script>
 import { cn } from '../utils/cn.js'
 import { iconTypeProp, themeIconTypeComputed } from '../theme/icon-type-prop.js'
+import { uiDefaultsMixin } from '../theme/ui-defaults.js'
 
 export default {
   name: 'IconPicker',
+  mixins: [uiDefaultsMixin],
   inheritAttrs: false,
   props: {
     modelValue: {
@@ -166,7 +168,7 @@ export default {
     /**
      * Form satırı: tam genişlik. Rozet / satır içi tetikleyici için `false`.
      */
-    fulled: {
+    block: {
       type: Boolean,
       default: true,
     },
@@ -183,7 +185,7 @@ export default {
     rootClass() {
       return cn(
         'ui-icon-picker min-w-0',
-        this.fulled ? 'ui-icon-picker--fulled w-full' : 'ui-icon-picker--inline w-auto',
+        this.block ? 'ui-icon-picker--block w-full' : 'ui-icon-picker--inline w-auto',
         this.disabled && 'pointer-events-none opacity-50',
         this.$attrs.class,
       )

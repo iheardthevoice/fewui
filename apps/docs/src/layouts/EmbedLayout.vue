@@ -1,6 +1,6 @@
 <script>
 import { defineComponent, onMounted, onUnmounted } from 'vue'
-import { resolveThemePreset } from 'fewui'
+import { applyUiTheme } from 'fewui'
 import { applyThemePlaygroundPayload, listenThemeBridge } from '@fewui/theme-playground/theme-bridge.js'
 import ComponentPreview from '../views/ComponentPreview.vue'
 
@@ -11,10 +11,7 @@ export default defineComponent({
     let stopListen = () => {}
 
     onMounted(() => {
-      applyThemePlaygroundPayload({
-        theme: resolveThemePreset('panel', { mode: 'dark' }),
-        customCss: '',
-      })
+      applyUiTheme('web', { mode: 'dark', inline: true })
 
       stopListen = listenThemeBridge(applyThemePlaygroundPayload)
     })

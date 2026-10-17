@@ -299,6 +299,7 @@ import {
   tourHighlightObserveNodes,
 } from '../utils/tour-target-bounds.js'
 import { iconTypeProp, themeIconTypeComputed } from '../theme/icon-type-prop.js'
+import { uiDefaultsMixin } from '../theme/ui-defaults.js'
 
 const MODES = ['dialog', 'popover', 'card', 'tour']
 const PLACEMENTS = [
@@ -321,6 +322,7 @@ const TOUR_DEFAULT_TARGET_PADDING = 8
 
 export default {
   name: 'Guidance',
+  mixins: [uiDefaultsMixin],
   props: {
     /** `dialog` | `popover` | `card` | `tour` */
     mode: {

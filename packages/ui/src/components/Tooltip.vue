@@ -11,7 +11,7 @@
     <!-- Defer Teleport until mount: empty SSR teleport markers mismatch and can wipe #app. -->
     <Teleport
       v-if="portalReady"
-      to="body"
+      :to="portalTarget"
     >
       <Transition name="ui-tooltip-fade">
         <div
@@ -33,6 +33,7 @@
 
 <script>
 import { createUiIdFactory } from '../utils/ui-id.js'
+import { uiPortalMixin } from '../theme/ui-portal.js'
 
 const nextTooltipId = createUiIdFactory('ui-tooltip')
 
@@ -41,6 +42,7 @@ const VIEW_MARGIN = 8
 
 export default {
   name: 'Tooltip',
+  mixins: [uiPortalMixin],
   inheritAttrs: false,
   props: {
     /** Boşsa yalnızca `content` slot’u kullanılabilir */

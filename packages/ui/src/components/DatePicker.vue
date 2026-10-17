@@ -3,8 +3,8 @@
     :class="[
       'ui-datepicker',
       embedded ? 'ui-datepicker--embedded' : '',
-      !embedded && fulled ? 'ui-datepicker--fulled w-full' : '',
-      !embedded && !fulled ? 'w-auto shrink-0' : '',
+      !embedded && block ? 'ui-datepicker--block w-full' : '',
+      !embedded && !block ? 'w-auto shrink-0' : '',
       disabled ? 'pointer-events-none opacity-50' : '',
       $attrs.class,
     ]"
@@ -60,7 +60,7 @@
             variant="ghost"
             color="secondary"
             size="sm"
-            fulled
+            block
             :disabled="yesterdayQuickDisabled"
             @click="pickQuick('yesterday')"
           >
@@ -71,7 +71,7 @@
             variant="ghost"
             color="secondary"
             size="sm"
-            fulled
+            block
             :disabled="todayQuickDisabled"
             @click="pickQuick('today')"
           >
@@ -82,7 +82,7 @@
             variant="ghost"
             color="secondary"
             size="sm"
-            fulled
+            block
             :disabled="tomorrowQuickDisabled"
             @click="pickQuick('tomorrow')"
           >
@@ -111,7 +111,7 @@
             :id="resolvedId"
             variant="solid"
             color="input"
-            :fulled="fulled"
+            :block="block"
             text-align="left"
             prefix-icon="calendar"
             :disabled="disabled"
@@ -179,7 +179,7 @@
               variant="ghost"
               color="secondary"
               size="sm"
-              fulled
+              block
               :disabled="yesterdayQuickDisabled"
               @click="pickQuick('yesterday', close)"
             >
@@ -190,7 +190,7 @@
               variant="ghost"
               color="secondary"
               size="sm"
-              fulled
+              block
               :disabled="todayQuickDisabled"
               @click="pickQuick('today', close)"
             >
@@ -201,7 +201,7 @@
               variant="ghost"
               color="secondary"
               size="sm"
-              fulled
+              block
               :disabled="tomorrowQuickDisabled"
               @click="pickQuick('tomorrow', close)"
             >
@@ -216,8 +216,9 @@
 
 <script>
 import { formatDateDisplay, resolveDateDisplayLocale, formatYmdDisplay } from '../utils/format-ymd-display.js'
-import { resolveThemeDateFormat } from '../theme/resolve-theme-default.js'
+import { resolveThemeDefault } from '../theme/resolve-theme-default.js'
 import { createUiIdFactory } from '../utils/ui-id.js'
+import { uiDefaultsMixin } from '../theme/ui-defaults.js'
 
 const nextDatePickerId = createUiIdFactory('ui-datepicker')
 
@@ -243,6 +244,7 @@ function parseYmd(s) {
 
 export default {
   name: 'DatePicker',
+  mixins: [uiDefaultsMixin],
   inheritAttrs: false,
   props: {
     /** `YYYY-MM-DD` */
@@ -258,7 +260,7 @@ export default {
       type: Boolean,
       default: false,
     },
-    fulled: {
+    block: {
       type: Boolean,
       default: true,
     },
@@ -326,7 +328,7 @@ export default {
     },
     displayText() {
       if (!this.selectedDate) return this.placeholder
-      const format = resolveThemeDateFormat(undefined, 'dateFormat')
+      const format = resolveThemeDefault(this.uiDefaults, undefined, 'dateFormat')
       return formatDateDisplay(this.selectedDate, this.locale, format)
     },
     monthTitle() {

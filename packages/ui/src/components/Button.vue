@@ -225,9 +225,8 @@ import { Comment, Fragment, Text } from 'vue'
 import { RouterLink } from 'vue-router'
 import { resolveThemeControlSize } from '../theme/resolve-theme-default.js'
 import { resolveUiText } from '../utils/resolve-ui-text.js'
-import {
-  resolveThemeDefault,
-} from '../theme/resolve-theme-default.js'
+import { resolveThemeDefault } from '../theme/resolve-theme-default.js'
+import { uiDefaultsMixin } from '../theme/ui-defaults.js'
 
 const sizes = ['sm', 'md', 'lg']
 const variants = ['solid', 'outline', 'ghost', 'link', 'nav']
@@ -293,7 +292,7 @@ const VARIANT_COLOR_CLASSES = {
       'border-0 bg-success text-success-foreground shadow-none hover:opacity-90',
     info: 'border-0 bg-info text-info-foreground shadow-none hover:opacity-90',
     danger:
-      'border-0 bg-destructive text-destructive-foreground shadow-none hover:opacity-90',
+      'border-0 bg-danger text-danger-foreground shadow-none hover:opacity-90',
   },
   outline: {
     primary:
@@ -306,7 +305,7 @@ const VARIANT_COLOR_CLASSES = {
       'shadow-none border border-current bg-transparent text-success hover:bg-success/10',
     info: 'shadow-none border border-current bg-transparent text-info hover:bg-info/10',
     danger:
-      'shadow-none border border-current bg-transparent text-destructive hover:bg-destructive/10',
+      'shadow-none border border-current bg-transparent text-danger hover:bg-danger/10',
   },
   ghost: {
     primary:
@@ -320,7 +319,7 @@ const VARIANT_COLOR_CLASSES = {
     info:
       'shadow-none border-0 bg-transparent text-info hover:bg-info hover:text-info-foreground',
     danger:
-      'shadow-none border-0 bg-transparent text-destructive hover:bg-destructive hover:text-destructive-foreground',
+      'shadow-none border-0 bg-transparent text-danger hover:bg-danger hover:text-danger-foreground',
   },
   link: {
     primary:
@@ -333,7 +332,7 @@ const VARIANT_COLOR_CLASSES = {
       'border-0 bg-transparent p-0 !h-auto !min-h-0 shadow-none text-success underline-offset-4 hover:underline',
     info: 'border-0 bg-transparent p-0 !h-auto !min-h-0 shadow-none text-info underline-offset-4 hover:underline',
     danger:
-      'border-0 bg-transparent p-0 !h-auto !min-h-0 shadow-none text-destructive underline-offset-4 hover:underline',
+      'border-0 bg-transparent p-0 !h-auto !min-h-0 shadow-none text-danger underline-offset-4 hover:underline',
   },
   nav: {
     primary:
@@ -349,12 +348,13 @@ const VARIANT_COLOR_CLASSES = {
     info:
       'shadow-none border-0 bg-transparent text-info hover:bg-transparent',
     danger:
-      'shadow-none border-0 bg-transparent text-destructive hover:bg-transparent',
+      'shadow-none border-0 bg-transparent text-danger hover:bg-transparent',
   },
 }
 
 export default {
   name: 'Button',
+  mixins: [uiDefaultsMixin],
   components: { RouterLink },
   props: {
     /** `vue-router` hedefi; verildiğinde `<a>` + istemci navigasyonu (`RouterLink` custom). */
@@ -416,11 +416,7 @@ export default {
       type: Boolean,
       default: false,
     },
-    fulled: {
-      type: Boolean,
-      default: false,
-    },
-    /** `fulled` ile aynı — tam genişlik düğme. */
+    /** Tam genişlik. */
     block: {
       type: Boolean,
       default: false,
@@ -471,10 +467,10 @@ export default {
       return this.disabled || this.loading
     },
     resolvedSize() {
-      return resolveThemeControlSize(this.size, { key: 'controlSize', defaultSize: 'md' })
+      return resolveThemeControlSize(this.uiDefaults, this.size, { key: 'controlSize', defaultSize: 'md' })
     },
     themeButtonRounded() {
-      return resolveThemeDefault(undefined, 'buttonRounded', 'lg')
+      return resolveThemeDefault(this.uiDefaults, undefined, 'buttonRounded')
     },
     resolvedLoadingText() {
       if (this.loadingText != null && this.loadingText !== '') {
@@ -484,7 +480,7 @@ export default {
     },
     textContentClass() {
       const align = this.textAlign === 'left' ? 'text-left' : 'text-center'
-      const isBlock = this.fulled || this.block
+      const isBlock = this.block
       if (this.wrap) {
         return ['ui-button-text min-w-0 flex-1 whitespace-normal', align].join(' ')
       }
@@ -557,14 +553,14 @@ export default {
         VARIANT_COLOR_CLASSES.solid?.primary ||
         'border-0 bg-primary text-primary-foreground shadow-none hover:opacity-90'
 
-      const isBlock = this.fulled || this.block
+      const isBlock = this.block
 
       return [
         'ui-button ui-control font-sans',
         this.stack ? 'ui-button--stack' : '',
         variantColor,
         sizeOrCubedResolved,
-        isBlock ? 'ui-button--fulled w-full' : '',
+        isBlock ? 'ui-button--block w-full' : '',
         roundedClass,
         this.isDisabled ? 'cursor-not-allowed opacity-50' : '',
         this.hasRouterTo ? 'inline-flex items-center' : '',

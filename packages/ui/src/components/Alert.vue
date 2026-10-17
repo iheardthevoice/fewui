@@ -59,31 +59,31 @@
 <script>
 import { cn } from '../utils/cn.js'
 
-const VARIANTS = ['info', 'success', 'warning', 'error']
+const COLORS = ['info', 'success', 'warning', 'danger']
 
-const VARIANT_ICON = {
+const COLOR_ICON = {
   info: 'circle-info',
   success: 'circle-check',
   warning: 'triangle-exclamation',
-  error: 'circle-xmark',
+  danger: 'circle-xmark',
 }
 
-const VARIANT_ICON_CLASS = {
+const COLOR_ICON_CLASS = {
   info: 'text-info',
   success: 'text-success',
   warning: 'text-warning',
-  error: 'text-destructive',
+  danger: 'text-danger',
 }
 
 export default {
   name: 'Alert',
   inheritAttrs: false,
   props: {
-    /** Bilgi / başarı / uyarı / hata görünümü */
-    variant: {
+    /** Durum tonu */
+    color: {
       type: String,
       default: 'info',
-      validator: (v) => VARIANTS.includes(v),
+      validator: (v) => COLORS.includes(v),
     },
     title: {
       type: String,
@@ -124,17 +124,17 @@ export default {
   emits: ['dismiss'],
   computed: {
     alertRole() {
-      return this.variant === 'error' || this.variant === 'warning' ? 'alert' : 'status'
+      return this.color === 'danger' || this.color === 'warning' ? 'alert' : 'status'
     },
     resolvedIcon() {
-      return this.icon || VARIANT_ICON[this.variant] || VARIANT_ICON.info
+      return this.icon || COLOR_ICON[this.color] || COLOR_ICON.info
     },
     iconToneClass() {
-      return VARIANT_ICON_CLASS[this.variant] || VARIANT_ICON_CLASS.info
+      return COLOR_ICON_CLASS[this.color] || COLOR_ICON_CLASS.info
     },
     rootClasses() {
       return cn(
-        `ui-alert ui-alert--${this.variant}`,
+        `ui-alert ui-alert--${this.color}`,
         this.banner ? 'ui-alert--banner' : '',
         this.soft && !this.banner ? 'ui-alert--soft' : '',
         this.$attrs.class,

@@ -3,7 +3,7 @@
     type="button"
     variant="ghost"
     color="secondary"
-    fulled
+    block
     text-align="left"
     :to="to"
     :prefix-icon="prefixIcon"

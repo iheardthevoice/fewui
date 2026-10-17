@@ -61,7 +61,7 @@ Kart gövdesi (`ui-card-body`) varsayılan olarak bu tabanı kullanır.
 - **`rounded` prop:** Ekstra olarak `rounded-full` (pill) — yalnızca prop ile; rastgele `rounded-xl` ile ezme.
 - **Metin yoğunluğu (outline / ghost):** Renkli durumlarda yazı **`text-*` semantik renginde** tutulur (ör. `outline` + `warning` → `text-warning`); **`text-*-foreground`** yalnızca dolu zemin için — açık/koyu zeminde kontrast kaybını önlemek için.
 - **Loading / disabled:** Opacity ve `cursor-not-allowed`; tıklama engellenir.
-- **`fulled`, `text-align`, `cubed`:** Geniş blok, sol hizalı metin, ikon kutusu için.
+- **`block`, `text-align`, `cubed`:** Geniş blok, sol hizalı metin, ikon kutusu için.
 
 ---
 
@@ -105,7 +105,7 @@ Kart gövdesi (`ui-card-body`) varsayılan olarak bu tabanı kullanır.
 ## 11. Menu
 
 - **Kabuksuz** liste: `Menu` kendi başına `ui-card` gibi border/gölge/padding taşımaz; **kart içinde** veya düz layout’ta kullanılır.
-- **`MenuItem`:** `Button` (`variant="ghost"`, `color="secondary"`, `fulled`, `text-align="left"`) — köşe `ui-control-h-md` / `rounded-lg` ile sistemle uyumlu; özel `rounded-xl` kuralı yok.
+- **`MenuItem`:** `Button` (`variant="ghost"`, `color="secondary"`, `block`, `text-align="left"`) — köşe `ui-control-h-md` / `rounded-lg` ile sistemle uyumlu; özel `rounded-xl` kuralı yok.
 
 ---
 
@@ -145,3 +145,15 @@ Tailwind: `packages/ui/tailwind-preset.cjs` — `base` / `neutral`, semantik ren
 ---
 
 *Son güncelleme: depodaki `components.css` / `default.css` ile uyumlu tutulmalı; stil değişikliklerinde bu dosyayı güncellemek faydalıdır.*
+
+## API sözlüğü (v2)
+
+`scripts/check-api-consistency.mjs` build öncesi bu kuralları denetler.
+
+- **`color`** = ton: `primary | secondary | success | warning | info | danger`. Button ek olarak `input` yüzeyini kabul eder. `error` / `destructive` kullanılmaz.
+- **`variant`** = görsel stil (Button: `solid | outline | ghost | link | nav`; Badge / Tag: `solid | outline | muted`). Ton değeri `variant`'a yazılmaz.
+- **`size`** = `xs | sm | md | lg | xl | 2xl` ölçeğinin alt kümesi.
+- **`block`** = tam genişlik (eski `fulled` kaldırıldı).
+- **Event'ler** kebab-case (`filter-change`); iki yönlü durum `update:<prop>` (`v-model:open`).
+- **CSS token'ı** `--danger` / `--danger-foreground` (Tailwind: `text-danger`, `bg-danger/10`).
+- Toast: `pushToast({ color: 'danger', title })`; onay: `requestConfirm({ color: 'danger' })`; menü öğesi: `{ color: 'danger' }`.

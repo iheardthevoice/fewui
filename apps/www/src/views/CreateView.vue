@@ -1,38 +1,32 @@
 <script>
 import { defineComponent } from 'vue'
-import { applyUiTheme, resolveThemePreset } from 'fewui'
 import ThemePlaygroundSidebar from '@fewui/theme-playground/ThemePlaygroundSidebar.vue'
-import { postThemeToFrame } from '@fewui/theme-playground/theme-bridge.js'
-import { PLAYGROUND_EMBED_URL } from '../site-urls.js'
+import ThemePreviewPanel from '@fewui/theme-playground/ThemePreviewPanel.vue'
+import { useThemePlayground } from '@fewui/theme-playground/use-theme-playground.js'
 
 export default defineComponent({
   name: 'CreateView',
-  components: { ThemePlaygroundSidebar },
-  data() {
-    return {
-      playgroundPayload: null,
-    }
+  components: { ThemePlaygroundSidebar, ThemePreviewPanel },
+  setup() {
+    return { playground: useThemePlayground() }
   },
   computed: {
-    previewSrc() {
-      return PLAYGROUND_EMBED_URL
+    previewMode: {
+      get() {
+        return this.playground.previewMode.value
+      },
+      set(value) {
+        this.playground.previewMode.value = value
+      },
     },
-  },
-  mounted() {
-    // Host chrome kendi temasını korusun (sidebar applyTheme=false)
-    applyUiTheme(resolveThemePreset('panel'))
-  },
-  methods: {
-    onThemeChange(payload) {
-      this.playgroundPayload = payload
-      this.syncPreviewTheme()
+    previewModes() {
+      return this.previewMode === 'split' ? ['light', 'dark'] : [this.previewMode]
     },
-    onPreviewLoad() {
-      this.syncPreviewTheme()
-    },
-    syncPreviewTheme() {
-      if (!this.playgroundPayload) return
-      postThemeToFrame(this.$refs.previewFrame, this.playgroundPayload)
+    previewModeOptions() {
+      return ['light', 'dark', 'split'].map((value) => ({
+        value,
+        label: this.$t(`create.preview.${value}`),
+      }))
     },
   },
 })
@@ -40,29 +34,49 @@ export default defineComponent({
 
 <template>
   <div class="flex h-[calc(100vh-4.5rem)] min-h-0 flex-col">
-    <div class="shrink-0 border-b border-border px-6 py-6">
-      <h1 class="text-2xl font-medium text-foreground">
-        {{ $t('create.title') }}
-      </h1>
-      <p class="mt-1 text-sm text-muted-foreground">
-        {{ $t('create.description') }}
-      </p>
+    <div class="flex shrink-0 flex-wrap items-end justify-between gap-4 border-b border-border px-6 py-6">
+      <div>
+        <h1 class="text-2xl font-medium text-foreground">
+          {{ $t('create.title') }}
+        </h1>
+        <p class="mt-1 text-sm text-muted-foreground">
+          {{ $t('create.description') }}
+        </p>
+      </div>
+      <ui-segment-group
+        v-model="previewMode"
+        :block="false"
+        :aria-label="$t('create.preview.label')"
+      >
+        <ui-segment
+          v-for="opt in previewModeOptions"
+          :key="opt.value"
+          :value="opt.value"
+          :label="opt.label"
+        />
+      </ui-segment-group>
     </div>
 
     <div class="flex min-h-0 flex-1">
-      <ThemePlaygroundSidebar
-        default-preset-id="panel"
-        :apply-theme="false"
-        @theme-change="onThemeChange"
-      />
-      <div class="min-h-0 flex-1 bg-muted/20">
-        <iframe
-          ref="previewFrame"
-          :src="previewSrc"
-          title="FewUI component preview"
-          class="h-full w-full border-0"
-          @load="onPreviewLoad"
-        />
+      <ThemePlaygroundSidebar :playground="playground" />
+      <div
+        class="grid min-h-0 flex-1"
+        :class="previewModes.length > 1 ? 'grid-cols-2 divide-x divide-border' : 'grid-cols-1'"
+      >
+        <div
+          v-for="mode in previewModes"
+          :key="mode"
+          class="min-h-0 overflow-y-auto"
+        >
+          <ui-theme-provider
+            :theme="playground.theme.value"
+            :mode="mode"
+            background
+          >
+            <component :is="'style'">{{ playground.draft.customCss }}</component>
+            <ThemePreviewPanel />
+          </ui-theme-provider>
+        </div>
       </div>
     </div>
   </div>

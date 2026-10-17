@@ -33,7 +33,11 @@
     "./tailwind-preset": "./tailwind-preset.cjs"
   },
   "scripts": {
+    "prebuild": "node ./scripts/build-theme-css.mjs && node ./scripts/check-api-consistency.mjs",
+    "check:api": "node ./scripts/check-api-consistency.mjs",
     "build": "vite build",
+    "build:themes": "node ./scripts/build-theme-css.mjs",
+    "check:themes": "node ./scripts/build-theme-css.mjs --check",
     "fonts:download": "node ./scripts/download-fonts.mjs",
     "postbuild": "node ../../../frontend/scripts/sync-fewui-pin.mjs"
   },

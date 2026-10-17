@@ -13,6 +13,7 @@ import { resolveThemeControlSize } from '../theme/resolve-theme-default.js'
 import { resolveSegmentedTabSize } from '../utils/resolve-segmented-tab-size.js'
 import { isMobileViewport } from '../utils/viewport.js'
 import { useId } from 'vue'
+import { uiDefaultsMixin } from '../theme/ui-defaults.js'
 
 const VARIANTS = ['line', 'segmented']
 
@@ -22,6 +23,7 @@ function isIconOnlyProp(v) {
 
 export default {
   name: 'Tabs',
+  mixins: [uiDefaultsMixin],
   inheritAttrs: false,
   props: {
     /** Aktif sekme kimliği (`TabTrigger` / `TabPanel` `value` ile eşleşir). */
@@ -102,12 +104,12 @@ export default {
   computed: {
     resolvedSize() {
       if (this.variant === 'segmented') {
-        return resolveSegmentedTabSize(this.size, {
+        return resolveSegmentedTabSize(this.uiDefaults, this.size, {
           inlineControls: this.inlineControls,
           nativeChrome: this.nativeChrome,
         })
       }
-      return resolveThemeControlSize(this.size, { key: 'controlSize', defaultSize: 'md' })
+      return resolveThemeControlSize(this.uiDefaults, this.size, { key: 'controlSize', defaultSize: 'md' })
     },
     resolvedIconOnly() {
       if (this.iconOnly === 'mobile') return isMobileViewport()

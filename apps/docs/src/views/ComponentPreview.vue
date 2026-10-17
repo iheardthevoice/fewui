@@ -39,7 +39,7 @@ async function runConfirmDemo() {
   const ok = await confirm({
     title: 'Kalıcı olarak silinsin mi?',
     description: 'Bu işlem geri alınamaz.',
-    destructive: true,
+    color: 'danger',
   })
   if (ok) toastUi.success({ title: 'Silindi' })
   else toastUi.info({ title: 'İptal edildi' })
@@ -265,7 +265,7 @@ function submitLogin() {
                 @complete="onRegisterOtpComplete" />
             </ui-form-row>
 
-            <ui-button type="submit" fulled rounded>
+            <ui-button type="submit" block rounded>
               Kayıt ol
             </ui-button>
           </form>
@@ -291,7 +291,7 @@ function submitLogin() {
               </ui-button>
             </div>
 
-            <ui-button type="submit" fulled rounded>
+            <ui-button type="submit" block rounded>
               Giriş yap
             </ui-button>
           </form>
@@ -372,7 +372,7 @@ function submitLogin() {
                 aria-label="E-posta özeti" />
             </ui-form-row>
 
-            <ui-button type="button" fulled rounded @click="toastUi.success({ title: 'Profil kaydedildi' })">
+            <ui-button type="button" block rounded @click="toastUi.success({ title: 'Profil kaydedildi' })">
               Değişiklikleri kaydet
             </ui-button>
           </form>
@@ -634,10 +634,10 @@ function submitLogin() {
             </div>
             <div class="flex flex-col gap-3">
               <p class="ui-heading-4 m-0">Sistem mesajları</p>
-              <ui-alert variant="info" title="Bilgi" description="İşlem arka planda devam ediyor." />
-              <ui-alert variant="success" title="Tamamlandı" description="Kayıt güncellendi." dismissible />
-              <ui-alert variant="warning" title="Dikkat" description="Kota dolmak üzere." />
-              <ui-alert variant="error" title="Hata" description="Bağlantı kurulamadı." />
+              <ui-alert color="info" title="Bilgi" description="İşlem arka planda devam ediyor." />
+              <ui-alert color="success" title="Tamamlandı" description="Kayıt güncellendi." dismissible />
+              <ui-alert color="warning" title="Dikkat" description="Kota dolmak üzere." />
+              <ui-alert color="danger" title="Hata" description="Bağlantı kurulamadı." />
             </div>
             <div class="flex flex-wrap gap-2">
               <ui-button variant="outline" color="secondary" rounded @click="showToastVariant('info')">
@@ -882,7 +882,7 @@ function submitLogin() {
               </div>
             </ui-form-row>
 
-            <ui-button type="button" fulled rounded @click="toastUi.success({ title: 'Etkinlik kaydedildi' })">
+            <ui-button type="button" block rounded @click="toastUi.success({ title: 'Etkinlik kaydedildi' })">
               Etkinliği kaydet
             </ui-button>
           </form>
@@ -890,7 +890,7 @@ function submitLogin() {
 
         <ui-card class="mb-8 break-inside-avoid w-full" title="Contributors">
           <template #append>
-            <ui-badge variant="secondary">312</ui-badge>
+            <ui-badge color="secondary">312</ui-badge>
           </template>
           <div class="grid grid-cols-4 gap-2 sm:grid-cols-8">
             <ui-avatar v-for="(a, i) in contributorAvatars" :key="i" :src="a.src" :alt="a.alt" size="md" ring />
@@ -1032,7 +1032,7 @@ function submitLogin() {
           </div>
 
           <template #footer>
-            <ui-button fulled>
+            <ui-button block>
               Save Threshold
             </ui-button>
           </template>
@@ -1149,7 +1149,7 @@ function submitLogin() {
           </div>
 
           <template #footer>
-            <ui-button color="secondary" fulled rounded>
+            <ui-button color="secondary" block rounded>
               Save Payout Settings
             </ui-button>
           </template>
@@ -1170,7 +1170,7 @@ function submitLogin() {
           </div>
 
           <template #footer>
-            <ui-button fulled rounded>
+            <ui-button block rounded>
               Save Preferences
             </ui-button>
           </template>

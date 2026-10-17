@@ -5,7 +5,7 @@ FewUI is not only a Vue component library. It is an **AI-native design system**:
 ## What Kit includes
 
 - **`ui-*` components** — forms, dialogs, tables, navigation, and more.
-- **`UiThemeConfig`** — runtime theming via CSS custom properties (`applyUiTheme`, `mergeUiTheme`).
+- **Theme packages** — `defineTheme` + light/dark tokens, generated `color.css`, `ui-theme-provider` for scoped preview.
 - **Presets** — `panel` (admin), `flat` (solid surfaces), `landing` (tenant sites).
 - **Playground** — live component gallery with a theme sidebar ([localhost:5175](http://localhost:5175)).
 - **Rules & skills** — exportable Cursor rules and `SKILL.md` for agent workflows.

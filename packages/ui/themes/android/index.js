@@ -1,8 +1,8 @@
+import { defineTheme } from '../../src/theme/define-theme.js'
 import defaults from './defaults.js'
 import { androidPreset } from './preset.js'
 
-/** @type {import('../../src/theme/registry.js').ThemePackage} */
-export const androidTheme = {
+export const androidTheme = defineTheme({
   id: 'android',
   label: 'Android',
   description: 'Material 3 — Roboto, surface containers, filled/tonal buttons, elevated cards.',
@@ -15,6 +15,6 @@ export const androidTheme = {
       android: 'fewui/themes/android/platform/android.css',
     },
   },
-}
+})
 
 export default androidTheme

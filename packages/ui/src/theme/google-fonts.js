@@ -74,7 +74,7 @@ export function googleFontSelectOptions() {
 }
 
 /**
- * @param {import('./apply-theme.js').UiThemeConfig} [theme]
+ * @param {Record<string, unknown>} [theme]
  */
 export function resolveThemeFontFamilies(theme = {}) {
   const body = String(theme.bodyFontFamily || theme.fontFamily || '').trim()
@@ -94,7 +94,7 @@ export function buildGoogleFontsStylesheetUrl(_families) {
 
 /**
  * SSR: fonts are bundled with app CSS (`fewui/fonts.css`); no extra link tag.
- * @param {import('./apply-theme.js').UiThemeConfig} [_theme]
+ * @param {Record<string, unknown>} [_theme]
  * @returns {string}
  */
 export function buildGoogleFontsLinkTag(_theme = {}) {
@@ -104,7 +104,7 @@ export function buildGoogleFontsLinkTag(_theme = {}) {
 /**
  * Ensures local catalog fonts are available. No remote requests.
  * Prefer importing `fewui/fonts.css` in the app stylesheet; this is a safe no-op fallback.
- * @param {import('./apply-theme.js').UiThemeConfig} [_theme]
+ * @param {Record<string, unknown>} [_theme]
  * @param {{ id?: string }} [_options]
  * @returns {string | null}
  */

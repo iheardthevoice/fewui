@@ -147,12 +147,14 @@
 <script>
 import { cn } from '../utils/cn.js'
 import { resolveThemeIconType } from '../theme/resolve-theme-default.js'
+import { uiDefaultsMixin } from '../theme/ui-defaults.js'
 
 const DIRECTIONS = ['horizontal', 'vertical']
 const VARIANTS = ['default', 'pills']
 
 export default {
   name: 'Stepper',
+  mixins: [uiDefaultsMixin],
   inheritAttrs: false,
   props: {
     modelValue: {
@@ -199,7 +201,7 @@ export default {
         title: s?.title ?? '',
         description: s?.description ?? '',
         icon: s?.icon ?? null,
-        iconType: s?.iconType ?? resolveThemeIconType(undefined),
+        iconType: s?.iconType ?? resolveThemeIconType(this.uiDefaults, undefined),
       }))
     },
     rootClass() {

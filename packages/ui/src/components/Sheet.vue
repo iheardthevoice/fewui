@@ -2,7 +2,7 @@
   <!-- Defer Teleport until mount: empty SSR teleport markers mismatch and can wipe #app. -->
   <Teleport
     v-if="portalReady"
-    to="body"
+    :to="portalTarget"
   >
     <Transition
       :name="transitionName"
@@ -137,6 +137,8 @@ import { resolveUiText } from '../utils/resolve-ui-text.js'
 import { pickPassthroughAttrs } from '../utils/pick-passthrough-attrs.js'
 import { focusFirstField } from '../utils/focus-first-field.js'
 import { resolveThemeIconType } from '../theme/resolve-theme-default.js'
+import { uiDefaultsMixin } from '../theme/ui-defaults.js'
+import { uiPortalMixin } from '../theme/ui-portal.js'
 
 const nextSheetId = createUiIdFactory('ui-sheet')
 
@@ -153,6 +155,7 @@ const SIZE_CLASS = {
 
 export default {
   name: 'Sheet',
+  mixins: [uiPortalMixin, uiDefaultsMixin],
   components: { Divider },
   inheritAttrs: false,
   props: {
@@ -280,7 +283,7 @@ export default {
   },
   computed: {
     resolvedIconType() {
-      return resolveThemeIconType(this.iconType)
+      return resolveThemeIconType(this.uiDefaults, this.iconType)
     },
     hasDefaultHeader() {
       return !!(

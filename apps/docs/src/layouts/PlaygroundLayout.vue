@@ -1,7 +1,7 @@
 <script>
 import { defineComponent } from 'vue'
-import { applyUiTheme, resolveThemePreset } from 'fewui'
 import ThemePlaygroundSidebar from '@fewui/theme-playground/ThemePlaygroundSidebar.vue'
+import { useThemePlayground } from '@fewui/theme-playground/use-theme-playground.js'
 import ComponentPreview from '../views/ComponentPreview.vue'
 import { i18n } from '../i18n.js'
 
@@ -19,11 +19,18 @@ export default defineComponent({
     ThemePlaygroundSidebar,
     ComponentPreview,
   },
+  setup() {
+    return { playground: useThemePlayground() }
+  },
   data() {
     return {
       previewLocale: readStoredLocale() ?? 'tr',
-      previewRootEl: null,
     }
+  },
+  computed: {
+    previewMode() {
+      return this.playground.previewMode.value === 'dark' ? 'dark' : 'light'
+    },
   },
   watch: {
     previewLocale(value) {
@@ -40,14 +47,6 @@ export default defineComponent({
   },
   mounted() {
     this.previewLocale = readStoredLocale() ?? 'tr'
-    this.previewRootEl = this.$refs.previewRoot || null
-    // Shell (header + sidebar) site temasını korusun
-    applyUiTheme(resolveThemePreset('panel'))
-  },
-  updated() {
-    if (!this.previewRootEl && this.$refs.previewRoot) {
-      this.previewRootEl = this.$refs.previewRoot
-    }
   },
 })
 </script>
@@ -75,15 +74,16 @@ export default defineComponent({
     </header>
 
     <div class="flex min-h-0 flex-1">
-      <ThemePlaygroundSidebar
-        default-preset-id="panel"
-        :theme-root="previewRootEl"
-      />
-      <div
-        ref="previewRoot"
-        class="fewui-theme-scope min-h-0 flex-1 overflow-y-auto bg-background text-foreground"
-      >
-        <ComponentPreview />
+      <ThemePlaygroundSidebar :playground="playground" />
+      <div class="min-h-0 flex-1 overflow-y-auto">
+        <ui-theme-provider
+          :theme="playground.theme.value"
+          :mode="previewMode"
+          background
+        >
+          <component :is="'style'">{{ playground.draft.customCss }}</component>
+          <ComponentPreview />
+        </ui-theme-provider>
       </div>
     </div>
 

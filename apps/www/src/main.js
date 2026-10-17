@@ -8,5 +8,5 @@ import './style.css'
 const app = createApp(App)
 app.use(router)
 app.use(i18n)
-app.use(UiLib, { i18n, locales: ['en', 'tr'], theme: 'fewui' })
+app.use(UiLib, { i18n, locales: ['en', 'tr'], theme: 'fewui', mode: 'dark' })
 app.mount('#app')

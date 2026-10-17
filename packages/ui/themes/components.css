@@ -74,6 +74,28 @@
 }
 
 @layer components {
+  /** `ui-theme-provider` — token'lar elemanda inline; metin ve font burada yeniden çözülür. */
+  .ui-theme-provider {
+    color: var(--foreground);
+    font-family: var(--font-sans);
+  }
+
+  .ui-theme-provider[data-ui-mode='light'] {
+    color-scheme: light;
+  }
+
+  .ui-theme-provider[data-ui-mode='dark'] {
+    color-scheme: dark;
+  }
+
+  .ui-theme-provider--background {
+    min-height: 100%;
+    background-color: var(--background);
+  }
+
+  .ui-theme-provider-portal {
+    display: contents;
+  }
 
   .ui-heading-1 {
     @apply text-3xl font-medium leading-9 tracking-tight text-foreground;
@@ -231,9 +253,9 @@
 
   .ui-button.ui-control[data-variant='solid'][data-color='danger'] {
     @apply border-0 shadow-none;
-    background-color: var(--destructive);
+    background-color: var(--danger);
     background-image: none;
-    color: var(--destructive-foreground);
+    color: var(--danger-foreground);
   }
 
   .ui-button.ui-control[data-variant='solid']:not([data-color='input']):not([data-color='secondary']):hover:not(:disabled) {
@@ -306,13 +328,13 @@
 
   .ui-button.ui-control[data-variant='ghost'][data-color='danger'] {
     @apply border-0 shadow-none;
-    color: var(--destructive);
+    color: var(--danger);
   }
 
   .ui-button.ui-control[data-variant='ghost'][data-color='danger']:hover:not(:disabled) {
-    background-color: var(--destructive);
+    background-color: var(--danger);
     background-image: none;
-    color: var(--destructive-foreground);
+    color: var(--danger-foreground);
   }
 
   .ui-button.ui-control[data-variant='outline'][data-color='primary'] {
@@ -373,11 +395,11 @@
   .ui-button.ui-control[data-variant='outline'][data-color='danger'] {
     @apply shadow-none;
     border: 1px solid currentColor;
-    color: var(--destructive);
+    color: var(--danger);
   }
 
   .ui-button.ui-control[data-variant='outline'][data-color='danger']:hover:not(:disabled) {
-    background-color: color-mix(in oklab, var(--destructive) 10%, transparent);
+    background-color: color-mix(in oklab, var(--danger) 10%, transparent);
     background-image: none;
   }
 
@@ -811,8 +833,8 @@
     @apply text-emerald-600 dark:text-emerald-400;
   }
 
-  .ui-price-text--destructive {
-    @apply text-destructive;
+  .ui-price-text--danger {
+    @apply text-danger;
   }
 
   .ui-price-text--primary {
@@ -861,7 +883,7 @@
   }
 
   .ui-password-strength-label--weak {
-    @apply text-destructive;
+    @apply text-danger;
   }
 
   .ui-password-strength-label--fair {
@@ -950,11 +972,11 @@
   }
 
   .ui-progress--weak .ui-progress-bar-indicator {
-    @apply bg-destructive;
+    @apply bg-danger;
   }
 
   .ui-progress--weak .ui-progress-circle-indicator {
-    stroke: var(--destructive);
+    stroke: var(--danger);
   }
 
   .ui-progress--fair .ui-progress-bar-indicator {
@@ -1062,9 +1084,9 @@
     color: var(--warning-foreground);
   }
 
-  .ui-badge.bg-destructive {
-    background-color: var(--destructive);
-    color: var(--destructive-foreground);
+  .ui-badge.bg-danger {
+    background-color: var(--danger);
+    color: var(--danger-foreground);
   }
 
   .ui-badge.bg-muted {
@@ -1434,7 +1456,7 @@
       0 6px 16px rgb(0 0 0 / 0.07);
   }
 
-  .dark .ui-file-icon-shell {
+  .dark .ui-file-icon-shell:not([data-ui-mode='light'] *) {
     box-shadow:
       inset 0 1px 0 0 rgb(255 255 255 / 0.06),
       0 2px 6px rgb(0 0 0 / 0.45),
@@ -1463,7 +1485,7 @@
    * `--ui-card-padding` / `--ui-card-gap`: dikey ve yatay kenar ile bölüm arası eşit (1.5rem).
    */
   .ui-card {
-    --ui-card-padding: 1.5rem;
+    --ui-card-padding: var(--ui-card-space, 1.5rem);
     --ui-card-gap: var(--ui-card-padding);
     @apply isolate flex min-w-0 flex-col;
     padding: var(--ui-card-padding);
@@ -2532,7 +2554,7 @@
   }
 
   .ui-field__title-icon--danger {
-    @apply text-destructive;
+    @apply text-danger;
   }
 
   .ui-field__title-icon--info {
@@ -2565,39 +2587,39 @@
     @apply relative flex min-w-0 items-stretch;
   }
 
-  /** `fulled` (varsayılan) — kök + popover tetikleyici tam genişlik */
-  .ui-select--fulled {
+  /** `block` (varsayılan) — kök + popover tetikleyici tam genişlik */
+  .ui-select--block {
     @apply w-full;
   }
 
-  .ui-select--fulled > .ui-popover {
+  .ui-select--block > .ui-popover {
     @apply block w-full min-w-0;
   }
 
-  .ui-select--fulled .ui-popover-trigger {
+  .ui-select--block .ui-popover-trigger {
     @apply flex w-full min-w-0 max-w-full;
   }
 
-  .ui-datepicker--fulled .ui-popover {
+  .ui-datepicker--block .ui-popover {
     @apply w-full min-w-0;
   }
 
-  .ui-datepicker--fulled .ui-popover-trigger {
+  .ui-datepicker--block .ui-popover-trigger {
     @apply flex w-full min-w-0 max-w-full;
   }
 
-  .ui-icon-picker--fulled,
-  .ui-color-picker--fulled {
+  .ui-icon-picker--block,
+  .ui-color-picker--block {
     @apply w-full;
   }
 
-  .ui-icon-picker--fulled > .ui-popover,
-  .ui-color-picker--fulled > .ui-popover {
+  .ui-icon-picker--block > .ui-popover,
+  .ui-color-picker--block > .ui-popover {
     @apply block w-full min-w-0;
   }
 
-  .ui-icon-picker--fulled .ui-popover-trigger,
-  .ui-color-picker--fulled .ui-popover-trigger {
+  .ui-icon-picker--block .ui-popover-trigger,
+  .ui-color-picker--block .ui-popover-trigger {
     @apply flex w-full min-w-0 max-w-full;
   }
 
@@ -3363,7 +3385,7 @@
     @apply inline-flex size-[1.125em] items-center justify-center leading-none;
   }
 
-  .ui-sidebar-item--fulled {
+  .ui-sidebar-item--block {
     @apply justify-start;
   }
 
@@ -3429,7 +3451,7 @@
     @apply border-transparent bg-transparent shadow-none;
   }
 
-  .dark .ui-tabs--transparent .ui-tab-list--horizontal.ui-tab-list--segmented {
+  .dark .ui-tabs--transparent .ui-tab-list--horizontal.ui-tab-list--segmented:not([data-ui-mode='light'] *) {
     @apply border-transparent bg-transparent;
   }
 
@@ -3515,7 +3537,7 @@
     @apply text-base-600;
   }
 
-  .dark .ui-tab-trigger--segmented:not(.ui-tab-trigger--segmented-selected):not(:disabled) .ui-tab-trigger-icon .ui-icon {
+  .dark .ui-tab-trigger--segmented:not(.ui-tab-trigger--segmented-selected):not(:disabled) .ui-tab-trigger-icon .ui-icon:not([data-ui-mode='light'] *) {
     @apply text-muted-foreground;
   }
 
@@ -3523,7 +3545,7 @@
     @apply min-w-0 max-w-none whitespace-nowrap text-center text-[11px] font-medium leading-none tracking-tight text-base-600;
   }
 
-  .dark .ui-tab-trigger--segmented .ui-tab-trigger-label {
+  .dark .ui-tab-trigger--segmented .ui-tab-trigger-label:not([data-ui-mode='light'] *) {
     @apply text-muted-foreground;
   }
 
@@ -3552,15 +3574,15 @@
     @apply [&_.ui-icon]:text-primary-foreground;
   }
 
-  .dark .ui-tab-trigger--segmented-selected .ui-tab-trigger-label {
+  .dark .ui-tab-trigger--segmented-selected .ui-tab-trigger-label:not([data-ui-mode='light'] *) {
     @apply text-primary-foreground;
   }
 
-  .dark .ui-tab-trigger--segmented-selected .ui-tab-trigger-icon .ui-icon {
+  .dark .ui-tab-trigger--segmented-selected .ui-tab-trigger-icon .ui-icon:not([data-ui-mode='light'] *) {
     @apply text-primary-foreground;
   }
 
-  .dark .ui-tab-trigger--segmented-selected {
+  .dark .ui-tab-trigger--segmented-selected:not([data-ui-mode='light'] *) {
     @apply ui-fill-primary;
   }
 
@@ -3707,7 +3729,7 @@
     @apply border-transparent bg-transparent shadow-none;
   }
 
-  .dark .ui-tabs--transparent .ui-tab-list--vertical.ui-tab-list--segmented {
+  .dark .ui-tabs--transparent .ui-tab-list--vertical.ui-tab-list--segmented:not([data-ui-mode='light'] *) {
     @apply border-transparent bg-transparent;
   }
 
@@ -3791,7 +3813,7 @@
     @apply text-base-600;
   }
 
-  .dark .ui-tab-trigger--line:not(.ui-tab-trigger--line-selected):not(:disabled) {
+  .dark .ui-tab-trigger--line:not(.ui-tab-trigger--line-selected):not(:disabled):not([data-ui-mode='light'] *) {
     @apply text-muted-foreground;
   }
 
@@ -3807,7 +3829,7 @@
     @apply text-base-600;
   }
 
-  .dark .ui-tab-trigger--line:not(.ui-tab-trigger--line-selected):not(:disabled) .ui-tab-trigger-icon {
+  .dark .ui-tab-trigger--line:not(.ui-tab-trigger--line-selected):not(:disabled) .ui-tab-trigger-icon:not([data-ui-mode='light'] *) {
     @apply text-muted-foreground opacity-90;
   }
 
@@ -4100,36 +4122,36 @@
     @apply cursor-not-allowed opacity-50;
   }
 
-  .dark .ui-radio--button:not(.ui-radio--checked) {
+  .dark .ui-radio--button:not(.ui-radio--checked):not([data-ui-mode='light'] *) {
     @apply opacity-75;
   }
 
-  .dark .ui-radio--button.ui-radio--checked {
+  .dark .ui-radio--button.ui-radio--checked:not([data-ui-mode='light'] *) {
     @apply border-border shadow-none;
   }
 
-  .dark .ui-checkbox--button:not(.ui-checkbox--checked) {
+  .dark .ui-checkbox--button:not(.ui-checkbox--checked):not([data-ui-mode='light'] *) {
     @apply opacity-75;
   }
 
-  .dark .ui-checkbox--button.ui-checkbox--checked {
+  .dark .ui-checkbox--button.ui-checkbox--checked:not([data-ui-mode='light'] *) {
     @apply border-border shadow-none;
   }
 
-  .dark .ui-radio-indicator {
+  .dark .ui-radio-indicator:not([data-ui-mode='light'] *) {
     @apply border border-border bg-transparent;
   }
 
-  .dark .ui-radio--checked .ui-radio-indicator {
+  .dark .ui-radio--checked .ui-radio-indicator:not([data-ui-mode='light'] *) {
     @apply border-0 ui-fill-gradient;
     --ui-fill-base: var(--primary);
   }
 
-  .dark .ui-checkbox-box {
+  .dark .ui-checkbox-box:not([data-ui-mode='light'] *) {
     @apply border border-border bg-transparent;
   }
 
-  .dark .ui-checkbox--checked .ui-checkbox-box {
+  .dark .ui-checkbox--checked .ui-checkbox-box:not([data-ui-mode='light'] *) {
     @apply border-0 ui-fill-gradient;
     --ui-fill-base: var(--primary);
   }
@@ -4284,9 +4306,9 @@
     background-color: color-mix(in oklab, var(--warning) 6%, var(--surface));
   }
 
-  .ui-alert--error {
-    border-color: color-mix(in oklab, var(--destructive) 30%, var(--border));
-    background-color: color-mix(in oklab, var(--destructive) 6%, var(--surface));
+  .ui-alert--danger {
+    border-color: color-mix(in oklab, var(--danger) 30%, var(--border));
+    background-color: color-mix(in oklab, var(--danger) 6%, var(--surface));
   }
 
   /** İkon zeminleri — muted yerine varyant tonu */
@@ -4306,8 +4328,8 @@
     background-color: color-mix(in oklab, var(--warning) 22%, var(--surface));
   }
 
-  .ui-alert--error .ui-alert-icon {
-    background-color: color-mix(in oklab, var(--destructive) 22%, var(--surface));
+  .ui-alert--danger .ui-alert-icon {
+    background-color: color-mix(in oklab, var(--danger) 22%, var(--surface));
   }
 
   .ui-alert-body {
@@ -4400,7 +4422,7 @@
     @apply p-0 text-xs leading-4 text-muted-foreground;
   }
 
-  .ui-alert--soft.ui-alert--error .ui-alert-slot {
+  .ui-alert--soft.ui-alert--danger .ui-alert-slot {
     @apply text-foreground;
   }
 
@@ -4437,9 +4459,9 @@
     background-color: color-mix(in oklab, var(--warning) 5%, var(--surface));
   }
 
-  .ui-alert--toast.ui-alert--error {
-    border-color: color-mix(in oklab, var(--destructive) 26%, var(--border));
-    background-color: color-mix(in oklab, var(--destructive) 5%, var(--surface));
+  .ui-alert--toast.ui-alert--danger {
+    border-color: color-mix(in oklab, var(--danger) 26%, var(--border));
+    background-color: color-mix(in oklab, var(--danger) 5%, var(--surface));
   }
 
   .ui-alert--toast .ui-alert-icon {
@@ -4459,8 +4481,8 @@
     background-color: color-mix(in oklab, var(--warning) 28%, var(--surface));
   }
 
-  .ui-alert--toast.ui-alert--error .ui-alert-icon {
-    background-color: color-mix(in oklab, var(--destructive) 28%, var(--surface));
+  .ui-alert--toast.ui-alert--danger .ui-alert-icon {
+    background-color: color-mix(in oklab, var(--danger) 28%, var(--surface));
   }
 
   .ui-alert--toast .ui-alert-body {
@@ -4529,9 +4551,9 @@
     background-color: color-mix(in oklab, var(--warning) 5%, var(--surface));
   }
 
-  .ui-toast-deck:has(.ui-alert--error) .ui-toast-deck-sheet {
-    border-color: color-mix(in oklab, var(--destructive) 26%, var(--border));
-    background-color: color-mix(in oklab, var(--destructive) 5%, var(--surface));
+  .ui-toast-deck:has(.ui-alert--danger) .ui-toast-deck-sheet {
+    border-color: color-mix(in oklab, var(--danger) 26%, var(--border));
+    background-color: color-mix(in oklab, var(--danger) 5%, var(--surface));
   }
 
   .ui-toast-deck .ui-alert--toast {
@@ -4864,7 +4886,7 @@
     min-width: 0;
   }
 
-  .ui-sheet-panel .ui-card-footer > .ui-button.ui-button--fulled {
+  .ui-sheet-panel .ui-card-footer > .ui-button.ui-button--block {
     @apply w-full shrink-0;
   }
 
@@ -5096,12 +5118,12 @@
     min-width: max-content;
   }
 
-  .ui-dialog-panel .ui-card-footer > .ui-button:not(.ui-button--fulled) {
+  .ui-dialog-panel .ui-card-footer > .ui-button:not(.ui-button--block) {
     width: auto;
     flex-shrink: 0;
   }
 
-  .ui-dialog-panel .ui-card-footer > .ui-button.ui-button--fulled {
+  .ui-dialog-panel .ui-card-footer > .ui-button.ui-button--block {
     width: 100%;
     flex-shrink: 0;
   }

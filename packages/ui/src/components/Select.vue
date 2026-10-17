@@ -169,7 +169,7 @@
               :variant="isSelected(opt) ? 'solid' : 'ghost'"
               :color="isSelected(opt) ? 'primary' : 'secondary'"
               :size="optionButtonSize"
-              fulled
+              block
               text-align="left"
               role="option"
               class="ui-select-option"
@@ -191,7 +191,8 @@
                   >{{ opt.label }}</span>
                   <ui-badge
                     v-if="opt.badge"
-                    :variant="opt.badgeVariant || 'secondary'"
+                    :color="opt.badgeColor || 'secondary'"
+                    :variant="opt.badgeVariant || 'solid'"
                     size="xs"
                   >
                     {{ opt.badge }}
@@ -236,6 +237,7 @@ import { cn } from '../utils/cn.js'
 import { resolveThemeControlSize } from '../theme/resolve-theme-default.js'
 import { createUiIdFactory } from '../utils/ui-id.js'
 import Tag from './Tag.vue'
+import { uiDefaultsMixin } from '../theme/ui-defaults.js'
 
 /** Reset via `resetUiIds()` — module counters drift on Cloudflare Worker isolates. */
 const nextSelectId = createUiIdFactory('ui-select')
@@ -245,6 +247,7 @@ const SIZES = ['sm', 'md', 'lg']
 
 export default {
   name: 'Select',
+  mixins: [uiDefaultsMixin],
   components: { Tag },
   inheritAttrs: false,
   inject: {
@@ -317,7 +320,7 @@ export default {
       type: String,
       default: undefined,
     },
-    fulled: {
+    block: {
       type: Boolean,
       default: true,
     },
@@ -329,27 +332,32 @@ export default {
       type: Number,
       default: 6,
     },
-    /** Sunucu tarafı arama — liste yerel filtrelenmez; `filterChange` yayınlanır */
+    /** Sunucu tarafı arama — liste yerel filtrelenmez; `filter-change` yayınlanır */
     remoteFilter: {
       type: Boolean,
       default: false,
     },
+    /** Liste açık durumu — `v-model:open` ile kontrol edilebilir */
+    open: {
+      type: Boolean,
+      default: undefined,
+    },
   },
-  emits: ['update:modelValue', 'change', 'dropdownOpenChange', 'filterChange'],
+  emits: ['update:modelValue', 'change', 'update:open', 'filter-change'],
   data() {
     const fallbackId = nextSelectId()
     const seq = fallbackId.slice('ui-select-'.length)
     return {
       fallbackId,
       fallbackListboxId: `ui-select-listbox-${seq}`,
-      menuOpen: false,
+      menuOpen: this.open ?? false,
       filterQuery: '',
       filterDebounceTimer: null,
     }
   },
   computed: {
     resolvedSize() {
-      let size = resolveThemeControlSize(this.size, { key: 'controlSize', defaultSize: 'md' })
+      let size = resolveThemeControlSize(this.uiDefaults, this.size, { key: 'controlSize', defaultSize: 'md' })
       if (size !== 'md') return size
       const fromRow = typeof this.uiFormRowPrimary === 'function'
         ? this.uiFormRowPrimary()
@@ -374,8 +382,8 @@ export default {
       return cn(
         'ui-select',
         isInline && 'ui-select--inline',
-        !isInline && this.fulled && 'ui-select--fulled w-full',
-        !isInline && !this.fulled && 'w-auto shrink-0',
+        !isInline && this.block && 'ui-select--block w-full',
+        !isInline && !this.block && 'w-auto shrink-0',
         this.resolvedSize !== 'md' && `ui-select--${this.resolvedSize}`,
         this.multiple && 'ui-select--multiple',
         this.isFilterable && 'ui-select--filterable',
@@ -566,11 +574,14 @@ export default {
         clearTimeout(this.filterDebounceTimer)
       }
       this.filterDebounceTimer = setTimeout(() => {
-        this.$emit('filterChange', String(q ?? '').trim())
+        this.$emit('filter-change', String(q ?? '').trim())
       }, 300)
     },
+    open(value) {
+      if (value != null && value !== this.menuOpen) this.menuOpen = value
+    },
     menuOpen(open) {
-      this.$emit('dropdownOpenChange', open)
+      if (open !== this.open) this.$emit('update:open', open)
       if (!open) {
         if (this.filterDebounceTimer) {
           clearTimeout(this.filterDebounceTimer)

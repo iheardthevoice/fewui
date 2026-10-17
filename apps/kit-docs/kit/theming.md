@@ -2,7 +2,8 @@
 
 ## Tema paketleri
 
-Her tema `themes/{id}/` altında: `defaults.js`, `preset.js`, `color.css`, `styles.css`, `index.js`.
+Her tema `themes/{id}/` altında: `index.js` (`defineTheme`), `preset.js` (token'lar), `defaults.js`,
+üretilen `color.css` ve isteğe bağlı `styles.css`.
 
 | id | CSS import | Kullanım |
 |----|------------|----------|
@@ -12,7 +13,7 @@ Her tema `themes/{id}/` altında: `defaults.js`, `preset.js`, `color.css`, `styl
 | `landing` | `fewui/themes/landing.css` | Tenant siteler |
 | `fewui` | `fewui/themes/fewui.css` | fewui.com |
 
-Varsayılan bundle: `fewui/style.css` (web + iOS platform).
+Varsayılan bundle: `fewui/style.css` (web + iOS / Android platform katmanları).
 
 Detaylı geliştirici rehberi: paket içi `themes/README.md`.
 
@@ -25,50 +26,67 @@ import 'fewui/themes/web.css'
 app.use(UiLib, {
   i18n,
   theme: 'web',
-  themeOverrides: {
-    mode: 'dark',
-    primaryColor: '#1B5CFF',
-  },
+  mode: 'dark',
+  overrides: { primary: '#1B5CFF' },
 })
 ```
 
-- **`theme`** — string (`web`, `liquidglass`, …) veya doğrudan `UiThemeConfig` nesnesi.
-- **`themeOverrides`** — string tema seçildiğinde anlık override (`primaryColor`, `mode`, `surfaceStyle`, …).
+- **`theme`** — kayıtlı id veya `defineTheme` paketi.
+- **`mode`** — `light` / `dark`; verilmezse kökteki `.dark` korunur.
+- **`overrides`** — anlık token'lar: düz harita (aktif mod) veya `{ light, dark }`.
+- **`inline`** — tema `color.css` yüklenmediyse tüm token'ları köke yazar.
 
-## UiThemeConfig (runtime tokenlar)
-
-| Token | CSS |
-|-------|-----|
-| `primaryColor` | `--primary` |
-| `fontFamily` | `--font-sans` |
-| `mode` | `.dark` on `<html>` |
-| `surfaceStyle` / `controlStyle` / `inputStyle` | glass / opak yüzeyler |
+## Token'lar
 
 ```js
-import { applyUiTheme, mergeUiTheme, resolveThemePackage } from 'fewui'
+// themes/my-theme/preset.js
+export const myPreset = {
+  fonts: { body: 'Inter' },
+  tokens: {
+    light: {
+      primary: '#1B5CFF',
+      background: 'var(--base-100)',
+      danger: 'oklch(0.55 0.22 27)',
+      radius: '20px',
+      cardPadding: 'comfortable',
+      surfaceStyle: { mixFrom: 'surface', opacity: 100, backdropBlur: 'none' },
+    },
+    dark: {
+      background: 'var(--base-950)',
+    },
+  },
+}
+```
 
-applyUiTheme(mergeUiTheme(resolveThemePackage('web').config, {
-  primaryColor: '#4ade80',
-  mode: 'dark',
-}))
+```js
+import { defineTheme, buildThemeCss, setUiTheme, setUiThemeMode } from 'fewui'
+
+const myTheme = defineTheme({ id: 'my-theme', label: 'My theme', preset: myPreset, defaults })
+const css = buildThemeCss(myTheme) // color.css içeriği
+setUiTheme(myTheme, { mode: 'dark' })
+setUiThemeMode('light')
+```
+
+## Sayfa içi önizleme
+
+```html
+<ui-theme-provider theme="android" mode="dark" background>
+  <ui-card title="Önizleme">…</ui-card>
+</ui-theme-provider>
 ```
 
 ## Bileşen defaults (`defaults.js`)
 
-Tema paketindeki `defaults.js` install sırasında inject edilir; prop verilmezse bileşenler bunu kullanır:
+Prop verilmediğinde bileşenler en yakın provider'ın veya uygulamanın varsayılanını kullanır:
 
 - `iconType`, `buttonRounded`, `buttonSize`, `inputSize`, `controlSize`
 - `dateFormat`, `dateRangeFormat`, `timeFormat`
-- `dialogMaxWidth`, `cardPadding`, `radius`
+- `dialogMaxWidth`
 
-## Geriye dönük presetler
-
-- **panel** → `web` (mode dark override)
-- **flat** → `web` (opak yüzeyler)
-- **landing** → `landing`
+## Renk yardımcıları
 
 ```js
-import { getThemePreset } from 'fewui' // hâlâ çalışır
+import { pickContrastForeground, ensureContrastForMode, deriveBrandColorsFromPrimary } from 'fewui'
 ```
 
 ## Custom CSS
@@ -82,17 +100,16 @@ applyThemeCustomCss('.my-scope { … }', 'my-app-custom-css')
 ## SSR (landing)
 
 ```js
-import { buildThemeStyleAttr, resolveThemePackage } from 'fewui/landing'
+import { buildThemeStyleAttr, themeConfigToTokens } from 'fewui/landing'
 
-const theme = resolveThemePackage('landing').config
-const { classAttr, styleAttr } = buildThemeStyleAttr(theme)
+const { classAttr, styleAttr } = buildThemeStyleAttr('landing', {
+  mode: 'dark',
+  overrides: themeConfigToTokens(storedSiteTheme),
+})
 ```
 
 ## Yeni tema
 
-1. `themes/_template/` klasörünü kopyala.
-2. Token ve defaults doldur.
-3. `src/theme/registry.js` içine kaydet.
-4. `themes/{id}.css` bundle + `package.json` export ekle.
-
-Playground: [component playground](http://localhost:5175) — token deneme ve JSON export.
+1. Create sayfasında tasarla ve zip indir — ya da `themes/_template/` klasörünü kopyala.
+2. `pnpm --filter fewui run build:themes` ile `color.css` üret.
+3. `color.css` import et, `app.use(UiLib, { theme })`.

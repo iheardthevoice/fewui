@@ -1,8 +1,8 @@
+import { defineTheme } from '../../src/theme/define-theme.js'
 import defaults from './defaults.js'
 import { webPreset } from './preset.js'
 
-/** @type {import('../../src/theme/registry.js').ThemePackage} */
-export const webTheme = {
+export const webTheme = defineTheme({
   id: 'web',
   label: 'Web',
   description: 'Restta panel — opak yüzeyler, Inter, geniş radius.',
@@ -12,6 +12,6 @@ export const webTheme = {
     color: 'fewui/themes/web/color.css',
     styles: 'fewui/themes/web/styles.css',
   },
-}
+})
 
 export default webTheme

@@ -21,7 +21,7 @@
             :id="resolvedId"
             variant="solid"
             color="input"
-            fulled
+            block
             text-align="left"
             prefix-icon="calendar"
             :disabled="disabled"
@@ -141,9 +141,10 @@
 
 <script>
 import { formatYmdDisplay, resolveDateDisplayLocale } from '../utils/format-ymd-display.js'
-import { resolveThemeDateFormat } from '../theme/resolve-theme-default.js'
+import { resolveThemeDefault } from '../theme/resolve-theme-default.js'
 import { createUiIdFactory } from '../utils/ui-id.js'
 import { isMobileViewport, MOBILE_MAX_WIDTH_MEDIA } from '../utils/viewport.js'
+import { uiDefaultsMixin } from '../theme/ui-defaults.js'
 
 const nextDateRangePickerId = createUiIdFactory('ui-daterangepicker')
 
@@ -218,6 +219,7 @@ function calendarMonthBounds(year, monthIndex, maxYmd, minYmd) {
 
 export default {
   name: 'DateRangePicker',
+  mixins: [uiDefaultsMixin],
   inheritAttrs: false,
   props: {
     /** `[startYmd, endYmd]` */
@@ -518,7 +520,7 @@ export default {
       }
     },
     formatDisplay(from, to) {
-      const format = resolveThemeDateFormat(undefined, 'dateRangeFormat')
+      const format = resolveThemeDefault(this.uiDefaults, undefined, 'dateRangeFormat')
       const fmt = (s) => {
         if (!s) return '…'
         return formatYmdDisplay(s, this.locale, format) || s

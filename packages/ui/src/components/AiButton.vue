@@ -22,7 +22,7 @@
         :disabled="disabled"
         :loading="loading"
         :loading-text="loadingText"
-        :fulled="isBlock"
+        :block="isBlock"
         v-bind="$attrs"
         @click="$emit('click', $event)"
       >
@@ -34,6 +34,7 @@
 
 <script>
 import { resolveThemeControlSize } from '../theme/resolve-theme-default.js'
+import { uiDefaultsMixin } from '../theme/ui-defaults.js'
 
 /**
  * AI eylem düğmesi — animasyonlu gradient çerçeve + `ui-button` (solid secondary).
@@ -41,6 +42,7 @@ import { resolveThemeControlSize } from '../theme/resolve-theme-default.js'
  */
 export default {
   name: 'AiButton',
+  mixins: [uiDefaultsMixin],
   inheritAttrs: false,
   props: {
     prefixIcon: {
@@ -64,10 +66,6 @@ export default {
       type: String,
       default: null,
     },
-    fulled: {
-      type: Boolean,
-      default: false,
-    },
     block: {
       type: Boolean,
       default: false,
@@ -76,10 +74,10 @@ export default {
   emits: ['click'],
   computed: {
     isBlock() {
-      return this.fulled || this.block
+      return this.block
     },
     resolvedSize() {
-      const raw = resolveThemeControlSize(this.size, { key: 'controlSize', defaultSize: 'md' })
+      const raw = resolveThemeControlSize(this.uiDefaults, this.size, { key: 'controlSize', defaultSize: 'md' })
       return raw === 'sm' || raw === 'lg' ? raw : 'md'
     },
     rootStyle() {

@@ -157,9 +157,11 @@ const NAMED_ICON_COLORS = {
 
 import { resolveThemeIconType } from '../theme/resolve-theme-default.js'
 import { iconTypeProp } from '../theme/icon-type-prop.js'
+import { uiDefaultsMixin } from '../theme/ui-defaults.js'
 
 export default {
   name: 'File',
+  mixins: [uiDefaultsMixin],
   props: {
     /** Dosya veya klasör adı (veya yol — `basename-only` ile yalnız son parça gösterilir) */
     name: {
@@ -234,8 +236,8 @@ export default {
       return this.inferredMeta.icon
     },
     resolvedIconType() {
-      if (this.icon) return resolveThemeIconType(this.iconType)
-      return this.inferredMeta.type || resolveThemeIconType(undefined)
+      if (this.icon) return resolveThemeIconType(this.uiDefaults, this.iconType)
+      return this.inferredMeta.type || resolveThemeIconType(this.uiDefaults, undefined)
     },
     resolvedColorClass() {
       if (this.color) {

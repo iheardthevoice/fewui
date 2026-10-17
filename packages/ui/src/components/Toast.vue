@@ -29,11 +29,11 @@
               @keydown.space.prevent="onToastClick(item)"
             >
               <span
-                :class="['ui-alert-icon', iconToneClass(child.variant)]"
+                :class="['ui-alert-icon', iconToneClass(child.color)]"
                 aria-hidden="true"
               >
                 <ui-icon
-                  :name="iconFor(child.variant)"
+                  :name="iconFor(child.color)"
                   size="sm"
                 />
               </span>
@@ -85,11 +85,11 @@
               @keydown.space.prevent="onToastClick(item)"
             >
               <span
-                :class="['ui-alert-icon', iconToneClass(item.variant)]"
+                :class="['ui-alert-icon', iconToneClass(item.color)]"
                 aria-hidden="true"
               >
                 <ui-icon
-                  :name="iconFor(item.variant)"
+                  :name="iconFor(item.color)"
                   size="sm"
                 />
               </span>
@@ -134,18 +134,18 @@ import {
   toggleToastExpanded,
 } from '../toast-queue.js'
 
-const VARIANT_ICON = {
+const COLOR_ICON = {
   info: 'circle-info',
   success: 'circle-check',
   warning: 'triangle-exclamation',
-  error: 'circle-xmark',
+  danger: 'circle-xmark',
 }
 
-const VARIANT_ICON_CLASS = {
+const COLOR_ICON_CLASS = {
   info: 'text-info',
   success: 'text-success',
   warning: 'text-warning',
-  error: 'text-destructive',
+  danger: 'text-danger',
 }
 
 export default {
@@ -224,28 +224,28 @@ export default {
       if (!this.isGrouped(item)) return
       this.toggleToastExpanded(item.id)
     },
-    iconFor(variant) {
-      return VARIANT_ICON[variant] || VARIANT_ICON.info
+    iconFor(color) {
+      return COLOR_ICON[color] || COLOR_ICON.info
     },
-    iconToneClass(variant) {
-      return VARIANT_ICON_CLASS[variant] || VARIANT_ICON_CLASS.info
+    iconToneClass(color) {
+      return COLOR_ICON_CLASS[color] || COLOR_ICON_CLASS.info
     },
     toastClasses(item) {
-      const v = item.variant ?? 'info'
+      const v = item.color ?? 'info'
       return [
         `ui-alert ui-alert--${v} ui-alert--toast`,
         this.isGrouped(item) ? 'ui-alert--toast-grouped' : '',
       ].filter(Boolean)
     },
     childToastClasses(child) {
-      const v = child.variant ?? 'info'
+      const v = child.color ?? 'info'
       return [
         `ui-alert ui-alert--${v} ui-alert--toast`,
         'ui-alert--toast-grouped',
       ]
     },
     toastA11y(item) {
-      const assertive = item.variant === 'error'
+      const assertive = item.color === 'danger'
       const grouped = this.isGrouped(item)
       return {
         role: assertive ? 'alert' : 'status',
@@ -259,7 +259,7 @@ export default {
       }
     },
     childA11y(child) {
-      const assertive = child.variant === 'error'
+      const assertive = child.color === 'danger'
       return {
         role: assertive ? 'alert' : 'status',
         'aria-live': assertive ? 'assertive' : 'polite',

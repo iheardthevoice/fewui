@@ -110,7 +110,7 @@
             :id="resolvedId"
             variant="solid"
             color="input"
-            fulled
+            block
             text-align="left"
             prefix-icon="clock"
             :disabled="disabled"
@@ -212,7 +212,8 @@
 import { createUiIdFactory } from '../utils/ui-id.js'
 import { resolveUiText } from '../utils/resolve-ui-text.js'
 import { formatTimeParts, formatTimeString } from '../utils/format-time-display.js'
-import { resolveThemeTimeFormat } from '../theme/resolve-theme-default.js'
+import { resolveThemeDefault } from '../theme/resolve-theme-default.js'
+import { uiDefaultsMixin } from '../theme/ui-defaults.js'
 
 const nextTimePickerId = createUiIdFactory('ui-timepicker')
 
@@ -225,6 +226,7 @@ function pad2(n) {
 
 export default {
   name: 'TimePicker',
+  mixins: [uiDefaultsMixin],
   inheritAttrs: false,
   props: {
     /** `HH:mm` (24 saat) */
@@ -306,7 +308,7 @@ export default {
       return resolveUiText(this, 'ui.timePicker.minuteAria', 'Minute')
     },
     resolvedTimeFormat() {
-      return resolveThemeTimeFormat(undefined)
+      return resolveThemeDefault(this.uiDefaults, undefined, 'timeFormat')
     },
     display() {
       if (this.menuOpen) {

@@ -1,8 +1,8 @@
+import { defineTheme } from '../../src/theme/define-theme.js'
 import defaults from './defaults.js'
 import { landingPreset } from './preset.js'
 
-/** @type {import('../../src/theme/registry.js').ThemePackage} */
-export const landingTheme = {
+export const landingTheme = defineTheme({
   id: 'landing',
   label: 'Landing',
   description: 'Restta.com tenant siteleri — Poppins, cam kartlar, turuncu marka.',
@@ -12,6 +12,6 @@ export const landingTheme = {
     color: 'fewui/themes/landing/color.css',
     styles: 'fewui/themes/landing/styles.css',
   },
-}
+})
 
 export default landingTheme

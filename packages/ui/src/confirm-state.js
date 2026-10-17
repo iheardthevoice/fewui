@@ -8,14 +8,15 @@ export const confirmState = reactive({
   confirmLabel: '',
   /** Boşsa i18n `ui.confirm.cancel` */
   cancelLabel: '',
-  destructive: false,
+  /** Onay düğmesi tonu (ör. `'danger'` silme) */
+  color: 'primary',
   /** @type {((value: boolean) => void) | null} */
   _resolve: null,
 })
 
 /**
  * Onay diyaloğu gösterir; `ConfirmDialog` kökte bir kez (`<ui-confirm-dialog />`) olmalıdır.
- * @param {{ title?: string, description?: string, confirmLabel?: string, cancelLabel?: string, destructive?: boolean }} options
+ * @param {{ title?: string, description?: string, confirmLabel?: string, cancelLabel?: string, color?: 'primary'|'danger'|'warning' }} options
  * @returns {Promise<boolean>}
  */
 export function requestConfirm(options = {}) {
@@ -24,7 +25,7 @@ export function requestConfirm(options = {}) {
     confirmState.description = options.description ?? ''
     confirmState.confirmLabel = options.confirmLabel ?? ''
     confirmState.cancelLabel = options.cancelLabel ?? ''
-    confirmState.destructive = !!options.destructive
+    confirmState.color = options.color || 'primary'
     confirmState._resolve = resolve
     confirmState.open = true
   })

@@ -2,7 +2,7 @@
   <!-- Defer Teleport until mount: empty SSR teleport markers mismatch and can wipe #app. -->
   <Teleport
     v-if="portalReady"
-    to="body"
+    :to="portalTarget"
   >
     <div
       v-if="layerMounted"
@@ -163,12 +163,11 @@ import { createUiIdFactory } from '../utils/ui-id.js'
 import { resolveUiText } from '../utils/resolve-ui-text.js'
 import { pickPassthroughAttrs } from '../utils/pick-passthrough-attrs.js'
 import { focusFirstField } from '../utils/focus-first-field.js'
-import {
-  resolveThemeDialogMaxWidth,
-  resolveThemeIconType,
-} from '../theme/resolve-theme-default.js'
+import { resolveThemeDefault, resolveThemeIconType } from '../theme/resolve-theme-default.js'
 import { lockBodyScroll, unlockBodyScroll } from '../utils/scroll-lock.js'
 import { isMobileViewport } from '../utils/viewport.js'
+import { uiDefaultsMixin } from '../theme/ui-defaults.js'
+import { uiPortalMixin } from '../theme/ui-portal.js'
 
 const nextDialogId = createUiIdFactory('ui-dialog')
 
@@ -205,6 +204,7 @@ const MAX_WIDTH_CLASS = {
 
 export default {
   name: 'Dialog',
+  mixins: [uiPortalMixin, uiDefaultsMixin],
   components: { Divider },
   inheritAttrs: false,
   props: {
@@ -445,10 +445,10 @@ export default {
       return BORDER_TYPE_CLASS[this.borderType] || BORDER_TYPE_CLASS.solid
     },
     resolvedIconType() {
-      return resolveThemeIconType(this.iconType)
+      return resolveThemeIconType(this.uiDefaults, this.iconType)
     },
     resolvedMaxWidth() {
-      return resolveThemeDialogMaxWidth(this.maxWidth)
+      return resolveThemeDefault(this.uiDefaults, this.maxWidth, 'dialogMaxWidth')
     },
     maxWidthClass() {
       return MAX_WIDTH_CLASS[this.resolvedMaxWidth] || MAX_WIDTH_CLASS.lg

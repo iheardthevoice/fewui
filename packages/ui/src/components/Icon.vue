@@ -8,6 +8,7 @@
 <script>
 import { cn } from '../utils/cn.js'
 import { iconTypeProp, themeIconTypeComputed } from '../theme/icon-type-prop.js'
+import { uiDefaultsMixin } from '../theme/ui-defaults.js'
 
 const typeToFaPrefix = {
   solid: 'fa-solid',
@@ -30,6 +31,7 @@ const sizeClasses = {
 
 export default {
   name: 'Icon',
+  mixins: [uiDefaultsMixin],
   inheritAttrs: false,
   props: {
     /** Font Awesome icon name without the `fa-` prefix (e.g. `house`). */

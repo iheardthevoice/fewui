@@ -12,7 +12,7 @@
 import { cn } from '../utils/cn.js'
 import { createUiIdFactory } from '../utils/ui-id.js'
 
-const VARIANTS = ['list', 'button', 'List', 'Button']
+const VARIANTS = ['list', 'button']
 const ORIENTATIONS = ['vertical', 'horizontal']
 
 const nextCheckboxGroupId = createUiIdFactory('ui-checkbox-group')
@@ -50,7 +50,7 @@ export default {
   },
   computed: {
     normalizedVariant() {
-      const v = (this.variant || 'list').toLowerCase()
+      const v = this.variant || 'list'
       return v === 'button' ? 'button' : 'list'
     },
     effectiveOrientation() {

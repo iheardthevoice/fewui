@@ -47,9 +47,11 @@
 
 <script>
 import { iconTypeProp, themeIconTypeComputed } from '../theme/icon-type-prop.js'
+import { uiDefaultsMixin } from '../theme/ui-defaults.js'
 
 export default {
   name: 'ActionCard',
+  mixins: [uiDefaultsMixin],
   props: {
     title: {
       type: String,

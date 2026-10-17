@@ -167,7 +167,7 @@ export default {
     /**
      * Form satırı: tam genişlik. Rozet / satır içi tetikleyici için `false`.
      */
-    fulled: {
+    block: {
       type: Boolean,
       default: true,
     },
@@ -183,7 +183,7 @@ export default {
     rootClass() {
       return cn(
         'ui-color-picker min-w-0',
-        this.fulled ? 'ui-color-picker--fulled w-full' : 'ui-color-picker--inline w-auto',
+        this.block ? 'ui-color-picker--block w-full' : 'ui-color-picker--inline w-auto',
         this.disabled && 'pointer-events-none opacity-50',
         this.$attrs.class,
       )

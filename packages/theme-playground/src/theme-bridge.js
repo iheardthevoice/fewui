@@ -1,20 +1,28 @@
-import { applyUiTheme, applyThemeCustomCss } from 'fewui'
+import { applyThemeCustomCss, applyUiTheme, defineTheme } from 'fewui'
 
 export const THEME_PLAYGROUND_MESSAGE = 'fewui-theme-playground'
 
 /**
- * @param {{ theme: import('fewui').UiThemeConfig, customCss?: string }} payload
+ * @typedef {object} ThemePlaygroundPayload
+ * @property {import('./export-theme-bundle.js').ThemeExport} theme
+ * @property {'light'|'dark'} [mode]
+ * @property {string} [customCss]
+ */
+
+/**
+ * Tema paketini belgeye tam token setiyle uygular (iframe önizleme).
+ * @param {ThemePlaygroundPayload} payload
  */
 export function applyThemePlaygroundPayload(payload) {
   if (payload?.theme) {
-    applyUiTheme(payload.theme)
+    applyUiTheme(defineTheme(payload.theme), { mode: payload.mode || 'light', inline: true })
   }
   applyThemeCustomCss(payload?.customCss || '', 'fewui-playground-custom-css')
 }
 
 /**
  * @param {HTMLIFrameElement | null | undefined} frame
- * @param {{ theme: import('fewui').UiThemeConfig, customCss?: string }} payload
+ * @param {ThemePlaygroundPayload} payload
  */
 export function postThemeToFrame(frame, payload) {
   const target = frame?.contentWindow
@@ -22,24 +30,20 @@ export function postThemeToFrame(frame, payload) {
   target.postMessage(
     {
       type: THEME_PLAYGROUND_MESSAGE,
-      theme: payload.theme,
-      customCss: payload.customCss || '',
+      payload: JSON.parse(JSON.stringify(payload)),
     },
     '*',
   )
 }
 
 /**
- * @param {(payload: { theme: import('fewui').UiThemeConfig, customCss?: string }) => void} handler
+ * @param {(payload: ThemePlaygroundPayload) => void} handler
  * @returns {() => void}
  */
 export function listenThemeBridge(handler) {
   const onMessage = (event) => {
-    if (event.data?.type !== THEME_PLAYGROUND_MESSAGE) return
-    handler({
-      theme: event.data.theme,
-      customCss: event.data.customCss || '',
-    })
+    if (event.data?.type !== THEME_PLAYGROUND_MESSAGE || !event.data.payload) return
+    handler(event.data.payload)
   }
   window.addEventListener('message', onMessage)
   return () => window.removeEventListener('message', onMessage)

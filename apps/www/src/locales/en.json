@@ -59,24 +59,12 @@
   },
   "create": {
     "title": "Create",
-    "description": "Tune theme tokens, preview components, and download rules and skills for your stack."
-  },
-  "themePlayground": {
-    "title": "Theme",
-    "description": "Adjust tokens and export rules for your project.",
-    "mode": { "dark": "Dark", "light": "Light" },
-    "fields": {
-      "preset": "Style",
-      "mode": "Mode",
-      "primary": "Primary",
-      "font": "Font",
-      "customCss": "Custom CSS",
-      "customCssPlaceholder": ":root { … }"
-    },
-    "actions": {
-      "copyJson": "Copy theme JSON",
-      "downloadRules": "Download rules",
-      "downloadSkill": "Download skill"
+    "description": "Design your panel theme live: tweak colors, surfaces and type, see light and dark side by side, then download a theme package your app can use directly.",
+    "preview": {
+      "label": "Preview mode",
+      "light": "Light",
+      "dark": "Dark",
+      "split": "Side by side"
     }
   }
 }

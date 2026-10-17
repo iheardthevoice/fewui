@@ -67,6 +67,7 @@ import Tag from './components/Tag.vue'
 import TabList from './components/TabList.vue'
 import TabPanel from './components/TabPanel.vue'
 import Tabs from './components/Tabs.vue'
+import ThemeProvider from './components/ThemeProvider.vue'
 import TabTrigger from './components/TabTrigger.vue'
 import TimePicker from './components/TimePicker.vue'
 import Toast from './components/Toast.vue'
@@ -75,9 +76,9 @@ import Photo from './components/Photo.vue'
 import Photos from './components/Photos.vue'
 import en from './locales/en.js'
 import tr from './locales/tr.js'
-import { applyUiTheme, mergeUiTheme } from './theme/apply-theme.js'
-import { resolveThemePackage } from './theme/registry.js'
-import { provideUiDefaults, uiDefaultsToCssVars } from './theme/ui-defaults.js'
+import { applyUiTheme } from './theme/apply-theme.js'
+import { getThemePackage, registerTheme, resolveTheme } from './theme/registry.js'
+import { provideUiDefaults, setUiDefaults } from './theme/ui-defaults.js'
 import { setPriceInputConfig } from './price-input-config.js'
 
 export {
@@ -92,16 +93,37 @@ export {
 } from './theme/google-fonts.js'
 export {
   applyUiTheme,
-  mergeUiTheme,
-  resolveThemeVars,
+  setUiThemeMode,
+  clearUiTheme,
+  computeThemeVars,
   buildThemeStyleAttr,
   buildThemeEnforcementCss,
+  themeConfigToTokens,
+  withDerivedConfigBrandColors,
 } from './theme/apply-theme.js'
+export { defineTheme, extendTheme, isThemePackage } from './theme/define-theme.js'
+export { buildThemeCss, resolveThemeVars } from './theme/build-theme-css.js'
 export {
+  TOKEN_GROUPS,
+  STATUS_TONES,
+  DERIVED_VARS,
+  CARD_PADDING_SCALE,
+  MIX_FROM_MAP,
+  BACKDROP_BLUR_SCALE,
+  expandTokens,
+  mergeTokens,
+  toCssVarName,
+  formatFontFamily,
+} from './theme/tokens.js'
+export {
+  pickContrastForeground,
+  ensureContrastForMode,
   deriveBrandColorsFromPrimary,
-  withDerivedBrandColors,
-  resolvePrimaryColor,
-} from './theme/derive-theme.js'
+  parseHex,
+  parseOklchLightness,
+  relativeLuminance,
+} from './theme/color-utils.js'
+export { withDerivedBrandTokens } from './theme/derive-theme.js'
 export {
   FEW_PALETTE_ID,
   FEW_PRIMARY,
@@ -111,36 +133,28 @@ export {
 } from './theme/few-palette.js'
 export { applyThemeCustomCss, clearThemeCustomCss, THEME_CUSTOM_CSS_ID } from './theme/custom-css.js'
 export {
-  THEME_PRESETS,
-  THEME_PRESET_IDS,
-  getThemePreset,
-  resolveThemePreset,
-} from './theme/presets/index.js'
-export {
-  THEME_IDS,
-  THEME_PACKAGES,
+  DEFAULT_THEME_ID,
+  registerTheme,
   getThemePackage,
-  resolveThemePackage,
-  resolveThemeId,
+  listThemes,
+  resolveTheme,
   getThemeCssPath,
-  LEGACY_PRESET_TO_THEME,
 } from './theme/registry.js'
 export {
   provideUiDefaults,
+  setUiDefaults,
   useUiDefaults,
-  useUiDefaultsOptions,
+  uiDefaultsMixin,
   mergeUiDefaults,
   BASE_UI_DEFAULTS,
   UI_DEFAULTS_KEY,
 } from './theme/ui-defaults.js'
 export { iconTypeProp, themeIconTypeComputed, UI_ICON_TYPES } from './theme/icon-type-prop.js'
+export { uiPortalMixin, UI_PORTAL_KEY } from './theme/ui-portal.js'
 export {
   resolveThemeDefault,
   resolveThemeControlSize,
   resolveThemeIconType,
-  resolveThemeDialogMaxWidth,
-  resolveThemeDateFormat,
-  resolveThemeTimeFormat,
 } from './theme/resolve-theme-default.js'
 export { createUiId, createUiIdFactory, resetUiIds } from './utils/ui-id.js'
 export { resolveControlSize } from './utils/control-size.js'
@@ -237,6 +251,7 @@ export {
   TabPanel,
   Tabs,
   TabTrigger,
+  ThemeProvider,
   TimePicker,
   Toast,
   Tooltip,
@@ -257,9 +272,6 @@ const LOCALE_PACKS = {
 export function getUiMessages(locale = 'tr') {
   return LOCALE_PACKS[locale] ?? LOCALE_PACKS.tr
 }
-
-/** @deprecated Tercih: `getUiMessages('tr')` veya `app.use(UiLib, { i18n, locale: 'tr' })` */
-export const uiMessagesTr = tr
 
 /** Global tag names (`<ui-button>`, `<ui-card>`, …). */
 const GLOBAL_COMPONENTS = [
@@ -333,8 +345,8 @@ const GLOBAL_COMPONENTS = [
   ['ui-tab-panel', TabPanel],
   ['ui-tabs', Tabs],
   ['ui-tab-trigger', TabTrigger],
+  ['ui-theme-provider', ThemeProvider],
   ['ui-time-picker', TimePicker],
-  ['ui-timepicker', TimePicker],
   ['ui-tooltip', Tooltip],
   ['ui-toast', Toast],
   ['ui-photo', Photo],
@@ -342,7 +354,8 @@ const GLOBAL_COMPONENTS = [
 ]
 
 /**
- * @typedef {import('./theme/apply-theme.js').UiThemeConfig} UiThemeConfig
+ * @typedef {import('./theme/define-theme.js').ThemePackage} ThemePackage
+ * @typedef {import('./theme/apply-theme.js').UiThemeOverrides} UiThemeOverrides
  */
 
 /**
@@ -350,30 +363,43 @@ const GLOBAL_COMPONENTS = [
  * @property {import('vue-i18n').I18n} i18n vue-i18n örneği (zorunlu — UI metinleri buraya yazılır)
  * @property {string} [locale] Birleştirilecek paket kodu (`LOCALE_PACKS` anahtarı). Verilmezse `i18n.global.locale` kullanılır.
  * @property {string[]} [locales] Birden fazla dil paketini aynı anda birleştir (örn. `['tr','en']`). Verilirse `locale` yok sayılır.
- * @property {string|UiThemeConfig} [theme] Tema adı (`web`, `liquidglass`, `android`, `landing`, `fewui`) veya doğrudan `UiThemeConfig`
- * @property {UiThemeConfig} [themeOverrides] Tema adı verildiğinde anlık override (`primaryColor`, `mode`, …)
+ * @property {string|ThemePackage} [theme] Kayıtlı tema id'si veya `defineTheme` paketi (paket otomatik kaydedilir)
+ * @property {'light'|'dark'} [mode] Başlangıç modu; verilmezse kökteki `.dark` sınıfı korunur
+ * @property {UiThemeOverrides} [overrides] Anlık token override'ları (`{ primary }` veya `{ light, dark }`)
+ * @property {boolean} [inline] Tüm token'ları köke inline yazar (tema `color.css` import edilmediyse)
+ * @property {Partial<import('./theme/defaults-base.js').UiThemeDefaults>} [defaults] Bileşen varsayılanı override'ları
  * @property {{currency?: string, format?: string, locale?: string}} [priceInput] `ui-price-input` global para birimi ve fiyat biçimi
  */
 
+/** @type {import('./theme/defaults-base.js').UiThemeDefaults|null} */
+let appDefaults = null
+
 /**
- * Vue plugin: `ui-*` bileşenlerini kaydeder; seçilen dil paket(ler)ini i18n’e `mergeLocaleMessage` ile ekler.
+ * Uygulama temasını çalışırken değiştirir: kök token'ları ve bileşen varsayılanları birlikte güncellenir.
+ * @param {string|ThemePackage} theme
+ * @param {import('./theme/apply-theme.js').ApplyThemeOptions & { defaults?: Partial<import('./theme/defaults-base.js').UiThemeDefaults> }} [options]
+ * @returns {ThemePackage}
+ */
+export function setUiTheme(theme, options = {}) {
+  const pkg = resolveTheme(theme)
+  if (!getThemePackage(pkg.id)) registerTheme(pkg)
+  applyUiTheme(pkg, options)
+  if (appDefaults) setUiDefaults(appDefaults, { ...pkg.defaults, ...options.defaults })
+  return pkg
+}
+
+/**
+ * Vue plugin: `ui-*` bileşenlerini kaydeder; temayı ve bileşen varsayılanlarını uygular;
+ * seçilen dil paket(ler)ini i18n'e `mergeLocaleMessage` ile ekler.
  * @param {import('vue').App} app
  * @param {UiLibInstallOptions} options
  */
 function install(app, options = {}) {
-  const { i18n, locale, locales, theme, themeOverrides, priceInput } = options
+  const { i18n, locale, locales, theme, mode, overrides, inline, defaults, priceInput } = options
 
-  if (typeof theme === 'string') {
-    const resolved = resolveThemePackage(theme, themeOverrides || {})
-    provideUiDefaults(app, resolved.defaults)
-    app.config.globalProperties.$uiDefaults = resolved.defaults
-    applyUiTheme({
-      ...resolved.config,
-      ...uiDefaultsToCssVars(resolved.defaults),
-    })
-  } else if (theme && typeof theme === 'object') {
-    const merged = themeOverrides ? mergeUiTheme(theme, themeOverrides) : theme
-    applyUiTheme(merged)
+  appDefaults = provideUiDefaults(app, defaults)
+  if (theme) {
+    setUiTheme(theme, { mode, overrides, inline, defaults })
   }
   if (priceInput) {
     setPriceInputConfig(priceInput)

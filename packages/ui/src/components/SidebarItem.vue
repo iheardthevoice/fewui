@@ -115,6 +115,7 @@ import { Comment, Fragment, Text } from 'vue'
 import { RouterLink } from 'vue-router'
 import { cn } from '../utils/cn.js'
 import { resolveThemeControlSize } from '../theme/resolve-theme-default.js'
+import { uiDefaultsMixin } from '../theme/ui-defaults.js'
 
 const sizes = ['sm', 'md', 'lg']
 const NATIVE_TYPES = ['button', 'submit', 'reset']
@@ -133,6 +134,7 @@ const cubedSizeClasses = {
 
 export default {
   name: 'SidebarItem',
+  mixins: [uiDefaultsMixin],
   components: { RouterLink },
   inheritAttrs: false,
   props: {
@@ -162,10 +164,6 @@ export default {
       type: Boolean,
       default: false,
     },
-    fulled: {
-      type: Boolean,
-      default: false,
-    },
     block: {
       type: Boolean,
       default: false,
@@ -190,7 +188,7 @@ export default {
       return this.to != null && this.to !== ''
     },
     resolvedSize() {
-      return resolveThemeControlSize(this.size, { key: 'controlSize', defaultSize: 'md' })
+      return resolveThemeControlSize(this.uiDefaults, this.size, { key: 'controlSize', defaultSize: 'md' })
     },
     usesCubedCenterLayout() {
       if (!this.cubed) return false
@@ -215,7 +213,7 @@ export default {
       return m[this.resolvedSize] || 'md'
     },
     isBlock() {
-      return this.fulled || this.block
+      return this.block
     },
     textContentClass() {
       const align = this.textAlign === 'left' ? 'text-left' : 'text-center'
@@ -236,7 +234,7 @@ export default {
         'ui-sidebar-item font-sans',
         this.active && 'ui-sidebar-item--active',
         this.cubed && 'ui-sidebar-item--cubed',
-        this.isBlock && 'ui-sidebar-item--fulled w-full',
+        this.isBlock && 'ui-sidebar-item--block w-full',
         sizeOrCubed,
         this.disabled && 'cursor-not-allowed opacity-50',
         this.hasRouterTo && 'inline-flex items-center',

@@ -19,12 +19,13 @@ function bumpControlSize(size) {
  * - `inlineControls`: button ile aynı ölçek (`--ui-control-h-*`).
  * - `nativeChrome`: footer dock — en az `lg` (`--ui-tab-h-lg`).
  *
+ * @param {import('../theme/defaults-base.js').UiThemeDefaults|undefined} defaults `this.uiDefaults`
  * @param {'sm'|'md'|'lg'|undefined|null} propSize
  * @param {{ inlineControls?: boolean, nativeChrome?: boolean }} [options]
  * @returns {'sm'|'md'|'lg'}
  */
-export function resolveSegmentedTabSize(propSize, { inlineControls = false, nativeChrome = false } = {}) {
-  const raw = resolveThemeControlSize(propSize, { key: 'controlSize', defaultSize: 'md' })
+export function resolveSegmentedTabSize(defaults, propSize, { inlineControls = false, nativeChrome = false } = {}) {
+  const raw = resolveThemeControlSize(defaults, propSize, { key: 'controlSize', defaultSize: 'md' })
   if (inlineControls) return raw
   if (nativeChrome) return 'lg'
   return bumpControlSize(raw)
