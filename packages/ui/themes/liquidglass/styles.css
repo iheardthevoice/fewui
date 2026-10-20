@@ -158,32 +158,95 @@ html.cap-native.cap-ios .ui-popover-panel.ui-surface {
 }
 
 /**
- * iOS popover motion — WebKit’te blur’lu panel üzerinde opacity fade bozulur.
- * Katman/panel sabit (blur sabit); yalnızca iç içerik fade + hafif kayma.
- * Süre: Popover.vue Transition `duration` ile senkron.
+ * iOS popover — cam “materyalleşme” (iOS 26+ menü): panel tetikleyiciden yay ile büyür,
+ * cam dolgusu + blur yarıçapı sıfırdan gelir, içerik kısa gecikmeyle netleşir.
+ * WebKit’te blur’lu öğede opacity fade bozulduğu için panel opacity’si hep 1;
+ * görünmezlik dolgu alfası + `blur(0)` ile sağlanır. Katmana opacity verilmez (backdrop root).
+ * Süre: `--ui-popover-enter-duration` / `--ui-popover-leave-duration` (Popover.vue okur).
  */
-html.cap-native.cap-ios .ui-overlay-popover-enter-active,
-html.cap-native.cap-ios .ui-overlay-popover-leave-active {
-  @apply opacity-100! transform-none! transition-none!;
+html.cap-native.cap-ios .ui-overlay-popover-enter-active .ui-popover-panel.ui-surface {
+  @apply opacity-100! [will-change:transform] [transform-origin:var(--ui-popover-origin,_top_center)];
+  transition:
+    transform var(--ui-popover-enter-duration) var(--ui-ios-spring-snappy),
+    background-color calc(var(--ui-popover-enter-duration) * 0.5) ease-out,
+    -webkit-backdrop-filter calc(var(--ui-popover-enter-duration) * 0.6) ease-out,
+    backdrop-filter calc(var(--ui-popover-enter-duration) * 0.6) ease-out !important;
 }
 
-html.cap-native.cap-ios .ui-overlay-popover-enter-from,
-html.cap-native.cap-ios .ui-overlay-popover-leave-to {
-  @apply opacity-100! transform-none!;
+html.cap-native.cap-ios .ui-overlay-popover-leave-active .ui-popover-panel.ui-surface {
+  @apply opacity-100! [will-change:transform] [transform-origin:var(--ui-popover-origin,_top_center)];
+  transition:
+    transform var(--ui-popover-leave-duration) var(--ui-ios-ease-dismiss),
+    background-color var(--ui-popover-leave-duration) var(--ui-ios-ease-dismiss),
+    -webkit-backdrop-filter var(--ui-popover-leave-duration) var(--ui-ios-ease-dismiss),
+    backdrop-filter var(--ui-popover-leave-duration) var(--ui-ios-ease-dismiss) !important;
 }
 
-html.cap-native.cap-ios .ui-overlay-popover-leave-active {
-  @apply pointer-events-none;
+html.cap-native.cap-ios .ui-overlay-popover-enter-from .ui-popover-panel.ui-surface,
+html.cap-native.cap-ios .ui-overlay-popover-leave-to .ui-popover-panel.ui-surface {
+  /* `var()` — küçültücü `blur(0px)` → `blur()` yazmasın (WebKit argümansız biçimi garanti değil). */
+  @apply opacity-100! [background-color:transparent]!;
+  -webkit-backdrop-filter: blur(var(--ui-ios-glass-blur-from, 0px)) saturate(var(--ui-ios-glass-saturate-from, 100%)) !important;
+  backdrop-filter: blur(var(--ui-ios-glass-blur-from, 0px)) saturate(var(--ui-ios-glass-saturate-from, 100%)) !important;
 }
 
-html.cap-native.cap-ios .ui-overlay-popover-enter-active .ui-popover-motion,
+html.cap-native.cap-ios .ui-overlay-popover-enter-from .ui-popover-panel.ui-surface {
+  @apply [transform:scale3d(0.82,_0.82,_1)]!;
+}
+
+html.cap-native.cap-ios .ui-overlay-popover-leave-to .ui-popover-panel.ui-surface {
+  @apply [transform:scale3d(0.9,_0.9,_1)]!;
+}
+
+/** Kenar hairline’ı cam ile birlikte belirsin (aksi halde boş çerçeve görünür). */
+html.cap-native.cap-ios .ui-overlay-popover-enter-active .ui-popover-panel.ui-surface::before {
+  @apply [transition:opacity_calc(var(--ui-popover-enter-duration)_*_0.5)_ease-out];
+}
+
+html.cap-native.cap-ios .ui-overlay-popover-leave-active .ui-popover-panel.ui-surface::before {
+  @apply [transition:opacity_calc(var(--ui-popover-leave-duration)_*_0.6)_var(--ui-ios-ease-dismiss)];
+}
+
+html.cap-native.cap-ios .ui-overlay-popover-enter-from .ui-popover-panel.ui-surface::before,
+html.cap-native.cap-ios .ui-overlay-popover-leave-to .ui-popover-panel.ui-surface::before {
+  @apply opacity-0;
+}
+
+/** İçerik — cam oturduktan hemen sonra blur’dan netleşir; kapanışta önce içerik söner. */
+html.cap-native.cap-ios .ui-overlay-popover-enter-active .ui-popover-motion {
+  @apply [will-change:opacity,_filter];
+  transition:
+    opacity calc(var(--ui-popover-enter-duration) * 0.5) ease-out calc(var(--ui-popover-enter-duration) * 0.12),
+    filter calc(var(--ui-popover-enter-duration) * 0.6) ease-out calc(var(--ui-popover-enter-duration) * 0.08);
+}
+
 html.cap-native.cap-ios .ui-overlay-popover-leave-active .ui-popover-motion {
-  @apply [transition:opacity_0.22s_cubic-bezier(0.16,_1,_0.3,_1),_transform_0.22s_cubic-bezier(0.16,_1,_0.3,_1)] [will-change:opacity,_transform];
+  @apply [will-change:opacity];
+  transition: opacity calc(var(--ui-popover-leave-duration) * 0.6) var(--ui-ios-ease-dismiss);
 }
 
-html.cap-native.cap-ios .ui-overlay-popover-enter-from .ui-popover-motion,
+html.cap-native.cap-ios .ui-overlay-popover-enter-from .ui-popover-motion {
+  @apply opacity-0 [filter:blur(4px)];
+}
+
 html.cap-native.cap-ios .ui-overlay-popover-leave-to .ui-popover-motion {
-  @apply opacity-0 [transform:translate3d(0,_6px,_0)];
+  @apply opacity-0;
+}
+
+/** Select hizası — konum `getBoundingClientRect` ile ölçülür; ölçek yok, yalnız materyalleşme. */
+html.cap-native.cap-ios .ui-overlay-popover-enter-from[data-popover-align-active] .ui-popover-panel.ui-surface,
+html.cap-native.cap-ios .ui-overlay-popover-leave-to[data-popover-align-active] .ui-popover-panel.ui-surface {
+  @apply transform-none!;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.cap-native.cap-ios .ui-overlay-popover-enter-active .ui-popover-panel.ui-surface,
+  html.cap-native.cap-ios .ui-overlay-popover-leave-active .ui-popover-panel.ui-surface,
+  html.cap-native.cap-ios .ui-overlay-popover-enter-active .ui-popover-motion,
+  html.cap-native.cap-ios .ui-overlay-popover-leave-active .ui-popover-motion {
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+  }
 }
 
 /**
@@ -348,12 +411,22 @@ html.cap-native.cap-ios .ui-tab-trigger,
 html.cap-native.cap-ios .ui-button.ui-control:not([data-variant='link']),
 html.cap-native.cap-ios .ui-segment,
 html.cap-native.cap-ios .ui-native-dock-fab .ui-button {
-  @apply [transition-property:transform,_color,_background-color,_background-image,_box-shadow,_opacity] [transition-duration:150ms] [transition-timing-function:ease-out];
+  @apply [transition-property:transform,_color,_background-color,_background-image,_box-shadow,_opacity] [transition-duration:380ms,_150ms,_150ms,_150ms,_150ms,_150ms] [transition-timing-function:var(--ui-ios-spring-snappy),_ease-out,_ease-out,_ease-out,_ease-out,_ease-out];
 }
 
+/** Basış anı hızlı (120ms); bırakınca taban kuraldaki yay ile geri oturur. */
 html.cap-native.cap-ios .ui-tab-trigger:active:not(:disabled),
 html.cap-native.cap-ios .ui-button.ui-control:active:not(:disabled):not([data-variant='link']),
 html.cap-native.cap-ios .ui-segment:active:not(:disabled),
 html.cap-native.cap-ios .ui-native-dock-fab .ui-button:active:not(:disabled) {
-  @apply [transform:scale(1.06)];
+  @apply [transform:scale(1.06)] [transition-duration:120ms,_150ms,_150ms,_150ms,_150ms,_150ms] [transition-timing-function:ease-out];
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.cap-native.cap-ios .ui-tab-trigger:active:not(:disabled),
+  html.cap-native.cap-ios .ui-button.ui-control:active:not(:disabled):not([data-variant='link']),
+  html.cap-native.cap-ios .ui-segment:active:not(:disabled),
+  html.cap-native.cap-ios .ui-native-dock-fab .ui-button:active:not(:disabled) {
+    @apply transform-none;
+  }
 }

@@ -161,6 +161,12 @@ export { resolveControlSize } from './utils/control-size.js'
 export { resolveUiText } from './utils/resolve-ui-text.js'
 export { pickPassthroughAttrs } from './utils/pick-passthrough-attrs.js'
 export {
+  UI_KEYBOARD_INSET_EVENT,
+  readKeyboardInset,
+  visibleViewportBottom,
+  onVisibleViewportChange,
+} from './utils/visible-viewport.js'
+export {
   pushToast,
   dismissToast,
   clearToasts,

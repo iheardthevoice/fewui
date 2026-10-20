@@ -57,7 +57,8 @@
               <Tag
                 v-for="val in selectedValues"
                 :key="String(val)"
-                variant="secondary"
+                color="primary"
+                variant="muted"
                 size="sm"
                 removable
                 @remove="removeValue(val)"

@@ -96,6 +96,15 @@
   @apply bg-transparent! bg-none! border-t-0! shadow-none! [-webkit-backdrop-filter:none]! [backdrop-filter:none]!;
 }
 
+/**
+ * Şeffaf footer altında kayan içerik butonla çakışmasın: panel yüzeyi renginde
+ * aşağıdan yukarı sönen perde. Tıklamalar perdeden geçer (footer `pointer-events-none`).
+ */
+.ui-dialog-panel--footer-transparent .ui-card-footer.ui-dialog-footer--transparent::before {
+  content: '';
+  @apply pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-[calc(100%_+_1.5rem)] [background:linear-gradient(to_top,_var(--surface-bg,_var(--surface))_0%,_var(--surface-bg,_var(--surface))_calc(100%_-_2.5rem),_transparent_100%)];
+}
+
 .ui-dialog-panel .ui-button[data-variant='solid'][data-color='input'] {
   @apply [background-color:var(--input-background)] bg-none border-transparent;
 }

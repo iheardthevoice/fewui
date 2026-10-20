@@ -173,6 +173,27 @@
     @apply opacity-90;
   }
 
+  /** Muted — tonlu yumuşak dolgu; seçili filtre chip'i gibi CTA ile yarışmayan vurgu */
+  .ui-button.ui-control[data-variant='muted'] {
+    @apply border-0 shadow-none bg-none;
+  }
+
+  .ui-button.ui-control[data-variant='muted'][data-color='primary'] {
+    @apply [background-color:color-mix(in_oklab,_var(--primary)_24%,_transparent)] text-primary;
+  }
+
+  .ui-button.ui-control[data-variant='muted'][data-color='primary']:hover:not(:disabled) {
+    @apply [background-color:color-mix(in_oklab,_var(--primary)_32%,_transparent)];
+  }
+
+  .ui-button.ui-control[data-variant='muted'][data-color='secondary'] {
+    @apply [background-color:color-mix(in_oklab,_var(--foreground)_12%,_transparent)] text-foreground;
+  }
+
+  .ui-button.ui-control[data-variant='muted'][data-color='secondary']:hover:not(:disabled) {
+    @apply [background-color:color-mix(in_oklab,_var(--foreground)_18%,_transparent)];
+  }
+
   /** Ghost / outline — dinlenmede şeffaf; gradient yalnızca hover’da */
   .ui-button.ui-control[data-variant='ghost'],
   .ui-button.ui-control[data-variant='outline'] {
@@ -859,6 +880,14 @@
   }
 
   /** Badge semantik dolgular — TW taraması kaçsa da token’lar çalışsın */
+  .ui-badge.bg-primary {
+    @apply bg-primary text-primary-foreground;
+  }
+
+  .ui-badge.bg-secondary {
+    @apply bg-secondary text-secondary-foreground;
+  }
+
   .ui-badge.bg-success {
     @apply bg-success text-success-foreground;
   }
@@ -877,6 +906,27 @@
 
   .ui-badge.bg-info {
     @apply bg-info text-info-foreground;
+  }
+
+  /** Muted badge tonları — JS sınıf string’i TW taramasından kaçsa bile dolgu kalsın */
+  .ui-badge.bg-primary\/12 {
+    @apply border-transparent [background-color:color-mix(in_oklab,_var(--primary)_18%,_transparent)] text-primary;
+  }
+
+  .ui-badge.bg-success\/12 {
+    @apply border-transparent [background-color:color-mix(in_oklab,_var(--success)_18%,_transparent)] text-success;
+  }
+
+  .ui-badge.bg-warning\/15 {
+    @apply border-transparent [background-color:color-mix(in_oklab,_var(--warning)_18%,_transparent)] text-warning;
+  }
+
+  .ui-badge.bg-info\/12 {
+    @apply border-transparent [background-color:color-mix(in_oklab,_var(--info)_18%,_transparent)] text-info;
+  }
+
+  .ui-badge.bg-danger\/12 {
+    @apply border-transparent [background-color:color-mix(in_oklab,_var(--danger)_18%,_transparent)] text-danger;
   }
 
   /** Tag — boyut / dolgu Badge ile (`Tag.vue` + `ui-badge--*`); kapat düğmesi */
@@ -909,19 +959,31 @@
     @apply opacity-0 [transform:translateY(0.125rem)_scale(0.97)];
   }
 
-  /** Popover — blur’lu yüzeyde transform her kareyi yeniden blur’latır (takılma).
-   * Tüm platformlarda yalnızca opacity; hizalı / mobil ortalı aynı. */
-  .ui-overlay-popover-enter-active {
-    @apply [transition:opacity_0.2s_cubic-bezier(0.16,_1,_0.3,_1)] [will-change:opacity] transform-none;
+  /**
+   * Popover — hareket katmanda değil, blur’lu panelin (`.ui-surface`) kendisinde.
+   * Atada `opacity < 1` / `will-change: opacity` `backdrop-filter` için backdrop root olur:
+   * geçiş boyunca blur sayfayı görmez, bitince bir anda belirir. Katman yalnız konum taşır.
+   * Ölçek tetikleyiciye bakan noktadan büyür (`--ui-popover-origin`, Popover.vue hesaplar).
+   * Süreler Popover.vue `:duration` ile aynı tutulur.
+   */
+  .ui-overlay-popover-enter-active .ui-popover-panel {
+    @apply [transition:opacity_0.18s_cubic-bezier(0.16,_1,_0.3,_1),_transform_0.24s_cubic-bezier(0.16,_1,_0.3,_1)] [will-change:opacity,_transform] [transform-origin:var(--ui-popover-origin,_top_center)];
+  }
+
+  .ui-overlay-popover-leave-active .ui-popover-panel {
+    @apply [transition:opacity_0.14s_cubic-bezier(0.4,_0,_1,_1),_transform_0.16s_cubic-bezier(0.4,_0,_1,_1)] [will-change:opacity,_transform] [transform-origin:var(--ui-popover-origin,_top_center)];
   }
 
   .ui-overlay-popover-leave-active {
-    @apply [transition:opacity_0.16s_cubic-bezier(0.4,_0,_1,_1)] [will-change:opacity] transform-none pointer-events-none;
+    @apply pointer-events-none;
   }
 
-  .ui-overlay-popover-enter-from,
-  .ui-overlay-popover-leave-to {
-    @apply opacity-0 transform-none;
+  .ui-overlay-popover-enter-from .ui-popover-panel {
+    @apply opacity-0 [transform:scale3d(0.95,_0.95,_1)];
+  }
+
+  .ui-overlay-popover-leave-to .ui-popover-panel {
+    @apply opacity-0 [transform:scale3d(0.97,_0.97,_1)];
   }
 
   .ui-popover-motion {
@@ -929,41 +991,31 @@
   }
 
   /**
-   * Select hizası — katmanda transform yok (ölçüm + nudge ilk karede doğru).
+   * Select hizası — panelde transform yok (nudge `getBoundingClientRect` ile ölçer).
    * Kısa opacity (konum sıçraması görünmez).
    */
-  .ui-overlay-popover-enter-active[data-popover-align-active],
-  .ui-overlay-popover-leave-active[data-popover-align-active] {
-    @apply [transition:opacity_0.12s_ease-out] transform-none;
+  .ui-overlay-popover-enter-active[data-popover-align-active] .ui-popover-panel,
+  .ui-overlay-popover-leave-active[data-popover-align-active] .ui-popover-panel {
+    @apply [transition:opacity_0.12s_ease-out];
   }
 
-  .ui-overlay-popover-enter-from[data-popover-align-active],
-  .ui-overlay-popover-leave-to[data-popover-align-active] {
+  .ui-overlay-popover-enter-from[data-popover-align-active] .ui-popover-panel,
+  .ui-overlay-popover-leave-to[data-popover-align-active] .ui-popover-panel {
     @apply opacity-0 transform-none;
   }
 
   @media (max-width: 1023px) {
-    .ui-overlay-popover-enter-active[data-ui-popover-mobile-centered],
-    .ui-overlay-popover-leave-active[data-ui-popover-mobile-centered] {
-      @apply [transition:opacity_0.2s_cubic-bezier(0.16,_1,_0.3,_1)] transform-none;
-    }
-
-    .ui-overlay-popover-enter-from[data-ui-popover-mobile-centered],
-    .ui-overlay-popover-leave-to[data-ui-popover-mobile-centered] {
-      @apply opacity-0 transform-none;
-    }
-
     .ui-popover-panel {
       @apply [max-width:min(100vw_-_1.25rem,_24rem)];
     }
   }
 
   .ui-overlay-popover-backdrop-enter-active {
-    @apply [transition:opacity_0.24s_cubic-bezier(0.16,_1,_0.3,_1)] [will-change:opacity];
+    @apply [transition:opacity_0.22s_cubic-bezier(0.16,_1,_0.3,_1)] [will-change:opacity];
   }
 
   .ui-overlay-popover-backdrop-leave-active {
-    @apply [transition:opacity_0.3s_cubic-bezier(0.4,_0,_0.2,_1)] [will-change:opacity] pointer-events-none;
+    @apply [transition:opacity_0.2s_cubic-bezier(0.4,_0,_0.2,_1)] [will-change:opacity] pointer-events-none;
   }
 
   .ui-overlay-popover-backdrop-enter-from,
@@ -1153,8 +1205,8 @@
     .ui-overlay-dialog-leave-active .ui-dialog-backdrop,
     .ui-overlay-dialog-enter-active .ui-dialog-panel,
     .ui-overlay-dialog-leave-active .ui-dialog-panel,
-    .ui-overlay-popover-enter-active,
-    .ui-overlay-popover-leave-active,
+    .ui-overlay-popover-enter-active .ui-popover-panel,
+    .ui-overlay-popover-leave-active .ui-popover-panel,
     .ui-overlay-popover-backdrop-enter-active,
     .ui-overlay-popover-backdrop-leave-active {
       @apply [transition-duration:0.01ms] [will-change:auto];
@@ -1162,13 +1214,8 @@
 
     .ui-overlay-dialog-enter-from .ui-dialog-motion,
     .ui-overlay-dialog-leave-to .ui-dialog-motion,
-    .ui-overlay-popover-enter-from .ui-popover-motion,
-    .ui-overlay-popover-leave-to .ui-popover-motion {
-      @apply transform-none;
-    }
-
-    .ui-overlay-popover-enter-from,
-    .ui-overlay-popover-leave-to {
+    .ui-overlay-popover-enter-from .ui-popover-panel,
+    .ui-overlay-popover-leave-to .ui-popover-panel {
       @apply transform-none;
     }
   }
@@ -1225,8 +1272,12 @@
     @apply overflow-hidden;
   }
 
+  /**
+   * Masaüstünde gövde yatay 0.5rem iç boşluk alır: hücre px-3 ile birlikte içerik kart
+   * kenarından 1.25rem içeride — rounded-3xl köşeye yapışmaz. Mobilde dar ekran için 0.
+   */
   .ui-card--data-table > .ui-card-body {
-    @apply min-w-0 text-foreground;
+    @apply min-w-0 text-foreground lg:px-2;
     /* `.ui-card-body` flex-1 shorthand’dan sonra gelmeli; aksi halde basis:0% + grow-0
        gövdeyi çökertebilir / flex zincirinde tablo satırları şişebilir (Chrome). */
     @apply flex-initial;
@@ -1241,8 +1292,8 @@
   }
 
   .ui-card--data-table > .ui-card-toolbar {
-    /* Tablo hücresi `px-3` ile aynı — filtre / arama sol kenarı sütun başlıklarıyla hizalı */
-    @apply px-3 py-3;
+    /* Gövde (lg:px-2) + hücre `px-3` ile aynı — filtre / arama sol kenarı sütun başlıklarıyla hizalı */
+    @apply px-3 py-3 lg:px-5;
   }
 
   .ui-card--data-table > .ui-card-toolbar > * {
@@ -1250,7 +1301,7 @@
   }
 
   .ui-card--data-table > .ui-card-footer {
-    @apply w-full px-3 pb-4 pt-3;
+    @apply w-full px-3 pb-4 pt-3 lg:px-5;
   }
 
   .ui-card--data-table > .ui-card-footer > .ui-table-pagination {
@@ -1284,6 +1335,28 @@
 
   .ui-card-header--inset {
     @apply border-b border-border px-4 py-3;
+  }
+
+  /**
+   * Yapışık başlık — kart bir bütün kalır (köşeler, yüzey); başlık sabit, yalnız gövde kartın
+   * içinde kayar. Yükseklik sınırı üst öğeden gelir (ör. `lg:sticky lg:max-h-[…] flex flex-col`);
+   * sınır yoksa kart normal uzar.
+   */
+  .ui-card--sticky-header {
+    @apply min-h-0 max-h-full overflow-hidden pb-0;
+  }
+
+  .ui-card--sticky-header > .ui-card-header {
+    @apply border-b border-border pb-4;
+  }
+
+  /**
+   * Kaydırma alanı kartın kenarlarına ve altına kadar uzanır; boşluk alanın içinde kalır.
+   * Aksi halde kart padding'i scrollport'u içeri çeker, içerik yanlarda ve altta erken kesilir.
+   * Kaydırma çubuğu görünür kalır (içeriğin kaydığı anlaşılsın).
+   */
+  .ui-card--sticky-header > .ui-card-body {
+    @apply min-h-0 flex-1 overflow-y-auto overscroll-contain [margin-inline:calc(var(--ui-card-padding)_*_-1)] [margin-top:calc(var(--ui-card-gap)_*_-1)] [padding:var(--ui-card-gap)_var(--ui-card-padding)_var(--ui-card-padding)] [scroll-padding-bottom:var(--ui-card-padding)];
   }
 
   .ui-card--no-padding > .ui-card-toolbar {
@@ -2590,8 +2663,12 @@
     @apply flex min-w-0 flex-1 flex-wrap items-center gap-1.5;
   }
 
+  /**
+   * Select çoklu değer chip’i — alan dolgusu (`--input-background`) ile aynı
+   * `--secondary` / `--muted` kullanıldığında kaybolmasın; primary muted ile ayrışır.
+   */
   .ui-select-values-inner > .ui-tag {
-    @apply h-6 max-w-full shrink-0;
+    @apply h-6 max-w-full shrink-0 border-transparent [background-color:color-mix(in_oklab,_var(--primary)_18%,_transparent)] text-primary;
   }
 
   .ui-select-values-input {
@@ -2959,12 +3036,20 @@
     @apply bg-secondary text-secondary-foreground bg-none;
   }
 
+  /**
+   * Aktif öğe yumuşak primary — dolu primary sayfa CTA'sına ve aktif sekmeye kalır.
+   * Metin foreground (dark modda primary metin zayıf kontrast verir), ikon primary.
+   */
   .ui-sidebar-item--active {
-    @apply bg-primary text-primary-foreground shadow-none bg-none;
+    @apply font-medium text-foreground shadow-none bg-none [background-color:color-mix(in_oklab,_var(--primary)_16%,_transparent)];
+  }
+
+  .ui-sidebar-item--active .ui-icon {
+    @apply text-primary;
   }
 
   .ui-sidebar-item--active:hover:not(:disabled) {
-    @apply bg-primary text-primary-foreground opacity-90 bg-none;
+    @apply text-foreground bg-none [background-color:color-mix(in_oklab,_var(--primary)_22%,_transparent)];
   }
 
   .ui-sidebar-item:focus-visible {
@@ -3794,9 +3879,9 @@
     @apply space-y-1 pb-6 pt-0.5;
   }
 
-  /** Alert — kart yüzeyinden hafif tonlu çağrı kutusu (`rounded-lg` = `--radius`; gölgésiz, liste gap-3) */
+  /** Alert — kart yüzeyinden hafif tonlu çağrı kutusu; kart değil bildirim gibi okunsun diye kart radius'undan küçük (`rounded-2xl`; gölgesiz, liste gap-3) */
   .ui-alert {
-    @apply flex items-start gap-3 rounded-3xl border border-border p-4 text-sm leading-5 text-foreground subpixel-antialiased;
+    @apply flex items-start gap-3 rounded-2xl border border-border p-4 text-sm leading-5 text-foreground subpixel-antialiased;
   }
 
   .ui-alert--info {
@@ -4138,12 +4223,12 @@
    * Popover panel — boyut/taşma; yüzey `ui-surface` (Vue: `ui-surface ui-popover-panel`).
    */
   .ui-popover-panel {
-    @apply flex max-h-[min(100vh-2rem,24rem)] max-w-[min(100vw-1rem,24rem)] flex-col overflow-hidden outline-none;
+    @apply flex max-h-[min(var(--ui-popover-available-h,_calc(100vh_-_2rem)),_24rem)] max-w-[min(100vw-1rem,24rem)] flex-col overflow-hidden outline-none;
   }
 
   /** DatePicker paneli — hızlı seçim satırı kesilmesin */
   .ui-popover-panel:has(.ui-datepicker-panel) {
-    @apply max-h-[min(100vh-2rem,36rem)];
+    @apply max-h-[min(var(--ui-popover-available-h,_calc(100vh_-_2rem)),_36rem)];
   }
 
   .ui-popover-body:has(.ui-datepicker-panel) {
@@ -4551,12 +4636,36 @@
     @apply flex flex-col;
   }
 
+  /**
+   * Kaydırma alanı gövdenin kendisi (kenardan kenara, boşluk içeride). İçerik ayrıca
+   * `overflow-y-auto` sarmalayıcı açmasın: o sarmalayıcı gövde padding'inin içinde kalır,
+   * içerik yanlarda ve altta erken kesilir. Bağımsız kayan iki panel gerekiyorsa
+   * `body-padding="none"` + panellerin kendi padding'i kullanılır.
+   */
   .ui-dialog-panel--body-flex > .ui-dialog-motion > .ui-card-body--flex {
     @apply flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain flex-auto max-h-none;
   }
 
   .ui-dialog-panel > .ui-dialog-motion > .ui-card-body--flush {
     @apply px-0 py-0 scroll-p-0;
+  }
+
+  /**
+   * Bağımsız kayan bölme — `body-padding="none"` + `body-layout="flex"` gövdede kullanılır
+   * (iki panelli ayar, seçici, kütüphane). Kaydırma alanı bölmenin kenarına kadar uzanır;
+   * dialog'un yatay boşluğu ve şeffaf footer payı bölmenin içinde kalır, içerik footer altından kayar.
+   */
+  .ui-dialog-pane {
+    @apply min-h-0 min-w-0 overflow-y-auto overscroll-contain px-[var(--ui-dialog-inset-x,_var(--ui-card-padding))] pt-3 pb-[var(--ui-card-padding)] [scroll-padding-bottom:var(--ui-card-padding)];
+  }
+
+  .ui-dialog-panel--footer-transparent .ui-dialog-pane {
+    @apply [padding-bottom:calc(var(--ui-dialog-footer-clearance)_+_var(--ui-dialog-body-ring-inset))] [scroll-padding-bottom:calc(var(--ui-dialog-footer-clearance)_+_0.75rem)];
+  }
+
+  /** Bölmeli gövde kendi alt payını bırakır — pay bölmelerde; bölmeler panel altına kadar uzanır. */
+  .ui-dialog-panel--body-flex > .ui-dialog-motion > .ui-card-body--flex.ui-card-body--flush:has(.ui-dialog-pane) {
+    @apply overflow-hidden pb-0!;
   }
 
   .ui-dialog-panel > .ui-dialog-motion > .ui-card-body--flush:not(:has(+ .ui-card-footer)) {
@@ -4722,7 +4831,7 @@
 
   /** DateRangePicker — çift takvim + hızlı seçim; mobil viewport’a sığsın, taşarsa kaydır */
   .ui-popover-panel:has(.ui-daterangepicker-panel) {
-    @apply max-h-[min(100dvh-5.5rem,36rem)] max-w-[min(100vw-1rem,52rem)] overflow-x-hidden overflow-y-auto;
+    @apply max-h-[min(var(--ui-popover-available-h,_calc(100dvh_-_5.5rem)),_36rem)] max-w-[min(100vw-1rem,52rem)] overflow-x-hidden overflow-y-auto;
   }
 
   .ui-popover-body:has(.ui-daterangepicker-panel) {
@@ -5319,9 +5428,13 @@
 
   /** Mobil — dialog header/footer boşlukları; kapat düğmesi gizli (sheet kaydırma) */
   @media (max-width: 1023px) {
+    /**
+     * Yatay boşluk web kartıyla aynı (`1.5rem`) — 2.25rem sheet köşesinde başlık / butonlar
+     * kenara yapışmaz. Alt boşluk en az yatay kadar; ev çubuğu olan cihazda safe-area.
+     */
     .ui-dialog-panel {
-      --ui-dialog-inset-x: max(1rem, env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
-      --ui-dialog-inset-bottom: max(0.75rem, env(safe-area-inset-bottom, 0px));
+      --ui-dialog-inset-x: max(1.5rem, env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
+      --ui-dialog-inset-bottom: max(1.5rem, env(safe-area-inset-bottom, 0px));
       @apply pb-0;
     }
 
@@ -5367,16 +5480,17 @@
       @apply px-[var(--ui-dialog-inset-x)] pt-2 pb-[var(--ui-dialog-inset-bottom)] border-t-0;
     }
 
+    /** `--ui-dialog-footer-clearance` footer yüksekliğidir ve alt safe-area’yı zaten içerir. */
     .ui-dialog-panel--footer-transparent
       > .ui-dialog-motion
       > .ui-card-body:has(+ .ui-card-footer) {
-      @apply [padding-bottom:calc(_var(--ui-dialog-footer-clearance)_+_var(--ui-dialog-inset-bottom)_)];
+      @apply [padding-bottom:calc(_var(--ui-dialog-footer-clearance)_+_var(--ui-dialog-body-ring-inset)_)];
     }
 
     .ui-dialog-panel--footer-transparent.ui-dialog-panel--body-flex
       > .ui-dialog-motion
       > .ui-card-body--flex {
-      @apply px-[var(--ui-dialog-inset-x)] [padding-bottom:calc(_var(--ui-dialog-footer-clearance)_+_var(--ui-dialog-inset-bottom)_)] [scroll-padding-bottom:calc(_var(--ui-dialog-footer-clearance)_+_var(--ui-dialog-inset-bottom)_)];
+      @apply px-[var(--ui-dialog-inset-x)] [padding-bottom:calc(_var(--ui-dialog-footer-clearance)_+_0.75rem_)] [scroll-padding-bottom:calc(_var(--ui-dialog-footer-clearance)_+_0.75rem_)];
     }
 
     .ui-dialog-panel--footer-transparent .ui-card-footer.ui-dialog-footer--transparent {
@@ -5470,7 +5584,8 @@
       @apply flex-auto max-h-none;
     }
 
-    .ui-dialog-panel > .ui-dialog-motion > .ui-card-footer {
+    /** Şeffaf footer gövdenin üzerine biner (`absolute`) — burada akışa geri alınmaz. */
+    .ui-dialog-panel:not(.ui-dialog-panel--footer-transparent) > .ui-dialog-motion > .ui-card-footer {
       @apply relative z-[2];
     }
   }

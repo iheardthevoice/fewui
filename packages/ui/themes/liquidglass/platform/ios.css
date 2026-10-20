@@ -88,6 +88,26 @@ html.cap-native.cap-ios {
   /** DataTable sticky hücreler — kart yüzeyi ile aynı opak ton. */
   --app-data-table-cell-bg: var(--ui-ios-card-surface-bg);
   --ui-shadow-surface: none;
+  /**
+   * Hareket — iOS 26+ yay (spring) eğrileri; `linear()` ile örneklenmiş sönümlü yay.
+   * snappy: ζ≈0.78 (~%2 taşma — menü / popover / buton). smooth: kritik sönüm (sheet).
+   * Süreler Popover.vue / Dialog.vue tarafından da okunur (Transition süresi ile senkron).
+   */
+  --ui-ios-spring-snappy: linear(0, 0.0377, 0.1288, 0.2472, 0.3744, 0.4982, 0.6113, 0.7097, 0.792, 0.8583, 0.9099, 0.9488, 0.9768, 0.996, 1.0084, 1.0156, 1.0191, 1.0199, 1.019, 1.0172, 1.0148, 1.0122, 1.0098, 1.0076, 1.0056, 1.004, 1.0027, 1.0017, 1.001, 1.0004, 1.0001, 0.9998, 1);
+  --ui-ios-spring-smooth: linear(0, 0.0604, 0.1882, 0.3329, 0.4697, 0.5883, 0.6861, 0.7639, 0.8244, 0.8706, 0.9053, 0.9312, 0.9503, 0.9642, 0.9744, 0.9817, 0.987, 0.9908, 0.9935, 0.9954, 0.9967, 0.9977, 0.9984, 0.9989, 1);
+  /** Kapanış — hızlı, yumuşak çıkış (yay yok). */
+  --ui-ios-ease-dismiss: cubic-bezier(0.3, 0, 0.2, 1);
+  --ui-popover-enter-duration: 420ms;
+  --ui-popover-leave-duration: 220ms;
+  --ui-dialog-enter-duration: 460ms;
+  --ui-dialog-leave-duration: 240ms;
+  --ui-dialog-easing: var(--ui-ios-spring-snappy);
+  --ui-dialog-leave-easing: var(--ui-ios-ease-dismiss);
+  --ui-dialog-sheet-enter-duration: 500ms;
+  --ui-dialog-sheet-leave-duration: 300ms;
+  --ui-dialog-sheet-snap-duration: 420ms;
+  --ui-dialog-sheet-easing: var(--ui-ios-spring-smooth);
+  --ui-dialog-sheet-leave-easing: var(--ui-ios-ease-dismiss);
 }
 
 html.cap-native.cap-ios.dark {

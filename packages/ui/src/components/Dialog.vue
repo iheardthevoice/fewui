@@ -166,6 +166,7 @@ import { focusFirstField } from '../utils/focus-first-field.js'
 import { resolveThemeDefault, resolveThemeIconType } from '../theme/resolve-theme-default.js'
 import { lockBodyScroll, unlockBodyScroll } from '../utils/scroll-lock.js'
 import { isMobileViewport } from '../utils/viewport.js'
+import { readMotionDuration, readMotionEasing } from '../utils/motion-token.js'
 import { uiDefaultsMixin } from '../theme/ui-defaults.js'
 import { uiPortalMixin } from '../theme/ui-portal.js'
 import { OVERLAY_BASE_Z, pushOverlay, releaseOverlay } from '../theme/overlay-stack.js'
@@ -540,28 +541,30 @@ export default {
       return window.matchMedia('(prefers-reduced-motion: reduce)').matches
     },
     mobileSheetEasing() {
-      return 'cubic-bezier(0.32, 0.72, 0, 1)'
+      return readMotionEasing('--ui-dialog-sheet-easing', 'cubic-bezier(0.32, 0.72, 0, 1)')
     },
-    mobileSheetDurationMs() {
-      return 320
-    },
+    /**
+     * Süre / eğri tema token’larından (`--ui-dialog-*`, mobil `--ui-dialog-sheet-*`);
+     * yoksa aşağıdaki varsayılanlar.
+     */
     layerMotionTimings() {
       const mobile = isMobileViewport()
       if (mobile) {
+        const easing = this.mobileSheetEasing()
         return {
-          enterMs: this.mobileSheetDurationMs(),
-          leaveMs: 280,
-          snapMs: 280,
-          easing: this.mobileSheetEasing(),
-          leaveEasing: this.mobileSheetEasing(),
+          enterMs: readMotionDuration('--ui-dialog-sheet-enter-duration', 320),
+          leaveMs: readMotionDuration('--ui-dialog-sheet-leave-duration', 280),
+          snapMs: readMotionDuration('--ui-dialog-sheet-snap-duration', 280),
+          easing,
+          leaveEasing: readMotionEasing('--ui-dialog-sheet-leave-easing', easing),
         }
       }
       return {
-        enterMs: 300,
-        leaveMs: 200,
+        enterMs: readMotionDuration('--ui-dialog-enter-duration', 300),
+        leaveMs: readMotionDuration('--ui-dialog-leave-duration', 200),
         snapMs: 220,
-        easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
-        leaveEasing: 'cubic-bezier(0.4, 0, 0.2, 1)',
+        easing: readMotionEasing('--ui-dialog-easing', 'cubic-bezier(0.16, 1, 0.3, 1)'),
+        leaveEasing: readMotionEasing('--ui-dialog-leave-easing', 'cubic-bezier(0.4, 0, 0.2, 1)'),
       }
     },
     /** Cam yüzeyde kayma yok, yalnız hafif ölçek (blur her karede yeniden hesaplanır). */

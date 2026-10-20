@@ -230,17 +230,25 @@
     @apply opacity-90;
   }
 
-  /** Muted — tonun %12'lik yumuşak dolgusu; seçili filtre chip'i gibi CTA ile yarışmayan vurgu */
+  /** Muted — tonlu yumuşak dolgu; seçili filtre chip'i gibi CTA ile yarışmayan vurgu */
   .ui-button.ui-control[data-variant='muted'] {
     @apply border-0 shadow-none bg-none;
   }
 
   .ui-button.ui-control[data-variant='muted'][data-color='primary'] {
-    @apply [background-color:color-mix(in_oklab,_var(--primary)_14%,_transparent)] text-primary;
+    @apply [background-color:color-mix(in_oklab,_var(--primary)_24%,_transparent)] text-primary;
   }
 
   .ui-button.ui-control[data-variant='muted'][data-color='primary']:hover:not(:disabled) {
-    @apply [background-color:color-mix(in_oklab,_var(--primary)_22%,_transparent)];
+    @apply [background-color:color-mix(in_oklab,_var(--primary)_32%,_transparent)];
+  }
+
+  .ui-button.ui-control[data-variant='muted'][data-color='secondary'] {
+    @apply [background-color:color-mix(in_oklab,_var(--foreground)_12%,_transparent)] text-foreground;
+  }
+
+  .ui-button.ui-control[data-variant='muted'][data-color='secondary']:hover:not(:disabled) {
+    @apply [background-color:color-mix(in_oklab,_var(--foreground)_18%,_transparent)];
   }
 
   /** Ghost / outline — dinlenmede şeffaf; gradient yalnızca hover’da */
@@ -929,6 +937,14 @@
   }
 
   /** Badge semantik dolgular — TW taraması kaçsa da token’lar çalışsın */
+  .ui-badge.bg-primary {
+    @apply bg-primary text-primary-foreground;
+  }
+
+  .ui-badge.bg-secondary {
+    @apply bg-secondary text-secondary-foreground;
+  }
+
   .ui-badge.bg-success {
     @apply bg-success text-success-foreground;
   }
@@ -947,6 +963,27 @@
 
   .ui-badge.bg-info {
     @apply bg-info text-info-foreground;
+  }
+
+  /** Muted badge tonları — JS sınıf string’i TW taramasından kaçsa bile dolgu kalsın */
+  .ui-badge.bg-primary\/12 {
+    @apply border-transparent [background-color:color-mix(in_oklab,_var(--primary)_18%,_transparent)] text-primary;
+  }
+
+  .ui-badge.bg-success\/12 {
+    @apply border-transparent [background-color:color-mix(in_oklab,_var(--success)_18%,_transparent)] text-success;
+  }
+
+  .ui-badge.bg-warning\/15 {
+    @apply border-transparent [background-color:color-mix(in_oklab,_var(--warning)_18%,_transparent)] text-warning;
+  }
+
+  .ui-badge.bg-info\/12 {
+    @apply border-transparent [background-color:color-mix(in_oklab,_var(--info)_18%,_transparent)] text-info;
+  }
+
+  .ui-badge.bg-danger\/12 {
+    @apply border-transparent [background-color:color-mix(in_oklab,_var(--danger)_18%,_transparent)] text-danger;
   }
 
   /** Tag — boyut / dolgu Badge ile (`Tag.vue` + `ui-badge--*`); kapat düğmesi */
@@ -2683,8 +2720,12 @@
     @apply flex min-w-0 flex-1 flex-wrap items-center gap-1.5;
   }
 
+  /**
+   * Select çoklu değer chip’i — alan dolgusu (`--input-background`) ile aynı
+   * `--secondary` / `--muted` kullanıldığında kaybolmasın; primary muted ile ayrışır.
+   */
   .ui-select-values-inner > .ui-tag {
-    @apply h-6 max-w-full shrink-0;
+    @apply h-6 max-w-full shrink-0 border-transparent [background-color:color-mix(in_oklab,_var(--primary)_18%,_transparent)] text-primary;
   }
 
   .ui-select-values-input {
@@ -4239,12 +4280,12 @@
    * Popover panel — boyut/taşma; yüzey `ui-surface` (Vue: `ui-surface ui-popover-panel`).
    */
   .ui-popover-panel {
-    @apply flex max-h-[min(100vh-2rem,24rem)] max-w-[min(100vw-1rem,24rem)] flex-col overflow-hidden outline-none;
+    @apply flex max-h-[min(var(--ui-popover-available-h,_calc(100vh_-_2rem)),_24rem)] max-w-[min(100vw-1rem,24rem)] flex-col overflow-hidden outline-none;
   }
 
   /** DatePicker paneli — hızlı seçim satırı kesilmesin */
   .ui-popover-panel:has(.ui-datepicker-panel) {
-    @apply max-h-[min(100vh-2rem,36rem)];
+    @apply max-h-[min(var(--ui-popover-available-h,_calc(100vh_-_2rem)),_36rem)];
   }
 
   .ui-popover-body:has(.ui-datepicker-panel) {
@@ -4666,6 +4707,24 @@
     @apply px-0 py-0 scroll-p-0;
   }
 
+  /**
+   * Bağımsız kayan bölme — `body-padding="none"` + `body-layout="flex"` gövdede kullanılır
+   * (iki panelli ayar, seçici, kütüphane). Kaydırma alanı bölmenin kenarına kadar uzanır;
+   * dialog'un yatay boşluğu ve şeffaf footer payı bölmenin içinde kalır, içerik footer altından kayar.
+   */
+  .ui-dialog-pane {
+    @apply min-h-0 min-w-0 overflow-y-auto overscroll-contain px-[var(--ui-dialog-inset-x,_var(--ui-card-padding))] pt-3 pb-[var(--ui-card-padding)] [scroll-padding-bottom:var(--ui-card-padding)];
+  }
+
+  .ui-dialog-panel--footer-transparent .ui-dialog-pane {
+    @apply [padding-bottom:calc(var(--ui-dialog-footer-clearance)_+_var(--ui-dialog-body-ring-inset))] [scroll-padding-bottom:calc(var(--ui-dialog-footer-clearance)_+_0.75rem)];
+  }
+
+  /** Bölmeli gövde kendi alt payını bırakır — pay bölmelerde; bölmeler panel altına kadar uzanır. */
+  .ui-dialog-panel--body-flex > .ui-dialog-motion > .ui-card-body--flex.ui-card-body--flush:has(.ui-dialog-pane) {
+    @apply overflow-hidden pb-0!;
+  }
+
   .ui-dialog-panel > .ui-dialog-motion > .ui-card-body--flush:not(:has(+ .ui-card-footer)) {
     @apply pb-0;
   }
@@ -4829,7 +4888,7 @@
 
   /** DateRangePicker — çift takvim + hızlı seçim; mobil viewport’a sığsın, taşarsa kaydır */
   .ui-popover-panel:has(.ui-daterangepicker-panel) {
-    @apply max-h-[min(100dvh-5.5rem,36rem)] max-w-[min(100vw-1rem,52rem)] overflow-x-hidden overflow-y-auto;
+    @apply max-h-[min(var(--ui-popover-available-h,_calc(100dvh_-_5.5rem)),_36rem)] max-w-[min(100vw-1rem,52rem)] overflow-x-hidden overflow-y-auto;
   }
 
   .ui-popover-body:has(.ui-daterangepicker-panel) {
@@ -5426,14 +5485,23 @@
 
   /** Mobil — dialog header/footer boşlukları; kapat düğmesi gizli (sheet kaydırma) */
   @media (max-width: 1023px) {
+    /**
+     * Yatay boşluk web kartıyla aynı (`1.5rem`) — 2.25rem sheet köşesinde başlık / butonlar
+     * kenara yapışmaz. Alt boşluk en az yatay kadar; ev çubuğu olan cihazda safe-area.
+     */
     .ui-dialog-panel {
-      --ui-dialog-inset-x: max(1rem, env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
-      --ui-dialog-inset-bottom: max(0.75rem, env(safe-area-inset-bottom, 0px));
+      --ui-dialog-inset-x: max(1.5rem, env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
+      --ui-dialog-inset-bottom: max(1.5rem, env(safe-area-inset-bottom, 0px));
       @apply pb-0;
     }
 
     .ui-dialog-panel > .ui-dialog-motion > .ui-card-header {
       @apply pt-0 px-[var(--ui-dialog-inset-x)] pb-2;
+    }
+
+    /** Toolbar başlık / gövde / footer ile aynı kenar payında (safe-area dahil). */
+    .ui-dialog-panel > .ui-dialog-motion > .ui-card-toolbar {
+      @apply px-[var(--ui-dialog-inset-x)];
     }
 
     .ui-dialog-panel > .ui-dialog-motion > .ui-card-body {
@@ -5474,16 +5542,17 @@
       @apply px-[var(--ui-dialog-inset-x)] pt-2 pb-[var(--ui-dialog-inset-bottom)] border-t-0;
     }
 
+    /** `--ui-dialog-footer-clearance` footer yüksekliğidir ve alt safe-area’yı zaten içerir. */
     .ui-dialog-panel--footer-transparent
       > .ui-dialog-motion
       > .ui-card-body:has(+ .ui-card-footer) {
-      @apply [padding-bottom:calc(_var(--ui-dialog-footer-clearance)_+_var(--ui-dialog-inset-bottom)_)];
+      @apply [padding-bottom:calc(_var(--ui-dialog-footer-clearance)_+_var(--ui-dialog-body-ring-inset)_)];
     }
 
     .ui-dialog-panel--footer-transparent.ui-dialog-panel--body-flex
       > .ui-dialog-motion
       > .ui-card-body--flex {
-      @apply px-[var(--ui-dialog-inset-x)] [padding-bottom:calc(_var(--ui-dialog-footer-clearance)_+_var(--ui-dialog-inset-bottom)_)] [scroll-padding-bottom:calc(_var(--ui-dialog-footer-clearance)_+_var(--ui-dialog-inset-bottom)_)];
+      @apply px-[var(--ui-dialog-inset-x)] [padding-bottom:calc(_var(--ui-dialog-footer-clearance)_+_0.75rem_)] [scroll-padding-bottom:calc(_var(--ui-dialog-footer-clearance)_+_0.75rem_)];
     }
 
     .ui-dialog-panel--footer-transparent .ui-card-footer.ui-dialog-footer--transparent {
@@ -5577,7 +5646,8 @@
       @apply flex-auto max-h-none;
     }
 
-    .ui-dialog-panel > .ui-dialog-motion > .ui-card-footer {
+    /** Şeffaf footer gövdenin üzerine biner (`absolute`) — burada akışa geri alınmaz. */
+    .ui-dialog-panel:not(.ui-dialog-panel--footer-transparent) > .ui-dialog-motion > .ui-card-footer {
       @apply relative z-[2];
     }
   }

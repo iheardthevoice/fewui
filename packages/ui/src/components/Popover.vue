@@ -34,7 +34,7 @@
       <Transition
         name="ui-overlay-popover"
         appear
-        :duration="{ enter: 240, leave: 160 }"
+        :duration="motionDuration"
         @before-enter="onPopoverBeforeEnter"
         @after-leave="onPopoverAfterLeave"
       >
@@ -92,6 +92,8 @@
 import { isMobileViewport } from '../utils/viewport.js'
 import { uiPortalMixin } from '../theme/ui-portal.js'
 import { pushOverlay, releaseOverlay } from '../theme/overlay-stack.js'
+import { readMotionDuration } from '../utils/motion-token.js'
+import { onVisibleViewportChange, visibleViewportBottom } from '../utils/visible-viewport.js'
 
 const PLACEMENTS = [
   'bottom-start',
@@ -108,6 +110,10 @@ const PLACEMENTS = [
 
 /** Görünüm kenarı ile panel arası minimum boşluk (px) */
 const VIEW_MARGIN = 10
+/** Klavye görünür alanı daraltsa da panel en az bu kadar kalsın (arama + birkaç satır). */
+const MIN_AVAILABLE_H = 120
+/** Dialog sheet `margin-bottom` klavye geçişi (0.25s) + pay. */
+const VIEWPORT_SETTLE_MS = 320
 
 /**
  * Dış tıklama: alt popover katmanına tıklanınca üst popover kapanmaz.
@@ -214,6 +220,8 @@ export default {
       mobileCenteredActive: false,
       mobileCenteredLeaving: false,
       portalReady: false,
+      /** Transition süresi — tema `--ui-popover-enter-duration` / `--ui-popover-leave-duration` verebilir. */
+      motionDuration: { enter: 240, leave: 160 },
     }
   },
   computed: {
@@ -252,6 +260,7 @@ export default {
   watch: {
     open(v) {
       if (v) {
+        this.syncMotionDuration()
         this.mobileCenteredLeaving = false
         this.mobileCenteredActive = this.mobileCentered && isMobileViewport()
         // Panel ölçülmeden önce de z-index ver — aksi halde ilk karede z-auto
@@ -277,6 +286,7 @@ export default {
   },
   mounted() {
     this.portalReady = true
+    this.syncMotionDuration()
     if (this.open) {
       this.acquireLayer()
       this.$nextTick(() => {
@@ -294,6 +304,14 @@ export default {
   methods: {
     onPopoverBeforeEnter() {
       this.updatePosition()
+    },
+    /** Transition `duration` render’da okunur — açılış render’ından önce çağrılır. */
+    syncMotionDuration() {
+      const el = this.$refs.rootRef
+      this.motionDuration = {
+        enter: readMotionDuration('--ui-popover-enter-duration', 240, el),
+        leave: readMotionDuration('--ui-popover-leave-duration', 160, el),
+      }
     },
     onPopoverAfterLeave() {
       this.mobileCenteredLeaving = false
@@ -353,9 +371,12 @@ export default {
       const panel = this.$refs.panelRef
       if (!trigger || !panel) return
       const vw = window.innerWidth
-      const vh = window.innerHeight
+      // Klavye (Capacitor resize: none) innerHeight’i küçültmez — görünür alt kenar.
+      const vh = visibleViewportBottom()
       const margin = VIEW_MARGIN
       const explicitW = this.resolvedWidth
+      // Önceki yükseklik tavanını kaldır; doğal yükseklik ölçülsün (klavye kapanınca büyüsün).
+      this.$refs.layerRef?.style.removeProperty('--ui-popover-available-h')
       const r = trigger.getBoundingClientRect()
       const contentW = panel.offsetWidth || 0
       const triggerW = Math.ceil(r.width)
@@ -378,11 +399,13 @@ export default {
         const maxW = vw - margin * 2
         const widthPx = Math.min(panelW, maxW)
         const left = Math.max(margin, Math.round((vw - widthPx) / 2))
-        const top = Math.max(margin, Math.round((vh - panelH) / 2))
+        const availableH = vh - margin * 2
+        const top = Math.max(margin, Math.round((vh - Math.min(panelH, availableH)) / 2))
         const style = {
           top: `${top}px`,
           left: `${left}px`,
           '--ui-popover-origin': 'center center',
+          '--ui-popover-available-h': `${Math.max(MIN_AVAILABLE_H, Math.floor(availableH))}px`,
         }
         if (explicitW != null) {
           style.width = explicitW
@@ -459,9 +482,19 @@ export default {
       if (left + panelW > vw - margin) left = Math.max(margin, vw - margin - panelW)
       if (left < margin) left = margin
 
+      let availableH = null
       if (this.placement.startsWith('bottom') && top + panelH > vh - margin) {
-        const above = r.top - margin - panelH
-        if (above >= margin) top = above
+        const spaceBelow = vh - margin - top
+        const spaceAbove = r.top - margin * 2
+        if (spaceAbove >= panelH) {
+          top = r.top - margin - panelH
+        } else if (spaceAbove > spaceBelow) {
+          // İki tarafa da sığmıyor — geniş tarafa aç, panel kendi içinde kaysın.
+          top = margin
+          availableH = spaceAbove
+        } else {
+          availableH = spaceBelow
+        }
       }
 
       if (this.placement.startsWith('right') || this.placement.startsWith('left')) {
@@ -471,11 +504,13 @@ export default {
 
       const minW =
         this.matchTriggerWidth && explicitW == null ? `${Math.ceil(r.width)}px` : undefined
+      if (availableH == null) availableH = vh - margin - top
       const style = {
         top: `${Math.round(top)}px`,
         left: `${Math.round(left)}px`,
         minWidth: minW,
         '--ui-popover-origin': this.resolveMotionOrigin(r, top, left, panelW, panelH),
+        '--ui-popover-available-h': `${Math.max(MIN_AVAILABLE_H, Math.floor(availableH))}px`,
       }
       if (explicitW != null) {
         style.width = explicitW
@@ -543,7 +578,7 @@ export default {
       let newLeft = leftNum - deltaX
 
       const margin = VIEW_MARGIN
-      const vh = window.innerHeight
+      const vh = visibleViewportBottom()
       const vw = window.innerWidth
       const h = lb.height
       const w = lb.width
@@ -561,16 +596,37 @@ export default {
       })
     },
     bindGlobalListeners() {
+      this.offVisibleViewport?.()
+      this.offVisibleViewport = onVisibleViewportChange(this.onVisibleViewportChange)
       window.addEventListener('scroll', this.onScrollResize, true)
       window.addEventListener('resize', this.onScrollResize)
       document.addEventListener('pointerdown', this.onDocPointerDown, true)
       document.addEventListener('keydown', this.onDocKeydown, true)
     },
     teardownGlobalListeners() {
+      this.offVisibleViewport?.()
+      this.offVisibleViewport = null
+      if (this.viewportSettleTimer) {
+        clearTimeout(this.viewportSettleTimer)
+        this.viewportSettleTimer = null
+      }
       window.removeEventListener('scroll', this.onScrollResize, true)
       window.removeEventListener('resize', this.onScrollResize)
       document.removeEventListener('pointerdown', this.onDocPointerDown, true)
       document.removeEventListener('keydown', this.onDocKeydown, true)
+    },
+    /**
+     * Klavye açılıp kapanınca: hemen yerleş, sonra dialog sheet’in klavyeyle
+     * yükselme geçişi bitince (tetikleyici yer değiştirir) bir kez daha.
+     */
+    onVisibleViewportChange() {
+      if (!this.open) return
+      this.updatePosition()
+      if (this.viewportSettleTimer) clearTimeout(this.viewportSettleTimer)
+      this.viewportSettleTimer = setTimeout(() => {
+        this.viewportSettleTimer = null
+        if (this.open) this.updatePosition()
+      }, VIEWPORT_SETTLE_MS)
     },
     onScrollResize(e) {
       if (!this.open) return
