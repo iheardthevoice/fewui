@@ -22,7 +22,9 @@
       />
       <span
         v-if="title"
+        ref="labelRef"
         class="ui-section-label"
+        :title="labelTruncated ? title : undefined"
       >{{ title }}</span>
     </span>
     <span
@@ -71,6 +73,22 @@ export default {
     decorative: {
       type: Boolean,
       default: true,
+    },
+  },
+  data() {
+    return { labelTruncated: false }
+  },
+  mounted() {
+    this.syncLabelTitle()
+  },
+  updated() {
+    this.syncLabelTitle()
+  },
+  methods: {
+    /** Kısaltılan başlıkta tam metin, üzerine gelince görünsün. */
+    syncLabelTitle() {
+      const el = this.$refs.labelRef
+      this.labelTruncated = !!el && el.scrollWidth - el.clientWidth > 1
     },
   },
   computed: {

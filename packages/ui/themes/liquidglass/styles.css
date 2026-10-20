@@ -7,9 +7,7 @@
 .app-ios-glass-bar--header,
 .app-ios-glass-bar--footer,
 .app-ios-glass-bar--pos-footer {
-  position: relative;
-  isolation: isolate;
-  background-color: var(--background);
+  @apply relative isolate bg-background;
 }
 
 /**
@@ -20,21 +18,21 @@
 .app-ios-glass-bar--header.sticky,
 .app-ios-glass-bar--footer.sticky,
 .app-ios-glass-bar--pos-footer.sticky {
-  position: sticky;
+  @apply sticky;
 }
 
 .app-ios-glass-bar.absolute,
 .app-ios-glass-bar--header.absolute,
 .app-ios-glass-bar--footer.absolute,
 .app-ios-glass-bar--pos-footer.absolute {
-  position: absolute;
+  @apply absolute;
 }
 
 .app-ios-glass-bar.fixed,
 .app-ios-glass-bar--header.fixed,
 .app-ios-glass-bar--footer.fixed,
 .app-ios-glass-bar--pos-footer.fixed {
-  position: fixed;
+  @apply fixed;
 }
 
 @media (max-width: 1023px) {
@@ -42,7 +40,7 @@
   .app-ios-glass-bar--header.max-lg\:sticky,
   .app-ios-glass-bar--footer.max-lg\:sticky,
   .app-ios-glass-bar--pos-footer.max-lg\:sticky {
-    position: sticky;
+    @apply sticky;
   }
 }
 
@@ -51,21 +49,17 @@
  * `cap-ios` altında liquid glass ile override edilir.
  */
 .app-ios-glass-bar--header {
-  border-bottom: 1px solid var(--border);
+  @apply [border-bottom:1px_solid_var(--border)];
 }
 
 .app-ios-glass-bar--footer,
 .app-ios-glass-bar--pos-footer {
-  border-top: 1px solid var(--border);
+  @apply [border-top:1px_solid_var(--border)];
 }
 
 /** Kart yüzeyi (`ui-surface`) chrome ile birleşince `--surface-bg` karışmasın. */
 .app-ios-glass-bar.ui-surface {
-  border-radius: 0;
-  box-shadow: none;
-  background-color: var(--background);
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
+  @apply rounded-none shadow-none bg-background [-webkit-backdrop-filter:none] [backdrop-filter:none];
 }
 
 /**
@@ -85,101 +79,62 @@ html.cap-native.cap-ios .app-ios-glass-bar,
 html.cap-native.cap-ios .app-ios-glass-bar--header,
 html.cap-native.cap-ios .app-ios-glass-bar--footer,
 html.cap-native.cap-ios .app-ios-glass-bar--pos-footer {
-  border: none !important;
-  background-color: var(--ui-ios-glass-bg-chrome) !important;
-  background-image: none !important;
-  box-shadow: none !important;
-  -webkit-backdrop-filter: blur(var(--ui-ios-glass-blur-chrome, 16px)) saturate(190%);
-  backdrop-filter: blur(var(--ui-ios-glass-blur-chrome, 16px)) saturate(190%);
-  transform: translateZ(0);
+  @apply border-none! [background-color:var(--ui-ios-glass-bg-chrome)]! bg-none! shadow-none! [-webkit-backdrop-filter:blur(var(--ui-ios-glass-blur-chrome,_16px))_saturate(190%)] [backdrop-filter:blur(var(--ui-ios-glass-blur-chrome,_16px))_saturate(190%)] [transform:translateZ(0)];
 }
 
 html.cap-native.cap-ios .app-ios-glass-bar.ui-surface {
-  background-color: var(--ui-ios-glass-bg-chrome) !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
+  @apply [background-color:var(--ui-ios-glass-bg-chrome)]! rounded-none! shadow-none!;
 }
 
 html.cap-native.cap-ios .app-ios-glass-bar--header {
-  padding-bottom: 0.25rem;
+  @apply pb-1;
 }
 
 html.cap-native.cap-ios .app-ios-glass-bar:not(.app-ios-glass-bar--footer):not(.app-ios-glass-bar--pos-footer)::after {
-  content: '';
-  pointer-events: none;
-  position: absolute;
-  left: 4%;
-  right: 4%;
-  bottom: 0;
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    var(--ui-ios-glass-edge) 18%,
-    var(--ui-ios-glass-edge) 82%,
-    transparent 100%
-  );
+  @apply [content:''] pointer-events-none absolute [left:4%] [right:4%] bottom-0 h-px [background:linear-gradient(_90deg,_transparent_0%,_var(--ui-ios-glass-edge)_18%,_var(--ui-ios-glass-edge)_82%,_transparent_100%_)];
 }
 
 html.cap-native.cap-ios .app-ios-glass-bar--footer::before,
 html.cap-native.cap-ios .app-ios-glass-bar--pos-footer::before {
-  content: '';
-  pointer-events: none;
-  position: absolute;
-  left: 4%;
-  right: 4%;
-  top: 0;
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    var(--ui-ios-glass-edge) 18%,
-    var(--ui-ios-glass-edge) 82%,
-    transparent 100%
-  );
+  @apply [content:''] pointer-events-none absolute [left:4%] [right:4%] top-0 h-px [background:linear-gradient(_90deg,_transparent_0%,_var(--ui-ios-glass-edge)_18%,_var(--ui-ios-glass-edge)_82%,_transparent_100%_)];
 }
 
 html.cap-native.cap-ios .app-ios-glass-bar--footer::after,
 html.cap-native.cap-ios .app-ios-glass-bar--pos-footer::after {
-  content: none;
+  @apply [content:none];
 }
 
 html.cap-native.cap-ios .ui-dialog-panel .ui-card-header {
-  flex-shrink: 0;
+  @apply shrink-0;
 }
 
 html.cap-native.cap-ios .ui-dialog-panel .ui-dialog-header__title {
-  color: var(--foreground);
+  @apply text-foreground;
 }
 
 html.cap-native.cap-ios .ui-dialog-panel .ui-dialog-header__icon {
-  color: var(--muted-foreground);
+  @apply text-muted-foreground;
 }
 
 html.cap-native.cap-ios .ui-action-card-list {
-  gap: 0.625rem;
+  @apply gap-2.5;
 }
 
 html.cap-native.cap-ios .ui-action-card {
-  padding: 0.875rem 1rem;
+  @apply py-3.5 px-4;
 }
 
 html.cap-native.cap-ios .ui-action-card__content {
-  gap: 0.25rem;
+  @apply gap-1;
 }
 
 html.cap-native.cap-ios .ui-segment-group:not(.ui-segment-group--vertical) {
-  background-color: var(--input-background) !important;
-  background-image: none !important;
-  box-shadow: none !important;
-  border-color: transparent !important;
-  -webkit-backdrop-filter: none !important;
-  backdrop-filter: none !important;
+  @apply [background-color:var(--input-background)]! bg-none! shadow-none! border-transparent! [-webkit-backdrop-filter:none]! [backdrop-filter:none]!;
 }
 
 html.cap-native.cap-ios .ui-segment-group:not(.ui-segment-group--vertical)::before,
 html.cap-native.cap-ios .ui-segment-group:not(.ui-segment-group--vertical)::after {
-  content: none !important;
+  @apply [content:none]!;
 }
 
 html.cap-native.cap-ios .ui-input,
@@ -187,41 +142,19 @@ html.cap-native.cap-ios .ui-select-field,
 html.cap-native.cap-ios .ui-textarea-field,
 html.cap-native.cap-ios .ui-input .ui-field-control-fill,
 html.cap-native.cap-ios .ui-select-field .ui-field-control-fill {
-  background-color: var(--input-background) !important;
-  background-image: none !important;
-  box-shadow: none !important;
-  -webkit-backdrop-filter: none !important;
-  backdrop-filter: none !important;
+  @apply [background-color:var(--input-background)]! bg-none! shadow-none! [-webkit-backdrop-filter:none]! [backdrop-filter:none]!;
 }
 
 html.cap-native.cap-ios .ui-tab-list--horizontal.ui-tab-list--segmented {
-  position: relative;
-  isolation: isolate;
+  @apply relative isolate;
   /* Glass clip için overflow:hidden yatay kaydırmayı öldürüyordu — sığmayan sekmelere ulaşılamıyordu. */
-  overflow-x: auto;
-  overflow-y: hidden;
-  overscroll-behavior-x: contain;
-  -webkit-overflow-scrolling: touch;
-  border: none !important;
-  background-color: var(--ui-ios-glass-bg) !important;
-  background-image: none !important;
-  box-shadow: none !important;
-  -webkit-backdrop-filter: blur(var(--ui-ios-glass-blur-surface, 14px)) saturate(180%);
-  backdrop-filter: blur(var(--ui-ios-glass-blur-surface, 14px)) saturate(180%);
-  transform: translateZ(0);
+  @apply overflow-x-auto overflow-y-hidden [overscroll-behavior-x:contain] [-webkit-overflow-scrolling:touch] border-none! [background-color:var(--ui-ios-glass-bg)]! bg-none! shadow-none! [-webkit-backdrop-filter:blur(var(--ui-ios-glass-blur-surface,_14px))_saturate(180%)] [backdrop-filter:blur(var(--ui-ios-glass-blur-surface,_14px))_saturate(180%)] [transform:translateZ(0)];
 }
 
 html.cap-native.cap-ios .ui-popover-panel.ui-surface {
-  position: relative;
-  isolation: auto;
-  overflow: hidden;
-  border: none !important;
-  background-color: var(--ui-ios-glass-bg-popover) !important;
-  background-image: none !important;
-  box-shadow: none !important;
+  @apply relative [isolation:auto] overflow-hidden border-none! [background-color:var(--ui-ios-glass-bg-popover)]! bg-none! shadow-none!;
   /* Blur her zaman açık — aç/kapa’da kapatmak “blur birden gelir” snap’i üretir. */
-  -webkit-backdrop-filter: blur(var(--ui-ios-glass-blur-popover, 24px)) saturate(190%);
-  backdrop-filter: blur(var(--ui-ios-glass-blur-popover, 24px)) saturate(190%);
+  @apply [-webkit-backdrop-filter:blur(var(--ui-ios-glass-blur-popover,_24px))_saturate(190%)] [backdrop-filter:blur(var(--ui-ios-glass-blur-popover,_24px))_saturate(190%)];
 }
 
 /**
@@ -231,33 +164,26 @@ html.cap-native.cap-ios .ui-popover-panel.ui-surface {
  */
 html.cap-native.cap-ios .ui-overlay-popover-enter-active,
 html.cap-native.cap-ios .ui-overlay-popover-leave-active {
-  opacity: 1 !important;
-  transform: none !important;
-  transition: none !important;
+  @apply opacity-100! transform-none! transition-none!;
 }
 
 html.cap-native.cap-ios .ui-overlay-popover-enter-from,
 html.cap-native.cap-ios .ui-overlay-popover-leave-to {
-  opacity: 1 !important;
-  transform: none !important;
+  @apply opacity-100! transform-none!;
 }
 
 html.cap-native.cap-ios .ui-overlay-popover-leave-active {
-  pointer-events: none;
+  @apply pointer-events-none;
 }
 
 html.cap-native.cap-ios .ui-overlay-popover-enter-active .ui-popover-motion,
 html.cap-native.cap-ios .ui-overlay-popover-leave-active .ui-popover-motion {
-  transition:
-    opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
+  @apply [transition:opacity_0.22s_cubic-bezier(0.16,_1,_0.3,_1),_transform_0.22s_cubic-bezier(0.16,_1,_0.3,_1)] [will-change:opacity,_transform];
 }
 
 html.cap-native.cap-ios .ui-overlay-popover-enter-from .ui-popover-motion,
 html.cap-native.cap-ios .ui-overlay-popover-leave-to .ui-popover-motion {
-  opacity: 0;
-  transform: translate3d(0, 6px, 0);
+  @apply opacity-0 [transform:translate3d(0,_6px,_0)];
 }
 
 /**
@@ -265,125 +191,63 @@ html.cap-native.cap-ios .ui-overlay-popover-leave-to .ui-popover-motion {
  * Popover / glass-bar kendi blur kurallarını korur.
  */
 html.cap-native.cap-ios .ui-surface:not(.ui-popover-panel):not(.app-ios-glass-bar) {
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
+  @apply [-webkit-backdrop-filter:none] [backdrop-filter:none];
 }
 
 html.cap-native.cap-ios .ui-tab-list--horizontal.ui-tab-list--segmented::before,
 html.cap-native.cap-ios .ui-popover-panel.ui-surface::before {
-  content: '';
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: none;
-  box-shadow:
-    inset 0 0.5px 0 0 var(--ui-ios-glass-edge),
-    inset 0 -0.5px 0 0 var(--ui-ios-glass-edge);
-  -webkit-mask-image: linear-gradient(
-    90deg,
-    transparent 0%,
-    #000 16%,
-    #000 84%,
-    transparent 100%
-  );
-  mask-image: linear-gradient(
-    90deg,
-    transparent 0%,
-    #000 16%,
-    #000 84%,
-    transparent 100%
-  );
-  z-index: 1;
+  @apply [content:''] pointer-events-none absolute inset-0 [border-radius:inherit] [background:none] [box-shadow:inset_0_0.5px_0_0_var(--ui-ios-glass-edge),_inset_0_-0.5px_0_0_var(--ui-ios-glass-edge)] [-webkit-mask-image:linear-gradient(_90deg,_transparent_0%,_#000_16%,_#000_84%,_transparent_100%_)] [mask-image:linear-gradient(_90deg,_transparent_0%,_#000_16%,_#000_84%,_transparent_100%_)] z-[1];
 }
 
 html.cap-native.cap-ios .ui-tab-list--horizontal.ui-tab-list--segmented::after,
 html.cap-native.cap-ios .ui-popover-panel.ui-surface::after {
-  content: none;
+  @apply [content:none];
 }
 
 html.cap-native.cap-ios .ui-button.ui-control:not([data-variant='link']):not([data-variant='nav']):not([data-pos-category-chip]) {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  border: none !important;
-  box-shadow: none !important;
-  -webkit-backdrop-filter: blur(var(--ui-ios-glass-blur-control, 12px)) saturate(180%);
-  backdrop-filter: blur(var(--ui-ios-glass-blur-control, 12px)) saturate(180%);
+  @apply relative isolate overflow-hidden border-none! shadow-none! [-webkit-backdrop-filter:blur(var(--ui-ios-glass-blur-control,_12px))_saturate(180%)] [backdrop-filter:blur(var(--ui-ios-glass-blur-control,_12px))_saturate(180%)];
 }
 
 html.cap-native.cap-ios .ui-button.ui-control[data-variant='outline']:not([data-pos-category-chip]),
 html.cap-native.cap-ios .ui-button.ui-control[data-variant='ghost']:not([data-pos-category-chip]),
 html.cap-native.cap-ios .ui-button.ui-control[data-variant='solid'][data-color='secondary']:not([data-pos-category-chip]),
 html.cap-native.cap-ios .ui-button.ui-control[data-variant='solid'][data-color='input']:not([data-pos-category-chip]) {
-  background-color: var(--ui-ios-glass-bg) !important;
-  background-image: none !important;
+  @apply [background-color:var(--ui-ios-glass-bg)]! bg-none!;
 }
 
 html.cap-native.cap-ios .ui-button.ui-control:not([data-variant='link']):not([data-variant='nav']):not([data-pos-category-chip])::before {
-  content: '';
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: none;
-  box-shadow:
-    inset 0 0.5px 0 0 var(--ui-ios-glass-edge),
-    inset 0 -0.5px 0 0 var(--ui-ios-glass-edge);
-  -webkit-mask-image: linear-gradient(
-    90deg,
-    transparent 0%,
-    #000 14%,
-    #000 86%,
-    transparent 100%
-  );
-  mask-image: linear-gradient(
-    90deg,
-    transparent 0%,
-    #000 14%,
-    #000 86%,
-    transparent 100%
-  );
-  z-index: 1;
+  @apply [content:''] pointer-events-none absolute inset-0 [border-radius:inherit] [background:none] [box-shadow:inset_0_0.5px_0_0_var(--ui-ios-glass-edge),_inset_0_-0.5px_0_0_var(--ui-ios-glass-edge)] [-webkit-mask-image:linear-gradient(_90deg,_transparent_0%,_#000_14%,_#000_86%,_transparent_100%_)] [mask-image:linear-gradient(_90deg,_transparent_0%,_#000_14%,_#000_86%,_transparent_100%_)] z-[1];
 }
 
 html.cap-native.cap-ios .ui-button.ui-control:not([data-variant='link']):not([data-variant='nav']):not([data-pos-category-chip])::after {
-  content: none;
+  @apply [content:none];
 }
 
 /**
  * Panel sidebar — menü öğeleri `ui-sidebar-item`; kalan chrome düğmeleri liquid glass almaz.
  */
 html.cap-native.cap-ios aside .ui-button.ui-control {
-  -webkit-backdrop-filter: none !important;
-  backdrop-filter: none !important;
-  isolation: auto;
-  overflow: visible;
+  @apply [-webkit-backdrop-filter:none]! [backdrop-filter:none]! [isolation:auto] overflow-visible;
 }
 
 html.cap-native.cap-ios aside .ui-button.ui-control::before,
 html.cap-native.cap-ios aside .ui-button.ui-control::after {
-  content: none !important;
+  @apply [content:none]!;
 }
 
 html.cap-native.cap-ios aside .ui-button.ui-control[data-variant='ghost'],
 html.cap-native.cap-ios aside .ui-button.ui-control[data-variant='outline'],
 html.cap-native.cap-ios aside .ui-button.ui-control[data-variant='nav'] {
-  background-color: transparent !important;
-  background-image: none !important;
+  @apply bg-transparent! bg-none!;
 }
 
 html.cap-native.cap-ios .ui-popover-panel .ui-button.ui-control:not([data-variant='link']):not([data-variant='nav']),
 html.cap-native.cap-ios .ui-popover-panel .ui-button.ui-control:not([data-variant='link']):not([data-variant='nav'])::before {
-  -webkit-backdrop-filter: none !important;
-  backdrop-filter: none !important;
-  background-color: transparent !important;
-  background-image: none !important;
-  box-shadow: none !important;
+  @apply [-webkit-backdrop-filter:none]! [backdrop-filter:none]! bg-transparent! bg-none! shadow-none!;
 }
 
 html.cap-native.cap-ios .ui-popover-panel .ui-button.ui-control:not([data-variant='link']):not([data-variant='nav'])::before {
-  content: none !important;
+  @apply [content:none]!;
 }
 
 /**
@@ -392,22 +256,15 @@ html.cap-native.cap-ios .ui-popover-panel .ui-button.ui-control:not([data-varian
 html.cap-native.cap-ios .ui-skeleton,
 html.cap-native.cap-ios .ui-skeleton-placeholder,
 html.cap-native.cap-ios .ui-skeleton-host {
-  border: none !important;
-  box-shadow: none !important;
-  outline: none !important;
+  @apply border-none! shadow-none! outline-none!;
 }
 
 html.cap-native.cap-ios .ui-skeleton {
-  background-color: color-mix(in oklab, var(--foreground) 8%, transparent);
+  @apply [background-color:color-mix(in_oklab,_var(--foreground)_8%,_transparent)];
 }
 
 html.cap-native.cap-ios .ui-card.ui-surface:not(.ui-dialog-panel):not(.ui-card--transparent) {
-  background-color: var(--ui-ios-card-surface-bg, var(--ui-ios-dialog-sheet-bg)) !important;
-  background-image: none !important;
-  border: none !important;
-  box-shadow: none !important;
-  -webkit-backdrop-filter: none !important;
-  backdrop-filter: none !important;
+  @apply [background-color:var(--ui-ios-card-surface-bg,_var(--ui-ios-dialog-sheet-bg))]! bg-none! border-none! shadow-none! [-webkit-backdrop-filter:none]! [backdrop-filter:none]!;
 }
 
 html.cap-native.cap-ios .ui-card.ui-surface:not(.ui-dialog-panel):not(.ui-card--transparent) .ui-input,
@@ -415,49 +272,34 @@ html.cap-native.cap-ios .ui-card.ui-surface:not(.ui-dialog-panel):not(.ui-card--
 html.cap-native.cap-ios .ui-card.ui-surface:not(.ui-dialog-panel):not(.ui-card--transparent) .ui-textarea-field,
 html.cap-native.cap-ios .ui-card.ui-surface:not(.ui-dialog-panel):not(.ui-card--transparent) .ui-input .ui-field-control-fill,
 html.cap-native.cap-ios .ui-card.ui-surface:not(.ui-dialog-panel):not(.ui-card--transparent) .ui-select-field .ui-field-control-fill {
-  background-color: var(--ui-ios-dialog-field-bg) !important;
-  border: none !important;
-  background-image: none !important;
-  box-shadow: none !important;
-  -webkit-backdrop-filter: none !important;
-  backdrop-filter: none !important;
+  @apply [background-color:var(--ui-ios-dialog-field-bg)]! border-none! bg-none! shadow-none! [-webkit-backdrop-filter:none]! [backdrop-filter:none]!;
 }
 
 /**
  * Solid sheet dialog — telefon + iPad (viewport kapısı yok; tablet’te web cam/border kalmasın).
  */
 html.cap-native.cap-ios .ui-dialog-panel.ui-surface {
-  background-color: var(--ui-ios-dialog-sheet-bg) !important;
-  background-image: none !important;
-  border: none !important;
-  box-shadow: none !important;
-  -webkit-backdrop-filter: none !important;
-  backdrop-filter: none !important;
+  @apply [background-color:var(--ui-ios-dialog-sheet-bg)]! bg-none! border-none! shadow-none! [-webkit-backdrop-filter:none]! [backdrop-filter:none]!;
 }
 
 /** Klavye açıkken sheet eteği (surface dolgu) — rounded klavye köşelerini kapatır. */
 html.cap-native.cap-ios.cap-keyboard-open .ui-dialog-panel.ui-surface {
-  box-shadow: 0 var(--ui-keyboard-inset, 0px) 0 0 var(--ui-ios-dialog-sheet-bg, var(--surface)) !important;
+  @apply [box-shadow:0_var(--ui-keyboard-inset,_0px)_0_0_var(--ui-ios-dialog-sheet-bg,_var(--surface))]!;
 }
 
 html.cap-native.cap-ios .ui-dialog-panel .ui-input,
 html.cap-native.cap-ios .ui-dialog-panel .ui-select-field,
 html.cap-native.cap-ios .ui-dialog-panel .ui-textarea-field {
-  background-color: var(--ui-ios-dialog-field-bg) !important;
-  border: none !important;
-  background-image: none !important;
-  box-shadow: none !important;
-  -webkit-backdrop-filter: none !important;
-  backdrop-filter: none !important;
+  @apply [background-color:var(--ui-ios-dialog-field-bg)]! border-none! bg-none! shadow-none! [-webkit-backdrop-filter:none]! [backdrop-filter:none]!;
 }
 
 html.cap-native.cap-ios .ui-dialog-panel.ui-surface::before,
 html.cap-native.cap-ios .ui-dialog-panel.ui-surface::after {
-  content: none !important;
+  @apply [content:none]!;
 }
 
 html.cap-native.cap-ios .app-ios-glass-bar--pos-footer {
-  padding-bottom: env(safe-area-inset-bottom, 0px);
+  @apply [padding-bottom:env(safe-area-inset-bottom,_0px)];
 }
 
 /**
@@ -465,16 +307,11 @@ html.cap-native.cap-ios .app-ios-glass-bar--pos-footer {
  * Telefonda sheet zaten safe-area alır; tablette centered dialog da aynı payı ister.
  */
 html.cap-native.cap-ios .ui-dialog-panel .ui-card-footer {
-  padding-bottom: max(1rem, env(safe-area-inset-bottom, 0px));
+  @apply [padding-bottom:max(1rem,_env(safe-area-inset-bottom,_0px))];
 }
 
 html.cap-native.cap-ios .ui-dialog-panel--footer-transparent .ui-card-footer.ui-dialog-footer--transparent {
-  background-color: transparent !important;
-  background-image: none !important;
-  border-top: none !important;
-  box-shadow: none !important;
-  -webkit-backdrop-filter: none !important;
-  backdrop-filter: none !important;
+  @apply bg-transparent! bg-none! border-t-0! shadow-none! [-webkit-backdrop-filter:none]! [backdrop-filter:none]!;
 }
 
 /** Şeffaf footer — iOS cam butonları da opak yüzey (liste metni sızmasın). */
@@ -490,17 +327,16 @@ html.cap-native.cap-ios
   .ui-dialog-panel--footer-transparent
   .ui-card-footer.ui-dialog-footer--transparent
   .ui-button.ui-control[data-variant='link'] {
-  background-color: var(--surface) !important;
-  background-image: none !important;
+  @apply bg-surface! bg-none!;
 }
 
 html.cap-native.cap-ios.cap-keyboard-open .ui-dialog-panel .ui-card-footer {
-  padding-bottom: 0.75rem;
+  @apply pb-3;
 }
 
 @media (max-width: 1023px) {
   html.cap-native.cap-ios .ui-dialog-panel .ui-card-footer {
-    padding-top: 0.5rem;
+    @apply pt-2;
   }
 }
 
@@ -512,14 +348,12 @@ html.cap-native.cap-ios .ui-tab-trigger,
 html.cap-native.cap-ios .ui-button.ui-control:not([data-variant='link']),
 html.cap-native.cap-ios .ui-segment,
 html.cap-native.cap-ios .ui-native-dock-fab .ui-button {
-  transition-property: transform, color, background-color, background-image, box-shadow, opacity;
-  transition-duration: 150ms;
-  transition-timing-function: ease-out;
+  @apply [transition-property:transform,_color,_background-color,_background-image,_box-shadow,_opacity] [transition-duration:150ms] [transition-timing-function:ease-out];
 }
 
 html.cap-native.cap-ios .ui-tab-trigger:active:not(:disabled),
 html.cap-native.cap-ios .ui-button.ui-control:active:not(:disabled):not([data-variant='link']),
 html.cap-native.cap-ios .ui-segment:active:not(:disabled),
 html.cap-native.cap-ios .ui-native-dock-fab .ui-button:active:not(:disabled) {
-  transform: scale(1.06);
+  @apply [transform:scale(1.06)];
 }

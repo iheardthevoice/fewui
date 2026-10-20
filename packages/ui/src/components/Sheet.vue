@@ -14,6 +14,7 @@
         v-if="open"
         ref="layerRef"
         :class="rootLayerClasses"
+        :style="rootLayerStyle"
         tabindex="-1"
         role="presentation"
         @keydown="onLayerKeydown"
@@ -139,6 +140,7 @@ import { focusFirstField } from '../utils/focus-first-field.js'
 import { resolveThemeIconType } from '../theme/resolve-theme-default.js'
 import { uiDefaultsMixin } from '../theme/ui-defaults.js'
 import { uiPortalMixin } from '../theme/ui-portal.js'
+import { pushOverlay, releaseOverlay } from '../theme/overlay-stack.js'
 
 const nextSheetId = createUiIdFactory('ui-sheet')
 
@@ -261,14 +263,17 @@ export default {
       descriptionId: `ui-sheet-desc-${id}`,
       portalReady: false,
       focusFallbackTimer: null,
+      rootZIndex: null,
     }
   },
   watch: {
     open: {
       handler(isOpen) {
         if (isOpen) {
+          this.acquireLayer()
           this.scheduleInitialFocus()
         } else {
+          this.releaseLayer()
           this.clearFocusFallback()
         }
       },
@@ -279,6 +284,7 @@ export default {
     this.portalReady = true
   },
   beforeUnmount() {
+    this.releaseLayer()
     this.clearFocusFallback()
   },
   computed: {
@@ -341,6 +347,10 @@ export default {
       if (this.closeLabel != null && this.closeLabel !== '') return this.closeLabel
       return resolveUiText(this, 'ui.dialog.close', 'Close')
     },
+    rootLayerStyle() {
+      if (this.rootZIndex == null) return undefined
+      return { zIndex: String(this.rootZIndex) }
+    },
     rootLayerClasses() {
       return cn(
         'ui-sheet-root fixed inset-0 flex outline-none',
@@ -350,6 +360,15 @@ export default {
     },
   },
   methods: {
+    acquireLayer() {
+      if (this.rootZIndex != null) return
+      this.rootZIndex = pushOverlay(this, 'modal', () => this.close())
+    },
+    releaseLayer() {
+      if (this.rootZIndex == null) return
+      releaseOverlay(this)
+      this.rootZIndex = null
+    },
     close() {
       this.$emit('update:open', false)
     },

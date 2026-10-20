@@ -167,6 +167,15 @@ export default {
       type: Boolean,
       default: false,
     },
+    /**
+     * Başlık (başlık + `#actions`) sabit kalır, gövde kartın içinde kayar — uzun form kartlarında
+     * Kaydet görünür kalsın diye. Yükseklik sınırını üst öğe verir (ör. sticky + max-h sarmalayıcı).
+     * Varsayılan kapalı.
+     */
+    stickyHeader: {
+      type: Boolean,
+      default: false,
+    },
     /** Üst flex satırında kardeşlerle aynı yüksekliğe yayılır (`h-full`). */
     fullHeight: {
       type: Boolean,
@@ -211,6 +220,9 @@ export default {
       ]
       if (this.removePadding) {
         base.push('ui-card--no-padding')
+      }
+      if (this.stickyHeader) {
+        base.push('ui-card--sticky-header')
       }
       if (this.layout === 'data-table') {
         base.push('ui-card--data-table')

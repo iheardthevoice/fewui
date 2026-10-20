@@ -16,10 +16,7 @@
 
 /** Form kontrol dolgu — `--input-background` */
 @utility ui-field-control-fill {
-  @apply border border-transparent text-foreground;
-  background-color: var(--input-background);
-  -webkit-backdrop-filter: blur(var(--ui-input-backdrop-blur));
-  backdrop-filter: blur(var(--ui-input-backdrop-blur));
+  @apply border border-transparent text-foreground [background-color:var(--input-background)] [-webkit-backdrop-filter:blur(var(--ui-input-backdrop-blur))] [backdrop-filter:blur(var(--ui-input-backdrop-blur))];
 }
 
 @utility ui-field-control-focus {
@@ -29,19 +26,7 @@
 
 /** Dolgulu yüzey — yalnızca primary (`--ui-fill-base: var(--primary)`) */
 @utility ui-fill-gradient {
-  background: linear-gradient(
-    180deg,
-    color-mix(
-      in oklab,
-      var(--ui-fill-base) calc(100% - var(--ui-fill-grad-top, var(--ui-fill-grad-top-primary, 8%))),
-      var(--ui-fill-grad-light) var(--ui-fill-grad-top, var(--ui-fill-grad-top-primary, 8%))
-    ),
-    color-mix(
-      in oklab,
-      var(--ui-fill-base) calc(100% - var(--ui-fill-grad-bottom, var(--ui-fill-grad-bottom-primary, 5%))),
-      var(--ui-fill-grad-dark) var(--ui-fill-grad-bottom, var(--ui-fill-grad-bottom-primary, 5%))
-    )
-  );
+  @apply [background:linear-gradient(_180deg,_color-mix(_in_oklab,_var(--ui-fill-base)_calc(100%_-_var(--ui-fill-grad-top,_var(--ui-fill-grad-top-primary,_8%))),_var(--ui-fill-grad-light)_var(--ui-fill-grad-top,_var(--ui-fill-grad-top-primary,_8%))_),_color-mix(_in_oklab,_var(--ui-fill-base)_calc(100%_-_var(--ui-fill-grad-bottom,_var(--ui-fill-grad-bottom-primary,_5%))),_var(--ui-fill-grad-dark)_var(--ui-fill-grad-bottom,_var(--ui-fill-grad-bottom-primary,_5%))_)_)];
 }
 
 @utility ui-button-fill-gradient {
@@ -58,17 +43,14 @@
 
 /** Muted dolgulu seçili yüzey — menü aktif satır vb. */
 @utility ui-fill-muted {
-  @apply border-0 text-foreground shadow-none;
-  background-color: var(--muted);
-  background-image: none;
+  @apply border-0 text-foreground shadow-none bg-muted bg-none;
 }
 
 /** Kaydırma çubuğunu gizle (yatay sekme listesi, sidebar nav vb.) */
 @utility ui-scrollbar-none {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  @apply [scrollbar-width:none] [-ms-overflow-style:none];
 
   &::-webkit-scrollbar {
-    display: none;
+    @apply hidden;
   }
 }

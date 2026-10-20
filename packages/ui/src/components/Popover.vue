@@ -34,7 +34,7 @@
       <Transition
         name="ui-overlay-popover"
         appear
-        :duration="{ enter: 220, leave: 180 }"
+        :duration="{ enter: 240, leave: 160 }"
         @before-enter="onPopoverBeforeEnter"
         @after-leave="onPopoverAfterLeave"
       >
@@ -91,6 +91,7 @@
 <script>
 import { isMobileViewport } from '../utils/viewport.js'
 import { uiPortalMixin } from '../theme/ui-portal.js'
+import { pushOverlay, releaseOverlay } from '../theme/overlay-stack.js'
 
 const PLACEMENTS = [
   'bottom-start',
@@ -107,15 +108,6 @@ const PLACEMENTS = [
 
 /** Görünüm kenarı ile panel arası minimum boşluk (px) */
 const VIEW_MARGIN = 10
-
-/**
- * Overlay sırası (unlayered CSS ile uyumlu):
- * modal 400 → onay 420 → popover 450 → photo 460 → toast 500.
- * Popover, açık dialog / sheet üstünde kalmalı (Visits tarih aralığı vb.).
- */
-const POPOVER_BASE_Z_INDEX = 450
-/** Dialog/sheet kökünün üzerinde tutulacak minimum boşluk */
-const POPOVER_ABOVE_OVERLAY_GAP = 30
 
 /**
  * Dış tıklama: alt popover katmanına tıklanınca üst popover kapanmaz.
@@ -217,7 +209,7 @@ export default {
   data() {
     return {
       layerStyle: {},
-      layerZIndex: POPOVER_BASE_Z_INDEX,
+      layerZIndex: 0,
       rafId: 0,
       mobileCenteredActive: false,
       mobileCenteredLeaving: false,
@@ -264,7 +256,7 @@ export default {
         this.mobileCenteredActive = this.mobileCentered && isMobileViewport()
         // Panel ölçülmeden önce de z-index ver — aksi halde ilk karede z-auto
         // kalıp dialog (400) altında boyanabiliyor.
-        this.applyLayerZIndex()
+        this.acquireLayer()
         this.$nextTick(() => {
           this.updatePosition()
           this.schedulePosition()
@@ -275,6 +267,7 @@ export default {
           this.mobileCenteredLeaving = true
         }
         this.mobileCenteredActive = false
+        this.releaseLayer()
         this.teardownGlobalListeners()
       }
     },
@@ -285,7 +278,7 @@ export default {
   mounted() {
     this.portalReady = true
     if (this.open) {
-      this.applyLayerZIndex()
+      this.acquireLayer()
       this.$nextTick(() => {
         this.updatePosition()
         this.schedulePosition()
@@ -294,6 +287,7 @@ export default {
     }
   },
   beforeUnmount() {
+    this.releaseLayer()
     this.teardownGlobalListeners()
     if (this.rafId) cancelAnimationFrame(this.rafId)
   },
@@ -324,23 +318,22 @@ export default {
         })
       })
     },
-    resolveLayerZIndex() {
-      if (typeof document === 'undefined') return POPOVER_BASE_Z_INDEX
-
-      let top = POPOVER_BASE_Z_INDEX
-      for (const root of document.querySelectorAll('.ui-dialog-root, .ui-sheet-root')) {
-        const z = Number.parseInt(getComputedStyle(root).zIndex, 10)
-        if (Number.isFinite(z)) top = Math.max(top, z + POPOVER_ABOVE_OVERLAY_GAP)
-      }
-
-      return top
-    },
-    applyLayerZIndex() {
+    /**
+     * Katman kaydına girer. Sonra açılan bir dialog bu kaydı kapatır;
+     * z-index açılış anında dondurulduğu için aksi halde popover dialogun arkasında kalır.
+     */
+    acquireLayer() {
+      if (this.layerZIndex) return
+      this.layerZIndex = pushOverlay(this, 'floating', () => this.close())
       this.layerStyle = this.withLayerZIndex({ ...this.layerStyle })
     },
+    releaseLayer() {
+      if (!this.layerZIndex) return
+      releaseOverlay(this)
+      this.layerZIndex = 0
+    },
     withLayerZIndex(style) {
-      const z = this.resolveLayerZIndex()
-      this.layerZIndex = z
+      const z = this.layerZIndex
       return {
         ...style,
         // Panel, mobil backdrop (`layerZIndex`) üzerinde kalsın.
@@ -389,6 +382,7 @@ export default {
         const style = {
           top: `${top}px`,
           left: `${left}px`,
+          '--ui-popover-origin': 'center center',
         }
         if (explicitW != null) {
           style.width = explicitW
@@ -481,6 +475,7 @@ export default {
         top: `${Math.round(top)}px`,
         left: `${Math.round(left)}px`,
         minWidth: minW,
+        '--ui-popover-origin': this.resolveMotionOrigin(r, top, left, panelW, panelH),
       }
       if (explicitW != null) {
         style.width = explicitW
@@ -494,6 +489,22 @@ export default {
           })
         })
       }
+    },
+    /**
+     * Açılış ölçeğinin merkezi: tetikleyiciye bakan kenar, tetikleyici ortasına hizalı.
+     * Yer değiştiren (flip) panelde de doğru kenardan büyür.
+     */
+    resolveMotionOrigin(r, top, left, panelW, panelH) {
+      const clamp = (v, max) => Math.min(max, Math.max(0, v))
+      let x
+      if (left >= r.right - 1) x = 0
+      else if (left + panelW <= r.left + 1) x = panelW
+      else x = clamp(r.left + r.width / 2 - left, panelW)
+      let y
+      if (top >= r.bottom - 1) y = 0
+      else if (top + panelH <= r.top + 1) y = panelH
+      else y = clamp(r.top + r.height / 2 - top, panelH)
+      return `${Math.round(x)}px ${Math.round(y)}px`
     },
     nudgeAlignSelectedToTrigger() {
       const trigger = this.resolveTriggerEl()

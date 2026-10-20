@@ -97,7 +97,7 @@ export const themePlaygroundMessages = {
     buttonRounded: { lg: 'Rounded', full: 'Pill' },
     actions: {
       derive: 'Derive',
-      downloadZip: 'Download theme package',
+      downloadZip: 'Download theme',
       copyJson: 'Copy JSON',
       copied: 'Copied',
       importJson: 'Import',

@@ -105,16 +105,47 @@ function vueFiles(dir) {
 
 const STATIC_TONE_VARIANT = new RegExp(`(?<![:\\w-])variant="(${[...TONES.filter((t) => t !== 'secondary'), ...REMOVED_VALUES].join('|')})"`)
 const STATIC_REMOVED_COLOR = new RegExp(`(?<![:\\w-])color="(${REMOVED_VALUES.join('|')})"`)
+/**
+ * Vurgu yalnız `font-medium` (500); kalınlık ve ölçek dışı boyut tipografi ölçeğini bozar.
+ * `ui-heading-*` başlık ölçeği fewui'den gelir, burada aranmaz.
+ */
+const WEIGHT_CLASS = /(?:^|\s)!?(?:font-semibold|font-bold|font-extrabold|font-black)(?=\s|$)/
+/**
+ * Ölçek: 12px altı kasıtlı mikro metindir (rozet, sayaç). Ara değerler (12px ile 14px arası,
+ * 14px ile 16px arası) ölçeği bozar ve `text-xs` / `text-sm` olmalıdır.
+ */
+const ARBITRARY_SIZE = /(?:^|\s)!?text-\[(\d+(?:\.\d+)?)(px|rem)\](?=\s|$)/g
+const OFF_SCALE = (value, unit) => {
+  const px = unit === 'rem' ? value * 16 : value
+  return (px > 12 && px < 14) || (px > 14 && px < 16)
+}
+
+/** Ölçü / hiza bileşenin kendi sınıflarından gelir; dışarıdan verilirse iç boşluk ve dikey merkez bozulur. */
+const CONTROL_TAGS = /^<ui-(button|input|select|segment|segment-group|tab-trigger|badge|tag|ai-button)\b/
+const LAYOUT_CLASS = /(?:^|\s)!?(?:-?[pm][xytblrse]?-\S+|h-\S+|min-h-\S+|w-full|leading-\S+|justify-\S+|items-\S+|text-(?:xs|sm|base|lg|xl)|rounded(?:-\S+)?|gap-\S+)(?=\s|$)/
 
 for (const dir of process.argv.slice(2)) {
   for (const path of vueFiles(resolve(dir))) {
     const template = readFileSync(path, 'utf8').match(/<template[^>]*>([\s\S]*)<\/template>/)?.[1] ?? ''
+    for (const [, cls] of template.matchAll(/class="([^"]*)"/g)) {
+      const weight = cls.match(WEIGHT_CLASS)
+      if (weight) errors.push(`${path}: \`${weight[0].trim()}\` → \`font-medium\``)
+      for (const sized of cls.matchAll(ARBITRARY_SIZE)) {
+        if (OFF_SCALE(Number(sized[1]), sized[2])) {
+          errors.push(`${path}: ara boyut \`${sized[0].trim()}\` → text-xs (12px) ya da text-sm (14px)`)
+        }
+      }
+    }
     for (const [tag] of template.matchAll(/<ui-[a-z-]+\b[^>]*>/g)) {
       const fail = (message) => errors.push(`${path}: ${message} → ${tag.replace(/\s+/g, ' ').slice(0, 120)}`)
       if (/(?<![\w-])fulled\b/.test(tag)) fail('kaldırılmış prop "fulled" → "block"')
       if (/(?<![\w-])destructive\b(?!=)/.test(tag)) fail('kaldırılmış prop "destructive" → color="danger"')
       if (STATIC_TONE_VARIANT.test(tag)) fail('ton değeri `variant` içinde → `color`')
       if (STATIC_REMOVED_COLOR.test(tag)) fail('kaldırılmış ton → "danger"')
+      const staticClass = tag.match(/(?<![:\w-])class="([^"]*)"/)?.[1]
+      if (CONTROL_TAGS.test(tag) && staticClass && LAYOUT_CLASS.test(staticClass)) {
+        fail(`ölçü / hiza sınıfı (${staticClass.match(LAYOUT_CLASS)[0].trim()}) → prop (block, size, text-align) veya sarmalayıcı div`)
+      }
     }
   }
 }

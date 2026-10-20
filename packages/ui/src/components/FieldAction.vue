@@ -23,6 +23,7 @@
           :close="close"
           :label="triggerLabel"
           :has-value="hasValue"
+          :clear="() => onClear(close)"
         >
           <ui-button
             v-if="iconOnly"
@@ -47,12 +48,12 @@
             :size="size"
             rounded
             :prefix-icon="prefixIcon"
-            :suffix-icon="suffixIcon"
+            :suffix-icon="triggerSuffixIcon"
             :disabled="disabled"
             :aria-expanded="open ? 'true' : 'false'"
             :aria-haspopup="true"
             :aria-label="triggerAriaLabel"
-            @click="onTriggerClick($event, toggle)"
+            @click="onLabeledTriggerClick($event, toggle)"
           >
             {{ triggerLabel }}
           </ui-button>
@@ -81,8 +82,9 @@
                 {{ description }}
               </p>
             </div>
+            <!-- Yalnız icon-only: etiketli chip’te clear tetikleyicide (xmark). -->
             <ui-button
-              v-if="clearable && hasValue"
+              v-if="iconOnly && clearable && hasValue"
               type="button"
               variant="ghost"
               color="secondary"
@@ -122,6 +124,7 @@
         :close="close"
         :label="triggerLabel"
         :has-value="hasValue"
+        :clear="() => onClear(close)"
       >
         <ui-button
           v-if="iconOnly"
@@ -146,12 +149,12 @@
           :size="size"
           rounded
           :prefix-icon="prefixIcon"
-          :suffix-icon="suffixIcon"
+          :suffix-icon="triggerSuffixIcon"
           :disabled="disabled"
           :aria-expanded="resolvedOpen ? 'true' : 'false'"
           :aria-haspopup="true"
           :aria-label="triggerAriaLabel"
-          @click="onTriggerClick($event, toggle)"
+          @click="onLabeledTriggerClick($event, toggle)"
         >
           {{ triggerLabel }}
         </ui-button>
@@ -181,17 +184,6 @@
             :close="close"
           >
             <div class="ui-field-action-footer">
-              <ui-button
-                v-if="clearable && hasValue"
-                type="button"
-                variant="ghost"
-                color="secondary"
-                size="sm"
-                cubed
-                prefix-icon="eraser"
-                :aria-label="resolvedClearLabel"
-                @click="onClear(close)"
-              />
               <ui-button
                 type="button"
                 variant="solid"
@@ -363,21 +355,32 @@ export default {
       return this.triggerLabel || this.actionName || 'Field action'
     },
     triggerVariant() {
-      // İkon-only (Görev saat/atanan): soft; etiketli chip: solid (AppDataFilterChip / tarih)
-      if (this.iconOnly) {
-        return this.hasValue || this.resolvedOpen ? 'soft' : 'solid'
-      }
-      return 'solid'
+      // AppDataFilterChip ile aynı: boş = solid secondary, dolu/açık = muted primary
+      // (dolu primary sayfanın birincil aksiyonuna kalır). İkon-only ve etiketli chip aynı kuralı izler.
+      return this.hasValue || this.resolvedOpen ? 'muted' : 'solid'
     },
     triggerColor() {
       if (this.hasValue || this.resolvedOpen) return 'primary'
       return 'secondary'
     },
+    /** AppDataFilterChip ile aynı: doluyken tetikleyicide xmark. */
+    showTriggerClear() {
+      return this.clearable && this.hasValue && !this.iconOnly
+    },
+    triggerSuffixIcon() {
+      if (this.showTriggerClear) return 'xmark'
+      return this.suffixIcon
+    },
     showPopoverHeader() {
-      return Boolean(this.$slots.header || this.title || this.description || (this.clearable && this.hasValue))
+      return Boolean(
+        this.$slots.header
+        || this.title
+        || this.description
+        || (this.iconOnly && this.clearable && this.hasValue),
+      )
     },
     showDialogFooter() {
-      return this.showFooter || Boolean(this.$slots.footer) || (this.clearable && this.hasValue)
+      return this.showFooter || Boolean(this.$slots.footer)
     },
     resolvedClearLabel() {
       if (this.clearLabel != null && this.clearLabel !== '') return this.clearLabel
@@ -399,6 +402,16 @@ export default {
     onTriggerClick(_event, toggleFn) {
       if (typeof toggleFn === 'function') toggleFn()
       else this.toggle()
+    },
+    /** Chip üzerindeki xmark temizler; geri kalan alan paneli açar. */
+    onLabeledTriggerClick(event, toggleFn) {
+      if (this.showTriggerClear && event?.target?.closest?.('.fa-xmark, [data-icon="xmark"]')) {
+        event.preventDefault()
+        event.stopPropagation()
+        this.onClear(this.close)
+        return
+      }
+      this.onTriggerClick(event, toggleFn)
     },
     onClear(closeFn) {
       this.$emit('clear')

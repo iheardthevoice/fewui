@@ -89,11 +89,6 @@ export default {
   name: 'Input',
   mixins: [uiDefaultsMixin],
   inheritAttrs: false,
-  inject: {
-    uiFormRowPrimary: {
-      default: false,
-    },
-  },
   props: {
     /** `default` dolgulu kabuk; `plain` border/fill yok (inline düzenleme). */
     variant: {
@@ -168,13 +163,12 @@ export default {
     return { fallbackId: useId() }
   },
   computed: {
+    /**
+     * Form satırındaki tüm kontroller aynı yükseklikte kalır; `ui-form-row primary`
+     * yalnızca odak hedefidir, boyutu büyütmez. Büyük alan gerekiyorsa `size="lg"` verilir.
+     */
     resolvedSize() {
-      let size = resolveThemeControlSize(this.uiDefaults, this.size, { key: 'controlSize', defaultSize: 'md' })
-      if (size !== 'md') return size
-      const fromRow = typeof this.uiFormRowPrimary === 'function'
-        ? this.uiFormRowPrimary()
-        : this.uiFormRowPrimary
-      return fromRow ? 'lg' : size
+      return resolveThemeControlSize(this.uiDefaults, this.size, { key: 'controlSize', defaultSize: 'md' })
     },
     rootClass() {
       return cn(

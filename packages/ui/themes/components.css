@@ -16,10 +16,7 @@
 
 /** Form kontrol dolgu — `--input-background` */
 @utility ui-field-control-fill {
-  @apply border border-transparent text-foreground;
-  background-color: var(--input-background);
-  -webkit-backdrop-filter: blur(var(--ui-input-backdrop-blur));
-  backdrop-filter: blur(var(--ui-input-backdrop-blur));
+  @apply border border-transparent text-foreground [background-color:var(--input-background)] [-webkit-backdrop-filter:blur(var(--ui-input-backdrop-blur))] [backdrop-filter:blur(var(--ui-input-backdrop-blur))];
 }
 
 @utility ui-field-control-focus {
@@ -29,19 +26,7 @@
 
 /** Dolgulu yüzey — yalnızca primary (`--ui-fill-base: var(--primary)`) */
 @utility ui-fill-gradient {
-  background: linear-gradient(
-    180deg,
-    color-mix(
-      in oklab,
-      var(--ui-fill-base) calc(100% - var(--ui-fill-grad-top, var(--ui-fill-grad-top-primary, 8%))),
-      var(--ui-fill-grad-light) var(--ui-fill-grad-top, var(--ui-fill-grad-top-primary, 8%))
-    ),
-    color-mix(
-      in oklab,
-      var(--ui-fill-base) calc(100% - var(--ui-fill-grad-bottom, var(--ui-fill-grad-bottom-primary, 5%))),
-      var(--ui-fill-grad-dark) var(--ui-fill-grad-bottom, var(--ui-fill-grad-bottom-primary, 5%))
-    )
-  );
+  @apply [background:linear-gradient(_180deg,_color-mix(_in_oklab,_var(--ui-fill-base)_calc(100%_-_var(--ui-fill-grad-top,_var(--ui-fill-grad-top-primary,_8%))),_var(--ui-fill-grad-light)_var(--ui-fill-grad-top,_var(--ui-fill-grad-top-primary,_8%))_),_color-mix(_in_oklab,_var(--ui-fill-base)_calc(100%_-_var(--ui-fill-grad-bottom,_var(--ui-fill-grad-bottom-primary,_5%))),_var(--ui-fill-grad-dark)_var(--ui-fill-grad-bottom,_var(--ui-fill-grad-bottom-primary,_5%))_)_)];
 }
 
 @utility ui-button-fill-gradient {
@@ -58,74 +43,63 @@
 
 /** Muted dolgulu seçili yüzey — menü aktif satır vb. */
 @utility ui-fill-muted {
-  @apply border-0 text-foreground shadow-none;
-  background-color: var(--muted);
-  background-image: none;
+  @apply border-0 text-foreground shadow-none bg-muted bg-none;
 }
 
 /** Kaydırma çubuğunu gizle (yatay sekme listesi, sidebar nav vb.) */
 @utility ui-scrollbar-none {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  @apply [scrollbar-width:none] [-ms-overflow-style:none];
 
   &::-webkit-scrollbar {
-    display: none;
+    @apply hidden;
   }
 }
 
 @layer components {
   /** `ui-theme-provider` — token'lar elemanda inline; metin ve font burada yeniden çözülür. */
   .ui-theme-provider {
-    color: var(--foreground);
-    font-family: var(--font-sans);
+    @apply text-foreground font-sans;
   }
 
   .ui-theme-provider[data-ui-mode='light'] {
-    color-scheme: light;
+    @apply [color-scheme:light];
   }
 
   .ui-theme-provider[data-ui-mode='dark'] {
-    color-scheme: dark;
+    @apply [color-scheme:dark];
   }
 
   .ui-theme-provider--background {
-    min-height: 100%;
-    background-color: var(--background);
+    @apply min-h-full bg-background;
   }
 
   .ui-theme-provider-portal {
-    display: contents;
+    @apply contents;
   }
 
   .ui-heading-1 {
-    @apply text-3xl font-medium leading-9 tracking-tight text-foreground;
-    font-family: var(--font-heading, var(--font-sans));
+    @apply text-3xl font-medium leading-9 tracking-tight text-foreground [font-family:var(--font-heading,_var(--font-sans))];
   }
 
   .ui-heading-2 {
-    @apply text-2xl font-medium leading-8 tracking-tight text-foreground;
-    font-family: var(--font-heading, var(--font-sans));
+    @apply text-2xl font-medium leading-8 tracking-tight text-foreground [font-family:var(--font-heading,_var(--font-sans))];
   }
 
   /** Kart / bölüm başlığı: 16px, 500, 24px satır (DevTools referansı) */
   .ui-heading-3 {
-    @apply text-base font-medium leading-6 text-foreground;
-    font-family: var(--font-heading, var(--font-sans));
+    @apply text-base font-medium leading-6 text-foreground [font-family:var(--font-heading,_var(--font-sans))];
   }
 
   .ui-heading-4 {
-    @apply text-sm font-medium leading-5 text-foreground;
-    font-family: var(--font-heading, var(--font-sans));
+    @apply text-sm font-medium leading-5 text-foreground [font-family:var(--font-heading,_var(--font-sans))];
   }
 
   .ui-heading-5 {
-    @apply text-xs font-medium leading-4 text-foreground;
-    font-family: var(--font-heading, var(--font-sans));
+    @apply text-xs font-medium leading-4 text-foreground [font-family:var(--font-heading,_var(--font-sans))];
   }
 
   .ui-heading-6 {
-    @apply text-xs font-medium leading-4 tracking-tight text-foreground;
-    font-family: var(--font-heading, var(--font-sans));
+    @apply text-xs font-medium leading-4 tracking-tight text-foreground [font-family:var(--font-heading,_var(--font-sans))];
   }
 
   /** Yardımcı / gövde varsayılanı: 14px, 20px satır, muted-foreground */
@@ -152,14 +126,12 @@
    * Link varyantı (`border-0`): ring yerine underline odak (metin bağlantısı).
    */
   .ui-button {
-    @apply shadow-none outline-none transition-[transform,opacity,color,background-color,background-image,border-color] duration-150 ease-out;
-    @apply focus-visible:z-10 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-background;
-    @apply enabled:active:scale-[0.98];
+    @apply shadow-none outline-none transition-[transform,opacity,color,background-color,background-image,border-color] duration-150 ease-out focus-visible:z-10 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-background enabled:active:scale-[0.98];
   }
 
   .ui-button:hover:not(:disabled),
   .ui-button:focus-visible {
-    box-shadow: none;
+    @apply shadow-none;
   }
 
   /** Odak ring rengi — `default.css` `--ui-focus-ring` */
@@ -171,8 +143,28 @@
     @apply focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:underline;
   }
 
+  /**
+   * İçerik varsayılan olarak ortalanır: düğme kapsayıcısında uzatıldığında (flex-col, grid hücresi,
+   * `min-width`) sağ / sol iç boşluk eşit kalır. Sola yaslama yalnız `text-align="left"` ile.
+   */
   .ui-button.ui-control:not(.aspect-square) {
-    @apply items-center justify-start;
+    @apply items-center justify-center;
+  }
+
+  .ui-button.ui-control.ui-button--align-start:not(.aspect-square) {
+    @apply justify-start;
+  }
+
+  /**
+   * Metin kabında satır içi kutu (renk noktası, avatar, rozet, görsel) varsa taban çizgisi
+   * hizası içeriği yukarı iter; kap kendi içinde dikey ortalanır.
+   */
+  .ui-button-text:has(> :is(.inline-flex, .flex, .inline-block, .ui-icon, .ui-badge, .ui-avatar, img, svg)) {
+    @apply inline-flex items-center justify-center;
+  }
+
+  .ui-button-text.text-left:has(> :is(.inline-flex, .flex, .inline-block, .ui-icon, .ui-badge, .ui-avatar, img, svg)) {
+    @apply justify-start;
   }
 
   /** İkon üstte / etiket altta — satır yüksekliğine uzanan yuvarlak kutu */
@@ -187,11 +179,7 @@
 
   /** Form alanı dolgusu — input/select ile aynı (açık özellikler: TW @utility + attribute selector) */
   .ui-button.ui-control[data-variant='solid'][data-color='input'] {
-    @apply border border-transparent text-foreground shadow-none;
-    background-color: var(--input-background);
-    background-image: none;
-    -webkit-backdrop-filter: blur(var(--ui-input-backdrop-blur));
-    backdrop-filter: blur(var(--ui-input-backdrop-blur));
+    @apply border border-transparent text-foreground shadow-none [background-color:var(--input-background)] bg-none [-webkit-backdrop-filter:blur(var(--ui-input-backdrop-blur))] [backdrop-filter:blur(var(--ui-input-backdrop-blur))];
   }
 
   .ui-button.ui-control[data-variant='solid'][data-color='input'] .ui-icon {
@@ -199,9 +187,7 @@
   }
 
   .ui-button.ui-control[data-variant='solid'][data-color='input']:hover:not(:disabled) {
-    @apply opacity-100;
-    background-color: color-mix(in oklab, var(--input-background) 88%, var(--foreground) 8%);
-    background-image: none;
+    @apply opacity-100 [background-color:color-mix(in_oklab,_var(--input-background)_88%,_var(--foreground)_8%)] bg-none;
   }
 
   /**
@@ -213,65 +199,58 @@
     --ui-fill-base: var(--primary);
     --ui-fill-grad-top: var(--ui-fill-grad-top-primary);
     --ui-fill-grad-bottom: var(--ui-fill-grad-bottom-primary);
-    color: var(--primary-foreground);
+    @apply text-primary-foreground;
   }
 
   .ui-button.ui-control[data-variant='solid'][data-color='secondary'] {
-    @apply border border-transparent shadow-none;
-    background-color: var(--input-background);
-    background-image: none;
-    color: var(--foreground);
-    -webkit-backdrop-filter: blur(var(--ui-input-backdrop-blur));
-    backdrop-filter: blur(var(--ui-input-backdrop-blur));
+    @apply border border-transparent shadow-none [background-color:var(--input-background)] bg-none text-foreground [-webkit-backdrop-filter:blur(var(--ui-input-backdrop-blur))] [backdrop-filter:blur(var(--ui-input-backdrop-blur))];
   }
 
   .ui-button.ui-control[data-variant='solid'][data-color='secondary']:hover:not(:disabled) {
-    background-color: color-mix(in oklab, var(--input-background) 82%, var(--foreground) 10%);
-    background-image: none;
+    @apply [background-color:color-mix(in_oklab,_var(--input-background)_82%,_var(--foreground)_10%)] bg-none;
   }
 
   .ui-button.ui-control[data-variant='solid'][data-color='warning'] {
-    @apply border-0 shadow-none;
-    background-color: var(--warning);
-    background-image: none;
-    color: var(--warning-foreground);
+    @apply border-0 shadow-none bg-warning bg-none text-warning-foreground;
   }
 
   .ui-button.ui-control[data-variant='solid'][data-color='success'] {
-    @apply border-0 shadow-none;
-    background-color: var(--success);
-    background-image: none;
-    color: var(--success-foreground);
+    @apply border-0 shadow-none bg-success bg-none text-success-foreground;
   }
 
   .ui-button.ui-control[data-variant='solid'][data-color='info'] {
-    @apply border-0 shadow-none;
-    background-color: var(--info);
-    background-image: none;
-    color: var(--info-foreground);
+    @apply border-0 shadow-none bg-info bg-none text-info-foreground;
   }
 
   .ui-button.ui-control[data-variant='solid'][data-color='danger'] {
-    @apply border-0 shadow-none;
-    background-color: var(--danger);
-    background-image: none;
-    color: var(--danger-foreground);
+    @apply border-0 shadow-none bg-danger bg-none text-danger-foreground;
   }
 
   .ui-button.ui-control[data-variant='solid']:not([data-color='input']):not([data-color='secondary']):hover:not(:disabled) {
-    opacity: 0.9;
+    @apply opacity-90;
+  }
+
+  /** Muted — tonun %12'lik yumuşak dolgusu; seçili filtre chip'i gibi CTA ile yarışmayan vurgu */
+  .ui-button.ui-control[data-variant='muted'] {
+    @apply border-0 shadow-none bg-none;
+  }
+
+  .ui-button.ui-control[data-variant='muted'][data-color='primary'] {
+    @apply [background-color:color-mix(in_oklab,_var(--primary)_14%,_transparent)] text-primary;
+  }
+
+  .ui-button.ui-control[data-variant='muted'][data-color='primary']:hover:not(:disabled) {
+    @apply [background-color:color-mix(in_oklab,_var(--primary)_22%,_transparent)];
   }
 
   /** Ghost / outline — dinlenmede şeffaf; gradient yalnızca hover’da */
   .ui-button.ui-control[data-variant='ghost'],
   .ui-button.ui-control[data-variant='outline'] {
-    background-color: transparent;
-    background-image: none;
+    @apply bg-transparent bg-none;
   }
 
   .ui-button.ui-control[data-variant='ghost'][data-color='primary'] {
-    @apply border-0 shadow-none;
-    color: var(--foreground);
+    @apply border-0 shadow-none text-foreground;
   }
 
   .ui-button.ui-control[data-variant='ghost'][data-color='primary']:hover:not(:disabled) {
@@ -279,135 +258,99 @@
     --ui-fill-base: var(--primary);
     --ui-fill-grad-top: var(--ui-fill-grad-top-primary);
     --ui-fill-grad-bottom: var(--ui-fill-grad-bottom-primary);
-    color: var(--primary-foreground);
+    @apply text-primary-foreground;
   }
 
   .ui-button.ui-control[data-variant='ghost'][data-color='secondary'] {
-    @apply border-0 shadow-none;
-    color: var(--secondary-foreground);
+    @apply border-0 shadow-none text-secondary-foreground;
   }
 
   .ui-button.ui-control[data-variant='ghost'][data-color='secondary']:hover:not(:disabled) {
-    background-color: var(--muted);
-    background-image: none;
-    color: var(--foreground);
+    @apply bg-muted bg-none text-foreground;
   }
 
   .ui-button.ui-control[data-variant='ghost'][data-color='warning'] {
-    @apply border-0 shadow-none;
-    color: var(--warning);
+    @apply border-0 shadow-none text-warning;
   }
 
   .ui-button.ui-control[data-variant='ghost'][data-color='warning']:hover:not(:disabled) {
-    background-color: var(--warning);
-    background-image: none;
-    color: var(--warning-foreground);
+    @apply bg-warning bg-none text-warning-foreground;
   }
 
   .ui-button.ui-control[data-variant='ghost'][data-color='success'] {
-    @apply border-0 shadow-none;
-    color: var(--success);
+    @apply border-0 shadow-none text-success;
   }
 
   .ui-button.ui-control[data-variant='ghost'][data-color='success']:hover:not(:disabled) {
-    background-color: var(--success);
-    background-image: none;
-    color: var(--success-foreground);
+    @apply bg-success bg-none text-success-foreground;
   }
 
   .ui-button.ui-control[data-variant='ghost'][data-color='info'] {
-    @apply border-0 shadow-none;
-    color: var(--info);
+    @apply border-0 shadow-none text-info;
   }
 
   .ui-button.ui-control[data-variant='ghost'][data-color='info']:hover:not(:disabled) {
-    background-color: var(--info);
-    background-image: none;
-    color: var(--info-foreground);
+    @apply bg-info bg-none text-info-foreground;
   }
 
   .ui-button.ui-control[data-variant='ghost'][data-color='danger'] {
-    @apply border-0 shadow-none;
-    color: var(--danger);
+    @apply border-0 shadow-none text-danger;
   }
 
   .ui-button.ui-control[data-variant='ghost'][data-color='danger']:hover:not(:disabled) {
-    background-color: var(--danger);
-    background-image: none;
-    color: var(--danger-foreground);
+    @apply bg-danger bg-none text-danger-foreground;
   }
 
   .ui-button.ui-control[data-variant='outline'][data-color='primary'] {
-    @apply shadow-none;
-    border: 1px solid currentColor;
-    color: var(--primary);
+    @apply shadow-none border border-current text-primary;
   }
 
   .ui-button.ui-control[data-variant='outline'][data-color='primary']:hover:not(:disabled) {
-    background-color: color-mix(in oklab, var(--primary) 10%, transparent);
-    background-image: none;
+    @apply [background-color:color-mix(in_oklab,_var(--primary)_10%,_transparent)] bg-none;
   }
 
   .ui-button.ui-control[data-variant='outline'][data-color='secondary'] {
-    @apply shadow-none;
-    border: 1px solid var(--border);
-    color: var(--foreground);
+    @apply shadow-none border border-border text-foreground;
   }
 
   .ui-button.ui-control[data-variant='outline'][data-color='secondary']:hover:not(:disabled) {
-    background-color: var(--input-background);
-    background-image: none;
+    @apply [background-color:var(--input-background)] bg-none;
   }
 
   .ui-button.ui-control[data-variant='outline'][data-color='warning'] {
-    @apply shadow-none;
-    border: 1px solid currentColor;
-    color: var(--warning);
+    @apply shadow-none border border-current text-warning;
   }
 
   .ui-button.ui-control[data-variant='outline'][data-color='warning']:hover:not(:disabled) {
-    background-color: color-mix(in oklab, var(--warning) 10%, transparent);
-    background-image: none;
+    @apply [background-color:color-mix(in_oklab,_var(--warning)_10%,_transparent)] bg-none;
   }
 
   .ui-button.ui-control[data-variant='outline'][data-color='success'] {
-    @apply shadow-none;
-    border: 1px solid currentColor;
-    color: var(--success);
+    @apply shadow-none border border-current text-success;
   }
 
   .ui-button.ui-control[data-variant='outline'][data-color='success']:hover:not(:disabled) {
-    background-color: color-mix(in oklab, var(--success) 10%, transparent);
-    background-image: none;
+    @apply [background-color:color-mix(in_oklab,_var(--success)_10%,_transparent)] bg-none;
   }
 
   .ui-button.ui-control[data-variant='outline'][data-color='info'] {
-    @apply shadow-none;
-    border: 1px solid currentColor;
-    color: var(--info);
+    @apply shadow-none border border-current text-info;
   }
 
   .ui-button.ui-control[data-variant='outline'][data-color='info']:hover:not(:disabled) {
-    background-color: color-mix(in oklab, var(--info) 10%, transparent);
-    background-image: none;
+    @apply [background-color:color-mix(in_oklab,_var(--info)_10%,_transparent)] bg-none;
   }
 
   .ui-button.ui-control[data-variant='outline'][data-color='danger'] {
-    @apply shadow-none;
-    border: 1px solid currentColor;
-    color: var(--danger);
+    @apply shadow-none border border-current text-danger;
   }
 
   .ui-button.ui-control[data-variant='outline'][data-color='danger']:hover:not(:disabled) {
-    background-color: color-mix(in oklab, var(--danger) 10%, transparent);
-    background-image: none;
+    @apply [background-color:color-mix(in_oklab,_var(--danger)_10%,_transparent)] bg-none;
   }
 
   .ui-button.ui-control[data-variant='link'] {
-    background-color: transparent;
-    background-image: none;
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
+    @apply bg-transparent bg-none [-webkit-backdrop-filter:none] [backdrop-filter:none];
   }
 
   /** Kübik düğme içi — avatar / ikon kutuyu doldurur (`truncate` satırından kaçınmak için) */
@@ -425,7 +368,7 @@
 
   .ui-popover.ui-popover--inherit-layout,
   .ui-popover-trigger.ui-popover-trigger--inherit-layout {
-    display: contents;
+    @apply contents;
   }
 
   .ui-popover-trigger {
@@ -448,14 +391,12 @@
 
   /** Nav panel — şeffaf, tam genişlik satır düğmesi (sidebar / profil tetikleyici). */
   .ui-button[data-variant='nav'] {
-    @apply border-0 bg-transparent shadow-none;
-    background-image: none;
+    @apply border-0 bg-transparent shadow-none bg-none;
   }
 
   .ui-button[data-variant='nav']:hover:not(:disabled),
   .ui-button[data-variant='nav']:active:not(:disabled) {
-    @apply bg-transparent;
-    background-image: none;
+    @apply bg-transparent bg-none;
   }
 
   .ui-button[data-variant='nav']:focus-visible {
@@ -492,96 +433,78 @@
   }
 
   .ui-action-group--grow.ui-action-group--horizontal > * {
-    @apply flex-1 basis-auto;
-    min-width: max-content;
+    @apply flex-1 basis-auto min-w-max;
   }
 
   .ui-action-group--grow.ui-action-group--vertical > * {
-    @apply w-full flex-none basis-auto;
-    min-height: max-content;
+    @apply w-full flex-none basis-auto [min-height:max-content];
   }
 
   .ui-action-group--joined.ui-action-group--horizontal > *:not(:first-child) {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
+    @apply rounded-tl-none rounded-bl-none;
   }
 
   .ui-action-group--joined.ui-action-group--horizontal > *:not(:last-child) {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+    @apply rounded-tr-none rounded-br-none;
   }
 
   .ui-action-group--joined.ui-action-group--vertical > *:not(:first-child) {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+    @apply rounded-tl-none rounded-tr-none;
   }
 
   .ui-action-group--joined.ui-action-group--vertical > *:not(:last-child) {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+    @apply rounded-bl-none rounded-br-none;
   }
 
   /** Joined + Popover/Dropdown: köşe yuvarlaklığı tetikleyici düğmeye uygulanır */
   .ui-action-group--joined.ui-action-group--horizontal > .ui-popover:not(:first-child) > .ui-popover-trigger > .ui-button {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
+    @apply rounded-tl-none rounded-bl-none;
   }
 
   .ui-action-group--joined.ui-action-group--horizontal > .ui-popover:not(:last-child) > .ui-popover-trigger > .ui-button {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+    @apply rounded-tr-none rounded-br-none;
   }
 
   .ui-action-group--joined.ui-action-group--vertical > .ui-popover:not(:first-child) > .ui-popover-trigger > .ui-button {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+    @apply rounded-tl-none rounded-tr-none;
   }
 
   .ui-action-group--joined.ui-action-group--vertical > .ui-popover:not(:last-child) > .ui-popover-trigger > .ui-button {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+    @apply rounded-bl-none rounded-br-none;
   }
 
   /** Joined + Select: köşe yuvarlaklığı tetikleyici alana uygulanır */
   .ui-action-group--joined.ui-action-group--horizontal > .ui-select:not(:first-child) .ui-select-field {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
+    @apply rounded-tl-none rounded-bl-none;
   }
 
   .ui-action-group--joined.ui-action-group--horizontal > .ui-select:not(:last-child) .ui-select-field {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+    @apply rounded-tr-none rounded-br-none;
   }
 
   .ui-action-group--joined.ui-action-group--vertical > .ui-select:not(:first-child) .ui-select-field {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+    @apply rounded-tl-none rounded-tr-none;
   }
 
   .ui-action-group--joined.ui-action-group--vertical > .ui-select:not(:last-child) .ui-select-field {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+    @apply rounded-bl-none rounded-br-none;
   }
 
   /** Joined + Input: kök kabuk köşeleri (Select ile aynı desen) */
   .ui-action-group--joined.ui-action-group--horizontal > .ui-input:not(:first-child) {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
+    @apply rounded-tl-none rounded-bl-none;
   }
 
   .ui-action-group--joined.ui-action-group--horizontal > .ui-input:not(:last-child) {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+    @apply rounded-tr-none rounded-br-none;
   }
 
   .ui-action-group--joined.ui-action-group--vertical > .ui-input:not(:first-child) {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+    @apply rounded-tl-none rounded-tr-none;
   }
 
   .ui-action-group--joined.ui-action-group--vertical > .ui-input:not(:last-child) {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+    @apply rounded-bl-none rounded-br-none;
   }
 
   /** Joined + Input: odak halkası bitişik kenarda üstte kalsın */
@@ -591,11 +514,11 @@
   }
 
   .ui-action-group--joined.ui-action-group--horizontal > * + * {
-    margin-inline-start: -1px;
+    @apply [margin-inline-start:-1px];
   }
 
   .ui-action-group--joined.ui-action-group--vertical > * + * {
-    margin-top: -1px;
+    @apply -mt-px;
   }
 
   /** Joined + divided: çocuklar arasında inset ayırıcı çizgi */
@@ -604,33 +527,17 @@
   }
 
   .ui-action-group--joined.ui-action-group--divided.ui-action-group--vertical > *:not(:first-child)::before {
-    content: '';
-    pointer-events: none;
-    position: absolute;
-    inset-inline: 0.75rem;
-    top: 0;
-    z-index: 2;
-    height: 1px;
+    @apply [content:''] pointer-events-none absolute [inset-inline:0.75rem] top-0 z-[2] h-px;
     /* `--border` bazı temalarda `--input-background` ile aynı; ayırıcı görünür kalsın */
-    background-color: color-mix(in oklab, var(--foreground) 16%, transparent);
+    @apply [background-color:color-mix(in_oklab,_var(--foreground)_16%,_transparent)];
   }
 
   .ui-action-group--joined.ui-action-group--divided.ui-action-group--horizontal > *:not(:first-child)::before {
-    content: '';
-    pointer-events: none;
-    position: absolute;
-    inset-block: 0.5rem;
-    inset-inline-start: 0;
-    z-index: 2;
-    width: 1px;
-    background-color: color-mix(in oklab, var(--foreground) 16%, transparent);
+    @apply [content:''] pointer-events-none absolute [inset-block:0.5rem] [inset-inline-start:0] z-[2] w-px [background-color:color-mix(in_oklab,_var(--foreground)_16%,_transparent)];
   }
 
   .ui-control {
-    @apply box-border text-control-foreground inline-flex shrink-0 items-center justify-center gap-1.5 font-normal;
-    background-color: var(--control-bg);
-    -webkit-backdrop-filter: blur(var(--ui-control-backdrop-blur));
-    backdrop-filter: blur(var(--ui-control-backdrop-blur));
+    @apply box-border text-control-foreground inline-flex shrink-0 items-center justify-center gap-1.5 font-normal [background-color:var(--control-bg)] [-webkit-backdrop-filter:blur(var(--ui-control-backdrop-blur))] [backdrop-filter:blur(var(--ui-control-backdrop-blur))];
   }
 
   /**
@@ -641,10 +548,7 @@
   .ui-button.ui-control[data-variant='outline'],
   .ui-button.ui-control[data-variant='link'],
   .ui-button.ui-control[data-variant='nav'] {
-    background-color: transparent;
-    background-image: none;
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
+    @apply bg-transparent bg-none [-webkit-backdrop-filter:none] [backdrop-filter:none];
   }
 
   /** FA webfont gliflerini buton içinde optik olarak ortala */
@@ -653,66 +557,43 @@
   }
 
   .ui-button[data-variant='solid'] {
-    border-width: 0;
-    border-color: transparent;
+    @apply border-0 border-transparent;
   }
 
   .ui-control-h-sm {
-    @apply box-border rounded-md px-2.5 py-0 text-xs leading-4;
-    height: var(--ui-control-h-sm);
-    min-height: var(--ui-control-h-sm);
+    @apply box-border rounded-md px-2.5 py-0 text-xs leading-4 h-[var(--ui-control-h-sm)] min-h-[var(--ui-control-h-sm)];
   }
 
   .ui-control-h-md {
-    @apply box-border rounded-lg px-3 py-0 text-sm leading-5;
-    height: var(--ui-control-h-md);
-    min-height: var(--ui-control-h-md);
+    @apply box-border rounded-lg px-3 py-0 text-sm leading-5 h-[var(--ui-control-h-md)] min-h-[var(--ui-control-h-md)];
   }
 
   .ui-control-h-lg {
-    @apply box-border rounded-lg px-4 py-0 text-base leading-6;
-    height: var(--ui-control-h-lg);
-    min-height: var(--ui-control-h-lg);
+    @apply box-border rounded-lg px-4 py-0 text-base leading-6 h-[var(--ui-control-h-lg)] min-h-[var(--ui-control-h-lg)];
   }
 
   /** `ui-button cubed` — TW utility purge’a bağlı kalmadan kare + daire */
   .ui-control-cubed-sm,
   .ui-control-cubed-md,
   .ui-control-cubed-lg {
-    box-sizing: border-box;
-    aspect-ratio: 1 / 1;
-    flex-shrink: 0;
-    padding: 0;
-    min-height: 0;
-    border-radius: 9999px;
+    @apply box-border [aspect-ratio:1_/_1] shrink-0 p-0 min-h-0 rounded-full;
   }
 
   .ui-control-cubed-sm {
-    width: var(--ui-control-h-sm);
-    height: var(--ui-control-h-sm);
-    font-size: var(--text-xs);
-    line-height: var(--text-xs--line-height);
+    @apply w-[var(--ui-control-h-sm)] h-[var(--ui-control-h-sm)] [font-size:var(--text-xs)] [line-height:var(--text-xs--line-height)];
   }
 
   .ui-control-cubed-md {
-    width: var(--ui-control-h-md);
-    height: var(--ui-control-h-md);
-    font-size: var(--text-sm);
-    line-height: var(--text-sm--line-height);
+    @apply w-[var(--ui-control-h-md)] h-[var(--ui-control-h-md)] [font-size:var(--text-sm)] [line-height:var(--text-sm--line-height)];
   }
 
   .ui-control-cubed-lg {
-    width: var(--ui-control-h-lg);
-    height: var(--ui-control-h-lg);
-    font-size: var(--text-base);
-    line-height: var(--text-base--line-height);
+    @apply w-[var(--ui-control-h-lg)] h-[var(--ui-control-h-lg)] [font-size:var(--text-base)] [line-height:var(--text-base--line-height)];
   }
 
   /** Tek satır input / textarea kabuğu — referans: `--ui-control-h-md`, `rounded-lg` (`--radius`), 14/20 metin */
   .ui-input {
-    @apply ui-field-control-fill box-border flex w-full min-w-0 cursor-text items-center gap-2 rounded-lg px-3 py-1 transition-colors transition-shadow duration-200 ease-out;
-    height: var(--ui-control-h-md);
-    min-height: var(--ui-control-h-md);
+    @apply ui-field-control-fill box-border flex w-full min-w-0 cursor-text items-center gap-2 rounded-lg px-3 py-1 transition-colors transition-shadow duration-200 ease-out h-[var(--ui-control-h-md)] min-h-[var(--ui-control-h-md)];
   }
 
   .ui-input:focus-within {
@@ -720,16 +601,12 @@
   }
 
   .ui-input--multiline {
-    @apply h-auto items-start rounded-lg py-2;
-    min-height: var(--ui-control-h-md);
+    @apply h-auto items-start rounded-lg py-2 min-h-[var(--ui-control-h-md)];
   }
 
   /** Inline / composer: dolgu ve odak halkası yok */
   .ui-input--plain {
-    @apply h-auto min-h-0 gap-0 rounded-none border-0 bg-transparent px-0 py-0 shadow-none;
-    background-color: transparent;
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
+    @apply h-auto min-h-0 gap-0 rounded-none border-0 bg-transparent px-0 py-0 shadow-none bg-transparent [-webkit-backdrop-filter:none] [backdrop-filter:none];
   }
 
   .ui-input--plain:focus-within {
@@ -746,19 +623,15 @@
 
   /** Salt okunur fiyat satırı — input kabuğu ile aynı dolgu / köşe (`rounded-lg`) */
   .ui-price-display {
-    @apply ui-field-control-fill box-border flex w-full min-w-0 items-center justify-between gap-3 rounded-lg px-3;
-    height: var(--ui-control-h-md);
-    min-height: var(--ui-control-h-md);
+    @apply ui-field-control-fill box-border flex w-full min-w-0 items-center justify-between gap-3 rounded-lg px-3 h-[var(--ui-control-h-md)] min-h-[var(--ui-control-h-md)];
   }
 
   .ui-price-display--sm {
-    height: var(--ui-control-h-sm);
-    min-height: var(--ui-control-h-sm);
+    @apply h-[var(--ui-control-h-sm)] min-h-[var(--ui-control-h-sm)];
   }
 
   .ui-price-display--lg {
-    height: var(--ui-control-h-lg);
-    min-height: var(--ui-control-h-lg);
+    @apply h-[var(--ui-control-h-lg)] min-h-[var(--ui-control-h-lg)];
   }
 
   .ui-price-display__label {
@@ -787,18 +660,7 @@
 
   /** Gösterim fiyatları — giriş alanları (`ui-price-input`) hariç monospace */
   .ui-price-text {
-    @apply shrink-0 font-medium tabular-nums;
-    font-family: var(
-      --font-mono,
-      ui-monospace,
-      SFMono-Regular,
-      Menlo,
-      Monaco,
-      Consolas,
-      'Liberation Mono',
-      'Courier New',
-      monospace
-    );
+    @apply shrink-0 font-medium tabular-nums [font-family:var(_--font-mono,_ui-monospace,_SFMono-Regular,_Menlo,_Monaco,_Consolas,_'Liberation_Mono',_'Courier_New',_monospace_)];
   }
 
   .ui-price-text--sm {
@@ -929,8 +791,7 @@
   }
 
   .ui-pin-cell {
-    @apply ui-field-control-fill box-border h-11 w-11 shrink-0 rounded-lg text-center text-base font-medium tracking-[0.15em] outline-none transition-colors transition-shadow duration-200 ease-out sm:h-12 sm:w-12 sm:text-lg sm:tracking-[0.2em];
-    border-color: color-mix(in oklab, var(--foreground) 14%, transparent);
+    @apply ui-field-control-fill box-border h-11 w-11 shrink-0 rounded-lg text-center text-base font-medium tracking-[0.15em] outline-none transition-colors transition-shadow duration-200 ease-out sm:h-12 sm:w-12 sm:text-lg sm:tracking-[0.2em] [border-color:color-mix(in_oklab,_var(--foreground)_14%,_transparent)];
   }
 
   .ui-pin-cell:focus-visible {
@@ -942,8 +803,7 @@
   }
 
   .ui-pin[data-mask='true'] .ui-pin-cell {
-    @apply tracking-normal;
-    -webkit-text-security: disc;
+    @apply tracking-normal [-webkit-text-security:disc];
   }
 
   /** Progress — ince çubuk (şifre, slider) ve daire (kullanım / kota) */
@@ -976,7 +836,7 @@
   }
 
   .ui-progress--weak .ui-progress-circle-indicator {
-    stroke: var(--danger);
+    @apply [stroke:var(--danger)];
   }
 
   .ui-progress--fair .ui-progress-bar-indicator {
@@ -984,15 +844,15 @@
   }
 
   .ui-progress--fair .ui-progress-circle-indicator {
-    stroke: var(--warning);
+    @apply [stroke:var(--warning)];
   }
 
   .ui-progress--good .ui-progress-bar-indicator {
-    background-color: color-mix(in oklab, var(--success) 85%, var(--warning));
+    @apply [background-color:color-mix(in_oklab,_var(--success)_85%,_var(--warning))];
   }
 
   .ui-progress--good .ui-progress-circle-indicator {
-    stroke: color-mix(in oklab, var(--success) 85%, var(--warning));
+    @apply [stroke:color-mix(in_oklab,_var(--success)_85%,_var(--warning))];
   }
 
   .ui-progress--strong .ui-progress-bar-indicator {
@@ -1000,7 +860,7 @@
   }
 
   .ui-progress--strong .ui-progress-circle-indicator {
-    stroke: var(--success);
+    @apply [stroke:var(--success)];
   }
 
   .ui-progress--circle {
@@ -1012,15 +872,11 @@
   }
 
   .ui-progress-circle-track {
-    fill: none;
-    stroke: var(--muted);
+    @apply fill-none [stroke:var(--muted)];
   }
 
   .ui-progress-circle-indicator {
-    fill: none;
-    stroke: var(--foreground);
-    stroke-linecap: butt;
-    transition: stroke-dashoffset 200ms ease-out;
+    @apply fill-none [stroke:var(--foreground)] [stroke-linecap:butt] [transition:stroke-dashoffset_200ms_ease-out];
   }
 
   .ui-progress--indeterminate .ui-progress-bar-indicator {
@@ -1028,8 +884,7 @@
   }
 
   .ui-progress--indeterminate .ui-progress-circle-indicator {
-    stroke-dasharray: 4 200;
-    animation: ui-progress-spin 1s linear infinite;
+    @apply [stroke-dasharray:4_200] [animation:ui-progress-spin_1s_linear_infinite];
   }
 
   @keyframes ui-progress-spin {
@@ -1075,28 +930,23 @@
 
   /** Badge semantik dolgular — TW taraması kaçsa da token’lar çalışsın */
   .ui-badge.bg-success {
-    background-color: var(--success);
-    color: var(--success-foreground);
+    @apply bg-success text-success-foreground;
   }
 
   .ui-badge.bg-warning {
-    background-color: var(--warning);
-    color: var(--warning-foreground);
+    @apply bg-warning text-warning-foreground;
   }
 
   .ui-badge.bg-danger {
-    background-color: var(--danger);
-    color: var(--danger-foreground);
+    @apply bg-danger text-danger-foreground;
   }
 
   .ui-badge.bg-muted {
-    background-color: var(--muted);
-    color: var(--muted-foreground);
+    @apply bg-muted text-muted-foreground;
   }
 
   .ui-badge.bg-info {
-    background-color: var(--info);
-    color: var(--info-foreground);
+    @apply bg-info text-info-foreground;
   }
 
   /** Tag — boyut / dolgu Badge ile (`Tag.vue` + `ui-badge--*`); kapat düğmesi */
@@ -1111,47 +961,49 @@
 
   /** Tooltip — minimal yüzey (gölgésiz; diğer yüzeylerden daha sade) */
   .ui-tooltip-panel {
-    z-index: 300;
-    @apply max-w-xs rounded-md border border-border bg-muted px-2 py-1 text-left text-xs font-normal leading-snug text-foreground;
+    @apply z-[300] max-w-xs rounded-md border border-border bg-muted px-2 py-1 text-left text-xs font-normal leading-snug text-foreground;
   }
 
   /** Konum dışarıda `transform` ile — hareket iç span’da (çakışma yok) */
   .ui-tooltip-motion {
-    transform-origin: center center;
+    @apply [transform-origin:center_center];
   }
 
   .ui-tooltip-fade-enter-active .ui-tooltip-motion,
   .ui-tooltip-fade-leave-active .ui-tooltip-motion {
-    transition:
-      opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1),
-      transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    @apply [transition:opacity_0.2s_cubic-bezier(0.16,_1,_0.3,_1),_transform_0.2s_cubic-bezier(0.16,_1,_0.3,_1)];
   }
 
   .ui-tooltip-fade-enter-from .ui-tooltip-motion,
   .ui-tooltip-fade-leave-to .ui-tooltip-motion {
-    opacity: 0;
-    transform: translateY(0.125rem) scale(0.97);
+    @apply opacity-0 [transform:translateY(0.125rem)_scale(0.97)];
   }
 
-  /** Popover — blur’lu yüzeyde transform her kareyi yeniden blur’latır (takılma).
-   * Tüm platformlarda yalnızca opacity; hizalı / mobil ortalı aynı. */
-  .ui-overlay-popover-enter-active {
-    transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: opacity;
-    transform: none;
+  /**
+   * Popover — hareket katmanda değil, blur’lu panelin (`.ui-surface`) kendisinde.
+   * Atada `opacity < 1` / `will-change: opacity` `backdrop-filter` için backdrop root olur:
+   * geçiş boyunca blur sayfayı görmez, bitince bir anda belirir. Katman yalnız konum taşır.
+   * Ölçek tetikleyiciye bakan noktadan büyür (`--ui-popover-origin`, Popover.vue hesaplar).
+   * Süreler Popover.vue `:duration` ile aynı tutulur.
+   */
+  .ui-overlay-popover-enter-active .ui-popover-panel {
+    @apply [transition:opacity_0.18s_cubic-bezier(0.16,_1,_0.3,_1),_transform_0.24s_cubic-bezier(0.16,_1,_0.3,_1)] [will-change:opacity,_transform] [transform-origin:var(--ui-popover-origin,_top_center)];
+  }
+
+  .ui-overlay-popover-leave-active .ui-popover-panel {
+    @apply [transition:opacity_0.14s_cubic-bezier(0.4,_0,_1,_1),_transform_0.16s_cubic-bezier(0.4,_0,_1,_1)] [will-change:opacity,_transform] [transform-origin:var(--ui-popover-origin,_top_center)];
   }
 
   .ui-overlay-popover-leave-active {
-    transition: opacity 0.16s cubic-bezier(0.4, 0, 1, 1);
-    will-change: opacity;
-    transform: none;
-    pointer-events: none;
+    @apply pointer-events-none;
   }
 
-  .ui-overlay-popover-enter-from,
-  .ui-overlay-popover-leave-to {
-    opacity: 0;
-    transform: none;
+  .ui-overlay-popover-enter-from .ui-popover-panel {
+    @apply opacity-0 [transform:scale3d(0.95,_0.95,_1)];
+  }
+
+  .ui-overlay-popover-leave-to .ui-popover-panel {
+    @apply opacity-0 [transform:scale3d(0.97,_0.97,_1)];
   }
 
   .ui-popover-motion {
@@ -1159,94 +1011,68 @@
   }
 
   /**
-   * Select hizası — katmanda transform yok (ölçüm + nudge ilk karede doğru).
+   * Select hizası — panelde transform yok (nudge `getBoundingClientRect` ile ölçer).
    * Kısa opacity (konum sıçraması görünmez).
    */
-  .ui-overlay-popover-enter-active[data-popover-align-active],
-  .ui-overlay-popover-leave-active[data-popover-align-active] {
-    transition: opacity 0.12s ease-out;
-    transform: none;
+  .ui-overlay-popover-enter-active[data-popover-align-active] .ui-popover-panel,
+  .ui-overlay-popover-leave-active[data-popover-align-active] .ui-popover-panel {
+    @apply [transition:opacity_0.12s_ease-out];
   }
 
-  .ui-overlay-popover-enter-from[data-popover-align-active],
-  .ui-overlay-popover-leave-to[data-popover-align-active] {
-    opacity: 0;
-    transform: none;
+  .ui-overlay-popover-enter-from[data-popover-align-active] .ui-popover-panel,
+  .ui-overlay-popover-leave-to[data-popover-align-active] .ui-popover-panel {
+    @apply opacity-0 transform-none;
   }
 
   @media (max-width: 1023px) {
-    .ui-overlay-popover-enter-active[data-ui-popover-mobile-centered],
-    .ui-overlay-popover-leave-active[data-ui-popover-mobile-centered] {
-      transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-      transform: none;
-    }
-
-    .ui-overlay-popover-enter-from[data-ui-popover-mobile-centered],
-    .ui-overlay-popover-leave-to[data-ui-popover-mobile-centered] {
-      opacity: 0;
-      transform: none;
-    }
-
     .ui-popover-panel {
-      max-width: min(100vw - 1.25rem, 24rem);
+      @apply [max-width:min(100vw_-_1.25rem,_24rem)];
     }
   }
 
   .ui-overlay-popover-backdrop-enter-active {
-    transition: opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: opacity;
+    @apply [transition:opacity_0.22s_cubic-bezier(0.16,_1,_0.3,_1)] [will-change:opacity];
   }
 
   .ui-overlay-popover-backdrop-leave-active {
-    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    will-change: opacity;
-    pointer-events: none;
+    @apply [transition:opacity_0.2s_cubic-bezier(0.4,_0,_0.2,_1)] [will-change:opacity] pointer-events-none;
   }
 
   .ui-overlay-popover-backdrop-enter-from,
   .ui-overlay-popover-backdrop-leave-to {
-    opacity: 0;
+    @apply opacity-0;
   }
 
   .ui-popover-backdrop {
-    z-index: 409;
-    pointer-events: auto;
-    touch-action: none;
+    @apply z-[409] pointer-events-auto touch-none;
   }
 
   /**
-   * Overlay kök katmanları (Tailwind arbitrary z purge edilebilir — z-index burada sabit).
+   * Overlay kök katmanları (`z-[400]` ve devamı; `overlay-stack.js` ile aynı değerler).
    * Sıra: modal 400, onay 420, popover 450, photo 460, toast 500 — unlayered overrides’ta tekrarlanır.
    */
   .ui-dialog-root {
-    position: fixed;
-    inset: 0;
-    z-index: 400;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem;
+    @apply fixed inset-0 z-[400] items-center justify-center p-4;
   }
 
   .ui-dialog-root.ui-dialog-root--confirm {
-    z-index: 420;
+    @apply z-[420];
   }
 
   .ui-sheet-root {
-    position: fixed;
-    inset: 0;
-    z-index: 400;
+    @apply fixed inset-0 z-[400];
   }
 
   .ui-sheet-root--no-overlay {
-    pointer-events: none;
+    @apply pointer-events-none;
   }
 
   .ui-sheet-root--no-overlay .ui-sheet-panel {
-    pointer-events: auto;
+    @apply pointer-events-auto;
   }
 
   .ui-popover-layer {
-    z-index: 450;
+    @apply z-[450];
   }
 
   /**
@@ -1256,86 +1082,73 @@
    * cam yüzeyi opacity ile fade edilir, blur sabit kalır.
    */
   .ui-dialog-root--motion {
-    pointer-events: none;
+    @apply pointer-events-none;
   }
 
   .ui-dialog-root--motion .ui-dialog-backdrop {
-    will-change: opacity;
+    @apply [will-change:opacity];
   }
 
   .ui-dialog-root--motion .ui-dialog-panel {
-    will-change: transform, opacity;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
+    @apply [will-change:transform,_opacity] [backface-visibility:hidden] [-webkit-backface-visibility:hidden];
   }
 
   .ui-overlay-dialog-enter-active .ui-dialog-backdrop {
-    transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: opacity;
+    @apply [transition:opacity_0.2s_cubic-bezier(0.16,_1,_0.3,_1)] [will-change:opacity];
   }
 
   .ui-overlay-dialog-leave-active .ui-dialog-backdrop {
-    transition: opacity 0.16s cubic-bezier(0.4, 0, 1, 1);
-    will-change: opacity;
+    @apply [transition:opacity_0.16s_cubic-bezier(0.4,_0,_1,_1)] [will-change:opacity];
   }
 
   .ui-overlay-dialog-enter-from .ui-dialog-backdrop,
   .ui-overlay-dialog-leave-to .ui-dialog-backdrop {
-    opacity: 0;
+    @apply opacity-0;
   }
 
   .ui-overlay-dialog-enter-active .ui-dialog-panel {
-    transition:
-      opacity 0.26s cubic-bezier(0.16, 1, 0.3, 1),
-      transform 0.26s cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: opacity, transform;
+    @apply [transition:opacity_0.26s_cubic-bezier(0.16,_1,_0.3,_1),_transform_0.26s_cubic-bezier(0.16,_1,_0.3,_1)] [will-change:opacity,_transform];
   }
 
   .ui-overlay-dialog-leave-active .ui-dialog-panel {
-    transition:
-      opacity 0.18s cubic-bezier(0.4, 0, 1, 1),
-      transform 0.18s cubic-bezier(0.4, 0, 1, 1);
-    will-change: opacity, transform;
+    @apply [transition:opacity_0.18s_cubic-bezier(0.4,_0,_1,_1),_transform_0.18s_cubic-bezier(0.4,_0,_1,_1)] [will-change:opacity,_transform];
   }
 
   .ui-overlay-dialog-enter-active .ui-dialog-motion {
-    transition: none;
+    @apply transition-none;
   }
 
   .ui-overlay-dialog-leave-active .ui-dialog-motion {
-    transition: none;
+    @apply transition-none;
   }
 
   .ui-overlay-dialog-enter-from .ui-dialog-panel {
-    opacity: 0;
-    transform: translate3d(0, 8px, 0) scale3d(0.97, 0.97, 1);
+    @apply opacity-0 [transform:translate3d(0,_8px,_0)_scale3d(0.97,_0.97,_1)];
   }
 
   .ui-overlay-dialog-leave-to .ui-dialog-panel {
-    opacity: 0;
-    transform: translate3d(0, 6px, 0) scale3d(0.98, 0.98, 1);
+    @apply opacity-0 [transform:translate3d(0,_6px,_0)_scale3d(0.98,_0.98,_1)];
   }
 
   .ui-overlay-dialog-enter-from .ui-dialog-motion {
-    transform: none;
+    @apply transform-none;
   }
 
   .ui-overlay-dialog-leave-to .ui-dialog-motion {
-    transform: none;
+    @apply transform-none;
   }
 
   .ui-dialog-motion {
-    @apply flex min-h-0 min-w-0 flex-1 flex-col;
-    transform-origin: center center;
+    @apply flex min-h-0 min-w-0 flex-1 flex-col [transform-origin:center_center];
   }
 
   .ui-overlay-dialog-leave-active.ui-dialog-root {
-    pointer-events: none;
+    @apply pointer-events-none;
   }
 
   .ui-overlay-dialog-leave-active.ui-dialog-root .ui-dialog-panel,
   .ui-overlay-dialog-enter-active.ui-dialog-root .ui-dialog-panel {
-    transition-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
+    @apply [transition-timing-function:cubic-bezier(0.32,_0.72,_0,_1)];
   }
 
   /**
@@ -1343,81 +1156,67 @@
    */
   .ui-overlay-sheet-right-enter-active .ui-sheet-backdrop,
   .ui-overlay-sheet-left-enter-active .ui-sheet-backdrop {
-    transition: opacity 0.28s cubic-bezier(0.22, 1, 0.36, 1);
-    will-change: opacity;
+    @apply [transition:opacity_0.28s_cubic-bezier(0.22,_1,_0.36,_1)] [will-change:opacity];
   }
 
   .ui-overlay-sheet-right-leave-active .ui-sheet-backdrop,
   .ui-overlay-sheet-left-leave-active .ui-sheet-backdrop {
-    transition: opacity 0.32s cubic-bezier(0.4, 0, 0.2, 1);
-    will-change: opacity;
+    @apply [transition:opacity_0.32s_cubic-bezier(0.4,_0,_0.2,_1)] [will-change:opacity];
   }
 
   .ui-overlay-sheet-right-enter-from .ui-sheet-backdrop,
   .ui-overlay-sheet-right-leave-to .ui-sheet-backdrop,
   .ui-overlay-sheet-left-enter-from .ui-sheet-backdrop,
   .ui-overlay-sheet-left-leave-to .ui-sheet-backdrop {
-    opacity: 0;
+    @apply opacity-0;
   }
 
   .ui-overlay-sheet-right-enter-active .ui-sheet-panel,
   .ui-overlay-sheet-left-enter-active .ui-sheet-panel {
-    transition: transform 0.36s cubic-bezier(0.22, 1, 0.36, 1);
-    will-change: transform;
+    @apply [transition:transform_0.36s_cubic-bezier(0.22,_1,_0.36,_1)] [will-change:transform];
   }
 
   .ui-overlay-sheet-right-leave-active .ui-sheet-panel,
   .ui-overlay-sheet-left-leave-active .ui-sheet-panel {
-    transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
-    will-change: transform;
+    @apply [transition:transform_0.32s_cubic-bezier(0.4,_0,_0.2,_1)] [will-change:transform];
   }
 
   .ui-overlay-sheet-right-enter-from .ui-sheet-panel,
   .ui-overlay-sheet-right-leave-to .ui-sheet-panel {
-    transform: translateX(100%);
+    @apply [transform:translateX(100%)];
   }
 
   .ui-overlay-sheet-left-enter-from .ui-sheet-panel,
   .ui-overlay-sheet-left-leave-to .ui-sheet-panel {
-    transform: translateX(-100%);
+    @apply [transform:translateX(-100%)];
   }
 
   .ui-overlay-sheet-right-leave-active.ui-sheet-root,
   .ui-overlay-sheet-left-leave-active.ui-sheet-root {
-    pointer-events: none;
+    @apply pointer-events-none;
   }
 
   /** Dialog — mobil alt sayfa tutamacı (masaüstünde gizli) */
   .ui-dialog-sheet-grab {
-    display: none;
-    touch-action: none;
-    cursor: grab;
-    align-items: center;
-    justify-content: center;
-    padding-top: 0.625rem;
-    padding-bottom: 0.375rem;
+    @apply hidden touch-none cursor-grab items-center justify-center pt-2.5 pb-1.5;
   }
 
   .ui-dialog-sheet-grab:active {
-    cursor: grabbing;
+    @apply cursor-grabbing;
   }
 
   .ui-dialog-sheet-handle {
-    height: 0.3125rem;
-    width: 2.25rem;
-    border-radius: 9999px;
-    background-color: color-mix(in oklab, var(--muted-foreground) 45%, transparent);
+    @apply [height:0.3125rem] w-9 rounded-full [background-color:color-mix(in_oklab,_var(--muted-foreground)_45%,_transparent)];
   }
 
   /** Mobil sheet — tutamacı görsel olarak ince çubukta; sürükleme alanı header ile genişletilir */
   @media (max-width: 1023px) {
     .ui-dialog-panel .ui-card-header.ui-dialog-sheet-drag {
-      touch-action: none;
-      cursor: grab;
+      @apply touch-none cursor-grab;
     }
 
     .ui-dialog-panel .ui-card-header.ui-dialog-sheet-drag:active {
-      cursor: grabbing;
+      @apply cursor-grabbing;
     }
   }
 
@@ -1426,41 +1225,28 @@
     .ui-overlay-dialog-leave-active .ui-dialog-backdrop,
     .ui-overlay-dialog-enter-active .ui-dialog-panel,
     .ui-overlay-dialog-leave-active .ui-dialog-panel,
-    .ui-overlay-popover-enter-active,
-    .ui-overlay-popover-leave-active,
+    .ui-overlay-popover-enter-active .ui-popover-panel,
+    .ui-overlay-popover-leave-active .ui-popover-panel,
     .ui-overlay-popover-backdrop-enter-active,
     .ui-overlay-popover-backdrop-leave-active {
-      transition-duration: 0.01ms;
-      will-change: auto;
+      @apply [transition-duration:0.01ms] [will-change:auto];
     }
 
     .ui-overlay-dialog-enter-from .ui-dialog-motion,
     .ui-overlay-dialog-leave-to .ui-dialog-motion,
-    .ui-overlay-popover-enter-from .ui-popover-motion,
-    .ui-overlay-popover-leave-to .ui-popover-motion {
-      transform: none;
-    }
-
-    .ui-overlay-popover-enter-from,
-    .ui-overlay-popover-leave-to {
-      transform: none;
+    .ui-overlay-popover-enter-from .ui-popover-panel,
+    .ui-overlay-popover-leave-to .ui-popover-panel {
+      @apply transform-none;
     }
   }
 
   /** File — Finder tarzı ikon plakası (hafif iç parlama + derinlik) */
   .ui-file-icon-shell {
-    @apply border border-border bg-muted shadow-md;
-    box-shadow:
-      inset 0 1px 0 0 rgb(255 255 255 / 0.12),
-      0 1px 2px rgb(0 0 0 / 0.06),
-      0 6px 16px rgb(0 0 0 / 0.07);
+    @apply border border-border bg-muted shadow-md [box-shadow:inset_0_1px_0_0_rgb(255_255_255_/_0.12),_0_1px_2px_rgb(0_0_0_/_0.06),_0_6px_16px_rgb(0_0_0_/_0.07)];
   }
 
   .dark .ui-file-icon-shell:not([data-ui-mode='light'] *) {
-    box-shadow:
-      inset 0 1px 0 0 rgb(255 255 255 / 0.06),
-      0 2px 6px rgb(0 0 0 / 0.45),
-      0 12px 28px rgb(0 0 0 / 0.35);
+    @apply [box-shadow:inset_0_1px_0_0_rgb(255_255_255_/_0.06),_0_2px_6px_rgb(0_0_0_/_0.45),_0_12px_28px_rgb(0_0_0_/_0.35)];
   }
 
   /** Klasör satırı — gökyüzü tonu (macOS klasör ipucu) */
@@ -1472,11 +1258,7 @@
    * Ortak yüzey — `bg-surface` + `shadow-lg` + `rounded-3xl` (Card, Popover, Dialog).
    */
   .ui-surface {
-    @apply box-border rounded-3xl border border-border text-surface-foreground subpixel-antialiased;
-    background-color: var(--surface-bg);
-    -webkit-backdrop-filter: blur(var(--ui-surface-backdrop-blur));
-    backdrop-filter: blur(var(--ui-surface-backdrop-blur));
-    box-shadow: var(--ui-shadow-surface);
+    @apply box-border rounded-3xl border border-border text-surface-foreground subpixel-antialiased [background-color:var(--surface-bg)] [-webkit-backdrop-filter:blur(var(--ui-surface-backdrop-blur))] [backdrop-filter:blur(var(--ui-surface-backdrop-blur))] [box-shadow:var(--ui-shadow-surface)];
   }
 
   /**
@@ -1487,9 +1269,7 @@
   .ui-card {
     --ui-card-padding: var(--ui-card-space, 1.5rem);
     --ui-card-gap: var(--ui-card-padding);
-    @apply isolate flex min-w-0 flex-col;
-    padding: var(--ui-card-padding);
-    gap: var(--ui-card-gap);
+    @apply isolate flex min-w-0 flex-col p-[var(--ui-card-padding)] gap-[var(--ui-card-gap)];
   }
 
   /**
@@ -1500,26 +1280,27 @@
   .ui-card--no-padding {
     --ui-card-padding: 0;
     --ui-card-gap: 0;
-    padding: 0;
-    gap: 0;
-    overflow: hidden;
+    @apply p-0 gap-0 overflow-hidden;
   }
 
   /** DataTable kabuğu — sıfır kök padding; toolbar/footer standart inset. */
   .ui-card--data-table {
     --ui-card-padding: 0;
     --ui-card-gap: 0;
-    padding: 0;
-    gap: 0;
+    @apply p-0 gap-0;
     /* Yatay scrollbar / satır zemini rounded-3xl köşelerinden taşmasın. */
-    overflow: hidden;
+    @apply overflow-hidden;
   }
 
+  /**
+   * Masaüstünde gövde yatay 0.5rem iç boşluk alır: hücre px-3 ile birlikte içerik kart
+   * kenarından 1.25rem içeride — rounded-3xl köşeye yapışmaz. Mobilde dar ekran için 0.
+   */
   .ui-card--data-table > .ui-card-body {
-    @apply min-w-0 text-foreground;
+    @apply min-w-0 text-foreground lg:px-2;
     /* `.ui-card-body` flex-1 shorthand’dan sonra gelmeli; aksi halde basis:0% + grow-0
        gövdeyi çökertebilir / flex zincirinde tablo satırları şişebilir (Chrome). */
-    flex: 0 1 auto;
+    @apply flex-initial;
   }
 
   /**
@@ -1527,12 +1308,12 @@
    * toolbar py ritminin yarısı (0.5rem); pb-3 fazla kaçıyordu.
    */
   .ui-card--data-table:not(:has(> .ui-card-footer)) > .ui-card-body {
-    padding-bottom: 0.5rem;
+    @apply pb-2;
   }
 
   .ui-card--data-table > .ui-card-toolbar {
-    /* Tablo hücresi `px-3` ile aynı — filtre / arama sol kenarı sütun başlıklarıyla hizalı */
-    @apply px-3 py-3;
+    /* Gövde (lg:px-2) + hücre `px-3` ile aynı — filtre / arama sol kenarı sütun başlıklarıyla hizalı */
+    @apply px-3 py-3 lg:px-5;
   }
 
   .ui-card--data-table > .ui-card-toolbar > * {
@@ -1540,7 +1321,7 @@
   }
 
   .ui-card--data-table > .ui-card-footer {
-    @apply w-full px-3 pb-4 pt-3;
+    @apply w-full px-3 pb-4 pt-3 lg:px-5;
   }
 
   .ui-card--data-table > .ui-card-footer > .ui-table-pagination {
@@ -1556,15 +1337,11 @@
   }
 
   .ui-card--interactive:hover {
-    transform: translateY(-0.5rem);
-    border-color: color-mix(in oklab, var(--primary) 45%, transparent);
-    box-shadow: 0 16px 40px color-mix(in oklab, var(--primary) 25%, transparent);
+    @apply -translate-y-2 [border-color:color-mix(in_oklab,_var(--primary)_45%,_transparent)] [box-shadow:0_16px_40px_color-mix(in_oklab,_var(--primary)_25%,_transparent)];
   }
 
   .ui-card--emphasized {
-    border-color: color-mix(in oklab, var(--primary) 55%, transparent);
-    background-color: color-mix(in oklab, var(--primary) 12%, var(--surface-bg));
-    box-shadow: 0 12px 32px color-mix(in oklab, var(--primary) 30%, transparent);
+    @apply [border-color:color-mix(in_oklab,_var(--primary)_55%,_transparent)] [background-color:color-mix(in_oklab,_var(--primary)_12%,_var(--surface-bg))] [box-shadow:0_12px_32px_color-mix(in_oklab,_var(--primary)_30%,_transparent)];
   }
 
   /** Yatay kart şeridinde / grid satırında kardeşlerle aynı yükseklik. */
@@ -1578,6 +1355,28 @@
 
   .ui-card-header--inset {
     @apply border-b border-border px-4 py-3;
+  }
+
+  /**
+   * Yapışık başlık — kart bir bütün kalır (köşeler, yüzey); başlık sabit, yalnız gövde kartın
+   * içinde kayar. Yükseklik sınırı üst öğeden gelir (ör. `lg:sticky lg:max-h-[…] flex flex-col`);
+   * sınır yoksa kart normal uzar.
+   */
+  .ui-card--sticky-header {
+    @apply min-h-0 max-h-full overflow-hidden pb-0;
+  }
+
+  .ui-card--sticky-header > .ui-card-header {
+    @apply border-b border-border pb-4;
+  }
+
+  /**
+   * Kaydırma alanı kartın kenarlarına ve altına kadar uzanır; boşluk alanın içinde kalır.
+   * Aksi halde kart padding'i scrollport'u içeri çeker, içerik yanlarda ve altta erken kesilir.
+   * Kaydırma çubuğu görünür kalır (içeriğin kaydığı anlaşılsın).
+   */
+  .ui-card--sticky-header > .ui-card-body {
+    @apply min-h-0 flex-1 overflow-y-auto overscroll-contain [margin-inline:calc(var(--ui-card-padding)_*_-1)] [margin-top:calc(var(--ui-card-gap)_*_-1)] [padding:var(--ui-card-gap)_var(--ui-card-padding)_var(--ui-card-padding)] [scroll-padding-bottom:var(--ui-card-padding)];
   }
 
   .ui-card--no-padding > .ui-card-toolbar {
@@ -1674,8 +1473,7 @@
   }
 
   .ui-guidance-tour__highlight {
-    @apply pointer-events-none absolute z-[1] rounded-xl ring-2 ring-primary ring-offset-2 ring-offset-background;
-    box-shadow: 0 0 0 9999px rgb(0 0 0 / 0.68);
+    @apply pointer-events-none absolute z-[1] rounded-xl ring-2 ring-primary ring-offset-2 ring-offset-background [box-shadow:0_0_0_9999px_rgb(0_0_0_/_0.68)];
   }
 
   .ui-guidance-tour__panel {
@@ -1793,8 +1591,7 @@
   }
 
   .ui-intro__header {
-    @apply flex shrink-0 items-center justify-end px-5;
-    padding-top: max(0.75rem, env(safe-area-inset-top, 0px));
+    @apply flex shrink-0 items-center justify-end px-5 [padding-top:max(0.75rem,_env(safe-area-inset-top,_0px))];
   }
 
   .ui-intro__viewport {
@@ -1802,12 +1599,11 @@
   }
 
   .ui-intro__track {
-    @apply flex h-full;
-    transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
+    @apply flex h-full [transition:transform_280ms_cubic-bezier(0.22,_1,_0.36,_1)];
   }
 
   .ui-intro__track--dragging {
-    transition: none;
+    @apply transition-none;
   }
 
   .ui-intro__slide {
@@ -1827,8 +1623,7 @@
   }
 
   .ui-intro__footer {
-    @apply mx-auto flex w-full max-w-sm shrink-0 flex-col gap-5 px-6 pt-2;
-    padding-bottom: max(1.75rem, env(safe-area-inset-bottom, 0px));
+    @apply mx-auto flex w-full max-w-sm shrink-0 flex-col gap-5 px-6 pt-2 [padding-bottom:max(1.75rem,_env(safe-area-inset-bottom,_0px))];
   }
 
   .ui-intro__dots {
@@ -1836,41 +1631,25 @@
   }
 
   .ui-intro__dot {
-    box-sizing: border-box;
-    position: relative;
-    height: 0.5rem;
-    width: 0.5rem;
-    border: 0;
-    border-radius: 9999px;
-    padding: 0;
-    background: color-mix(in srgb, var(--foreground) 22%, transparent);
-    transition:
-      width 220ms ease,
-      background-color 220ms ease;
+    @apply box-border relative h-2 w-2 border-0 rounded-full p-0 [background:color-mix(in_srgb,_var(--foreground)_22%,_transparent)] [transition:width_220ms_ease,_background-color_220ms_ease];
   }
 
   .ui-intro__dot::before {
-    content: '';
-    position: absolute;
-    inset: -0.75rem;
+    @apply [content:''] absolute -inset-3;
   }
 
   .ui-intro__dot--active {
-    width: 1.5rem;
-    background: var(--primary);
+    @apply w-6 [background:var(--primary)];
   }
 
   .ui-intro-shell-enter-active,
   .ui-intro-shell-leave-active {
-    transition:
-      opacity 320ms ease,
-      transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+    @apply [transition:opacity_320ms_ease,_transform_420ms_cubic-bezier(0.22,_1,_0.36,_1)];
   }
 
   .ui-intro-shell-enter-from,
   .ui-intro-shell-leave-to {
-    opacity: 0;
-    transform: translateY(12%);
+    @apply opacity-0 [transform:translateY(12%)];
   }
 
   /** Stacked avatars — children must be `ui-avatar` (or overflow chip). */
@@ -2082,8 +1861,7 @@
 
   /** Photo preview — tam ekran lightbox (popover üstü, toast altı) */
   .ui-photo-preview {
-    @apply fixed inset-0 flex items-center justify-center p-4;
-    z-index: 460;
+    @apply fixed inset-0 flex items-center justify-center p-4 z-[460];
   }
 
   .ui-photo-preview__backdrop {
@@ -2142,8 +1920,7 @@
   }
 
   .ui-action-card__icon {
-    @apply inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-primary [&_.ui-icon]:leading-none;
-    background-color: color-mix(in oklab, var(--primary) 12%, var(--muted));
+    @apply inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-primary [&_.ui-icon]:leading-none [background-color:color-mix(in_oklab,_var(--primary)_12%,_var(--muted))];
   }
 
   .ui-action-card__content {
@@ -2235,8 +2012,7 @@
 
   /** Skeleton — yükleme iskeleti */
   .ui-skeleton {
-    @apply max-w-full animate-pulse rounded-md;
-    background-color: color-mix(in oklab, var(--muted) 72%, transparent);
+    @apply max-w-full animate-pulse rounded-md [background-color:color-mix(in_oklab,_var(--muted)_72%,_transparent)];
   }
 
   .ui-skeleton--line {
@@ -2303,8 +2079,7 @@
   }
 
   .ui-skeleton-host--height-active {
-    @apply overflow-hidden;
-    transition: height 0.48s cubic-bezier(0.22, 1, 0.36, 1);
+    @apply overflow-hidden [transition:height_0.48s_cubic-bezier(0.22,_1,_0.36,_1)];
   }
 
   .ui-skeleton-host--height-locked {
@@ -2328,7 +2103,7 @@
   }
 
   .ui-skeleton-placeholder--fade-out {
-    opacity: 0;
+    @apply opacity-0;
   }
 
   .ui-skeleton-content-wrap {
@@ -2337,8 +2112,7 @@
 
   /** Yüklemede akış dışı; yükseklik yalnızca satır iskeletten gelir */
   .ui-skeleton-content-wrap--loading {
-    @apply pointer-events-none absolute left-0 top-0 z-0 w-full overflow-visible opacity-0;
-    height: auto;
+    @apply pointer-events-none absolute left-0 top-0 z-0 w-full overflow-visible opacity-0 h-auto;
   }
 
   /** Refetch: içerik yerinde kalır (yükseklik kilitli); üstte iskelet */
@@ -2347,21 +2121,15 @@
   }
 
   .ui-skeleton-content-wrap--revealing {
-    @apply relative z-[1] opacity-0;
-    transform: translateY(0.5rem);
-    transition:
-      opacity 0.48s cubic-bezier(0.22, 1, 0.36, 1),
-      transform 0.48s cubic-bezier(0.22, 1, 0.36, 1);
+    @apply relative z-[1] opacity-0 [transform:translateY(0.5rem)] [transition:opacity_0.48s_cubic-bezier(0.22,_1,_0.36,_1),_transform_0.48s_cubic-bezier(0.22,_1,_0.36,_1)];
   }
 
   .ui-skeleton-content-wrap--revealing-visible {
-    opacity: 1;
-    transform: translateY(0);
+    @apply opacity-100 [transform:translateY(0)];
   }
 
   .ui-skeleton-content-wrap--ready {
-    @apply relative opacity-100;
-    transform: none;
+    @apply relative opacity-100 transform-none;
   }
 
   .ui-skeleton-overlay {
@@ -2373,7 +2141,7 @@
     .ui-skeleton-content-wrap--revealing,
     .ui-skeleton-host--height-active,
     .ui-skeleton-content {
-      transition-duration: 0.01ms;
+      @apply [transition-duration:0.01ms];
     }
   }
 
@@ -2427,8 +2195,7 @@
   }
 
   .ui-form-row--horizontal .ui-form-row-text .ui-form-row-description {
-    @apply m-0 min-w-0 text-start text-muted-foreground;
-    overflow-wrap: anywhere;
+    @apply m-0 min-w-0 text-start text-muted-foreground wrap-anywhere;
   }
 
   .ui-form-row--horizontal .ui-form-row-control {
@@ -2529,8 +2296,7 @@
   }
 
   .ui-field--card {
-    @apply rounded-2xl border border-border/60 px-4 py-3.5;
-    background-color: color-mix(in oklab, var(--muted) 45%, var(--surface-bg));
+    @apply rounded-2xl border border-border/60 px-4 py-3.5 [background-color:color-mix(in_oklab,_var(--muted)_45%,_var(--surface-bg))];
   }
 
   .ui-field__title-row {
@@ -2662,12 +2428,7 @@
   }
 
   .ui-icon-picker-grid {
-    display: grid;
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    gap: 0.25rem;
-    max-height: min(100vh - 8rem, 16rem);
-    overflow-y: auto;
-    overscroll-behavior: contain;
+    @apply grid [grid-template-columns:repeat(6,_minmax(0,_1fr))] gap-1 [max-height:min(100vh_-_8rem,_16rem)] overflow-y-auto [overscroll-behavior:contain];
   }
 
   .ui-icon-picker-cell {
@@ -2679,9 +2440,7 @@
   }
 
   .ui-color-picker-swatches {
-    display: grid;
-    grid-template-columns: repeat(8, minmax(0, 1fr));
-    gap: 0.375rem;
+    @apply grid [grid-template-columns:repeat(8,_minmax(0,_1fr))] gap-1.5;
   }
 
   .ui-color-picker-swatch {
@@ -2713,11 +2472,11 @@
   }
 
   .ui-popover-panel:has(.ui-icon-picker-panel) {
-    max-width: min(100vw - 1rem, 22rem);
+    @apply [max-width:min(100vw_-_1rem,_22rem)];
   }
 
   .ui-popover-panel:has(.ui-color-picker-panel) {
-    max-width: min(100vw - 1rem, 20rem);
+    @apply [max-width:min(100vw_-_1rem,_20rem)];
   }
 
   /**
@@ -2727,9 +2486,7 @@
    * ColorPicker ve IconPicker `ui-select-field` kullanır ama `.ui-select` içinde değildir.
    */
   .ui-select-field {
-    @apply relative m-0 box-border flex w-full min-w-0 cursor-pointer items-center gap-2 appearance-none rounded-lg py-1 pl-3 pr-3 text-left outline-none transition-shadow;
-    height: var(--ui-control-h-md);
-    min-height: var(--ui-control-h-md);
+    @apply relative m-0 box-border flex w-full min-w-0 cursor-pointer items-center gap-2 appearance-none rounded-lg py-1 pl-3 pr-3 text-left outline-none transition-shadow h-[var(--ui-control-h-md)] min-h-[var(--ui-control-h-md)];
   }
 
   .ui-select:not(.ui-select--inline) .ui-select-field,
@@ -2769,14 +2526,11 @@
 
   /** `size="sm"` / `lg` — çift sınıf ile md kabuk ölçülerinin üzerine yazar (Tailwind sıra çakışması) */
   .ui-input.ui-input--sm {
-    @apply gap-1.5 rounded-md px-2.5 py-0;
-    height: var(--ui-control-h-sm);
-    min-height: var(--ui-control-h-sm);
+    @apply gap-1.5 rounded-md px-2.5 py-0 h-[var(--ui-control-h-sm)] min-h-[var(--ui-control-h-sm)];
   }
 
   .ui-input.ui-input--sm.ui-input--multiline {
-    @apply h-auto py-1.5;
-    min-height: var(--ui-control-h-sm);
+    @apply h-auto py-1.5 min-h-[var(--ui-control-h-sm)];
   }
 
   .ui-input.ui-input--sm .ui-input-field {
@@ -2784,14 +2538,11 @@
   }
 
   .ui-input.ui-input--lg {
-    @apply rounded-lg px-4 py-1;
-    height: var(--ui-control-h-lg);
-    min-height: var(--ui-control-h-lg);
+    @apply rounded-lg px-4 py-1 h-[var(--ui-control-h-lg)] min-h-[var(--ui-control-h-lg)];
   }
 
   .ui-input.ui-input--lg.ui-input--multiline {
-    @apply py-2;
-    min-height: var(--ui-control-h-lg);
+    @apply py-2 min-h-[var(--ui-control-h-lg)];
   }
 
   .ui-input.ui-input--lg .ui-input-field {
@@ -2799,9 +2550,7 @@
   }
 
   .ui-select.ui-select--sm .ui-select-field {
-    @apply rounded-md py-0 pl-2.5 pr-2;
-    height: var(--ui-control-h-sm);
-    min-height: var(--ui-control-h-sm);
+    @apply rounded-md py-0 pl-2.5 pr-2 h-[var(--ui-control-h-sm)] min-h-[var(--ui-control-h-sm)];
   }
 
   .ui-select.ui-select--sm .ui-select-field,
@@ -2810,9 +2559,7 @@
   }
 
   .ui-select.ui-select--lg .ui-select-field {
-    @apply rounded-lg py-0 pl-4 pr-4;
-    height: var(--ui-control-h-lg);
-    min-height: var(--ui-control-h-lg);
+    @apply rounded-lg py-0 pl-4 pr-4 h-[var(--ui-control-h-lg)] min-h-[var(--ui-control-h-lg)];
   }
 
   .ui-select.ui-select--lg .ui-select-field,
@@ -2835,12 +2582,7 @@
   .ui-select-field--bare:focus,
   .ui-select-field--bare:focus-visible,
   .ui-select-field--bare[aria-expanded='true'] {
-    @apply h-8 min-h-8 gap-1 rounded-none border-0 border-r border-border bg-transparent py-0 pl-0 pr-2 text-sm shadow-none ring-0 ring-offset-0;
-    background-color: transparent;
-    background-image: none;
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-    box-shadow: none;
+    @apply h-8 min-h-8 gap-1 rounded-none border-0 border-r border-border bg-transparent py-0 pl-0 pr-2 text-sm shadow-none ring-0 ring-offset-0 bg-transparent bg-none [-webkit-backdrop-filter:none] [backdrop-filter:none] shadow-none;
   }
 
   .ui-select--inline .ui-select-value {
@@ -2853,18 +2595,11 @@
   }
 
   .ui-phone-prepend {
-    @apply mr-2 flex shrink-0 select-none items-center gap-2 border-r border-border/60 bg-transparent pr-3;
-    background-color: transparent;
-    background-image: none;
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
+    @apply mr-2 flex shrink-0 select-none items-center gap-2 border-r border-border/60 bg-transparent pr-3 bg-transparent bg-none [-webkit-backdrop-filter:none] [backdrop-filter:none];
   }
 
   .ui-phone .ui-input > .ui-text-default:has(.ui-phone-prepend) {
-    background-color: transparent;
-    background-image: none;
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
+    @apply bg-transparent bg-none [-webkit-backdrop-filter:none] [backdrop-filter:none];
   }
 
   .ui-phone-country-static {
@@ -2876,12 +2611,7 @@
   .ui-phone .ui-select--inline .ui-select-field:focus,
   .ui-phone .ui-select--inline .ui-select-field:focus-visible,
   .ui-phone .ui-select--inline .ui-select-field[aria-expanded='true'] {
-    @apply h-auto min-h-0 w-auto gap-2 rounded-none border-0 border-r-0 bg-transparent py-0 pl-0 pr-0 shadow-none ring-0 ring-offset-0;
-    background-color: transparent;
-    background-image: none;
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-    box-shadow: none;
+    @apply h-auto min-h-0 w-auto gap-2 rounded-none border-0 border-r-0 bg-transparent py-0 pl-0 pr-0 shadow-none ring-0 ring-offset-0 bg-transparent bg-none [-webkit-backdrop-filter:none] [backdrop-filter:none] shadow-none;
   }
 
   .ui-phone .ui-select--inline .ui-select-chevron {
@@ -2889,21 +2619,15 @@
   }
 
   .ui-select-filter-input {
-    @apply ui-field-control-fill m-0 box-border w-full min-w-0 rounded-lg px-3 py-1 text-sm leading-5 outline-none transition-shadow duration-200 ease-out placeholder:text-muted-foreground;
-    height: var(--ui-control-h-md);
-    min-height: var(--ui-control-h-md);
+    @apply ui-field-control-fill m-0 box-border w-full min-w-0 rounded-lg px-3 py-1 text-sm leading-5 outline-none transition-shadow duration-200 ease-out placeholder:text-muted-foreground h-[var(--ui-control-h-md)] min-h-[var(--ui-control-h-md)];
   }
 
   .ui-select-filter-input--sm {
-    @apply rounded-md px-2.5 text-xs leading-4;
-    height: var(--ui-control-h-sm);
-    min-height: var(--ui-control-h-sm);
+    @apply rounded-md px-2.5 text-xs leading-4 h-[var(--ui-control-h-sm)] min-h-[var(--ui-control-h-sm)];
   }
 
   .ui-select-filter-input--lg {
-    @apply rounded-lg px-4 text-base leading-6;
-    height: var(--ui-control-h-lg);
-    min-height: var(--ui-control-h-lg);
+    @apply rounded-lg px-4 text-base leading-6 h-[var(--ui-control-h-lg)] min-h-[var(--ui-control-h-lg)];
   }
 
   .ui-select-filter-input:focus {
@@ -2935,12 +2659,11 @@
   }
 
   .ui-select-listbox .ui-select-option.ui-button[data-variant='ghost'] {
-    border-width: 0;
+    @apply border-0;
   }
 
   .ui-select-listbox .ui-select-option.ui-button[data-variant='ghost']:hover:not(:disabled) {
-    background-color: var(--muted);
-    background-image: none;
+    @apply bg-muted bg-none;
   }
 
   .ui-select-listbox .ui-empty {
@@ -2985,9 +2708,7 @@
   .ui-select-values-input::-webkit-search-decoration,
   .ui-select-filter-input::-webkit-search-cancel-button,
   .ui-select-filter-input::-webkit-search-decoration {
-    -webkit-appearance: none;
-    appearance: none;
-    display: none;
+    @apply [-webkit-appearance:none] appearance-none hidden;
   }
 
   /** Seçili satır — `Select` solid/primary; ghost sınıflarının üstüne çıkmak için attribute seçicisi */
@@ -3041,53 +2762,29 @@
   }
 
   .ui-slider-input::-webkit-slider-runnable-track {
-    height: 0.5rem;
-    border-radius: 9999px;
-    background: transparent;
+    @apply h-2 rounded-full [background:transparent];
   }
 
   .ui-slider-input::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 1.125rem;
-    height: 0.875rem;
-    margin-top: calc((0.5rem - 0.875rem) / 2);
-    border-radius: 9999px;
-    background-color: var(--white);
-    box-shadow: 0 1px 2px rgb(0 0 0 / 0.08);
-    cursor: pointer;
-    transition: box-shadow 0.15s ease-out;
+    @apply [-webkit-appearance:none] w-4.5 h-3.5 [margin-top:calc((0.5rem_-_0.875rem)_/_2)] rounded-full [background-color:var(--white)] [box-shadow:0_1px_2px_rgb(0_0_0_/_0.08)] cursor-pointer [transition:box-shadow_0.15s_ease-out];
   }
 
   .ui-slider:not(.ui-slider--disabled):hover .ui-slider-input::-webkit-slider-thumb,
   .ui-slider:not(.ui-slider--disabled) .ui-slider-input:hover::-webkit-slider-thumb {
-    box-shadow:
-      0 1px 2px rgb(0 0 0 / 0.08),
-      0 0 0 6px color-mix(in oklch, var(--muted) 55%, transparent);
+    @apply [box-shadow:0_1px_2px_rgb(0_0_0_/_0.08),_0_0_0_6px_color-mix(in_oklch,_var(--muted)_55%,_transparent)];
   }
 
   .ui-slider-input::-moz-range-track {
-    height: 0.5rem;
-    border-radius: 9999px;
-    background: transparent;
+    @apply h-2 rounded-full [background:transparent];
   }
 
   .ui-slider-input::-moz-range-thumb {
-    width: 1.125rem;
-    height: 0.875rem;
-    margin-top: calc((0.5rem - 0.875rem) / 2);
-    border: none;
-    border-radius: 9999px;
-    background-color: var(--white);
-    box-shadow: 0 1px 2px rgb(0 0 0 / 0.08);
-    cursor: pointer;
-    transition: box-shadow 0.15s ease-out;
+    @apply w-4.5 h-3.5 [margin-top:calc((0.5rem_-_0.875rem)_/_2)] border-none rounded-full [background-color:var(--white)] [box-shadow:0_1px_2px_rgb(0_0_0_/_0.08)] cursor-pointer [transition:box-shadow_0.15s_ease-out];
   }
 
   .ui-slider:not(.ui-slider--disabled):hover .ui-slider-input::-moz-range-thumb,
   .ui-slider:not(.ui-slider--disabled) .ui-slider-input:hover::-moz-range-thumb {
-    box-shadow:
-      0 1px 2px rgb(0 0 0 / 0.08),
-      0 0 0 6px color-mix(in oklch, var(--muted) 55%, transparent);
+    @apply [box-shadow:0_1px_2px_rgb(0_0_0_/_0.08),_0_0_0_6px_color-mix(in_oklch,_var(--muted)_55%,_transparent)];
   }
 
   .ui-slider-scale {
@@ -3233,10 +2930,7 @@
   }
 
   .ui-checkbox-label .ui-button[data-variant='link'] .ui-button-text {
-    display: inline;
-    width: auto;
-    min-width: 0;
-    flex: none;
+    @apply inline w-auto min-w-0 flex-none;
   }
 
   .ui-checkbox-description {
@@ -3275,8 +2969,7 @@
   }
 
   .ui-switch-track--on {
-    background-color: color-mix(in oklab, var(--primary) 88%, var(--muted));
-    background-image: none;
+    @apply [background-color:color-mix(in_oklab,_var(--primary)_88%,_var(--muted))] bg-none;
   }
 
   .ui-switch-thumb {
@@ -3331,8 +3024,7 @@
   }
 
   .ui-menu-item.ui-button:not(.ui-menu-item--active):not(:disabled):hover {
-    @apply bg-muted text-foreground shadow-none;
-    background-image: none;
+    @apply bg-muted text-foreground shadow-none bg-none;
   }
 
   .ui-menu-item--active.ui-button,
@@ -3353,28 +3045,27 @@
    * Görünüm ghost/solid cubed düğme ile aynı.
    */
   .ui-sidebar-item {
-    @apply box-border inline-flex shrink-0 items-center justify-center gap-2.5 border-0 bg-transparent font-normal text-secondary-foreground shadow-none;
-    background-image: none;
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-    cursor: pointer;
-    appearance: none;
-    text-decoration: none;
+    @apply box-border inline-flex shrink-0 items-center justify-center gap-2.5 border-0 bg-transparent font-normal text-secondary-foreground shadow-none bg-none [-webkit-backdrop-filter:none] [backdrop-filter:none] cursor-pointer appearance-none [text-decoration:none];
   }
 
   .ui-sidebar-item:hover:not(:disabled):not(.ui-sidebar-item--active) {
-    @apply bg-secondary text-secondary-foreground;
-    background-image: none;
+    @apply bg-secondary text-secondary-foreground bg-none;
   }
 
+  /**
+   * Aktif öğe yumuşak primary — dolu primary sayfa CTA'sına ve aktif sekmeye kalır.
+   * Metin foreground (dark modda primary metin zayıf kontrast verir), ikon primary.
+   */
   .ui-sidebar-item--active {
-    @apply bg-primary text-primary-foreground shadow-none;
-    background-image: none;
+    @apply font-medium text-foreground shadow-none bg-none [background-color:color-mix(in_oklab,_var(--primary)_16%,_transparent)];
+  }
+
+  .ui-sidebar-item--active .ui-icon {
+    @apply text-primary;
   }
 
   .ui-sidebar-item--active:hover:not(:disabled) {
-    @apply bg-primary text-primary-foreground opacity-90;
-    background-image: none;
+    @apply text-foreground bg-none [background-color:color-mix(in_oklab,_var(--primary)_22%,_transparent)];
   }
 
   .ui-sidebar-item:focus-visible {
@@ -3402,26 +3093,20 @@
 
   /** Tabs — segmented: `--ui-tab-h-*` (button’dan bir kademe büyük); içerik kadar genişlik */
   .ui-tab-list--horizontal.ui-tab-list--segmented {
-    @apply inline-flex box-border w-auto max-w-full min-w-0 flex-row flex-nowrap items-stretch gap-1 overflow-x-auto overscroll-x-contain rounded-full border border-border bg-surface p-1 ui-scrollbar-none;
-    height: var(--ui-tab-h-md);
-    min-height: var(--ui-tab-h-md);
-    -webkit-overflow-scrolling: touch;
+    @apply inline-flex box-border w-auto max-w-full min-w-0 flex-row flex-nowrap items-stretch gap-1 overflow-x-auto overscroll-x-contain rounded-full border border-border bg-surface p-1 ui-scrollbar-none h-[var(--ui-tab-h-md)] min-h-[var(--ui-tab-h-md)] [-webkit-overflow-scrolling:touch];
   }
 
   /** Button ile aynı hizada — `--ui-control-h-*` */
   .ui-tabs--inline-controls .ui-tab-list--horizontal.ui-tab-list--segmented {
-    height: var(--ui-control-h-md);
-    min-height: var(--ui-control-h-md);
+    @apply h-[var(--ui-control-h-md)] min-h-[var(--ui-control-h-md)];
   }
 
   .ui-tabs--inline-controls.ui-tabs--segmented-sm .ui-tab-list--horizontal.ui-tab-list--segmented {
-    height: var(--ui-control-h-sm);
-    min-height: var(--ui-control-h-sm);
+    @apply h-[var(--ui-control-h-sm)] min-h-[var(--ui-control-h-sm)];
   }
 
   .ui-tabs--inline-controls.ui-tabs--segmented-lg .ui-tab-list--horizontal.ui-tab-list--segmented {
-    height: var(--ui-control-h-lg);
-    min-height: var(--ui-control-h-lg);
+    @apply h-[var(--ui-control-h-lg)] min-h-[var(--ui-control-h-lg)];
   }
 
   /** Tetikleyiciler küçülmez — taşınca liste kayar (mobil / dar kart). */
@@ -3486,9 +3171,7 @@
   }
 
   .ui-tabs--segmented-sm .ui-tab-list--horizontal.ui-tab-list--segmented {
-    @apply gap-0 p-0.5;
-    height: var(--ui-tab-h-sm);
-    min-height: var(--ui-tab-h-sm);
+    @apply gap-0 p-0.5 h-[var(--ui-tab-h-sm)] min-h-[var(--ui-tab-h-sm)];
   }
 
   .ui-tabs--segmented-sm .ui-tab-list--horizontal.ui-tab-list--segmented .ui-tab-trigger--segmented {
@@ -3508,9 +3191,7 @@
   }
 
   .ui-tabs--segmented-lg .ui-tab-list--horizontal.ui-tab-list--segmented {
-    @apply gap-0 p-1;
-    height: var(--ui-tab-h-lg);
-    min-height: var(--ui-tab-h-lg);
+    @apply gap-0 p-1 h-[var(--ui-tab-h-lg)] min-h-[var(--ui-tab-h-lg)];
   }
 
   .ui-tabs--segmented-lg .ui-tab-trigger--segmented {
@@ -3591,28 +3272,15 @@
    * Kenar çizgileri uygulama katmanında (`frontend/src/style.css`); burada yalnızca opaklık / blur.
    */
   html.cap-native.cap-ios .ui-tab-list--horizontal.ui-tab-list--segmented {
-    border-color: transparent;
-    background-color: var(--ui-ios-glass-bg);
-    -webkit-backdrop-filter: blur(var(--ui-ios-glass-blur-surface, 18px)) saturate(180%);
-    backdrop-filter: blur(var(--ui-ios-glass-blur-surface, 18px)) saturate(180%);
-    box-shadow: none;
+    @apply border-transparent [background-color:var(--ui-ios-glass-bg)] [-webkit-backdrop-filter:blur(var(--ui-ios-glass-blur-surface,_18px))_saturate(180%)] [backdrop-filter:blur(var(--ui-ios-glass-blur-surface,_18px))_saturate(180%)] shadow-none;
   }
 
   html.cap-native.cap-ios .ui-popover-panel.ui-surface {
-    border-color: transparent;
-    background-color: var(--ui-ios-glass-bg-popover);
-    -webkit-backdrop-filter: blur(var(--ui-ios-glass-blur-popover, 24px)) saturate(180%);
-    backdrop-filter: blur(var(--ui-ios-glass-blur-popover, 24px)) saturate(180%);
-    box-shadow: none;
+    @apply border-transparent [background-color:var(--ui-ios-glass-bg-popover)] [-webkit-backdrop-filter:blur(var(--ui-ios-glass-blur-popover,_24px))_saturate(180%)] [backdrop-filter:blur(var(--ui-ios-glass-blur-popover,_24px))_saturate(180%)] shadow-none;
   }
 
   html.cap-native.cap-ios .ui-segment-group:not(.ui-segment-group--vertical) {
-    border-color: transparent;
-    background-color: var(--input-background);
-    background-image: none;
-    box-shadow: none;
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
+    @apply border-transparent [background-color:var(--input-background)] bg-none shadow-none [-webkit-backdrop-filter:none] [backdrop-filter:none];
   }
 
   /**
@@ -3642,15 +3310,11 @@
   }
 
   html.cap-native.cap-android .ui-tabs--native-chrome .ui-tab-list--horizontal.ui-tab-list--segmented {
-    border-color: color-mix(in srgb, var(--border) 80%, transparent);
-    background-color: color-mix(in srgb, var(--surface) 92%, transparent);
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(12px);
-    box-shadow: 0 0.375rem 1.25rem color-mix(in srgb, var(--background) 55%, transparent);
+    @apply [border-color:color-mix(in_srgb,_var(--border)_80%,_transparent)] [background-color:color-mix(in_srgb,_var(--surface)_92%,_transparent)] [-webkit-backdrop-filter:blur(12px)] [backdrop-filter:blur(12px)] [box-shadow:0_0.375rem_1.25rem_color-mix(in_srgb,_var(--background)_55%,_transparent)];
   }
 
   html.cap-native.cap-android .ui-tabs--native-chrome .ui-tab-trigger--segmented-selected {
-    box-shadow: 0 0.125rem 0.5rem color-mix(in srgb, var(--background) 45%, transparent);
+    @apply [box-shadow:0_0.125rem_0.5rem_color-mix(in_srgb,_var(--background)_45%,_transparent)];
   }
 
   .ui-native-dock-fab {
@@ -3658,45 +3322,31 @@
   }
 
   .ui-native-dock-fab .ui-button.ui-control-cubed-md {
-    width: var(--ui-tab-h-md);
-    height: var(--ui-tab-h-md);
+    @apply w-[var(--ui-tab-h-md)] h-[var(--ui-tab-h-md)];
   }
 
   .ui-native-dock-fab .ui-button.ui-control-cubed-lg {
-    width: var(--ui-tab-h-lg);
-    height: var(--ui-tab-h-lg);
+    @apply w-[var(--ui-tab-h-lg)] h-[var(--ui-tab-h-lg)];
   }
 
   html.cap-native.cap-android .ui-native-dock-fab .ui-button.ui-control {
-    border-color: color-mix(in srgb, var(--border) 80%, transparent);
-    background-color: color-mix(in srgb, var(--surface) 92%, transparent);
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(12px);
-    box-shadow: 0 0.375rem 1.25rem color-mix(in srgb, var(--background) 55%, transparent);
+    @apply [border-color:color-mix(in_srgb,_var(--border)_80%,_transparent)] [background-color:color-mix(in_srgb,_var(--surface)_92%,_transparent)] [-webkit-backdrop-filter:blur(12px)] [backdrop-filter:blur(12px)] [box-shadow:0_0.375rem_1.25rem_color-mix(in_srgb,_var(--background)_55%,_transparent)];
   }
 
   html.cap-native.cap-android .ui-native-dock-fab[data-active='true'] .ui-button.ui-control {
-    box-shadow:
-      0 0.125rem 0.5rem color-mix(in srgb, var(--background) 45%, transparent),
-      0 0.375rem 1.25rem color-mix(in srgb, var(--background) 55%, transparent);
+    @apply [box-shadow:0_0.125rem_0.5rem_color-mix(in_srgb,_var(--background)_45%,_transparent),_0_0.375rem_1.25rem_color-mix(in_srgb,_var(--background)_55%,_transparent)];
   }
 
   html.cap-native.cap-ios .ui-native-dock-fab .ui-button.ui-control {
-    border-color: transparent;
-    background-color: var(--ui-ios-glass-bg);
-    -webkit-backdrop-filter: blur(var(--ui-ios-glass-blur-control, 16px)) saturate(180%);
-    backdrop-filter: blur(var(--ui-ios-glass-blur-control, 16px)) saturate(180%);
-    box-shadow: none;
+    @apply border-transparent [background-color:var(--ui-ios-glass-bg)] [-webkit-backdrop-filter:blur(var(--ui-ios-glass-blur-control,_16px))_saturate(180%)] [backdrop-filter:blur(var(--ui-ios-glass-blur-control,_16px))_saturate(180%)] shadow-none;
   }
 
   html.cap-native.cap-ios .ui-native-dock-fab[data-active='true'] .ui-button.ui-control {
-    background-color: color-mix(in srgb, var(--primary) 88%, transparent);
-    color: var(--primary-foreground);
+    @apply [background-color:color-mix(in_srgb,_var(--primary)_88%,_transparent)] text-primary-foreground;
   }
 
   html.cap-native.cap-android .ui-native-dock-fab[data-active='true'] .ui-button.ui-control {
-    background-color: var(--primary);
-    color: var(--primary-foreground);
+    @apply bg-primary text-primary-foreground;
   }
 
   html:not(.cap-native) .ui-native-dock-fab[data-active='true'] .ui-button.ui-control {
@@ -3713,8 +3363,7 @@
   }
 
   .ui-tab-list--vertical.ui-tab-list--segmented {
-    @apply inline-flex box-border h-auto min-h-0 w-auto max-w-full min-w-0 shrink-0 flex-col flex-nowrap items-stretch gap-1 self-center overflow-y-auto overscroll-y-contain rounded-full border border-border bg-surface p-1 ui-scrollbar-none;
-    -webkit-overflow-scrolling: touch;
+    @apply inline-flex box-border h-auto min-h-0 w-auto max-w-full min-w-0 shrink-0 flex-col flex-nowrap items-stretch gap-1 self-center overflow-y-auto overscroll-y-contain rounded-full border border-border bg-surface p-1 ui-scrollbar-none [-webkit-overflow-scrolling:touch];
   }
 
   .ui-tabs--inline-controls .ui-tab-list--vertical.ui-tab-list--segmented {
@@ -3743,10 +3392,7 @@
 
   /** Hücre: iz genişliğini doldurur (yan boşluk yok); yükseklik yatay iz yüksekliğiyle aynı. */
   .ui-tab-list--vertical.ui-tab-list--segmented .ui-tab-trigger--segmented {
-    @apply h-auto min-h-0 w-full min-w-0 max-w-none shrink-0 flex-none flex-col items-center justify-center gap-0.5 rounded-full px-1.5 py-0;
-    height: var(--ui-tab-h-md);
-    min-height: var(--ui-tab-h-md);
-    max-height: var(--ui-tab-h-md);
+    @apply h-auto min-h-0 w-full min-w-0 max-w-none shrink-0 flex-none flex-col items-center justify-center gap-0.5 rounded-full px-1.5 py-0 h-[var(--ui-tab-h-md)] min-h-[var(--ui-tab-h-md)] max-h-[var(--ui-tab-h-md)];
   }
 
   .ui-tabs--segmented-sm .ui-tab-list--vertical.ui-tab-list--segmented {
@@ -3754,10 +3400,7 @@
   }
 
   .ui-tabs--segmented-sm .ui-tab-list--vertical.ui-tab-list--segmented .ui-tab-trigger--segmented {
-    @apply px-1;
-    height: var(--ui-tab-h-sm);
-    min-height: var(--ui-tab-h-sm);
-    max-height: var(--ui-tab-h-sm);
+    @apply px-1 h-[var(--ui-tab-h-sm)] min-h-[var(--ui-tab-h-sm)] max-h-[var(--ui-tab-h-sm)];
   }
 
   .ui-tabs--segmented-lg .ui-tab-list--vertical.ui-tab-list--segmented {
@@ -3765,10 +3408,7 @@
   }
 
   .ui-tabs--segmented-lg .ui-tab-list--vertical.ui-tab-list--segmented .ui-tab-trigger--segmented {
-    @apply px-2;
-    height: var(--ui-tab-h-lg);
-    min-height: var(--ui-tab-h-lg);
-    max-height: var(--ui-tab-h-lg);
+    @apply px-2 h-[var(--ui-tab-h-lg)] min-h-[var(--ui-tab-h-lg)] max-h-[var(--ui-tab-h-lg)];
   }
 
   .ui-tabs:not(.ui-tabs--fit-full) .ui-tab-list--vertical.ui-tab-list--segmented .ui-tab-trigger--segmented {
@@ -3797,11 +3437,7 @@
   }
 
   html.cap-native.cap-ios .ui-tab-list--vertical.ui-tab-list--segmented {
-    border-color: transparent;
-    background-color: var(--ui-ios-glass-bg);
-    -webkit-backdrop-filter: blur(var(--ui-ios-glass-blur-surface, 18px)) saturate(180%);
-    backdrop-filter: blur(var(--ui-ios-glass-blur-surface, 18px)) saturate(180%);
-    box-shadow: none;
+    @apply border-transparent [background-color:var(--ui-ios-glass-bg)] [-webkit-backdrop-filter:blur(var(--ui-ios-glass-blur-surface,_18px))_saturate(180%)] [backdrop-filter:blur(var(--ui-ios-glass-blur-surface,_18px))_saturate(180%)] shadow-none;
   }
 
   .ui-tab-list--vertical.ui-tab-list--line {
@@ -3857,8 +3493,7 @@
   }
 
   .ui-tab-list--vertical.ui-tab-list--line .ui-tab-trigger--line-selected::before {
-    content: '';
-    @apply absolute left-0 top-1/2 h-5 w-0.5 -translate-y-1/2 rounded-full bg-foreground;
+    @apply [content:''] absolute left-0 top-1/2 h-5 w-0.5 -translate-y-1/2 rounded-full bg-foreground;
   }
 
   .ui-tab-trigger--disabled {
@@ -3876,9 +3511,7 @@
   }
 
   .ui-segment-group {
-    @apply ui-field-control-fill box-border flex min-w-0 items-center gap-0 rounded-full p-0.5;
-    height: var(--ui-control-h-md);
-    min-height: var(--ui-control-h-md);
+    @apply ui-field-control-fill box-border flex min-w-0 items-center gap-0 rounded-full p-0.5 h-[var(--ui-control-h-md)] min-h-[var(--ui-control-h-md)];
   }
 
   .ui-segment-group--block {
@@ -3890,9 +3523,7 @@
   }
 
   .ui-segment-group--vertical:not(.ui-segment-group--icon-only) {
-    @apply flex h-auto min-h-0 w-full flex-col items-stretch gap-0.5 rounded-none border-0 bg-transparent p-0 shadow-none;
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
+    @apply flex h-auto min-h-0 w-full flex-col items-stretch gap-0.5 rounded-none border-0 bg-transparent p-0 shadow-none [-webkit-backdrop-filter:none] [backdrop-filter:none];
   }
 
   /** Dikey + yalnız ikon: sabit kare hücreler; `w-full` + `aspect-square` genişliği yüksekliğe taşır */
@@ -3901,9 +3532,7 @@
   }
 
   .ui-segment-group--vertical.ui-segment-group--sm:not(.ui-segment-group--icon-only) {
-    @apply h-auto min-h-0 w-full gap-0.5 rounded-none border-0 bg-transparent p-0 shadow-none;
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
+    @apply h-auto min-h-0 w-full gap-0.5 rounded-none border-0 bg-transparent p-0 shadow-none [-webkit-backdrop-filter:none] [backdrop-filter:none];
   }
 
   .ui-segment-group--vertical.ui-segment-group--sm.ui-segment-group--icon-only {
@@ -3911,9 +3540,7 @@
   }
 
   .ui-segment-group--vertical.ui-segment-group--lg:not(.ui-segment-group--icon-only) {
-    @apply h-auto min-h-0 w-full gap-0.5 rounded-none border-0 bg-transparent p-0 shadow-none;
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
+    @apply h-auto min-h-0 w-full gap-0.5 rounded-none border-0 bg-transparent p-0 shadow-none [-webkit-backdrop-filter:none] [backdrop-filter:none];
   }
 
   .ui-segment-group--vertical.ui-segment-group--lg.ui-segment-group--icon-only {
@@ -3934,8 +3561,7 @@
 
   /** Yatay taşma: kaydırma grup içinde; seçili segment JS ile ortalanır */
   .ui-segment-group--scrollable {
-    @apply min-w-0 max-w-full flex-nowrap overflow-x-auto overscroll-x-contain ui-scrollbar-none;
-    -webkit-overflow-scrolling: touch;
+    @apply min-w-0 max-w-full flex-nowrap overflow-x-auto overscroll-x-contain ui-scrollbar-none [-webkit-overflow-scrolling:touch];
   }
 
   .ui-segment-group--scrollable.ui-segment-group--fit,
@@ -3948,9 +3574,7 @@
   }
 
   .ui-segment-group.ui-segment-group--sm:not(.ui-segment-group--vertical) {
-    @apply gap-0.5 p-0.5;
-    height: var(--ui-control-h-sm);
-    min-height: var(--ui-control-h-sm);
+    @apply gap-0 p-0.5 h-[var(--ui-control-h-sm)] min-h-[var(--ui-control-h-sm)];
   }
 
   .ui-segment-group.ui-segment-group--sm .ui-segment {
@@ -3958,9 +3582,7 @@
   }
 
   .ui-segment-group.ui-segment-group--lg:not(.ui-segment-group--vertical) {
-    @apply gap-1 p-1;
-    height: var(--ui-control-h-lg);
-    min-height: var(--ui-control-h-lg);
+    @apply gap-1 p-1 h-[var(--ui-control-h-lg)] min-h-[var(--ui-control-h-lg)];
   }
 
   .ui-segment-group.ui-segment-group--lg .ui-segment {
@@ -3980,9 +3602,7 @@
   }
 
   .ui-segment-group--vertical .ui-segment {
-    @apply flex-none flex-grow-0 justify-start rounded-lg px-3;
-    height: var(--ui-control-h-md);
-    min-height: var(--ui-control-h-md);
+    @apply flex-none flex-grow-0 justify-start rounded-lg px-3 h-[var(--ui-control-h-md)] min-h-[var(--ui-control-h-md)];
   }
 
   .ui-segment-group--vertical .ui-segment:not(.ui-segment--icon-only) {
@@ -4026,34 +3646,26 @@
   }
 
   .ui-segment--selected .ui-segment-affix .ui-button[data-variant='ghost']:hover {
-    background-color: color-mix(in oklab, var(--primary-foreground) 14%, transparent);
-    background-image: none;
+    @apply [background-color:color-mix(in_oklab,_var(--primary-foreground)_14%,_transparent)] bg-none;
   }
 
   .ui-segment--selected .ui-segment-affix .ui-button[data-variant='solid'] {
-    @apply text-primary-foreground;
-    background-color: color-mix(in oklab, var(--primary-foreground) 18%, transparent);
-    background-image: none;
+    @apply text-primary-foreground [background-color:color-mix(in_oklab,_var(--primary-foreground)_18%,_transparent)] bg-none;
   }
 
   .ui-segment--selected .ui-segment-affix .ui-button[data-variant='solid']:hover {
-    background-color: color-mix(in oklab, var(--primary-foreground) 24%, transparent);
-    background-image: none;
+    @apply [background-color:color-mix(in_oklab,_var(--primary-foreground)_24%,_transparent)] bg-none;
   }
 
   /** Seçili segment üzerinde sayım badge — primary yüzeyde okunur (utility `bg-muted`’i ezer) */
   .ui-segment--selected .ui-segment-affix .ui-badge,
   .ui-segment--selected .ui-segment-affix .ui-badge.bg-muted {
-    border-color: transparent;
-    background-color: color-mix(in oklab, var(--primary-foreground) 22%, transparent);
-    color: var(--primary-foreground);
+    @apply border-transparent [background-color:color-mix(in_oklab,_var(--primary-foreground)_22%,_transparent)] text-primary-foreground;
   }
 
   .ui-segment:not(.ui-segment--selected) .ui-segment-affix .ui-badge,
   .ui-segment:not(.ui-segment--selected) .ui-segment-affix .ui-badge.bg-muted {
-    border-color: transparent;
-    background-color: color-mix(in oklab, var(--foreground) 16%, transparent);
-    color: var(--foreground);
+    @apply border-transparent [background-color:color-mix(in_oklab,_var(--foreground)_16%,_transparent)] text-foreground;
   }
 
   .ui-segment-icon {
@@ -4101,8 +3713,7 @@
   }
 
   .ui-segment:hover:not(:disabled):not(.ui-segment--selected) {
-    @apply bg-muted text-foreground;
-    background-image: none;
+    @apply bg-muted text-foreground bg-none;
   }
 
   .ui-segment:focus-visible {
@@ -4240,13 +3851,11 @@
   }
 
   .ui-stepper-indicator--current {
-    @apply bg-muted font-medium text-foreground;
-    background-image: none;
+    @apply bg-muted font-medium text-foreground bg-none;
   }
 
   .ui-stepper-indicator--upcoming {
-    @apply bg-surface-input font-normal text-muted-foreground;
-    background-image: none;
+    @apply bg-surface-input font-normal text-muted-foreground bg-none;
   }
 
   .ui-stepper-rail--h {
@@ -4286,29 +3895,25 @@
     @apply space-y-1 pb-6 pt-0.5;
   }
 
-  /** Alert — kart yüzeyinden hafif tonlu çağrı kutusu (`rounded-lg` = `--radius`; gölgésiz, liste gap-3) */
+  /** Alert — kart yüzeyinden hafif tonlu çağrı kutusu; kart değil bildirim gibi okunsun diye kart radius'undan küçük (`rounded-2xl`; gölgesiz, liste gap-3) */
   .ui-alert {
-    @apply flex items-start gap-3 rounded-3xl border border-border p-4 text-sm leading-5 text-foreground subpixel-antialiased;
+    @apply flex items-start gap-3 rounded-2xl border border-border p-4 text-sm leading-5 text-foreground subpixel-antialiased;
   }
 
   .ui-alert--info {
-    border-color: color-mix(in oklab, var(--info) 30%, var(--border));
-    background-color: color-mix(in oklab, var(--info) 6%, var(--surface));
+    @apply [border-color:color-mix(in_oklab,_var(--info)_30%,_var(--border))] [background-color:color-mix(in_oklab,_var(--info)_6%,_var(--surface))];
   }
 
   .ui-alert--success {
-    border-color: color-mix(in oklab, var(--success) 30%, var(--border));
-    background-color: color-mix(in oklab, var(--success) 6%, var(--surface));
+    @apply [border-color:color-mix(in_oklab,_var(--success)_30%,_var(--border))] [background-color:color-mix(in_oklab,_var(--success)_6%,_var(--surface))];
   }
 
   .ui-alert--warning {
-    border-color: color-mix(in oklab, var(--warning) 30%, var(--border));
-    background-color: color-mix(in oklab, var(--warning) 6%, var(--surface));
+    @apply [border-color:color-mix(in_oklab,_var(--warning)_30%,_var(--border))] [background-color:color-mix(in_oklab,_var(--warning)_6%,_var(--surface))];
   }
 
   .ui-alert--danger {
-    border-color: color-mix(in oklab, var(--danger) 30%, var(--border));
-    background-color: color-mix(in oklab, var(--danger) 6%, var(--surface));
+    @apply [border-color:color-mix(in_oklab,_var(--danger)_30%,_var(--border))] [background-color:color-mix(in_oklab,_var(--danger)_6%,_var(--surface))];
   }
 
   /** İkon zeminleri — muted yerine varyant tonu */
@@ -4317,19 +3922,19 @@
   }
 
   .ui-alert--info .ui-alert-icon {
-    background-color: color-mix(in oklab, var(--info) 22%, var(--surface));
+    @apply [background-color:color-mix(in_oklab,_var(--info)_22%,_var(--surface))];
   }
 
   .ui-alert--success .ui-alert-icon {
-    background-color: color-mix(in oklab, var(--success) 22%, var(--surface));
+    @apply [background-color:color-mix(in_oklab,_var(--success)_22%,_var(--surface))];
   }
 
   .ui-alert--warning .ui-alert-icon {
-    background-color: color-mix(in oklab, var(--warning) 22%, var(--surface));
+    @apply [background-color:color-mix(in_oklab,_var(--warning)_22%,_var(--surface))];
   }
 
   .ui-alert--danger .ui-alert-icon {
-    background-color: color-mix(in oklab, var(--danger) 22%, var(--surface));
+    @apply [background-color:color-mix(in_oklab,_var(--danger)_22%,_var(--surface))];
   }
 
   .ui-alert-body {
@@ -4394,20 +3999,23 @@
 
   /** Dar alan / dialog içi — kompakt, bordersız, kart ile aynı köşe. */
   .ui-alert.ui-alert--soft {
-    @apply items-start gap-2.5 rounded-3xl border-0 px-3 py-2.5 text-xs leading-4 shadow-none;
-    border-color: transparent;
+    @apply items-start gap-2.5 rounded-3xl border-0 px-3 py-2.5 text-xs leading-4 shadow-none border-transparent;
   }
 
   .ui-alert--soft .ui-alert-icon {
     @apply mt-0 size-6 rounded-full;
   }
 
+  /**
+   * Metin bloğu sıkı (6px). Eylem kutusu paragrafın hemen altında, küçük bir adımla durur.
+   * Dolu düğmenin yatay dolgusu etiketi içeri kaydırmaz; etiket metinle aynı sol kenardadır.
+   */
   .ui-alert--soft .ui-alert-body {
-    @apply space-y-0.5;
+    @apply flex min-w-0 flex-col gap-2 space-y-0;
   }
 
   .ui-alert--soft .ui-alert-copy {
-    @apply space-y-0.5;
+    @apply space-y-1.5;
   }
 
   .ui-alert--soft .ui-alert-title {
@@ -4415,15 +4023,57 @@
   }
 
   .ui-alert--soft .ui-alert-description {
-    @apply text-xs leading-4 text-muted-foreground;
+    @apply text-xs leading-4;
   }
 
   .ui-alert--soft .ui-alert-slot {
-    @apply p-0 text-xs leading-4 text-muted-foreground;
+    @apply p-0 text-xs leading-4;
   }
 
-  .ui-alert--soft.ui-alert--danger .ui-alert-slot {
-    @apply text-foreground;
+  .ui-alert--info .ui-alert-description,
+  .ui-alert--info .ui-alert-slot {
+    @apply [color:color-mix(in_oklab,_var(--info)_40%,_var(--foreground))];
+  }
+
+  .ui-alert--success .ui-alert-description,
+  .ui-alert--success .ui-alert-slot {
+    @apply [color:color-mix(in_oklab,_var(--success)_40%,_var(--foreground))];
+  }
+
+  .ui-alert--warning .ui-alert-description,
+  .ui-alert--warning .ui-alert-slot {
+    @apply [color:color-mix(in_oklab,_var(--warning)_40%,_var(--foreground))];
+  }
+
+  .ui-alert--danger .ui-alert-description,
+  .ui-alert--danger .ui-alert-slot {
+    @apply [color:color-mix(in_oklab,_var(--danger)_40%,_var(--foreground))];
+  }
+
+  .ui-alert--soft:not(.ui-alert--banner):not(.ui-alert--toast) .ui-alert-slot > .ui-button.ui-control:not([data-variant='link']):not([data-variant='nav']):not(.aspect-square),
+  .ui-alert--soft:not(.ui-alert--banner):not(.ui-alert--toast) .ui-alert-slot > .ui-action-group {
+    @apply -mt-1;
+  }
+
+  .ui-alert:not(.ui-alert--banner):not(.ui-alert--toast) .ui-alert-slot > .ui-button.ui-control-h-sm:not([data-variant='link']):not([data-variant='nav']),
+  .ui-alert:not(.ui-alert--banner):not(.ui-alert--toast) .ui-alert-slot > .ui-button[data-size='sm']:not([data-variant='link']):not([data-variant='nav']):not(.aspect-square),
+  .ui-alert:not(.ui-alert--banner):not(.ui-alert--toast) .ui-alert-slot > .ui-action-group:has(> .ui-button.ui-control-h-sm),
+  .ui-alert:not(.ui-alert--banner):not(.ui-alert--toast) .ui-alert-slot > .ui-action-group:has(> .ui-button[data-size='sm']) {
+    @apply -ms-2.5;
+  }
+
+  .ui-alert:not(.ui-alert--banner):not(.ui-alert--toast) .ui-alert-slot > .ui-button.ui-control-h-md:not([data-variant='link']):not([data-variant='nav']),
+  .ui-alert:not(.ui-alert--banner):not(.ui-alert--toast) .ui-alert-slot > .ui-button[data-size='md']:not([data-variant='link']):not([data-variant='nav']):not(.aspect-square),
+  .ui-alert:not(.ui-alert--banner):not(.ui-alert--toast) .ui-alert-slot > .ui-action-group:has(> .ui-button.ui-control-h-md),
+  .ui-alert:not(.ui-alert--banner):not(.ui-alert--toast) .ui-alert-slot > .ui-action-group:has(> .ui-button[data-size='md']) {
+    @apply -ms-3;
+  }
+
+  .ui-alert:not(.ui-alert--banner):not(.ui-alert--toast) .ui-alert-slot > .ui-button.ui-control-h-lg:not([data-variant='link']):not([data-variant='nav']),
+  .ui-alert:not(.ui-alert--banner):not(.ui-alert--toast) .ui-alert-slot > .ui-button[data-size='lg']:not([data-variant='link']):not([data-variant='nav']):not(.aspect-square),
+  .ui-alert:not(.ui-alert--banner):not(.ui-alert--toast) .ui-alert-slot > .ui-action-group:has(> .ui-button.ui-control-h-lg),
+  .ui-alert:not(.ui-alert--banner):not(.ui-alert--toast) .ui-alert-slot > .ui-action-group:has(> .ui-button[data-size='lg']) {
+    @apply -ms-4;
   }
 
   /** Slot içi hata/satır listeleri — madde imi yok; Event soft alert ile aynı dil. */
@@ -4445,23 +4095,19 @@
   }
 
   .ui-alert--toast.ui-alert--info {
-    border-color: color-mix(in oklab, var(--info) 26%, var(--border));
-    background-color: color-mix(in oklab, var(--info) 5%, var(--surface));
+    @apply [border-color:color-mix(in_oklab,_var(--info)_26%,_var(--border))] [background-color:color-mix(in_oklab,_var(--info)_5%,_var(--surface))];
   }
 
   .ui-alert--toast.ui-alert--success {
-    border-color: color-mix(in oklab, var(--success) 26%, var(--border));
-    background-color: color-mix(in oklab, var(--success) 5%, var(--surface));
+    @apply [border-color:color-mix(in_oklab,_var(--success)_26%,_var(--border))] [background-color:color-mix(in_oklab,_var(--success)_5%,_var(--surface))];
   }
 
   .ui-alert--toast.ui-alert--warning {
-    border-color: color-mix(in oklab, var(--warning) 26%, var(--border));
-    background-color: color-mix(in oklab, var(--warning) 5%, var(--surface));
+    @apply [border-color:color-mix(in_oklab,_var(--warning)_26%,_var(--border))] [background-color:color-mix(in_oklab,_var(--warning)_5%,_var(--surface))];
   }
 
   .ui-alert--toast.ui-alert--danger {
-    border-color: color-mix(in oklab, var(--danger) 26%, var(--border));
-    background-color: color-mix(in oklab, var(--danger) 5%, var(--surface));
+    @apply [border-color:color-mix(in_oklab,_var(--danger)_26%,_var(--border))] [background-color:color-mix(in_oklab,_var(--danger)_5%,_var(--surface))];
   }
 
   .ui-alert--toast .ui-alert-icon {
@@ -4470,19 +4116,19 @@
 
   /** Toast ikon plakası — biraz daha belirgin varyant tonu */
   .ui-alert--toast.ui-alert--info .ui-alert-icon {
-    background-color: color-mix(in oklab, var(--info) 28%, var(--surface));
+    @apply [background-color:color-mix(in_oklab,_var(--info)_28%,_var(--surface))];
   }
 
   .ui-alert--toast.ui-alert--success .ui-alert-icon {
-    background-color: color-mix(in oklab, var(--success) 28%, var(--surface));
+    @apply [background-color:color-mix(in_oklab,_var(--success)_28%,_var(--surface))];
   }
 
   .ui-alert--toast.ui-alert--warning .ui-alert-icon {
-    background-color: color-mix(in oklab, var(--warning) 28%, var(--surface));
+    @apply [background-color:color-mix(in_oklab,_var(--warning)_28%,_var(--surface))];
   }
 
   .ui-alert--toast.ui-alert--danger .ui-alert-icon {
-    background-color: color-mix(in oklab, var(--danger) 28%, var(--surface));
+    @apply [background-color:color-mix(in_oklab,_var(--danger)_28%,_var(--surface))];
   }
 
   .ui-alert--toast .ui-alert-body {
@@ -4509,51 +4155,43 @@
   }
 
   .ui-toast-deck--grouped:not(.ui-toast-deck--expanded).ui-toast-deck--layers-1 {
-    margin-bottom: 0.35rem;
+    @apply [margin-bottom:0.35rem];
   }
 
   .ui-toast-deck--grouped:not(.ui-toast-deck--expanded).ui-toast-deck--layers-2 {
-    margin-bottom: 0.55rem;
+    @apply [margin-bottom:0.55rem];
   }
 
   .ui-toast-deck-sheet {
-    @apply pointer-events-none absolute inset-0 rounded-full border border-border bg-surface shadow-md;
-    z-index: 0;
+    @apply pointer-events-none absolute inset-0 rounded-full border border-border bg-surface shadow-md z-0;
   }
 
   .ui-toast-deck--layers-1 .ui-toast-deck-sheet:nth-child(1) {
-    transform: translateY(0.28rem) scaleX(0.95);
-    opacity: 0.9;
+    @apply [transform:translateY(0.28rem)_scaleX(0.95)] opacity-90;
   }
 
   .ui-toast-deck--layers-2 .ui-toast-deck-sheet:nth-child(1) {
-    transform: translateY(0.25rem) scaleX(0.96);
-    opacity: 0.92;
+    @apply [transform:translateY(0.25rem)_scaleX(0.96)] opacity-92;
   }
 
   .ui-toast-deck--layers-2 .ui-toast-deck-sheet:nth-child(2) {
-    transform: translateY(0.5rem) scaleX(0.9);
-    opacity: 0.78;
+    @apply [transform:translateY(0.5rem)_scaleX(0.9)] opacity-78;
   }
 
   .ui-toast-deck:has(.ui-alert--info) .ui-toast-deck-sheet {
-    border-color: color-mix(in oklab, var(--info) 26%, var(--border));
-    background-color: color-mix(in oklab, var(--info) 5%, var(--surface));
+    @apply [border-color:color-mix(in_oklab,_var(--info)_26%,_var(--border))] [background-color:color-mix(in_oklab,_var(--info)_5%,_var(--surface))];
   }
 
   .ui-toast-deck:has(.ui-alert--success) .ui-toast-deck-sheet {
-    border-color: color-mix(in oklab, var(--success) 26%, var(--border));
-    background-color: color-mix(in oklab, var(--success) 5%, var(--surface));
+    @apply [border-color:color-mix(in_oklab,_var(--success)_26%,_var(--border))] [background-color:color-mix(in_oklab,_var(--success)_5%,_var(--surface))];
   }
 
   .ui-toast-deck:has(.ui-alert--warning) .ui-toast-deck-sheet {
-    border-color: color-mix(in oklab, var(--warning) 26%, var(--border));
-    background-color: color-mix(in oklab, var(--warning) 5%, var(--surface));
+    @apply [border-color:color-mix(in_oklab,_var(--warning)_26%,_var(--border))] [background-color:color-mix(in_oklab,_var(--warning)_5%,_var(--surface))];
   }
 
   .ui-toast-deck:has(.ui-alert--danger) .ui-toast-deck-sheet {
-    border-color: color-mix(in oklab, var(--danger) 26%, var(--border));
-    background-color: color-mix(in oklab, var(--danger) 5%, var(--surface));
+    @apply [border-color:color-mix(in_oklab,_var(--danger)_26%,_var(--border))] [background-color:color-mix(in_oklab,_var(--danger)_5%,_var(--surface))];
   }
 
   .ui-toast-deck .ui-alert--toast {
@@ -4565,8 +4203,7 @@
   }
 
   .ui-alert--toast-grouped:focus-visible {
-    outline: 2px solid var(--ring);
-    outline-offset: 2px;
+    @apply [outline:2px_solid_var(--ring)] [outline-offset:2px];
   }
 
   /** Açık grup — her bildirim ayrı toast olarak alt alta. */
@@ -4585,15 +4222,12 @@
 
   /** Toast kapsayıcı — Teleport içi; varsayılan üstte, safe-area ile. */
   .ui-toast-host {
-    @apply pointer-events-none fixed inset-x-0 top-0 flex flex-col items-center gap-2 px-4 pb-4;
-    padding-top: max(1rem, env(safe-area-inset-top, 0px));
-    z-index: 500;
+    @apply pointer-events-none fixed inset-x-0 top-0 flex flex-col items-center gap-2 px-4 pb-4 [padding-top:max(1rem,_env(safe-area-inset-top,_0px))] z-[500];
   }
 
   @media (max-width: 1023px) {
     .ui-toast-host {
-      padding-top: max(0.75rem, env(safe-area-inset-top, 0px));
-      padding-bottom: 0.75rem;
+      @apply [padding-top:max(0.75rem,_env(safe-area-inset-top,_0px))] pb-3;
     }
   }
 
@@ -4622,9 +4256,7 @@
   }
 
   .ui-popover-body {
-    @apply min-h-0 min-w-0 flex-1 overflow-y-auto overscroll-contain ui-scrollbar-none;
-    -webkit-overflow-scrolling: touch;
-    touch-action: pan-y;
+    @apply min-h-0 min-w-0 flex-1 overflow-y-auto overscroll-contain ui-scrollbar-none [-webkit-overflow-scrolling:touch] touch-pan-y;
   }
 
   .ui-popover-body:has(.ui-color-picker-panel),
@@ -4633,9 +4265,7 @@
   }
 
   .ui-popover-body:has(.ui-dropdown-menu) {
-    @apply overflow-y-auto overscroll-contain ui-scrollbar-none;
-    -webkit-overflow-scrolling: touch;
-    touch-action: pan-y;
+    @apply overflow-y-auto overscroll-contain ui-scrollbar-none [-webkit-overflow-scrolling:touch] touch-pan-y;
   }
 
   .ui-popover-footer {
@@ -4688,29 +4318,23 @@
    * `overflow-hidden` yalnızca köşe taşması için kökte.
    */
   .ui-dialog-panel .ui-dialog-header {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    align-items: center;
-    column-gap: 0.75rem;
-    row-gap: 0.35rem;
-    min-width: 0;
+    @apply grid [grid-template-columns:minmax(0,_1fr)_auto] items-center gap-x-3 [row-gap:0.35rem] min-w-0;
   }
 
   .ui-dialog-panel .ui-dialog-header--with-close {
-    grid-template-columns: auto minmax(0, 1fr) auto;
+    @apply [grid-template-columns:auto_minmax(0,_1fr)_auto];
   }
 
   .ui-dialog-panel .ui-dialog-header--with-back {
-    grid-template-columns: auto minmax(0, 1fr) auto;
+    @apply [grid-template-columns:auto_minmax(0,_1fr)_auto];
   }
 
   .ui-dialog-panel .ui-dialog-header--with-close.ui-dialog-header--with-back {
-    grid-template-columns: auto auto minmax(0, 1fr) auto;
+    @apply [grid-template-columns:auto_auto_minmax(0,_1fr)_auto];
   }
 
   .ui-dialog-panel .ui-dialog-header__back {
-    @apply shrink-0 justify-self-start -ml-1 rounded-lg;
-    min-height: 2.25rem;
+    @apply shrink-0 justify-self-start -ml-1 rounded-lg min-h-9;
   }
 
   .ui-dialog-panel .ui-dialog-header__lead {
@@ -4722,8 +4346,7 @@
   }
 
   .ui-dialog-panel .ui-dialog-header__title {
-    @apply min-w-0 text-xl leading-7;
-    overflow-wrap: anywhere;
+    @apply min-w-0 text-xl leading-7 wrap-anywhere;
   }
 
   .ui-dialog-panel .ui-dialog-header--with-back .ui-dialog-header__title {
@@ -4735,16 +4358,11 @@
   }
 
   .ui-sheet-panel .ui-sheet-header {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto auto auto;
-    align-items: center;
-    column-gap: 0.75rem;
-    row-gap: 0.2rem;
-    min-width: 0;
+    @apply grid [grid-template-columns:minmax(0,_1fr)_auto_auto_auto] items-center gap-x-3 [row-gap:0.2rem] min-w-0;
   }
 
   .ui-sheet-panel .ui-sheet-header--no-icon {
-    grid-template-columns: minmax(0, 1fr) auto auto;
+    @apply [grid-template-columns:minmax(0,_1fr)_auto_auto];
   }
 
   .ui-sheet-panel .ui-sheet-header__icon {
@@ -4778,8 +4396,7 @@
   /** Dialog gibi: kök kart padding’i yok; inset header/body/footer’da. */
   .ui-sheet-panel.ui-card {
     --ui-card-gap: 0;
-    padding: 0;
-    gap: 0;
+    @apply p-0 gap-0;
   }
 
   .ui-sheet-panel--right {
@@ -4791,58 +4408,51 @@
   }
 
   .ui-sheet-panel--sm {
-    width: min(100vw - 3.5rem, 18rem);
+    @apply [width:min(100vw_-_3.5rem,_18rem)];
   }
 
   .ui-sheet-panel--md {
-    width: min(100vw, 26rem);
+    @apply [width:min(100vw,_26rem)];
   }
 
   .ui-sheet-panel--lg {
-    width: min(100vw, 28rem);
+    @apply [width:min(100vw,_28rem)];
   }
 
   .ui-sheet-panel--xl {
-    width: min(100vw, 36rem);
+    @apply [width:min(100vw,_36rem)];
   }
 
   @media (max-width: 1023px) {
     .ui-sheet-panel--full-mobile {
-      width: 100%;
-      max-width: 100vw;
+      @apply w-full [max-width:100vw];
     }
   }
 
   .ui-sheet-panel .ui-card-header {
-    @apply shrink-0;
-    padding: max(0.75rem, env(safe-area-inset-top, 0px)) var(--ui-card-padding) 0.75rem;
+    @apply shrink-0 [padding:max(0.75rem,_env(safe-area-inset-top,_0px))_var(--ui-card-padding)_0.75rem];
   }
 
   .ui-sheet-panel .ui-card-toolbar {
-    @apply shrink-0;
-    padding: 0 var(--ui-card-padding) 0.75rem;
+    @apply shrink-0 [padding:0_var(--ui-card-padding)_0.75rem];
   }
 
   .ui-sheet-panel .ui-card-body {
-    @apply relative z-[1] min-h-0 flex-1 overflow-y-auto overscroll-contain;
-    padding-inline: var(--ui-card-padding);
-    padding-block: 0.75rem;
-    scroll-padding-inline: var(--ui-card-padding);
-    scroll-padding-block: 0.75rem;
+    @apply relative z-[1] min-h-0 flex-1 overflow-y-auto overscroll-contain px-[var(--ui-card-padding)] py-3 scroll-px-[var(--ui-card-padding)] scroll-py-3;
   }
 
   .ui-sheet-panel .ui-card-header + .ui-card-body,
   .ui-sheet-panel .ui-card-toolbar + .ui-card-body,
   .ui-sheet-panel .ui-divider + .ui-card-body {
-    padding-top: 0;
+    @apply pt-0;
   }
 
   .ui-sheet-panel .ui-card-body:has(+ .ui-card-footer) {
-    padding-bottom: 0.5rem;
+    @apply pb-2;
   }
 
   .ui-sheet-panel .ui-card-body:not(:has(+ .ui-card-footer)) {
-    padding-bottom: var(--ui-card-padding);
+    @apply pb-[var(--ui-card-padding)];
   }
 
   .ui-sheet-panel .ui-card-body--flush {
@@ -4858,10 +4468,7 @@
   }
 
   .ui-sheet-panel .ui-card-footer {
-    @apply relative z-0 flex shrink-0 flex-nowrap items-center justify-end gap-3 border-t border-border;
-    padding-inline: var(--ui-card-padding);
-    padding-top: 0.75rem;
-    padding-bottom: max(var(--ui-card-padding), env(safe-area-inset-bottom, 0px));
+    @apply relative z-0 flex shrink-0 flex-nowrap items-center justify-end gap-3 border-t border-border px-[var(--ui-card-padding)] pt-3 [padding-bottom:max(var(--ui-card-padding),_env(safe-area-inset-bottom,_0px))];
   }
 
   .ui-sheet-panel .ui-card-footer.ui-sheet-footer--borderless {
@@ -4882,8 +4489,7 @@
   }
 
   .ui-sheet-panel .ui-card-footer .ui-action-group--grow > * {
-    flex: 1 1 auto;
-    min-width: 0;
+    @apply flex-auto min-w-0;
   }
 
   .ui-sheet-panel .ui-card-footer > .ui-button.ui-button--block {
@@ -4895,109 +4501,89 @@
    * olmayan tüketicilerde Button `cubed` utility sınıfları üretilmeyebilir).
    */
   .ui-dialog-panel .ui-dialog-header__close {
-    box-sizing: border-box;
-    width: 2rem;
-    height: 2rem;
-    min-width: 2rem;
-    min-height: 2rem;
-    padding: 0;
-    flex-shrink: 0;
-    border-radius: 9999px;
+    @apply box-border w-8 h-8 min-w-8 min-h-8 p-0 shrink-0 rounded-full;
   }
 
   .ui-dialog-panel .ui-dialog-header__description {
-    grid-column: 1 / -1;
-    @apply text-muted-foreground;
+    @apply [grid-column:1_/_-1] text-muted-foreground;
   }
 
   .ui-dialog-panel {
     @apply relative z-[1] flex max-h-[min(90dvh,100%)] w-full min-h-0 min-w-0 flex-col overflow-hidden outline-none;
     --ui-dialog-body-ring-inset: 0.5rem;
-    transform-origin: center center;
+    @apply [transform-origin:center_center];
   }
 
   .ui-dialog-panel--max-sm {
-    max-width: min(24rem, 100%);
+    @apply [max-width:min(24rem,_100%)];
   }
 
   .ui-dialog-panel--max-md {
-    max-width: min(28rem, 100%);
+    @apply [max-width:min(28rem,_100%)];
   }
 
   .ui-dialog-panel--max-lg {
-    max-width: min(32rem, 100%);
+    @apply [max-width:min(32rem,_100%)];
   }
 
   .ui-dialog-panel--max-xl {
-    max-width: min(36rem, 100%);
+    @apply [max-width:min(36rem,_100%)];
   }
 
   .ui-dialog-panel--max-2xl {
-    max-width: min(42rem, 100%);
+    @apply [max-width:min(42rem,_100%)];
   }
 
   .ui-dialog-panel--max-3xl {
-    max-width: min(48rem, 100%);
+    @apply [max-width:min(48rem,_100%)];
   }
 
   .ui-dialog-panel--max-4xl {
-    max-width: min(56rem, 100%);
+    @apply [max-width:min(56rem,_100%)];
   }
 
   .ui-dialog-panel--max-5xl {
-    max-width: min(64rem, 100%);
+    @apply [max-width:min(64rem,_100%)];
   }
 
   .ui-dialog-panel--max-full {
-    max-width: min(100%, 100%);
-    width: 100%;
+    @apply [max-width:min(100%,_100%)] w-full;
   }
 
   .ui-dialog-panel.ui-card {
     --ui-card-gap: 0;
-    padding: 0;
-    gap: 0;
+    @apply p-0 gap-0;
   }
 
   /* Yalnız panel iskeleti — iç içe ui-card gövdelerine overflow/max-height sızmasın */
   .ui-dialog-panel > .ui-dialog-motion > .ui-card-header {
-    padding: var(--ui-card-padding) var(--ui-card-padding) 0.75rem;
+    @apply [padding:var(--ui-card-padding)_var(--ui-card-padding)_0.75rem];
   }
 
   .ui-dialog-panel > .ui-dialog-motion > .ui-card-toolbar {
-    padding: 0 var(--ui-card-padding) 0.75rem;
+    @apply [padding:0_var(--ui-card-padding)_0.75rem];
   }
 
   .ui-dialog-panel > .ui-dialog-motion > .ui-card-body {
-    @apply relative z-[1] min-h-0 overflow-y-auto overscroll-contain;
-    flex: 0 1 auto;
-    max-height: calc(min(90dvh, 100%) - 9.5rem);
-    padding-inline: var(--ui-card-padding);
-    padding-block: 0.75rem;
-    scroll-padding-inline: var(--ui-card-padding);
-    scroll-padding-block: 0.75rem;
+    @apply relative z-[1] min-h-0 overflow-y-auto overscroll-contain flex-initial [max-height:calc(min(90dvh,_100%)_-_9.5rem)] px-[var(--ui-card-padding)] py-3 scroll-px-[var(--ui-card-padding)] scroll-py-3;
   }
 
   .ui-dialog-panel > .ui-dialog-motion > .ui-card-header + .ui-card-body,
   .ui-dialog-panel > .ui-dialog-motion > .ui-card-toolbar + .ui-card-body,
   .ui-dialog-panel > .ui-dialog-motion > .ui-divider + .ui-card-body {
-    padding-top: 0.75rem;
+    @apply pt-3;
   }
 
   .ui-dialog-panel > .ui-dialog-motion > .ui-card-body:has(+ .ui-card-footer) {
-    padding-bottom: var(--ui-dialog-body-ring-inset);
-    scroll-padding-bottom: calc(0.75rem + var(--ui-dialog-body-ring-inset));
+    @apply pb-[var(--ui-dialog-body-ring-inset)] [scroll-padding-bottom:calc(0.75rem_+_var(--ui-dialog-body-ring-inset))];
   }
 
   .ui-dialog-panel > .ui-dialog-motion > .ui-card-body:not(:has(+ .ui-card-footer)) {
-    padding-bottom: var(--ui-card-padding);
+    @apply pb-[var(--ui-card-padding)];
   }
 
   .ui-dialog-panel > .ui-dialog-motion > .ui-card-footer {
-    @apply relative z-[2] flex shrink-0 flex-nowrap items-center justify-end gap-3;
-    padding-inline: var(--ui-card-padding);
-    padding-top: 0.75rem;
-    padding-bottom: var(--ui-card-padding);
+    @apply relative z-[2] flex shrink-0 flex-nowrap items-center justify-end gap-3 px-[var(--ui-card-padding)] pt-3 pb-[var(--ui-card-padding)];
   }
 
   /**
@@ -5013,16 +4599,11 @@
   }
 
   .ui-dialog-panel--footer-transparent .ui-card-footer.ui-dialog-footer--transparent {
-    @apply absolute inset-x-0 bottom-0 z-10 border-0 shadow-none;
-    background-color: transparent;
-    background-image: none;
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-    pointer-events: none;
+    @apply absolute inset-x-0 bottom-0 z-10 border-0 shadow-none bg-transparent bg-none [-webkit-backdrop-filter:none] [backdrop-filter:none] pointer-events-none;
   }
 
   .ui-dialog-panel--footer-transparent .ui-card-footer.ui-dialog-footer--transparent > * {
-    pointer-events: auto;
+    @apply pointer-events-auto;
   }
 
   /**
@@ -5030,8 +4611,7 @@
    * Unlayered `overrides.css` ile güçlendirilir.
    */
   .ui-dialog-panel--footer-transparent .ui-card-footer.ui-dialog-footer--transparent .ui-button.ui-control {
-    -webkit-backdrop-filter: blur(var(--ui-control-backdrop-blur, 16px)) saturate(180%);
-    backdrop-filter: blur(var(--ui-control-backdrop-blur, 16px)) saturate(180%);
+    @apply [-webkit-backdrop-filter:blur(var(--ui-control-backdrop-blur,_16px))_saturate(180%)] [backdrop-filter:blur(var(--ui-control-backdrop-blur,_16px))_saturate(180%)];
   }
 
   .ui-dialog-panel--footer-transparent
@@ -5043,31 +4623,23 @@
   .ui-dialog-panel--footer-transparent
     .ui-card-footer.ui-dialog-footer--transparent
     .ui-button.ui-control[data-variant='link'] {
-    background-color: var(--surface);
-    background-image: none;
+    @apply bg-surface bg-none;
   }
 
   .ui-dialog-panel--footer-transparent > .ui-dialog-motion > .ui-card-body:has(+ .ui-card-footer) {
-    padding-bottom: calc(var(--ui-dialog-footer-clearance) + var(--ui-dialog-body-ring-inset));
-    scroll-padding-bottom: calc(var(--ui-dialog-footer-clearance) + 0.75rem);
+    @apply [padding-bottom:calc(var(--ui-dialog-footer-clearance)_+_var(--ui-dialog-body-ring-inset))] [scroll-padding-bottom:calc(var(--ui-dialog-footer-clearance)_+_0.75rem)];
   }
 
   .ui-dialog-panel--footer-transparent.ui-dialog-panel--body-flex
     > .ui-dialog-motion
     > .ui-card-body--flex {
-    padding-inline: var(--ui-card-padding);
-    padding-top: 0.75rem;
-    padding-bottom: calc(var(--ui-dialog-footer-clearance) + var(--ui-card-padding));
-    scroll-padding-bottom: calc(var(--ui-dialog-footer-clearance) + 0.75rem);
+    @apply px-[var(--ui-card-padding)] pt-3 [padding-bottom:calc(var(--ui-dialog-footer-clearance)_+_var(--ui-card-padding))] [scroll-padding-bottom:calc(var(--ui-dialog-footer-clearance)_+_0.75rem)];
   }
 
   .ui-dialog-panel--footer-transparent.ui-dialog-panel--body-flex
     > .ui-dialog-motion
     > .ui-card-body--flex.ui-card-body--flush {
-    padding-inline: 0;
-    padding-top: 0;
-    padding-bottom: var(--ui-dialog-footer-clearance);
-    scroll-padding-bottom: var(--ui-dialog-footer-clearance);
+    @apply px-0 pt-0 pb-[var(--ui-dialog-footer-clearance)] [scroll-padding-bottom:var(--ui-dialog-footer-clearance)];
   }
 
   .ui-dialog-panel > .ui-dialog-motion > .ui-card-body .ui-input:focus-within,
@@ -5080,20 +4652,22 @@
     @apply flex flex-col;
   }
 
+  /**
+   * Kaydırma alanı gövdenin kendisi (kenardan kenara, boşluk içeride). İçerik ayrıca
+   * `overflow-y-auto` sarmalayıcı açmasın: o sarmalayıcı gövde padding'inin içinde kalır,
+   * içerik yanlarda ve altta erken kesilir. Bağımsız kayan iki panel gerekiyorsa
+   * `body-padding="none"` + panellerin kendi padding'i kullanılır.
+   */
   .ui-dialog-panel--body-flex > .ui-dialog-motion > .ui-card-body--flex {
-    @apply flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain;
-    flex: 1 1 auto;
-    max-height: none;
+    @apply flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain flex-auto max-h-none;
   }
 
   .ui-dialog-panel > .ui-dialog-motion > .ui-card-body--flush {
-    padding-inline: 0;
-    padding-block: 0;
-    scroll-padding: 0;
+    @apply px-0 py-0 scroll-p-0;
   }
 
   .ui-dialog-panel > .ui-dialog-motion > .ui-card-body--flush:not(:has(+ .ui-card-footer)) {
-    padding-bottom: 0;
+    @apply pb-0;
   }
 
   .ui-dialog-panel .ui-card-toolbar .ui-form-row--vertical .ui-form-row-control,
@@ -5114,18 +4688,15 @@
   }
 
   .ui-dialog-panel .ui-card-footer .ui-action-group--grow > * {
-    flex: 1 1 auto;
-    min-width: max-content;
+    @apply flex-auto min-w-max;
   }
 
   .ui-dialog-panel .ui-card-footer > .ui-button:not(.ui-button--block) {
-    width: auto;
-    flex-shrink: 0;
+    @apply w-auto shrink-0;
   }
 
   .ui-dialog-panel .ui-card-footer > .ui-button.ui-button--block {
-    width: 100%;
-    flex-shrink: 0;
+    @apply w-full shrink-0;
   }
 
   .ui-dropdown-menu {
@@ -5158,17 +4729,15 @@
   }
 
   .ui-dropdown-menu > .ui-button:has(.ui-dropdown-item-description) .ui-button-text {
-    @apply min-w-0 flex-1 overflow-visible whitespace-normal;
-    text-overflow: clip;
+    @apply min-w-0 flex-1 overflow-visible whitespace-normal text-clip;
   }
 
   .ui-dropdown-item-copy {
-    @apply grid min-w-0 items-center gap-x-2.5 gap-y-0.5 text-left;
-    grid-template-columns: 1.25rem minmax(0, 1fr);
+    @apply grid min-w-0 items-center gap-x-2.5 gap-y-0.5 text-left [grid-template-columns:1.25rem_minmax(0,_1fr)];
   }
 
   .ui-dropdown-item-copy:not(:has(.ui-dropdown-item-icon)) {
-    grid-template-columns: minmax(0, 1fr);
+    @apply [grid-template-columns:minmax(0,_1fr)];
   }
 
   .ui-dropdown-item-icon {
@@ -5219,12 +4788,11 @@
   }
 
   .ui-datepicker-grid > .ui-button[data-variant='ghost'] {
-    border-width: 0;
+    @apply border-0;
   }
 
   .ui-datepicker-grid > .ui-button[data-variant='ghost']:hover:not(:disabled) {
-    background-color: var(--muted);
-    background-image: none;
+    @apply bg-muted bg-none;
   }
 
   .ui-datepicker-grid > .ui-button[data-variant='outline'] {
@@ -5248,8 +4816,7 @@
   }
 
   .ui-datepicker-quick > .ui-button[data-variant='ghost']:hover:not(:disabled) {
-    background-color: var(--muted);
-    background-image: none;
+    @apply bg-muted bg-none;
   }
 
   .ui-datepicker-grid > .ui-button[data-in-range='true'] {
@@ -5310,10 +4877,7 @@
   }
 
   .ui-timepicker-selection-band {
-    @apply pointer-events-none absolute inset-x-1 z-0 rounded-md bg-muted;
-    top: 50%;
-    height: 2.5rem;
-    transform: translateY(-50%);
+    @apply pointer-events-none absolute inset-x-1 z-0 rounded-md bg-muted [top:50%] h-10 [transform:translateY(-50%)];
   }
 
   .ui-timepicker-colon {
@@ -5321,35 +4885,27 @@
   }
 
   .ui-timepicker-wheels-fade {
-    @apply pointer-events-none absolute inset-x-0 z-[2];
-    height: calc((180px - 2.5rem) / 2);
+    @apply pointer-events-none absolute inset-x-0 z-[2] [height:calc((180px_-_2.5rem)_/_2)];
   }
 
   .ui-timepicker-wheels-fade--top {
-    @apply top-0;
-    background: linear-gradient(to bottom, var(--surface), transparent);
+    @apply top-0 [background:linear-gradient(to_bottom,_var(--surface),_transparent)];
   }
 
   .ui-timepicker-wheels-fade--bottom {
-    @apply bottom-0;
-    background: linear-gradient(to top, var(--surface), transparent);
+    @apply bottom-0 [background:linear-gradient(to_top,_var(--surface),_transparent)];
   }
 
   .ui-timepicker-wheel-viewport {
-    @apply h-[180px] max-h-[180px] overflow-y-auto overscroll-y-contain touch-pan-y ui-scrollbar-none;
-    scroll-snap-type: y mandatory;
-    -webkit-overflow-scrolling: touch;
+    @apply h-[180px] max-h-[180px] overflow-y-auto overscroll-y-contain touch-pan-y ui-scrollbar-none [scroll-snap-type:y_mandatory] [-webkit-overflow-scrolling:touch];
   }
 
   .ui-timepicker-wheel-spacer {
-    padding-top: calc((180px - 2.5rem) / 2);
-    padding-bottom: calc((180px - 2.5rem) / 2);
+    @apply [padding-top:calc((180px_-_2.5rem)_/_2)] [padding-bottom:calc((180px_-_2.5rem)_/_2)];
   }
 
   .ui-timepicker-wheel-item {
-    @apply flex h-10 w-full shrink-0 cursor-default items-center justify-center border-0 bg-transparent tabular-nums text-sm font-normal leading-5 text-muted-foreground outline-none;
-    scroll-snap-align: center;
-    scroll-snap-stop: normal;
+    @apply flex h-10 w-full shrink-0 cursor-default items-center justify-center border-0 bg-transparent tabular-nums text-sm font-normal leading-5 text-muted-foreground outline-none [scroll-snap-align:center] [scroll-snap-stop:normal];
   }
 
   .ui-timepicker-wheel-item:hover {
@@ -5363,17 +4919,16 @@
   /** Toast — TransitionGroup */
   .ui-toast-enter-active,
   .ui-toast-leave-active {
-    transition: opacity 0.2s ease, transform 0.2s ease;
+    @apply [transition:opacity_0.2s_ease,_transform_0.2s_ease];
   }
 
   .ui-toast-enter-from,
   .ui-toast-leave-to {
-    opacity: 0;
-    transform: translateY(-0.5rem);
+    @apply opacity-0 -translate-y-2;
   }
 
   .ui-toast-move {
-    transition: transform 0.2s ease;
+    @apply [transition:transform_0.2s_ease];
   }
 
   /** Table primitives */
@@ -5383,8 +4938,7 @@
 
   @media (max-width: 1023px) {
     .ui-table-scroll {
-      overflow-x: hidden;
-      overflow-y: visible;
+      @apply overflow-x-hidden overflow-y-visible;
     }
   }
 
@@ -5395,20 +4949,18 @@
 
   @media (max-width: 1023px) {
     .ui-table {
-      width: 100%;
-      min-width: 0;
-      table-layout: fixed;
+      @apply w-full min-w-0 table-fixed;
     }
 
     .ui-table-head:not(.ui-table-head--icon-col),
     .ui-table-cell:not(.ui-table-cell--icon-col) {
-      min-width: 0;
+      @apply min-w-0;
     }
 
     .ui-table-head--w-sm,
     .ui-table-head--w-md,
     .ui-table-head--w-lg {
-      min-width: 0;
+      @apply min-w-0;
     }
 
     .ui-table-head {
@@ -5439,117 +4991,83 @@
    * Köşe tasarım `--radius` ile uyumlu (rounded-lg).
    */
   .ui-table-header .ui-table-row > th {
-    position: relative;
-    border-bottom: none;
+    @apply relative border-b-0;
   }
 
   .ui-table-header .ui-table-row > th::after {
-    content: '';
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    height: 1px;
-    pointer-events: none;
-    background-color: var(--border);
-    transition: opacity 0.15s ease;
+    @apply [content:''] absolute right-0 bottom-0 left-0 h-px pointer-events-none bg-border [transition:opacity_0.15s_ease];
   }
 
   .ui-table-header .ui-table-row > th:first-child::after {
-    left: 0.25rem;
+    @apply left-1;
   }
 
   .ui-table-header .ui-table-row > th:last-child::after {
-    right: 0.25rem;
+    @apply right-1;
   }
 
   .ui-table-body .ui-table-row > td {
-    position: relative;
-    isolation: isolate;
-    border-bottom: none;
+    @apply relative isolate border-b-0;
   }
 
   .ui-table-body .ui-table-row > td::after {
-    content: '';
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 1;
-    height: 1px;
-    pointer-events: none;
-    background-color: var(--border);
-    transition: opacity 0.15s ease;
+    @apply [content:''] absolute right-0 bottom-0 left-0 z-[1] h-px pointer-events-none bg-border [transition:opacity_0.15s_ease];
   }
 
   .ui-table-body .ui-table-row > td:first-child::after {
-    left: 0.25rem;
+    @apply left-1;
   }
 
   .ui-table-body .ui-table-row > td:last-child::after {
-    right: 0.25rem;
+    @apply right-1;
   }
 
   .ui-table-body .ui-table-row:last-child > td::after {
-    opacity: 0;
+    @apply opacity-0;
   }
 
   .ui-table-body .ui-table-row > td::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: -1;
-    pointer-events: none;
-    border-radius: 0;
-    background-color: transparent;
-    transition: background-color 0.2s ease;
+    @apply [content:''] absolute top-0 right-0 bottom-0 left-0 z-[-1] pointer-events-none rounded-none bg-transparent [transition:background-color_0.2s_ease];
   }
 
   .ui-table-body .ui-table-row > td:first-child::before {
-    left: 0.25rem;
-    border-top-left-radius: var(--radius);
-    border-bottom-left-radius: var(--radius);
+    @apply left-1 [border-top-left-radius:var(--radius)] [border-bottom-left-radius:var(--radius)];
   }
 
   .ui-table-body .ui-table-row > td:last-child::before {
-    right: 0.25rem;
-    border-top-right-radius: var(--radius);
-    border-bottom-right-radius: var(--radius);
+    @apply right-1 [border-top-right-radius:var(--radius)] [border-bottom-right-radius:var(--radius)];
   }
 
   .ui-table-body .ui-table-row:hover:not(.ui-table-row--no-hover) > td:not(.ui-table-cell--empty)::after,
   .ui-table-body .ui-table-row--selected > td:not(.ui-table-cell--empty)::after,
   .ui-table-body .ui-table-row:has(+ .ui-table-row:hover:not(.ui-table-row--no-hover)) > td::after,
   .ui-table-body .ui-table-row:has(+ .ui-table-row--selected) > td::after {
-    opacity: 0;
+    @apply opacity-0;
   }
 
   .ui-table:has(.ui-table-body > .ui-table-row:first-child:hover:not(.ui-table-row--no-hover)) .ui-table-header .ui-table-row > th::after,
   .ui-table:has(.ui-table-body > .ui-table-row:first-child.ui-table-row--selected) .ui-table-header .ui-table-row > th::after {
-    opacity: 0;
+    @apply opacity-0;
   }
 
   .ui-table-body .ui-table-row:hover:not(.ui-table-row--no-hover) > td:not(.ui-table-cell--empty)::before {
-    background-color: color-mix(in oklab, var(--muted) 40%, transparent);
+    @apply [background-color:color-mix(in_oklab,_var(--muted)_40%,_transparent)];
   }
 
   .ui-table-body .ui-table-row--selected > td:not(.ui-table-cell--empty)::before {
-    background-color: color-mix(in oklab, var(--muted) 50%, transparent);
+    @apply [background-color:color-mix(in_oklab,_var(--muted)_50%,_transparent)];
   }
 
   .ui-table-body .ui-table-row--soft-hover:hover > td:not(.ui-table-cell--empty)::before {
-    background-color: color-mix(in oklab, var(--muted) 25%, transparent);
+    @apply [background-color:color-mix(in_oklab,_var(--muted)_25%,_transparent)];
   }
 
   .ui-table-body .ui-table-row--strong-hover:hover > td:not(.ui-table-cell--empty)::before {
-    background-color: color-mix(in oklab, var(--muted) 60%, transparent);
+    @apply [background-color:color-mix(in_oklab,_var(--muted)_60%,_transparent)];
   }
 
   .ui-table-body .ui-table-row--interactive:hover > td:not(.ui-table-cell--empty)::before {
-    background-color: color-mix(in oklab, var(--muted) 50%, transparent);
+    @apply [background-color:color-mix(in_oklab,_var(--muted)_50%,_transparent)];
   }
 
   .ui-table-header .ui-table-row:hover > td {
@@ -5557,8 +5075,7 @@
   }
 
   .ui-table-head {
-    @apply min-w-0 overflow-hidden px-3 py-2 text-left align-middle text-muted-foreground;
-    @apply [&:has([role=checkbox])]:pr-0;
+    @apply min-w-0 overflow-hidden px-3 py-2 text-left align-middle text-muted-foreground [&:has([role=checkbox])]:pr-0;
   }
 
   /** Başlık metni hücre genişliğini bilsin — aksi halde th clip eder, … görünmez. */
@@ -5583,8 +5100,7 @@
   }
 
   .ui-table-head--w-fill {
-    @apply min-w-0;
-    width: auto;
+    @apply min-w-0 w-auto;
   }
 
   .ui-table-head--align-center {
@@ -5596,8 +5112,7 @@
   }
 
   .ui-table-cell {
-    @apply min-w-0 overflow-hidden px-3 py-2.5 align-middle;
-    @apply [&:has([role=checkbox])]:pr-0;
+    @apply min-w-0 overflow-hidden px-3 py-2.5 align-middle [&:has([role=checkbox])]:pr-0;
   }
 
   .ui-table-cell--w-sm {
@@ -5613,26 +5128,21 @@
   }
 
   .ui-table-cell--w-fill {
-    @apply min-w-0;
-    width: auto;
+    @apply min-w-0 w-auto;
   }
 
   /** Hücre içeriği: sığmayan metin alt satıra kırılır (DataTable / app-col). */
   .ui-table-cell-content {
-    @apply flex min-w-0 max-w-full items-center whitespace-normal break-words;
-    overflow-wrap: anywhere;
+    @apply flex min-w-0 max-w-full items-center whitespace-normal break-words wrap-anywhere;
   }
 
   /** Satır içi işlem grubu — sütun düğme genişliğine göre açılır, taşmaz. */
   .ui-table-cell:has(.ui-action-group) {
-    width: 1%;
-    min-width: max-content;
-    overflow: visible;
+    @apply [width:1%] min-w-max overflow-visible;
   }
 
   .ui-table-cell:has(.ui-action-group) .ui-table-cell-content {
-    @apply max-w-none whitespace-nowrap;
-    overflow-wrap: normal;
+    @apply max-w-none whitespace-nowrap wrap-normal;
   }
 
   .ui-table-cell-content--nowrap {
@@ -5656,14 +5166,16 @@
     @apply font-normal text-muted-foreground;
   }
 
-  /** Tablo hücrelerinde `truncate` yerine satır kırımı (badge etiketi hariç; taşma yatay scroll üretmesin). */
+  /**
+   * Tablo hücresinde metin "..." ile kaybolmasın, satır kırsın (rozet etiketi hariç).
+   * Başlık satırı tek satır kalır; orada kısaltma kasıtlıdır.
+   */
+  .ui-table-body .ui-table-cell :is(.truncate, [class~='truncate']):not(.ui-badge-label),
   .ui-table-cell-content
-    :is(.truncate, [class~='truncate']):not(.ui-badge-label) {
-    overflow: hidden;
-    text-overflow: unset;
-    white-space: normal;
-    word-break: break-word;
-    overflow-wrap: anywhere;
+    :is(.truncate, [class~='truncate']):not(.ui-badge-label),
+  .ui-table-body .ui-table-cell .ui-table-cell-title,
+  .ui-table-body .ui-table-cell .ui-table-cell-subtitle {
+    @apply overflow-hidden [text-overflow:unset] [word-break:break-word] wrap-anywhere;
   }
 
   .ui-table-body .ui-table-cell {
@@ -5676,8 +5188,7 @@
 
   /** DataTable — `icon` prop ile gelen önde ikon sütunu (satır içi tekrar etme) */
   .ui-data-table-row-icon-shell {
-    @apply flex h-7 w-7 shrink-0 items-center justify-center rounded-xl text-primary;
-    background-color: color-mix(in oklab, var(--primary) 10%, transparent);
+    @apply flex h-7 w-7 shrink-0 items-center justify-center rounded-xl text-primary [background-color:color-mix(in_oklab,_var(--primary)_10%,_transparent)];
   }
 
   .ui-data-table-row-icon-inner {
@@ -5726,51 +5237,42 @@
    */
   @media (max-width: 1023px) {
     .app-data-table .ui-card--data-table > .ui-card-toolbar {
-      position: sticky;
-      top: 0;
-      z-index: 12;
-      background-color: var(--app-data-table-cell-bg, var(--surface-bg, var(--surface)));
+      @apply sticky top-0 z-[12] [background-color:var(--app-data-table-cell-bg,_var(--surface-bg,_var(--surface)))];
     }
 
     .app-data-table .ui-table-scroll {
-      overflow-x: auto;
-      overscroll-behavior-x: contain;
-      -webkit-overflow-scrolling: touch;
+      @apply overflow-x-auto [overscroll-behavior-x:contain] [-webkit-overflow-scrolling:touch];
       /* Görünür scrollbar köşeli track bırakıyor; dokunmatik kaydırma yeterli. */
-      scrollbar-width: none;
-      -ms-overflow-style: none;
+      @apply [scrollbar-width:none] [-ms-overflow-style:none];
     }
 
     .app-data-table .ui-table-scroll::-webkit-scrollbar {
-      display: none;
+      @apply hidden;
     }
 
     .app-data-table:not(.app-data-table--filter-empty) .ui-table {
-      table-layout: fixed;
-      width: 100%;
-      min-width: 0;
+      @apply table-fixed w-full min-w-0;
     }
 
     .app-data-table--filter-empty .ui-table {
-      table-layout: fixed;
-      width: 100%;
+      @apply table-fixed w-full;
     }
 
     .app-data-table--filter-empty .ui-table-header {
-      display: none;
+      @apply hidden;
     }
 
     .app-data-table--filter-empty .ui-table-cell--empty {
-      text-align: center;
+      @apply text-center;
     }
 
     .app-data-table .ui-table-head--icon-col,
     .app-data-table .ui-table-cell--icon-col {
-      display: none;
+      @apply hidden;
     }
 
     .app-data-table:not(.app-data-table--filter-empty) .ui-table-header .ui-table-head {
-      background-color: var(--app-data-table-cell-bg, var(--surface-bg, var(--surface)));
+      @apply [background-color:var(--app-data-table-cell-bg,_var(--surface-bg,_var(--surface)))];
     }
 
     .app-data-table .ui-table-head {
@@ -5783,76 +5285,57 @@
 
     .app-data-table:not(.app-data-table--filter-empty) .ui-table-head:not(.ui-table-head--icon-col):not(.ui-table-head--w-sm):not(.ui-table-head--w-md):not(.ui-table-head--w-lg):not(:last-child),
     .app-data-table:not(.app-data-table--filter-empty) .ui-table-cell:not(.ui-table-cell--icon-col):not(.ui-table-cell--w-sm):not(.ui-table-cell--w-md):not(.ui-table-cell--w-lg):not(:last-child):not(:has([data-app-row-menu])) {
-      min-width: 0;
+      @apply min-w-0;
     }
 
     .app-data-table .ui-table-head--w-sm,
     .app-data-table .ui-table-cell--w-sm {
-      width: 3rem;
-      min-width: 3rem;
-      max-width: 3rem;
+      @apply w-12 min-w-12 max-w-12;
     }
 
     .app-data-table .ui-table-cell:has([data-app-row-menu]) {
-      width: 2.75rem;
-      min-width: 2.75rem;
-      max-width: 2.75rem;
-      padding-inline: 0.25rem;
-      overflow: visible;
+      @apply w-11 min-w-11 max-w-11 px-1 overflow-visible;
     }
 
     .app-data-table .ui-table-cell:has([data-app-row-menu]) .ui-table-cell-content {
-      justify-content: flex-end;
-      overflow: visible;
+      @apply justify-end overflow-visible;
     }
 
     .app-data-table .ui-table-head--w-md,
     .app-data-table .ui-table-cell--w-md {
-      width: 5.5rem;
-      min-width: 5.5rem;
-      max-width: 5.5rem;
+      @apply w-22 min-w-22 max-w-22;
     }
 
     .app-data-table .ui-table-head--w-lg,
     .app-data-table .ui-table-cell--w-lg {
-      width: 7rem;
-      min-width: 7rem;
-      max-width: 7rem;
+      @apply [width:7rem] [min-width:7rem] [max-width:7rem];
     }
 
     .app-data-table .ui-table-head--w-fill,
     .app-data-table .ui-table-cell--w-fill {
-      width: auto;
-      min-width: 0;
-      max-width: none;
+      @apply w-auto min-w-0 max-w-none;
     }
 
     .app-data-table .ui-table-cell:has(.ui-action-group) {
-      min-width: max-content;
+      @apply min-w-max;
     }
 
     .app-data-table:not(.app-data-table--filter-empty) .ui-table-body .ui-table-row > .ui-table-cell {
-      background-color: var(--app-data-table-cell-bg, var(--surface-bg, var(--surface)));
+      @apply [background-color:var(--app-data-table-cell-bg,_var(--surface-bg,_var(--surface)))];
     }
 
     .app-data-table:not(.app-data-table--filter-empty) .ui-table-head:last-child,
     .app-data-table:not(.app-data-table--filter-empty) .ui-table-cell:has([data-app-row-menu]) {
-      position: sticky;
-      right: 0;
-      z-index: 2;
-      background-color: var(--app-data-table-cell-bg, var(--surface-bg, var(--surface)));
-      border-left: none;
-      box-shadow: none;
+      @apply sticky right-0 z-[2] [background-color:var(--app-data-table-cell-bg,_var(--surface-bg,_var(--surface)))] border-l-0 shadow-none;
     }
 
     .app-data-table:not(.app-data-table--filter-empty) .ui-table-head:last-child {
-      z-index: 3;
-      box-shadow: none;
+      @apply z-[3] shadow-none;
     }
 
     .app-data-table .ui-table-cell:has([data-app-row-menu]) [data-app-row-menu] .ui-button[data-variant='ghost']:hover:not(:disabled),
     .app-data-table .ui-table-cell:has([data-app-row-menu]) [data-app-row-menu] .ui-button[data-variant='ghost']:active:not(:disabled) {
-      background-color: transparent;
+      @apply bg-transparent;
     }
   }
 
@@ -5875,63 +5358,47 @@
   /** Mobil — dialog alt sayfa; Safari input zoom önleme (16px) */
   @media (max-width: 1023px) {
     .ui-dialog-root {
-      align-items: flex-end;
-      padding: 0;
+      @apply items-end p-0;
     }
 
     .ui-overlay-dialog-enter-active .ui-dialog-backdrop,
     .ui-overlay-dialog-leave-active .ui-dialog-backdrop,
     .ui-overlay-dialog-enter-active .ui-dialog-panel,
     .ui-overlay-dialog-leave-active .ui-dialog-panel {
-      transition-duration: 0.32s;
-      transition-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
+      @apply [transition-duration:0.32s] [transition-timing-function:cubic-bezier(0.32,_0.72,_0,_1)];
     }
 
     .ui-overlay-dialog-enter-from .ui-dialog-backdrop,
     .ui-overlay-dialog-leave-to .ui-dialog-backdrop {
-      opacity: 0;
+      @apply opacity-0;
     }
 
     .ui-overlay-dialog-enter-from .ui-dialog-panel {
-      opacity: 1;
-      transform: translate3d(0, 100%, 0);
+      @apply opacity-100 [transform:translate3d(0,_100%,_0)];
     }
 
     .ui-overlay-dialog-leave-to .ui-dialog-panel {
-      opacity: 1;
-      transform: translate3d(0, 100%, 0);
+      @apply opacity-100 [transform:translate3d(0,_100%,_0)];
     }
 
     .ui-overlay-dialog-enter-from .ui-dialog-motion,
     .ui-overlay-dialog-leave-to .ui-dialog-motion {
-      transform: none;
+      @apply transform-none;
     }
 
     .ui-dialog-sheet-grab {
-      display: flex;
+      @apply flex;
     }
 
     .ui-dialog-panel {
-      max-width: none;
-      max-height: min(92dvh, 100%);
-      padding-bottom: env(safe-area-inset-bottom, 0px);
-      border-bottom-width: 0;
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0;
+      @apply max-w-none [max-height:min(92dvh,_100%)] [padding-bottom:env(safe-area-inset-bottom,_0px)] [border-bottom-width:0] rounded-bl-none rounded-br-none;
       --ui-dialog-sheet-radius: 2.25rem;
-      border-top-left-radius: var(--ui-dialog-sheet-radius);
-      border-top-right-radius: var(--ui-dialog-sheet-radius);
+      @apply [border-top-left-radius:var(--ui-dialog-sheet-radius)] [border-top-right-radius:var(--ui-dialog-sheet-radius)];
     }
 
     .ui-dialog-panel.ui-surface,
     .ui-dialog-panel[class*='ui-dialog-panel--max-'] {
-      max-width: none;
-      width: 100%;
-      border-radius: 0;
-      border-top-left-radius: var(--ui-dialog-sheet-radius, 2.25rem);
-      border-top-right-radius: var(--ui-dialog-sheet-radius, 2.25rem);
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0;
+      @apply max-w-none w-full rounded-none [border-top-left-radius:var(--ui-dialog-sheet-radius,_2.25rem)] [border-top-right-radius:var(--ui-dialog-sheet-radius,_2.25rem)] rounded-bl-none rounded-br-none;
     }
 
     .ui-dialog-panel--max-sm,
@@ -5943,7 +5410,7 @@
     .ui-dialog-panel--max-4xl,
     .ui-dialog-panel--max-5xl,
     .ui-dialog-panel--max-full {
-      max-width: none;
+      @apply max-w-none;
     }
 
     .ui-control-value,
@@ -5962,111 +5429,85 @@
     .ui-dialog-panel {
       --ui-dialog-inset-x: max(1rem, env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
       --ui-dialog-inset-bottom: max(0.75rem, env(safe-area-inset-bottom, 0px));
-      padding-bottom: 0;
+      @apply pb-0;
     }
 
     .ui-dialog-panel > .ui-dialog-motion > .ui-card-header {
-      padding-top: 0;
-      padding-inline: var(--ui-dialog-inset-x);
-      padding-bottom: 0.5rem;
+      @apply pt-0 px-[var(--ui-dialog-inset-x)] pb-2;
     }
 
     .ui-dialog-panel > .ui-dialog-motion > .ui-card-body {
-      max-height: calc(min(92dvh, 100%) - 9.5rem);
-      padding-inline: var(--ui-dialog-inset-x);
-      padding-top: 0.75rem;
-      padding-bottom: 0.75rem;
-      scroll-padding-inline: var(--ui-dialog-inset-x);
-      scroll-padding-block: 0.75rem;
-      flex: 1 1 auto;
+      @apply [max-height:calc(min(92dvh,_100%)_-_9.5rem)] px-[var(--ui-dialog-inset-x)] pt-3 pb-3 scroll-px-[var(--ui-dialog-inset-x)] scroll-py-3 flex-auto;
     }
 
     /** `body-padding="none"` — mobil inset kurallarından sonra da flush kalsın. */
     .ui-dialog-panel > .ui-dialog-motion > .ui-card-body--flush {
-      padding-inline: 0;
-      padding-block: 0;
-      scroll-padding: 0;
-      max-height: none;
+      @apply px-0 py-0 scroll-p-0 max-h-none;
     }
 
     .ui-dialog-panel > .ui-dialog-motion > .ui-card-header + .ui-card-body,
     .ui-dialog-panel > .ui-dialog-motion > .ui-card-toolbar + .ui-card-body,
     .ui-dialog-panel > .ui-dialog-motion > .ui-divider + .ui-card-body {
-      padding-top: 0.75rem;
+      @apply pt-3;
     }
 
     .ui-dialog-panel > .ui-dialog-motion > .ui-card-toolbar + .ui-card-body--flush,
     .ui-dialog-panel > .ui-dialog-motion > .ui-card-header + .ui-card-body--flush,
     .ui-dialog-panel > .ui-dialog-motion > .ui-divider + .ui-card-body--flush {
-      padding-top: 0;
+      @apply pt-0;
     }
 
     .ui-dialog-panel > .ui-dialog-motion > .ui-card-body:has(+ .ui-card-footer) {
-      padding-bottom: var(--ui-dialog-body-ring-inset);
-      scroll-padding-bottom: calc(0.75rem + var(--ui-dialog-body-ring-inset));
+      @apply pb-[var(--ui-dialog-body-ring-inset)] [scroll-padding-bottom:calc(0.75rem_+_var(--ui-dialog-body-ring-inset))];
     }
 
     .ui-dialog-panel > .ui-dialog-motion > .ui-card-body--flush:has(+ .ui-card-footer),
     .ui-dialog-panel > .ui-dialog-motion > .ui-card-body--flush:not(:has(+ .ui-card-footer)) {
-      padding-bottom: 0;
-      scroll-padding-bottom: 0;
+      @apply pb-0 [scroll-padding-bottom:0];
     }
 
     .ui-dialog-panel > .ui-dialog-motion > .ui-card-body:not(:has(+ .ui-card-footer)) {
-      padding-bottom: 1rem;
+      @apply pb-4;
     }
 
     .ui-dialog-panel > .ui-dialog-motion > .ui-card-footer {
-      padding-inline: var(--ui-dialog-inset-x);
-      padding-top: 0.5rem;
-      padding-bottom: var(--ui-dialog-inset-bottom);
-      border-top: none;
+      @apply px-[var(--ui-dialog-inset-x)] pt-2 pb-[var(--ui-dialog-inset-bottom)] border-t-0;
     }
 
     .ui-dialog-panel--footer-transparent
       > .ui-dialog-motion
       > .ui-card-body:has(+ .ui-card-footer) {
-      padding-bottom: calc(
-        var(--ui-dialog-footer-clearance) + var(--ui-dialog-inset-bottom)
-      );
+      @apply [padding-bottom:calc(_var(--ui-dialog-footer-clearance)_+_var(--ui-dialog-inset-bottom)_)];
     }
 
     .ui-dialog-panel--footer-transparent.ui-dialog-panel--body-flex
       > .ui-dialog-motion
       > .ui-card-body--flex {
-      padding-inline: var(--ui-dialog-inset-x);
-      padding-bottom: calc(
-        var(--ui-dialog-footer-clearance) + var(--ui-dialog-inset-bottom)
-      );
-      scroll-padding-bottom: calc(
-        var(--ui-dialog-footer-clearance) + var(--ui-dialog-inset-bottom)
-      );
+      @apply px-[var(--ui-dialog-inset-x)] [padding-bottom:calc(_var(--ui-dialog-footer-clearance)_+_var(--ui-dialog-inset-bottom)_)] [scroll-padding-bottom:calc(_var(--ui-dialog-footer-clearance)_+_var(--ui-dialog-inset-bottom)_)];
     }
 
     .ui-dialog-panel--footer-transparent .ui-card-footer.ui-dialog-footer--transparent {
-      padding-inline: var(--ui-dialog-inset-x);
-      padding-top: 0.5rem;
-      padding-bottom: var(--ui-dialog-inset-bottom);
+      @apply px-[var(--ui-dialog-inset-x)] pt-2 pb-[var(--ui-dialog-inset-bottom)];
     }
 
     .ui-dialog-panel .ui-dialog-header {
-      grid-template-columns: minmax(0, 1fr) auto;
+      @apply [grid-template-columns:minmax(0,_1fr)_auto];
     }
 
     .ui-dialog-panel .ui-dialog-header--with-back {
-      grid-template-columns: auto minmax(0, 1fr) auto;
+      @apply [grid-template-columns:auto_minmax(0,_1fr)_auto];
     }
 
     .ui-dialog-panel .ui-dialog-header--with-close:not(.ui-dialog-header--with-back) {
-      grid-template-columns: minmax(0, 1fr) auto;
+      @apply [grid-template-columns:minmax(0,_1fr)_auto];
     }
 
     .ui-dialog-panel .ui-dialog-header--with-close.ui-dialog-header--with-back {
-      grid-template-columns: auto minmax(0, 1fr) auto;
+      @apply [grid-template-columns:auto_minmax(0,_1fr)_auto];
     }
 
     .ui-dialog-panel .ui-dialog-header__close {
-      display: none;
+      @apply hidden;
     }
 
     /**
@@ -6074,15 +5515,15 @@
      * kapatma başlıktaki X / backdrop / Escape ile).
      */
     .ui-dialog-root--confirm .ui-dialog-panel .ui-dialog-header__close {
-      display: inline-flex;
+      @apply inline-flex;
     }
 
     .ui-dialog-root--confirm .ui-dialog-panel .ui-dialog-header--with-close:not(.ui-dialog-header--with-back) {
-      grid-template-columns: auto minmax(0, 1fr) auto;
+      @apply [grid-template-columns:auto_minmax(0,_1fr)_auto];
     }
 
     .ui-dialog-root--confirm .ui-dialog-panel .ui-dialog-header--with-close.ui-dialog-header--with-back {
-      grid-template-columns: auto auto minmax(0, 1fr) auto;
+      @apply [grid-template-columns:auto_auto_minmax(0,_1fr)_auto];
     }
   }
 
@@ -6106,11 +5547,7 @@
   }
 
   html.cap-native .ui-dialog-panel {
-    margin-bottom: var(--ui-keyboard-inset, 0px);
-    max-height: var(--ui-dialog-max-height-cap);
-    transition:
-      margin-bottom 0.25s cubic-bezier(0.36, 0.66, 0.04, 1),
-      max-height 0.25s cubic-bezier(0.36, 0.66, 0.04, 1);
+    @apply [margin-bottom:var(--ui-keyboard-inset,_0px)] max-h-[var(--ui-dialog-max-height-cap)] [transition:margin-bottom_0.25s_cubic-bezier(0.36,_0.66,_0.04,_1),_max-height_0.25s_cubic-bezier(0.36,_0.66,_0.04,_1)];
   }
 
   /**
@@ -6119,26 +5556,25 @@
    */
   html.cap-native .ui-dialog-root--motion .ui-dialog-panel,
   html.cap-native .ui-dialog-root--leaving .ui-dialog-panel {
-    transition-property: transform, opacity;
+    @apply [transition-property:transform,_opacity];
   }
 
   html.cap-native.cap-keyboard-open .ui-dialog-panel {
     --ui-dialog-inset-bottom: 0.75rem;
-    box-shadow: 0 var(--ui-keyboard-inset, 0px) 0 0 var(--ui-ios-dialog-sheet-bg, var(--surface));
+    @apply [box-shadow:0_var(--ui-keyboard-inset,_0px)_0_0_var(--ui-ios-dialog-sheet-bg,_var(--surface))];
   }
 
   html.cap-native .ui-dialog-panel > .ui-dialog-motion > .ui-card-body {
-    max-height: none;
+    @apply max-h-none;
   }
 
   @media (max-width: 1023px) {
     html.cap-native .ui-dialog-panel {
-      max-height: var(--ui-dialog-max-height-cap);
+      @apply max-h-[var(--ui-dialog-max-height-cap)];
     }
 
     .ui-dialog-panel > .ui-dialog-motion > .ui-card-body {
-      flex: 1 1 auto;
-      max-height: none;
+      @apply flex-auto max-h-none;
     }
 
     .ui-dialog-panel > .ui-dialog-motion > .ui-card-footer {
@@ -6149,12 +5585,11 @@
   /** Mobil — segment filtre yatay kaydırma */
   @media (max-width: 1023px) {
     .ui-segment-group--fit.ui-segment-group--inline {
-      max-width: none;
+      @apply max-w-none;
     }
 
     .ui-segment-group--fit .ui-segment {
-      flex: none;
-      white-space: nowrap;
+      @apply flex-none whitespace-nowrap;
     }
   }
 }
@@ -6164,8 +5599,7 @@
  * Unlayered rules so DatePicker and Select menus render flat menu rows, not pill outlines.
  */
 .ui-select-listbox .ui-select-option.ui-button {
-  @apply rounded-lg border-0 shadow-none;
-  border-color: transparent;
+  @apply rounded-lg border-0 shadow-none border-transparent;
 }
 
 .ui-dropdown-menu > .ui-button:has(.ui-dropdown-item-description) {
@@ -6174,8 +5608,7 @@
 
 .ui-datepicker-grid > .ui-button,
 .ui-datepicker-quick > .ui-button {
-  @apply rounded-full border-0 shadow-none;
-  border-color: transparent;
+  @apply rounded-full border-0 shadow-none border-transparent;
 }
 
 .ui-datepicker-grid > .ui-button {
@@ -6192,8 +5625,7 @@
 
 .ui-select-listbox .ui-select-option.ui-button.ui-select-option--selected,
 .ui-datepicker-grid > .ui-button[data-variant='solid'] {
-  border-width: 0;
-  box-shadow: none;
+  @apply border-0 shadow-none;
 }
 
 .ui-select-listbox .ui-select-option.ui-button.ui-select-option--selected[data-variant='solid'][data-color='primary'],
@@ -6205,17 +5637,11 @@
 }
 
 .ui-datepicker-grid > .ui-button[data-today='true']:not([data-variant='solid']) {
-  position: relative;
-  box-shadow: none;
+  @apply relative shadow-none;
 }
 
 .ui-datepicker-grid > .ui-button[data-today='true']:not([data-variant='solid'])::after {
-  content: '';
-  position: absolute;
-  inset: 3px;
-  border-radius: 9999px;
-  border: 1.5px solid color-mix(in oklab, var(--primary) 70%, transparent);
-  pointer-events: none;
+  @apply [content:''] absolute [inset:3px] rounded-full [border:1.5px_solid_color-mix(in_oklab,_var(--primary)_70%,_transparent)] pointer-events-none;
 }
 
 /**
@@ -6223,64 +5649,60 @@
  * Sıra: modal 400, onay 420, popover 450, photo 460, toast 500.
  */
 .ui-dialog-root {
-  position: fixed;
-  inset: 0;
-  z-index: 400;
+  @apply fixed inset-0 z-[400];
 }
 
 .ui-dialog-root.ui-dialog-root--confirm {
-  z-index: 420;
+  @apply z-[420];
 }
 
 @media (max-width: 1023px) {
   .ui-dialog-root--confirm .ui-dialog-panel .ui-dialog-header__close {
-    display: inline-flex;
+    @apply inline-flex;
   }
 }
 
 .ui-popover-layer {
-  z-index: 450;
+  @apply z-[450];
 }
 
 /** Lightbox — popover üstünde; toast altında */
 .ui-photo-preview {
-  z-index: 460;
+  @apply z-[460];
 }
 
 .ui-toast-host {
-  z-index: 500;
+  @apply z-[500];
 }
 
 /** Dialog footer — unlayered; web’de kart kenarıyla aynı alt boşluk; mobilde min 0.75rem + safe-area */
 .ui-dialog-panel.ui-card > .ui-dialog-motion > .ui-card-footer,
 .ui-dialog-panel.ui-card > .ui-card-footer {
-  border-top: none;
-  box-shadow: none;
-  padding-top: 0.75rem;
-  padding-bottom: var(--ui-card-padding);
+  @apply border-t-0 shadow-none pt-3 pb-[var(--ui-card-padding)];
 }
 
 @media (max-width: 1023px) {
   .ui-dialog-panel.ui-card > .ui-dialog-motion > .ui-card-footer,
   .ui-dialog-panel.ui-card > .ui-card-footer {
-    padding-top: 0.5rem;
-    padding-bottom: var(--ui-dialog-inset-bottom, max(0.75rem, env(safe-area-inset-bottom, 0px)));
+    @apply pt-2 [padding-bottom:var(--ui-dialog-inset-bottom,_max(0.75rem,_env(safe-area-inset-bottom,_0px)))];
   }
 }
 
 .ui-dialog-panel--footer-transparent .ui-card-footer.ui-dialog-footer--transparent {
-  background-color: transparent !important;
-  background-image: none !important;
-  border-top: none !important;
-  box-shadow: none !important;
-  -webkit-backdrop-filter: none !important;
-  backdrop-filter: none !important;
+  @apply bg-transparent! bg-none! border-t-0! shadow-none! [-webkit-backdrop-filter:none]! [backdrop-filter:none]!;
+}
+
+/**
+ * Şeffaf footer altında kayan içerik butonla çakışmasın: panel yüzeyi renginde
+ * aşağıdan yukarı sönen perde. Tıklamalar perdeden geçer (footer `pointer-events-none`).
+ */
+.ui-dialog-panel--footer-transparent .ui-card-footer.ui-dialog-footer--transparent::before {
+  content: '';
+  @apply pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-[calc(100%_+_1.5rem)] [background:linear-gradient(to_top,_var(--surface-bg,_var(--surface))_0%,_var(--surface-bg,_var(--surface))_calc(100%_-_2.5rem),_transparent_100%)];
 }
 
 .ui-dialog-panel .ui-button[data-variant='solid'][data-color='input'] {
-  background-color: var(--input-background);
-  background-image: none;
-  border-color: transparent;
+  @apply [background-color:var(--input-background)] bg-none border-transparent;
 }
 
 /**
@@ -6288,16 +5710,12 @@
  * (layer sırası yüzünden @layer components yetmeyebilir).
  */
 .ui-segment--selected .ui-segment-affix .ui-badge {
-  border-color: transparent;
-  background-color: color-mix(in oklab, var(--primary-foreground) 22%, transparent);
-  color: var(--primary-foreground);
+  @apply border-transparent [background-color:color-mix(in_oklab,_var(--primary-foreground)_22%,_transparent)] text-primary-foreground;
 }
 
 .ui-segment:not(.ui-segment--selected) .ui-segment-affix .ui-badge,
 .ui-segment:not(.ui-segment--selected) .ui-segment-affix .ui-badge.bg-muted {
-  border-color: transparent;
-  background-color: color-mix(in oklab, var(--foreground) 16%, transparent);
-  color: var(--foreground);
+  @apply border-transparent [background-color:color-mix(in_oklab,_var(--foreground)_16%,_transparent)] text-foreground;
 }
 
 /**
@@ -6309,18 +5727,7 @@
   --ui-ai-button-border: 1.5px;
   --ui-ai-button-radius: var(--radius);
   --ui-ai-button-height: var(--ui-control-h-md);
-  box-sizing: border-box;
-  position: relative;
-  display: inline-flex;
-  align-items: stretch;
-  isolation: isolate;
-  overflow: hidden;
-  height: var(--ui-ai-button-height);
-  min-height: var(--ui-ai-button-height);
-  max-height: var(--ui-ai-button-height);
-  border-radius: var(--ui-ai-button-radius);
-  padding: var(--ui-ai-button-border);
-  transition: transform 150ms ease-out;
+  @apply box-border relative inline-flex items-stretch isolate overflow-hidden h-[var(--ui-ai-button-height)] min-h-[var(--ui-ai-button-height)] max-h-[var(--ui-ai-button-height)] [border-radius:var(--ui-ai-button-radius)] p-[var(--ui-ai-button-border)] [transition:transform_150ms_ease-out];
 }
 
 .ui-ai-button[data-size='sm'] {
@@ -6332,57 +5739,32 @@
 }
 
 .ui-ai-button--block {
-  display: flex;
-  width: 100%;
+  @apply flex w-full;
 }
 
 .ui-ai-button:active:not(.ui-ai-button--disabled) {
-  transform: scale(0.98);
+  @apply [transform:scale(0.98)];
 }
 
 .ui-ai-button__glow {
-  position: absolute;
-  inset: -60%;
-  z-index: 0;
-  background: conic-gradient(
-    from var(--ui-ai-border-angle, 0deg),
-    #38bdf8,
-    color-mix(in oklab, var(--primary) 85%, white),
-    #f472b6,
-    #fbbf24,
-    #38bdf8
-  );
-  animation: ui-ai-button-spin 2.8s linear infinite;
+  @apply absolute [inset:-60%] z-0 [background:conic-gradient(_from_var(--ui-ai-border-angle,_0deg),_#38bdf8,_color-mix(in_oklab,_var(--primary)_85%,_white),_#f472b6,_#fbbf24,_#38bdf8_)] [animation:ui-ai-button-spin_2.8s_linear_infinite];
 }
 
 .ui-ai-button__surface {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  min-width: 0;
-  min-height: 0;
-  flex: 1 1 auto;
-  align-items: stretch;
-  overflow: hidden;
-  border-radius: calc(var(--ui-ai-button-radius) - var(--ui-ai-button-border));
-  background: var(--input-background);
+  @apply relative z-[1] flex min-w-0 min-h-0 flex-auto items-stretch overflow-hidden [border-radius:calc(var(--ui-ai-button-radius)_-_var(--ui-ai-button-border))] [background:var(--input-background)];
 }
 
 .ui-ai-button--block .ui-ai-button__surface {
-  width: 100%;
+  @apply w-full;
 }
 
 .ui-ai-button__surface .ui-button {
-  box-sizing: border-box;
-  height: 100% !important;
-  min-height: 0 !important;
-  border-radius: inherit !important;
-  transform: none !important;
+  @apply box-border h-full! min-h-0! [border-radius:inherit]! transform-none!;
 }
 
 .ui-ai-button__surface .ui-button:disabled,
 .ui-ai-button__surface .ui-button[aria-disabled='true'] {
-  pointer-events: none;
+  @apply pointer-events-none;
 }
 
 @property --ui-ai-border-angle {
@@ -6402,56 +5784,33 @@
  * Use around cubed `ui-button` while an AI job is queued or running.
  */
 .ui-ai-busy-host {
-  position: relative;
-  display: inline-flex;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
+  @apply relative inline-flex shrink-0 items-center justify-center;
 }
 
 .ui-ai-busy-ring {
-  pointer-events: none;
-  position: absolute;
-  inset: -2px;
-  z-index: 1;
-  border-radius: 9999px;
-  padding: var(--ui-ai-button-border, 1.5px);
-  background: conic-gradient(
-    from var(--ui-ai-border-angle, 0deg),
-    #38bdf8,
-    color-mix(in oklab, var(--primary) 85%, white),
-    #f472b6,
-    #fbbf24,
-    #38bdf8
-  );
-  animation: ui-ai-button-spin 2.8s linear infinite;
-  -webkit-mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
+  @apply pointer-events-none absolute -inset-0.5 z-[1] rounded-full [padding:var(--ui-ai-button-border,_1.5px)] [background:conic-gradient(_from_var(--ui-ai-border-angle,_0deg),_#38bdf8,_color-mix(in_oklab,_var(--primary)_85%,_white),_#f472b6,_#fbbf24,_#38bdf8_)] [animation:ui-ai-button-spin_2.8s_linear_infinite] [-webkit-mask:linear-gradient(#fff_0_0)_content-box,_linear-gradient(#fff_0_0)] [mask:linear-gradient(#fff_0_0)_content-box,_linear-gradient(#fff_0_0)] [-webkit-mask-composite:xor] [mask-composite:exclude];
 }
 
 @media (prefers-reduced-motion: reduce) {
   .ui-ai-button {
-    transition: none;
+    @apply transition-none;
   }
 
   .ui-ai-button:active:not(.ui-ai-button--disabled) {
-    transform: none;
+    @apply transform-none;
   }
 
   .ui-ai-button__glow,
   .ui-ai-busy-ring {
-    animation: none;
-    background: linear-gradient(
-      135deg,
-      #38bdf8,
-      color-mix(in oklab, var(--primary) 85%, white),
-      #f472b6
-    );
+    @apply [animation:none] [background:linear-gradient(_135deg,_#38bdf8,_color-mix(in_oklab,_var(--primary)_85%,_white),_#f472b6_)];
   }
+}
+
+/**
+ * Tablo gövdesinde başlık ve alt satır sarılsın. `@apply truncate` nowrap üretir ve
+ * `@layer components` içinde ezemiyoruz; bu yüzden katman dışında.
+ */
+.ui-table-body .ui-table-cell .ui-table-cell-title,
+.ui-table-body .ui-table-cell .ui-table-cell-subtitle {
+  @apply whitespace-normal;
 }

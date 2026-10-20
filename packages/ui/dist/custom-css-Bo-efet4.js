@@ -1,27 +1,27 @@
-import { ref as j, reactive as Ae, inject as oi, openBlock as o, createElementBlock as d, mergeProps as F, renderSlot as p, resolveComponent as x, normalizeClass as S, createVNode as y, createCommentVNode as f, createElementVNode as h, toDisplayString as b, createBlock as _, resolveDynamicComponent as De, withCtx as w, Teleport as fe, Transition as Ce, normalizeStyle as le, createTextVNode as P, Fragment as A, Comment as li, Text as ui, withModifiers as z, renderList as G, normalizeProps as $t, guardReactiveProps as Vt, useId as Nt, withKeys as H, createSlots as jt, withDirectives as Ie, vModelText as Xe, vShow as di, useSlots as ci, computed as K, onMounted as fi, onBeforeUnmount as hi, watch as mi, nextTick as Je, TransitionGroup as pi } from "vue";
-import { RouterLink as gi } from "vue-router";
-const Gt = "(max-width: 1023px)", Ht = j(!1);
-function ve() {
-  typeof window > "u" || (Ht.value = window.matchMedia(Gt).matches);
+import { ref as j, reactive as De, inject as di, openBlock as o, createElementBlock as d, mergeProps as L, renderSlot as p, resolveComponent as x, normalizeClass as S, createVNode as b, createCommentVNode as f, createElementVNode as h, toDisplayString as y, createBlock as _, resolveDynamicComponent as Be, withCtx as w, Teleport as me, Transition as Ie, normalizeStyle as le, createTextVNode as B, Fragment as A, Comment as ci, Text as fi, withModifiers as F, renderList as G, normalizeProps as Vt, guardReactiveProps as Nt, useId as jt, withKeys as H, createSlots as Gt, withDirectives as Le, vModelText as Je, vShow as hi, useSlots as mi, computed as K, onMounted as pi, onBeforeUnmount as gi, watch as bi, nextTick as et, TransitionGroup as yi } from "vue";
+import { RouterLink as vi } from "vue-router";
+const Ht = "(max-width: 1023px)", Wt = j(!1);
+function Se() {
+  typeof window > "u" || (Wt.value = window.matchMedia(Ht).matches);
 }
 if (typeof window < "u") {
-  ve();
-  const e = window.matchMedia(Gt);
-  typeof e.addEventListener == "function" ? e.addEventListener("change", ve) : typeof e.addListener == "function" && e.addListener(ve);
+  Se();
+  const e = window.matchMedia(Ht);
+  typeof e.addEventListener == "function" ? e.addEventListener("change", Se) : typeof e.addListener == "function" && e.addListener(Se);
 }
-function M() {
-  return Ht.value;
+function R() {
+  return Wt.value;
 }
-function yi() {
+function ki() {
   return typeof document > "u" ? !1 : document.documentElement.classList.contains("cap-ios");
 }
-function bi() {
-  return M() || yi();
+function Si() {
+  return R() || ki();
 }
-function et(e, { defaultSize: t = "md" } = {}) {
+function tt(e, { defaultSize: t = "md" } = {}) {
   if (e !== t)
     return e;
-  const i = bi();
+  const i = Si();
   return t === "sm" && !i ? "lg" : t === "md" ? i ? "lg" : "md" : e;
 }
 const Q = {
@@ -45,8 +45,8 @@ function Pe(e) {
   }
   return t;
 }
-const Be = Symbol("uiDefaults"), vi = ["solid", "regular", "brands", "light", "duotone", "thin"];
-function he(e, t, i) {
+const Oe = Symbol("uiDefaults"), xi = ["solid", "regular", "brands", "light", "duotone", "thin"];
+function pe(e, t, i) {
   if (t != null && t !== "")
     return t;
   const n = e == null ? void 0 : e[i];
@@ -60,40 +60,40 @@ function he(e, t, i) {
 }
 function U(e, t, { key: i = "controlSize", defaultSize: n = "md" } = {}) {
   if (t != null && t !== "")
-    return et(t, { defaultSize: n });
+    return tt(t, { defaultSize: n });
   const s = (e == null ? void 0 : e[i]) ?? (e == null ? void 0 : e.controlSize) ?? n;
-  return et(s, { defaultSize: n });
+  return tt(s, { defaultSize: n });
 }
-function me(e, t) {
-  const i = he(e, t, "iconType");
-  return vi.includes(i) ? i : "light";
+function ge(e, t) {
+  const i = pe(e, t, "iconType");
+  return xi.includes(i) ? i : "light";
 }
-const ki = ["solid", "regular", "brands", "light", "duotone", "thin"], re = {
+const wi = ["solid", "regular", "brands", "light", "duotone", "thin"], re = {
   type: String,
   default: void 0,
-  validator: (e) => e == null || ki.includes(e)
+  validator: (e) => e == null || wi.includes(e)
 };
-function pe(e = "iconType") {
+function be(e = "iconType") {
   return {
     resolvedIconType() {
-      return me(this.uiDefaults, this[e]);
+      return ge(this.uiDefaults, this[e]);
     }
   };
 }
-function Bl(e, t) {
-  const i = Ae(Pe(t));
-  return e.provide(Be, i), i;
-}
 function Ol(e, t) {
+  const i = De(Pe(t));
+  return e.provide(Oe, i), i;
+}
+function Ml(e, t) {
   Object.assign(e, Pe(t));
 }
 function Rl() {
-  return oi(Be, Q);
+  return di(Oe, Q);
 }
 const O = {
   inject: {
     uiDefaults: {
-      from: Be,
+      from: Oe,
       default: () => Q
     }
   }
@@ -103,7 +103,7 @@ const O = {
     i[n] = s;
   return i;
 };
-function L(...e) {
+function z(...e) {
   const t = [];
   for (const i of e)
     if (i) {
@@ -117,7 +117,7 @@ function L(...e) {
     }
   return t.join(" ");
 }
-const Si = ["horizontal", "vertical"], xi = {
+const _i = ["horizontal", "vertical"], Ti = {
   name: "ActionGroup",
   inheritAttrs: !1,
   props: {
@@ -125,7 +125,7 @@ const Si = ["horizontal", "vertical"], xi = {
     orientation: {
       type: String,
       default: "horizontal",
-      validator: (e) => Si.includes(e)
+      validator: (e) => _i.includes(e)
     },
     /**
      * true: doğrudan çocukların bitişik iç köşelerinde border-radius sıfırlanır (dış uçlar korunur).
@@ -160,7 +160,7 @@ const Si = ["horizontal", "vertical"], xi = {
   },
   computed: {
     rootClass() {
-      return L(
+      return z(
         "ui-action-group",
         `ui-action-group--${this.orientation}`,
         this.joined && "ui-action-group--joined",
@@ -174,27 +174,27 @@ const Si = ["horizontal", "vertical"], xi = {
       return t;
     }
   }
-}, wi = ["aria-label"];
-function _i(e, t, i, n, s, r) {
-  return o(), d("div", F({
+}, Ci = ["aria-label"];
+function Ii(e, t, i, n, s, r) {
+  return o(), d("div", L({
     class: r.rootClass,
     role: "group",
     "aria-label": i.ariaLabel || void 0
   }, r.passthroughAttrs), [
     p(e.$slots, "default")
-  ], 16, wi);
+  ], 16, Ci);
 }
-const Ml = /* @__PURE__ */ T(xi, [["render", _i], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/ActionGroup.vue"]]), Ti = ["info", "success", "warning", "danger"], tt = {
+const El = /* @__PURE__ */ T(Ti, [["render", Ii], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/ActionGroup.vue"]]), Li = ["info", "success", "warning", "danger"], it = {
   info: "circle-info",
   success: "circle-check",
   warning: "triangle-exclamation",
   danger: "circle-xmark"
-}, it = {
+}, rt = {
   info: "text-info",
   success: "text-success",
   warning: "text-warning",
   danger: "text-danger"
-}, Ci = {
+}, zi = {
   name: "Alert",
   inheritAttrs: !1,
   props: {
@@ -202,7 +202,7 @@ const Ml = /* @__PURE__ */ T(xi, [["render", _i], ["__file", "/Users/serkan/Proj
     color: {
       type: String,
       default: "info",
-      validator: (e) => Ti.includes(e)
+      validator: (e) => Li.includes(e)
     },
     title: {
       type: String,
@@ -246,13 +246,13 @@ const Ml = /* @__PURE__ */ T(xi, [["render", _i], ["__file", "/Users/serkan/Proj
       return this.color === "danger" || this.color === "warning" ? "alert" : "status";
     },
     resolvedIcon() {
-      return this.icon || tt[this.color] || tt.info;
+      return this.icon || it[this.color] || it.info;
     },
     iconToneClass() {
-      return it[this.color] || it.info;
+      return rt[this.color] || rt.info;
     },
     rootClasses() {
-      return L(
+      return z(
         `ui-alert ui-alert--${this.color}`,
         this.banner ? "ui-alert--banner" : "",
         this.soft && !this.banner ? "ui-alert--soft" : "",
@@ -272,22 +272,22 @@ const Ml = /* @__PURE__ */ T(xi, [["render", _i], ["__file", "/Users/serkan/Proj
       this.$emit("dismiss");
     }
   }
-}, Ii = ["role"], Fi = { class: "ui-alert-body" }, Li = {
+}, Fi = ["role"], Ai = { class: "ui-alert-body" }, Di = {
   key: 0,
   class: "ui-alert-copy"
-}, zi = {
+}, Bi = {
   key: 0,
   class: "ui-alert-title"
-}, Ai = {
+}, Pi = {
   key: 1,
   class: "ui-alert-description ui-text-default"
-}, Di = {
+}, Oi = {
   key: 1,
   class: "ui-alert-slot"
 };
-function Pi(e, t, i, n, s, r) {
+function Mi(e, t, i, n, s, r) {
   const a = x("ui-icon"), u = x("ui-button");
-  return o(), d("div", F({
+  return o(), d("div", L({
     class: r.rootClasses,
     role: r.alertRole
   }, r.passthroughAttrs), [
@@ -300,7 +300,7 @@ function Pi(e, t, i, n, s, r) {
       },
       [
         p(e.$slots, "icon", {}, () => [
-          y(a, {
+          b(a, {
             name: r.resolvedIcon,
             size: "sm"
           }, null, 8, ["name"])
@@ -309,24 +309,24 @@ function Pi(e, t, i, n, s, r) {
       2
       /* CLASS */
     )) : f("v-if", !0),
-    h("div", Fi, [
-      i.title || i.description ? (o(), d("div", Li, [
+    h("div", Ai, [
+      i.title || i.description ? (o(), d("div", Di, [
         i.title ? (o(), d(
           "p",
-          zi,
-          b(i.title),
+          Bi,
+          y(i.title),
           1
           /* TEXT */
         )) : f("v-if", !0),
         i.description ? (o(), d(
           "p",
-          Ai,
-          b(i.description),
+          Pi,
+          y(i.description),
           1
           /* TEXT */
         )) : f("v-if", !0)
       ])) : f("v-if", !0),
-      e.$slots.default ? (o(), d("div", Di, [
+      e.$slots.default ? (o(), d("div", Oi, [
         p(e.$slots, "default")
       ])) : f("v-if", !0)
     ]),
@@ -342,19 +342,19 @@ function Pi(e, t, i, n, s, r) {
       "aria-label": r.dismissLabel,
       onClick: r.onDismiss
     }, null, 8, ["aria-label", "onClick"])) : f("v-if", !0)
-  ], 16, Ii);
+  ], 16, Fi);
 }
-const El = /* @__PURE__ */ T(Ci, [["render", Pi], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/Alert.vue"]]), Bi = ["xs", "sm", "md", "lg", "xl"], rt = {
+const $l = /* @__PURE__ */ T(zi, [["render", Mi], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/Alert.vue"]]), Ri = ["xs", "sm", "md", "lg", "xl"], nt = {
   xs: "ui-avatar--xs",
   sm: "ui-avatar--sm",
   md: "ui-avatar--md",
   lg: "ui-avatar--lg",
   xl: "ui-avatar--xl"
-}, Oi = ["circle", "rounded", "square"], Ri = {
+}, Ei = ["circle", "rounded", "square"], $i = {
   circle: "",
   rounded: "ui-avatar--rounded",
   square: "ui-avatar--square"
-}, nt = Object.freeze({
+}, st = Object.freeze({
   A: { bg: "hsla(0, 72%, 52%, 0.18)", fg: "hsl(0, 65%, 48%)" },
   B: { bg: "hsla(25, 88%, 52%, 0.18)", fg: "hsl(25, 75%, 45%)" },
   C: { bg: "hsla(38, 92%, 50%, 0.18)", fg: "hsl(38, 80%, 42%)" },
@@ -382,7 +382,7 @@ const El = /* @__PURE__ */ T(Ci, [["render", Pi], ["__file", "/Users/serkan/Proj
   Y: { bg: "hsla(346, 74%, 52%, 0.18)", fg: "hsl(346, 68%, 46%)" },
   Z: { bg: "hsla(358, 78%, 52%, 0.18)", fg: "hsl(358, 72%, 46%)" },
   default: { bg: "hsla(220, 14%, 50%, 0.15)", fg: "hsl(220, 12%, 45%)" }
-}), st = Object.freeze({
+}), at = Object.freeze({
   Ç: "C",
   Ğ: "G",
   İ: "I",
@@ -391,12 +391,12 @@ const El = /* @__PURE__ */ T(Ci, [["render", Pi], ["__file", "/Users/serkan/Proj
   Ş: "S",
   Ü: "U"
 });
-function Mi(e) {
+function Vi(e) {
   if (!e || typeof e != "string") return "default";
   let t = e.toLocaleUpperCase("tr-TR");
-  return st[t] && (t = st[t]), t >= "A" && t <= "Z" ? t : "default";
+  return at[t] && (t = at[t]), t >= "A" && t <= "Z" ? t : "default";
 }
-function Ei(e) {
+function Ni(e) {
   var n;
   const t = (e || "").trim();
   if (!t) return "?";
@@ -407,7 +407,7 @@ function Ei(e) {
   }
   return (((n = i[0]) == null ? void 0 : n[0]) || "?").toLocaleUpperCase("tr-TR");
 }
-const $i = {
+const ji = {
   name: "Avatar",
   inheritAttrs: !1,
   props: {
@@ -434,13 +434,13 @@ const $i = {
     size: {
       type: String,
       default: "md",
-      validator: (e) => Bi.includes(e)
+      validator: (e) => Ri.includes(e)
     },
     /** `circle` (varsayılan) | `rounded` (albüm kapağı) | `square` */
     shape: {
       type: String,
       default: "circle",
-      validator: (e) => Oi.includes(e)
+      validator: (e) => Ei.includes(e)
     },
     ring: {
       type: Boolean,
@@ -462,10 +462,10 @@ const $i = {
       return this.interactive ? "button" : "span";
     },
     rootClass() {
-      return L(
+      return z(
         "ui-avatar",
-        rt[this.size] || rt.md,
-        Ri[this.shape] || "",
+        nt[this.size] || nt.md,
+        $i[this.shape] || "",
         this.ring ? "ui-avatar--ring" : "",
         this.interactive ? "ui-avatar--interactive" : "",
         this.showLetterTone ? "ui-avatar--letter" : "",
@@ -491,14 +491,14 @@ const $i = {
       return this.name != null && this.name.trim() !== "" ? this.name.trim() : this.fallback != null && this.fallback.trim() !== "" ? this.fallback.trim() : (this.alt || "").trim();
     },
     displayInitials() {
-      return Ei(this.initialsSource);
+      return Ni(this.initialsSource);
     },
     colorLetterKey() {
       const e = this.initialsSource;
-      return e ? Mi(e[0]) : "default";
+      return e ? Vi(e[0]) : "default";
     },
     letterColors() {
-      return nt[this.colorLetterKey] || nt.default;
+      return st[this.colorLetterKey] || st.default;
     },
     showLetterTone() {
       return (!this.src || this.imageFailed) && this.displayInitials !== "?";
@@ -524,9 +524,9 @@ const $i = {
       this.interactive && this.$emit("click", e);
     }
   }
-}, Vi = ["src", "alt"], Ni = ["role", "aria-label", "aria-hidden"];
-function ji(e, t, i, n, s, r) {
-  return o(), _(De(r.rootTag), F({
+}, Gi = ["src", "alt"], Hi = ["role", "aria-label", "aria-hidden"];
+function Wi(e, t, i, n, s, r) {
+  return o(), _(Be(r.rootTag), L({
     type: i.interactive ? "button" : void 0,
     class: r.rootClass,
     style: r.rootStyle
@@ -540,40 +540,40 @@ function ji(e, t, i, n, s, r) {
         loading: "lazy",
         decoding: "async",
         onError: t[0] || (t[0] = (a) => s.imageFailed = !0)
-      }, null, 40, Vi)) : (o(), d("span", {
+      }, null, 40, Gi)) : (o(), d("span", {
         key: 1,
         class: "ui-avatar-fallback",
         role: i.interactive ? void 0 : "img",
         "aria-label": i.interactive ? void 0 : r.resolvedAlt,
         "aria-hidden": i.interactive ? "true" : void 0
-      }, b(r.displayInitials), 9, Ni))
+      }, y(r.displayInitials), 9, Hi))
     ]),
     _: 1
     /* STABLE */
   }, 16, ["type", "class", "style", "onClick"]);
 }
-const $l = /* @__PURE__ */ T($i, [["render", ji], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/Avatar.vue"]]);
-let Fe = 0;
-const Wt = [];
-function Vl(e) {
-  return Fe += 1, `${e}-${Fe}`;
+const Vl = /* @__PURE__ */ T(ji, [["render", Wi], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/Avatar.vue"]]);
+let ze = 0;
+const Ut = [];
+function Nl(e) {
+  return ze += 1, `${e}-${ze}`;
 }
 function q(e) {
   let t = 0;
   const i = () => (t += 1, `${e}-${t}`);
-  return Wt.push(() => {
+  return Ut.push(() => {
     t = 0;
   }), i;
 }
-function Nl() {
-  Fe = 0;
-  for (const e of Wt)
+function jl() {
+  ze = 0;
+  for (const e of Ut)
     e();
 }
-const Gi = Symbol("uiPortal"), Oe = {
+const Ui = Symbol("uiPortal"), Me = {
   inject: {
     uiPortalTarget: {
-      from: Gi,
+      from: Ui,
       default: null
     }
   },
@@ -582,9 +582,9 @@ const Gi = Symbol("uiPortal"), Oe = {
       return typeof this.uiPortalTarget == "function" && this.uiPortalTarget() || "body";
     }
   }
-}, Hi = q("ui-tooltip"), Wi = ["top", "bottom", "left", "right"], $ = 8, Ui = {
+}, qi = q("ui-tooltip"), Yi = ["top", "bottom", "left", "right"], $ = 8, Ki = {
   name: "Tooltip",
-  mixins: [Oe],
+  mixins: [Me],
   inheritAttrs: !1,
   props: {
     /** Boşsa yalnızca `content` slot’u kullanılabilir */
@@ -595,7 +595,7 @@ const Gi = Symbol("uiPortal"), Oe = {
     placement: {
       type: String,
       default: "top",
-      validator: (e) => Wi.includes(e)
+      validator: (e) => Yi.includes(e)
     },
     /** Gecikme (ms) */
     showDelay: {
@@ -616,7 +616,7 @@ const Gi = Symbol("uiPortal"), Oe = {
       open: !1,
       portalReady: !1,
       panelStyle: {},
-      tooltipId: Hi(),
+      tooltipId: qi(),
       showTimer: null,
       hideTimer: null
     };
@@ -733,8 +733,8 @@ const Gi = Symbol("uiPortal"), Oe = {
       });
     }
   }
-}, qi = ["id"], Yi = { class: "ui-tooltip-motion inline-flex max-w-full min-w-0" };
-function Ki(e, t, i, n, s, r) {
+}, Zi = ["id"], Qi = { class: "ui-tooltip-motion inline-flex max-w-full min-w-0" };
+function Xi(e, t, i, n, s, r) {
   return o(), d(
     "div",
     {
@@ -748,11 +748,11 @@ function Ki(e, t, i, n, s, r) {
     [
       p(e.$slots, "default"),
       f(" Defer Teleport until mount: empty SSR teleport markers mismatch and can wipe #app. "),
-      s.portalReady ? (o(), _(fe, {
+      s.portalReady ? (o(), _(me, {
         key: 0,
         to: e.portalTarget
       }, [
-        y(Ce, { name: "ui-tooltip-fade" }, {
+        b(Ie, { name: "ui-tooltip-fade" }, {
           default: w(() => [
             s.open && !i.disabled && r.hasContent ? (o(), d("div", {
               key: 0,
@@ -762,16 +762,16 @@ function Ki(e, t, i, n, s, r) {
               style: le(s.panelStyle),
               role: "tooltip"
             }, [
-              h("span", Yi, [
+              h("span", Qi, [
                 p(e.$slots, "content", {}, () => [
-                  P(
-                    b(i.label),
+                  B(
+                    y(i.label),
                     1
                     /* TEXT */
                   )
                 ])
               ])
-            ], 12, qi)) : f("v-if", !0)
+            ], 12, Zi)) : f("v-if", !0)
           ]),
           _: 3
           /* FORWARDED */
@@ -782,59 +782,59 @@ function Ki(e, t, i, n, s, r) {
     /* NEED_HYDRATION, NEED_PATCH */
   );
 }
-const Ut = /* @__PURE__ */ T(Ui, [["render", Ki], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/Tooltip.vue"]]);
+const qt = /* @__PURE__ */ T(Ki, [["render", Xi], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/Tooltip.vue"]]);
 function Re(e, t = ["class", "style"]) {
   const i = new Set(t), n = {};
   for (const [s, r] of Object.entries(e || {}))
     i.has(s) || (n[s] = r);
   return n;
 }
-const Zi = ["primary", "secondary", "success", "warning", "info", "danger"], Qi = ["solid", "outline", "muted"], Xi = ["xs", "sm", "md", "lg"], qt = {
+const Ji = ["primary", "secondary", "success", "warning", "info", "danger"], er = ["solid", "outline", "muted"], tr = ["xs", "sm", "md", "lg"], Yt = {
   primary: "border border-transparent bg-primary text-primary-foreground",
   secondary: "border border-transparent bg-secondary text-secondary-foreground",
   success: "border border-transparent bg-success text-success-foreground",
   warning: "border border-transparent bg-warning text-warning-foreground",
   info: "border border-transparent bg-info text-info-foreground",
   danger: "border border-transparent bg-danger text-danger-foreground"
-}, Ji = {
+}, ir = {
   primary: "border border-current bg-transparent text-primary",
   secondary: "border border-border bg-transparent text-foreground",
   success: "border border-current bg-transparent text-success",
   warning: "border border-current bg-transparent text-warning",
   info: "border border-current bg-transparent text-info",
   danger: "border border-current bg-transparent text-danger"
-}, er = {
+}, rr = {
   primary: "border border-transparent bg-primary/12 text-primary",
   secondary: "border border-transparent bg-muted text-muted-foreground",
   success: "border border-transparent bg-success/12 text-success",
   warning: "border border-transparent bg-warning/15 text-warning",
   info: "border border-transparent bg-info/12 text-info",
   danger: "border border-transparent bg-danger/12 text-danger"
-}, tr = { solid: qt, outline: Ji, muted: er }, at = {
+}, nr = { solid: Yt, outline: ir, muted: rr }, ot = {
   xs: "ui-badge--xs",
   sm: "ui-badge--sm",
   md: "ui-badge--md",
   lg: "ui-badge--lg"
-}, ke = {
+}, xe = {
   32: "max-w-32",
   40: "max-w-40",
   48: "max-w-48",
   64: "max-w-64",
   full: "max-w-full"
 };
-function ir(e) {
+function sr(e) {
   const t = String(e || "").trim();
   if (!t) return "";
   let i = t.startsWith("#") ? t : `#${t}`;
   return /^#[0-9A-Fa-f]{3}$/.test(i) && (i = `#${i[1]}${i[1]}${i[2]}${i[2]}${i[3]}${i[3]}`), /^#[0-9A-Fa-f]{6}$/.test(i) ? i.toUpperCase() : "";
 }
-function rr(e) {
+function ar(e) {
   const t = parseInt(e.slice(1, 3), 16), i = parseInt(e.slice(3, 5), 16), n = parseInt(e.slice(5, 7), 16);
   return (0.299 * t + 0.587 * i + 0.114 * n) / 255 > 0.58 ? "#0a0a0a" : "#ffffff";
 }
-const nr = {
+const or = {
   name: "Badge",
-  components: { Tooltip: Ut },
+  components: { Tooltip: qt },
   inheritAttrs: !1,
   props: {
     /** Ton — `primary | secondary | success | warning | info | danger` */
@@ -842,19 +842,19 @@ const nr = {
     color: {
       type: String,
       default: void 0,
-      validator: (e) => e == null || Zi.includes(e)
+      validator: (e) => e == null || Ji.includes(e)
     },
     /** Görsel stil — `solid` dolgu, `outline` çerçeve, `muted` tonun soluk zemini */
     variant: {
       type: String,
       default: "solid",
-      validator: (e) => Qi.includes(e)
+      validator: (e) => er.includes(e)
     },
     /** sm — varsayılan kompakt; md / lg daha geniş padding */
     size: {
       type: String,
       default: "sm",
-      validator: (e) => Xi.includes(e)
+      validator: (e) => tr.includes(e)
     },
     /** Uzun metinde kısaltma (…) — `maxWidth` üst sınırından sonra (varsayılan ~12rem) */
     truncate: {
@@ -865,7 +865,7 @@ const nr = {
     maxWidth: {
       type: String,
       default: "48",
-      validator: (e) => Object.keys(ke).includes(e)
+      validator: (e) => Object.keys(xe).includes(e)
     },
     /** Tooltip metni; boşsa slot metni kullanılır */
     tooltip: {
@@ -900,7 +900,7 @@ const nr = {
   },
   computed: {
     toneClasses() {
-      return (tr[this.variant] || qt)[this.color || (this.variant === "muted" ? "secondary" : "primary")];
+      return (nr[this.variant] || Yt)[this.color || (this.variant === "muted" ? "secondary" : "primary")];
     },
     isClickable() {
       return this.clickable || typeof this.$attrs.onClick == "function";
@@ -913,28 +913,28 @@ const nr = {
       return this.isClickable ? { type: "button", ...e } : e;
     },
     labelWidthClass() {
-      return this.truncate ? ke[this.maxWidth] || ke[48] : "";
+      return this.truncate ? xe[this.maxWidth] || xe[48] : "";
     },
     hasAdornment() {
       return !!(this.prefixIcon || this.suffixIcon || this.$slots.prepend || this.$slots.append);
     },
     normalizedHex() {
-      return ir(this.hex);
+      return sr(this.hex);
     },
     hexBadgeStyle() {
       if (this.normalizedHex)
         return {
           backgroundColor: this.normalizedHex,
-          color: rr(this.normalizedHex),
+          color: ar(this.normalizedHex),
           borderColor: "transparent",
           boxShadow: "0 1px 2px rgb(0 0 0 / 0.12)"
         };
     },
     badgeClasses() {
-      return L(
+      return z(
         "ui-badge inline-flex max-w-full items-center font-medium",
         this.hasAdornment ? "gap-1" : "justify-center",
-        at[this.size] || at.sm,
+        ot[this.size] || ot.sm,
         this.isClickable ? "ui-badge--clickable" : "",
         !this.normalizedHex && this.toneClasses,
         this.$attrs.class
@@ -985,22 +985,22 @@ const nr = {
       this.isTruncated = e.scrollWidth > e.clientWidth + 1;
     }
   }
-}, sr = {
+}, lr = {
   key: 0,
   class: "inline-flex shrink-0 items-center",
   "aria-hidden": "true"
-}, ar = {
+}, ur = {
   key: 1,
   class: "inline-flex shrink-0 items-center [&_.ui-icon]:leading-none"
-}, or = {
+}, dr = {
   key: 2,
   class: "inline-flex shrink-0 items-center",
   "aria-hidden": "true"
-}, lr = {
+}, cr = {
   key: 3,
   class: "inline-flex shrink-0 items-center [&_.ui-icon]:leading-none"
 };
-function ur(e, t, i, n, s, r) {
+function fr(e, t, i, n, s, r) {
   const a = x("ui-icon"), u = x("Tooltip");
   return o(), _(u, {
     label: r.tooltipLabel,
@@ -1008,14 +1008,14 @@ function ur(e, t, i, n, s, r) {
     placement: "top"
   }, {
     default: w(() => [
-      (o(), _(De(r.rootTag), F(r.hexBadgeStyle ? { ...r.rootAttrs, style: r.hexBadgeStyle } : r.rootAttrs, { class: r.badgeClasses }), {
+      (o(), _(Be(r.rootTag), L(r.hexBadgeStyle ? { ...r.rootAttrs, style: r.hexBadgeStyle } : r.rootAttrs, { class: r.badgeClasses }), {
         default: w(() => [
-          i.prefixIcon ? (o(), d("span", sr, [
-            y(a, {
+          i.prefixIcon ? (o(), d("span", lr, [
+            b(a, {
               name: i.prefixIcon,
               size: "xs"
             }, null, 8, ["name"])
-          ])) : e.$slots.prepend ? (o(), d("span", ar, [
+          ])) : e.$slots.prepend ? (o(), d("span", ur, [
             p(e.$slots, "prepend")
           ])) : f("v-if", !0),
           h(
@@ -1030,12 +1030,12 @@ function ur(e, t, i, n, s, r) {
             2
             /* CLASS */
           ),
-          i.suffixIcon ? (o(), d("span", or, [
-            y(a, {
+          i.suffixIcon ? (o(), d("span", dr, [
+            b(a, {
               name: i.suffixIcon,
               size: "xs"
             }, null, 8, ["name"])
-          ])) : e.$slots.append ? (o(), d("span", lr, [
+          ])) : e.$slots.append ? (o(), d("span", cr, [
             p(e.$slots, "append")
           ])) : f("v-if", !0)
         ]),
@@ -1047,8 +1047,8 @@ function ur(e, t, i, n, s, r) {
     /* FORWARDED */
   }, 8, ["label", "disabled"]);
 }
-const dr = /* @__PURE__ */ T(nr, [["render", ur], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/Badge.vue"]]);
-function Le(e, t, i) {
+const hr = /* @__PURE__ */ T(or, [["render", fr], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/Badge.vue"]]);
+function Fe(e, t, i) {
   if (e && typeof e.$t == "function") {
     const n = e.$t(t);
     if (n != null && n !== "" && n !== t)
@@ -1056,31 +1056,31 @@ function Le(e, t, i) {
   }
   return i;
 }
-const cr = ["sm", "md", "lg"], fr = ["solid", "outline", "ghost", "link", "nav"], hr = ["primary", "secondary", "input", "warning", "success", "info", "danger"], mr = ["button", "submit", "reset"], ot = {
+const mr = ["sm", "md", "lg"], pr = ["solid", "outline", "ghost", "muted", "link", "nav"], gr = ["primary", "secondary", "input", "warning", "success", "info", "danger"], br = ["button", "submit", "reset"], lt = {
   sm: "ui-control-h-sm",
   md: "ui-control-h-md",
   lg: "ui-control-h-lg"
-}, lt = {
+}, ut = {
   sm: "box-border h-[var(--ui-control-h-sm)] min-h-[var(--ui-control-h-sm)] px-2.5 py-0 text-xs leading-4",
   md: "box-border h-[var(--ui-control-h-md)] min-h-[var(--ui-control-h-md)] px-3 py-0 text-sm leading-5",
   lg: "box-border h-[var(--ui-control-h-lg)] min-h-[var(--ui-control-h-lg)] px-4 py-0 text-base leading-6"
-}, ut = {
+}, dt = {
   sm: "box-border h-auto min-h-[var(--ui-control-h-sm)] items-start px-2.5 py-2 text-xs leading-4",
   md: "box-border h-auto min-h-[var(--ui-control-h-md)] items-start px-3 py-2 text-sm leading-5",
   lg: "box-border h-auto min-h-[var(--ui-control-h-lg)] items-start px-4 py-2 text-base leading-6"
-}, dt = {
+}, ct = {
   sm: "ui-control-cubed-sm aspect-square",
   md: "ui-control-cubed-md aspect-square",
   lg: "ui-control-cubed-lg aspect-square"
-}, ct = {
+}, ft = {
   sm: "aspect-square h-auto w-auto self-stretch shrink-0 !min-h-0 !min-w-0 px-1 py-0.5 text-[10px] leading-none",
   md: "aspect-square h-auto w-auto self-stretch shrink-0 !min-h-0 !min-w-0 px-1 py-0.5 text-[10px] leading-none",
   lg: "aspect-square h-auto w-auto self-stretch shrink-0 !min-h-0 !min-w-0 px-1 py-0.5 text-[10px] leading-none"
-}, pr = {
+}, yr = {
   sm: "text-xs",
   md: "text-sm",
   lg: "text-base"
-}, ft = {
+}, ht = {
   solid: {
     primary: "border-0 bg-primary text-primary-foreground shadow-none hover:opacity-90",
     secondary: "border border-transparent text-foreground shadow-none",
@@ -1106,6 +1106,15 @@ const cr = ["sm", "md", "lg"], fr = ["solid", "outline", "ghost", "link", "nav"]
     info: "shadow-none border-0 bg-transparent text-info hover:bg-info hover:text-info-foreground",
     danger: "shadow-none border-0 bg-transparent text-danger hover:bg-danger hover:text-danger-foreground"
   },
+  /** Yumuşak dolgu — seçili filtre / ikincil vurgu; dolu primary'yi CTA'ya bırakır. */
+  muted: {
+    primary: "border-0 shadow-none bg-primary/12 text-primary hover:bg-primary/18",
+    secondary: "border-0 shadow-none bg-muted text-foreground hover:bg-muted/80",
+    warning: "border-0 shadow-none bg-warning/14 text-warning hover:bg-warning/20",
+    success: "border-0 shadow-none bg-success/14 text-success hover:bg-success/20",
+    info: "border-0 shadow-none bg-info/14 text-info hover:bg-info/20",
+    danger: "border-0 shadow-none bg-danger/14 text-danger hover:bg-danger/20"
+  },
   link: {
     primary: "border-0 bg-transparent p-0 !h-auto !min-h-0 shadow-none font-medium text-primary underline-offset-4 hover:underline",
     secondary: "border-0 bg-transparent p-0 !h-auto !min-h-0 shadow-none text-secondary-foreground underline-offset-4 hover:underline",
@@ -1123,10 +1132,10 @@ const cr = ["sm", "md", "lg"], fr = ["solid", "outline", "ghost", "link", "nav"]
     info: "shadow-none border-0 bg-transparent text-info hover:bg-transparent",
     danger: "shadow-none border-0 bg-transparent text-danger hover:bg-transparent"
   }
-}, gr = {
+}, vr = {
   name: "Button",
   mixins: [O],
-  components: { RouterLink: gi },
+  components: { RouterLink: vi },
   props: {
     /** `vue-router` hedefi; verildiğinde `<a>` + istemci navigasyonu (`RouterLink` custom). */
     to: {
@@ -1137,22 +1146,22 @@ const cr = ["sm", "md", "lg"], fr = ["solid", "outline", "ghost", "link", "nav"]
     nativeType: {
       type: String,
       default: "button",
-      validator: (e) => mr.includes(e)
+      validator: (e) => br.includes(e)
     },
     variant: {
       type: String,
       default: "solid",
-      validator: (e) => fr.includes(e)
+      validator: (e) => pr.includes(e)
     },
     color: {
       type: String,
       default: "primary",
-      validator: (e) => hr.includes(e)
+      validator: (e) => gr.includes(e)
     },
     size: {
       type: String,
       default: void 0,
-      validator: (e) => e == null || cr.includes(e)
+      validator: (e) => e == null || mr.includes(e)
     },
     prefixIcon: {
       type: String,
@@ -1224,8 +1233,7 @@ const cr = ["sm", "md", "lg"], fr = ["solid", "outline", "ghost", "link", "nav"]
       return this.stack || !this.cubed || this.prefixIcon && this.suffixIcon ? !1 : this.prefixIcon || this.suffixIcon ? !this.hasRenderableDefaultSlot : !0;
     },
     hasRenderableDefaultSlot() {
-      const e = this.$slots.default;
-      return e ? e().some((t) => this.isRenderableVNode(t)) : !1;
+      return this.hasSlotContent();
     },
     isDisabled() {
       return this.disabled || this.loading;
@@ -1234,10 +1242,10 @@ const cr = ["sm", "md", "lg"], fr = ["solid", "outline", "ghost", "link", "nav"]
       return U(this.uiDefaults, this.size, { key: "controlSize", defaultSize: "md" });
     },
     themeButtonRounded() {
-      return he(this.uiDefaults, void 0, "buttonRounded");
+      return pe(this.uiDefaults, void 0, "buttonRounded");
     },
     resolvedLoadingText() {
-      return this.loadingText != null && this.loadingText !== "" ? this.loadingText : Le(this, "ui.button.loading", "Loading");
+      return this.loadingText != null && this.loadingText !== "" ? this.loadingText : Fe(this, "ui.button.loading", "Loading");
     },
     textContentClass() {
       const e = this.textAlign === "left" ? "text-left" : "text-center", t = this.block;
@@ -1259,13 +1267,14 @@ const cr = ["sm", "md", "lg"], fr = ["solid", "outline", "ghost", "link", "nav"]
       var u, l;
       const e = this.variant === "link", t = this.variant === "nav";
       let i;
-      this.stack && !e && !t ? i = ct[this.resolvedSize] || ct.md : this.cubed && !e && !t ? i = dt[this.resolvedSize] || dt.md : e ? i = pr[this.resolvedSize] : t ? i = "h-auto min-h-0 w-full max-w-full justify-start overflow-hidden p-0 !min-h-0" : this.wrap ? i = ut[this.resolvedSize] || ut.md : i = ot[this.resolvedSize] || ot.md;
+      this.stack && !e && !t ? i = ft[this.resolvedSize] || ft.md : this.cubed && !e && !t ? i = ct[this.resolvedSize] || ct.md : e ? i = yr[this.resolvedSize] : t ? i = "h-auto min-h-0 w-full max-w-full justify-start overflow-hidden p-0 !min-h-0" : this.wrap ? i = dt[this.resolvedSize] || dt.md : i = lt[this.resolvedSize] || lt.md;
       let n = "", s = i;
-      !e && !t && (this.wrap ? n = "rounded-xl" : (this.stack || this.rounded || this.cubed || this.themeButtonRounded === "full") && (n = "rounded-full", !this.stack && !this.cubed && (s = lt[this.resolvedSize] || lt.md)));
-      const r = ((u = ft[this.variant]) == null ? void 0 : u[this.color]) || ((l = ft.solid) == null ? void 0 : l.primary), a = this.block;
+      !e && !t && (this.wrap ? n = "rounded-xl" : (this.stack || this.rounded || this.cubed || this.themeButtonRounded === "full") && (n = "rounded-full", !this.stack && !this.cubed && (s = ut[this.resolvedSize] || ut.md)));
+      const r = ((u = ht[this.variant]) == null ? void 0 : u[this.color]) || ((l = ht.solid) == null ? void 0 : l.primary), a = this.block;
       return [
         "ui-button ui-control font-sans",
         this.stack ? "ui-button--stack" : "",
+        this.textAlign === "left" ? "ui-button--align-start" : "",
         r,
         s,
         a ? "ui-button--block w-full" : "",
@@ -1276,9 +1285,14 @@ const cr = ["sm", "md", "lg"], fr = ["solid", "outline", "ghost", "link", "nav"]
     }
   },
   methods: {
+    /** Boş metin kabı flex `gap` ile ikonu kaydırır; yalnız ikonlu düğmede basılmaz. */
+    hasSlotContent() {
+      const e = this.$slots.default;
+      return !!e && e().some((t) => this.isRenderableVNode(t));
+    },
     isRenderableVNode(e) {
-      if (e == null || typeof e != "object" || e.type === li) return !1;
-      if (e.type === ui)
+      if (e == null || typeof e != "object" || e.type === ci) return !1;
+      if (e.type === fi)
         return String(e.children ?? "").trim().length > 0;
       if (e.type === A) {
         const t = e.children;
@@ -1297,64 +1311,64 @@ const cr = ["sm", "md", "lg"], fr = ["solid", "outline", "ghost", "link", "nav"]
       this.$emit("click", e), !e.defaultPrevented && t(e);
     }
   }
-}, yr = ["href", "data-variant", "data-color", "data-loading", "aria-busy", "aria-disabled", "tabindex", "onClick"], br = {
+}, kr = ["href", "data-variant", "data-color", "data-size", "data-loading", "aria-busy", "aria-disabled", "tabindex", "onClick"], Sr = {
   class: "ui-button-cubed-inner inline-flex size-full min-h-0 min-w-0 items-center justify-center [&_.ui-icon]:leading-none",
   "aria-hidden": "true"
-}, vr = {
+}, xr = {
   key: 0,
   class: "sr-only"
-}, kr = {
+}, wr = {
   key: 1,
   class: "ui-button-loading-inner inline-flex size-full min-h-0 min-w-0 flex-1 items-center justify-center gap-2 [&_.ui-icon]:leading-none"
-}, Sr = {
-  key: 0,
-  class: "inline-flex shrink-0 items-center justify-center",
-  "aria-hidden": "true"
-}, xr = {
-  key: 1,
-  class: "inline-flex shrink-0 items-center justify-center",
-  "aria-hidden": "true"
-}, wr = {
-  key: 3,
-  class: "ui-button-cubed-inner inline-flex size-full min-h-0 min-w-0 items-center justify-center rounded-[inherit] [&_.ui-icon]:leading-none"
 }, _r = {
   key: 0,
   class: "inline-flex shrink-0 items-center justify-center",
   "aria-hidden": "true"
 }, Tr = {
-  key: 1,
+  key: 2,
   class: "inline-flex shrink-0 items-center justify-center",
   "aria-hidden": "true"
-}, Cr = ["type", "disabled", "data-variant", "data-color", "data-loading", "aria-busy"], Ir = {
-  class: "ui-button-cubed-inner inline-flex size-full min-h-0 min-w-0 items-center justify-center [&_.ui-icon]:leading-none",
-  "aria-hidden": "true"
-}, Fr = {
-  key: 0,
-  class: "sr-only"
-}, Lr = {
-  key: 1,
-  class: "ui-button-loading-inner inline-flex size-full min-h-0 min-w-0 flex-1 items-center justify-center gap-2 [&_.ui-icon]:leading-none"
-}, zr = {
-  key: 0,
-  class: "inline-flex shrink-0 items-center justify-center",
-  "aria-hidden": "true"
-}, Ar = {
-  key: 1,
-  class: "inline-flex shrink-0 items-center justify-center",
-  "aria-hidden": "true"
-}, Dr = {
+}, Cr = {
   key: 3,
   class: "ui-button-cubed-inner inline-flex size-full min-h-0 min-w-0 items-center justify-center rounded-[inherit] [&_.ui-icon]:leading-none"
-}, Pr = {
+}, Ir = {
   key: 0,
   class: "inline-flex shrink-0 items-center justify-center",
   "aria-hidden": "true"
-}, Br = {
+}, Lr = {
+  key: 2,
+  class: "inline-flex shrink-0 items-center justify-center",
+  "aria-hidden": "true"
+}, zr = ["type", "disabled", "data-variant", "data-color", "data-size", "data-loading", "aria-busy"], Fr = {
+  class: "ui-button-cubed-inner inline-flex size-full min-h-0 min-w-0 items-center justify-center [&_.ui-icon]:leading-none",
+  "aria-hidden": "true"
+}, Ar = {
+  key: 0,
+  class: "sr-only"
+}, Dr = {
   key: 1,
+  class: "ui-button-loading-inner inline-flex size-full min-h-0 min-w-0 flex-1 items-center justify-center gap-2 [&_.ui-icon]:leading-none"
+}, Br = {
+  key: 0,
+  class: "inline-flex shrink-0 items-center justify-center",
+  "aria-hidden": "true"
+}, Pr = {
+  key: 2,
+  class: "inline-flex shrink-0 items-center justify-center",
+  "aria-hidden": "true"
+}, Or = {
+  key: 3,
+  class: "ui-button-cubed-inner inline-flex size-full min-h-0 min-w-0 items-center justify-center rounded-[inherit] [&_.ui-icon]:leading-none"
+}, Mr = {
+  key: 0,
+  class: "inline-flex shrink-0 items-center justify-center",
+  "aria-hidden": "true"
+}, Rr = {
+  key: 2,
   class: "inline-flex shrink-0 items-center justify-center",
   "aria-hidden": "true"
 };
-function Or(e, t, i, n, s, r) {
+function Er(e, t, i, n, s, r) {
   const a = x("ui-icon"), u = x("RouterLink");
   return r.hasRouterTo ? (o(), _(u, {
     key: 0,
@@ -1367,6 +1381,7 @@ function Or(e, t, i, n, s, r) {
         class: S(r.buttonClasses),
         "data-variant": i.variant,
         "data-color": i.color,
+        "data-size": r.resolvedSize,
         "data-loading": i.loading ? "true" : void 0,
         "aria-busy": i.loading ? "true" : void 0,
         "aria-disabled": r.isDisabled ? "true" : void 0,
@@ -1377,8 +1392,8 @@ function Or(e, t, i, n, s, r) {
           A,
           { key: 0 },
           [
-            h("span", br, [
-              y(a, {
+            h("span", Sr, [
+              b(a, {
                 size: r.cubedIconSize,
                 name: "spinner",
                 class: "fa-spin"
@@ -1386,16 +1401,16 @@ function Or(e, t, i, n, s, r) {
             ]),
             r.resolvedLoadingText ? (o(), d(
               "span",
-              vr,
-              b(r.resolvedLoadingText),
+              xr,
+              y(r.resolvedLoadingText),
               1
               /* TEXT */
             )) : f("v-if", !0)
           ],
           64
           /* STABLE_FRAGMENT */
-        )) : i.loading ? (o(), d("span", kr, [
-          y(a, {
+        )) : i.loading ? (o(), d("span", wr, [
+          b(a, {
             size: r.inlineIconSize,
             name: "spinner",
             class: "fa-spin",
@@ -1406,7 +1421,7 @@ function Or(e, t, i, n, s, r) {
             {
               class: S(r.textContentClass)
             },
-            b(r.resolvedLoadingText),
+            y(r.resolvedLoadingText),
             3
             /* TEXT, CLASS */
           )
@@ -1414,15 +1429,16 @@ function Or(e, t, i, n, s, r) {
           A,
           { key: 2 },
           [
-            i.prefixIcon ? (o(), d("span", Sr, [
-              y(a, {
+            i.prefixIcon ? (o(), d("span", _r, [
+              b(a, {
                 size: r.stackIconSize,
                 name: i.prefixIcon
               }, null, 8, ["size", "name"])
             ])) : f("v-if", !0),
-            h(
+            r.hasSlotContent() ? (o(), d(
               "span",
               {
+                key: 1,
                 class: S(r.textContentClass)
               },
               [
@@ -1430,9 +1446,9 @@ function Or(e, t, i, n, s, r) {
               ],
               2
               /* CLASS */
-            ),
-            i.suffixIcon ? (o(), d("span", xr, [
-              y(a, {
+            )) : f("v-if", !0),
+            i.suffixIcon ? (o(), d("span", Tr, [
+              b(a, {
                 size: r.stackIconSize,
                 name: i.suffixIcon
               }, null, 8, ["size", "name"])
@@ -1440,7 +1456,7 @@ function Or(e, t, i, n, s, r) {
           ],
           64
           /* STABLE_FRAGMENT */
-        )) : r.usesCubedCenterLayout ? (o(), d("span", wr, [
+        )) : r.usesCubedCenterLayout ? (o(), d("span", Cr, [
           i.prefixIcon ? (o(), _(a, {
             key: 0,
             size: r.cubedIconSize,
@@ -1454,15 +1470,16 @@ function Or(e, t, i, n, s, r) {
           A,
           { key: 4 },
           [
-            i.prefixIcon ? (o(), d("span", _r, [
-              y(a, {
+            i.prefixIcon ? (o(), d("span", Ir, [
+              b(a, {
                 size: r.inlineIconSize,
                 name: i.prefixIcon
               }, null, 8, ["size", "name"])
             ])) : f("v-if", !0),
-            h(
+            r.hasSlotContent() ? (o(), d(
               "span",
               {
+                key: 1,
                 class: S(r.textContentClass)
               },
               [
@@ -1470,9 +1487,9 @@ function Or(e, t, i, n, s, r) {
               ],
               2
               /* CLASS */
-            ),
-            i.suffixIcon ? (o(), d("span", Tr, [
-              y(a, {
+            )) : f("v-if", !0),
+            i.suffixIcon ? (o(), d("span", Lr, [
+              b(a, {
                 size: r.inlineIconSize,
                 name: i.suffixIcon
               }, null, 8, ["size", "name"])
@@ -1481,7 +1498,7 @@ function Or(e, t, i, n, s, r) {
           64
           /* STABLE_FRAGMENT */
         ))
-      ], 10, yr)
+      ], 10, kr)
     ]),
     _: 3
     /* FORWARDED */
@@ -1492,6 +1509,7 @@ function Or(e, t, i, n, s, r) {
     class: S(r.buttonClasses),
     "data-variant": i.variant,
     "data-color": i.color,
+    "data-size": r.resolvedSize,
     "data-loading": i.loading ? "true" : void 0,
     "aria-busy": i.loading ? "true" : void 0,
     onClick: t[0] || (t[0] = (...l) => r.onClick && r.onClick(...l))
@@ -1500,8 +1518,8 @@ function Or(e, t, i, n, s, r) {
       A,
       { key: 0 },
       [
-        h("span", Ir, [
-          y(a, {
+        h("span", Fr, [
+          b(a, {
             size: r.cubedIconSize,
             name: "spinner",
             class: "fa-spin"
@@ -1509,16 +1527,16 @@ function Or(e, t, i, n, s, r) {
         ]),
         r.resolvedLoadingText ? (o(), d(
           "span",
-          Fr,
-          b(r.resolvedLoadingText),
+          Ar,
+          y(r.resolvedLoadingText),
           1
           /* TEXT */
         )) : f("v-if", !0)
       ],
       64
       /* STABLE_FRAGMENT */
-    )) : i.loading ? (o(), d("span", Lr, [
-      y(a, {
+    )) : i.loading ? (o(), d("span", Dr, [
+      b(a, {
         size: r.inlineIconSize,
         name: "spinner",
         class: "fa-spin",
@@ -1529,7 +1547,7 @@ function Or(e, t, i, n, s, r) {
         {
           class: S(r.textContentClass)
         },
-        b(r.resolvedLoadingText),
+        y(r.resolvedLoadingText),
         3
         /* TEXT, CLASS */
       )
@@ -1537,15 +1555,16 @@ function Or(e, t, i, n, s, r) {
       A,
       { key: 2 },
       [
-        i.prefixIcon ? (o(), d("span", zr, [
-          y(a, {
+        i.prefixIcon ? (o(), d("span", Br, [
+          b(a, {
             size: r.stackIconSize,
             name: i.prefixIcon
           }, null, 8, ["size", "name"])
         ])) : f("v-if", !0),
-        h(
+        r.hasSlotContent() ? (o(), d(
           "span",
           {
+            key: 1,
             class: S(r.textContentClass)
           },
           [
@@ -1553,9 +1572,9 @@ function Or(e, t, i, n, s, r) {
           ],
           2
           /* CLASS */
-        ),
-        i.suffixIcon ? (o(), d("span", Ar, [
-          y(a, {
+        )) : f("v-if", !0),
+        i.suffixIcon ? (o(), d("span", Pr, [
+          b(a, {
             size: r.stackIconSize,
             name: i.suffixIcon
           }, null, 8, ["size", "name"])
@@ -1563,7 +1582,7 @@ function Or(e, t, i, n, s, r) {
       ],
       64
       /* STABLE_FRAGMENT */
-    )) : r.usesCubedCenterLayout ? (o(), d("span", Dr, [
+    )) : r.usesCubedCenterLayout ? (o(), d("span", Or, [
       i.prefixIcon ? (o(), _(a, {
         key: 0,
         size: r.cubedIconSize,
@@ -1577,15 +1596,16 @@ function Or(e, t, i, n, s, r) {
       A,
       { key: 4 },
       [
-        i.prefixIcon ? (o(), d("span", Pr, [
-          y(a, {
+        i.prefixIcon ? (o(), d("span", Mr, [
+          b(a, {
             size: r.inlineIconSize,
             name: i.prefixIcon
           }, null, 8, ["size", "name"])
         ])) : f("v-if", !0),
-        h(
+        r.hasSlotContent() ? (o(), d(
           "span",
           {
+            key: 1,
             class: S(r.textContentClass)
           },
           [
@@ -1593,9 +1613,9 @@ function Or(e, t, i, n, s, r) {
           ],
           2
           /* CLASS */
-        ),
-        i.suffixIcon ? (o(), d("span", Br, [
-          y(a, {
+        )) : f("v-if", !0),
+        i.suffixIcon ? (o(), d("span", Rr, [
+          b(a, {
             size: r.inlineIconSize,
             name: i.suffixIcon
           }, null, 8, ["size", "name"])
@@ -1604,13 +1624,13 @@ function Or(e, t, i, n, s, r) {
       64
       /* STABLE_FRAGMENT */
     ))
-  ], 10, Cr));
+  ], 10, zr));
 }
-const jl = /* @__PURE__ */ T(gr, [["render", Or], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/Button.vue"]]), Rr = ["none", "sm", "md"], ht = {
+const Gl = /* @__PURE__ */ T(vr, [["render", Er], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/Button.vue"]]), $r = ["none", "sm", "md"], mt = {
   none: "",
   sm: "my-2",
   md: "my-4"
-}, Mr = {
+}, Vr = {
   name: "Divider",
   inheritAttrs: !1,
   props: {
@@ -1631,7 +1651,7 @@ const jl = /* @__PURE__ */ T(gr, [["render", Or], ["__file", "/Users/serkan/Proj
     spacing: {
       type: String,
       default: "md",
-      validator: (e) => Rr.includes(e)
+      validator: (e) => $r.includes(e)
     },
     /**
      * true: yalnızca görsel — `role="presentation"`, ekran okuyucu atlar.
@@ -1642,18 +1662,34 @@ const jl = /* @__PURE__ */ T(gr, [["render", Or], ["__file", "/Users/serkan/Proj
       default: !0
     }
   },
+  data() {
+    return { labelTruncated: !1 };
+  },
+  mounted() {
+    this.syncLabelTitle();
+  },
+  updated() {
+    this.syncLabelTitle();
+  },
+  methods: {
+    /** Kısaltılan başlıkta tam metin, üzerine gelince görünsün. */
+    syncLabelTitle() {
+      const e = this.$refs.labelRef;
+      this.labelTruncated = !!e && e.scrollWidth - e.clientWidth > 1;
+    }
+  },
   computed: {
     hasLabel() {
       return !!(this.title && this.title.trim() || this.icon);
     },
     rootClass() {
-      return ["ui-divider", ht[this.spacing] || "", this.$attrs.class].filter(Boolean).join(" ");
+      return ["ui-divider", mt[this.spacing] || "", this.$attrs.class].filter(Boolean).join(" ");
     },
     labeledClass() {
       return [
         "ui-divider",
         "ui-divider--labeled",
-        ht[this.spacing] || "",
+        mt[this.spacing] || "",
         this.$attrs.class
       ].filter(Boolean).join(" ");
     },
@@ -1670,15 +1706,12 @@ const jl = /* @__PURE__ */ T(gr, [["render", Or], ["__file", "/Users/serkan/Proj
       return this.decorative ? e.role = "presentation" : (e.role = "separator", e["aria-orientation"] = "horizontal", this.title && (e["aria-label"] = this.title)), e;
     }
   }
-}, Er = { class: "ui-divider__label" }, $r = {
-  key: 1,
-  class: "ui-section-label"
-};
-function Vr(e, t, i, n, s, r) {
+}, Nr = { class: "ui-divider__label" }, jr = ["title"];
+function Gr(e, t, i, n, s, r) {
   const a = x("ui-icon");
   return r.hasLabel ? (o(), d(
     "div",
-    F({
+    L({
       key: 1,
       class: r.labeledClass
     }, r.labeledAttrs),
@@ -1693,20 +1726,19 @@ function Vr(e, t, i, n, s, r) {
         -1
         /* CACHED */
       )),
-      h("span", Er, [
+      h("span", Nr, [
         i.icon ? (o(), _(a, {
           key: 0,
           name: i.icon,
           size: "sm",
           class: "text-muted-foreground"
         }, null, 8, ["name"])) : f("v-if", !0),
-        i.title ? (o(), d(
-          "span",
-          $r,
-          b(i.title),
-          1
-          /* TEXT */
-        )) : f("v-if", !0)
+        i.title ? (o(), d("span", {
+          key: 1,
+          ref: "labelRef",
+          class: "ui-section-label",
+          title: s.labelTruncated ? i.title : void 0
+        }, y(i.title), 9, jr)) : f("v-if", !0)
       ]),
       t[1] || (t[1] = h(
         "span",
@@ -1723,7 +1755,7 @@ function Vr(e, t, i, n, s, r) {
     /* FULL_PROPS */
   )) : (o(), d(
     "hr",
-    F({
+    L({
       key: 0,
       class: r.rootClass
     }, r.rootAttrs),
@@ -1732,15 +1764,15 @@ function Vr(e, t, i, n, s, r) {
     /* FULL_PROPS */
   ));
 }
-const Me = /* @__PURE__ */ T(Mr, [["render", Vr], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/Divider.vue"]]), Nr = ["solid", "dashed", "dotted", "double"], mt = {
+const Ee = /* @__PURE__ */ T(Vr, [["render", Gr], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/Divider.vue"]]), Hr = ["solid", "dashed", "dotted", "double"], pt = {
   solid: "border-solid",
   dashed: "border-dashed",
   dotted: "border-dotted",
   double: "border-double"
-}, jr = ["solid", "regular", "brands", "light", "duotone", "thin"], Gr = {
+}, Wr = ["solid", "regular", "brands", "light", "duotone", "thin"], Ur = {
   name: "Card",
   mixins: [O],
-  components: { Divider: Me },
+  components: { Divider: Ee },
   inheritAttrs: !1,
   props: {
     /** Dış çerçeve (1px `border-border`). */
@@ -1752,7 +1784,7 @@ const Me = /* @__PURE__ */ T(Mr, [["render", Vr], ["__file", "/Users/serkan/Proj
     borderType: {
       type: String,
       default: "solid",
-      validator: (e) => Nr.includes(e)
+      validator: (e) => Hr.includes(e)
     },
     title: {
       type: String,
@@ -1771,7 +1803,7 @@ const Me = /* @__PURE__ */ T(Mr, [["render", Vr], ["__file", "/Users/serkan/Proj
     iconType: {
       type: String,
       default: void 0,
-      validator: (e) => e == null || jr.includes(e)
+      validator: (e) => e == null || Wr.includes(e)
     },
     /** Gövde: yatay satır (buton / ikon sıraları). */
     row: {
@@ -1803,6 +1835,15 @@ const Me = /* @__PURE__ */ T(Mr, [["render", Vr], ["__file", "/Users/serkan/Proj
       type: Boolean,
       default: !1
     },
+    /**
+     * Başlık (başlık + `#actions`) sabit kalır, gövde kartın içinde kayar — uzun form kartlarında
+     * Kaydet görünür kalsın diye. Yükseklik sınırını üst öğe verir (ör. sticky + max-h sarmalayıcı).
+     * Varsayılan kapalı.
+     */
+    stickyHeader: {
+      type: Boolean,
+      default: !1
+    },
     /** Üst flex satırında kardeşlerle aynı yüksekliğe yayılır (`h-full`). */
     fullHeight: {
       type: Boolean,
@@ -1817,7 +1858,7 @@ const Me = /* @__PURE__ */ T(Mr, [["render", Vr], ["__file", "/Users/serkan/Proj
   },
   computed: {
     resolvedIconType() {
-      return me(this.uiDefaults, this.iconType);
+      return ge(this.uiDefaults, this.iconType);
     },
     hasDefaultHeader() {
       return !!(this.icon || this.title != null && this.title !== "" || this.description != null && this.description !== "" || this.$slots.actions || this.$slots.append);
@@ -1829,7 +1870,7 @@ const Me = /* @__PURE__ */ T(Mr, [["render", Vr], ["__file", "/Users/serkan/Proj
       return this.headerDivider && (!!this.$slots.toolbar || this.hasHeaderBlock);
     },
     borderStyleClass() {
-      return mt[this.borderType] || mt.solid;
+      return pt[this.borderType] || pt.solid;
     },
     rootClasses() {
       const e = [
@@ -1837,39 +1878,39 @@ const Me = /* @__PURE__ */ T(Mr, [["render", Vr], ["__file", "/Users/serkan/Proj
         "ui-card",
         ...this.border ? ["border", this.borderStyleClass] : ["border-0", "border-transparent"]
       ];
-      return this.removePadding && e.push("ui-card--no-padding"), this.layout === "data-table" && e.push("ui-card--data-table"), this.transparent && e.push("ui-card--transparent"), this.interactive && e.push("ui-card--interactive"), this.emphasized && e.push("ui-card--emphasized"), this.fullHeight && e.push("ui-card--full-height"), L(e.join(" "), this.$attrs.class);
+      return this.removePadding && e.push("ui-card--no-padding"), this.stickyHeader && e.push("ui-card--sticky-header"), this.layout === "data-table" && e.push("ui-card--data-table"), this.transparent && e.push("ui-card--transparent"), this.interactive && e.push("ui-card--interactive"), this.emphasized && e.push("ui-card--emphasized"), this.fullHeight && e.push("ui-card--full-height"), z(e.join(" "), this.$attrs.class);
     },
     passthroughAttrs() {
       const { class: e, ...t } = this.$attrs;
       return t;
     }
   }
-}, Hr = {
+}, qr = {
   key: 0,
   class: "ui-card-toolbar shrink-0"
-}, Wr = {
+}, Yr = {
   key: 0,
   class: "ui-header-lead"
-}, Ur = { class: "ui-header-lead__main" }, qr = {
+}, Kr = { class: "ui-header-lead__main" }, Zr = {
   key: 0,
   class: "ui-header-lead__icon"
-}, Yr = { class: "ui-header-lead__text" }, Kr = {
+}, Qr = { class: "ui-header-lead__text" }, Xr = {
   key: 0,
   class: "ui-heading-3"
-}, Zr = {
+}, Jr = {
   key: 1,
   class: "ui-text-default"
-}, Qr = {
+}, en = {
   key: 0,
   class: "ui-header-lead__actions"
 };
-function Xr(e, t, i, n, s, r) {
+function tn(e, t, i, n, s, r) {
   const a = x("ui-icon"), u = x("Divider");
   return o(), d(
     "div",
-    F({ class: r.rootClasses }, r.passthroughAttrs),
+    L({ class: r.rootClasses }, r.passthroughAttrs),
     [
-      e.$slots.toolbar ? (o(), d("div", Hr, [
+      e.$slots.toolbar ? (o(), d("div", qr, [
         p(e.$slots, "toolbar")
       ])) : f("v-if", !0),
       r.hasHeaderBlock ? (o(), d(
@@ -1880,33 +1921,33 @@ function Xr(e, t, i, n, s, r) {
         },
         [
           p(e.$slots, "header", {}, () => [
-            r.hasDefaultHeader ? (o(), d("div", Wr, [
-              h("div", Ur, [
-                i.icon ? (o(), d("span", qr, [
-                  y(a, {
+            r.hasDefaultHeader ? (o(), d("div", Yr, [
+              h("div", Kr, [
+                i.icon ? (o(), d("span", Zr, [
+                  b(a, {
                     name: i.icon,
                     type: r.resolvedIconType,
                     size: "lg"
                   }, null, 8, ["name", "type"])
                 ])) : f("v-if", !0),
-                h("div", Yr, [
+                h("div", Qr, [
                   i.title ? (o(), d(
                     "h3",
-                    Kr,
-                    b(i.title),
+                    Xr,
+                    y(i.title),
                     1
                     /* TEXT */
                   )) : f("v-if", !0),
                   i.description ? (o(), d(
                     "p",
-                    Zr,
-                    b(i.description),
+                    Jr,
+                    y(i.description),
                     1
                     /* TEXT */
                   )) : f("v-if", !0)
                 ])
               ]),
-              e.$slots.append || e.$slots.actions ? (o(), d("div", Qr, [
+              e.$slots.append || e.$slots.actions ? (o(), d("div", en, [
                 p(e.$slots, "append"),
                 p(e.$slots, "actions")
               ])) : f("v-if", !0)
@@ -1953,7 +1994,7 @@ function Xr(e, t, i, n, s, r) {
     /* FULL_PROPS */
   );
 }
-const Gl = /* @__PURE__ */ T(Gr, [["render", Xr], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/Card.vue"]]), B = Ae({
+const Hl = /* @__PURE__ */ T(Ur, [["render", tn], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/Card.vue"]]), P = De({
   open: !1,
   title: "",
   description: "",
@@ -1966,31 +2007,31 @@ const Gl = /* @__PURE__ */ T(Gr, [["render", Xr], ["__file", "/Users/serkan/Proj
   /** @type {((value: boolean) => void) | null} */
   _resolve: null
 });
-function Hl(e = {}) {
+function Wl(e = {}) {
   return new Promise((t) => {
-    B.title = e.title ?? "", B.description = e.description ?? "", B.confirmLabel = e.confirmLabel ?? "", B.cancelLabel = e.cancelLabel ?? "", B.color = e.color || "primary", B._resolve = t, B.open = !0;
+    P.title = e.title ?? "", P.description = e.description ?? "", P.confirmLabel = e.confirmLabel ?? "", P.cancelLabel = e.cancelLabel ?? "", P.color = e.color || "primary", P._resolve = t, P.open = !0;
   });
 }
-function pt(e) {
-  const t = B._resolve;
-  B.open = !1, B._resolve = null, t && t(!!e);
+function gt(e) {
+  const t = P._resolve;
+  P.open = !1, P._resolve = null, t && t(!!e);
 }
-const Jr = {
+const rn = {
   name: "ConfirmDialog",
   computed: {
     confirmState() {
-      return B;
+      return P;
     },
     syncOpen: {
       get() {
-        return B.open;
+        return P.open;
       },
       set(e) {
-        e ? B.open = !0 : B._resolve ? pt(!1) : B.open = !1;
+        e ? P.open = !0 : P._resolve ? gt(!1) : P.open = !1;
       }
     },
     confirmText() {
-      return B.confirmLabel ? B.confirmLabel : typeof this.$t == "function" ? this.$t("ui.confirm.ok") : "Tamam";
+      return P.confirmLabel ? P.confirmLabel : typeof this.$t == "function" ? this.$t("ui.confirm.ok") : "Tamam";
     },
     fallbackAriaLabel() {
       return typeof this.$t == "function" ? this.$t("ui.confirm.fallbackAria") : "Onay";
@@ -1998,14 +2039,14 @@ const Jr = {
   },
   methods: {
     onConfirm() {
-      pt(!0);
+      gt(!0);
     }
   }
-}, en = {
+}, nn = {
   key: 0,
   class: "text-sm text-muted-foreground"
 };
-function tn(e, t, i, n, s, r) {
+function sn(e, t, i, n, s, r) {
   const a = x("ui-button"), u = x("ui-dialog");
   return o(), _(u, {
     open: r.syncOpen,
@@ -2018,15 +2059,15 @@ function tn(e, t, i, n, s, r) {
     "aria-label": r.confirmState.title || r.fallbackAriaLabel
   }, {
     footer: w(() => [
-      y(a, {
+      b(a, {
         color: r.confirmState.color,
         block: "",
         size: "lg",
         onClick: r.onConfirm
       }, {
         default: w(() => [
-          P(
-            b(r.confirmText),
+          B(
+            y(r.confirmText),
             1
             /* TEXT */
           )
@@ -2038,8 +2079,8 @@ function tn(e, t, i, n, s, r) {
     default: w(() => [
       r.confirmState.description ? (o(), d(
         "p",
-        en,
-        b(r.confirmState.description),
+        nn,
+        y(r.confirmState.description),
         1
         /* TEXT */
       )) : f("v-if", !0)
@@ -2048,42 +2089,42 @@ function tn(e, t, i, n, s, r) {
     /* STABLE */
   }, 8, ["open", "title", "aria-label"]);
 }
-const Wl = /* @__PURE__ */ T(Jr, [["render", tn], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/ConfirmDialog.vue"]]);
-function Yt(e) {
+const Ul = /* @__PURE__ */ T(rn, [["render", sn], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/ConfirmDialog.vue"]]);
+function Kt(e) {
   const t = typeof e == "object" && e != null && "value" in e ? e.value : e;
   return t === "en" || t === "en-GB" || t === "en-US" ? "en-GB" : "tr-TR";
 }
-function Kt(e, t = "tr-TR", i) {
+function Zt(e, t = "tr-TR", i) {
   if (!(e instanceof Date) || Number.isNaN(e.getTime())) return "";
-  const n = Yt(t);
+  const n = Kt(t);
   return i === "d MMM yyyy" ? e.toLocaleDateString(n, { day: "numeric", month: "short", year: "numeric" }) : e.toLocaleDateString(n, {
     day: "numeric",
     month: "long",
     year: "numeric"
   });
 }
-function Ul(e, t = "tr-TR", i) {
+function ql(e, t = "tr-TR", i) {
   if (e == null || e === "") return "";
   const n = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(e).trim());
   if (!n) return "";
   const s = Number(n[1]), r = Number(n[2]) - 1, a = Number(n[3]), u = new Date(s, r, a);
-  return u.getFullYear() !== s || u.getMonth() !== r || u.getDate() !== a ? "" : Kt(u, t, i);
+  return u.getFullYear() !== s || u.getMonth() !== r || u.getDate() !== a ? "" : Zt(u, t, i);
 }
-const rn = q("ui-datepicker");
-function gt(e) {
+const an = q("ui-datepicker");
+function bt(e) {
   return String(e).padStart(2, "0");
 }
 function Z(e) {
-  return `${e.getFullYear()}-${gt(e.getMonth() + 1)}-${gt(e.getDate())}`;
+  return `${e.getFullYear()}-${bt(e.getMonth() + 1)}-${bt(e.getDate())}`;
 }
-function Se(e) {
+function we(e) {
   if (e == null || e === "") return null;
   const t = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(e).trim());
   if (!t) return null;
   const i = Number(t[1]), n = Number(t[2]) - 1, s = Number(t[3]), r = new Date(i, n, s);
   return r.getFullYear() !== i || r.getMonth() !== n || r.getDate() !== s ? null : r;
 }
-const nn = {
+const on = {
   name: "DatePicker",
   mixins: [O],
   inheritAttrs: !1,
@@ -2149,9 +2190,9 @@ const nn = {
   },
   emits: ["update:modelValue", "change"],
   data() {
-    const e = Se(this.modelValue) || /* @__PURE__ */ new Date();
+    const e = we(this.modelValue) || /* @__PURE__ */ new Date();
     return {
-      fallbackId: rn(),
+      fallbackId: an(),
       menuOpen: !1,
       viewYear: e.getFullYear(),
       viewMonth: e.getMonth()
@@ -2162,16 +2203,16 @@ const nn = {
       return this.id != null && this.id !== "" ? this.id : this.fallbackId;
     },
     selectedDate() {
-      return Se(this.modelValue);
+      return we(this.modelValue);
     },
     locale() {
       var e;
-      return Yt((e = this.$i18n) == null ? void 0 : e.locale);
+      return Kt((e = this.$i18n) == null ? void 0 : e.locale);
     },
     displayText() {
       if (!this.selectedDate) return this.placeholder;
-      const e = he(this.uiDefaults, void 0, "dateFormat");
-      return Kt(this.selectedDate, this.locale, e);
+      const e = pe(this.uiDefaults, void 0, "dateFormat");
+      return Zt(this.selectedDate, this.locale, e);
     },
     monthTitle() {
       return new Date(this.viewYear, this.viewMonth, 1).toLocaleString(this.locale, {
@@ -2232,7 +2273,7 @@ const nn = {
   },
   watch: {
     modelValue() {
-      const e = Se(this.modelValue);
+      const e = we(this.modelValue);
       e && (this.viewYear = e.getFullYear(), this.viewMonth = e.getMonth());
     }
   },
@@ -2264,17 +2305,17 @@ const nn = {
       return e.sel || e.today && !e.sel ? "primary" : "secondary";
     }
   }
-}, sn = {
+}, ln = {
   key: 0,
   class: "ui-datepicker-panel w-full min-w-[17rem]"
-}, an = { class: "mb-3 flex items-center justify-between gap-2" }, on = { class: "text-sm font-medium tabular-nums text-foreground" }, ln = { class: "ui-datepicker-grid" }, un = {
+}, un = { class: "mb-3 flex items-center justify-between gap-2" }, dn = { class: "text-sm font-medium tabular-nums text-foreground" }, cn = { class: "ui-datepicker-grid" }, fn = {
   key: 0,
   class: "ui-datepicker-quick"
-}, dn = { class: "ui-datepicker-panel w-full min-w-[17rem] p-3" }, cn = { class: "mb-3 flex items-center justify-between gap-2" }, fn = { class: "text-sm font-medium tabular-nums text-foreground" }, hn = { class: "ui-datepicker-grid" }, mn = {
+}, hn = { class: "ui-datepicker-panel w-full min-w-[17rem] p-3" }, mn = { class: "mb-3 flex items-center justify-between gap-2" }, pn = { class: "text-sm font-medium tabular-nums text-foreground" }, gn = { class: "ui-datepicker-grid" }, bn = {
   key: 0,
   class: "ui-datepicker-quick"
 };
-function pn(e, t, i, n, s, r) {
+function yn(e, t, i, n, s, r) {
   const a = x("ui-button"), u = x("ui-popover");
   return o(), d(
     "div",
@@ -2289,30 +2330,30 @@ function pn(e, t, i, n, s, r) {
       ])
     },
     [
-      i.embedded ? (o(), d("div", sn, [
-        h("div", an, [
-          y(a, {
+      i.embedded ? (o(), d("div", ln, [
+        h("div", un, [
+          b(a, {
             variant: "ghost",
             color: "primary",
             cubed: "",
             "prefix-icon": "chevron-left",
             "aria-label": "Previous month",
-            onClick: t[0] || (t[0] = z((l) => r.shiftMonth(-1), ["stop"]))
+            onClick: t[0] || (t[0] = F((l) => r.shiftMonth(-1), ["stop"]))
           }),
           h(
             "span",
-            on,
-            b(r.monthTitle),
+            dn,
+            y(r.monthTitle),
             1
             /* TEXT */
           ),
-          y(a, {
+          b(a, {
             variant: "ghost",
             color: "primary",
             cubed: "",
             "prefix-icon": "chevron-right",
             "aria-label": "Next month",
-            onClick: t[1] || (t[1] = z((l) => r.shiftMonth(1), ["stop"]))
+            onClick: t[1] || (t[1] = F((l) => r.shiftMonth(1), ["stop"]))
           })
         ]),
         t[8] || (t[8] = h(
@@ -2330,7 +2371,7 @@ function pn(e, t, i, n, s, r) {
           -1
           /* CACHED */
         )),
-        h("div", ln, [
+        h("div", cn, [
           (o(!0), d(
             A,
             null,
@@ -2348,8 +2389,8 @@ function pn(e, t, i, n, s, r) {
               onClick: (c) => r.pick(l)
             }, {
               default: w(() => [
-                P(
-                  b(l.d),
+                B(
+                  y(l.d),
                   1
                   /* TEXT */
                 )
@@ -2361,8 +2402,8 @@ function pn(e, t, i, n, s, r) {
             /* KEYED_FRAGMENT */
           ))
         ]),
-        i.showQuick ? (o(), d("div", un, [
-          y(a, {
+        i.showQuick ? (o(), d("div", fn, [
+          b(a, {
             type: "button",
             variant: "ghost",
             color: "secondary",
@@ -2372,8 +2413,8 @@ function pn(e, t, i, n, s, r) {
             onClick: t[2] || (t[2] = (l) => r.pickQuick("yesterday"))
           }, {
             default: w(() => [
-              P(
-                b(r.resolvedYesterdayLabel),
+              B(
+                y(r.resolvedYesterdayLabel),
                 1
                 /* TEXT */
               )
@@ -2381,7 +2422,7 @@ function pn(e, t, i, n, s, r) {
             _: 1
             /* STABLE */
           }, 8, ["disabled"]),
-          y(a, {
+          b(a, {
             type: "button",
             variant: "ghost",
             color: "secondary",
@@ -2391,8 +2432,8 @@ function pn(e, t, i, n, s, r) {
             onClick: t[3] || (t[3] = (l) => r.pickQuick("today"))
           }, {
             default: w(() => [
-              P(
-                b(r.resolvedTodayLabel),
+              B(
+                y(r.resolvedTodayLabel),
                 1
                 /* TEXT */
               )
@@ -2400,7 +2441,7 @@ function pn(e, t, i, n, s, r) {
             _: 1
             /* STABLE */
           }, 8, ["disabled"]),
-          y(a, {
+          b(a, {
             type: "button",
             variant: "ghost",
             color: "secondary",
@@ -2410,8 +2451,8 @@ function pn(e, t, i, n, s, r) {
             onClick: t[4] || (t[4] = (l) => r.pickQuick("tomorrow"))
           }, {
             default: w(() => [
-              P(
-                b(r.resolvedTomorrowLabel),
+              B(
+                y(r.resolvedTomorrowLabel),
                 1
                 /* TEXT */
               )
@@ -2434,7 +2475,7 @@ function pn(e, t, i, n, s, r) {
             toggle: c,
             close: g
           }, () => [
-            y(a, {
+            b(a, {
               type: "button",
               id: r.resolvedId,
               variant: "solid",
@@ -2456,7 +2497,7 @@ function pn(e, t, i, n, s, r) {
                       r.selectedDate ? "text-foreground" : "text-muted-foreground"
                     ])
                   },
-                  b(r.displayText),
+                  y(r.displayText),
                   3
                   /* TEXT, CLASS */
                 )
@@ -2467,30 +2508,30 @@ function pn(e, t, i, n, s, r) {
           ])
         ]),
         content: w(({ close: l }) => [
-          h("div", dn, [
-            h("div", cn, [
-              y(a, {
+          h("div", hn, [
+            h("div", mn, [
+              b(a, {
                 variant: "ghost",
                 color: "primary",
                 cubed: "",
                 "prefix-icon": "chevron-left",
                 "aria-label": "Previous month",
-                onClick: t[5] || (t[5] = z((c) => r.shiftMonth(-1), ["stop"]))
+                onClick: t[5] || (t[5] = F((c) => r.shiftMonth(-1), ["stop"]))
               }),
               h(
                 "span",
-                fn,
-                b(r.monthTitle),
+                pn,
+                y(r.monthTitle),
                 1
                 /* TEXT */
               ),
-              y(a, {
+              b(a, {
                 variant: "ghost",
                 color: "primary",
                 cubed: "",
                 "prefix-icon": "chevron-right",
                 "aria-label": "Next month",
-                onClick: t[6] || (t[6] = z((c) => r.shiftMonth(1), ["stop"]))
+                onClick: t[6] || (t[6] = F((c) => r.shiftMonth(1), ["stop"]))
               })
             ]),
             t[9] || (t[9] = h(
@@ -2508,7 +2549,7 @@ function pn(e, t, i, n, s, r) {
               -1
               /* CACHED */
             )),
-            h("div", hn, [
+            h("div", gn, [
               (o(!0), d(
                 A,
                 null,
@@ -2526,8 +2567,8 @@ function pn(e, t, i, n, s, r) {
                   onClick: (g) => r.pick(c, l)
                 }, {
                   default: w(() => [
-                    P(
-                      b(c.d),
+                    B(
+                      y(c.d),
                       1
                       /* TEXT */
                     )
@@ -2539,8 +2580,8 @@ function pn(e, t, i, n, s, r) {
                 /* KEYED_FRAGMENT */
               ))
             ]),
-            i.showQuick ? (o(), d("div", mn, [
-              y(a, {
+            i.showQuick ? (o(), d("div", bn, [
+              b(a, {
                 type: "button",
                 variant: "ghost",
                 color: "secondary",
@@ -2550,8 +2591,8 @@ function pn(e, t, i, n, s, r) {
                 onClick: (c) => r.pickQuick("yesterday", l)
               }, {
                 default: w(() => [
-                  P(
-                    b(r.resolvedYesterdayLabel),
+                  B(
+                    y(r.resolvedYesterdayLabel),
                     1
                     /* TEXT */
                   )
@@ -2559,7 +2600,7 @@ function pn(e, t, i, n, s, r) {
                 _: 1
                 /* STABLE */
               }, 8, ["disabled", "onClick"]),
-              y(a, {
+              b(a, {
                 type: "button",
                 variant: "ghost",
                 color: "secondary",
@@ -2569,8 +2610,8 @@ function pn(e, t, i, n, s, r) {
                 onClick: (c) => r.pickQuick("today", l)
               }, {
                 default: w(() => [
-                  P(
-                    b(r.resolvedTodayLabel),
+                  B(
+                    y(r.resolvedTodayLabel),
                     1
                     /* TEXT */
                   )
@@ -2578,7 +2619,7 @@ function pn(e, t, i, n, s, r) {
                 _: 1
                 /* STABLE */
               }, 8, ["disabled", "onClick"]),
-              y(a, {
+              b(a, {
                 type: "button",
                 variant: "ghost",
                 color: "secondary",
@@ -2588,8 +2629,8 @@ function pn(e, t, i, n, s, r) {
                 onClick: (c) => r.pickQuick("tomorrow", l)
               }, {
                 default: w(() => [
-                  P(
-                    b(r.resolvedTomorrowLabel),
+                  B(
+                    y(r.resolvedTomorrowLabel),
                     1
                     /* TEXT */
                   )
@@ -2608,17 +2649,17 @@ function pn(e, t, i, n, s, r) {
     /* CLASS */
   );
 }
-const ql = /* @__PURE__ */ T(nn, [["render", pn], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/DatePicker.vue"]]), gn = [
+const Yl = /* @__PURE__ */ T(on, [["render", yn], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/DatePicker.vue"]]), vn = [
   "textarea.ui-input-field:not([disabled])",
   "input.ui-input-field:not([disabled])",
   "textarea:not([disabled])",
   "select:not([disabled])",
   'input:not([disabled]):not([type="hidden"]):not([type="submit"]):not([type="button"]):not([type="reset"]):not([type="file"])'
-].join(","), yn = [
+].join(","), kn = [
   "button.ui-select-field:not([disabled])",
   "input.ui-pin-cell:not([disabled])"
 ].join(",");
-function bn(e) {
+function Sn(e) {
   if (!(e instanceof HTMLElement) || e.disabled || e.getAttribute("aria-hidden") === "true") return !1;
   const t = getComputedStyle(e);
   return t.display === "none" || t.visibility === "hidden" ? !1 : e.getClientRects().length > 0;
@@ -2626,11 +2667,11 @@ function bn(e) {
 function yt(e, t, { skipFooter: i = !1 } = {}) {
   if (!e) return null;
   for (const n of e.querySelectorAll(t))
-    if (bn(n) && !(i && n.closest(".ui-card-footer")))
+    if (Sn(n) && !(i && n.closest(".ui-card-footer")))
       return n;
   return null;
 }
-function vn(e) {
+function xn(e) {
   const t = [
     e.querySelector(".ui-card-body"),
     e.querySelector(".ui-card-toolbar"),
@@ -2640,60 +2681,80 @@ function vn(e) {
     i.includes(n) || i.push(n);
   return i;
 }
-function bt(e, { skipFooter: t = !1 } = {}) {
-  const i = yt(e, gn, { skipFooter: t });
+function vt(e, { skipFooter: t = !1 } = {}) {
+  const i = yt(e, vn, { skipFooter: t });
   if (i)
     return i.focus(), !0;
-  const n = yt(e, yn, { skipFooter: t });
+  const n = yt(e, kn, { skipFooter: t });
   return n ? (n.focus(), !0) : !1;
 }
-function kn(e) {
+function wn(e) {
   if (!e) return !1;
   const t = e.querySelector("[data-primary-field]");
-  if (t && bt(t))
+  if (t && vt(t))
     return !0;
-  for (const i of vn(e))
-    if (bt(i, { skipFooter: i === e }))
+  for (const i of xn(e))
+    if (vt(i, { skipFooter: i === e }))
       return !0;
   return !1;
 }
-const Zt = "ui-scroll-lock";
-let ee = 0, ze = null;
-function Sn(e) {
+const Qt = "ui-scroll-lock";
+let ee = 0, Ae = null;
+function _n(e) {
   return (getComputedStyle(e).scrollbarGutter || "").includes("stable");
 }
-function xn() {
+function Tn() {
   if (!(typeof document > "u")) {
     if (ee === 0) {
       const e = document.body, t = document.documentElement, i = Math.max(0, window.innerWidth - t.clientWidth);
-      ze = {
+      Ae = {
         htmlOverflow: t.style.overflow,
         bodyOverflow: e.style.overflow,
         htmlOverscroll: t.style.overscrollBehavior,
         bodyOverscroll: e.style.overscrollBehavior,
         htmlPaddingRight: t.style.paddingRight
-      }, t.classList.add(Zt), t.style.overflow = "hidden", e.style.overflow = "hidden", t.style.overscrollBehavior = "none", e.style.overscrollBehavior = "none", !Sn(t) && i > 0 && (t.style.paddingRight = `${i}px`);
+      }, t.classList.add(Qt), t.style.overflow = "hidden", e.style.overflow = "hidden", t.style.overscrollBehavior = "none", e.style.overscrollBehavior = "none", !_n(t) && i > 0 && (t.style.paddingRight = `${i}px`);
     }
     ee += 1;
   }
 }
-function vt() {
+function kt() {
   if (typeof document > "u" || ee <= 0 || (ee -= 1, ee > 0)) return;
-  const e = document.body, t = document.documentElement, i = ze || {
+  const e = document.body, t = document.documentElement, i = Ae || {
     htmlOverflow: "",
     bodyOverflow: "",
     htmlOverscroll: "",
     bodyOverscroll: "",
     htmlPaddingRight: ""
   };
-  t.classList.remove(Zt), t.style.overflow = i.htmlOverflow, e.style.overflow = i.bodyOverflow, t.style.overscrollBehavior = i.htmlOverscroll, e.style.overscrollBehavior = i.bodyOverscroll, t.style.paddingRight = i.htmlPaddingRight, ze = null;
+  t.classList.remove(Qt), t.style.overflow = i.htmlOverflow, e.style.overflow = i.bodyOverflow, t.style.overscrollBehavior = i.htmlOverscroll, e.style.overscrollBehavior = i.bodyOverscroll, t.style.paddingRight = i.htmlPaddingRight, Ae = null;
 }
-const wn = q("ui-dialog"), _n = 400, Tn = 420, Cn = 20, In = ["solid", "dashed", "dotted", "double"], kt = {
+const ue = {
+  dialog: 400,
+  confirm: 420,
+  floating: 450
+}, Cn = 10, de = /* @__PURE__ */ new Map();
+function In() {
+  let e = 0;
+  for (const t of de.values()) e = Math.max(e, t.z);
+  return e;
+}
+function Xt(e, t, i) {
+  const n = t === "modal" ? ue.dialog : ue.floating, s = Math.max(n, In() + Cn);
+  if (de.set(e, { kind: t, z: s, close: i }), t === "modal")
+    for (const [r, a] of de)
+      r !== e && a.kind === "floating" && a.close();
+  return s;
+}
+function Jt(e) {
+  de.delete(e);
+}
+const Ln = q("ui-dialog"), zn = ["solid", "dashed", "dotted", "double"], St = {
   solid: "border-solid",
   dashed: "border-dashed",
   dotted: "border-dotted",
   double: "border-double"
-}, Fn = ["solid", "regular", "brands", "light", "duotone", "thin"], Ln = ["sm", "md", "lg", "xl", "2xl", "3xl", "4xl", "5xl", "full"], St = {
+}, Fn = ["solid", "regular", "brands", "light", "duotone", "thin"], An = ["sm", "md", "lg", "xl", "2xl", "3xl", "4xl", "5xl", "full"], xt = {
   sm: "ui-dialog-panel--max-sm",
   md: "ui-dialog-panel--max-md",
   lg: "ui-dialog-panel--max-lg",
@@ -2703,10 +2764,10 @@ const wn = q("ui-dialog"), _n = 400, Tn = 420, Cn = 20, In = ["solid", "dashed",
   "4xl": "ui-dialog-panel--max-4xl",
   "5xl": "ui-dialog-panel--max-5xl",
   full: "ui-dialog-panel--max-full"
-}, zn = {
+}, Dn = {
   name: "Dialog",
-  mixins: [Oe, O],
-  components: { Divider: Me },
+  mixins: [Me, O],
+  components: { Divider: Ee },
   inheritAttrs: !1,
   props: {
     /** `v-model:open` */
@@ -2726,7 +2787,7 @@ const wn = q("ui-dialog"), _n = 400, Tn = 420, Cn = 20, In = ["solid", "dashed",
     maxWidth: {
       type: String,
       default: void 0,
-      validator: (e) => e == null || Ln.includes(e)
+      validator: (e) => e == null || An.includes(e)
     },
     /** Dış çerçeve (1px `border-border`) — `ui-card` ile aynı. */
     border: {
@@ -2737,7 +2798,7 @@ const wn = q("ui-dialog"), _n = 400, Tn = 420, Cn = 20, In = ["solid", "dashed",
     borderType: {
       type: String,
       default: "solid",
-      validator: (e) => In.includes(e)
+      validator: (e) => zn.includes(e)
     },
     title: {
       type: String,
@@ -2839,7 +2900,7 @@ const wn = q("ui-dialog"), _n = 400, Tn = 420, Cn = 20, In = ["solid", "dashed",
   },
   emits: ["update:open", "after-leave", "back"],
   data() {
-    const e = wn();
+    const e = Ln();
     return {
       titleId: `ui-dialog-title-${e}`,
       descriptionId: `ui-dialog-desc-${e}`,
@@ -2851,7 +2912,7 @@ const wn = q("ui-dialog"), _n = 400, Tn = 420, Cn = 20, In = ["solid", "dashed",
       layerMotionActive: !1,
       /** Şeffaf footer gerçek yüksekliği (px) — gövde alt padding */
       footerClearancePx: null,
-      /** Açık popover üstünde kalmak için dinamik z-index */
+      /** Katman kaydından gelen z-index */
       rootZIndex: null
     };
   },
@@ -2861,7 +2922,7 @@ const wn = q("ui-dialog"), _n = 400, Tn = 420, Cn = 20, In = ["solid", "dashed",
       handler(e) {
         if (e) {
           if (this.layerMounted || this.layerClosing) return;
-          this.rootZIndex = this.resolveRootZIndex(), this.layerMounted = !0, xn(), this.$nextTick(() => {
+          this.rootZIndex = this.resolveRootZIndex(), this.layerMounted = !0, Tn(), this.$nextTick(() => {
             this.resetPanelMotionStyles(), this.resetBodyScroll(), this.syncFooterClearance(), this.animateLayerIn(this.$refs.layerRef);
           });
         } else this.layerMounted && !this.layerClosing && this.dismissLayer();
@@ -2882,7 +2943,7 @@ const wn = q("ui-dialog"), _n = 400, Tn = 420, Cn = 20, In = ["solid", "dashed",
     this.portalReady = !0;
   },
   beforeUnmount() {
-    this.clearFocusFallback(), this.clearSheetDragListeners(), this.unbindFooterClearanceObserver(), this.layerMounted && vt(), this.layerMounted = !1, this.layerClosing = !1, this.layerMotionActive = !1;
+    this.clearFocusFallback(), this.clearSheetDragListeners(), this.unbindFooterClearanceObserver(), this.layerMounted && kt(), this.releaseLayer(), this.layerMounted = !1, this.layerClosing = !1, this.layerMotionActive = !1;
   },
   computed: {
     hasTitle() {
@@ -2911,20 +2972,20 @@ const wn = q("ui-dialog"), _n = 400, Tn = 420, Cn = 20, In = ["solid", "dashed",
       return this.headerDivider && !!this.$slots.default && (this.hasHeaderBlock || !!this.$slots.toolbar);
     },
     borderStyleClass() {
-      return kt[this.borderType] || kt.solid;
+      return St[this.borderType] || St.solid;
     },
     resolvedIconType() {
-      return me(this.uiDefaults, this.iconType);
+      return ge(this.uiDefaults, this.iconType);
     },
     resolvedMaxWidth() {
-      return he(this.uiDefaults, this.maxWidth, "dialogMaxWidth");
+      return pe(this.uiDefaults, this.maxWidth, "dialogMaxWidth");
     },
     maxWidthClass() {
-      return St[this.resolvedMaxWidth] || St.lg;
+      return xt[this.resolvedMaxWidth] || xt.lg;
     },
     panelClasses() {
-      const e = this.border ? L("border", this.borderStyleClass) : L("border-0", "border-transparent");
-      return L(
+      const e = this.border ? z("border", this.borderStyleClass) : z("border-0", "border-transparent");
+      return z(
         "ui-surface ui-card ui-dialog-panel relative z-[1] w-full",
         this.maxWidthClass,
         e,
@@ -2953,13 +3014,13 @@ const wn = q("ui-dialog"), _n = 400, Tn = 420, Cn = 20, In = ["solid", "dashed",
         return this.ariaLabel;
     },
     resolvedCloseLabel() {
-      return this.closeLabel != null && this.closeLabel !== "" ? this.closeLabel : Le(this, "ui.dialog.close", "Close");
+      return this.closeLabel != null && this.closeLabel !== "" ? this.closeLabel : Fe(this, "ui.dialog.close", "Close");
     },
     resolvedBackLabel() {
-      return this.backLabel != null && this.backLabel !== "" ? this.backLabel : Le(this, "ui.dialog.back", "Back");
+      return this.backLabel != null && this.backLabel !== "" ? this.backLabel : Fe(this, "ui.dialog.back", "Back");
     },
     rootLayerClasses() {
-      return L(
+      return z(
         "ui-dialog-root fixed inset-0 flex outline-none",
         this.stackLayer === "confirm" && "ui-dialog-root--confirm",
         this.layerMotionActive && "ui-dialog-root--motion",
@@ -2972,20 +3033,16 @@ const wn = q("ui-dialog"), _n = 400, Tn = 420, Cn = 20, In = ["solid", "dashed",
     }
   },
   methods: {
+    /**
+     * Onay diyaloğu her zaman en üsttedir: kayıt üstüne `confirm` tabanı kadar pay eklenir.
+     */
+    releaseLayer() {
+      this.rootZIndex != null && (Jt(this), this.rootZIndex = null);
+    },
     resolveRootZIndex() {
-      const e = this.stackLayer === "confirm" ? Tn : _n;
-      if (typeof document > "u") return e;
-      let t = e;
-      for (const i of document.querySelectorAll(".ui-popover-layer")) {
-        const n = Number.parseInt(getComputedStyle(i).zIndex, 10);
-        Number.isFinite(n) && (t = Math.max(t, n + Cn));
-      }
-      for (const i of document.querySelectorAll(".ui-dialog-root, .ui-sheet-root")) {
-        if (i === this.$refs.layerRef) continue;
-        const n = Number.parseInt(getComputedStyle(i).zIndex, 10);
-        Number.isFinite(n) && (t = Math.max(t, n + 10));
-      }
-      return t;
+      const e = Xt(this, "modal", () => {
+      });
+      return this.stackLayer !== "confirm" ? e : Math.max(e, ue.confirm) + (e >= ue.confirm ? 10 : 0);
     },
     prefersReducedMotion() {
       return typeof window > "u" ? !1 : window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -2997,41 +3054,45 @@ const wn = q("ui-dialog"), _n = 400, Tn = 420, Cn = 20, In = ["solid", "dashed",
       return 320;
     },
     layerMotionTimings() {
-      return M() ? {
+      return R() ? {
         enterMs: this.mobileSheetDurationMs(),
         leaveMs: 280,
         snapMs: 280,
         easing: this.mobileSheetEasing(),
         leaveEasing: this.mobileSheetEasing()
       } : {
-        enterMs: 260,
-        leaveMs: 180,
+        enterMs: 300,
+        leaveMs: 200,
         snapMs: 220,
         easing: "cubic-bezier(0.16, 1, 0.3, 1)",
-        leaveEasing: "cubic-bezier(0.4, 0, 1, 1)"
+        leaveEasing: "cubic-bezier(0.4, 0, 0.2, 1)"
       };
     },
-    desktopEnterTransform() {
-      return "translate3d(0, 8px, 0) scale3d(0.97, 0.97, 1)";
+    /** Cam yüzeyde kayma yok, yalnız hafif ölçek (blur her karede yeniden hesaplanır). */
+    desktopEnterTransform(e = !1) {
+      return e ? "translate3d(0, 0, 0) scale3d(0.97, 0.97, 1)" : "translate3d(0, 12px, 0) scale3d(0.96, 0.96, 1)";
     },
-    desktopLeaveTransform() {
-      return "translate3d(0, 6px, 0) scale3d(0.98, 0.98, 1)";
+    desktopLeaveTransform(e = !1) {
+      return e ? "translate3d(0, 0, 0) scale3d(0.98, 0.98, 1)" : "translate3d(0, 8px, 0) scale3d(0.97, 0.97, 1)";
     },
     desktopRestTransform() {
       return "translate3d(0, 0, 0) scale3d(1, 1, 1)";
     },
-    /** Cam yüzeyde transform + canlı backdrop-filter kasar; opacity-only aç. */
+    /**
+     * Blur panelin kendisinde (`.ui-surface`); hareket de aynı öğede olduğu için blur
+     * geçiş boyunca görünür kalır. Atada opacity verilmez (backdrop root olur).
+     */
     surfaceBackdropBlurPx() {
       if (typeof window > "u" || typeof document > "u") return 0;
       const e = getComputedStyle(document.documentElement).getPropertyValue("--ui-surface-backdrop-blur").trim(), t = Number.parseFloat(e);
       return Number.isFinite(t) ? t : 0;
     },
     /**
-     * Desktop cam: opacity-only (hafif scale jank’i önler).
-     * Mobil sheet (alttan kayma) her zaman açık — blur artık animasyon boyunca sabit.
+     * Desktop cam: kaymasız, daha küçük ölçek.
+     * Mobil sheet (alttan kayma) her zaman açık — blur animasyon boyunca sabit.
      */
     preferGlassSafeOverlayMotion() {
-      return M() ? !1 : this.surfaceBackdropBlurPx() > 0;
+      return R() ? !1 : this.surfaceBackdropBlurPx() > 0;
     },
     runOnNextFrames(e) {
       requestAnimationFrame(() => {
@@ -3051,7 +3112,7 @@ const wn = q("ui-dialog"), _n = 400, Tn = 420, Cn = 20, In = ["solid", "dashed",
       return Math.max(0, 1 - n);
     },
     clearLayerInlineMotion(e, { preserveMobilePanelTransform: t = !1, preserveBackdrop: i = !1 } = {}) {
-      const n = M(), { panel: s, motion: r, backdrop: a } = this.layerMotionParts(e);
+      const n = R(), { panel: s, motion: r, backdrop: a } = this.layerMotionParts(e);
       r && (r.style.removeProperty("transform"), r.style.removeProperty("transition")), s && ((!t || !n) && s.style.removeProperty("transform"), s.style.removeProperty("transition"), s.style.removeProperty("opacity")), a && !i && (a.style.removeProperty("opacity"), a.style.removeProperty("transition"));
     },
     waitLayerTransition(e, t, i) {
@@ -3080,9 +3141,9 @@ const wn = q("ui-dialog"), _n = 400, Tn = 420, Cn = 20, In = ["solid", "dashed",
         this.onOverlayAfterEnter();
         return;
       }
-      const t = this.layerMotionParts(e), { panel: i, motion: n, backdrop: s } = t, r = M(), a = this.preferGlassSafeOverlayMotion(), { enterMs: u, easing: l } = this.layerMotionTimings(), c = `${u / 1e3}s`, m = `${Math.round(u * 0.72) / 1e3}s`;
-      this.layerMotionActive = !0, n && (n.style.removeProperty("transform"), n.style.removeProperty("transition")), s && (s.style.transition = "none", s.style.opacity = "0"), i && (i.style.transition = "none", r ? (i.style.opacity = "1", i.style.transform = "translate3d(0, 100%, 0)") : a ? (i.style.opacity = "0", i.style.transform = this.desktopRestTransform()) : (i.style.opacity = "0", i.style.transform = this.desktopEnterTransform())), e.offsetHeight, this.runOnNextFrames(() => {
-        !this.layerMounted || this.layerClosing || (s && (s.style.transition = `opacity ${m} ${l}`, s.style.opacity = "1"), i && (r ? (i.style.transition = `transform ${c} ${l}`, i.style.opacity = "1", i.style.transform = "translate3d(0, 0, 0)") : a ? (i.style.transition = `opacity ${c} ${l}`, i.style.opacity = "1", i.style.transform = this.desktopRestTransform()) : (i.style.transition = `opacity ${c} ${l}, transform ${c} ${l}`, i.style.opacity = "1", i.style.transform = this.desktopRestTransform())), this.waitLayerTransition(i || s, u + 80, () => {
+      const t = this.layerMotionParts(e), { panel: i, motion: n, backdrop: s } = t, r = R(), a = this.preferGlassSafeOverlayMotion(), { enterMs: u, easing: l } = this.layerMotionTimings(), c = `${u / 1e3}s`, m = `${Math.round(u * 0.72) / 1e3}s`;
+      this.layerMotionActive = !0, n && (n.style.removeProperty("transform"), n.style.removeProperty("transition")), s && (s.style.transition = "none", s.style.opacity = "0"), i && (i.style.transition = "none", r ? (i.style.opacity = "1", i.style.transform = "translate3d(0, 100%, 0)") : (i.style.opacity = "0", i.style.transform = this.desktopEnterTransform(a))), e.offsetHeight, this.runOnNextFrames(() => {
+        !this.layerMounted || this.layerClosing || (s && (s.style.transition = `opacity ${m} ${l}`, s.style.opacity = "1"), i && (r ? (i.style.transition = `transform ${c} ${l}`, i.style.opacity = "1", i.style.transform = "translate3d(0, 0, 0)") : (i.style.transition = `opacity ${c} ${l}, transform ${c} ${l}`, i.style.opacity = "1", i.style.transform = this.desktopRestTransform())), this.waitLayerTransition(i || s, u + 80, () => {
           this.layerClosing || (this.finishLayerMotion(e), this.onOverlayAfterEnter());
         }));
       });
@@ -3107,7 +3168,7 @@ const wn = q("ui-dialog"), _n = 400, Tn = 420, Cn = 20, In = ["solid", "dashed",
         i();
         return;
       }
-      const n = M(), s = this.preferGlassSafeOverlayMotion(), r = this.layerMotionParts(e);
+      const n = R(), s = this.preferGlassSafeOverlayMotion(), r = this.layerMotionParts(e);
       this.freezeSheetGeometry(r.panel);
       const a = n && !!((k = r.panel) != null && k.style.transform && r.panel.style.transform !== "none");
       this.clearLayerInlineMotion(e, {
@@ -3116,7 +3177,7 @@ const wn = q("ui-dialog"), _n = 400, Tn = 420, Cn = 20, In = ["solid", "dashed",
       });
       const { panel: u, motion: l, backdrop: c } = r, { leaveMs: g, leaveEasing: m } = this.layerMotionTimings(), v = `${g / 1e3}s`, I = `${Math.round(g * 0.85) / 1e3}s`;
       this.layerMotionActive = !0, l && (l.style.removeProperty("transform"), l.style.removeProperty("transition")), e.offsetHeight, this.runOnNextFrames(() => {
-        c && (c.style.transition = `opacity ${I} ${m}`, c.style.opacity = "0"), n && u ? (u.style.transition = `transform ${v} ${m}`, u.style.transform = "translate3d(0, 100%, 0)") : u && s ? (u.style.transition = `opacity ${v} ${m}`, u.style.opacity = "0", u.style.transform = this.desktopRestTransform()) : u && (u.style.transition = `opacity ${v} ${m}, transform ${v} ${m}`, u.style.opacity = "0", u.style.transform = this.desktopLeaveTransform()), this.waitLayerTransition(u || c, g + 80, i);
+        c && (c.style.transition = `opacity ${I} ${m}`, c.style.opacity = "0"), n && u ? (u.style.transition = `transform ${v} ${m}`, u.style.transform = "translate3d(0, 100%, 0)") : u && (u.style.transition = `opacity ${v} ${m}, transform ${v} ${m}`, u.style.opacity = "0", u.style.transform = this.desktopLeaveTransform(s)), this.waitLayerTransition(u || c, g + 80, i);
       });
     },
     finishLayerMotion(e) {
@@ -3127,7 +3188,7 @@ const wn = q("ui-dialog"), _n = 400, Tn = 420, Cn = 20, In = ["solid", "dashed",
       this.clearFocusFallback(), this.clearSheetDragListeners(), this.unbindFooterClearanceObserver(), this.layerClosing = !0;
       const e = this.$refs.layerRef;
       this.animateLayerOut(e, () => {
-        this.layerMounted = !1, this.layerClosing = !1, this.rootZIndex = null, vt(), this.resetPanelMotionStyles(), this.open && this.$emit("update:open", !1), this.$emit("after-leave");
+        this.layerMounted = !1, this.layerClosing = !1, this.releaseLayer(), kt(), this.resetPanelMotionStyles(), this.open && this.$emit("update:open", !1), this.$emit("after-leave");
       });
     },
     resetPanelMotionStyles() {
@@ -3202,9 +3263,9 @@ const wn = q("ui-dialog"), _n = 400, Tn = 420, Cn = 20, In = ["solid", "dashed",
     },
     focusInitialField() {
       var t;
-      if (M()) return;
+      if (R()) return;
       const e = this.$refs.panelRef;
-      e && kn(e) || (t = e == null ? void 0 : e.focus) == null || t.call(e);
+      e && wn(e) || (t = e == null ? void 0 : e.focus) == null || t.call(e);
     },
     close() {
       this.dismissLayer();
@@ -3230,7 +3291,7 @@ const wn = q("ui-dialog"), _n = 400, Tn = 420, Cn = 20, In = ["solid", "dashed",
       ) : !1;
     },
     onSheetPointerDown(e) {
-      if (!M() || e.button !== 0 || this.isSheetDragBlockedTarget(e.target)) return;
+      if (!R() || e.button !== 0 || this.isSheetDragBlockedTarget(e.target)) return;
       const t = this.$refs.layerRef, i = this.$refs.panelRef;
       if (!t || !i) return;
       e.preventDefault(), this.teardownSheetDrag();
@@ -3261,24 +3322,24 @@ const wn = q("ui-dialog"), _n = 400, Tn = 420, Cn = 20, In = ["solid", "dashed",
       };
     }
   }
-}, An = ["aria-labelledby", "aria-describedby", "aria-label"], Dn = { class: "ui-dialog-motion" }, Pn = { class: "ui-dialog-header__lead" }, Bn = ["id"], On = {
+}, Bn = ["aria-labelledby", "aria-describedby", "aria-label"], Pn = { class: "ui-dialog-motion" }, On = { class: "ui-dialog-header__lead" }, Mn = ["id"], Rn = {
   key: 1,
   class: "ui-dialog-header__icon"
-}, Rn = {
+}, En = {
   key: 2,
   class: "ui-dialog-header__actions"
-}, Mn = ["id"], En = {
+}, $n = ["id"], Vn = {
   key: 1,
   class: "ui-card-toolbar shrink-0"
 };
-function $n(e, t, i, n, s, r) {
+function Nn(e, t, i, n, s, r) {
   const a = x("ui-button"), u = x("ui-icon"), l = x("Divider");
   return o(), d(
     A,
     null,
     [
       f(" Defer Teleport until mount: empty SSR teleport markers mismatch and can wipe #app. "),
-      s.portalReady ? (o(), _(fe, {
+      s.portalReady ? (o(), _(me, {
         key: 0,
         to: e.portalTarget
       }, [
@@ -3299,7 +3360,7 @@ function $n(e, t, i, n, s, r) {
               "aria-hidden": "true",
               onClick: t[0] || (t[0] = (...c) => r.onBackdrop && r.onBackdrop(...c))
             }),
-            h("div", F({
+            h("div", L({
               ref: "panelRef",
               class: r.panelClasses,
               style: r.panelStyle,
@@ -3310,10 +3371,10 @@ function $n(e, t, i, n, s, r) {
               "aria-describedby": r.ariaDescribedby,
               "aria-label": r.ariaLabelAttr
             }, r.passthroughAttrs, {
-              onClick: t[3] || (t[3] = z(() => {
+              onClick: t[3] || (t[3] = F(() => {
               }, ["stop"]))
             }), [
-              h("div", Dn, [
+              h("div", Pn, [
                 h(
                   "div",
                   {
@@ -3378,8 +3439,8 @@ function $n(e, t, i, n, s, r) {
                             onClick: r.onBack
                           }, {
                             default: w(() => [
-                              P(
-                                b(r.resolvedBackLabel),
+                              B(
+                                y(r.resolvedBackLabel),
                                 1
                                 /* TEXT */
                               )
@@ -3387,29 +3448,29 @@ function $n(e, t, i, n, s, r) {
                             _: 1
                             /* STABLE */
                           }, 8, ["onClick"])) : f("v-if", !0),
-                          h("div", Pn, [
+                          h("div", On, [
                             r.hasTitle ? (o(), d("h3", {
                               key: 0,
                               id: s.titleId,
                               class: "ui-dialog-header__title ui-heading-2"
                             }, [
                               p(e.$slots, "title", {}, () => [
-                                P(
-                                  b(i.title),
+                                B(
+                                  y(i.title),
                                   1
                                   /* TEXT */
                                 )
                               ])
-                            ], 8, Bn)) : f("v-if", !0),
-                            i.icon ? (o(), d("span", On, [
-                              y(u, {
+                            ], 8, Mn)) : f("v-if", !0),
+                            i.icon ? (o(), d("span", Rn, [
+                              b(u, {
                                 name: i.icon,
                                 type: r.resolvedIconType,
                                 size: "md"
                               }, null, 8, ["name", "type"])
                             ])) : f("v-if", !0)
                           ]),
-                          e.$slots.append || e.$slots.actions ? (o(), d("div", Rn, [
+                          e.$slots.append || e.$slots.actions ? (o(), d("div", En, [
                             p(e.$slots, "append"),
                             p(e.$slots, "actions")
                           ])) : f("v-if", !0),
@@ -3419,13 +3480,13 @@ function $n(e, t, i, n, s, r) {
                             class: "ui-dialog-header__description ui-text-default"
                           }, [
                             p(e.$slots, "description", {}, () => [
-                              P(
-                                b(i.description),
+                              B(
+                                y(i.description),
                                 1
                                 /* TEXT */
                               )
                             ])
-                          ], 8, Mn)) : f("v-if", !0)
+                          ], 8, $n)) : f("v-if", !0)
                         ],
                         2
                         /* CLASS */
@@ -3435,7 +3496,7 @@ function $n(e, t, i, n, s, r) {
                   32
                   /* NEED_HYDRATION */
                 )) : f("v-if", !0),
-                e.$slots.toolbar ? (o(), d("div", En, [
+                e.$slots.toolbar ? (o(), d("div", Vn, [
                   p(e.$slots, "toolbar")
                 ])) : f("v-if", !0),
                 r.showHeaderDivider ? (o(), _(l, {
@@ -3473,7 +3534,7 @@ function $n(e, t, i, n, s, r) {
                   /* CLASS */
                 )) : f("v-if", !0)
               ])
-            ], 16, An)
+            ], 16, Bn)
           ],
           38
           /* CLASS, STYLE, NEED_HYDRATION */
@@ -3484,7 +3545,7 @@ function $n(e, t, i, n, s, r) {
     /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */
   );
 }
-const Yl = /* @__PURE__ */ T(zn, [["render", $n], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/Dialog.vue"]]), Vn = [
+const Kl = /* @__PURE__ */ T(Dn, [["render", Nn], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/Dialog.vue"]]), jn = [
   "bottom-start",
   "bottom-end",
   "bottom",
@@ -3494,9 +3555,9 @@ const Yl = /* @__PURE__ */ T(zn, [["render", $n], ["__file", "/Users/serkan/Proj
   "left-end",
   "top-start",
   "top-end"
-], Nn = {
+], Gn = {
   name: "Dropdown",
-  components: { Divider: Me },
+  components: { Divider: Ee },
   inheritAttrs: !1,
   props: {
     /** `v-model:open` — verilmezse bileşen kendi iç durumunu yönetir */
@@ -3507,7 +3568,7 @@ const Yl = /* @__PURE__ */ T(zn, [["render", $n], ["__file", "/Users/serkan/Proj
     placement: {
       type: String,
       default: "bottom-start",
-      validator: (e) => Vn.includes(e)
+      validator: (e) => jn.includes(e)
     },
     matchTriggerWidth: {
       type: Boolean,
@@ -3574,19 +3635,19 @@ const Yl = /* @__PURE__ */ T(zn, [["render", $n], ["__file", "/Users/serkan/Proj
       e.disabled || (this.$emit("select", e), !e.keepOpen && !e.keep_open && t());
     }
   }
-}, jn = {
+}, Hn = {
   key: 1,
   class: "ui-dropdown-heading",
   role: "presentation"
-}, Gn = {
+}, Wn = {
   key: 0,
   class: "ui-dropdown-item-copy"
-}, Hn = {
+}, Un = {
   key: 0,
   class: "ui-dropdown-item-icon",
   "aria-hidden": "true"
-}, Wn = { class: "ui-dropdown-item-label" }, Un = { class: "ui-dropdown-item-description" };
-function qn(e, t, i, n, s, r) {
+}, qn = { class: "ui-dropdown-item-label" }, Yn = { class: "ui-dropdown-item-description" };
+function Kn(e, t, i, n, s, r) {
   const a = x("Divider"), u = x("ui-icon"), l = x("ui-button"), c = x("ui-popover");
   return o(), _(c, {
     open: r.isOpen,
@@ -3601,7 +3662,7 @@ function qn(e, t, i, n, s, r) {
     "onUpdate:open": r.onOpenChange
   }, {
     trigger: w((g) => [
-      p(e.$slots, "trigger", $t(Vt(g)))
+      p(e.$slots, "trigger", Vt(Nt(g)))
     ]),
     content: w(({ close: g }) => [
       h(
@@ -3609,7 +3670,7 @@ function qn(e, t, i, n, s, r) {
         {
           class: S(["ui-dropdown-menu p-3", r.hasDescribedItems ? "ui-dropdown-menu--described" : ""]),
           role: "menu",
-          onClick: t[0] || (t[0] = z(() => {
+          onClick: t[0] || (t[0] = F(() => {
           }, ["stop"]))
         },
         [
@@ -3629,8 +3690,8 @@ function qn(e, t, i, n, s, r) {
                   spacing: "sm"
                 })) : m.heading ? (o(), d(
                   "span",
-                  jn,
-                  b(m.heading),
+                  Hn,
+                  y(m.heading),
                   1
                   /* TEXT */
                 )) : (o(), _(l, {
@@ -3645,27 +3706,27 @@ function qn(e, t, i, n, s, r) {
                   "suffix-icon": r.itemSuffixIcon(m),
                   disabled: m.disabled,
                   wrap: !!m.description,
-                  onClick: z((I) => r.onItem(m, g), ["stop"])
+                  onClick: F((I) => r.onItem(m, g), ["stop"])
                 }, {
                   default: w(() => [
-                    m.description ? (o(), d("span", Gn, [
-                      m.icon ? (o(), d("span", Hn, [
-                        y(u, {
+                    m.description ? (o(), d("span", Wn, [
+                      m.icon ? (o(), d("span", Un, [
+                        b(u, {
                           name: m.icon,
                           size: "sm"
                         }, null, 8, ["name"])
                       ])) : f("v-if", !0),
                       h(
                         "span",
-                        Wn,
-                        b(m.label),
+                        qn,
+                        y(m.label),
                         1
                         /* TEXT */
                       ),
                       h(
                         "span",
-                        Un,
-                        b(m.description),
+                        Yn,
+                        y(m.description),
                         1
                         /* TEXT */
                       )
@@ -3673,8 +3734,8 @@ function qn(e, t, i, n, s, r) {
                       A,
                       { key: 1 },
                       [
-                        P(
-                          b(m.label),
+                        B(
+                          y(m.label),
                           1
                           /* TEXT */
                         )
@@ -3702,11 +3763,11 @@ function qn(e, t, i, n, s, r) {
     /* FORWARDED */
   }, 8, ["open", "placement", "match-trigger-width", "block", "inherit-layout", "close-on-outside-click", "close-on-escape", "outside-click-ignore-selector", "onUpdate:open"]);
 }
-const Kl = /* @__PURE__ */ T(Nn, [["render", qn], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/Dropdown.vue"]]), Yn = ["sm", "md", "lg"], Kn = {
+const Zl = /* @__PURE__ */ T(Gn, [["render", Kn], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/Dropdown.vue"]]), Zn = ["sm", "md", "lg"], Qn = {
   sm: "sm",
   md: "md",
   lg: "lg"
-}, Zn = {
+}, Xn = {
   name: "Empty",
   mixins: [O],
   inheritAttrs: !1,
@@ -3729,49 +3790,49 @@ const Kl = /* @__PURE__ */ T(Nn, [["render", qn], ["__file", "/Users/serkan/Proj
     size: {
       type: String,
       default: void 0,
-      validator: (e) => e == null || Yn.includes(e)
+      validator: (e) => e == null || Zn.includes(e)
     }
   },
   computed: {
-    ...pe(),
+    ...be(),
     resolvedSize() {
       return U(this.uiDefaults, this.size, { key: "controlSize", defaultSize: "md" });
     },
     iconSize() {
-      return Kn[this.resolvedSize] ?? "md";
+      return Qn[this.resolvedSize] ?? "md";
     },
     resolvedIcon() {
       return this.icon == null || this.icon === "" ? null : this.icon;
     },
     rootClass() {
-      return L("ui-empty", `ui-empty--${this.resolvedSize}`, this.$attrs.class);
+      return z("ui-empty", `ui-empty--${this.resolvedSize}`, this.$attrs.class);
     },
     passthroughAttrs() {
       const { class: e, ...t } = this.$attrs;
       return t;
     }
   }
-}, Qn = {
+}, Jn = {
   key: 0,
   class: "ui-empty-icon"
-}, Xn = {
+}, es = {
   key: 1,
   class: "ui-empty-title"
-}, Jn = {
+}, ts = {
   key: 2,
   class: "ui-empty-description ui-text-default"
-}, es = {
+}, is = {
   key: 3,
   class: "ui-empty-actions"
 };
-function ts(e, t, i, n, s, r) {
+function rs(e, t, i, n, s, r) {
   const a = x("ui-icon");
   return o(), d(
     "div",
-    F({ class: r.rootClass }, r.passthroughAttrs),
+    L({ class: r.rootClass }, r.passthroughAttrs),
     [
-      r.resolvedIcon ? (o(), d("div", Qn, [
-        y(a, {
+      r.resolvedIcon ? (o(), d("div", Jn, [
+        b(a, {
           name: r.resolvedIcon,
           type: e.resolvedIconType,
           size: r.iconSize
@@ -3779,19 +3840,19 @@ function ts(e, t, i, n, s, r) {
       ])) : f("v-if", !0),
       i.title ? (o(), d(
         "h2",
-        Xn,
-        b(i.title),
+        es,
+        y(i.title),
         1
         /* TEXT */
       )) : f("v-if", !0),
       i.description ? (o(), d(
         "p",
-        Jn,
-        b(i.description),
+        ts,
+        y(i.description),
         1
         /* TEXT */
       )) : f("v-if", !0),
-      e.$slots.default ? (o(), d("div", es, [
+      e.$slots.default ? (o(), d("div", is, [
         p(e.$slots, "default")
       ])) : f("v-if", !0)
     ],
@@ -3799,7 +3860,7 @@ function ts(e, t, i, n, s, r) {
     /* FULL_PROPS */
   );
 }
-const Zl = /* @__PURE__ */ T(Zn, [["render", ts], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/Empty.vue"]]), is = q("ui-form-control"), rs = ["vertical", "horizontal"], ns = ["default", "card"], ss = {
+const Ql = /* @__PURE__ */ T(Xn, [["render", rs], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/Empty.vue"]]), ns = q("ui-form-control"), ss = ["vertical", "horizontal"], as = ["default", "card"], os = {
   name: "FormRow",
   inheritAttrs: !1,
   props: {
@@ -3818,7 +3879,7 @@ const Zl = /* @__PURE__ */ T(Zn, [["render", ts], ["__file", "/Users/serkan/Proj
     direction: {
       type: String,
       default: "vertical",
-      validator: (e) => rs.includes(e)
+      validator: (e) => ss.includes(e)
     },
     /**
      * `direction="horizontal"` iken dar viewport’ta dikey yığılır
@@ -3835,26 +3896,21 @@ const Zl = /* @__PURE__ */ T(Zn, [["render", ts], ["__file", "/Users/serkan/Proj
     variant: {
       type: String,
       default: "default",
-      validator: (e) => ns.includes(e)
+      validator: (e) => as.includes(e)
     },
     /** Dışarıdan sabit id vermek için (ör. test); verilmezse otomatik üretilir. */
     id: {
       type: String,
       default: void 0
     },
-    /** Dialog oluşturma formlarında ana alan — `lg` boyut ve odak hedefi */
+    /** Dialog oluşturma formlarında ana alan — açılışta odak hedefi (kontrol boyutunu değiştirmez) */
     primary: {
       type: Boolean,
       default: !1
     }
   },
-  provide() {
-    return {
-      uiFormRowPrimary: () => this.primary
-    };
-  },
   data() {
-    const e = is(), t = e.slice(16);
+    const e = ns(), t = e.slice(16);
     return {
       fallbackId: e,
       fallbackDescId: `ui-form-desc-${t}`
@@ -3883,19 +3939,19 @@ const Zl = /* @__PURE__ */ T(Zn, [["render", ts], ["__file", "/Users/serkan/Proj
       return !this.label && this.$slots.action ? `${e} ui-form-row-label-line--action-only` : e;
     }
   }
-}, as = ["data-primary-field"], os = {
+}, ls = ["data-primary-field"], us = {
   key: 0,
   class: "ui-form-row-text"
-}, ls = ["for"], us = {
+}, ds = ["for"], cs = {
   key: 1,
   class: "ui-form-row-action shrink-0"
-}, ds = ["id"], cs = { class: "ui-form-row-control" }, fs = ["id"];
-function hs(e, t, i, n, s, r) {
-  return o(), d("div", F({
+}, fs = ["id"], hs = { class: "ui-form-row-control" }, ms = ["id"];
+function ps(e, t, i, n, s, r) {
+  return o(), d("div", L({
     class: ["ui-form-row", r.rootLayoutClass],
     "data-primary-field": i.primary ? "" : void 0
   }, e.$attrs), [
-    r.hasTextBlock ? (o(), d("div", os, [
+    r.hasTextBlock ? (o(), d("div", us, [
       i.label || e.$slots.action ? (o(), d(
         "div",
         {
@@ -3907,8 +3963,8 @@ function hs(e, t, i, n, s, r) {
             key: 0,
             class: "ui-form-label min-w-0",
             for: r.controlId
-          }, b(i.label), 9, ls)) : f("v-if", !0),
-          e.$slots.action ? (o(), d("div", us, [
+          }, y(i.label), 9, ds)) : f("v-if", !0),
+          e.$slots.action ? (o(), d("div", cs, [
             p(e.$slots, "action")
           ])) : f("v-if", !0)
         ],
@@ -3919,9 +3975,9 @@ function hs(e, t, i, n, s, r) {
         key: 1,
         id: r.descriptionId,
         class: "ui-form-row-description ui-text-default"
-      }, b(i.description), 9, ds)) : f("v-if", !0)
+      }, y(i.description), 9, fs)) : f("v-if", !0)
     ])) : f("v-if", !0),
-    h("div", cs, [
+    h("div", hs, [
       p(e.$slots, "default", {
         controlId: r.controlId,
         descriptionId: r.descriptionId
@@ -3930,24 +3986,24 @@ function hs(e, t, i, n, s, r) {
         key: 0,
         id: r.descriptionId,
         class: "ui-form-row-description ui-text-default"
-      }, b(i.description), 9, fs)) : f("v-if", !0)
+      }, y(i.description), 9, ms)) : f("v-if", !0)
     ])
-  ], 16, as);
+  ], 16, ls);
 }
-const Ql = /* @__PURE__ */ T(ss, [["render", hs], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/FormRow.vue"]]), xt = {
+const Xl = /* @__PURE__ */ T(os, [["render", ps], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/FormRow.vue"]]), wt = {
   solid: "fa-solid",
   regular: "fa-regular",
   brands: "fa-brands",
   light: "fa-light",
   duotone: "fa-duotone",
   thin: "fa-thin"
-}, ms = ["xs", "sm", "md", "lg", "xl"], ps = {
+}, gs = ["xs", "sm", "md", "lg", "xl"], bs = {
   xs: "text-xs leading-none",
   sm: "text-sm leading-none",
   md: "text-base leading-none",
   lg: "text-lg leading-none",
   xl: "text-2xl leading-none"
-}, gs = {
+}, ys = {
   name: "Icon",
   mixins: [O],
   inheritAttrs: !1,
@@ -3963,7 +4019,7 @@ const Ql = /* @__PURE__ */ T(ss, [["render", hs], ["__file", "/Users/serkan/Proj
     size: {
       type: String,
       default: "md",
-      validator: (e) => ms.includes(e)
+      validator: (e) => gs.includes(e)
     },
     /**
      * true: `aria-label` i18n `ui.icon.accessible` ile, `role="img"`.
@@ -3975,16 +4031,16 @@ const Ql = /* @__PURE__ */ T(ss, [["render", hs], ["__file", "/Users/serkan/Proj
     }
   },
   computed: {
-    ...pe("type"),
+    ...be("type"),
     faWeightClass() {
-      return xt[this.resolvedIconType] || xt.light;
+      return wt[this.resolvedIconType] || wt.light;
     },
     iconClass() {
-      return L(
+      return z(
         "ui-icon fa not-italic inline-flex shrink-0 items-center justify-center leading-none",
         this.faWeightClass,
         this.name ? `fa-${this.name}` : "",
-        ps[this.size],
+        bs[this.size],
         this.$attrs.class
       );
     },
@@ -4001,36 +4057,31 @@ const Ql = /* @__PURE__ */ T(ss, [["render", hs], ["__file", "/Users/serkan/Proj
     }
   }
 };
-function ys(e, t, i, n, s, r) {
+function vs(e, t, i, n, s, r) {
   return o(), d(
     "i",
-    F({ class: r.iconClass }, r.rootAttrs),
+    L({ class: r.iconClass }, r.rootAttrs),
     null,
     16
     /* FULL_PROPS */
   );
 }
-const Xl = /* @__PURE__ */ T(gs, [["render", ys], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/Icon.vue"]]), bs = ["sm", "md", "lg"], vs = ["default", "plain"], ks = {
+const Jl = /* @__PURE__ */ T(ys, [["render", vs], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/Icon.vue"]]), ks = ["sm", "md", "lg"], Ss = ["default", "plain"], xs = {
   name: "Input",
   mixins: [O],
   inheritAttrs: !1,
-  inject: {
-    uiFormRowPrimary: {
-      default: !1
-    }
-  },
   props: {
     /** `default` dolgulu kabuk; `plain` border/fill yok (inline düzenleme). */
     variant: {
       type: String,
       default: "default",
-      validator: (e) => vs.includes(e)
+      validator: (e) => Ss.includes(e)
     },
     /** `sm` 32px, `md` 36px (varsayılan), `lg` 44px — select / segment ile hizalı */
     size: {
       type: String,
       default: void 0,
-      validator: (e) => e == null || bs.includes(e)
+      validator: (e) => e == null || ks.includes(e)
     },
     /** `v-model` */
     modelValue: {
@@ -4090,15 +4141,18 @@ const Xl = /* @__PURE__ */ T(gs, [["render", ys], ["__file", "/Users/serkan/Proj
   },
   emits: ["update:modelValue", "input", "change", "focus", "blur"],
   setup() {
-    return { fallbackId: Nt() };
+    return { fallbackId: jt() };
   },
   computed: {
+    /**
+     * Form satırındaki tüm kontroller aynı yükseklikte kalır; `ui-form-row primary`
+     * yalnızca odak hedefidir, boyutu büyütmez. Büyük alan gerekiyorsa `size="lg"` verilir.
+     */
     resolvedSize() {
-      let e = U(this.uiDefaults, this.size, { key: "controlSize", defaultSize: "md" });
-      return e !== "md" ? e : (typeof this.uiFormRowPrimary == "function" ? this.uiFormRowPrimary() : this.uiFormRowPrimary) ? "lg" : e;
+      return U(this.uiDefaults, this.size, { key: "controlSize", defaultSize: "md" });
     },
     rootClass() {
-      return L(
+      return z(
         "ui-input",
         this.variant === "plain" && "ui-input--plain",
         this.multiline && "ui-input--multiline",
@@ -4138,22 +4192,22 @@ const Xl = /* @__PURE__ */ T(gs, [["render", ys], ["__file", "/Users/serkan/Proj
       (t = (e = this.$refs.field) == null ? void 0 : e.focus) == null || t.call(e);
     }
   }
-}, Ss = {
+}, ws = {
   key: 0,
   class: "ui-text-default flex shrink-0 items-center"
-}, xs = {
+}, _s = {
   key: 1,
   class: "inline-flex shrink-0 items-center text-muted-foreground",
   "aria-hidden": "true"
-}, ws = ["id", "value", "rows", "disabled", "readonly", "placeholder", "name", "autocomplete", "maxlength"], _s = ["id", "type", "value", "disabled", "readonly", "placeholder", "name", "autocomplete", "maxlength"], Ts = {
+}, Ts = ["id", "value", "rows", "disabled", "readonly", "placeholder", "name", "autocomplete", "maxlength"], Cs = ["id", "type", "value", "disabled", "readonly", "placeholder", "name", "autocomplete", "maxlength"], Is = {
   key: 4,
   class: "inline-flex shrink-0 items-center text-muted-foreground",
   "aria-hidden": "true"
-}, Cs = {
+}, Ls = {
   key: 5,
   class: "ui-text-default flex shrink-0 items-center"
 };
-function Is(e, t, i, n, s, r) {
+function zs(e, t, i, n, s, r) {
   const a = x("ui-icon");
   return o(), d(
     "div",
@@ -4161,16 +4215,16 @@ function Is(e, t, i, n, s, r) {
       class: S([r.rootClass, e.$attrs.class])
     },
     [
-      e.$slots.prepend ? (o(), d("div", Ss, [
+      e.$slots.prepend ? (o(), d("div", ws, [
         p(e.$slots, "prepend")
       ])) : f("v-if", !0),
-      i.prefixIcon ? (o(), d("span", xs, [
-        y(a, {
+      i.prefixIcon ? (o(), d("span", _s, [
+        b(a, {
           name: i.prefixIcon,
           size: "xs"
         }, null, 8, ["name"])
       ])) : f("v-if", !0),
-      i.multiline ? (o(), d("textarea", F({
+      i.multiline ? (o(), d("textarea", L({
         key: 2,
         id: r.resolvedId,
         ref: "field",
@@ -4188,7 +4242,7 @@ function Is(e, t, i, n, s, r) {
         onChange: t[1] || (t[1] = (u) => e.$emit("change", u)),
         onFocus: t[2] || (t[2] = (u) => e.$emit("focus", u)),
         onBlur: t[3] || (t[3] = (u) => e.$emit("blur", u))
-      }), null, 16, ws)) : (o(), d("input", F({
+      }), null, 16, Ts)) : (o(), d("input", L({
         key: 3,
         id: r.resolvedId,
         ref: "field",
@@ -4206,14 +4260,14 @@ function Is(e, t, i, n, s, r) {
         onChange: t[5] || (t[5] = (u) => e.$emit("change", u)),
         onFocus: t[6] || (t[6] = (u) => e.$emit("focus", u)),
         onBlur: t[7] || (t[7] = (u) => e.$emit("blur", u))
-      }), null, 16, _s)),
-      i.suffixIcon ? (o(), d("span", Ts, [
-        y(a, {
+      }), null, 16, Cs)),
+      i.suffixIcon ? (o(), d("span", Is, [
+        b(a, {
           name: i.suffixIcon,
           size: "xs"
         }, null, 8, ["name"])
       ])) : f("v-if", !0),
-      e.$slots.append ? (o(), d("div", Cs, [
+      e.$slots.append ? (o(), d("div", Ls, [
         p(e.$slots, "append")
       ])) : f("v-if", !0)
     ],
@@ -4221,12 +4275,12 @@ function Is(e, t, i, n, s, r) {
     /* CLASS */
   );
 }
-const Jl = /* @__PURE__ */ T(ks, [["render", Is], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/Input.vue"]]), Fs = q("ui-phone-number"), Ls = ["sm", "md", "lg"], wt = [
+const eu = /* @__PURE__ */ T(xs, [["render", zs], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/Input.vue"]]), Fs = q("ui-phone-number"), As = ["sm", "md", "lg"], _t = [
   { value: "+90", label: "+90" },
   { value: "+1", label: "+1" },
   { value: "+44", label: "+44" },
   { value: "+49", label: "+49" }
-], zs = {
+], Ds = {
   name: "Phone",
   mixins: [O],
   inheritAttrs: !1,
@@ -4241,12 +4295,12 @@ const Jl = /* @__PURE__ */ T(ks, [["render", Is], ["__file", "/Users/serkan/Proj
     },
     countries: {
       type: Array,
-      default: () => wt
+      default: () => _t
     },
     size: {
       type: String,
       default: void 0,
-      validator: (e) => e == null || Ls.includes(e)
+      validator: (e) => e == null || As.includes(e)
     },
     disabled: {
       type: Boolean,
@@ -4292,7 +4346,7 @@ const Jl = /* @__PURE__ */ T(ks, [["render", Is], ["__file", "/Users/serkan/Proj
   computed: {
     countryOptions() {
       var e;
-      return (e = this.countries) != null && e.length ? this.countries : wt;
+      return (e = this.countries) != null && e.length ? this.countries : _t;
     },
     isSingleCountry() {
       return this.countryOptions.length === 1;
@@ -4301,7 +4355,7 @@ const Jl = /* @__PURE__ */ T(ks, [["render", Is], ["__file", "/Users/serkan/Proj
       return U(this.uiDefaults, this.size, { key: "controlSize", defaultSize: "md" });
     },
     rootClass() {
-      return L(
+      return z(
         "ui-phone",
         this.isSingleCountry && "ui-phone--single-country",
         this.resolvedSize !== "md" && `ui-phone--${this.resolvedSize}`
@@ -4339,11 +4393,11 @@ const Jl = /* @__PURE__ */ T(ks, [["render", Is], ["__file", "/Users/serkan/Proj
       return t;
     }
   }
-}, As = { class: "ui-phone-prepend" }, Ds = {
+}, Bs = { class: "ui-phone-prepend" }, Ps = {
   key: 0,
   class: "ui-phone-country-static"
 };
-function Ps(e, t, i, n, s, r) {
+function Os(e, t, i, n, s, r) {
   const a = x("ui-icon"), u = x("ui-select"), l = x("ui-input");
   return o(), d(
     "div",
@@ -4351,13 +4405,12 @@ function Ps(e, t, i, n, s, r) {
       class: S(r.rootClass)
     },
     [
-      y(l, F({
+      b(l, L({
         id: r.resolvedNumberId,
         modelValue: r.innerNumber,
         "onUpdate:modelValue": t[1] || (t[1] = (c) => r.innerNumber = c),
         type: "tel",
         inputmode: "tel",
-        class: "w-full",
         size: r.resolvedSize,
         disabled: i.disabled,
         readonly: i.readonly,
@@ -4371,8 +4424,8 @@ function Ps(e, t, i, n, s, r) {
         onBlur: t[3] || (t[3] = (c) => e.$emit("blur", c))
       }), {
         prepend: w(() => [
-          h("div", As, [
-            y(a, {
+          h("div", Bs, [
+            b(a, {
               name: "phone",
               size: "xs",
               class: "text-muted-foreground",
@@ -4380,8 +4433,8 @@ function Ps(e, t, i, n, s, r) {
             }),
             r.isSingleCountry ? (o(), d(
               "span",
-              Ds,
-              b(r.innerCountry),
+              Ps,
+              y(r.innerCountry),
               1
               /* TEXT */
             )) : (o(), _(u, {
@@ -4404,7 +4457,7 @@ function Ps(e, t, i, n, s, r) {
     /* CLASS */
   );
 }
-const eu = /* @__PURE__ */ T(zs, [["render", Ps], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/Phone.vue"]]), Bs = ["numeric", "alphanumeric"], Os = {
+const tu = /* @__PURE__ */ T(Ds, [["render", Os], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/Phone.vue"]]), Ms = ["numeric", "alphanumeric"], Rs = {
   name: "Pin",
   inheritAttrs: !1,
   props: {
@@ -4423,7 +4476,7 @@ const eu = /* @__PURE__ */ T(zs, [["render", Ps], ["__file", "/Users/serkan/Proj
     type: {
       type: String,
       default: "numeric",
-      validator: (e) => Bs.includes(e)
+      validator: (e) => Ms.includes(e)
     },
     disabled: {
       type: Boolean,
@@ -4555,8 +4608,8 @@ const eu = /* @__PURE__ */ T(zs, [["render", Ps], ["__file", "/Users/serkan/Proj
       });
     }
   }
-}, Rs = ["aria-label", "data-mask"], Ms = ["value", "type", "inputmode", "pattern", "disabled", "readonly", "autocomplete", "aria-label", "onInput", "onKeydown", "onFocus"];
-function Es(e, t, i, n, s, r) {
+}, Es = ["aria-label", "data-mask"], $s = ["value", "type", "inputmode", "pattern", "disabled", "readonly", "autocomplete", "aria-label", "onInput", "onKeydown", "onFocus"];
+function Vs(e, t, i, n, s, r) {
   return o(), d("div", {
     role: "group",
     "aria-label": r.resolvedAriaLabel,
@@ -4588,13 +4641,13 @@ function Es(e, t, i, n, s, r) {
         onKeydown: (l) => r.onCellKeydown(u, l),
         onFocus: (l) => r.onCellFocus(u),
         onPaste: t[0] || (t[0] = (...l) => r.onPaste && r.onPaste(...l))
-      }, null, 40, Ms))),
+      }, null, 40, $s))),
       128
       /* KEYED_FRAGMENT */
     ))
-  ], 10, Rs);
+  ], 10, Es);
 }
-const tu = /* @__PURE__ */ T(Os, [["render", Es], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/Pin.vue"]]), $s = ["ul", "ol", "div"], Vs = ["plain", "bordered", "divided"], Ns = ["compact", "normal", "relaxed"], js = {
+const iu = /* @__PURE__ */ T(Rs, [["render", Vs], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/Pin.vue"]]), Ns = ["ul", "ol", "div"], js = ["plain", "bordered", "divided"], Gs = ["compact", "normal", "relaxed"], Hs = {
   name: "List",
   inheritAttrs: !1,
   props: {
@@ -4602,7 +4655,7 @@ const tu = /* @__PURE__ */ T(Os, [["render", Es], ["__file", "/Users/serkan/Proj
     tag: {
       type: String,
       default: "ul",
-      validator: (e) => $s.includes(e)
+      validator: (e) => Ns.includes(e)
     },
     /**
      * `plain`: dikey gap’li liste.
@@ -4612,7 +4665,7 @@ const tu = /* @__PURE__ */ T(Os, [["render", Es], ["__file", "/Users/serkan/Proj
     variant: {
       type: String,
       default: "plain",
-      validator: (e) => Vs.includes(e)
+      validator: (e) => js.includes(e)
     },
     /**
      * Öğeler arası dikey boşluk.
@@ -4621,18 +4674,18 @@ const tu = /* @__PURE__ */ T(Os, [["render", Es], ["__file", "/Users/serkan/Proj
     density: {
       type: String,
       default: "normal",
-      validator: (e) => Ns.includes(e)
+      validator: (e) => Gs.includes(e)
     }
   },
   computed: {
     listClass() {
       const e = this.density === "compact" ? "ui-list--compact" : this.density === "relaxed" ? "ui-list--relaxed" : "";
       if (this.variant === "bordered")
-        return L("ui-list", "ui-list--bordered", e, this.$attrs.class);
+        return z("ui-list", "ui-list--bordered", e, this.$attrs.class);
       if (this.variant === "divided")
-        return L("ui-list", "ui-list--divided", e, this.$attrs.class);
+        return z("ui-list", "ui-list--divided", e, this.$attrs.class);
       const t = this.density === "compact" ? "gap-3" : this.density === "relaxed" ? "gap-5" : "gap-4";
-      return L("ui-list", t, this.$attrs.class);
+      return z("ui-list", t, this.$attrs.class);
     },
     passthroughAttrs() {
       const { class: e, ...t } = this.$attrs;
@@ -4640,8 +4693,8 @@ const tu = /* @__PURE__ */ T(Os, [["render", Es], ["__file", "/Users/serkan/Proj
     }
   }
 };
-function Gs(e, t, i, n, s, r) {
-  return o(), _(De(i.tag), F({
+function Ws(e, t, i, n, s, r) {
+  return o(), _(Be(i.tag), L({
     class: r.listClass,
     role: "list"
   }, r.passthroughAttrs), {
@@ -4652,7 +4705,7 @@ function Gs(e, t, i, n, s, r) {
     /* FORWARDED */
   }, 16, ["class"]);
 }
-const iu = /* @__PURE__ */ T(js, [["render", Gs], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/List.vue"]]), Hs = ["start", "center"], Ws = {
+const ru = /* @__PURE__ */ T(Hs, [["render", Ws], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/List.vue"]]), Us = ["start", "center"], qs = {
   name: "ListItem",
   mixins: [O],
   props: {
@@ -4666,32 +4719,32 @@ const iu = /* @__PURE__ */ T(js, [["render", Gs], ["__file", "/Users/serkan/Proj
     align: {
       type: String,
       default: "start",
-      validator: (e) => Hs.includes(e)
+      validator: (e) => Us.includes(e)
     }
   },
   computed: {
     resolvedPrefixIconType() {
-      return me(this.uiDefaults, this.prefixIconType);
+      return ge(this.uiDefaults, this.prefixIconType);
     },
     itemClass() {
-      return L(
+      return z(
         "ui-list-item",
         this.align === "center" ? "ui-list-item--center" : ""
       );
     }
   }
-}, Us = {
+}, Ys = {
   key: 0,
   class: "ui-list-item-prefix",
   "aria-hidden": "true"
-}, qs = {
+}, Ks = {
   key: 1,
   class: "ui-list-item-prefix-slot shrink-0"
-}, Ys = { class: "ui-list-item-content min-w-0 flex-1" }, Ks = {
+}, Zs = { class: "ui-list-item-content min-w-0 flex-1" }, Qs = {
   key: 2,
   class: "ui-list-item-trailing shrink-0"
 };
-function Zs(e, t, i, n, s, r) {
+function Xs(e, t, i, n, s, r) {
   const a = x("ui-icon");
   return o(), d(
     "li",
@@ -4700,20 +4753,20 @@ function Zs(e, t, i, n, s, r) {
       role: "listitem"
     },
     [
-      i.prefixIcon ? (o(), d("span", Us, [
-        y(a, {
+      i.prefixIcon ? (o(), d("span", Ys, [
+        b(a, {
           name: i.prefixIcon,
           type: r.resolvedPrefixIconType,
           size: "xs",
           class: "ui-list-item-prefix-icon"
         }, null, 8, ["name", "type"])
-      ])) : e.$slots.prefix ? (o(), d("span", qs, [
+      ])) : e.$slots.prefix ? (o(), d("span", Ks, [
         p(e.$slots, "prefix")
       ])) : f("v-if", !0),
-      h("div", Ys, [
+      h("div", Zs, [
         p(e.$slots, "default")
       ]),
-      e.$slots.trailing ? (o(), d("div", Ks, [
+      e.$slots.trailing ? (o(), d("div", Qs, [
         p(e.$slots, "trailing")
       ])) : f("v-if", !0)
     ],
@@ -4721,7 +4774,7 @@ function Zs(e, t, i, n, s, r) {
     /* CLASS */
   );
 }
-const ru = /* @__PURE__ */ T(Ws, [["render", Zs], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/ListItem.vue"]]), Qs = [
+const nu = /* @__PURE__ */ T(qs, [["render", Xs], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/ListItem.vue"]]), Js = [
   "bottom-start",
   "bottom-end",
   "bottom",
@@ -4732,14 +4785,14 @@ const ru = /* @__PURE__ */ T(Ws, [["render", Zs], ["__file", "/Users/serkan/Proj
   "top-start",
   "top-end",
   "top"
-], _t = 10, xe = 450, Xs = 30, Js = [
+], Tt = 10, ea = [
   ".ui-select-listbox",
   ".ui-datepicker-panel",
   ".ui-daterangepicker-panel",
   ".ui-timepicker-panel"
-], ea = {
+], ta = {
   name: "Popover",
-  mixins: [Oe],
+  mixins: [Me],
   inheritAttrs: !1,
   props: {
     /** `v-model:open` */
@@ -4750,7 +4803,7 @@ const ru = /* @__PURE__ */ T(Ws, [["render", Zs], ["__file", "/Users/serkan/Proj
     placement: {
       type: String,
       default: "bottom-start",
-      validator: (e) => Qs.includes(e)
+      validator: (e) => Js.includes(e)
     },
     /** Tetikleyici ile aynı minimum genişlik */
     matchTriggerWidth: {
@@ -4825,7 +4878,7 @@ const ru = /* @__PURE__ */ T(Ws, [["render", Zs], ["__file", "/Users/serkan/Proj
   data() {
     return {
       layerStyle: {},
-      layerZIndex: xe,
+      layerZIndex: 0,
       rafId: 0,
       mobileCenteredActive: !1,
       mobileCenteredLeaving: !1,
@@ -4834,7 +4887,7 @@ const ru = /* @__PURE__ */ T(Ws, [["render", Zs], ["__file", "/Users/serkan/Proj
   },
   computed: {
     showMobileBackdrop() {
-      return this.open && this.mobileCentered && M();
+      return this.open && this.mobileCentered && R();
     },
     popoverMobileCenteredAttr() {
       return this.mobileCenteredActive || this.mobileCenteredLeaving;
@@ -4855,21 +4908,21 @@ const ru = /* @__PURE__ */ T(Ws, [["render", Zs], ["__file", "/Users/serkan/Proj
   },
   watch: {
     open(e) {
-      e ? (this.mobileCenteredLeaving = !1, this.mobileCenteredActive = this.mobileCentered && M(), this.applyLayerZIndex(), this.$nextTick(() => {
+      e ? (this.mobileCenteredLeaving = !1, this.mobileCenteredActive = this.mobileCentered && R(), this.acquireLayer(), this.$nextTick(() => {
         this.updatePosition(), this.schedulePosition(), this.bindGlobalListeners();
-      })) : (this.mobileCenteredActive && (this.mobileCenteredLeaving = !0), this.mobileCenteredActive = !1, this.teardownGlobalListeners());
+      })) : (this.mobileCenteredActive && (this.mobileCenteredLeaving = !0), this.mobileCenteredActive = !1, this.releaseLayer(), this.teardownGlobalListeners());
     },
     width() {
       this.open && this.schedulePosition();
     }
   },
   mounted() {
-    this.portalReady = !0, this.open && (this.applyLayerZIndex(), this.$nextTick(() => {
+    this.portalReady = !0, this.open && (this.acquireLayer(), this.$nextTick(() => {
       this.updatePosition(), this.schedulePosition(), this.bindGlobalListeners();
     }));
   },
   beforeUnmount() {
-    this.teardownGlobalListeners(), this.rafId && cancelAnimationFrame(this.rafId);
+    this.releaseLayer(), this.teardownGlobalListeners(), this.rafId && cancelAnimationFrame(this.rafId);
   },
   methods: {
     onPopoverBeforeEnter() {
@@ -4894,21 +4947,19 @@ const ru = /* @__PURE__ */ T(Ws, [["render", Zs], ["__file", "/Users/serkan/Proj
         });
       });
     },
-    resolveLayerZIndex() {
-      if (typeof document > "u") return xe;
-      let e = xe;
-      for (const t of document.querySelectorAll(".ui-dialog-root, .ui-sheet-root")) {
-        const i = Number.parseInt(getComputedStyle(t).zIndex, 10);
-        Number.isFinite(i) && (e = Math.max(e, i + Xs));
-      }
-      return e;
+    /**
+     * Katman kaydına girer. Sonra açılan bir dialog bu kaydı kapatır;
+     * z-index açılış anında dondurulduğu için aksi halde popover dialogun arkasında kalır.
+     */
+    acquireLayer() {
+      this.layerZIndex || (this.layerZIndex = Xt(this, "floating", () => this.close()), this.layerStyle = this.withLayerZIndex({ ...this.layerStyle }));
     },
-    applyLayerZIndex() {
-      this.layerStyle = this.withLayerZIndex({ ...this.layerStyle });
+    releaseLayer() {
+      this.layerZIndex && (Jt(this), this.layerZIndex = 0);
     },
     withLayerZIndex(e) {
-      const t = this.resolveLayerZIndex();
-      return this.layerZIndex = t, {
+      const t = this.layerZIndex;
+      return {
         ...e,
         // Panel, mobil backdrop (`layerZIndex`) üzerinde kalsın.
         zIndex: String(t + 1)
@@ -4921,15 +4972,16 @@ const ru = /* @__PURE__ */ T(Ws, [["render", Zs], ["__file", "/Users/serkan/Proj
     updatePosition() {
       const e = this.resolveTriggerEl(), t = this.$refs.panelRef;
       if (!e || !t) return;
-      const i = window.innerWidth, n = window.innerHeight, s = _t, r = this.resolvedWidth, a = e.getBoundingClientRect(), u = t.offsetWidth || 0, l = Math.ceil(a.width);
+      const i = window.innerWidth, n = window.innerHeight, s = Tt, r = this.resolvedWidth, a = e.getBoundingClientRect(), u = t.offsetWidth || 0, l = Math.ceil(a.width);
       let c;
       r != null ? c = u || 200 : this.matchTriggerWidth ? c = Math.max(u, l) : c = u || 200;
       const g = t.offsetHeight || 120;
-      if (M() && this.mobileCentered) {
+      if (R() && this.mobileCentered) {
         this.mobileCenteredActive = !0;
         const D = i - s * 2, C = Math.min(c, D), N = Math.max(s, Math.round((i - C) / 2)), E = {
           top: `${Math.max(s, Math.round((n - g) / 2))}px`,
-          left: `${N}px`
+          left: `${N}px`,
+          "--ui-popover-origin": "center center"
         };
         r != null ? (E.width = r, E.minWidth = r) : (E.width = `${C}px`, this.matchTriggerWidth && (E.minWidth = `${Math.min(l, D)}px`), E.maxWidth = `calc(100vw - ${s * 2}px)`), this.layerStyle = this.withLayerZIndex(E);
         return;
@@ -4977,13 +5029,25 @@ const ru = /* @__PURE__ */ T(Ws, [["render", Zs], ["__file", "/Users/serkan/Proj
       const I = this.matchTriggerWidth && r == null ? `${Math.ceil(a.width)}px` : void 0, k = {
         top: `${Math.round(m)}px`,
         left: `${Math.round(v)}px`,
-        minWidth: I
+        minWidth: I,
+        "--ui-popover-origin": this.resolveMotionOrigin(a, m, v, c, g)
       };
       r != null && (k.width = r, k.minWidth = r), this.layerStyle = this.withLayerZIndex(k), this.alignSelectedOptionToTrigger && this.$nextTick(() => {
         requestAnimationFrame(() => {
           requestAnimationFrame(() => this.nudgeAlignSelectedToTrigger());
         });
       });
+    },
+    /**
+     * Açılış ölçeğinin merkezi: tetikleyiciye bakan kenar, tetikleyici ortasına hizalı.
+     * Yer değiştiren (flip) panelde de doğru kenardan büyür.
+     */
+    resolveMotionOrigin(e, t, i, n, s) {
+      const r = (l, c) => Math.min(c, Math.max(0, l));
+      let a;
+      i >= e.right - 1 ? a = 0 : i + n <= e.left + 1 ? a = n : a = r(e.left + e.width / 2 - i, n);
+      let u;
+      return t >= e.bottom - 1 ? u = 0 : t + s <= e.top + 1 ? u = s : u = r(e.top + e.height / 2 - t, s), `${Math.round(a)}px ${Math.round(u)}px`;
     },
     nudgeAlignSelectedToTrigger() {
       const e = this.resolveTriggerEl(), t = this.$refs.panelRef, i = this.$refs.layerRef;
@@ -4997,8 +5061,8 @@ const ru = /* @__PURE__ */ T(Ws, [["render", Zs], ["__file", "/Users/serkan/Proj
       let k = typeof v == "string" && v !== "" ? parseFloat(v) : m.top, D = typeof I == "string" && I !== "" ? parseFloat(I) : m.left;
       Number.isNaN(k) && (k = m.top), Number.isNaN(D) && (D = m.left);
       let C = k - c, N = D - g;
-      const R = _t, E = window.innerHeight, ne = window.innerWidth, Y = m.height, se = m.width;
-      C + Y > E - R && (C = Math.max(R, E - R - Y)), C < R && (C = R), N + se > ne - R && (N = Math.max(R, ne - R - se)), N < R && (N = R), this.layerStyle = this.withLayerZIndex({
+      const M = Tt, E = window.innerHeight, ne = window.innerWidth, Y = m.height, se = m.width;
+      C + Y > E - M && (C = Math.max(M, E - M - Y)), C < M && (C = M), N + se > ne - M && (N = Math.max(M, ne - M - se)), N < M && (N = M), this.layerStyle = this.withLayerZIndex({
         ...this.layerStyle,
         top: `${Math.round(C)}px`,
         left: `${Math.round(N)}px`
@@ -5030,7 +5094,7 @@ const ru = /* @__PURE__ */ T(Ws, [["render", Zs], ["__file", "/Users/serkan/Proj
       const t = this.$refs.layerRef, i = e.closest("[data-ui-popover-layer]");
       if (i && i !== t)
         return this.isOpenedInsidePopoverLayer(i) ? this.keepOpenOnAncestorPopoverClick : !0;
-      for (const r of Js)
+      for (const r of ea)
         if (e.closest(r)) return !0;
       const n = (s = this.outsideClickIgnoreSelector) == null ? void 0 : s.trim();
       return !!(n && e.closest(n));
@@ -5042,14 +5106,14 @@ const ru = /* @__PURE__ */ T(Ws, [["render", Zs], ["__file", "/Users/serkan/Proj
       e.key === "Escape" && this.close();
     }
   }
-}, ta = ["data-popover-align-active", "data-ui-popover-mobile-centered"], ia = { class: "ui-popover-motion" }, ra = {
+}, ia = ["data-popover-align-active", "data-ui-popover-mobile-centered"], ra = { class: "ui-popover-motion" }, na = {
   key: 0,
   class: "ui-popover-header"
-}, na = { class: "ui-popover-body min-h-0 min-w-0" }, sa = {
+}, sa = { class: "ui-popover-body min-h-0 min-w-0" }, aa = {
   key: 1,
   class: "ui-popover-footer"
 };
-function aa(e, t, i, n, s, r) {
+function oa(e, t, i, n, s, r) {
   return o(), d(
     "div",
     {
@@ -5073,11 +5137,11 @@ function aa(e, t, i, n, s, r) {
         2
         /* CLASS */
       ),
-      s.portalReady ? (o(), _(fe, {
+      s.portalReady ? (o(), _(me, {
         key: 0,
         to: e.portalTarget
       }, [
-        y(Ce, {
+        b(Ie, {
           name: "ui-overlay-popover-backdrop",
           appear: ""
         }, {
@@ -5089,8 +5153,8 @@ function aa(e, t, i, n, s, r) {
                 class: "ui-popover-backdrop fixed inset-0 bg-black/70",
                 style: le(r.backdropStyle),
                 "aria-hidden": "true",
-                onPointerdown: t[0] || (t[0] = z((...a) => r.onBackdropDismiss && r.onBackdropDismiss(...a), ["stop", "prevent"])),
-                onClick: t[1] || (t[1] = z((...a) => r.onBackdropDismiss && r.onBackdropDismiss(...a), ["stop", "prevent"]))
+                onPointerdown: t[0] || (t[0] = F((...a) => r.onBackdropDismiss && r.onBackdropDismiss(...a), ["stop", "prevent"])),
+                onClick: t[1] || (t[1] = F((...a) => r.onBackdropDismiss && r.onBackdropDismiss(...a), ["stop", "prevent"]))
               },
               null,
               36
@@ -5100,10 +5164,10 @@ function aa(e, t, i, n, s, r) {
           _: 1
           /* STABLE */
         }),
-        y(Ce, {
+        b(Ie, {
           name: "ui-overlay-popover",
           appear: "",
-          duration: { enter: 220, leave: 180 },
+          duration: { enter: 240, leave: 160 },
           onBeforeEnter: r.onPopoverBeforeEnter,
           onAfterLeave: r.onPopoverAfterLeave
         }, {
@@ -5116,7 +5180,7 @@ function aa(e, t, i, n, s, r) {
               "data-popover-align-active": i.alignSelectedOptionToTrigger ? "" : void 0,
               "data-ui-popover-mobile-centered": r.popoverMobileCenteredAttr ? "" : void 0,
               "data-ui-popover-layer": "",
-              onPointerdown: t[3] || (t[3] = z(() => {
+              onPointerdown: t[3] || (t[3] = F(() => {
               }, ["stop"]))
             }, [
               h(
@@ -5129,14 +5193,14 @@ function aa(e, t, i, n, s, r) {
                   onKeydown: t[2] || (t[2] = (...a) => r.onPanelKeydown && r.onPanelKeydown(...a))
                 },
                 [
-                  h("div", ia, [
-                    e.$slots.header ? (o(), d("div", ra, [
+                  h("div", ra, [
+                    e.$slots.header ? (o(), d("div", na, [
                       p(e.$slots, "header", { close: r.close })
                     ])) : f("v-if", !0),
-                    h("div", na, [
+                    h("div", sa, [
                       p(e.$slots, "content", { close: r.close })
                     ]),
-                    e.$slots.footer ? (o(), d("div", sa, [
+                    e.$slots.footer ? (o(), d("div", aa, [
                       p(e.$slots, "footer", { close: r.close })
                     ])) : f("v-if", !0)
                   ])
@@ -5144,7 +5208,7 @@ function aa(e, t, i, n, s, r) {
                 544
                 /* NEED_HYDRATION, NEED_PATCH */
               )
-            ], 44, ta)) : f("v-if", !0)
+            ], 44, ia)) : f("v-if", !0)
           ]),
           _: 3
           /* FORWARDED */
@@ -5155,7 +5219,7 @@ function aa(e, t, i, n, s, r) {
     /* CLASS */
   );
 }
-const nu = /* @__PURE__ */ T(ea, [["render", aa], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/Popover.vue"]]), oa = {
+const su = /* @__PURE__ */ T(ta, [["render", oa], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/Popover.vue"]]), la = {
   name: "Radio",
   inject: {
     uiRadioGroup: {
@@ -5201,14 +5265,14 @@ const nu = /* @__PURE__ */ T(ea, [["render", aa], ["__file", "/Users/serkan/Proj
       this.uiRadioGroup && this.uiRadioGroup.$emit("update:modelValue", this.value);
     }
   }
-}, la = ["name", "value", "checked"], ua = {
+}, ua = ["name", "value", "checked"], da = {
   class: "ui-radio-indicator",
   "aria-hidden": "true"
-}, da = { class: "ui-radio-body" }, ca = { class: "ui-radio-label" }, fa = {
+}, ca = { class: "ui-radio-body" }, fa = { class: "ui-radio-label" }, ha = {
   key: 0,
   class: "ui-radio-description"
 };
-function ha(e, t, i, n, s, r) {
+function ma(e, t, i, n, s, r) {
   var u;
   const a = x("ui-icon");
   return o(), d(
@@ -5224,8 +5288,8 @@ function ha(e, t, i, n, s, r) {
       ]),
       onClick: t[1] || (t[1] = (...l) => r.select && r.select(...l)),
       onKeydown: [
-        t[2] || (t[2] = H(z((...l) => r.select && r.select(...l), ["prevent"]), ["enter"])),
-        t[3] || (t[3] = H(z((...l) => r.select && r.select(...l), ["prevent"]), ["space"]))
+        t[2] || (t[2] = H(F((...l) => r.select && r.select(...l), ["prevent"]), ["enter"])),
+        t[3] || (t[3] = H(F((...l) => r.select && r.select(...l), ["prevent"]), ["space"]))
       ]
     },
     [
@@ -5236,8 +5300,8 @@ function ha(e, t, i, n, s, r) {
         checked: r.isChecked,
         class: "sr-only",
         onChange: t[0] || (t[0] = (...l) => r.select && r.select(...l))
-      }, null, 40, la),
-      h("span", ua, [
+      }, null, 40, ua),
+      h("span", da, [
         r.isChecked ? (o(), _(a, {
           key: 0,
           name: "check",
@@ -5245,18 +5309,18 @@ function ha(e, t, i, n, s, r) {
           class: "ui-radio-check-icon text-primary-foreground"
         })) : f("v-if", !0)
       ]),
-      h("span", da, [
+      h("span", ca, [
         h(
           "span",
-          ca,
-          b(i.label),
+          fa,
+          y(i.label),
           1
           /* TEXT */
         ),
         i.description ? (o(), d(
           "span",
-          fa,
-          b(i.description),
+          ha,
+          y(i.description),
           1
           /* TEXT */
         )) : f("v-if", !0)
@@ -5266,7 +5330,7 @@ function ha(e, t, i, n, s, r) {
     /* CLASS, NEED_HYDRATION */
   );
 }
-const su = /* @__PURE__ */ T(oa, [["render", ha], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/Radio.vue"]]), ma = q("ui-radio-group"), pa = ["list", "button"], ga = ["vertical", "horizontal"], ya = {
+const au = /* @__PURE__ */ T(la, [["render", ma], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/Radio.vue"]]), pa = q("ui-radio-group"), ga = ["list", "button"], ba = ["vertical", "horizontal"], ya = {
   name: "RadioGroup",
   props: {
     modelValue: {
@@ -5277,7 +5341,7 @@ const su = /* @__PURE__ */ T(oa, [["render", ha], ["__file", "/Users/serkan/Proj
     variant: {
       type: String,
       default: "list",
-      validator: (e) => pa.includes(e)
+      validator: (e) => ga.includes(e)
     },
     /**
      * `list`: varsayılan dikey; `horizontal` yan yana.
@@ -5286,7 +5350,7 @@ const su = /* @__PURE__ */ T(oa, [["render", ha], ["__file", "/Users/serkan/Proj
     orientation: {
       type: String,
       default: null,
-      validator: (e) => e == null || e === "" || ga.includes(e)
+      validator: (e) => e == null || e === "" || ba.includes(e)
     },
     /** `radiogroup` erişilebilir adı */
     ariaLabel: {
@@ -5296,7 +5360,7 @@ const su = /* @__PURE__ */ T(oa, [["render", ha], ["__file", "/Users/serkan/Proj
   },
   emits: ["update:modelValue"],
   data() {
-    return { groupName: ma() };
+    return { groupName: pa() };
   },
   computed: {
     normalizedVariant() {
@@ -5306,7 +5370,7 @@ const su = /* @__PURE__ */ T(oa, [["render", ha], ["__file", "/Users/serkan/Proj
       return this.normalizedVariant === "button" ? this.orientation === "vertical" ? "vertical" : "horizontal" : this.orientation === "horizontal" ? "horizontal" : "vertical";
     },
     rootClass() {
-      return L(
+      return z(
         "ui-radio-group",
         `ui-radio-group--${this.normalizedVariant}`,
         this.normalizedVariant === "list" && this.effectiveOrientation === "horizontal" ? "ui-radio-group--horizontal" : "",
@@ -5319,19 +5383,19 @@ const su = /* @__PURE__ */ T(oa, [["render", ha], ["__file", "/Users/serkan/Proj
       uiRadioGroup: this
     };
   }
-}, ba = ["aria-label"];
-function va(e, t, i, n, s, r) {
+}, va = ["aria-label"];
+function ka(e, t, i, n, s, r) {
   return o(), d("div", {
     class: S(r.rootClass),
     role: "radiogroup",
     "aria-label": i.ariaLabel || void 0
   }, [
     p(e.$slots, "default")
-  ], 10, ba);
+  ], 10, va);
 }
-const au = /* @__PURE__ */ T(ya, [["render", va], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/RadioGroup.vue"]]), ka = {
+const ou = /* @__PURE__ */ T(ya, [["render", ka], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/RadioGroup.vue"]]), Sa = {
   name: "Tag",
-  components: { Badge: dr, Tooltip: Ut },
+  components: { Badge: hr, Tooltip: qt },
   props: {
     /** Ton — Badge ile aynı sözlük */
     color: {
@@ -5360,15 +5424,15 @@ const au = /* @__PURE__ */ T(ya, [["render", va], ["__file", "/Users/serkan/Proj
       return typeof this.$t == "function" ? this.$t("ui.tag.remove") : "Kaldır";
     }
   }
-}, Sa = ["aria-label"];
-function xa(e, t, i, n, s, r) {
+}, xa = ["aria-label"];
+function wa(e, t, i, n, s, r) {
   const a = x("ui-icon"), u = x("Tooltip"), l = x("Badge");
   return o(), _(l, {
     color: i.color,
     variant: i.variant,
     size: i.size,
     class: "ui-tag max-w-[min(100%,14rem)] shrink-0"
-  }, jt({
+  }, Gt({
     default: w(() => [
       p(e.$slots, "default")
     ]),
@@ -5378,7 +5442,7 @@ function xa(e, t, i, n, s, r) {
     i.removable ? {
       name: "append",
       fn: w(() => [
-        y(u, {
+        b(u, {
           label: r.removeLabel,
           placement: "bottom"
         }, {
@@ -5387,13 +5451,13 @@ function xa(e, t, i, n, s, r) {
               type: "button",
               class: "ui-tag-remove",
               "aria-label": r.removeLabel,
-              onClick: t[0] || (t[0] = z((c) => e.$emit("remove"), ["stop"]))
+              onClick: t[0] || (t[0] = F((c) => e.$emit("remove"), ["stop"]))
             }, [
-              y(a, {
+              b(a, {
                 name: "xmark",
                 size: "xs"
               })
-            ], 8, Sa)
+            ], 8, xa)
           ]),
           _: 1
           /* STABLE */
@@ -5403,26 +5467,21 @@ function xa(e, t, i, n, s, r) {
     } : void 0
   ]), 1032, ["color", "variant", "size"]);
 }
-const wa = /* @__PURE__ */ T(ka, [["render", xa], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/Tag.vue"]]), _a = q("ui-select"), Ta = ["field", "inline"], Ca = ["sm", "md", "lg"], Ia = {
+const _a = /* @__PURE__ */ T(Sa, [["render", wa], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/Tag.vue"]]), Ta = q("ui-select"), Ca = ["field", "inline"], Ia = ["sm", "md", "lg"], La = {
   name: "Select",
   mixins: [O],
-  components: { Tag: wa },
+  components: { Tag: _a },
   inheritAttrs: !1,
-  inject: {
-    uiFormRowPrimary: {
-      default: !1
-    }
-  },
   props: {
     variant: {
       type: String,
       default: "field",
-      validator: (e) => Ta.includes(e)
+      validator: (e) => Ca.includes(e)
     },
     size: {
       type: String,
       default: void 0,
-      validator: (e) => e == null || Ca.includes(e)
+      validator: (e) => e == null || Ia.includes(e)
     },
     modelValue: {
       type: [String, Number, Boolean, Array],
@@ -5503,7 +5562,7 @@ const wa = /* @__PURE__ */ T(ka, [["render", xa], ["__file", "/Users/serkan/Proj
   },
   emits: ["update:modelValue", "change", "update:open", "filter-change"],
   data() {
-    const e = _a(), t = e.slice(10);
+    const e = Ta(), t = e.slice(10);
     return {
       fallbackId: e,
       fallbackListboxId: `ui-select-listbox-${t}`,
@@ -5513,9 +5572,12 @@ const wa = /* @__PURE__ */ T(ka, [["render", xa], ["__file", "/Users/serkan/Proj
     };
   },
   computed: {
+    /**
+     * Form satırındaki tüm kontroller aynı yükseklikte kalır; `ui-form-row primary`
+     * yalnızca odak hedefidir, boyutu büyütmez. Büyük alan gerekiyorsa `size="lg"` verilir.
+     */
     resolvedSize() {
-      let e = U(this.uiDefaults, this.size, { key: "controlSize", defaultSize: "md" });
-      return e !== "md" ? e : (typeof this.uiFormRowPrimary == "function" ? this.uiFormRowPrimary() : this.uiFormRowPrimary) ? "lg" : e;
+      return U(this.uiDefaults, this.size, { key: "controlSize", defaultSize: "md" });
     },
     /** Popover seçenekleri tetikleyici ile aynı boyutta (sm/md/lg). */
     optionButtonSize() {
@@ -5532,7 +5594,7 @@ const wa = /* @__PURE__ */ T(ka, [["render", xa], ["__file", "/Users/serkan/Proj
     },
     rootClass() {
       const e = this.variant === "inline";
-      return L(
+      return z(
         "ui-select",
         e && "ui-select--inline",
         !e && this.block && "ui-select--block w-full",
@@ -5747,28 +5809,28 @@ const wa = /* @__PURE__ */ T(ka, [["render", xa], ["__file", "/Users/serkan/Proj
       }
     }
   }
-}, Fa = ["name", "value"], La = ["id", "disabled", "aria-expanded", "aria-haspopup", "aria-controls", "aria-describedby", "onClick"], za = {
+}, za = ["name", "value"], Fa = ["id", "disabled", "aria-expanded", "aria-haspopup", "aria-controls", "aria-describedby", "onClick"], Aa = {
   key: 0,
   class: "ui-select-prefix inline-flex shrink-0 items-center text-muted-foreground",
   "aria-hidden": "true"
-}, Aa = {
+}, Da = {
   key: 1,
   class: "ui-select-values-inner"
-}, Da = ["placeholder", "aria-label", "disabled"], Pa = {
+}, Ba = ["placeholder", "aria-label", "disabled"], Pa = {
   key: 2,
   class: "ui-select-value ui-select-value--placeholder",
   "data-popover-align": ""
-}, Ba = { class: "ui-select-field-suffix" }, Oa = ["aria-label"], Ra = {
+}, Oa = { class: "ui-select-field-suffix" }, Ma = ["aria-label"], Ra = {
   class: "ui-select-chevron",
   "aria-hidden": "true"
-}, Ma = ["data-size", "placeholder", "aria-label", "onKeydown"], Ea = ["id", "data-size", "role", "aria-multiselectable", "aria-labelledby"], $a = {
+}, Ea = ["data-size", "placeholder", "aria-label", "onKeydown"], $a = ["id", "data-size", "role", "aria-multiselectable", "aria-labelledby"], Va = {
   key: 0,
   class: "flex flex-col gap-2 px-1 py-2"
-}, Va = { class: "flex w-full min-w-0 items-center justify-between gap-2" }, Na = {
+}, Na = { class: "flex w-full min-w-0 items-center justify-between gap-2" }, ja = {
   key: 1,
   class: "shrink-0 text-muted-foreground"
 };
-function ja(e, t, i, n, s, r) {
+function Ga(e, t, i, n, s, r) {
   const a = x("ui-icon"), u = x("Tag"), l = x("ui-skeleton"), c = x("ui-badge"), g = x("ui-button"), m = x("ui-empty"), v = x("ui-popover");
   return o(), d(
     "div",
@@ -5781,15 +5843,15 @@ function ja(e, t, i, n, s, r) {
         type: "hidden",
         name: i.name,
         value: r.hiddenFieldValue
-      }, null, 8, Fa)) : f("v-if", !0),
-      y(v, {
+      }, null, 8, za)) : f("v-if", !0),
+      b(v, {
         open: s.menuOpen,
         "onUpdate:open": t[7] || (t[7] = (I) => s.menuOpen = I),
         placement: "bottom-start",
         "match-trigger-width": i.matchTriggerWidth && !e.$slots.trigger,
         disabled: r.isDisabled,
         "align-selected-option-to-trigger": r.alignSelectedToTrigger
-      }, jt({
+      }, Gt({
         trigger: w(({ open: I, toggle: k, close: D }) => [
           p(e.$slots, "trigger", {
             open: I,
@@ -5798,7 +5860,7 @@ function ja(e, t, i, n, s, r) {
             label: r.displayLabel,
             hasValue: !r.isPlaceholderDisplay
           }, () => [
-            h("button", F({
+            h("button", L({
               type: "button",
               id: r.resolvedId,
               class: ["ui-select-field", {
@@ -5813,13 +5875,13 @@ function ja(e, t, i, n, s, r) {
             }, r.triggerPassthrough, {
               onClick: (C) => r.onTriggerClick(k)
             }), [
-              i.prefixIcon ? (o(), d("span", za, [
-                y(a, {
+              i.prefixIcon ? (o(), d("span", Aa, [
+                b(a, {
                   name: i.prefixIcon,
                   size: "xs"
                 }, null, 8, ["name"])
               ])) : f("v-if", !0),
-              i.multiple ? (o(), d("div", Aa, [
+              i.multiple ? (o(), d("div", Da, [
                 (o(!0), d(
                   A,
                   null,
@@ -5831,8 +5893,8 @@ function ja(e, t, i, n, s, r) {
                     onRemove: (N) => r.removeValue(C)
                   }, {
                     default: w(() => [
-                      P(
-                        b(r.labelForValue(C)),
+                      B(
+                        y(r.labelForValue(C)),
                         1
                         /* TEXT */
                       )
@@ -5843,7 +5905,7 @@ function ja(e, t, i, n, s, r) {
                   128
                   /* KEYED_FRAGMENT */
                 )),
-                r.isFilterable ? Ie((o(), d("input", {
+                r.isFilterable ? Le((o(), d("input", {
                   key: 0,
                   ref: "searchInput",
                   "onUpdate:modelValue": t[0] || (t[0] = (C) => s.filterQuery = C),
@@ -5856,49 +5918,49 @@ function ja(e, t, i, n, s, r) {
                   "aria-label": r.resolvedFilterPlaceholder,
                   autocomplete: "off",
                   disabled: r.isDisabled,
-                  onClick: t[1] || (t[1] = z((...C) => r.onSearchInputActivate && r.onSearchInputActivate(...C), ["stop"])),
+                  onClick: t[1] || (t[1] = F((...C) => r.onSearchInputActivate && r.onSearchInputActivate(...C), ["stop"])),
                   onFocus: t[2] || (t[2] = (...C) => r.onSearchInputActivate && r.onSearchInputActivate(...C)),
                   onKeydown: t[3] || (t[3] = (...C) => r.onSearchKeydown && r.onSearchKeydown(...C))
-                }, null, 42, Da)), [
-                  [Xe, s.filterQuery]
+                }, null, 42, Ba)), [
+                  [Je, s.filterQuery]
                 ]) : f("v-if", !0)
               ])) : i.loading ? (o(), d(
                 "span",
                 Pa,
-                b(r.resolvedLoadingLabel),
+                y(r.resolvedLoadingLabel),
                 1
                 /* TEXT */
               )) : (o(), d(
                 "span",
-                F({
+                L({
                   key: 3,
                   class: ["ui-select-value", { "ui-select-value--placeholder": r.isPlaceholderDisplay }]
                 }, r.selectedDisplayStyle ? { style: r.selectedDisplayStyle } : {}, { "data-popover-align": "" }),
-                b(r.displayLabel),
+                y(r.displayLabel),
                 17
                 /* TEXT, FULL_PROPS */
               )),
-              h("span", Ba, [
+              h("span", Oa, [
                 r.showClearButton ? (o(), d("button", {
                   key: 0,
                   type: "button",
                   class: "ui-select-clear",
                   "aria-label": r.clearAriaLabel,
-                  onClick: t[4] || (t[4] = z((...C) => r.clearSelection && r.clearSelection(...C), ["stop"]))
+                  onClick: t[4] || (t[4] = F((...C) => r.clearSelection && r.clearSelection(...C), ["stop"]))
                 }, [
-                  y(a, {
+                  b(a, {
                     name: "xmark",
                     size: "xs"
                   })
-                ], 8, Oa)) : f("v-if", !0),
+                ], 8, Ma)) : f("v-if", !0),
                 h("span", Ra, [
-                  y(a, {
+                  b(a, {
                     name: "chevron-down",
                     size: "xs"
                   })
                 ])
               ])
-            ], 16, La)
+            ], 16, Fa)
           ])
         ]),
         content: w(({ close: I }) => [
@@ -5911,11 +5973,11 @@ function ja(e, t, i, n, s, r) {
             "aria-multiselectable": i.multiple ? "true" : void 0,
             "aria-labelledby": r.resolvedId
           }, [
-            i.loading && !r.filteredOptions.length ? (o(), d("div", $a, [
+            i.loading && !r.filteredOptions.length ? (o(), d("div", Va, [
               (o(), d(
                 A,
                 null,
-                G(3, (k) => y(l, {
+                G(3, (k) => b(l, {
                   key: k,
                   variant: "line",
                   class: S(k === 3 ? "max-w-[72%]" : void 0)
@@ -5944,14 +6006,14 @@ function ja(e, t, i, n, s, r) {
                     option: k,
                     selected: r.isSelected(k)
                   }, () => [
-                    h("span", Va, [
+                    h("span", Na, [
                       h(
                         "span",
-                        F({
+                        L({
                           "data-popover-align": "",
                           class: "min-w-0 truncate"
                         }, { ref_for: !0 }, r.optionDisplayStyle(k) ? { style: r.optionDisplayStyle(k) } : {}),
-                        b(k.label),
+                        y(k.label),
                         17
                         /* TEXT, FULL_PROPS */
                       ),
@@ -5962,8 +6024,8 @@ function ja(e, t, i, n, s, r) {
                         size: "xs"
                       }, {
                         default: w(() => [
-                          P(
-                            b(k.badge),
+                          B(
+                            y(k.badge),
                             1
                             /* TEXT */
                           )
@@ -5972,8 +6034,8 @@ function ja(e, t, i, n, s, r) {
                         /* DYNAMIC */
                       }, 1032, ["color", "variant"])) : k.description ? (o(), d(
                         "span",
-                        Na,
-                        b(k.description),
+                        ja,
+                        y(k.description),
                         1
                         /* TEXT */
                       )) : f("v-if", !0)
@@ -5996,7 +6058,7 @@ function ja(e, t, i, n, s, r) {
               size: r.emptyStateSize,
               title: r.emptyOptionsText
             }, null, 8, ["size", "title"]))
-          ], 10, Ea)
+          ], 10, $a)
         ]),
         _: 2
         /* DYNAMIC */
@@ -6004,7 +6066,7 @@ function ja(e, t, i, n, s, r) {
         r.showPopoverHeader ? {
           name: "header",
           fn: w(({ close: I }) => [
-            Ie(h("input", {
+            Le(h("input", {
               ref: "filterInput",
               "onUpdate:modelValue": t[5] || (t[5] = (k) => s.filterQuery = k),
               type: "text",
@@ -6013,14 +6075,14 @@ function ja(e, t, i, n, s, r) {
               placeholder: r.resolvedFilterPlaceholder,
               "aria-label": r.resolvedFilterPlaceholder,
               autocomplete: "off",
-              onMousedown: t[6] || (t[6] = z(() => {
+              onMousedown: t[6] || (t[6] = F(() => {
               }, ["prevent"])),
               onKeydown: [
-                H(z((k) => r.pickFirstFiltered(I), ["prevent"]), ["enter"]),
-                H(z((k) => I(), ["prevent"]), ["esc"])
+                H(F((k) => r.pickFirstFiltered(I), ["prevent"]), ["enter"]),
+                H(F((k) => I(), ["prevent"]), ["esc"])
               ]
-            }, null, 42, Ma), [
-              [Xe, s.filterQuery]
+            }, null, 42, Ea), [
+              [Je, s.filterQuery]
             ])
           ]),
           key: "0"
@@ -6028,7 +6090,7 @@ function ja(e, t, i, n, s, r) {
         e.$slots.footer ? {
           name: "footer",
           fn: w((I) => [
-            p(e.$slots, "footer", $t(Vt(I)))
+            p(e.$slots, "footer", Vt(Nt(I)))
           ]),
           key: "1"
         } : void 0
@@ -6038,7 +6100,7 @@ function ja(e, t, i, n, s, r) {
     /* CLASS */
   );
 }
-const ou = /* @__PURE__ */ T(Ia, [["render", ja], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/Select.vue"]]), Ga = {
+const lu = /* @__PURE__ */ T(La, [["render", Ga], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/Select.vue"]]), Ha = {
   name: "Segment",
   mixins: [O],
   inject: {
@@ -6067,7 +6129,7 @@ const ou = /* @__PURE__ */ T(Ia, [["render", ja], ["__file", "/Users/serkan/Proj
     }
   },
   computed: {
-    ...pe("iconType"),
+    ...be("iconType"),
     /** Varsayılan `duotone`; `icon-type` verilirse o kullanılır. */
     segmentIconType() {
       return this.iconType != null && this.iconType !== "" ? this.resolvedIconType : "duotone";
@@ -6114,24 +6176,24 @@ const ou = /* @__PURE__ */ T(Ia, [["render", ja], ["__file", "/Users/serkan/Proj
       this.disabled || !this.uiSegmentGroup || this.uiSegmentGroup.$emit("update:modelValue", this.value);
     }
   }
-}, Ha = ["aria-checked", "disabled"], Wa = {
+}, Wa = ["aria-checked", "disabled"], Ua = {
   key: 0,
   class: "ui-segment-affix ui-segment-affix--prepend"
-}, Ua = {
+}, qa = {
   key: 1,
   class: "ui-segment-icon",
   "aria-hidden": "true"
-}, qa = {
+}, Ya = {
   key: 2,
   class: "ui-segment-label"
-}, Ya = {
+}, Ka = {
   key: 3,
   class: "sr-only"
-}, Ka = {
+}, Za = {
   key: 4,
   class: "ui-segment-affix ui-segment-affix--append"
 };
-function Za(e, t, i, n, s, r) {
+function Qa(e, t, i, n, s, r) {
   const a = x("ui-icon");
   return o(), d("button", {
     type: "button",
@@ -6141,11 +6203,11 @@ function Za(e, t, i, n, s, r) {
     disabled: i.disabled,
     onClick: t[0] || (t[0] = (...u) => r.select && r.select(...u))
   }, [
-    r.hasPrepend ? (o(), d("span", Wa, [
+    r.hasPrepend ? (o(), d("span", Ua, [
       p(e.$slots, "prepend")
     ])) : f("v-if", !0),
-    i.icon ? (o(), d("span", Ua, [
-      y(a, {
+    i.icon ? (o(), d("span", qa, [
+      b(a, {
         name: i.icon,
         type: r.segmentIconType,
         size: r.iconSize
@@ -6153,27 +6215,27 @@ function Za(e, t, i, n, s, r) {
     ])) : f("v-if", !0),
     r.showLabel ? (o(), d(
       "span",
-      qa,
-      b(i.label),
+      Ya,
+      y(i.label),
       1
       /* TEXT */
     )) : i.label ? (o(), d(
       "span",
-      Ya,
-      b(i.label),
+      Ka,
+      y(i.label),
       1
       /* TEXT */
     )) : f("v-if", !0),
-    r.hasAppend ? (o(), d("span", Ka, [
+    r.hasAppend ? (o(), d("span", Za, [
       p(e.$slots, "append")
     ])) : f("v-if", !0)
-  ], 10, Ha);
+  ], 10, Wa);
 }
-const lu = /* @__PURE__ */ T(Ga, [["render", Za], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/Segment.vue"]]), Qa = ["sm", "md", "lg"], Xa = ["horizontal", "vertical"];
-function Ja(e) {
+const uu = /* @__PURE__ */ T(Ha, [["render", Qa], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/Segment.vue"]]), Xa = ["sm", "md", "lg"], Ja = ["horizontal", "vertical"];
+function eo(e) {
   return typeof e == "boolean" || e === "mobile";
 }
-const eo = {
+const to = {
   name: "SegmentGroup",
   mixins: [O],
   inheritAttrs: !1,
@@ -6186,13 +6248,13 @@ const eo = {
     size: {
       type: String,
       default: void 0,
-      validator: (e) => e == null || Qa.includes(e)
+      validator: (e) => e == null || Xa.includes(e)
     },
     /** `horizontal` (varsayılan) veya `vertical` — dar yan menü gibi düzenler */
     direction: {
       type: String,
       default: "horizontal",
-      validator: (e) => Xa.includes(e)
+      validator: (e) => Ja.includes(e)
     },
     /**
      * Yalnız ikon; etiketler ekran okuyucu için gizli kalır.
@@ -6201,7 +6263,7 @@ const eo = {
     iconOnly: {
       type: [Boolean, String],
       default: !1,
-      validator: Ja
+      validator: eo
     },
     /** false: başlık çubuğu gibi içeriğe göre genişlik (`w-full` değil) */
     block: {
@@ -6233,13 +6295,13 @@ const eo = {
     },
     /** Segment çocukları bunu okur (`iconOnly` ham prop değil). */
     resolvedIconOnly() {
-      return this.iconOnly === "mobile" ? M() : !!this.iconOnly;
+      return this.iconOnly === "mobile" ? R() : !!this.iconOnly;
     },
     isScrollable() {
       return this.scrollable === !0 && this.direction !== "vertical";
     },
     rootClass() {
-      return L(
+      return z(
         "ui-segment-group",
         this.block ? "ui-segment-group--block" : "ui-segment-group--fit",
         this.direction === "vertical" && "ui-segment-group--vertical",
@@ -6291,33 +6353,33 @@ const eo = {
       Math.abs(t.scrollLeft - a) < 1 || (typeof t.scrollTo == "function" ? t.scrollTo({ left: a, behavior: e }) : t.scrollLeft = a);
     }
   }
-}, to = ["aria-label"];
-function io(e, t, i, n, s, r) {
-  return o(), d("div", F({
+}, io = ["aria-label"];
+function ro(e, t, i, n, s, r) {
+  return o(), d("div", L({
     class: r.rootClass,
     role: "radiogroup",
     "aria-label": i.ariaLabel || void 0
   }, r.passthroughAttrs), [
     p(e.$slots, "default")
-  ], 16, to);
+  ], 16, io);
 }
-const uu = /* @__PURE__ */ T(eo, [["render", io], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/SegmentGroup.vue"]]), ro = ["line", "circle", "block", "pill"], no = ["sm", "md", "lg"], so = 480, Tt = {
+const du = /* @__PURE__ */ T(to, [["render", ro], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/SegmentGroup.vue"]]), no = ["line", "circle", "block", "pill"], so = ["sm", "md", "lg"], ao = 480, Ct = {
   line: "ui-skeleton--line",
   circle: "ui-skeleton--circle",
   block: "ui-skeleton--block",
   pill: "ui-skeleton--pill"
-}, Ct = {
+}, It = {
   sm: "ui-skeleton--size-sm",
   md: "ui-skeleton--size-md",
   lg: "ui-skeleton--size-lg"
-}, ao = {
+}, oo = {
   name: "Skeleton",
   inheritAttrs: !1,
   props: {
     variant: {
       type: String,
       default: "line",
-      validator: (e) => ro.includes(e)
+      validator: (e) => no.includes(e)
     },
     loading: {
       type: Boolean,
@@ -6327,38 +6389,38 @@ const uu = /* @__PURE__ */ T(eo, [["render", io], ["__file", "/Users/serkan/Proj
     size: {
       type: String,
       default: "md",
-      validator: (e) => no.includes(e)
+      validator: (e) => so.includes(e)
     }
   },
   setup(e) {
-    const t = ci(), i = K(() => !!t.default), n = j(null), s = j(null), r = j(null), a = j(null), u = j(!1), l = j(!1), c = j(!1), g = j(!1), m = j(!1);
+    const t = mi(), i = K(() => !!t.default), n = j(null), s = j(null), r = j(null), a = j(null), u = j(!1), l = j(!1), c = j(!1), g = j(!1), m = j(!1);
     let v = null;
     const I = K(
       () => e.loading || c.value
     ), k = K(
       () => e.loading || c.value
     );
-    fi(() => {
+    pi(() => {
       m.value = window.matchMedia(
         "(prefers-reduced-motion: reduce)"
       ).matches;
-    }), hi(() => {
+    }), gi(() => {
       D(), C();
     });
     function D() {
       v != null && (clearTimeout(v), v = null);
     }
-    mi(
+    bi(
       () => e.loading,
       async (Y, se) => {
-        var We, Ue, qe, Ye, Ke, Ze;
+        var Ue, qe, Ye, Ke, Ze, Qe;
         if (D(), Y) {
-          const Qe = Math.max(
-            ((We = n.value) == null ? void 0 : We.offsetHeight) ?? 0,
-            ((Ue = r.value) == null ? void 0 : Ue.scrollHeight) ?? 0,
-            ((qe = s.value) == null ? void 0 : qe.offsetHeight) ?? 0
+          const Xe = Math.max(
+            ((Ue = n.value) == null ? void 0 : Ue.offsetHeight) ?? 0,
+            ((qe = r.value) == null ? void 0 : qe.scrollHeight) ?? 0,
+            ((Ye = s.value) == null ? void 0 : Ye.offsetHeight) ?? 0
           );
-          c.value = !1, g.value = !1, u.value = !1, l.value = Qe > 48, a.value = l.value ? Qe : null;
+          c.value = !1, g.value = !1, u.value = !1, l.value = Xe > 48, a.value = l.value ? Xe : null;
           return;
         }
         if (se !== !0) return;
@@ -6366,18 +6428,18 @@ const uu = /* @__PURE__ */ T(eo, [["render", io], ["__file", "/Users/serkan/Proj
           c.value = !1, l.value = !1, a.value = null, u.value = !1;
           return;
         }
-        const be = a.value ?? ((Ye = n.value) == null ? void 0 : Ye.offsetHeight) ?? ((Ke = s.value) == null ? void 0 : Ke.offsetHeight) ?? 0;
-        c.value = !0, g.value = !1, l.value = !1, u.value = !0, a.value = be, await Je();
-        const Ge = ((Ze = r.value) == null ? void 0 : Ze.scrollHeight) ?? 0, He = Ge > 0 ? Ge : be;
-        if (be <= 0 && He <= 0) {
+        const ke = a.value ?? ((Ke = n.value) == null ? void 0 : Ke.offsetHeight) ?? ((Ze = s.value) == null ? void 0 : Ze.offsetHeight) ?? 0;
+        c.value = !0, g.value = !1, l.value = !1, u.value = !0, a.value = ke, await et();
+        const He = ((Qe = r.value) == null ? void 0 : Qe.scrollHeight) ?? 0, We = He > 0 ? He : ke;
+        if (ke <= 0 && We <= 0) {
           C();
           return;
         }
-        await Je(), requestAnimationFrame(() => {
+        await et(), requestAnimationFrame(() => {
           requestAnimationFrame(() => {
-            a.value = He, g.value = !0;
+            a.value = We, g.value = !0;
           });
-        }), v = setTimeout(C, so + 40);
+        }), v = setTimeout(C, ao + 40);
       }
     );
     function C() {
@@ -6386,7 +6448,7 @@ const uu = /* @__PURE__ */ T(eo, [["render", io], ["__file", "/Users/serkan/Proj
     function N(Y) {
       Y.target === n.value && Y.propertyName === "height" && (e.loading || u.value && C());
     }
-    const R = K(() => {
+    const M = K(() => {
       if (a.value != null)
         return { height: `${a.value}px` };
     }), E = K(() => ({
@@ -6406,7 +6468,7 @@ const uu = /* @__PURE__ */ T(eo, [["render", io], ["__file", "/Users/serkan/Proj
       hostRef: n,
       placeholderRef: s,
       contentWrapRef: r,
-      hostStyle: R,
+      hostStyle: M,
       heightAnimActive: u,
       heightLocked: l,
       isRevealing: c,
@@ -6419,14 +6481,14 @@ const uu = /* @__PURE__ */ T(eo, [["render", io], ["__file", "/Users/serkan/Proj
   },
   computed: {
     variantClass() {
-      return Tt[this.variant] || Tt.line;
+      return Ct[this.variant] || Ct.line;
     },
     lineSizeClass() {
       if (this.variant === "line")
-        return Ct[this.size] || Ct.md;
+        return It[this.size] || It.md;
     },
     skeletonClass() {
-      return L(
+      return z(
         "ui-skeleton",
         this.variantClass,
         this.lineSizeClass,
@@ -6434,7 +6496,7 @@ const uu = /* @__PURE__ */ T(eo, [["render", io], ["__file", "/Users/serkan/Proj
       );
     },
     hostClass() {
-      return L(
+      return z(
         "ui-skeleton-host",
         this.heightAnimActive && "ui-skeleton-host--height-active",
         this.heightLocked && "ui-skeleton-host--height-locked",
@@ -6447,8 +6509,8 @@ const uu = /* @__PURE__ */ T(eo, [["render", io], ["__file", "/Users/serkan/Proj
       return t;
     }
   }
-}, oo = ["aria-busy"], lo = ["aria-hidden"];
-function uo(e, t, i, n, s, r) {
+}, lo = ["aria-busy"], uo = ["aria-hidden"];
+function co(e, t, i, n, s, r) {
   return o(), d(
     A,
     null,
@@ -6459,14 +6521,14 @@ function uo(e, t, i, n, s, r) {
         { key: 1 },
         [
           f(" Sarmalayıcı mod: satır iskelet + yükseklik / opacity geçişi "),
-          h("div", F({
+          h("div", L({
             ref: "hostRef",
             class: r.hostClass
           }, n.hostStyle ? { style: n.hostStyle, ...r.passthroughAttrs } : r.passthroughAttrs, {
             "aria-busy": n.isBusy ? "true" : void 0,
             onTransitionend: t[0] || (t[0] = (...a) => n.onHostTransitionEnd && n.onHostTransitionEnd(...a))
           }), [
-            Ie(h(
+            Le(h(
               "div",
               {
                 ref: "placeholderRef",
@@ -6491,7 +6553,7 @@ function uo(e, t, i, n, s, r) {
               2
               /* CLASS */
             ), [
-              [di, n.showPlaceholder]
+              [hi, n.showPlaceholder]
             ]),
             h(
               "div",
@@ -6505,18 +6567,18 @@ function uo(e, t, i, n, s, r) {
                   "aria-hidden": n.showPlaceholder && !n.isRevealing ? "true" : void 0
                 }, [
                   p(e.$slots, "default")
-                ], 8, lo)
+                ], 8, uo)
               ],
               2
               /* CLASS */
             )
-          ], 16, oo)
+          ], 16, lo)
         ],
         2112
         /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */
       )) : (o(), d(
         "div",
-        F({
+        L({
           key: 0,
           class: r.skeletonClass,
           "aria-hidden": "true"
@@ -6530,7 +6592,7 @@ function uo(e, t, i, n, s, r) {
     /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */
   );
 }
-const du = /* @__PURE__ */ T(ao, [["render", uo], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/Skeleton.vue"]]), co = q("ui-switch"), fo = {
+const cu = /* @__PURE__ */ T(oo, [["render", co], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/Skeleton.vue"]]), fo = q("ui-switch"), ho = {
   name: "Switch",
   inheritAttrs: !1,
   props: {
@@ -6554,7 +6616,7 @@ const du = /* @__PURE__ */ T(ao, [["render", uo], ["__file", "/Users/serkan/Proj
   },
   emits: ["update:modelValue", "change"],
   data() {
-    return { fallbackId: co() };
+    return { fallbackId: fo() };
   },
   computed: {
     isDisabled() {
@@ -6580,9 +6642,9 @@ const du = /* @__PURE__ */ T(ao, [["render", uo], ["__file", "/Users/serkan/Proj
       this.$emit("update:modelValue", e), this.$emit("change", e);
     }
   }
-}, ho = ["id", "aria-checked", "disabled", "aria-describedby"];
-function mo(e, t, i, n, s, r) {
-  return o(), d("button", F({
+}, mo = ["id", "aria-checked", "disabled", "aria-describedby"];
+function po(e, t, i, n, s, r) {
+  return o(), d("button", L({
     type: "button",
     role: "switch",
     id: r.resolvedId,
@@ -6618,9 +6680,9 @@ function mo(e, t, i, n, s, r) {
       2
       /* CLASS */
     )
-  ], 16, ho);
+  ], 16, mo);
 }
-const cu = /* @__PURE__ */ T(fo, [["render", mo], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/Switch.vue"]]), po = {
+const fu = /* @__PURE__ */ T(ho, [["render", po], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/Switch.vue"]]), go = {
   name: "TabList",
   inheritAttrs: !1,
   inject: {
@@ -6643,7 +6705,7 @@ const cu = /* @__PURE__ */ T(fo, [["render", mo], ["__file", "/Users/serkan/Proj
     listClass() {
       var n, s;
       const e = ((n = this.uiTabs) == null ? void 0 : n.orientation) === "vertical", i = ((s = this.uiTabs) == null ? void 0 : s.variant) === "segmented" ? "segmented" : "line";
-      return L(
+      return z(
         "ui-tab-list",
         i === "segmented" ? "ui-tab-list--segmented" : "ui-tab-list--line",
         e ? "ui-tab-list--vertical" : "ui-tab-list--horizontal",
@@ -6678,9 +6740,9 @@ const cu = /* @__PURE__ */ T(fo, [["render", mo], ["__file", "/Users/serkan/Proj
       c < 0 && (c = i.length - 1), c >= i.length && (c = 0), (m = (g = i[c]) == null ? void 0 : g.focus) == null || m.call(g);
     }
   }
-}, go = ["aria-label", "aria-orientation"];
+}, bo = ["aria-label", "aria-orientation"];
 function yo(e, t, i, n, s, r) {
-  return o(), d("div", F({
+  return o(), d("div", L({
     class: r.listClass,
     role: "tablist",
     "aria-label": i.ariaLabel || void 0,
@@ -6689,22 +6751,22 @@ function yo(e, t, i, n, s, r) {
     onKeydown: t[0] || (t[0] = (...a) => r.onKeydown && r.onKeydown(...a))
   }), [
     p(e.$slots, "default")
-  ], 16, go);
+  ], 16, bo);
 }
-const fu = /* @__PURE__ */ T(po, [["render", yo], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/TabList.vue"]]), we = ["sm", "md", "lg"];
-function bo(e) {
-  const t = we.indexOf(e);
-  return t < 0 ? "md" : we[Math.min(t + 1, we.length - 1)];
+const hu = /* @__PURE__ */ T(go, [["render", yo], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/TabList.vue"]]), _e = ["sm", "md", "lg"];
+function vo(e) {
+  const t = _e.indexOf(e);
+  return t < 0 ? "md" : _e[Math.min(t + 1, _e.length - 1)];
 }
-function vo(e, t, { inlineControls: i = !1, nativeChrome: n = !1 } = {}) {
+function ko(e, t, { inlineControls: i = !1, nativeChrome: n = !1 } = {}) {
   const s = U(e, t, { key: "controlSize", defaultSize: "md" });
-  return i ? s : n ? "lg" : bo(s);
+  return i ? s : n ? "lg" : vo(s);
 }
-const ko = ["line", "segmented"];
-function So(e) {
+const So = ["line", "segmented"];
+function xo(e) {
   return typeof e == "boolean" || e === "mobile";
 }
-const xo = {
+const wo = {
   name: "Tabs",
   mixins: [O],
   inheritAttrs: !1,
@@ -6718,7 +6780,7 @@ const xo = {
     variant: {
       type: String,
       default: "line",
-      validator: (e) => ko.includes(e)
+      validator: (e) => So.includes(e)
     },
     /** `horizontal` — yan yana tetikleyiciler; `vertical` — sol şerit + içerik. */
     orientation: {
@@ -6771,12 +6833,12 @@ const xo = {
     iconOnly: {
       type: [Boolean, String],
       default: !1,
-      validator: So
+      validator: xo
     }
   },
   emits: ["update:modelValue"],
   setup() {
-    return { baseId: Nt() };
+    return { baseId: jt() };
   },
   provide() {
     return {
@@ -6785,16 +6847,16 @@ const xo = {
   },
   computed: {
     resolvedSize() {
-      return this.variant === "segmented" ? vo(this.uiDefaults, this.size, {
+      return this.variant === "segmented" ? ko(this.uiDefaults, this.size, {
         inlineControls: this.inlineControls,
         nativeChrome: this.nativeChrome
       }) : U(this.uiDefaults, this.size, { key: "controlSize", defaultSize: "md" });
     },
     resolvedIconOnly() {
-      return this.iconOnly === "mobile" ? M() : !!this.iconOnly;
+      return this.iconOnly === "mobile" ? R() : !!this.iconOnly;
     },
     rootClass() {
-      return L(
+      return z(
         "ui-tabs flex min-w-0 flex-col",
         this.variant === "segmented" ? "ui-tabs--segmented" : "ui-tabs--line",
         this.orientation === "vertical" ? "ui-tabs--vertical" : "",
@@ -6832,10 +6894,10 @@ const xo = {
     }
   }
 };
-function wo(e, t, i, n, s, r) {
+function _o(e, t, i, n, s, r) {
   return o(), d(
     "div",
-    F({ class: r.rootClass }, r.passthroughAttrs),
+    L({ class: r.rootClass }, r.passthroughAttrs),
     [
       p(e.$slots, "default")
     ],
@@ -6843,7 +6905,7 @@ function wo(e, t, i, n, s, r) {
     /* FULL_PROPS */
   );
 }
-const hu = /* @__PURE__ */ T(xo, [["render", wo], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/Tabs.vue"]]), _o = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950], To = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900], Co = "ui-sans-serif, system-ui, sans-serif", It = {
+const mu = /* @__PURE__ */ T(wo, [["render", _o], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/Tabs.vue"]]), To = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950], Co = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900], Io = "ui-sans-serif, system-ui, sans-serif", Lt = {
   none: "0",
   sm: "4px",
   DEFAULT: "8px",
@@ -6852,17 +6914,17 @@ const hu = /* @__PURE__ */ T(xo, [["render", wo], ["__file", "/Users/serkan/Proj
   xl: "24px",
   "2xl": "40px",
   "3xl": "64px"
-}, Io = {
+}, Lo = {
   surface: "var(--surface)",
   foreground: "var(--foreground)",
   background: "var(--background)",
   control: "var(--control)"
-}, Fo = {
+}, zo = {
   compact: "1rem",
   default: "1.5rem",
   comfortable: "1.25rem",
   spacious: "2rem"
-}, Lo = ["success", "warning", "info", "danger"], zo = {
+}, Fo = ["success", "warning", "info", "danger"], Ao = {
   colors: [
     "background",
     "foreground",
@@ -6882,8 +6944,8 @@ const hu = /* @__PURE__ */ T(xo, [["render", wo], ["__file", "/Users/serkan/Proj
     "ring",
     "white"
   ],
-  status: Lo.flatMap((e) => [e, `${e}Foreground`]),
-  chart: [...To.map((e) => `chart${e}`), "chart", "chartForeground"],
+  status: Fo.flatMap((e) => [e, `${e}Foreground`]),
+  chart: [...Co.map((e) => `chart${e}`), "chart", "chartForeground"],
   surfaces: ["surfaceStyle", "controlStyle", "inputStyle"],
   shape: ["radius", "radius4xl", "cardPadding"],
   effects: [
@@ -6901,8 +6963,8 @@ const hu = /* @__PURE__ */ T(xo, [["render", wo], ["__file", "/Users/serkan/Proj
   ],
   scale: ["base"]
 };
-new Set(Object.values(zo).flat());
-const Ao = {
+new Set(Object.values(Ao).flat());
+const Do = {
   "--font-heading": "var(--font-sans)",
   "--radius-sm": "calc(var(--radius) - 4px)",
   "--radius-md": "calc(var(--radius) - 2px)",
@@ -6917,12 +6979,12 @@ const Ao = {
   "--ui-button-grad-light": "var(--ui-fill-grad-light)",
   "--ui-button-grad-dark": "var(--ui-fill-grad-dark)"
 };
-function Do(e) {
+function Bo(e) {
   return e.startsWith("--") ? e : `--${e.replace(/([a-z])([A-Z])/g, "$1-$2").replace(/([a-zA-Z])(\d)/g, "$1-$2").replace(/_/g, "-").toLowerCase()}`;
 }
-function ue(e) {
+function ce(e) {
   const t = String(e || "").trim();
-  return !t || t.includes(",") || t.startsWith("var(") ? t : `${/\s/.test(t) && !/^["'].*["']$/.test(t) ? `"${t.replace(/"/g, "")}"` : t}, ${Co}`;
+  return !t || t.includes(",") || t.startsWith("var(") ? t : `${/\s/.test(t) && !/^["'].*["']$/.test(t) ? `"${t.replace(/"/g, "")}"` : t}, ${Io}`;
 }
 function Po(e) {
   if (e == null || e === "") return null;
@@ -6933,25 +6995,25 @@ function Po(e) {
   const i = t <= 1 ? Math.round(t * 100) : Math.round(t);
   return `${Math.min(100, Math.max(0, i))}%`;
 }
-function Bo(e) {
+function Oo(e) {
   if (e == null || e === "") return null;
   if (typeof e == "number") return `${e}px`;
   const t = String(e).trim();
-  return It[t] != null ? It[t] : /^\d+$/.test(t) ? t === "0" ? "0" : `${t}px` : t;
+  return Lt[t] != null ? Lt[t] : /^\d+$/.test(t) ? t === "0" ? "0" : `${t}px` : t;
 }
-function Oo(e) {
-  return e == null || e === "" ? null : Io[e] ?? String(e);
+function Mo(e) {
+  return e == null || e === "" ? null : Lo[e] ?? String(e);
 }
 function Ro(e) {
-  return e == null || e === "" ? null : Fo[e] ?? String(e);
+  return e == null || e === "" ? null : zo[e] ?? String(e);
 }
-function Mo(e, t, i) {
+function Eo(e, t, i) {
   if (!i || typeof i != "object") return;
   const n = Po(i.opacity ?? i.bgOpacity);
   n && (e[`--ui-${t}-opacity`] = n);
-  const s = Bo(i.backdropBlur);
+  const s = Oo(i.backdropBlur);
   s && (e[`--ui-${t}-backdrop-blur`] = s);
-  const r = Oo(i.mixFrom);
+  const r = Mo(i.mixFrom);
   r && (e[`--ui-${t}-mix-from`] = r);
 }
 function X(e) {
@@ -6960,14 +7022,14 @@ function X(e) {
   for (const [i, n] of Object.entries(e))
     if (!(n == null || n === "")) {
       if (i === "base" && typeof n == "object") {
-        for (const s of _o) {
+        for (const s of To) {
           const r = n[s];
           r != null && r !== "" && (t[`--base-${s}`] = String(r));
         }
         continue;
       }
       if (i === "surfaceStyle" || i === "controlStyle" || i === "inputStyle") {
-        Mo(t, i.replace("Style", ""), n);
+        Eo(t, i.replace("Style", ""), n);
         continue;
       }
       if (i === "cardPadding") {
@@ -6975,34 +7037,34 @@ function X(e) {
         s && (t["--ui-card-space"] = s);
         continue;
       }
-      typeof n != "object" && (t[Do(i)] = String(n));
+      typeof n != "object" && (t[Bo(i)] = String(n));
     }
   return t;
 }
-function Qt(e) {
+function ei(e) {
   const t = {};
-  return e && (e.body && (t["--font-sans"] = ue(e.body)), e.heading && (t["--font-heading"] = ue(e.heading))), t;
+  return e && (e.body && (t["--font-sans"] = ce(e.body)), e.heading && (t["--font-heading"] = ce(e.heading))), t;
 }
-function Ft(e = {}, t = {}) {
+function zt(e = {}, t = {}) {
   const i = { ...e };
   for (const [n, s] of Object.entries(t || {}))
     s && typeof s == "object" && e[n] && typeof e[n] == "object" ? i[n] = { ...e[n], ...s } : i[n] = s;
   return i;
 }
-function Xt(e) {
+function ti(e) {
   const t = {
-    ...Qt(e.preset.fonts),
+    ...ei(e.preset.fonts),
     ...X(e.preset.tokens.light)
   };
-  for (const [i, n] of Object.entries(Ao))
+  for (const [i, n] of Object.entries(Do))
     i in t || (t[i] = n);
   return t;
 }
-function Eo(e, t = "light") {
-  const i = Xt(e);
+function $o(e, t = "light") {
+  const i = ti(e);
   return t === "dark" && Object.assign(i, X(e.preset.tokens.dark)), i;
 }
-function Lt(e, t) {
+function Ft(e, t) {
   const i = Object.entries(t).map(([n, s]) => `  ${n}: ${s};`);
   return `${e} {
 ${i.join(`
@@ -7010,12 +7072,12 @@ ${i.join(`
 }
 `;
 }
-function mu(e, t = {}) {
+function pu(e, t = {}) {
   const i = t.selector || ":root", n = t.darkSelector || ".dark", s = `/* fewui theme "${e.id}" — preset.js'ten üretildi (buildThemeCss); elle düzenlemeyin. */
-`, r = X(e.preset.tokens.dark), a = Object.keys(r).length ? Lt(n, r) : "";
-  return `${s}${Lt(i, Xt(e))}${a}`;
+`, r = X(e.preset.tokens.dark), a = Object.keys(r).length ? Ft(n, r) : "";
+  return `${s}${Ft(i, ti(e))}${a}`;
 }
-function Ee(e) {
+function $e(e) {
   const t = String(e || "").trim().replace("#", "");
   return t.length === 3 ? [0, 1, 2].map((i) => parseInt(t[i] + t[i], 16)) : t.length === 6 ? [
     parseInt(t.slice(0, 2), 16),
@@ -7023,7 +7085,7 @@ function Ee(e) {
     parseInt(t.slice(4, 6), 16)
   ] : null;
 }
-function $o(e) {
+function Vo(e) {
   const t = String(e || "").trim().match(/^oklch\(\s*([0-9.]+%?)/i);
   if (!t) return null;
   const i = t[1];
@@ -7034,11 +7096,11 @@ function $o(e) {
   const n = Number.parseFloat(i);
   return Number.isFinite(n) ? n > 1 ? n / 100 : n : null;
 }
-function _e(e) {
+function Te(e) {
   return Math.min(255, Math.max(0, Math.round(e))).toString(16).padStart(2, "0");
 }
-function de(e, t, i) {
-  return `#${_e(e)}${_e(t)}${_e(i)}`;
+function fe(e, t, i) {
+  return `#${Te(e)}${Te(t)}${Te(i)}`;
 }
 function oe(e, t, i) {
   const [n, s, r] = [e, t, i].map((a) => {
@@ -7047,15 +7109,15 @@ function oe(e, t, i) {
   });
   return 0.2126 * n + 0.7152 * s + 0.0722 * r;
 }
-function Vo(e, t = "#ffffff", i = "#0a0a0b") {
-  const n = Ee(e);
+function No(e, t = "#ffffff", i = "#0a0a0b") {
+  const n = $e(e);
   if (n)
     return oe(...n) > 0.4 ? i : t;
-  const s = $o(e);
+  const s = Vo(e);
   return s != null && s > 0.72 ? i : t;
 }
-function pu(e, t) {
-  const i = Ee(e);
+function gu(e, t) {
+  const i = $e(e);
   if (!i) return e;
   let [n, s, r] = i, a = oe(n, s, r);
   if (t === "dark") {
@@ -7065,41 +7127,41 @@ function pu(e, t) {
     }
     for (let u = 0; u < 12 && a > 0.38; u += 1)
       n *= 0.82, s *= 0.82, r *= 0.82, a = oe(n, s, r);
-    return de(n, s, r);
+    return fe(n, s, r);
   }
-  return a > 0.82 ? de(n * 0.22, s * 0.22, r * 0.22) : e;
+  return a > 0.82 ? fe(n * 0.22, s * 0.22, r * 0.22) : e;
 }
-function Jt(e) {
-  const t = Ee(e);
+function ii(e) {
+  const t = $e(e);
   if (!t)
     return { accent: e, brandAccent: e };
-  const [i, n, s] = t, r = de(
+  const [i, n, s] = t, r = fe(
     i + (255 - i) * 0.12,
     n + (255 - n) * 0.12,
     s + (255 - s) * 0.12
-  ), a = de(
+  ), a = fe(
     i + (255 - i) * 0.28,
     n + (255 - n) * 0.32,
     s + (255 - s) * 0.08
   );
   return { accent: r, brandAccent: a };
 }
-const zt = {
+const At = {
   destructive: "danger",
   destructiveForeground: "dangerForeground",
   primaryColor: "primary",
   secondaryColor: "secondary"
-}, No = typeof import.meta < "u" && !0;
-function At(e, t, i) {
+}, jo = typeof import.meta < "u" && !0;
+function Dt(e, t, i) {
   for (const n of Object.keys(t))
-    zt[n] && console.warn(`[fewui] theme "${e}" (${i}): "${n}" kaldırıldı, "${zt[n]}" kullanın.`);
+    At[n] && console.warn(`[fewui] theme "${e}" (${i}): "${n}" kaldırıldı, "${At[n]}" kullanın.`);
 }
 function J(e) {
   var r, a;
   if (!e || typeof e != "object" || !e.id)
     throw new Error("[fewui] defineTheme: `id` zorunlu.");
-  const t = e.extends, i = e.preset || {}, n = Ft(t == null ? void 0 : t.preset.tokens.light, (r = i.tokens) == null ? void 0 : r.light), s = Ft(t == null ? void 0 : t.preset.tokens.dark, (a = i.tokens) == null ? void 0 : a.dark);
-  return No && (At(e.id, n, "light"), At(e.id, s, "dark")), {
+  const t = e.extends, i = e.preset || {}, n = zt(t == null ? void 0 : t.preset.tokens.light, (r = i.tokens) == null ? void 0 : r.light), s = zt(t == null ? void 0 : t.preset.tokens.dark, (a = i.tokens) == null ? void 0 : a.dark);
+  return jo && (Dt(e.id, n, "light"), Dt(e.id, s, "dark")), {
     id: String(e.id),
     label: e.label || String(e.id),
     description: e.description || "",
@@ -7111,7 +7173,7 @@ function J(e) {
     css: e.css || {}
   };
 }
-function gu(e, t = {}) {
+function bu(e, t = {}) {
   return J({
     id: e.id,
     label: e.label,
@@ -7122,10 +7184,10 @@ function gu(e, t = {}) {
     defaults: t.defaults
   });
 }
-function ei(e) {
+function ri(e) {
   return !!(e && typeof e == "object" && "id" in e && "preset" in e && e.preset && typeof e.preset == "object" && "tokens" in e.preset);
 }
-const jo = {
+const Go = {
   iconType: "light",
   buttonRounded: "lg",
   controlSize: "md",
@@ -7135,7 +7197,7 @@ const jo = {
   dateRangeFormat: "d MMM yyyy",
   timeFormat: "HH:mm",
   dialogMaxWidth: "sm"
-}, Go = {
+}, Ho = {
   fonts: {
     body: "Inter, ui-sans-serif, system-ui, sans-serif",
     heading: "Inter, ui-sans-serif, system-ui, sans-serif"
@@ -7258,17 +7320,17 @@ const jo = {
       uiScrollbarThumbHover: "color-mix(in oklab, var(--foreground) 44%, transparent)"
     }
   }
-}, ti = J({
+}, ni = J({
   id: "web",
   label: "Web",
   description: "Restta panel — opak yüzeyler, Inter, geniş radius.",
-  defaults: jo,
-  preset: Go,
+  defaults: Go,
+  preset: Ho,
   css: {
     color: "fewui/themes/web/color.css",
     styles: "fewui/themes/web/styles.css"
   }
-}), Ho = {
+}), Wo = {
   iconType: "light",
   buttonRounded: "lg",
   controlSize: "md",
@@ -7278,7 +7340,7 @@ const jo = {
   dateRangeFormat: "d MMM yyyy",
   timeFormat: "HH:mm",
   dialogMaxWidth: "sm"
-}, Wo = {
+}, Uo = {
   fonts: {
     body: "-apple-system, BlinkMacSystemFont, system-ui, sans-serif",
     heading: "-apple-system, BlinkMacSystemFont, system-ui, sans-serif"
@@ -7303,13 +7365,13 @@ const jo = {
     },
     dark: {}
   }
-}, Uo = J({
+}, qo = J({
   id: "liquidglass",
   label: "Liquid Glass",
   description: "iOS native — opak grouped yüzeyler; cam chrome / popover / kontrol.",
-  extends: ti,
-  defaults: Ho,
-  preset: Wo,
+  extends: ni,
+  defaults: Wo,
+  preset: Uo,
   css: {
     color: "fewui/themes/liquidglass/color.css",
     styles: "fewui/themes/liquidglass/styles.css",
@@ -7317,7 +7379,7 @@ const jo = {
       ios: "fewui/themes/liquidglass/platform/ios.css"
     }
   }
-}), qo = {
+}), Yo = {
   iconType: "light",
   buttonRounded: "full",
   controlSize: "md",
@@ -7327,7 +7389,7 @@ const jo = {
   dateRangeFormat: "d MMM yyyy",
   timeFormat: "HH:mm",
   dialogMaxWidth: "sm"
-}, Yo = {
+}, Ko = {
   fonts: {
     body: "Roboto, ui-sans-serif, system-ui, sans-serif",
     heading: "Roboto, ui-sans-serif, system-ui, sans-serif"
@@ -7459,12 +7521,12 @@ const jo = {
       chartForeground: "#381e72"
     }
   }
-}, Ko = J({
+}, Zo = J({
   id: "android",
   label: "Android",
   description: "Material 3 — Roboto, surface containers, filled/tonal buttons, elevated cards.",
-  defaults: qo,
-  preset: Yo,
+  defaults: Yo,
+  preset: Ko,
   css: {
     color: "fewui/themes/android/color.css",
     styles: "fewui/themes/android/styles.css",
@@ -7472,7 +7534,7 @@ const jo = {
       android: "fewui/themes/android/platform/android.css"
     }
   }
-}), Zo = {
+}), Qo = {
   iconType: "light",
   buttonRounded: "lg",
   controlSize: "md",
@@ -7482,7 +7544,7 @@ const jo = {
   dateRangeFormat: "d MMM yyyy",
   timeFormat: "HH:mm",
   dialogMaxWidth: "md"
-}, Qo = {
+}, Xo = {
   fonts: {
     body: "Poppins, ui-sans-serif, system-ui, sans-serif",
     heading: "Poppins, ui-sans-serif, system-ui, sans-serif"
@@ -7566,17 +7628,17 @@ const jo = {
       ring: "var(--base-500)"
     }
   }
-}, Xo = J({
+}, Jo = J({
   id: "landing",
   label: "Landing",
   description: "Restta.com tenant siteleri — Poppins, cam kartlar, turuncu marka.",
-  defaults: Zo,
-  preset: Qo,
+  defaults: Qo,
+  preset: Xo,
   css: {
     color: "fewui/themes/landing/color.css",
     styles: "fewui/themes/landing/styles.css"
   }
-}), Jo = {
+}), el = {
   iconType: "light",
   buttonRounded: "lg",
   controlSize: "md",
@@ -7586,7 +7648,7 @@ const jo = {
   dateRangeFormat: "d MMM yyyy",
   timeFormat: "HH:mm",
   dialogMaxWidth: "md"
-}, el = {
+}, tl = {
   fonts: {
     body: "Inter, ui-sans-serif, system-ui, sans-serif",
     heading: "Inter, ui-sans-serif, system-ui, sans-serif"
@@ -7673,47 +7735,47 @@ const jo = {
       ring: "#818cf8"
     }
   }
-}, tl = J({
+}, il = J({
   id: "fewui",
   label: "Fewui",
   description: "fewui.com — indigo marka, koyu marketing kabuğu.",
-  defaults: Jo,
-  preset: el,
+  defaults: el,
+  preset: tl,
   css: {
     color: "fewui/themes/fewui/color.css",
     styles: "fewui/themes/fewui/styles.css"
   }
-}), Te = "web", ge = /* @__PURE__ */ new Map();
-function il(e) {
-  if (!ei(e))
-    throw new Error("[fewui] registerTheme: geçerli bir tema paketi bekleniyor (defineTheme).");
-  return ge.set(e.id, e), e;
-}
-for (const e of [ti, Uo, Ko, Xo, tl])
-  il(e);
+}), Ce = "web", ye = /* @__PURE__ */ new Map();
 function rl(e) {
-  return ge.get(String(e || "").trim()) ?? null;
+  if (!ri(e))
+    throw new Error("[fewui] registerTheme: geçerli bir tema paketi bekleniyor (defineTheme).");
+  return ye.set(e.id, e), e;
+}
+for (const e of [ni, qo, Zo, Jo, il])
+  rl(e);
+function nl(e) {
+  return ye.get(String(e || "").trim()) ?? null;
 }
 function yu() {
-  return [...ge.values()];
+  return [...ye.values()];
 }
-function $e(e) {
-  if (ei(e)) return e;
-  const t = rl(
+function Ve(e) {
+  if (ri(e)) return e;
+  const t = nl(
     /** @type {string} */
-    e || Te
+    e || Ce
   );
-  return t || (typeof import.meta < "u" && console.warn(`[fewui] Bilinmeyen tema "${e}", "${Te}" kullanılıyor.`), /** @type {ThemePackage} */
-  ge.get(Te));
+  return t || (typeof import.meta < "u" && console.warn(`[fewui] Bilinmeyen tema "${e}", "${Ce}" kullanılıyor.`), /** @type {ThemePackage} */
+  ye.get(Ce));
 }
-function bu(e) {
-  return `fewui/themes/${$e(e).id}.css`;
+function vu(e) {
+  return `fewui/themes/${Ve(e).id}.css`;
 }
 const ie = /* @__PURE__ */ new WeakMap();
-function Ve(e) {
+function Ne(e) {
   return typeof document > "u" ? null : e ? typeof e == "string" ? document.querySelector(e) : e : document.documentElement;
 }
-function nl(e, t) {
+function sl(e, t) {
   if (!e || typeof e != "object") return {};
   if ("light" in e || "dark" in e) {
     const i = (
@@ -7730,16 +7792,16 @@ function nl(e, t) {
     e
   );
 }
-function Ne(e, t = {}) {
-  const i = $e(e), n = t.mode === "dark" ? "dark" : "light";
-  return { ...t.inline ? Eo(i, n) : Qt(i.preset.fonts), ...nl(t.overrides, n) };
+function je(e, t = {}) {
+  const i = Ve(e), n = t.mode === "dark" ? "dark" : "light";
+  return { ...t.inline ? $o(i, n) : ei(i.preset.fonts), ...sl(t.overrides, n) };
 }
-function sl(e, t = {}) {
-  const i = Ve(t.root);
+function al(e, t = {}) {
+  const i = Ne(t.root);
   if (!i) return {};
-  const n = $e(e), s = t.mode ?? (i.classList.contains("dark") ? "dark" : "light");
+  const n = Ve(e), s = t.mode ?? (i.classList.contains("dark") ? "dark" : "light");
   i.classList.toggle("dark", s === "dark");
-  const r = !!t.inline, a = Ne(n, { mode: s, inline: r, overrides: t.overrides }), u = ie.get(i);
+  const r = !!t.inline, a = je(n, { mode: s, inline: r, overrides: t.overrides }), u = ie.get(i);
   if (u)
     for (const l of u.keys)
       l in a || i.style.removeProperty(l);
@@ -7747,18 +7809,18 @@ function sl(e, t = {}) {
     i.style.setProperty(l, c);
   return ie.set(i, { theme: n, inline: r, overrides: t.overrides, keys: Object.keys(a) }), a;
 }
-function vu(e, t) {
-  const i = Ve(t);
+function ku(e, t) {
+  const i = Ne(t);
   if (!i) return;
   const n = ie.get(i);
   if (n) {
-    sl(n.theme, { mode: e, root: i, inline: n.inline, overrides: n.overrides });
+    al(n.theme, { mode: e, root: i, inline: n.inline, overrides: n.overrides });
     return;
   }
   i.classList.toggle("dark", e === "dark");
 }
-function ku(e) {
-  const t = Ve(e);
+function Su(e) {
+  const t = Ne(e);
   if (!t) return;
   const i = ie.get(t);
   if (i) {
@@ -7766,21 +7828,21 @@ function ku(e) {
     ie.delete(t);
   }
 }
-function Su(e, t = {}) {
-  const i = Ne(e, t);
+function xu(e, t = {}) {
+  const i = je(e, t);
   return {
     classAttr: t.mode === "dark" ? "dark" : "",
     styleAttr: Object.entries(i).map(([n, s]) => `${n}: ${s}`).join("; ")
   };
 }
-function xu(e, t = {}) {
-  const i = Ne(e, t), n = [], s = Object.entries(i).map(([u, l]) => `${u}: ${l} !important`).join("; ");
+function wu(e, t = {}) {
+  const i = je(e, t), n = [], s = Object.entries(i).map(([u, l]) => `${u}: ${l} !important`).join("; ");
   s && n.push(`:root, html, html.dark { ${s} }`);
   const r = i["--font-sans"], a = i["--font-heading"] || r;
   return r && n.push(`html, body { font-family: ${r} !important; }`), a && n.push(`h1, h2, h3, h4, h5, h6 { font-family: ${a} !important; }`), n.join(`
 `);
 }
-function wu(e) {
+function _u(e) {
   if (!e || typeof e != "object") return {};
   const t = {}, i = /* @__PURE__ */ new Set([
     "mode",
@@ -7798,29 +7860,29 @@ function wu(e) {
   for (const [u, l] of [["destructive", "danger"], ["destructiveForeground", "dangerForeground"]])
     u in t && (t[l] ?? (t[l] = t[u]), delete t[u]);
   const n = e.primaryColor || e.primary;
-  n && (t.primary = String(n), t.primaryForeground ?? (t.primaryForeground = Vo(t.primary)), t.ring ?? (t.ring = `color-mix(in oklab, ${t.primary} 55%, transparent)`));
+  n && (t.primary = String(n), t.primaryForeground ?? (t.primaryForeground = No(t.primary)), t.ring ?? (t.ring = `color-mix(in oklab, ${t.primary} 55%, transparent)`));
   const s = e.secondaryColor || e.secondary;
   s && (t.secondary = String(s)), e.baseColor && typeof e.baseColor == "object" && (t.base = { ...e.baseColor });
   const r = e.bodyFontFamily || e.fontFamily;
-  r && (t["--font-sans"] = ue(String(r)));
+  r && (t["--font-sans"] = ce(String(r)));
   const a = e.headingFontFamily || r;
-  if (a && (t["--font-heading"] = ue(String(a))), e.colors && typeof e.colors == "object")
+  if (a && (t["--font-heading"] = ce(String(a))), e.colors && typeof e.colors == "object")
     for (const [u, l] of Object.entries(e.colors))
       l != null && l !== "" && (t[u] = String(l));
   return t;
 }
-function _u(e, t = {}) {
+function Tu(e, t = {}) {
   if (!e || typeof e != "object") return e;
   const i = e.primaryColor || e.primary;
   if (!i) return e;
-  const n = Jt(String(i)), s = { ...e.colors && typeof e.colors == "object" ? e.colors : {} };
+  const n = ii(String(i)), s = { ...e.colors && typeof e.colors == "object" ? e.colors : {} };
   return (t.force || !s["brand-accent"]) && (s["brand-accent"] = n.brandAccent), {
     ...e,
     accent: t.force || !e.accent ? n.accent : e.accent,
     colors: s
   };
 }
-const al = {
+const ol = {
   name: "TabTrigger",
   mixins: [O],
   inheritAttrs: !1,
@@ -7872,7 +7934,7 @@ const al = {
     }
   },
   computed: {
-    ...pe(),
+    ...be(),
     triggerKind() {
       return this.uiTabs && this.uiTabs.variant === "segmented" ? "segmented" : "line";
     },
@@ -7913,7 +7975,7 @@ const al = {
     },
     triggerClass() {
       const e = this.triggerKind;
-      return L(
+      return z(
         "ui-tab-trigger",
         e === "segmented" ? "ui-tab-trigger--segmented" : "ui-tab-trigger--line",
         this.isSelected && (e === "segmented" ? "ui-tab-trigger--segmented-selected" : "ui-tab-trigger--line-selected"),
@@ -7930,16 +7992,16 @@ const al = {
       this.disabled || !this.uiTabs || this.uiTabs.setValue(this.value);
     }
   }
-}, ol = ["id", "aria-selected", "aria-controls", "aria-haspopup", "aria-expanded", "tabindex", "disabled"], ll = {
+}, ll = ["id", "aria-selected", "aria-controls", "aria-haspopup", "aria-expanded", "tabindex", "disabled"], ul = {
   key: 0,
   class: "ui-tab-trigger-icon",
   "aria-hidden": "true"
-}, ul = {
+}, dl = {
   key: 1,
   class: "ui-tab-trigger-badge",
   "aria-hidden": "true"
 };
-function dl(e, t, i, n, s, r) {
+function cl(e, t, i, n, s, r) {
   const a = x("ui-icon"), u = x("ui-badge");
   return o(), d("button", {
     type: "button",
@@ -7954,8 +8016,8 @@ function dl(e, t, i, n, s, r) {
     disabled: i.disabled,
     onClick: t[0] || (t[0] = (...l) => r.select && r.select(...l))
   }, [
-    i.icon ? (o(), d("span", ll, [
-      y(a, {
+    i.icon ? (o(), d("span", ul, [
+      b(a, {
         name: i.icon,
         type: r.tabIconType,
         size: r.tabIconSize
@@ -7968,8 +8030,8 @@ function dl(e, t, i, n, s, r) {
       },
       [
         p(e.$slots, "default", {}, () => [
-          P(
-            b(i.label),
+          B(
+            y(i.label),
             1
             /* TEXT */
           )
@@ -7978,15 +8040,15 @@ function dl(e, t, i, n, s, r) {
       2
       /* CLASS */
     ),
-    r.showBadge ? (o(), d("span", ul, [
-      y(u, {
+    r.showBadge ? (o(), d("span", dl, [
+      b(u, {
         variant: "solid",
         size: "sm",
         truncate: !1
       }, {
         default: w(() => [
-          P(
-            b(r.badgeLabel),
+          B(
+            y(r.badgeLabel),
             1
             /* TEXT */
           )
@@ -7995,39 +8057,39 @@ function dl(e, t, i, n, s, r) {
         /* STABLE */
       })
     ])) : f("v-if", !0)
-  ], 10, ol);
+  ], 10, ll);
 }
-const Tu = /* @__PURE__ */ T(al, [["render", dl], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/TabTrigger.vue"]]), ii = 300, Dt = { info: 0, success: 1, warning: 2, danger: 3 }, V = Ae({
+const Cu = /* @__PURE__ */ T(ol, [["render", cl], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/TabTrigger.vue"]]), si = 300, Bt = { info: 0, success: 1, warning: 2, danger: 3 }, V = De({
   /** @type {ToastItem[]} */
   items: []
 });
 let ae = 0, W = null, te = null;
-function ye() {
+function ve() {
   te && (clearTimeout(te), te = null);
 }
-function ri() {
+function ai() {
   if (W == null) return null;
   const e = V.items.find((t) => t.id === W);
   return !e || e.sealed ? (W = null, null) : e;
 }
-function ni() {
-  ye();
-  const e = ri();
+function oi() {
+  ve();
+  const e = ai();
   e && (e.sealed = !0), W = null;
 }
 function Pt() {
-  ye(), te = setTimeout(() => {
-    te = null, ni();
-  }, ii);
+  ve(), te = setTimeout(() => {
+    te = null, oi();
+  }, si);
 }
-function ce(e) {
-  e._timer && (clearTimeout(e._timer), e._timer = null), e.duration > 0 && (e._timer = setTimeout(() => je(e.id), e.duration));
+function he(e) {
+  e._timer && (clearTimeout(e._timer), e._timer = null), e.duration > 0 && (e._timer = setTimeout(() => Ge(e.id), e.duration));
 }
-function si(e, t) {
-  const i = Dt[e] ?? 0;
-  return (Dt[t] ?? 0) > i ? t : e;
+function li(e, t) {
+  const i = Bt[e] ?? 0;
+  return (Bt[t] ?? 0) > i ? t : e;
 }
-function Bt(e, t) {
+function Ot(e, t) {
   return {
     id: t,
     title: e.title ?? "",
@@ -8035,15 +8097,15 @@ function Bt(e, t) {
     color: e.color ?? "info"
   };
 }
-function Cu(e = {}) {
+function Iu(e = {}) {
   const t = Date.now(), i = e.group !== !1, n = e.duration !== void 0 ? e.duration : 4500, s = e.color ?? "info";
   if (i) {
-    const l = ri();
-    if (l && t - l.lastAt <= ii)
-      return ae += 1, l.children.push(Bt(e, ae)), l.color = si(l.color, s), l.lastAt = t, n === 0 || l.duration === 0 ? l.duration = 0 : l.duration = Math.max(l.duration, n), ce(l), Pt(), l.id;
+    const l = ai();
+    if (l && t - l.lastAt <= si)
+      return ae += 1, l.children.push(Ot(e, ae)), l.color = li(l.color, s), l.lastAt = t, n === 0 || l.duration === 0 ? l.duration = 0 : l.duration = Math.max(l.duration, n), he(l), Pt(), l.id;
   }
-  ni(), ae += 1;
-  const r = ae, a = Bt(e, r), u = {
+  oi(), ae += 1;
+  const r = ae, a = Ot(e, r), u = {
     id: r,
     title: a.title,
     description: a.description,
@@ -8055,44 +8117,44 @@ function Cu(e = {}) {
     lastAt: t,
     _timer: null
   };
-  return V.items.push(u), i && (W = r, Pt()), ce(u), r;
+  return V.items.push(u), i && (W = r, Pt()), he(u), r;
 }
-function cl(e, t) {
+function fl(e, t) {
   const i = V.items.find((n) => n.id === e);
-  !i || i.children.length < 2 || (i.expanded = t === !0, i.expanded ? i._timer && (clearTimeout(i._timer), i._timer = null) : ce(i));
+  !i || i.children.length < 2 || (i.expanded = t === !0, i.expanded ? i._timer && (clearTimeout(i._timer), i._timer = null) : he(i));
 }
-function fl(e) {
+function hl(e) {
   const t = V.items.find((i) => i.id === e);
-  !t || t.children.length < 2 || cl(e, !t.expanded);
+  !t || t.children.length < 2 || fl(e, !t.expanded);
 }
-function je(e) {
+function Ge(e) {
   const t = V.items.findIndex((n) => n.id === e);
   if (t === -1) return;
   const i = V.items[t];
-  i._timer && (clearTimeout(i._timer), i._timer = null), W === e && (ye(), W = null), V.items.splice(t, 1);
+  i._timer && (clearTimeout(i._timer), i._timer = null), W === e && (ve(), W = null), V.items.splice(t, 1);
 }
-function hl(e, t) {
+function ml(e, t) {
   const i = V.items.find((r) => r.id === e);
   if (!i) return;
   const n = i.children.findIndex((r) => r.id === t);
   if (n === -1) return;
   if (i.children.splice(n, 1), i.children.length === 0) {
-    je(e);
+    Ge(e);
     return;
   }
   const s = i.children[0];
   i.title = s.title, i.description = s.description, i.color = i.children.reduce(
-    (r, a) => si(r, a.color),
+    (r, a) => li(r, a.color),
     s.color
-  ), i.children.length < 2 && (i.expanded = !1, ce(i));
+  ), i.children.length < 2 && (i.expanded = !1, he(i));
 }
-function Iu() {
-  ye(), W = null;
+function Lu() {
+  ve(), W = null;
   for (const e of V.items)
     e._timer && clearTimeout(e._timer);
   V.items.splice(0);
 }
-const Ot = {
+const Mt = {
   info: "circle-info",
   success: "circle-check",
   warning: "triangle-exclamation",
@@ -8102,7 +8164,7 @@ const Ot = {
   success: "text-success",
   warning: "text-warning",
   danger: "text-danger"
-}, ml = {
+}, pl = {
   name: "Toast",
   computed: {
     items() {
@@ -8113,9 +8175,9 @@ const Ot = {
     }
   },
   methods: {
-    queueDismissToast: je,
-    queueDismissToastChild: hl,
-    toggleToastExpanded: fl,
+    queueDismissToast: Ge,
+    queueDismissToastChild: ml,
+    toggleToastExpanded: hl,
     isGrouped(e) {
       return Array.isArray(e.children) && e.children.length > 1;
     },
@@ -8156,7 +8218,7 @@ const Ot = {
       this.isGrouped(e) && this.toggleToastExpanded(e.id);
     },
     iconFor(e) {
-      return Ot[e] || Ot.info;
+      return Mt[e] || Mt.info;
     },
     iconToneClass(e) {
       return Rt[e] || Rt.info;
@@ -8194,24 +8256,24 @@ const Ot = {
       };
     }
   }
-}, pl = { class: "ui-toast-host" }, gl = ["aria-label"], yl = ["onClick", "onKeydown"], bl = { class: "ui-alert-body min-w-0 flex-1" }, vl = {
+}, gl = { class: "ui-toast-host" }, bl = ["aria-label"], yl = ["onClick", "onKeydown"], vl = { class: "ui-alert-body min-w-0 flex-1" }, kl = {
   key: 0,
   class: "ui-alert-title"
-}, kl = {
+}, Sl = {
   key: 1,
   class: "ui-alert-description ui-text-default"
-}, Sl = ["onClick", "onKeydown"], xl = { class: "ui-alert-body min-w-0 flex-1" }, wl = {
+}, xl = ["onClick", "onKeydown"], wl = { class: "ui-alert-body min-w-0 flex-1" }, _l = {
   key: 0,
   class: "ui-alert-title"
-}, _l = {
+}, Tl = {
   key: 1,
   class: "ui-alert-description ui-text-default"
 };
-function Tl(e, t, i, n, s, r) {
+function Cl(e, t, i, n, s, r) {
   const a = x("ui-icon"), u = x("ui-button");
-  return o(), _(fe, { to: "body" }, [
-    h("div", pl, [
-      y(pi, {
+  return o(), _(me, { to: "body" }, [
+    h("div", gl, [
+      b(yi, {
         name: "ui-toast",
         tag: "div",
         class: "ui-toast-stack pointer-events-none"
@@ -8234,14 +8296,14 @@ function Tl(e, t, i, n, s, r) {
                 (o(!0), d(
                   A,
                   null,
-                  G(l.children, (c) => (o(), d("div", F({
+                  G(l.children, (c) => (o(), d("div", L({
                     key: c.id,
                     class: [r.childToastClasses(c), "pointer-events-auto"]
                   }, { ref_for: !0 }, r.childA11y(c), {
                     onClick: (g) => r.onToastClick(l),
                     onKeydown: [
-                      H(z((g) => r.onToastClick(l), ["prevent"]), ["enter"]),
-                      H(z((g) => r.onToastClick(l), ["prevent"]), ["space"])
+                      H(F((g) => r.onToastClick(l), ["prevent"]), ["enter"]),
+                      H(F((g) => r.onToastClick(l), ["prevent"]), ["space"])
                     ]
                   }), [
                     h(
@@ -8251,7 +8313,7 @@ function Tl(e, t, i, n, s, r) {
                         "aria-hidden": "true"
                       },
                       [
-                        y(a, {
+                        b(a, {
                           name: r.iconFor(c.color),
                           size: "sm"
                         }, null, 8, ["name"])
@@ -8259,23 +8321,23 @@ function Tl(e, t, i, n, s, r) {
                       2
                       /* CLASS */
                     ),
-                    h("div", bl, [
+                    h("div", vl, [
                       c.title ? (o(), d(
                         "p",
-                        vl,
-                        b(c.title),
+                        kl,
+                        y(c.title),
                         1
                         /* TEXT */
                       )) : f("v-if", !0),
                       c.description ? (o(), d(
                         "p",
-                        kl,
-                        b(c.description),
+                        Sl,
+                        y(c.description),
                         1
                         /* TEXT */
                       )) : f("v-if", !0)
                     ]),
-                    y(u, {
+                    b(u, {
                       "native-type": "button",
                       variant: "ghost",
                       color: "secondary",
@@ -8284,13 +8346,13 @@ function Tl(e, t, i, n, s, r) {
                       class: "ui-toast-dismiss shrink-0",
                       "prefix-icon": "xmark",
                       "aria-label": r.dismissLabel,
-                      onClick: z((g) => r.queueDismissToastChild(l.id, c.id), ["stop"])
+                      onClick: F((g) => r.queueDismissToastChild(l.id, c.id), ["stop"])
                     }, null, 8, ["aria-label", "onClick"])
                   ], 16, yl))),
                   128
                   /* KEYED_FRAGMENT */
                 ))
-              ], 8, gl)) : (o(), d(
+              ], 8, bl)) : (o(), d(
                 A,
                 { key: 1 },
                 [
@@ -8312,13 +8374,13 @@ function Tl(e, t, i, n, s, r) {
                         128
                         /* KEYED_FRAGMENT */
                       )),
-                      h("div", F({
+                      h("div", L({
                         class: [r.toastClasses(l), "pointer-events-auto"]
                       }, { ref_for: !0 }, r.toastA11y(l), {
                         onClick: (c) => r.onToastClick(l),
                         onKeydown: [
-                          H(z((c) => r.onToastClick(l), ["prevent"]), ["enter"]),
-                          H(z((c) => r.onToastClick(l), ["prevent"]), ["space"])
+                          H(F((c) => r.onToastClick(l), ["prevent"]), ["enter"]),
+                          H(F((c) => r.onToastClick(l), ["prevent"]), ["space"])
                         ]
                       }), [
                         h(
@@ -8328,7 +8390,7 @@ function Tl(e, t, i, n, s, r) {
                             "aria-hidden": "true"
                           },
                           [
-                            y(a, {
+                            b(a, {
                               name: r.iconFor(l.color),
                               size: "sm"
                             }, null, 8, ["name"])
@@ -8336,23 +8398,23 @@ function Tl(e, t, i, n, s, r) {
                           2
                           /* CLASS */
                         ),
-                        h("div", xl, [
+                        h("div", wl, [
                           r.collapsedTitle(l) ? (o(), d(
                             "p",
-                            wl,
-                            b(r.collapsedTitle(l)),
+                            _l,
+                            y(r.collapsedTitle(l)),
                             1
                             /* TEXT */
                           )) : f("v-if", !0),
                           r.collapsedDescription(l) ? (o(), d(
                             "p",
-                            _l,
-                            b(r.collapsedDescription(l)),
+                            Tl,
+                            y(r.collapsedDescription(l)),
                             1
                             /* TEXT */
                           )) : f("v-if", !0)
                         ]),
-                        y(u, {
+                        b(u, {
                           "native-type": "button",
                           variant: "ghost",
                           color: "secondary",
@@ -8361,9 +8423,9 @@ function Tl(e, t, i, n, s, r) {
                           class: "ui-toast-dismiss shrink-0",
                           "prefix-icon": "xmark",
                           "aria-label": r.dismissLabel,
-                          onClick: z((c) => r.queueDismissToast(l.id), ["stop"])
+                          onClick: F((c) => r.queueDismissToast(l.id), ["stop"])
                         }, null, 8, ["aria-label", "onClick"])
-                      ], 16, Sl)
+                      ], 16, xl)
                     ],
                     2
                     /* CLASS */
@@ -8383,7 +8445,7 @@ function Tl(e, t, i, n, s, r) {
     ])
   ]);
 }
-const Fu = /* @__PURE__ */ T(ml, [["render", Tl], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/Toast.vue"]]), Lu = {
+const zu = /* @__PURE__ */ T(pl, [["render", Cl], ["__file", "/Users/serkan/Projects/restta/ui/packages/ui/src/components/Toast.vue"]]), Fu = {
   ui: {
     button: {
       loading: "Loading"
@@ -8502,7 +8564,7 @@ const Fu = /* @__PURE__ */ T(ml, [["render", Tl], ["__file", "/Users/serkan/Proj
       more: "+{count}"
     }
   }
-}, zu = {
+}, Au = {
   ui: {
     button: {
       /** Yükleme sırasında ekran okuyucu / varsayılan `loading-text` */
@@ -8628,9 +8690,9 @@ const Fu = /* @__PURE__ */ T(ml, [["render", Tl], ["__file", "/Users/serkan/Proj
       more: "+{count}"
     }
   }
-}, Cl = "fewui-local-fonts", Il = "fewui-local-fonts-catalog-preview";
-let Mt = !1;
-const Fl = Object.freeze([
+}, Il = "fewui-local-fonts", Ll = "fewui-local-fonts-catalog-preview";
+let Et = !1;
+const zl = Object.freeze([
   // Sans — readable body / modern UI
   { value: "Inter", label: "Inter" },
   { value: "Poppins", label: "Poppins" },
@@ -8666,63 +8728,63 @@ const Fl = Object.freeze([
   { value: "Caveat", label: "Caveat", fallback: "cursive" },
   { value: "Satisfy", label: "Satisfy", fallback: "cursive" }
 ]);
-function Ll(e, t = "sans-serif") {
+function Fl(e, t = "sans-serif") {
   const i = String(e || "").trim();
   if (!i) return "";
   const s = /\s/.test(i) && !/^["'].*["']$/.test(i) ? `"${i.replace(/"/g, "")}"` : i, r = String(t || "sans-serif").trim() || "sans-serif";
   return `${s}, ${r}`;
 }
-function Au() {
-  return Fl.map((e) => ({
+function Du() {
+  return zl.map((e) => ({
     value: e.value,
     label: e.label,
-    fontFamily: Ll(e.value, e.fallback)
+    fontFamily: Fl(e.value, e.fallback)
   }));
 }
-function Du(e = {}) {
+function Bu(e = {}) {
   const t = String(e.bodyFontFamily || e.fontFamily || "").trim(), i = String(e.headingFontFamily || t).trim();
   return { body: t, heading: i };
 }
 function Pu(e) {
   return null;
 }
-function Bu(e = {}) {
+function Ou(e = {}) {
   return "";
 }
-function Ou(e = {}, t = {}) {
+function Mu(e = {}, t = {}) {
   var i;
-  return typeof document > "u" ? null : ((i = document.getElementById(t.id || Cl)) == null ? void 0 : i.getAttribute("href")) || "local";
+  return typeof document > "u" ? null : ((i = document.getElementById(t.id || Il)) == null ? void 0 : i.getAttribute("href")) || "local";
 }
 function Ru(e = {}) {
   var t;
-  return typeof document > "u" ? null : Mt && !e.force ? ((t = document.getElementById(e.id || Il)) == null ? void 0 : t.getAttribute("href")) || "local" : (Mt = !0, "local");
+  return typeof document > "u" ? null : Et && !e.force ? ((t = document.getElementById(e.id || Ll)) == null ? void 0 : t.getAttribute("href")) || "local" : (Et = !0, "local");
 }
-function Mu(e, t = {}) {
+function Eu(e, t = {}) {
   if (!e || typeof e != "object" || !e.primary) return e;
-  const i = Jt(String(e.primary)), n = { ...e };
+  const i = ii(String(e.primary)), n = { ...e };
   return (t.force || !n.accent) && (n.accent = i.accent), (t.force || !n.brandAccent) && (n.brandAccent = i.brandAccent), n;
 }
-const Eu = "few", zl = "#1B5CFF", $u = "#ffffff", Et = {
+const $u = "few", Al = "#1B5CFF", Vu = "#ffffff", $t = {
   50: "#F0F5FF",
   100: "#DBE7FF",
   200: "#BDD4FF",
   300: "#90B6FF",
   400: "#5A8FFF",
   500: "#2F6BFF",
-  600: zl,
+  600: Al,
   700: "#1447DB",
   800: "#163AB0",
   900: "#18358A",
   950: "#102054"
 };
-function Vu() {
+function Nu() {
   return {
-    light: Et[600],
-    dark: Et[600]
+    light: $t[600],
+    dark: $t[600]
   };
 }
-const ai = "fewui-theme-custom-css";
-function Al(e, t = ai) {
+const ui = "fewui-theme-custom-css";
+function Dl(e, t = ui) {
   if (typeof document > "u") return;
   const i = String(e || "").trim();
   let n = document.getElementById(t);
@@ -8732,132 +8794,134 @@ function Al(e, t = ai) {
   }
   n || (n = document.createElement("style"), n.id = t, document.head.appendChild(n)), n.textContent = i;
 }
-function Nu(e = ai) {
-  Al("", e);
+function ju(e = ui) {
+  Dl("", e);
 }
 export {
   Ru as $,
-  Ml as A,
-  It as B,
-  Fo as C,
-  ai as D,
-  Zl as E,
-  Et as F,
-  Fl as G,
-  du as H,
-  Xl as I,
-  cu as J,
-  zo as K,
-  iu as L,
-  Io as M,
-  fu as N,
-  Tu as O,
-  eu as P,
-  hu as Q,
-  su as R,
-  Lo as S,
-  ii as T,
-  wa as U,
-  Fu as V,
-  Ut as W,
-  Be as X,
-  ki as Y,
-  Gi as Z,
+  El as A,
+  Lt as B,
+  zo as C,
+  ui as D,
+  Ql as E,
+  $t as F,
+  zl as G,
+  cu as H,
+  Jl as I,
+  fu as J,
+  Ao as K,
+  ru as L,
+  Lo as M,
+  hu as N,
+  Cu as O,
+  tu as P,
+  mu as Q,
+  au as R,
+  Fo as S,
+  si as T,
+  _a as U,
+  zu as V,
+  qt as W,
+  Oe as X,
+  wi as Y,
+  Ui as Z,
   T as _,
-  El as a,
-  zu as a$,
-  Ou as a0,
-  Al as a1,
-  sl as a2,
-  Bu as a3,
+  $l as a,
+  Bo as a$,
+  Mu as a0,
+  Dl as a1,
+  al as a2,
+  Ou as a3,
   Pu as a4,
-  mu as a5,
-  xu as a6,
-  Su as a7,
-  Nu as a8,
-  Iu as a9,
-  Ee as aA,
-  $o as aB,
-  Vo as aC,
+  pu as a5,
+  wu as a6,
+  xu as a7,
+  ju as a8,
+  Lu as a9,
+  $e as aA,
+  Vo as aB,
+  No as aC,
   Re as aD,
-  Bl as aE,
-  Cu as aF,
-  il as aG,
-  oe as aH,
-  Hl as aI,
-  Nl as aJ,
-  et as aK,
-  Yt as aL,
-  nl as aM,
-  $e as aN,
-  U as aO,
-  he as aP,
-  Du as aQ,
-  me as aR,
-  Eo as aS,
-  Le as aT,
-  cl as aU,
-  Ol as aV,
-  vu as aW,
-  wu as aX,
-  pe as aY,
-  Do as aZ,
-  fl as a_,
-  ku as aa,
-  L as ab,
-  Ne as ac,
-  Vl as ad,
+  Ol as aE,
+  Xt as aF,
+  Iu as aG,
+  rl as aH,
+  oe as aI,
+  Jt as aJ,
+  Wl as aK,
+  jl as aL,
+  tt as aM,
+  Kt as aN,
+  sl as aO,
+  Ve as aP,
+  U as aQ,
+  pe as aR,
+  Bu as aS,
+  ge as aT,
+  $o as aU,
+  Fe as aV,
+  fl as aW,
+  Ml as aX,
+  ku as aY,
+  _u as aZ,
+  be as a_,
+  Su as aa,
+  z as ab,
+  je as ac,
+  Nl as ad,
   q as ae,
   J as af,
-  Jt as ag,
-  je as ah,
-  Lu as ai,
-  pu as aj,
+  ii as ag,
+  Ge as ah,
+  Fu as ai,
+  gu as aj,
   X as ak,
-  gu as al,
-  kn as am,
-  ue as an,
-  Ll as ao,
-  Ul as ap,
-  Vu as aq,
-  bu as ar,
-  rl as as,
-  Au as at,
+  bu as al,
+  wn as am,
+  ce as an,
+  Fl as ao,
+  ql as ap,
+  Nu as aq,
+  vu as ar,
+  nl as as,
+  Du as at,
   re as au,
-  M as av,
-  ei as aw,
+  R as av,
+  ri as aw,
   yu as ax,
-  Ft as ay,
+  zt as ay,
   Pe as az,
-  $l as b,
-  O as b0,
-  Oe as b1,
-  Rl as b2,
-  Mu as b3,
-  _u as b4,
+  Vl as b,
+  hl as b0,
+  Au as b1,
+  O as b2,
+  Me as b3,
+  Rl as b4,
+  Eu as b5,
+  Tu as b6,
   Q as c,
-  dr as d,
-  jl as e,
-  Gl as f,
-  Wl as g,
-  Te as h,
-  Ao as i,
-  ql as j,
-  Yl as k,
-  Me as l,
-  Kl as m,
-  Eu as n,
-  zl as o,
-  $u as p,
-  Ql as q,
-  Jl as r,
-  ru as s,
-  Gt as t,
-  tu as u,
-  nu as v,
-  au as w,
-  lu as x,
-  uu as y,
-  ou as z
+  hr as d,
+  Gl as e,
+  Hl as f,
+  Ul as g,
+  Ce as h,
+  Do as i,
+  Yl as j,
+  Kl as k,
+  Ee as l,
+  Zl as m,
+  $u as n,
+  Al as o,
+  Vu as p,
+  Xl as q,
+  eu as r,
+  nu as s,
+  Ht as t,
+  iu as u,
+  su as v,
+  ou as w,
+  uu as x,
+  du as y,
+  lu as z
 };
-//# sourceMappingURL=custom-css-v6r5L52A.js.map
+//# sourceMappingURL=custom-css-Bo-efet4.js.map

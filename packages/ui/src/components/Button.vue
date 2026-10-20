@@ -10,6 +10,7 @@
       :class="buttonClasses"
       :data-variant="variant"
       :data-color="color"
+      :data-size="resolvedSize"
       :data-loading="loading ? 'true' : undefined"
       :aria-busy="loading ? 'true' : undefined"
       :aria-disabled="isDisabled ? 'true' : undefined"
@@ -56,7 +57,10 @@
             :name="prefixIcon"
           />
         </span>
-        <span :class="textContentClass">
+        <span
+          v-if="hasSlotContent()"
+          :class="textContentClass"
+        >
           <slot />
         </span>
         <span
@@ -96,7 +100,10 @@
             :name="prefixIcon"
           />
         </span>
-        <span :class="textContentClass">
+        <span
+          v-if="hasSlotContent()"
+          :class="textContentClass"
+        >
           <slot />
         </span>
         <span
@@ -119,6 +126,7 @@
     :class="buttonClasses"
     :data-variant="variant"
     :data-color="color"
+    :data-size="resolvedSize"
     :data-loading="loading ? 'true' : undefined"
     :aria-busy="loading ? 'true' : undefined"
     @click="onClick"
@@ -163,7 +171,10 @@
           :name="prefixIcon"
         />
       </span>
-      <span :class="textContentClass">
+      <span
+        v-if="hasSlotContent()"
+        :class="textContentClass"
+      >
         <slot />
       </span>
       <span
@@ -203,7 +214,10 @@
           :name="prefixIcon"
         />
       </span>
-      <span :class="textContentClass">
+      <span
+        v-if="hasSlotContent()"
+        :class="textContentClass"
+      >
         <slot />
       </span>
       <span
@@ -229,7 +243,7 @@ import { resolveThemeDefault } from '../theme/resolve-theme-default.js'
 import { uiDefaultsMixin } from '../theme/ui-defaults.js'
 
 const sizes = ['sm', 'md', 'lg']
-const variants = ['solid', 'outline', 'ghost', 'link', 'nav']
+const variants = ['solid', 'outline', 'ghost', 'muted', 'link', 'nav']
 const colors = ['primary', 'secondary', 'input', 'warning', 'success', 'info', 'danger']
 
 const NATIVE_TYPES = ['button', 'submit', 'reset']
@@ -320,6 +334,15 @@ const VARIANT_COLOR_CLASSES = {
       'shadow-none border-0 bg-transparent text-info hover:bg-info hover:text-info-foreground',
     danger:
       'shadow-none border-0 bg-transparent text-danger hover:bg-danger hover:text-danger-foreground',
+  },
+  /** Yumuşak dolgu — seçili filtre / ikincil vurgu; dolu primary'yi CTA'ya bırakır. */
+  muted: {
+    primary: 'border-0 shadow-none bg-primary/12 text-primary hover:bg-primary/18',
+    secondary: 'border-0 shadow-none bg-muted text-foreground hover:bg-muted/80',
+    warning: 'border-0 shadow-none bg-warning/14 text-warning hover:bg-warning/20',
+    success: 'border-0 shadow-none bg-success/14 text-success hover:bg-success/20',
+    info: 'border-0 shadow-none bg-info/14 text-info hover:bg-info/20',
+    danger: 'border-0 shadow-none bg-danger/14 text-danger hover:bg-danger/20',
   },
   link: {
     primary:
@@ -459,9 +482,7 @@ export default {
       return true
     },
     hasRenderableDefaultSlot() {
-      const slot = this.$slots.default
-      if (!slot) return false
-      return slot().some((vnode) => this.isRenderableVNode(vnode))
+      return this.hasSlotContent()
     },
     isDisabled() {
       return this.disabled || this.loading
@@ -558,6 +579,7 @@ export default {
       return [
         'ui-button ui-control font-sans',
         this.stack ? 'ui-button--stack' : '',
+        this.textAlign === 'left' ? 'ui-button--align-start' : '',
         variantColor,
         sizeOrCubedResolved,
         isBlock ? 'ui-button--block w-full' : '',
@@ -568,6 +590,11 @@ export default {
     },
   },
   methods: {
+    /** Boş metin kabı flex `gap` ile ikonu kaydırır; yalnız ikonlu düğmede basılmaz. */
+    hasSlotContent() {
+      const slot = this.$slots.default
+      return !!slot && slot().some((vnode) => this.isRenderableVNode(vnode))
+    },
     isRenderableVNode(vnode) {
       if (vnode == null || typeof vnode !== 'object') return false
       if (vnode.type === Comment) return false

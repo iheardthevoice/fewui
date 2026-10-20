@@ -18,8 +18,7 @@
 }
 
 html {
-  font-family: var(--font-sans);
-  scrollbar-gutter: stable;
+  @apply font-sans [scrollbar-gutter:stable];
 }
 
 /**
@@ -28,37 +27,31 @@ html {
  */
 html.ui-scroll-lock,
 html.ui-scroll-lock body {
-  overflow: hidden;
-  overscroll-behavior: none;
+  @apply overflow-hidden [overscroll-behavior:none];
 }
 
 *,
 *::before,
 *::after {
-  scrollbar-width: thin;
-  scrollbar-color: var(--ui-scrollbar-thumb) var(--ui-scrollbar-track);
+  @apply [scrollbar-width:thin] [scrollbar-color:var(--ui-scrollbar-thumb)_var(--ui-scrollbar-track)];
 }
 
 ::-webkit-scrollbar {
-  width: var(--ui-scrollbar-size);
-  height: var(--ui-scrollbar-size);
+  @apply w-[var(--ui-scrollbar-size)] h-[var(--ui-scrollbar-size)];
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--ui-scrollbar-track);
+  @apply [background:var(--ui-scrollbar-track)];
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var(--ui-scrollbar-thumb);
-  border-radius: 9999px;
-  border: 2px solid transparent;
-  background-clip: padding-box;
+  @apply [background-color:var(--ui-scrollbar-thumb)] rounded-full [border:2px_solid_transparent] [background-clip:padding-box];
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: var(--ui-scrollbar-thumb-hover);
+  @apply [background-color:var(--ui-scrollbar-thumb-hover)];
 }
 
 ::-webkit-scrollbar-corner {
-  background: var(--ui-scrollbar-track);
+  @apply [background:var(--ui-scrollbar-track)];
 }

@@ -27,6 +27,12 @@ Bu belge **fewui** ile geliştirdiğimiz arayüz dilini, token’ları ve tekrar
 
 Kart gövdesi (`ui-card-body`) varsayılan olarak bu tabanı kullanır.
 
+**Ölçek:** gövde metni 12 / 14 / 16 / 18px (`text-xs` / `text-sm` / `text-base` / `text-lg`). Bu değerlerin arası (ör. 13px, 15px) kullanılmaz. 12px altı yalnız mikro metindir (rozet, sayaç, avatar harfi); 20px üstü yalnız kasıtlı vurgudur (marka, büyük rakam). Vurgu kalınlığı en fazla `font-medium` (500); `font-semibold` ve `font-bold` yoktur.
+
+**Katman sırası:** dialog ve sheet açılınca altta açık kalan popover, dropdown ve select kapanır; arkada etkileşimli kalmazlar. Dialog içinden açılan yüzen katman her zaman dialogun üstündedir. Sıra `src/theme/overlay-stack.js` kaydından gelir (taban: dialog 400, onay 420, popover 450, toast 500).
+
+**Tablo:** gövde hücresindeki metin dar ekranda `...` ile kaybolmaz, satır kırar. Başlık satırı tek satır kalır; sığmayan başlıkta tam metin üzerine gelince görünür.
+
 ---
 
 ## 3. Yüzeyler ve layout
@@ -44,6 +50,8 @@ Kart gövdesi (`ui-card-body`) varsayılan olarak bu tabanı kullanır.
 - **Standart kontrol yüksekliği (md):** `h-9` (36px), metin ~14px/20px, yatay padding ~12px, `rounded-lg` (→ `--radius` preset üzerinden).
 - **Input / Select tek satır kabuğu:** ~36px yükseklik, **`rounded-[22px]`**, `border-transparent`, `bg-surface-input`, odakta `--ui-focus-ring`.
 - **`ui-control-h-*`:** Button ve benzeri `ui-button` için sm / md / lg ölçüleri — **köşe yuvarlaklığı buradan gelir**; MenuItem vb. için ek `rounded-*` sınıfları yazma, `Button`’ın kendi yapısına güvenilir.
+- **Aynı satır, aynı ölçü:** Yan yana duran düğme, segment grubu, input ve select aynı `size` ile aynı yüksekliktedir. Segment grubunda yükseklik dış kutudadır. Düğme grubunun çevresine dikey dolgu veya çerçeve eklenerek iz, yanındaki düğmeden yüksek bırakılmaz.
+- **Uyarı kutusu:** Başlık, açıklama ve alttaki eylem aynı sol kenardadır. Dolu düğmenin iç dolgusu etiketi içeri kaydırmaz. Başlık–açıklama aralığı sıkı, eylem bir adım aşağıdadır. İkincil metin nötr gri değil, uyarının ton karışımıdır.
 
 ---
 
@@ -56,8 +64,14 @@ Kart gövdesi (`ui-card-body`) varsayılan olarak bu tabanı kullanır.
 
 ## 6. Button
 
-- **Variants:** `solid` | `outline` | `ghost` | `link`
-- **Colors:** `primary` | `secondary` | `warning` | `success` | `info`
+- **Variants:** `solid` | `outline` | `ghost` | `link` | `nav`
+- **Colors:** `primary` | `secondary` | `warning` | `success` | `info` | `danger`
+- **Yerleşim değişmezleri** (denetim: `scripts/audit-control-layout.js`):
+  - Sol ve sağ iç boşluk eşittir; içerik varsayılan olarak ortalanır. Düğme kapsayıcısında uzasa da (flex-col, grid hücresi) metin sola kaymaz. Sola yaslama yalnız `text-align="left"` ile (menü, liste, nav).
+  - Metin ve ikonlar düğmenin dikey merkezindedir (±1px). Yükseklik `ui-control-h-*`, satır yüksekliği boyutla birlikte gelir; dışarıdan `h-*`, `py-*`, `leading-*` verilmez.
+  - Yalnız ikonlu düğmede boş metin kabı basılmaz (flex `gap` ikonu kaydırmasın). Kare ikon düğmesi için `cubed`.
+  - Slot içinde satır içi kutu (renk noktası, avatar, rozet) varsa metin kabı kendi içinde dikey ortalanır; ek `inline-flex` sarmalayıcı yeterlidir, hizalama sınıfı gerekmez.
+  - Ölçü / hiza için sınıf yerine prop: tam genişlik `block`, sol hiza `text-align`, boyut `size`, pill `rounded`.
 - **`rounded` prop:** Ekstra olarak `rounded-full` (pill) — yalnızca prop ile; rastgele `rounded-xl` ile ezme.
 - **Metin yoğunluğu (outline / ghost):** Renkli durumlarda yazı **`text-*` semantik renginde** tutulur (ör. `outline` + `warning` → `text-warning`); **`text-*-foreground`** yalnızca dolu zemin için — açık/koyu zeminde kontrast kaybını önlemek için.
 - **Loading / disabled:** Opacity ve `cursor-not-allowed`; tıklama engellenir.

@@ -7,7 +7,6 @@
       :id="resolvedId"
       v-model="innerValue"
       :type="visible ? 'text' : 'password'"
-      class="w-full"
       :size="size"
       :disabled="disabled"
       :readonly="readonly"

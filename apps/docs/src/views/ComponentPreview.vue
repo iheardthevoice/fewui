@@ -343,18 +343,19 @@ function submitLogin() {
             </ui-form-row>
 
             <ui-form-row label="Tür etiketleri" v-slot="{ controlId, descriptionId }">
-              <ui-select
-                :id="controlId"
-                :aria-describedby="descriptionId"
-                v-model="demoTags"
-                multiple
-                filterable
-                :options="demoTagOptions"
-                placeholder="Etiket seçin veya arayın…"
-                filter-placeholder="Ara…"
-                aria-label="Tür etiketleri"
-                class="w-full max-w-xl"
-              />
+              <div class="max-w-xl">
+                <ui-select
+                  :id="controlId"
+                  :aria-describedby="descriptionId"
+                  v-model="demoTags"
+                  multiple
+                  filterable
+                  :options="demoTagOptions"
+                  placeholder="Etiket seçin veya arayın…"
+                  filter-placeholder="Ara…"
+                  aria-label="Tür etiketleri"
+                />
+              </div>
             </ui-form-row>
 
             <ui-form-row label="Profil görünürlüğü" direction="horizontal"
@@ -897,8 +898,7 @@ function submitLogin() {
           </div>
           <template #footer>
             <div class="flex w-full min-w-0 justify-start">
-              <ui-button variant="link" color="secondary" size="sm"
-                class="px-0 underline decoration-muted-foreground/60 underline-offset-4 hover:text-foreground">
+              <ui-button variant="link" color="secondary" size="sm">
                 + 810 contributors
               </ui-button>
             </div>
@@ -1081,7 +1081,7 @@ function submitLogin() {
         <ui-card class="mb-8 break-inside-avoid w-full" title="Social Links">
           <div class="flex flex-col gap-6">
             <ui-form-row label="Spotify Artist URL" v-slot="{ controlId, descriptionId }">
-              <ui-input :id="controlId" :aria-describedby="descriptionId" v-model="socialSpotify" class="rounded-full">
+              <ui-input :id="controlId" :aria-describedby="descriptionId" v-model="socialSpotify">
                 <template #prepend>
                   <ui-icon name="spotify" type="brands" size="sm" />
                 </template>
@@ -1089,8 +1089,7 @@ function submitLogin() {
             </ui-form-row>
 
             <ui-form-row label="Instagram Handle" v-slot="{ controlId, descriptionId }">
-              <ui-input :id="controlId" :aria-describedby="descriptionId" v-model="socialInstagram"
-                class="rounded-full">
+              <ui-input :id="controlId" :aria-describedby="descriptionId" v-model="socialInstagram">
                 <template #prepend>
                   <ui-icon name="instagram" type="brands" size="sm" />
                 </template>
@@ -1098,8 +1097,7 @@ function submitLogin() {
             </ui-form-row>
 
             <ui-form-row label="SoundCloud URL" v-slot="{ controlId, descriptionId }">
-              <ui-input :id="controlId" :aria-describedby="descriptionId" v-model="socialSoundcloud"
-                class="rounded-full" placeholder="soundcloud.com/username">
+              <ui-input :id="controlId" :aria-describedby="descriptionId" v-model="socialSoundcloud" placeholder="soundcloud.com/username">
                 <template #prepend>
                   <ui-icon name="soundcloud" type="brands" size="sm" />
                 </template>
@@ -1107,7 +1105,7 @@ function submitLogin() {
             </ui-form-row>
 
             <ui-form-row label="Website" v-slot="{ controlId, descriptionId }">
-              <ui-input :id="controlId" :aria-describedby="descriptionId" v-model="socialWebsite" class="rounded-full"
+              <ui-input :id="controlId" :aria-describedby="descriptionId" v-model="socialWebsite"
                 placeholder="https://yoursite.com">
                 <template #prepend>
                   <ui-icon name="globe" size="sm" />
@@ -1133,8 +1131,7 @@ function submitLogin() {
 
           <div class="flex flex-col gap-5">
             <ui-form-row label="Account Holder Name" v-slot="{ controlId, descriptionId }">
-              <ui-input :id="controlId" :aria-describedby="descriptionId" v-model="payoutPrefsAccount"
-                class="rounded-full" />
+              <ui-input :id="controlId" :aria-describedby="descriptionId" v-model="payoutPrefsAccount" />
             </ui-form-row>
 
             <ui-radio-group v-model="payoutPrefsReceiving" variant="button" aria-label="Receiving method">
@@ -1143,7 +1140,7 @@ function submitLogin() {
             </ui-radio-group>
 
             <ui-form-row label="IBAN / Account Number" v-slot="{ controlId, descriptionId }">
-              <ui-input :id="controlId" :aria-describedby="descriptionId" v-model="payoutPrefsIban" class="rounded-full"
+              <ui-input :id="controlId" :aria-describedby="descriptionId" v-model="payoutPrefsIban"
                 placeholder="TR00 0000 0000 0000 0000 0000 00" />
             </ui-form-row>
           </div>

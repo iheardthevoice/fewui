@@ -4,7 +4,6 @@
     v-model="innerValue"
     type="text"
     inputmode="decimal"
-    class="w-full"
     :size="size"
     :disabled="disabled"
     :readonly="readonly"

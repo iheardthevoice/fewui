@@ -5,7 +5,6 @@
       v-model="innerNumber"
       type="tel"
       inputmode="tel"
-      class="w-full"
       :size="resolvedSize"
       :disabled="disabled"
       :readonly="readonly"

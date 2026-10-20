@@ -102,16 +102,11 @@ export default {
       type: String,
       default: undefined,
     },
-    /** Dialog oluşturma formlarında ana alan — `lg` boyut ve odak hedefi */
+    /** Dialog oluşturma formlarında ana alan — açılışta odak hedefi (kontrol boyutunu değiştirmez) */
     primary: {
       type: Boolean,
       default: false,
     },
-  },
-  provide() {
-    return {
-      uiFormRowPrimary: () => this.primary,
-    }
   },
   data() {
     const fallbackId = nextFormRowId()

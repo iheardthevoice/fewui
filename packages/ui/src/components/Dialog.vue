@@ -168,14 +168,9 @@ import { lockBodyScroll, unlockBodyScroll } from '../utils/scroll-lock.js'
 import { isMobileViewport } from '../utils/viewport.js'
 import { uiDefaultsMixin } from '../theme/ui-defaults.js'
 import { uiPortalMixin } from '../theme/ui-portal.js'
+import { OVERLAY_BASE_Z, pushOverlay, releaseOverlay } from '../theme/overlay-stack.js'
 
 const nextDialogId = createUiIdFactory('ui-dialog')
-
-/** Overlay sırası: modal 400 → onay 420 → popover 450 → photo 460 → toast 500. */
-const DIALOG_BASE_Z_INDEX = 400
-const DIALOG_CONFIRM_Z_INDEX = 420
-/** Açık popover katmanının üzerinde tutulacak minimum boşluk */
-const DIALOG_ABOVE_POPOVER_GAP = 20
 
 const BORDER_TYPES = ['solid', 'dashed', 'dotted', 'double']
 
@@ -350,7 +345,7 @@ export default {
       layerMotionActive: false,
       /** Şeffaf footer gerçek yüksekliği (px) — gövde alt padding */
       footerClearancePx: null,
-      /** Açık popover üstünde kalmak için dinamik z-index */
+      /** Katman kaydından gelen z-index */
       rootZIndex: null,
     }
   },
@@ -396,6 +391,7 @@ export default {
     if (this.layerMounted) {
       unlockBodyScroll()
     }
+    this.releaseLayer()
     this.layerMounted = false
     this.layerClosing = false
     this.layerMotionActive = false
@@ -526,22 +522,18 @@ export default {
     },
   },
   methods: {
+    /**
+     * Onay diyaloğu her zaman en üsttedir: kayıt üstüne `confirm` tabanı kadar pay eklenir.
+     */
+    releaseLayer() {
+      if (this.rootZIndex == null) return
+      releaseOverlay(this)
+      this.rootZIndex = null
+    },
     resolveRootZIndex() {
-      const base =
-        this.stackLayer === 'confirm' ? DIALOG_CONFIRM_Z_INDEX : DIALOG_BASE_Z_INDEX
-      if (typeof document === 'undefined') return base
-
-      let top = base
-      for (const layer of document.querySelectorAll('.ui-popover-layer')) {
-        const z = Number.parseInt(getComputedStyle(layer).zIndex, 10)
-        if (Number.isFinite(z)) top = Math.max(top, z + DIALOG_ABOVE_POPOVER_GAP)
-      }
-      for (const root of document.querySelectorAll('.ui-dialog-root, .ui-sheet-root')) {
-        if (root === this.$refs.layerRef) continue
-        const z = Number.parseInt(getComputedStyle(root).zIndex, 10)
-        if (Number.isFinite(z)) top = Math.max(top, z + 10)
-      }
-      return top
+      const z = pushOverlay(this, 'modal', () => {})
+      if (this.stackLayer !== 'confirm') return z
+      return Math.max(z, OVERLAY_BASE_Z.confirm) + (z >= OVERLAY_BASE_Z.confirm ? 10 : 0)
     },
     prefersReducedMotion() {
       if (typeof window === 'undefined') return false
@@ -565,23 +557,31 @@ export default {
         }
       }
       return {
-        enterMs: 260,
-        leaveMs: 180,
+        enterMs: 300,
+        leaveMs: 200,
         snapMs: 220,
         easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
-        leaveEasing: 'cubic-bezier(0.4, 0, 1, 1)',
+        leaveEasing: 'cubic-bezier(0.4, 0, 0.2, 1)',
       }
     },
-    desktopEnterTransform() {
-      return 'translate3d(0, 8px, 0) scale3d(0.97, 0.97, 1)'
+    /** Cam yüzeyde kayma yok, yalnız hafif ölçek (blur her karede yeniden hesaplanır). */
+    desktopEnterTransform(glass = false) {
+      return glass
+        ? 'translate3d(0, 0, 0) scale3d(0.97, 0.97, 1)'
+        : 'translate3d(0, 12px, 0) scale3d(0.96, 0.96, 1)'
     },
-    desktopLeaveTransform() {
-      return 'translate3d(0, 6px, 0) scale3d(0.98, 0.98, 1)'
+    desktopLeaveTransform(glass = false) {
+      return glass
+        ? 'translate3d(0, 0, 0) scale3d(0.98, 0.98, 1)'
+        : 'translate3d(0, 8px, 0) scale3d(0.97, 0.97, 1)'
     },
     desktopRestTransform() {
       return 'translate3d(0, 0, 0) scale3d(1, 1, 1)'
     },
-    /** Cam yüzeyde transform + canlı backdrop-filter kasar; opacity-only aç. */
+    /**
+     * Blur panelin kendisinde (`.ui-surface`); hareket de aynı öğede olduğu için blur
+     * geçiş boyunca görünür kalır. Atada opacity verilmez (backdrop root olur).
+     */
     surfaceBackdropBlurPx() {
       if (typeof window === 'undefined' || typeof document === 'undefined') return 0
       const raw = getComputedStyle(document.documentElement)
@@ -591,8 +591,8 @@ export default {
       return Number.isFinite(n) ? n : 0
     },
     /**
-     * Desktop cam: opacity-only (hafif scale jank’i önler).
-     * Mobil sheet (alttan kayma) her zaman açık — blur artık animasyon boyunca sabit.
+     * Desktop cam: kaymasız, daha küçük ölçek.
+     * Mobil sheet (alttan kayma) her zaman açık — blur animasyon boyunca sabit.
      */
     preferGlassSafeOverlayMotion() {
       if (isMobileViewport()) return false
@@ -690,12 +690,9 @@ export default {
         if (mobile) {
           panel.style.opacity = '1'
           panel.style.transform = 'translate3d(0, 100%, 0)'
-        } else if (glassSafe) {
-          panel.style.opacity = '0'
-          panel.style.transform = this.desktopRestTransform()
         } else {
           panel.style.opacity = '0'
-          panel.style.transform = this.desktopEnterTransform()
+          panel.style.transform = this.desktopEnterTransform(glassSafe)
         }
       }
       void el.offsetHeight
@@ -710,10 +707,6 @@ export default {
             panel.style.transition = `transform ${duration} ${easing}`
             panel.style.opacity = '1'
             panel.style.transform = 'translate3d(0, 0, 0)'
-          } else if (glassSafe) {
-            panel.style.transition = `opacity ${duration} ${easing}`
-            panel.style.opacity = '1'
-            panel.style.transform = this.desktopRestTransform()
           } else {
             panel.style.transition = `opacity ${duration} ${easing}, transform ${duration} ${easing}`
             panel.style.opacity = '1'
@@ -779,14 +772,10 @@ export default {
         if (mobile && panel) {
           panel.style.transition = `transform ${duration} ${leaveEasing}`
           panel.style.transform = 'translate3d(0, 100%, 0)'
-        } else if (panel && glassSafe) {
-          panel.style.transition = `opacity ${duration} ${leaveEasing}`
-          panel.style.opacity = '0'
-          panel.style.transform = this.desktopRestTransform()
         } else if (panel) {
           panel.style.transition = `opacity ${duration} ${leaveEasing}, transform ${duration} ${leaveEasing}`
           panel.style.opacity = '0'
-          panel.style.transform = this.desktopLeaveTransform()
+          panel.style.transform = this.desktopLeaveTransform(glassSafe)
         }
         this.waitLayerTransition(panel || backdrop, leaveMs + 80, finish)
       })
@@ -805,7 +794,7 @@ export default {
       this.animateLayerOut(el, () => {
         this.layerMounted = false
         this.layerClosing = false
-        this.rootZIndex = null
+        this.releaseLayer()
         unlockBodyScroll()
         this.resetPanelMotionStyles()
         if (this.open) {
