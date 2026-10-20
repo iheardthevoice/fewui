@@ -74,7 +74,10 @@ export default {
     },
     isChecked() {
       if (!this.uiRadioGroup) return false
-      return this.uiRadioGroup.modelValue === this.value
+      const mv = this.uiRadioGroup.modelValue
+      if (mv == null) return false
+      // HTML / Vine id’leri number|string karışabiliyor; sıkı === yanlış “seçili değil” üretir.
+      return mv === this.value || String(mv) === String(this.value)
     },
     stringValue() {
       return String(this.value)

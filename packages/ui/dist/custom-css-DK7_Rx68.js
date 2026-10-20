@@ -4834,7 +4834,9 @@ const cu = /* @__PURE__ */ T(la, [["render", ma]]), pa = {
       return ((e = this.uiRadioGroup) == null ? void 0 : e.normalizedVariant) || "list";
     },
     isChecked() {
-      return this.uiRadioGroup ? this.uiRadioGroup.modelValue === this.value : !1;
+      if (!this.uiRadioGroup) return !1;
+      const e = this.uiRadioGroup.modelValue;
+      return e == null ? !1 : e === this.value || String(e) === String(this.value);
     },
     stringValue() {
       return String(this.value);
@@ -8266,4 +8268,4 @@ export {
   gu as y,
   mu as z
 };
-//# sourceMappingURL=custom-css-CK1z0mOT.js.map
+//# sourceMappingURL=custom-css-DK7_Rx68.js.map

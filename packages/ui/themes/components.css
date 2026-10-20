@@ -577,7 +577,7 @@
   }
 
   .ui-control-h-lg {
-    @apply box-border rounded-lg px-4 py-0 text-base leading-6 h-[var(--ui-control-h-lg)] min-h-[var(--ui-control-h-lg)];
+    @apply box-border rounded-lg px-4 py-0 text-sm leading-5 h-[var(--ui-control-h-lg)] min-h-[var(--ui-control-h-lg)];
   }
 
   /** `ui-button cubed` — TW utility purge’a bağlı kalmadan kare + daire */
@@ -596,7 +596,7 @@
   }
 
   .ui-control-cubed-lg {
-    @apply w-[var(--ui-control-h-lg)] h-[var(--ui-control-h-lg)] [font-size:var(--text-base)] [line-height:var(--text-base--line-height)];
+    @apply w-[var(--ui-control-h-lg)] h-[var(--ui-control-h-lg)] [font-size:var(--text-sm)] [line-height:var(--text-sm--line-height)];
   }
 
   /** Tek satır input / textarea kabuğu — referans: `--ui-control-h-md`, `rounded-lg` (`--radius`), 14/20 metin */
@@ -1117,17 +1117,17 @@
    * Açılış/kapanış JS ile (inline transform/opacity).
    * Blur (`backdrop-filter`) motion sırasında kapatılmaz — aç/kapa snap ve jank üretir;
    * cam yüzeyi opacity ile fade edilir, blur sabit kalır.
+   *
+   * Motion sırasında kök `pointer-events-none` olmamalı: üst üste dialog açılınca
+   * alttaki katmana veya sayfaya tıklama sızıyordu. Panel animasyon sırasında
+   * etkileşimsiz; backdrop tıklamayı yakalar.
    */
-  .ui-dialog-root--motion {
-    @apply pointer-events-none;
-  }
-
   .ui-dialog-root--motion .ui-dialog-backdrop {
     @apply [will-change:opacity];
   }
 
   .ui-dialog-root--motion .ui-dialog-panel {
-    @apply [will-change:transform,_opacity] [backface-visibility:hidden] [-webkit-backface-visibility:hidden];
+    @apply pointer-events-none [will-change:transform,_opacity] [backface-visibility:hidden] [-webkit-backface-visibility:hidden];
   }
 
   .ui-overlay-dialog-enter-active .ui-dialog-backdrop {
@@ -2664,7 +2664,7 @@
   }
 
   .ui-select-filter-input--lg {
-    @apply rounded-lg px-4 text-base leading-6 h-[var(--ui-control-h-lg)] min-h-[var(--ui-control-h-lg)];
+    @apply rounded-lg px-4 text-sm leading-5 h-[var(--ui-control-h-lg)] min-h-[var(--ui-control-h-lg)];
   }
 
   .ui-select-filter-input:focus {
