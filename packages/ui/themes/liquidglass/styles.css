@@ -322,10 +322,6 @@ html.cap-native.cap-ios .ui-skeleton-host {
   @apply border-none! shadow-none! outline-none!;
 }
 
-html.cap-native.cap-ios .ui-skeleton {
-  @apply [background-color:color-mix(in_oklab,_var(--foreground)_8%,_transparent)];
-}
-
 html.cap-native.cap-ios .ui-card.ui-surface:not(.ui-dialog-panel):not(.ui-card--transparent) {
   @apply [background-color:var(--ui-ios-card-surface-bg,_var(--ui-ios-dialog-sheet-bg))]! bg-none! border-none! shadow-none! [-webkit-backdrop-filter:none]! [backdrop-filter:none]!;
 }

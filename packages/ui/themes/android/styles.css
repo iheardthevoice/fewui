@@ -177,7 +177,7 @@ html.cap-native.cap-android .ui-action-card {
 }
 
 html.cap-native.cap-android .ui-skeleton {
-  @apply border-none! shadow-none! [background-color:color-mix(in_oklab,_var(--foreground)_8%,_transparent)];
+  @apply border-none! shadow-none!;
 }
 
 /** Sidebar — cam/blur yok; düz ghost */

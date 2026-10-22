@@ -2086,9 +2086,19 @@
     @apply inline-flex shrink-0 items-center justify-center text-muted-foreground;
   }
 
-  /** Skeleton — yükleme iskeleti */
+  /**
+   * Skeleton — yükleme iskeleti. Zemin opak gri değil, ön plan renginin saydam tonu: altındaki
+   * yüzeyi hafifçe koyulaştırır / açar, renkli kartta o rengin tonunu alır (gri yama olmaz).
+   * Tema veya kapsayıcı `--ui-skeleton-tint` (ör. renkli yüzeyde `currentColor`) ve
+   * `--ui-skeleton-strength` ile ayarlar.
+   */
   .ui-skeleton {
-    @apply max-w-full animate-pulse rounded-md [background-color:color-mix(in_oklab,_var(--muted)_72%,_transparent)];
+    --ui-skeleton-bg: color-mix(
+      in oklab,
+      var(--ui-skeleton-tint, var(--foreground)) var(--ui-skeleton-strength, 8%),
+      transparent
+    );
+    @apply max-w-full animate-pulse rounded-md [background-color:var(--ui-skeleton-bg)];
   }
 
   .ui-skeleton--line {

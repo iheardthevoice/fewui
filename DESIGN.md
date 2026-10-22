@@ -152,6 +152,7 @@ Kart gövdesi (`ui-card-body`) varsayılan olarak bu tabanı kullanır.
 ## 12. Diğer bileşen notları
 
 - **Progress:** `type="circle" | "bar"` — şifre gücü, slider izi vb.
+- **Skeleton:** Zemin opak gri değil, ön plan renginin saydam tonu (`--ui-skeleton-bg` = `--ui-skeleton-tint` %8, varsayılan `--foreground`). Altındaki yüzeyi koyulaştırır / açar; renkli kartta gri yama olmaz. Açık yazılı renkli yüzeyde `--ui-skeleton-tint: currentColor`, daha belirgin iskelet için `--ui-skeleton-strength` (ör. 12%). Skeleton'a `class` ile renk verilmez.
 - **Slider:** Şeffaf native track; dolgu `Progress` bar ile.
 - **Stepper:** `default` ve `pills` (bu “pills” **Tabs** değil).
 - **Dialog / Toast / Confirm:** Programatik API’ler (`useDialog`, `useConfirm`, `useToast`); kökte ilgili portal bileşenleri gerekir.
