@@ -12,6 +12,7 @@
       v-model:open="menuOpen"
       placement="bottom-start"
       :match-trigger-width="matchTriggerWidth && !$slots.trigger"
+      :width="width"
       :disabled="isDisabled"
       :align-selected-option-to-trigger="alignSelectedToTrigger"
     >
@@ -323,6 +324,14 @@ export default {
     matchTriggerWidth: {
       type: Boolean,
       default: true,
+    },
+    /**
+     * Seçenek panelinin sabit genişliği (ör. `'18rem'`). Özel `#trigger` ile açılan
+     * ve seçenekleri açılınca yüklenen listelerde panel boş/iskelet hâliyle daralmaz.
+     */
+    width: {
+      type: [String, Number],
+      default: null,
     },
     scrollListThreshold: {
       type: Number,

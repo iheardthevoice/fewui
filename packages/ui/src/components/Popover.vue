@@ -602,8 +602,31 @@ export default {
       window.addEventListener('resize', this.onScrollResize)
       document.addEventListener('pointerdown', this.onDocPointerDown, true)
       document.addEventListener('keydown', this.onDocKeydown, true)
+      this.observePanelSize()
+    },
+    /**
+     * İçerik açıldıktan sonra değişirse (yükleniyor → seçenekler) panel yeniden
+     * konumlanır; aksi halde ilk ölçülen yükseklikte (ör. iskelet) kalır.
+     */
+    observePanelSize() {
+      this.panelResizeObserver?.disconnect()
+      this.panelResizeObserver = null
+      const panel = this.$refs.panelRef
+      if (!panel || typeof ResizeObserver === 'undefined') return
+      let first = true
+      this.panelResizeObserver = new ResizeObserver(() => {
+        // İlk çağrı gözlem başlangıcıdır; konum zaten hesaplandı.
+        if (first) {
+          first = false
+          return
+        }
+        if (this.open) this.schedulePosition()
+      })
+      this.panelResizeObserver.observe(panel)
     },
     teardownGlobalListeners() {
+      this.panelResizeObserver?.disconnect()
+      this.panelResizeObserver = null
       this.offVisibleViewport?.()
       this.offVisibleViewport = null
       if (this.viewportSettleTimer) {

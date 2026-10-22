@@ -1,4 +1,4 @@
-import { ref as G, reactive as Be, inject as mi, openBlock as o, createElementBlock as d, mergeProps as L, renderSlot as p, resolveComponent as x, normalizeClass as k, createVNode as b, createCommentVNode as f, createElementVNode as h, toDisplayString as y, createBlock as _, resolveDynamicComponent as Me, withCtx as w, Teleport as ge, Transition as Le, normalizeStyle as de, createTextVNode as M, Fragment as B, Comment as pi, Text as gi, withModifiers as z, renderList as j, normalizeProps as jt, guardReactiveProps as Ht, useId as Wt, withKeys as W, createSlots as qt, withDirectives as Fe, vModelText as et, vShow as bi, useSlots as yi, computed as X, onMounted as vi, onBeforeUnmount as ki, watch as Si, nextTick as tt, TransitionGroup as xi } from "vue";
+import { ref as G, reactive as Be, inject as mi, openBlock as o, createElementBlock as d, mergeProps as L, renderSlot as p, resolveComponent as x, normalizeClass as k, createVNode as b, createCommentVNode as f, createElementVNode as h, toDisplayString as y, createBlock as _, resolveDynamicComponent as Me, withCtx as w, Teleport as ge, Transition as Le, normalizeStyle as de, createTextVNode as M, Fragment as B, Comment as pi, Text as gi, withModifiers as F, renderList as j, normalizeProps as jt, guardReactiveProps as Ht, useId as Wt, withKeys as W, createSlots as qt, withDirectives as ze, vModelText as et, vShow as bi, useSlots as yi, computed as X, onMounted as vi, onBeforeUnmount as ki, watch as Si, nextTick as tt, TransitionGroup as xi } from "vue";
 import { RouterLink as wi } from "vue-router";
 const Kt = "(max-width: 1023px)", Yt = G(!1);
 function we() {
@@ -103,7 +103,7 @@ const R = {
     i[n] = s;
   return i;
 };
-function F(...e) {
+function z(...e) {
   const t = [];
   for (const i of e)
     if (i) {
@@ -117,7 +117,7 @@ function F(...e) {
     }
   return t.join(" ");
 }
-const Li = ["horizontal", "vertical"], Fi = {
+const Li = ["horizontal", "vertical"], zi = {
   name: "ActionGroup",
   inheritAttrs: !1,
   props: {
@@ -160,7 +160,7 @@ const Li = ["horizontal", "vertical"], Fi = {
   },
   computed: {
     rootClass() {
-      return F(
+      return z(
         "ui-action-group",
         `ui-action-group--${this.orientation}`,
         this.joined && "ui-action-group--joined",
@@ -174,7 +174,7 @@ const Li = ["horizontal", "vertical"], Fi = {
       return t;
     }
   }
-}, zi = ["aria-label"];
+}, Fi = ["aria-label"];
 function Ai(e, t, i, n, s, r) {
   return o(), d("div", L({
     class: r.rootClass,
@@ -182,9 +182,9 @@ function Ai(e, t, i, n, s, r) {
     "aria-label": i.ariaLabel || void 0
   }, r.passthroughAttrs), [
     p(e.$slots, "default")
-  ], 16, zi);
+  ], 16, Fi);
 }
-const Wl = /* @__PURE__ */ T(Fi, [["render", Ai]]), Di = ["info", "success", "warning", "danger"], rt = {
+const Wl = /* @__PURE__ */ T(zi, [["render", Ai]]), Di = ["info", "success", "warning", "danger"], rt = {
   info: "circle-info",
   success: "circle-check",
   warning: "triangle-exclamation",
@@ -263,7 +263,7 @@ const Wl = /* @__PURE__ */ T(Fi, [["render", Ai]]), Di = ["info", "success", "wa
       return !!(this.banner || this.actionsEnd);
     },
     rootClasses() {
-      return F(
+      return z(
         `ui-alert ui-alert--${this.color}`,
         this.banner ? "ui-alert--banner" : "",
         this.soft && !this.banner ? "ui-alert--soft" : "",
@@ -462,7 +462,7 @@ const Ki = {
       return this.interactive ? "button" : "span";
     },
     rootClass() {
-      return F(
+      return z(
         "ui-avatar",
         st[this.size] || st.md,
         Hi[this.shape] || "",
@@ -552,10 +552,10 @@ function Zi(e, t, i, n, s, r) {
   }, 16, ["type", "class", "style", "onClick"]);
 }
 const Kl = /* @__PURE__ */ T(Ki, [["render", Zi]]);
-let ze = 0;
+let Fe = 0;
 const Ut = [];
 function Yl(e) {
-  return ze += 1, `${e}-${ze}`;
+  return Fe += 1, `${e}-${Fe}`;
 }
 function Y(e) {
   let t = 0;
@@ -565,7 +565,7 @@ function Y(e) {
   }), i;
 }
 function Ul() {
-  ze = 0;
+  Fe = 0;
   for (const e of Ut)
     e();
 }
@@ -918,7 +918,7 @@ const fr = {
         };
     },
     badgeClasses() {
-      return F(
+      return z(
         "ui-badge inline-flex max-w-full items-center font-medium",
         this.hasAdornment ? "gap-1" : "justify-center",
         lt[this.size] || lt.sm,
@@ -1300,11 +1300,11 @@ const vr = ["sm", "md", "lg"], kr = ["solid", "outline", "ghost", "muted", "link
 }, Lr = {
   key: 1,
   class: "ui-button-loading-inner inline-flex size-full min-h-0 min-w-0 flex-1 items-center justify-center gap-2 [&_.ui-icon]:leading-none"
-}, Fr = {
+}, zr = {
   key: 0,
   class: "inline-flex shrink-0 items-center justify-center",
   "aria-hidden": "true"
-}, zr = {
+}, Fr = {
   key: 2,
   class: "inline-flex shrink-0 items-center justify-center",
   "aria-hidden": "true"
@@ -1388,7 +1388,7 @@ function jr(e, t, i, n, s, r) {
             class: k(r.textContentClass)
           }, y(r.resolvedLoadingText), 3)
         ])) : i.stack ? (o(), d(B, { key: 2 }, [
-          i.prefixIcon ? (o(), d("span", Fr, [
+          i.prefixIcon ? (o(), d("span", zr, [
             b(a, {
               size: r.stackIconSize,
               name: i.prefixIcon
@@ -1400,7 +1400,7 @@ function jr(e, t, i, n, s, r) {
           }, [
             p(e.$slots, "default")
           ], 2)) : f("", !0),
-          i.suffixIcon ? (o(), d("span", zr, [
+          i.suffixIcon ? (o(), d("span", Fr, [
             b(a, {
               size: r.stackIconSize,
               name: i.suffixIcon
@@ -1749,7 +1749,7 @@ const $e = /* @__PURE__ */ T(Wr, [["render", Yr]]), Ur = ["solid", "dashed", "do
         "ui-card",
         ...this.border ? ["border", this.borderStyleClass] : ["border-0", "border-transparent"]
       ];
-      return this.removePadding && e.push("ui-card--no-padding"), this.stickyHeader && e.push("ui-card--sticky-header"), this.layout === "data-table" && e.push("ui-card--data-table"), this.transparent && e.push("ui-card--transparent"), this.interactive && e.push("ui-card--interactive"), this.emphasized && e.push("ui-card--emphasized"), this.fullHeight && e.push("ui-card--full-height"), F(e.join(" "), this.$attrs.class);
+      return this.removePadding && e.push("ui-card--no-padding"), this.stickyHeader && e.push("ui-card--sticky-header"), this.layout === "data-table" && e.push("ui-card--data-table"), this.transparent && e.push("ui-card--transparent"), this.interactive && e.push("ui-card--interactive"), this.emphasized && e.push("ui-card--emphasized"), this.fullHeight && e.push("ui-card--full-height"), z(e.join(" "), this.$attrs.class);
     },
     passthroughAttrs() {
       const { class: e, ...t } = this.$attrs;
@@ -2158,7 +2158,7 @@ function wn(e, t, i, n, s, r) {
           cubed: "",
           "prefix-icon": "chevron-left",
           "aria-label": "Previous month",
-          onClick: t[0] || (t[0] = z((l) => r.shiftMonth(-1), ["stop"]))
+          onClick: t[0] || (t[0] = F((l) => r.shiftMonth(-1), ["stop"]))
         }),
         h("span", pn, y(r.monthTitle), 1),
         b(a, {
@@ -2167,7 +2167,7 @@ function wn(e, t, i, n, s, r) {
           cubed: "",
           "prefix-icon": "chevron-right",
           "aria-label": "Next month",
-          onClick: t[1] || (t[1] = z((l) => r.shiftMonth(1), ["stop"]))
+          onClick: t[1] || (t[1] = F((l) => r.shiftMonth(1), ["stop"]))
         })
       ]),
       t[8] || (t[8] = h("div", { class: "ui-datepicker-weekdays mb-2" }, [
@@ -2291,7 +2291,7 @@ function wn(e, t, i, n, s, r) {
               cubed: "",
               "prefix-icon": "chevron-left",
               "aria-label": "Previous month",
-              onClick: t[5] || (t[5] = z((c) => r.shiftMonth(-1), ["stop"]))
+              onClick: t[5] || (t[5] = F((c) => r.shiftMonth(-1), ["stop"]))
             }),
             h("span", kn, y(r.monthTitle), 1),
             b(a, {
@@ -2300,7 +2300,7 @@ function wn(e, t, i, n, s, r) {
               cubed: "",
               "prefix-icon": "chevron-right",
               "aria-label": "Next month",
-              onClick: t[6] || (t[6] = z((c) => r.shiftMonth(1), ["stop"]))
+              onClick: t[6] || (t[6] = F((c) => r.shiftMonth(1), ["stop"]))
             })
           ]),
           t[9] || (t[9] = h("div", { class: "ui-datepicker-weekdays mb-2" }, [
@@ -2433,10 +2433,10 @@ function Ln(e) {
 }
 const ei = "ui-scroll-lock";
 let re = 0, De = null;
-function Fn(e) {
+function zn(e) {
   return (getComputedStyle(e).scrollbarGutter || "").includes("stable");
 }
-function zn() {
+function Fn() {
   if (!(typeof document > "u")) {
     if (re === 0) {
       const e = document.body, t = document.documentElement, i = Math.max(0, window.innerWidth - t.clientWidth);
@@ -2446,7 +2446,7 @@ function zn() {
         htmlOverscroll: t.style.overscrollBehavior,
         bodyOverscroll: e.style.overscrollBehavior,
         htmlPaddingRight: t.style.paddingRight
-      }, t.classList.add(ei), t.style.overflow = "hidden", e.style.overflow = "hidden", t.style.overscrollBehavior = "none", e.style.overscrollBehavior = "none", !Fn(t) && i > 0 && (t.style.paddingRight = `${i}px`);
+      }, t.classList.add(ei), t.style.overflow = "hidden", e.style.overflow = "hidden", t.style.overscrollBehavior = "none", e.style.overscrollBehavior = "none", !zn(t) && i > 0 && (t.style.paddingRight = `${i}px`);
     }
     re += 1;
   }
@@ -2669,7 +2669,7 @@ const Bn = Y("ui-dialog"), Mn = ["solid", "dashed", "dotted", "double"], xt = {
       handler(e) {
         if (e) {
           if (this.layerMounted || this.layerClosing) return;
-          this.rootZIndex = this.resolveRootZIndex(), this.layerMounted = !0, zn(), this.$nextTick(() => {
+          this.rootZIndex = this.resolveRootZIndex(), this.layerMounted = !0, Fn(), this.$nextTick(() => {
             this.resetPanelMotionStyles(), this.resetBodyScroll(), this.syncFooterClearance(), this.animateLayerIn(this.$refs.layerRef);
           });
         } else this.layerMounted && !this.layerClosing && this.dismissLayer();
@@ -2731,8 +2731,8 @@ const Bn = Y("ui-dialog"), Mn = ["solid", "dashed", "dotted", "double"], xt = {
       return wt[this.resolvedMaxWidth] || wt.lg;
     },
     panelClasses() {
-      const e = this.border ? F("border", this.borderStyleClass) : F("border-0", "border-transparent");
-      return F(
+      const e = this.border ? z("border", this.borderStyleClass) : z("border-0", "border-transparent");
+      return z(
         "ui-surface ui-card ui-dialog-panel relative z-[1] w-full",
         this.maxWidthClass,
         e,
@@ -2767,7 +2767,7 @@ const Bn = Y("ui-dialog"), Mn = ["solid", "dashed", "dotted", "double"], xt = {
       return this.backLabel != null && this.backLabel !== "" ? this.backLabel : Ae(this, "ui.dialog.back", "Back");
     },
     rootLayerClasses() {
-      return F(
+      return z(
         "ui-dialog-root fixed inset-0 flex outline-none",
         this.stackLayer === "confirm" && "ui-dialog-root--confirm",
         this.layerMotionActive && "ui-dialog-root--motion",
@@ -3115,7 +3115,7 @@ function qn(e, t, i, n, s, r) {
         "aria-describedby": r.ariaDescribedby,
         "aria-label": r.ariaLabelAttr
       }, r.passthroughAttrs, {
-        onClick: t[3] || (t[3] = z(() => {
+        onClick: t[3] || (t[3] = F(() => {
         }, ["stop"]))
       }), [
         h("div", $n, [
@@ -3356,7 +3356,7 @@ function es(e, t, i, n, s, r) {
       h("div", {
         class: k(["ui-dropdown-menu p-3", r.hasDescribedItems ? "ui-dropdown-menu--described" : ""]),
         role: "menu",
-        onClick: t[0] || (t[0] = z(() => {
+        onClick: t[0] || (t[0] = F(() => {
         }, ["stop"]))
       }, [
         p(e.$slots, "before", { close: g }),
@@ -3379,7 +3379,7 @@ function es(e, t, i, n, s, r) {
             "suffix-icon": r.itemSuffixIcon(m),
             disabled: m.disabled,
             wrap: !!m.description,
-            onClick: z((C) => r.onItem(m, g), ["stop"])
+            onClick: F((C) => r.onItem(m, g), ["stop"])
           }, {
             default: w(() => [
               m.description ? (o(), d("span", Zn, [
@@ -3445,7 +3445,7 @@ const ru = /* @__PURE__ */ T(Yn, [["render", es]]), ts = ["sm", "md", "lg"], is 
       return this.icon == null || this.icon === "" ? null : this.icon;
     },
     rootClass() {
-      return F("ui-empty", `ui-empty--${this.resolvedSize}`, this.$attrs.class);
+      return z("ui-empty", `ui-empty--${this.resolvedSize}`, this.$attrs.class);
     },
     passthroughAttrs() {
       const { class: e, ...t } = this.$attrs;
@@ -3652,7 +3652,7 @@ const su = /* @__PURE__ */ T(fs, [["render", ks]]), _t = {
       return _t[this.resolvedIconType] || _t.light;
     },
     iconClass() {
-      return F(
+      return z(
         "ui-icon fa not-italic inline-flex shrink-0 items-center justify-center leading-none",
         this.faWeightClass,
         this.name ? `fa-${this.name}` : "",
@@ -3762,7 +3762,7 @@ const au = /* @__PURE__ */ T(ws, [["render", _s]]), Ts = ["sm", "md", "lg"], Cs 
       return K(this.uiDefaults, this.size, { key: "controlSize", defaultSize: "md" });
     },
     rootClass() {
-      return F(
+      return z(
         "ui-input",
         this.variant === "plain" && "ui-input--plain",
         this.multiline && "ui-input--multiline",
@@ -3805,11 +3805,11 @@ const au = /* @__PURE__ */ T(ws, [["render", _s]]), Ts = ["sm", "md", "lg"], Cs 
 }, Ls = {
   key: 0,
   class: "ui-text-default flex shrink-0 items-center"
-}, Fs = {
+}, zs = {
   key: 1,
   class: "inline-flex shrink-0 items-center text-muted-foreground",
   "aria-hidden": "true"
-}, zs = ["id", "value", "rows", "disabled", "readonly", "placeholder", "name", "autocomplete", "maxlength"], As = ["id", "type", "value", "disabled", "readonly", "placeholder", "name", "autocomplete", "maxlength"], Ds = {
+}, Fs = ["id", "value", "rows", "disabled", "readonly", "placeholder", "name", "autocomplete", "maxlength"], As = ["id", "type", "value", "disabled", "readonly", "placeholder", "name", "autocomplete", "maxlength"], Ds = {
   key: 4,
   class: "inline-flex shrink-0 items-center text-muted-foreground",
   "aria-hidden": "true"
@@ -3825,7 +3825,7 @@ function Ms(e, t, i, n, s, r) {
     e.$slots.prepend ? (o(), d("div", Ls, [
       p(e.$slots, "prepend")
     ])) : f("", !0),
-    i.prefixIcon ? (o(), d("span", Fs, [
+    i.prefixIcon ? (o(), d("span", zs, [
       b(a, {
         name: i.prefixIcon,
         size: "xs"
@@ -3849,7 +3849,7 @@ function Ms(e, t, i, n, s, r) {
       onChange: t[1] || (t[1] = (u) => e.$emit("change", u)),
       onFocus: t[2] || (t[2] = (u) => e.$emit("focus", u)),
       onBlur: t[3] || (t[3] = (u) => e.$emit("blur", u))
-    }), null, 16, zs)) : (o(), d("input", L({
+    }), null, 16, Fs)) : (o(), d("input", L({
       key: 3,
       id: r.resolvedId,
       ref: "field",
@@ -3959,7 +3959,7 @@ const ou = /* @__PURE__ */ T(Is, [["render", Ms]]), Os = Y("ui-phone-number"), P
       return K(this.uiDefaults, this.size, { key: "controlSize", defaultSize: "md" });
     },
     rootClass() {
-      return F(
+      return z(
         "ui-phone",
         this.isSingleCountry && "ui-phone--single-country",
         this.resolvedSize !== "md" && `ui-phone--${this.resolvedSize}`
@@ -4266,11 +4266,11 @@ const uu = /* @__PURE__ */ T(Gs, [["render", Ws]]), qs = ["ul", "ol", "div"], Ks
     listClass() {
       const e = this.density === "compact" ? "ui-list--compact" : this.density === "relaxed" ? "ui-list--relaxed" : "";
       if (this.variant === "bordered")
-        return F("ui-list", "ui-list--bordered", e, this.$attrs.class);
+        return z("ui-list", "ui-list--bordered", e, this.$attrs.class);
       if (this.variant === "divided")
-        return F("ui-list", "ui-list--divided", e, this.$attrs.class);
+        return z("ui-list", "ui-list--divided", e, this.$attrs.class);
       const t = this.density === "compact" ? "gap-3" : this.density === "relaxed" ? "gap-5" : "gap-4";
-      return F("ui-list", t, this.$attrs.class);
+      return z("ui-list", t, this.$attrs.class);
     },
     passthroughAttrs() {
       const { class: e, ...t } = this.$attrs;
@@ -4311,7 +4311,7 @@ const du = /* @__PURE__ */ T(Us, [["render", Zs]]), Qs = ["start", "center"], Xs
       return ye(this.uiDefaults, this.prefixIconType);
     },
     itemClass() {
-      return F(
+      return z(
         "ui-list-item",
         this.align === "center" ? "ui-list-item--center" : ""
       );
@@ -4383,7 +4383,7 @@ const aa = [
   "top-start",
   "top-end",
   "top"
-], Lt = 10, Ft = 120, oa = 320, la = [
+], Lt = 10, zt = 120, oa = 320, la = [
   ".ui-select-listbox",
   ".ui-datepicker-panel",
   ".ui-daterangepicker-panel",
@@ -4593,7 +4593,7 @@ const aa = [
           top: `${Math.max(s, Math.round((n - Math.min(g, U)) / 2))}px`,
           left: `${Q}px`,
           "--ui-popover-origin": "center center",
-          "--ui-popover-available-h": `${Math.max(Ft, Math.floor(U))}px`
+          "--ui-popover-available-h": `${Math.max(zt, Math.floor(U))}px`
         };
         r != null ? ($.width = r, $.minWidth = r) : ($.width = `${D}px`, this.matchTriggerWidth && ($.minWidth = `${Math.min(l, P)}px`), $.maxWidth = `calc(100vw - ${s * 2}px)`), this.layerStyle = this.withLayerZIndex($);
         return;
@@ -4647,7 +4647,7 @@ const aa = [
         left: `${Math.round(v)}px`,
         minWidth: S,
         "--ui-popover-origin": this.resolveMotionOrigin(a, m, v, c, g),
-        "--ui-popover-available-h": `${Math.max(Ft, Math.floor(C))}px`
+        "--ui-popover-available-h": `${Math.max(zt, Math.floor(C))}px`
       };
       r != null && (A.width = r, A.minWidth = r), this.layerStyle = this.withLayerZIndex(A), this.alignSelectedOptionToTrigger && this.$nextTick(() => {
         requestAnimationFrame(() => {
@@ -4687,11 +4687,29 @@ const aa = [
     },
     bindGlobalListeners() {
       var e;
-      (e = this.offVisibleViewport) == null || e.call(this), this.offVisibleViewport = sa(this.onVisibleViewportChange), window.addEventListener("scroll", this.onScrollResize, !0), window.addEventListener("resize", this.onScrollResize), document.addEventListener("pointerdown", this.onDocPointerDown, !0), document.addEventListener("keydown", this.onDocKeydown, !0);
+      (e = this.offVisibleViewport) == null || e.call(this), this.offVisibleViewport = sa(this.onVisibleViewportChange), window.addEventListener("scroll", this.onScrollResize, !0), window.addEventListener("resize", this.onScrollResize), document.addEventListener("pointerdown", this.onDocPointerDown, !0), document.addEventListener("keydown", this.onDocKeydown, !0), this.observePanelSize();
+    },
+    /**
+     * İçerik açıldıktan sonra değişirse (yükleniyor → seçenekler) panel yeniden
+     * konumlanır; aksi halde ilk ölçülen yükseklikte (ör. iskelet) kalır.
+     */
+    observePanelSize() {
+      var i;
+      (i = this.panelResizeObserver) == null || i.disconnect(), this.panelResizeObserver = null;
+      const e = this.$refs.panelRef;
+      if (!e || typeof ResizeObserver > "u") return;
+      let t = !0;
+      this.panelResizeObserver = new ResizeObserver(() => {
+        if (t) {
+          t = !1;
+          return;
+        }
+        this.open && this.schedulePosition();
+      }), this.panelResizeObserver.observe(e);
     },
     teardownGlobalListeners() {
-      var e;
-      (e = this.offVisibleViewport) == null || e.call(this), this.offVisibleViewport = null, this.viewportSettleTimer && (clearTimeout(this.viewportSettleTimer), this.viewportSettleTimer = null), window.removeEventListener("scroll", this.onScrollResize, !0), window.removeEventListener("resize", this.onScrollResize), document.removeEventListener("pointerdown", this.onDocPointerDown, !0), document.removeEventListener("keydown", this.onDocKeydown, !0);
+      var e, t;
+      (e = this.panelResizeObserver) == null || e.disconnect(), this.panelResizeObserver = null, (t = this.offVisibleViewport) == null || t.call(this), this.offVisibleViewport = null, this.viewportSettleTimer && (clearTimeout(this.viewportSettleTimer), this.viewportSettleTimer = null), window.removeEventListener("scroll", this.onScrollResize, !0), window.removeEventListener("resize", this.onScrollResize), document.removeEventListener("pointerdown", this.onDocPointerDown, !0), document.removeEventListener("keydown", this.onDocKeydown, !0);
     },
     /**
      * Klavye açılıp kapanınca: hemen yerleş, sonra dialog sheet’in klavyeyle
@@ -4770,8 +4788,8 @@ function pa(e, t, i, n, s, r) {
             class: "ui-popover-backdrop fixed inset-0 bg-black/70",
             style: de(r.backdropStyle),
             "aria-hidden": "true",
-            onPointerdown: t[0] || (t[0] = z((...a) => r.onBackdropDismiss && r.onBackdropDismiss(...a), ["stop", "prevent"])),
-            onClick: t[1] || (t[1] = z((...a) => r.onBackdropDismiss && r.onBackdropDismiss(...a), ["stop", "prevent"]))
+            onPointerdown: t[0] || (t[0] = F((...a) => r.onBackdropDismiss && r.onBackdropDismiss(...a), ["stop", "prevent"])),
+            onClick: t[1] || (t[1] = F((...a) => r.onBackdropDismiss && r.onBackdropDismiss(...a), ["stop", "prevent"]))
           }, null, 36)) : f("", !0)
         ]),
         _: 1
@@ -4792,7 +4810,7 @@ function pa(e, t, i, n, s, r) {
             "data-popover-align-active": i.alignSelectedOptionToTrigger ? "" : void 0,
             "data-ui-popover-mobile-centered": r.popoverMobileCenteredAttr ? "" : void 0,
             "data-ui-popover-layer": "",
-            onPointerdown: t[3] || (t[3] = z(() => {
+            onPointerdown: t[3] || (t[3] = F(() => {
             }, ["stop"]))
           }, [
             h("div", {
@@ -4890,8 +4908,8 @@ function xa(e, t, i, n, s, r) {
     ]),
     onClick: t[1] || (t[1] = (...l) => r.select && r.select(...l)),
     onKeydown: [
-      t[2] || (t[2] = W(z((...l) => r.select && r.select(...l), ["prevent"]), ["enter"])),
-      t[3] || (t[3] = W(z((...l) => r.select && r.select(...l), ["prevent"]), ["space"]))
+      t[2] || (t[2] = W(F((...l) => r.select && r.select(...l), ["prevent"]), ["enter"])),
+      t[3] || (t[3] = W(F((...l) => r.select && r.select(...l), ["prevent"]), ["space"]))
     ]
   }, [
     h("input", {
@@ -4956,7 +4974,7 @@ const hu = /* @__PURE__ */ T(ga, [["render", xa]]), wa = Y("ui-radio-group"), _a
       return this.normalizedVariant === "button" ? this.orientation === "vertical" ? "vertical" : "horizontal" : this.orientation === "horizontal" ? "horizontal" : "vertical";
     },
     rootClass() {
-      return F(
+      return z(
         "ui-radio-group",
         `ui-radio-group--${this.normalizedVariant}`,
         this.normalizedVariant === "list" && this.effectiveOrientation === "horizontal" ? "ui-radio-group--horizontal" : "",
@@ -4979,7 +4997,7 @@ function La(e, t, i, n, s, r) {
     p(e.$slots, "default")
   ], 10, Ia);
 }
-const mu = /* @__PURE__ */ T(Ca, [["render", La]]), Fa = {
+const mu = /* @__PURE__ */ T(Ca, [["render", La]]), za = {
   name: "Tag",
   components: { Badge: yr, Tooltip: Zt },
   props: {
@@ -5010,7 +5028,7 @@ const mu = /* @__PURE__ */ T(Ca, [["render", La]]), Fa = {
       return typeof this.$t == "function" ? this.$t("ui.tag.remove") : "Kaldır";
     }
   }
-}, za = ["aria-label"];
+}, Fa = ["aria-label"];
 function Aa(e, t, i, n, s, r) {
   const a = x("ui-icon"), u = x("Tooltip"), l = x("Badge");
   return o(), _(l, {
@@ -5036,13 +5054,13 @@ function Aa(e, t, i, n, s, r) {
               type: "button",
               class: "ui-tag-remove",
               "aria-label": r.removeLabel,
-              onClick: t[0] || (t[0] = z((c) => e.$emit("remove"), ["stop"]))
+              onClick: t[0] || (t[0] = F((c) => e.$emit("remove"), ["stop"]))
             }, [
               b(a, {
                 name: "xmark",
                 size: "xs"
               })
-            ], 8, za)
+            ], 8, Fa)
           ]),
           _: 1
         }, 8, ["label"])
@@ -5051,7 +5069,7 @@ function Aa(e, t, i, n, s, r) {
     } : void 0
   ]), 1032, ["color", "variant", "size"]);
 }
-const Da = /* @__PURE__ */ T(Fa, [["render", Aa]]), Ba = Y("ui-select"), Ma = ["field", "inline"], Oa = ["sm", "md", "lg"], Pa = {
+const Da = /* @__PURE__ */ T(za, [["render", Aa]]), Ba = Y("ui-select"), Ma = ["field", "inline"], Oa = ["sm", "md", "lg"], Pa = {
   name: "Select",
   mixins: [R],
   components: { Tag: Da },
@@ -5129,6 +5147,14 @@ const Da = /* @__PURE__ */ T(Fa, [["render", Aa]]), Ba = Y("ui-select"), Ma = ["
       type: Boolean,
       default: !0
     },
+    /**
+     * Seçenek panelinin sabit genişliği (ör. `'18rem'`). Özel `#trigger` ile açılan
+     * ve seçenekleri açılınca yüklenen listelerde panel boş/iskelet hâliyle daralmaz.
+     */
+    width: {
+      type: [String, Number],
+      default: null
+    },
     scrollListThreshold: {
       type: Number,
       default: 6
@@ -5178,7 +5204,7 @@ const Da = /* @__PURE__ */ T(Fa, [["render", Aa]]), Ba = Y("ui-select"), Ma = ["
     },
     rootClass() {
       const e = this.variant === "inline";
-      return F(
+      return z(
         "ui-select",
         e && "ui-select--inline",
         !e && this.block && "ui-select--block w-full",
@@ -5430,6 +5456,7 @@ function Qa(e, t, i, n, s, r) {
       "onUpdate:open": t[7] || (t[7] = (C) => s.menuOpen = C),
       placement: "bottom-start",
       "match-trigger-width": i.matchTriggerWidth && !e.$slots.trigger,
+      width: i.width,
       disabled: r.isDisabled,
       "align-selected-option-to-trigger": r.alignSelectedToTrigger
     }, qt({
@@ -5476,7 +5503,7 @@ function Qa(e, t, i, n, s, r) {
                 ]),
                 _: 2
               }, 1032, ["onRemove"]))), 128)),
-              r.isFilterable ? Fe((o(), d("input", {
+              r.isFilterable ? ze((o(), d("input", {
                 key: 0,
                 ref: "searchInput",
                 "onUpdate:modelValue": t[0] || (t[0] = (I) => s.filterQuery = I),
@@ -5489,7 +5516,7 @@ function Qa(e, t, i, n, s, r) {
                 "aria-label": r.resolvedFilterPlaceholder,
                 autocomplete: "off",
                 disabled: r.isDisabled,
-                onClick: t[1] || (t[1] = z((...I) => r.onSearchInputActivate && r.onSearchInputActivate(...I), ["stop"])),
+                onClick: t[1] || (t[1] = F((...I) => r.onSearchInputActivate && r.onSearchInputActivate(...I), ["stop"])),
                 onFocus: t[2] || (t[2] = (...I) => r.onSearchInputActivate && r.onSearchInputActivate(...I)),
                 onKeydown: t[3] || (t[3] = (...I) => r.onSearchKeydown && r.onSearchKeydown(...I))
               }, null, 42, Na)), [
@@ -5505,7 +5532,7 @@ function Qa(e, t, i, n, s, r) {
                 type: "button",
                 class: "ui-select-clear",
                 "aria-label": r.clearAriaLabel,
-                onClick: t[4] || (t[4] = z((...I) => r.clearSelection && r.clearSelection(...I), ["stop"]))
+                onClick: t[4] || (t[4] = F((...I) => r.clearSelection && r.clearSelection(...I), ["stop"]))
               }, [
                 b(a, {
                   name: "xmark",
@@ -5594,7 +5621,7 @@ function Qa(e, t, i, n, s, r) {
       r.showPopoverHeader ? {
         name: "header",
         fn: w(({ close: C }) => [
-          Fe(h("input", {
+          ze(h("input", {
             ref: "filterInput",
             "onUpdate:modelValue": t[5] || (t[5] = (S) => s.filterQuery = S),
             type: "text",
@@ -5603,11 +5630,11 @@ function Qa(e, t, i, n, s, r) {
             placeholder: r.resolvedFilterPlaceholder,
             "aria-label": r.resolvedFilterPlaceholder,
             autocomplete: "off",
-            onMousedown: t[6] || (t[6] = z(() => {
+            onMousedown: t[6] || (t[6] = F(() => {
             }, ["prevent"])),
             onKeydown: [
-              W(z((S) => r.pickFirstFiltered(C), ["prevent"]), ["enter"]),
-              W(z((S) => C(), ["prevent"]), ["esc"])
+              W(F((S) => r.pickFirstFiltered(C), ["prevent"]), ["enter"]),
+              W(F((S) => C(), ["prevent"]), ["esc"])
             ]
           }, null, 42, qa), [
             [et, s.filterQuery]
@@ -5622,7 +5649,7 @@ function Qa(e, t, i, n, s, r) {
         ]),
         key: "1"
       } : void 0
-    ]), 1032, ["open", "match-trigger-width", "disabled", "align-selected-option-to-trigger"])
+    ]), 1032, ["open", "match-trigger-width", "width", "disabled", "align-selected-option-to-trigger"])
   ], 2);
 }
 const pu = /* @__PURE__ */ T(Pa, [["render", Qa]]), Xa = {
@@ -5814,7 +5841,7 @@ const uo = {
       return this.scrollable === !0 && this.direction !== "vertical";
     },
     rootClass() {
-      return F(
+      return z(
         "ui-segment-group",
         this.block ? "ui-segment-group--block" : "ui-segment-group--fit",
         this.direction === "vertical" && "ui-segment-group--vertical",
@@ -5876,7 +5903,7 @@ function fo(e, t, i, n, s, r) {
     p(e.$slots, "default")
   ], 16, co);
 }
-const bu = /* @__PURE__ */ T(uo, [["render", fo]]), ho = ["line", "circle", "block", "pill"], mo = ["sm", "md", "lg"], po = 480, zt = {
+const bu = /* @__PURE__ */ T(uo, [["render", fo]]), ho = ["line", "circle", "block", "pill"], mo = ["sm", "md", "lg"], po = 480, Ft = {
   line: "ui-skeleton--line",
   circle: "ui-skeleton--circle",
   block: "ui-skeleton--block",
@@ -5994,14 +6021,14 @@ const bu = /* @__PURE__ */ T(uo, [["render", fo]]), ho = ["line", "circle", "blo
   },
   computed: {
     variantClass() {
-      return zt[this.variant] || zt.line;
+      return Ft[this.variant] || Ft.line;
     },
     lineSizeClass() {
       if (this.variant === "line")
         return At[this.size] || At.md;
     },
     skeletonClass() {
-      return F(
+      return z(
         "ui-skeleton",
         this.variantClass,
         this.lineSizeClass,
@@ -6009,7 +6036,7 @@ const bu = /* @__PURE__ */ T(uo, [["render", fo]]), ho = ["line", "circle", "blo
       );
     },
     hostClass() {
-      return F(
+      return z(
         "ui-skeleton-host",
         this.heightAnimActive && "ui-skeleton-host--height-active",
         this.heightLocked && "ui-skeleton-host--height-locked",
@@ -6032,7 +6059,7 @@ function vo(e, t, i, n, s, r) {
     "aria-busy": n.isBusy ? "true" : void 0,
     onTransitionend: t[0] || (t[0] = (...a) => n.onHostTransitionEnd && n.onHostTransitionEnd(...a))
   }), [
-    Fe(h("div", {
+    ze(h("div", {
       ref: "placeholderRef",
       class: k(["ui-skeleton-placeholder", n.placeholderClass]),
       "aria-hidden": "true"
@@ -6165,7 +6192,7 @@ const vu = /* @__PURE__ */ T(So, [["render", wo]]), _o = {
     listClass() {
       var n, s;
       const e = ((n = this.uiTabs) == null ? void 0 : n.orientation) === "vertical", i = ((s = this.uiTabs) == null ? void 0 : s.variant) === "segmented" ? "segmented" : "line";
-      return F(
+      return z(
         "ui-tab-list",
         i === "segmented" ? "ui-tab-list--segmented" : "ui-tab-list--line",
         e ? "ui-tab-list--vertical" : "ui-tab-list--horizontal",
@@ -6222,8 +6249,8 @@ function Lo(e, t, { inlineControls: i = !1, nativeChrome: n = !1 } = {}) {
   const s = K(e, t, { key: "controlSize", defaultSize: "md" });
   return i ? s : n ? "lg" : Io(s);
 }
-const Fo = ["line", "segmented"];
-function zo(e) {
+const zo = ["line", "segmented"];
+function Fo(e) {
   return typeof e == "boolean" || e === "mobile";
 }
 const Ao = {
@@ -6240,7 +6267,7 @@ const Ao = {
     variant: {
       type: String,
       default: "line",
-      validator: (e) => Fo.includes(e)
+      validator: (e) => zo.includes(e)
     },
     /** `horizontal` — yan yana tetikleyiciler; `vertical` — sol şerit + içerik. */
     orientation: {
@@ -6293,7 +6320,7 @@ const Ao = {
     iconOnly: {
       type: [Boolean, String],
       default: !1,
-      validator: zo
+      validator: Fo
     }
   },
   emits: ["update:modelValue"],
@@ -6316,7 +6343,7 @@ const Ao = {
       return this.iconOnly === "mobile" ? E() : !!this.iconOnly;
     },
     rootClass() {
-      return F(
+      return z(
         "ui-tabs flex min-w-0 flex-col",
         this.variant === "segmented" ? "ui-tabs--segmented" : "ui-tabs--line",
         this.orientation === "vertical" ? "ui-tabs--vertical" : "",
@@ -7272,14 +7299,14 @@ function Lu(e) {
     se.delete(t);
   }
 }
-function Fu(e, t = {}) {
+function zu(e, t = {}) {
   const i = je(e, t);
   return {
     classAttr: t.mode === "dark" ? "dark" : "",
     styleAttr: Object.entries(i).map(([n, s]) => `${n}: ${s}`).join("; ")
   };
 }
-function zu(e, t = {}) {
+function Fu(e, t = {}) {
   const i = je(e, t), n = [], s = Object.entries(i).map(([u, l]) => `${u}: ${l} !important`).join("; ");
   s && n.push(`:root, html, html.dark { ${s} }`);
   const r = i["--font-sans"], a = i["--font-heading"] || r;
@@ -7419,7 +7446,7 @@ const ml = {
     },
     triggerClass() {
       const e = this.triggerKind;
-      return F(
+      return z(
         "ui-tab-trigger",
         e === "segmented" ? "ui-tab-trigger--segmented" : "ui-tab-trigger--line",
         this.isSelected && (e === "segmented" ? "ui-tab-trigger--segmented-selected" : "ui-tab-trigger--line-selected"),
@@ -7691,7 +7718,7 @@ const $t = {
 }, Ll = {
   key: 1,
   class: "ui-alert-description ui-text-default"
-}, Fl = ["onClick", "onKeydown"], zl = { class: "ui-alert-body min-w-0 flex-1" }, Al = {
+}, zl = ["onClick", "onKeydown"], Fl = { class: "ui-alert-body min-w-0 flex-1" }, Al = {
   key: 0,
   class: "ui-alert-title"
 }, Dl = {
@@ -7724,8 +7751,8 @@ function Bl(e, t, i, n, s, r) {
               }, { ref_for: !0 }, r.childA11y(c), {
                 onClick: (g) => r.onToastClick(l),
                 onKeydown: [
-                  W(z((g) => r.onToastClick(l), ["prevent"]), ["enter"]),
-                  W(z((g) => r.onToastClick(l), ["prevent"]), ["space"])
+                  W(F((g) => r.onToastClick(l), ["prevent"]), ["enter"]),
+                  W(F((g) => r.onToastClick(l), ["prevent"]), ["space"])
                 ]
               }), [
                 h("span", {
@@ -7750,7 +7777,7 @@ function Bl(e, t, i, n, s, r) {
                   class: "ui-toast-dismiss shrink-0",
                   "prefix-icon": "xmark",
                   "aria-label": r.dismissLabel,
-                  onClick: z((g) => r.queueDismissToastChild(l.id, c.id), ["stop"])
+                  onClick: F((g) => r.queueDismissToastChild(l.id, c.id), ["stop"])
                 }, null, 8, ["aria-label", "onClick"])
               ], 16, Tl))), 128))
             ], 8, _l)) : (o(), d("div", {
@@ -7767,8 +7794,8 @@ function Bl(e, t, i, n, s, r) {
               }, { ref_for: !0 }, r.toastA11y(l), {
                 onClick: (c) => r.onToastClick(l),
                 onKeydown: [
-                  W(z((c) => r.onToastClick(l), ["prevent"]), ["enter"]),
-                  W(z((c) => r.onToastClick(l), ["prevent"]), ["space"])
+                  W(F((c) => r.onToastClick(l), ["prevent"]), ["enter"]),
+                  W(F((c) => r.onToastClick(l), ["prevent"]), ["space"])
                 ]
               }), [
                 h("span", {
@@ -7780,7 +7807,7 @@ function Bl(e, t, i, n, s, r) {
                     size: "sm"
                   }, null, 8, ["name"])
                 ], 2),
-                h("div", zl, [
+                h("div", Fl, [
                   r.collapsedTitle(l) ? (o(), d("p", Al, y(r.collapsedTitle(l)), 1)) : f("", !0),
                   r.collapsedDescription(l) ? (o(), d("p", Dl, y(r.collapsedDescription(l)), 1)) : f("", !0)
                 ]),
@@ -7793,9 +7820,9 @@ function Bl(e, t, i, n, s, r) {
                   class: "ui-toast-dismiss shrink-0",
                   "prefix-icon": "xmark",
                   "aria-label": r.dismissLabel,
-                  onClick: z((c) => r.queueDismissToast(l.id), ["stop"])
+                  onClick: F((c) => r.queueDismissToast(l.id), ["stop"])
                 }, null, 8, ["aria-label", "onClick"])
-              ], 16, Fl)
+              ], 16, zl)
             ], 2))
           ]))), 128))
         ]),
@@ -8194,8 +8221,8 @@ export {
   Gu as a4,
   Nu as a5,
   xu as a6,
-  zu as a7,
-  Fu as a8,
+  Fu as a7,
+  zu as a8,
   Uu as a9,
   Oe as aA,
   sa as aB,
@@ -8226,7 +8253,7 @@ export {
   jl as a_,
   Ou as aa,
   Lu as ab,
-  F as ac,
+  z as ac,
   je as ad,
   Yl as ae,
   Y as af,
@@ -8287,4 +8314,4 @@ export {
   bu as y,
   pu as z
 };
-//# sourceMappingURL=custom-css-C_AAUS5Y.js.map
+//# sourceMappingURL=custom-css-BkRowOIa.js.map
