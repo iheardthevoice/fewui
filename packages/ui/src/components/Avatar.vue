@@ -27,9 +27,10 @@
 </template>
 
 <script>
+import { SCALE_SIZES } from '../utils/sizes.js'
 import { cn } from '../utils/cn.js'
 
-const SIZES = ['xs', 'sm', 'md', 'lg', 'xl']
+const SIZES = SCALE_SIZES
 
 const SIZE_CLASS = {
   xs: 'ui-avatar--xs',

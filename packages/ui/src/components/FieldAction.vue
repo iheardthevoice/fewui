@@ -201,10 +201,11 @@
 </template>
 
 <script>
+import { CONTROL_SIZES } from '../utils/sizes.js'
 import { resolveUiText } from '../utils/resolve-ui-text.js'
 
 const MODES = ['popover', 'dialog']
-const SIZES = ['sm', 'md', 'lg']
+const SIZES = CONTROL_SIZES
 const PLACEMENTS = [
   'bottom-start',
   'bottom-end',

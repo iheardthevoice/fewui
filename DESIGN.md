@@ -24,6 +24,10 @@ Bu belge **fewui** ile geliştirdiğimiz arayüz dilini, token’ları ve tekrar
 | `ui-heading-1` … `ui-heading-6` | Sayfa / bölüm hiyerarşisi |
 | `ui-heading-3` | Kart veya bölüm başlığı (16px / medium / 24px satır) |
 | `ui-text-default` | Gövde / yardımcı metin (`text-sm`, `text-muted-foreground`) |
+| `ui-text-strong` | Gövde vurgusu (`text-sm`, `font-medium`, `text-foreground`) |
+| `ui-text-muted` | Yalnız ikincil renk; boyut çevreden gelir |
+| `ui-text-2xs` | Mikro metin 11px / 14px (rozet, sayaç, grup etiketi). 12px altı yalnız bu sınıfla; `text-[10px]` gibi keyfi değer yazılmaz |
+| `ui-display-sm` · `-md` · `-lg` | Büyük rakam (tutar, metrik): 18 / 20 / 24px, `font-medium`, `tabular-nums` |
 
 Kart gövdesi (`ui-card-body`) varsayılan olarak bu tabanı kullanır.
 
@@ -40,8 +44,22 @@ Kart gövdesi (`ui-card-body`) varsayılan olarak bu tabanı kullanır.
 | Kavram | Davranış |
 |--------|-----------|
 | **`ui-surface`** | `rounded-3xl`, `border-border`, `bg-surface`, `shadow-lg` — **Card**, **Popover** paneli, **Dialog** paneli aynı kabuk. |
-| **`ui-card`** | `ui-surface` + iç `gap-6`, `p-6`, flex kolon; header / body / footer slot düzeni. |
+| **`ui-card`** | `ui-surface` + flex kolon; header / body / footer slot düzeni. İç boşluk ve bölüm arası aynı değerdir: `--ui-card-padding` = `--ui-card-gap` = `--ui-card-space` (varsayılan 1.5rem). Tema `cardSpace` token'ı ile değiştirir. |
 | **`ui-empty`** | Gölgeli kart kabuğu yok; içerik ortalanmış boş durum. |
+
+**İkincil yüzeyler (token).** Kart içindeki ikincil bölgeler opaklık sınıfıyla değil token'la yazılır:
+
+| Sınıf | Değer | Kullanım |
+|-------|-------|----------|
+| `bg-surface-subtle` | muted %30 | liste satırı zemini, hover, kart içi kutu |
+| `bg-surface-sunken` | muted %60 | seçili satır, ikon karosu, önizleme / kod kutusu |
+| `border-border-subtle` | border %60 | satır ayırıcı, ikincil çerçeve |
+
+`bg-muted/30`, `border-border/60` gibi opaklık çeşitleri yazılmaz (`pnpm run check:tokens` raporlar). Tema bu üç token'ı ayrıca verebilir.
+
+**Yatay kaydırma şeridi.** Çip, kategori ve araç satırları `ui-scroll-x` (yatay kaydırır, dikeyde gizler) + zeminsiz şeritte `ui-scroll-bleed` kullanır. Bir eksende `overflow: auto` olan kutu her şeyi kenarında kırpar; `ui-scroll-bleed` dikeyde `--ui-scroll-bleed` (10px) pay bırakır ve negatif dış boşlukla geri alır — gölge, odak halkası ve basılı büyüme kesilmez, yerleşim değişmez. Zeminli izlerde (segmented sekme, segment grubu) kullanılmaz.
+
+**Boşluk ve yoğunluk.** Bölüm, alan yığını, liste satırı, araç çubuğu ve kart boşlukları `--ui-space-*` / `--ui-list-row-py` / `--ui-toolbar-gap` değişkenlerindendir (bkz. `packages/ui/themes/README.md`). `defaults.density = 'compact'` hepsini birlikte daraltır; ekranlar bu değerleri elle `gap-4` / `py-3` ile yeniden yazmaz.
 
 ---
 
@@ -114,6 +132,14 @@ Kart gövdesi (`ui-card-body`) varsayılan olarak bu tabanı kullanır.
 - Pasif segment: açıkta **`text-base-600`**, koyuda **`text-muted-foreground`**.
 - Seçili: **`bg-primary` + `text-primary-foreground`** (vurgulu ana aksiyon).
 
+### Kayan seçim göstergesi (SegmentGroup + segmented Tabs)
+
+- Seçili zemin her öğenin kendi arka planı değil, grupta **tek bir gösterge**dir (`ui-selection-indicator`). Seçim değişince yeni seçilinin arkasına kayar; yolda hafifçe büyür (`1 → 1.05 → 1`) ve aynı ölçeğe döner.
+- Varsayılan açıktır; `:animated="false"` (`ui-segment-group` veya `ui-tabs`) eski davranışa döner. `line` sekmelerde gösterge yoktur.
+- Hareket: `--ui-indicator-duration` (420ms), `--ui-indicator-ease` (`cubic-bezier(0.32, 0.72, 0, 1)`), `--ui-indicator-pop-scale` (1.05) — tema veya kapsayıcıda override edilebilir.
+- İlk yerleşim, yeniden boyutlanma ve görünür olma animasyonsuzdur; yalnız seçim değişimi kayar. JS ölçene kadar (SSR) seçili öğe kendi zeminini çizer. `prefers-reduced-motion` hareketi ve büyümeyi kapatır.
+- Uygulama seçili segment / sekmeye ayrıca zemin, gölge veya `:deep` stili yazmaz; gösterge tek kaynaktır.
+
 ---
 
 ## 11. Menu
@@ -130,6 +156,22 @@ Kart gövdesi (`ui-card-body`) varsayılan olarak bu tabanı kullanır.
 - **Stepper:** `default` ve `pills` (bu “pills” **Tabs** değil).
 - **Dialog / Toast / Confirm:** Programatik API’ler (`useDialog`, `useConfirm`, `useToast`); kökte ilgili portal bileşenleri gerekir.
 - **ListItem, Badge, Alert, Radio, Checkbox, Switch:** Ortak input/foreground/border token’ları; checkbox’ta köşe “hap” değil, kontrollü küçük radius.
+- **Stat / StatGroup:** Metrik her zaman `ui-stat`. Değer `ui-display-*`; değişim artışta `success`, azalışta `danger` — azalmanın iyi olduğu metrikte (gider, iptal, ret) `invert-trend`. Kart içinde `variant="soft"`, sayfada tek başına `variant="surface"`. `text-emerald-*` gibi sabit renk yazılmaz.
+- **IconTile:** Satır, kart ve metrik başlığındaki renkli ikon kutusu. Elle `flex size-10 rounded-xl bg-muted/40` karo yazılmaz. Nötr varsayılan; tonlu karo yalnız anlam taşıdığında.
+- **ListItem (satır düzeni):** Ayar / gezinme satırı `title` + `description` + `icon` + `to` / `interactive`. Kart içinde `ui-card remove-padding` + `ui-list`.
+- **FilterChip / ChipGroup:** Filtre tetikleyicisi `ui-filter-chip`; kısa seçenek sırası (dönem, kapsam, etiket) `ui-chip-group`. `ui-button` + `aria-pressed` ile elle toggle grubu yazılmaz. Sekme için `ui-tabs`, form içi ikili seçim için `ui-segment-group`.
+- **Section:** Detay ve form bölümleri `ui-section` (etiketli ayırıcı + açıklama + alan yığını).
+- **Toolbar:** Liste / rapor üstü araç ve filtre satırı `ui-toolbar`; aralık `--ui-toolbar-gap`.
+
+### Liste filtreleri (panel `app-data-table` / `app-data-list`)
+
+1. Kapsam segmenti (≤4 seçenek: durum, tür) varsa **tek** ve satırın başındadır (`type: 'segment'`, `segmentInline`); daha çok seçenek `select` olur.
+2. Metin araması segmentten sonraki **ilk** filtredir; listede tek serbest arama vardır.
+3. Görünür filtreler `primary: true` ile aynı satırda çiptir. `primary` varsayılan olarak çiptir; `trigger: 'badge'` yalnız birincil olmayan filtrede yazılır.
+4. Nadir kullanılan filtreler `primary` almaz; "Filtre ekle" menüsünden açılır.
+5. Rapor ve pano dönemi `ui-chip-group`; özel aralık `ui-date-range-picker` `show-trigger=false` + `anchor` ile ilgili çipin altında açılır.
+
+Geliştirmede `warnListFilterRule` (panel `list-query-mixin.js`) kurala uymayan tanımları konsola yazar.
 
 ---
 

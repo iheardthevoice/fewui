@@ -75,14 +75,14 @@ export default {
     },
     iconType: iconTypeProp,
     /**
-     * Başlık ikonu rengi: `success` | `warning` | `danger` | `info` | `muted` | ''.
+     * Başlık ikonu rengi: ortak `color` kümesi (`primary` | `secondary` | `success` | `warning` | `danger` | `info`) veya `muted` | ''.
      * Boş / muted → varsayılan muted-foreground.
      */
     iconTone: {
       type: String,
       default: '',
       validator: (v) =>
-        !v || ['success', 'warning', 'danger', 'info', 'muted'].includes(v),
+        !v || ['primary', 'secondary', 'success', 'warning', 'danger', 'info', 'muted'].includes(v),
     },
   },
   computed: {

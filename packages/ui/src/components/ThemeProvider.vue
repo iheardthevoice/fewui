@@ -5,6 +5,7 @@
     :class="{ dark: resolvedMode === 'dark', 'ui-theme-provider--background': background }"
     :data-ui-theme="themeId"
     :data-ui-mode="resolvedMode"
+    :data-ui-density="mergedDefaults.density === 'compact' ? 'compact' : undefined"
     :style="cssVars"
   >
     <div

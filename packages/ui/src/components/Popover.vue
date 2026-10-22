@@ -158,6 +158,15 @@ export default {
       type: Boolean,
       default: false,
     },
+    /**
+     * Konum referansı — verilirse panel tetikleyici yerine bu öğeye göre açılır
+     * (HTMLElement, bileşen örneği veya CSS seçici). Tetikleyicisiz kullanımda (`#trigger` boş)
+     * `v-model:open` ile programatik açılır; bu öğeye tıklama dış tıklama sayılmaz.
+     */
+    anchor: {
+      type: [String, Object],
+      default: null,
+    },
     closeOnOutsideClick: {
       type: Boolean,
       default: true,
@@ -358,7 +367,16 @@ export default {
         zIndex: String(z + 1),
       }
     },
+    resolveAnchorEl() {
+      const anchor = this.anchor
+      if (!anchor || typeof document === 'undefined') return null
+      if (typeof anchor === 'string') return document.querySelector(anchor)
+      if (anchor instanceof HTMLElement) return anchor
+      return anchor.$el instanceof HTMLElement ? anchor.$el : null
+    },
     resolveTriggerEl() {
+      const anchorEl = this.resolveAnchorEl()
+      if (anchorEl) return anchorEl
       const shell = this.$refs.triggerRef
       if (!shell) return null
       if (this.inheritLayout) {
@@ -672,6 +690,7 @@ export default {
       const trigger = this.$refs.triggerRef
       const panel = this.$refs.panelRef
       if (trigger?.contains(t) || panel?.contains(t)) return
+      if (this.resolveAnchorEl()?.contains(t)) return
       if (this.shouldIgnoreOutsideClick(t)) return
       // Overlay açıkken alttaki kontrole tıklama gitmesin (iOS hit-test sızıntısı).
       e.preventDefault()

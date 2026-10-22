@@ -240,12 +240,13 @@ import { resolveThemeControlSize } from '../theme/resolve-theme-default.js'
 import { createUiIdFactory } from '../utils/ui-id.js'
 import Tag from './Tag.vue'
 import { uiDefaultsMixin } from '../theme/ui-defaults.js'
+import { CONTROL_SIZES } from '../utils/sizes.js'
 
 /** Reset via `resetUiIds()` — module counters drift on Cloudflare Worker isolates. */
 const nextSelectId = createUiIdFactory('ui-select')
 
 const VARIANTS = ['field', 'inline']
-const SIZES = ['sm', 'md', 'lg']
+const SIZES = CONTROL_SIZES
 
 export default {
   name: 'Select',

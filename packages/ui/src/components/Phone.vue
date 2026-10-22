@@ -49,10 +49,11 @@ import { cn } from '../utils/cn.js'
 import { resolveThemeControlSize } from '../theme/resolve-theme-default.js'
 import { createUiIdFactory } from '../utils/ui-id.js'
 import { uiDefaultsMixin } from '../theme/ui-defaults.js'
+import { CONTROL_SIZES } from '../utils/sizes.js'
 
 const nextPhoneId = createUiIdFactory('ui-phone-number')
 
-const SIZES = ['sm', 'md', 'lg']
+const SIZES = CONTROL_SIZES
 
 const DEFAULT_COUNTRIES = [
   { value: '+90', label: '+90' },

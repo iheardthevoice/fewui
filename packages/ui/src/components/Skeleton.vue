@@ -50,9 +50,10 @@
 <script>
 import { computed, useSlots, ref, watch, nextTick, onMounted, onBeforeUnmount } from 'vue'
 import { cn } from '../utils/cn.js'
+import { CONTROL_SIZES } from '../utils/sizes.js'
 
 const VARIANTS = ['line', 'circle', 'block', 'pill']
-const SIZES = ['sm', 'md', 'lg']
+const SIZES = CONTROL_SIZES
 const REVEAL_MS = 480
 
 const VARIANT_CLASS = {

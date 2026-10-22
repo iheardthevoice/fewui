@@ -9,6 +9,7 @@
 import { cn } from '../utils/cn.js'
 import { iconTypeProp, themeIconTypeComputed } from '../theme/icon-type-prop.js'
 import { uiDefaultsMixin } from '../theme/ui-defaults.js'
+import { SCALE_SIZES } from '../utils/sizes.js'
 
 const typeToFaPrefix = {
   solid: 'fa-solid',
@@ -19,7 +20,7 @@ const typeToFaPrefix = {
   thin: 'fa-thin',
 }
 
-const SIZES = ['xs', 'sm', 'md', 'lg', 'xl']
+const SIZES = SCALE_SIZES
 
 const sizeClasses = {
   xs: 'text-xs leading-none',

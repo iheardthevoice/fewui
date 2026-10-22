@@ -34,7 +34,7 @@
  * `icon` / `color` ile tamamen elle de geçilebilir.
  */
 const KINDS = ['auto', 'file', 'folder']
-const SIZES = ['sm', 'md', 'lg']
+const SIZES = CONTROL_SIZES
 
 const FOLDER_DEFAULT = { icon: 'folder', color: 'text-sky-500' }
 const FALLBACK_FILE = { icon: 'file-lines', color: 'text-muted-foreground' }
@@ -158,6 +158,7 @@ const NAMED_ICON_COLORS = {
 import { resolveThemeIconType } from '../theme/resolve-theme-default.js'
 import { iconTypeProp } from '../theme/icon-type-prop.js'
 import { uiDefaultsMixin } from '../theme/ui-defaults.js'
+import { CONTROL_SIZES } from '../utils/sizes.js'
 
 export default {
   name: 'File',

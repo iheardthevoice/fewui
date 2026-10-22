@@ -28,6 +28,7 @@ yazılır ve CSS değişkenine çevrilir (`surfaceForeground` → `--surface-for
 | Grup | Token'lar |
 |------|-----------|
 | Renkler | `background`, `foreground`, `surface`, `surfaceForeground`, `control`, `controlForeground`, `primary`, `primaryForeground`, `secondary`, `secondaryForeground`, `muted`, `mutedForeground`, `accent`, `accentForeground`, `border`, `ring` |
+| İkincil yüzey | `surfaceSubtle`, `surfaceSunken`, `borderSubtle` — verilmezse `muted` / `border` üzerinden türetilir (Tailwind: `bg-surface-subtle`, `bg-surface-sunken`, `border-border-subtle`) |
 | Durum | `success`, `warning`, `info`, `danger` + her birinin `*Foreground`'u |
 | Skala | `base: { 50 … 950 }` → `--base-*` |
 | Yüzeyler | `surfaceStyle`, `controlStyle`, `inputStyle`: `{ mixFrom, opacity, backdropBlur }` |
@@ -36,6 +37,7 @@ yazılır ve CSS değişkenine çevrilir (`surfaceForeground` → `--surface-for
 | Grafik | `chart50` … `chart900`, `chart`, `chartForeground` |
 
 Türetilmiş değişkenler (`--surface-bg`, `--control-bg`, `--input-background`, `--border` varsayılanı,
+`--surface-subtle` = muted %30, `--surface-sunken` = muted %60, `--border-subtle` = border %60,
 `--ui-focus-ring`, radius basamakları) `src/theme/tokens.js` → `DERIVED_VARS` içindedir ve her tema
 bloğuna yazılır. Bir token olarak açıkça verilirse türetilmiş formülün yerine geçer.
 
@@ -110,6 +112,21 @@ yüzey stilleri, yazı tipi, şekil ve bileşen varsayılanları düzenlenir; ö
 | `buttonSize` / `inputSize` / `controlSize` | ilgili bileşen boyutları |
 | `dateFormat` / `dateRangeFormat` / `timeFormat` | picker tetikleyici metni |
 | `dialogMaxWidth` | `ui-dialog` varsayılan genişlik |
+| `density` | `comfortable` (varsayılan) · `compact` — kökte / `ui-theme-provider`'da `data-ui-density`; boşluk ölçeğini daraltır |
+
+### Boşluk ölçeği
+
+`themes/_shared/global.css` kökte tanımlar; tema veya uygulama override edebilir. `density: 'compact'`
+aynı değişkenleri küçültür.
+
+| Değişken | comfortable | compact | Kullanım |
+|----------|-------------|---------|----------|
+| `--ui-space-section` | 1.5rem | 1rem | `ui-section` bölümleri arası |
+| `--ui-space-stack` | 1rem | 0.75rem | alan yığını, `ui-stat-group` aralığı |
+| `--ui-space-inline` | 0.5rem | 0.375rem | satır içi öğeler |
+| `--ui-list-row-py` | 0.75rem | 0.5rem | `ui-list` satırı dikey dolgu |
+| `--ui-toolbar-gap` | 0.75rem | 0.5rem | `ui-toolbar` |
+| `--ui-space-card` | 1.5rem | 1rem | kart iç boşluğu (tema `cardPadding` önceliklidir) |
 
 Options API bileşenleri değerleri `uiDefaultsMixin` (`this.uiDefaults`) ile, Composition API
 `useUiDefaults()` ile okur; en yakın `ui-theme-provider` veya uygulama varsayılanı kullanılır.

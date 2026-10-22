@@ -39,8 +39,9 @@ import { cn } from '../utils/cn.js'
 import { iconTypeProp, themeIconTypeComputed } from '../theme/icon-type-prop.js'
 import { resolveThemeControlSize } from '../theme/resolve-theme-default.js'
 import { uiDefaultsMixin } from '../theme/ui-defaults.js'
+import { CONTROL_SIZES } from '../utils/sizes.js'
 
-const SIZES = ['sm', 'md', 'lg']
+const SIZES = CONTROL_SIZES
 
 const ICON_SIZE_BY_EMPTY = {
   sm: 'sm',

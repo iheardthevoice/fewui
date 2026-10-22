@@ -15,9 +15,10 @@
 </template>
 
 <script>
+import { CONTROL_SIZES } from '../utils/sizes.js'
 import PriceText from './PriceText.vue'
 
-const SIZES = ['sm', 'md', 'lg']
+const SIZES = CONTROL_SIZES
 const VALUE_SIZES = ['sm', 'md', 'lg', 'xl', '2xl']
 const TONES = ['default', 'foreground', 'muted', 'success', 'danger', 'primary']
 

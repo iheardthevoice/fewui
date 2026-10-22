@@ -8,7 +8,6 @@
     <span
       v-if="overflowCount > 0"
       class="ui-avatar-group-overflow"
-      :class="SIZE_CLASS[size] || SIZE_CLASS.md"
     >
       {{ overflowText }}
     </span>
@@ -16,9 +15,10 @@
 </template>
 
 <script>
+import { SCALE_SIZES } from '../utils/sizes.js'
 import { cn } from '../utils/cn.js'
 
-const SIZES = ['xs', 'sm', 'md', 'lg', 'xl']
+const SIZES = SCALE_SIZES
 
 const SIZE_CLASS = {
   xs: 'ui-avatar-group--xs',

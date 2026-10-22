@@ -45,6 +45,8 @@
   --color-neutral-950: var(--base-950);
 
   --color-border: var(--border);
+
+  --color-border-subtle: var(--border-subtle);
   --color-ring: var(--ring);
 
   --color-background: var(--background);
@@ -54,6 +56,8 @@
   --color-card: var(--color-surface);
   --color-surface-foreground: var(--surface-foreground);
   --color-surface-input: var(--input-background);
+  --color-surface-subtle: var(--surface-subtle);
+  --color-surface-sunken: var(--surface-sunken);
 
   --color-control: var(--control-bg, var(--control));
   --color-control-foreground: var(--control-foreground);

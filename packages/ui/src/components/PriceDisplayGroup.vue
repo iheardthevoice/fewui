@@ -8,7 +8,8 @@
 </template>
 
 <script>
-const SIZES = ['sm', 'md', 'lg']
+import { CONTROL_SIZES } from '../utils/sizes.js'
+const SIZES = CONTROL_SIZES
 
 export default {
   name: 'PriceDisplayGroup',

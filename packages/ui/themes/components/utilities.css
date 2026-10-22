@@ -6,7 +6,7 @@
  * Boyut referansı (md): h 36px, yatay padding 12px, gap 6px, kontrol metni 14px/20px, font-weight 500,
  * köşe `rounded-lg` / `ui-surface` (`rounded-3xl`) → `--radius` (26px).
  * `xl`/`2xl` TW default bırakılır (küçük karolar; `--radius` üstüne basamaklama şişirir).
- * Card: kökte `gap-4` + `p-6`, `border-border`.
+ * Card: iç boşluk = bölüm arası = `--ui-card-space` (varsayılan 1.5rem), `border-border`.
  * Başlıklar: `ui-heading-3` = 16px / 24px satır / font-medium (text-base leading-6); üst seviyeler büyük, altı text-sm → text-xs.
  * Yardımcı / gövde varsayılanı: `ui-text-default` = 14px / 20px satır / `text-muted-foreground` (oklch ~0.556); kart gövdesi aynı tabanı kullanır.
  *
@@ -44,6 +44,32 @@
 /** Muted dolgulu seçili yüzey — menü aktif satır vb. */
 @utility ui-fill-muted {
   @apply border-0 text-foreground shadow-none bg-muted bg-none;
+}
+
+/**
+ * Yatay kaydırma şeridi (çip, sekme, kategori). `overflow-y: hidden` şart: bir eksen `auto` iken
+ * diğer eksenin `visible` değeri `auto` olur; odak halkası / gölge 1–2px taşınca şerit dikey de
+ * kayar ve iOS'ta yukarı-aşağı esneyip geri döner.
+ */
+@utility ui-scroll-x {
+  @apply overflow-x-auto overflow-y-hidden [overscroll-behavior-x:contain] [-webkit-overflow-scrolling:touch];
+}
+
+/**
+ * Yatay şeritte taşma payı: gölge, odak halkası ve basılı büyüme (`scale`) kaydırıcı kenarında
+ * kırpılmasın. Dikeyde `--ui-scroll-bleed` kadar iç boşluk + aynı kadar negatif dış boşluk —
+ * yerleşim değişmez. Pay alanı komşu düğmelerin tıklamasını çalmasın diye şerit tıklamaya kapalı,
+ * çocukları açık (çocuk üzerinde kaydırma çalışır). Yalnız zeminsiz şeritlerde kullanılır;
+ * zeminli iz (segmented sekme, segment grubu) büyüyeceği için kullanılmaz.
+ */
+@utility ui-scroll-bleed {
+  padding-block: var(--ui-scroll-bleed, 0.625rem);
+  margin-block: calc(var(--ui-scroll-bleed, 0.625rem) * -1);
+  pointer-events: none;
+
+  & > * {
+    pointer-events: auto;
+  }
 }
 
 /** Kaydırma çubuğunu gizle (yatay sekme listesi, sidebar nav vb.) */

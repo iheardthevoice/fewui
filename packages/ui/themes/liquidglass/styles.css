@@ -430,3 +430,12 @@ html.cap-native.cap-ios .ui-native-dock-fab .ui-button:active:not(:disabled) {
     @apply transform-none;
   }
 }
+
+/**
+ * Kayan seçim göstergesi açıkken zemin geçişi yok (yalnız basış ölçeği, renk, opaklık):
+ * zemin geçişli olursa yeni seçilinin eski zemini solarken göstergeyle üst üste biner.
+ */
+html.cap-native.cap-ios .ui-segment-group--indicator[data-ui-indicator='ready'] .ui-segment,
+html.cap-native.cap-ios .ui-tab-list--indicator[data-ui-indicator='ready'] .ui-tab-trigger {
+  transition-property: transform, color, opacity;
+}

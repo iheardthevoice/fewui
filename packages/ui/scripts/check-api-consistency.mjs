@@ -5,7 +5,7 @@
  * - Kaldırılmış prop adları (`fulled`, `destructive`) kullanılmaz
  * - `*COLORS` sabitleri ton sözlüğünün alt kümesi (`error` / `destructive` yok)
  * - `*VARIANTS` sabitleri görsel stil taşır: küçük harf, ton kelimesi yok
- * - `*SIZES` sabitleri ölçek sözlüğünün alt kümesi
+ * - `*SIZES` sabitleri ölçek sözlüğünün (`src/utils/sizes.js`) alt kümesi; tercihen oradan türetilir
  *
  * Argüman olarak dizin verilirse (`check-api-consistency.mjs ../frontend/src`) bu dizinlerdeki
  * `.vue` şablonlarında `ui-*` etiketlerinin kaldırılmış prop / değer kullanımı da taranır.
@@ -13,6 +13,7 @@
 import { readFileSync, readdirSync } from 'node:fs'
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { SIZE_SCALE } from '../src/utils/sizes.js'
 
 const componentsDir = join(dirname(fileURLToPath(import.meta.url)), '..', 'src', 'components')
 
@@ -21,7 +22,6 @@ const TONES = ['primary', 'secondary', 'success', 'warning', 'info', 'danger']
 const EXTRA_COLORS = { 'Button.vue': ['input'] }
 /** Metin vurgu ölçeği (`tone` prop'u). */
 const TEXT_TONES = ['default', 'foreground', 'muted', 'title', 'body']
-const SIZE_SCALE = ['xs', 'sm', 'md', 'lg', 'xl', '2xl']
 const EXTRA_SIZES = { 'Photo.vue': ['fill'], 'Progress.vue': ['thin'] }
 const REMOVED_PROPS = ['fulled', 'destructive']
 const REMOVED_VALUES = ['error', 'destructive']

@@ -9,6 +9,8 @@
       :name="nativeName"
       :value="groupValueString"
       :checked="isChecked"
+      :tabindex="presentational ? -1 : undefined"
+      :aria-hidden="presentational ? 'true' : undefined"
       class="sr-only"
       @change="onNativeChange"
     />
@@ -23,7 +25,10 @@
         class="ui-checkbox-check-icon text-primary-foreground"
       />
     </span>
-    <span class="ui-checkbox-body">
+    <span
+      v-if="!presentational"
+      class="ui-checkbox-body"
+    >
       <span
         v-if="$slots.label || label"
         class="ui-checkbox-label"
@@ -39,6 +44,10 @@
 </template>
 
 <script>
+import { CONTROL_SIZES } from '../utils/sizes.js'
+
+const SIZES = CONTROL_SIZES
+
 export default {
   name: 'Checkbox',
   inject: {
@@ -67,6 +76,20 @@ export default {
     },
     /** `list` varyantında satırları eşit iç boşluklu kutu yapar; işaretli satır dolgu ile vurgulanır (kenarlık yok). */
     highlight: {
+      type: Boolean,
+      default: false,
+    },
+    /** Kutu ölçüsü: sm 16px · md 18px · lg 22px (dokunmatik satır) */
+    size: {
+      type: String,
+      default: 'md',
+      validator: (v) => SIZES.includes(v),
+    },
+    /**
+     * Yalnız durum göstergesi — etiket gövdesi yok, tıklama / odak dıştaki satır düğmesinde
+     * (ör. sepet satırında seçim kutusu). Satır kendi `aria-pressed` / `aria-checked` bilgisini taşır.
+     */
+    presentational: {
       type: Boolean,
       default: false,
     },
@@ -102,9 +125,11 @@ export default {
       return [
         'ui-checkbox',
         `ui-checkbox--${variant}`,
+        this.size !== 'md' ? `ui-checkbox--${this.size}` : '',
         {
           'ui-checkbox--checked': this.isChecked,
           'ui-checkbox--highlight': this.highlight,
+          'ui-checkbox--presentational': this.presentational,
         },
       ]
     },

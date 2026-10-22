@@ -190,3 +190,12 @@ html.cap-native.cap-android aside .ui-button.ui-control[data-variant='outline'],
 html.cap-native.cap-android aside .ui-button.ui-control[data-variant='nav'] {
   @apply bg-none!;
 }
+
+/**
+ * Kayan seçim göstergesi açıkken zemin geçişi yok (yalnız basış ölçeği, renk, opaklık):
+ * zemin geçişli olursa yeni seçilinin eski zemini solarken göstergeyle üst üste biner.
+ */
+html.cap-native.cap-android .ui-segment-group--indicator[data-ui-indicator='ready'] .ui-segment,
+html.cap-native.cap-android .ui-tab-list--indicator[data-ui-indicator='ready'] .ui-tab-trigger {
+  transition-property: transform, color, opacity;
+}

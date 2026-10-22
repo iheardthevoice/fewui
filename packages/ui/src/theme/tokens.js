@@ -65,6 +65,9 @@ export const TOKEN_GROUPS = {
     'border',
     'ring',
     'white',
+    'surfaceSubtle',
+    'surfaceSunken',
+    'borderSubtle',
   ],
   status: STATUS_TONES.flatMap((tone) => [tone, `${tone}Foreground`]),
   chart: [...CHART_SCALE_STEPS.map((step) => `chart${step}`), 'chart', 'chartForeground'],
@@ -105,6 +108,12 @@ export const DERIVED_VARS = {
   '--input-background':
     'color-mix(in oklab, var(--ui-input-mix-from) var(--ui-input-opacity), transparent)',
   '--border': 'var(--input-background)',
+  /** Kart içi ikincil bölge (liste satırı zemini, ikon karosu, boş alan). */
+  '--surface-subtle': 'color-mix(in oklab, var(--muted) 30%, transparent)',
+  /** Belirgin içe gömük bölge (seçili satır, karo zemini, kod/önizleme kutusu). */
+  '--surface-sunken': 'color-mix(in oklab, var(--muted) 60%, transparent)',
+  /** Satır ayırıcı ve ikincil çerçeve. */
+  '--border-subtle': 'color-mix(in oklab, var(--border) 60%, transparent)',
   '--ui-focus-ring': 'color-mix(in oklab, var(--ring) 45%, transparent)',
   '--ui-button-grad-top': 'var(--ui-fill-grad-top-primary)',
   '--ui-button-grad-bottom': 'var(--ui-fill-grad-bottom-primary)',

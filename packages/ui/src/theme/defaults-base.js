@@ -11,6 +11,7 @@
  * @property {string} [dateRangeFormat]
  * @property {string} [timeFormat]
  * @property {string} [dialogMaxWidth]
+ * @property {'comfortable'|'compact'} [density] Boşluk ölçeği (`data-ui-density`); `compact` liste, kart ve araç çubuğu boşluklarını daraltır
  */
 
 /** @type {UiThemeDefaults} */
@@ -24,6 +25,23 @@ export const BASE_UI_DEFAULTS = {
   dateRangeFormat: 'd MMM yyyy',
   timeFormat: 'HH:mm',
   dialogMaxWidth: 'sm',
+  density: 'comfortable',
+}
+
+export const UI_DENSITIES = ['comfortable', 'compact']
+
+/**
+ * Yoğunluğu `data-ui-density` niteliğine yazar; `comfortable` varsayılandır ve nitelik kaldırılır.
+ * @param {HTMLElement|null|undefined} el
+ * @param {string|null|undefined} density
+ */
+export function applyUiDensity(el, density) {
+  if (!el?.setAttribute) return
+  if (density && density !== 'comfortable' && UI_DENSITIES.includes(density)) {
+    el.setAttribute('data-ui-density', density)
+  } else {
+    el.removeAttribute('data-ui-density')
+  }
 }
 
 /**

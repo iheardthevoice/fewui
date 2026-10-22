@@ -3,8 +3,16 @@
     :class="rootClass"
     role="radiogroup"
     :aria-label="ariaLabel || undefined"
-    v-bind="passthroughAttrs"
+    v-bind="{ ...passthroughAttrs, ...indicatorRootAttrs }"
   >
+    <span
+      v-if="indicatorEnabled"
+      ref="indicator"
+      class="ui-selection-indicator"
+      v-bind="indicatorBind"
+    >
+      <span class="ui-selection-indicator-fill" />
+    </span>
     <slot />
   </div>
 </template>
@@ -14,8 +22,10 @@ import { cn } from '../utils/cn.js'
 import { resolveThemeControlSize } from '../theme/resolve-theme-default.js'
 import { isMobileViewport } from '../utils/viewport.js'
 import { uiDefaultsMixin } from '../theme/ui-defaults.js'
+import { CONTROL_SIZES } from '../utils/sizes.js'
+import { selectionIndicatorMixin } from '../utils/selection-indicator.js'
 
-const SIZES = ['sm', 'md', 'lg']
+const SIZES = CONTROL_SIZES
 const DIRECTIONS = ['horizontal', 'vertical']
 
 function isIconOnlyProp(v) {
@@ -24,7 +34,7 @@ function isIconOnlyProp(v) {
 
 export default {
   name: 'SegmentGroup',
-  mixins: [uiDefaultsMixin],
+  mixins: [uiDefaultsMixin, selectionIndicatorMixin],
   inheritAttrs: false,
   emits: ['update:modelValue'],
   props: {
@@ -65,6 +75,14 @@ export default {
       type: Boolean,
       default: false,
     },
+    /**
+     * Seçili zemin yeni seçilinin arkasına kayarak geçer (yolda hafif büyür).
+     * `false`: her segment kendi zeminini çizer (eski davranış).
+     */
+    animated: {
+      type: Boolean,
+      default: true,
+    },
     /** `radiogroup` erişilebilir adı */
     ariaLabel: {
       type: String,
@@ -85,6 +103,12 @@ export default {
       if (this.iconOnly === 'mobile') return isMobileViewport()
       return Boolean(this.iconOnly)
     },
+    indicatorEnabled() {
+      return this.animated
+    },
+    indicatorSelector() {
+      return '.ui-segment--selected'
+    },
     isScrollable() {
       return this.scrollable === true && this.direction !== 'vertical'
     },
@@ -96,6 +120,7 @@ export default {
         this.resolvedIconOnly && 'ui-segment-group--icon-only',
         !this.block && this.direction !== 'vertical' && 'ui-segment-group--inline',
         this.isScrollable && 'ui-segment-group--scrollable',
+        this.indicatorEnabled && 'ui-segment-group--indicator',
         this.resolvedSize !== 'md' && `ui-segment-group--${this.resolvedSize}`,
         this.$attrs.class,
       )

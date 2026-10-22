@@ -4,18 +4,28 @@
     role="tablist"
     :aria-label="ariaLabel || undefined"
     :aria-orientation="ariaOrientation"
-    v-bind="passthroughAttrs"
+    v-bind="{ ...passthroughAttrs, ...indicatorRootAttrs }"
     @keydown="onKeydown"
   >
+    <span
+      v-if="indicatorEnabled"
+      ref="indicator"
+      class="ui-selection-indicator"
+      v-bind="indicatorBind"
+    >
+      <span class="ui-selection-indicator-fill" />
+    </span>
     <slot />
   </div>
 </template>
 
 <script>
 import { cn } from '../utils/cn.js'
+import { selectionIndicatorMixin } from '../utils/selection-indicator.js'
 
 export default {
   name: 'TabList',
+  mixins: [selectionIndicatorMixin],
   inheritAttrs: false,
   inject: {
     uiTabs: {
@@ -30,6 +40,12 @@ export default {
     },
   },
   computed: {
+    indicatorEnabled() {
+      return this.uiTabs?.variant === 'segmented' && this.uiTabs?.animated !== false
+    },
+    indicatorSelector() {
+      return '.ui-tab-trigger--segmented-selected'
+    },
     ariaOrientation() {
       return this.uiTabs?.orientation === 'vertical' ? 'vertical' : 'horizontal'
     },
@@ -42,6 +58,7 @@ export default {
         'ui-tab-list',
         kind === 'segmented' ? 'ui-tab-list--segmented' : 'ui-tab-list--line',
         vert ? 'ui-tab-list--vertical' : 'ui-tab-list--horizontal',
+        this.indicatorEnabled ? 'ui-tab-list--indicator' : '',
         this.$attrs.class,
       )
     },

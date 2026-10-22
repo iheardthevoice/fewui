@@ -15,10 +15,39 @@
   --ui-tab-h-sm: var(--ui-control-h-md);
   --ui-tab-h-md: var(--ui-control-h-lg);
   --ui-tab-h-lg: 3.125rem;
+
+  /**
+   * Boşluk ölçeği — bileşenler ve uygulama yerleşimi aynı adımları kullanır.
+   * `section`: bölümler arası · `stack`: alan yığını · `inline`: satır içi öğeler ·
+   * `list-row-py`: liste satırı dikey dolgu · `toolbar-gap`: filtre / araç çubuğu ·
+   * `card`: kart iç boşluğu (tema `cardPadding` → `--ui-card-space` önceliklidir).
+   */
+  --ui-space-section: 1.5rem;
+  --ui-space-stack: 1rem;
+  --ui-space-inline: 0.5rem;
+  --ui-list-row-py: 0.75rem;
+  --ui-toolbar-gap: 0.75rem;
+  --ui-space-card: 1.5rem;
 }
 
-html {
-  @apply font-sans [scrollbar-gutter:stable];
+/** Yoğun ölçek — `defaults.density = 'compact'` (`data-ui-density`). */
+[data-ui-density='compact'] {
+  --ui-space-section: 1rem;
+  --ui-space-stack: 0.75rem;
+  --ui-space-inline: 0.375rem;
+  --ui-list-row-py: 0.5rem;
+  --ui-toolbar-gap: 0.5rem;
+  --ui-space-card: 1rem;
+}
+
+/**
+ * Taban kurallar `@layer base` içinde: katmansız `*` kuralı her utility'yi ezer
+ * (`ui-scrollbar-none`, `[scrollbar-width:none]` çalışmaz, gizli kaydırıcılar görünür).
+ */
+@layer base {
+  html {
+    @apply font-sans [scrollbar-gutter:stable];
+  }
 }
 
 /**
@@ -30,28 +59,30 @@ html.ui-scroll-lock body {
   @apply overflow-hidden [overscroll-behavior:none];
 }
 
-*,
-*::before,
-*::after {
-  @apply [scrollbar-width:thin] [scrollbar-color:var(--ui-scrollbar-thumb)_var(--ui-scrollbar-track)];
-}
+@layer base {
+  *,
+  *::before,
+  *::after {
+    @apply [scrollbar-width:thin] [scrollbar-color:var(--ui-scrollbar-thumb)_var(--ui-scrollbar-track)];
+  }
 
-::-webkit-scrollbar {
-  @apply w-[var(--ui-scrollbar-size)] h-[var(--ui-scrollbar-size)];
-}
+  ::-webkit-scrollbar {
+    @apply w-[var(--ui-scrollbar-size)] h-[var(--ui-scrollbar-size)];
+  }
 
-::-webkit-scrollbar-track {
-  @apply [background:var(--ui-scrollbar-track)];
-}
+  ::-webkit-scrollbar-track {
+    @apply [background:var(--ui-scrollbar-track)];
+  }
 
-::-webkit-scrollbar-thumb {
-  @apply [background-color:var(--ui-scrollbar-thumb)] rounded-full [border:2px_solid_transparent] [background-clip:padding-box];
-}
+  ::-webkit-scrollbar-thumb {
+    @apply [background-color:var(--ui-scrollbar-thumb)] rounded-full [border:2px_solid_transparent] [background-clip:padding-box];
+  }
 
-::-webkit-scrollbar-thumb:hover {
-  @apply [background-color:var(--ui-scrollbar-thumb-hover)];
-}
+  ::-webkit-scrollbar-thumb:hover {
+    @apply [background-color:var(--ui-scrollbar-thumb-hover)];
+  }
 
-::-webkit-scrollbar-corner {
-  @apply [background:var(--ui-scrollbar-track)];
+  ::-webkit-scrollbar-corner {
+    @apply [background:var(--ui-scrollbar-track)];
+  }
 }

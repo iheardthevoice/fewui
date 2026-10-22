@@ -1,6 +1,6 @@
 <template>
   <div
-    :class="['ui-daterangepicker', disabled ? 'pointer-events-none opacity-50' : '', $attrs.class]"
+    :class="['ui-daterangepicker', showTrigger ? '' : 'ui-daterangepicker--headless', disabled ? 'pointer-events-none opacity-50' : '', $attrs.class]"
   >
     <ui-popover
       v-model:open="resolvedOpen"
@@ -8,9 +8,12 @@
       :match-trigger-width="false"
       :width="popoverWidth"
       :disabled="disabled"
+      :anchor="anchor"
+      :inherit-layout="!showTrigger"
     >
       <template #trigger="{ open, toggle, close }">
         <slot
+          v-if="showTrigger"
           name="trigger"
           :open="open"
           :toggle="toggle"
@@ -259,6 +262,19 @@ export default {
     open: {
       type: Boolean,
       default: undefined,
+    },
+    /**
+     * `false`: tetikleyici çizilmez; panel `anchor` öğesine göre `v-model:open` ile açılır
+     * (ör. bir seçim çipindeki “Özel aralık”).
+     */
+    showTrigger: {
+      type: Boolean,
+      default: true,
+    },
+    /** Konum referansı (HTMLElement, bileşen örneği veya CSS seçici) — `ui-popover` `anchor` */
+    anchor: {
+      type: [String, Object],
+      default: null,
     },
   },
   emits: ['update:modelValue', 'change', 'update:open'],

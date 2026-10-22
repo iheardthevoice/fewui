@@ -67,6 +67,9 @@
   --control-bg: color-mix(in oklab, var(--ui-control-mix-from) var(--ui-control-opacity), transparent);
   --input-background: color-mix(in oklab, var(--ui-input-mix-from) var(--ui-input-opacity), transparent);
   --border: var(--input-background);
+  --surface-subtle: color-mix(in oklab, var(--muted) 30%, transparent);
+  --surface-sunken: color-mix(in oklab, var(--muted) 60%, transparent);
+  --border-subtle: color-mix(in oklab, var(--border) 60%, transparent);
   --ui-focus-ring: color-mix(in oklab, var(--ring) 45%, transparent);
   --ui-button-grad-top: var(--ui-fill-grad-top-primary);
   --ui-button-grad-bottom: var(--ui-fill-grad-bottom-primary);

@@ -81,8 +81,9 @@ import { resolveThemeControlSize } from '../theme/resolve-theme-default.js'
 import { useId } from 'vue'
 import { pickPassthroughAttrs } from '../utils/pick-passthrough-attrs.js'
 import { uiDefaultsMixin } from '../theme/ui-defaults.js'
+import { CONTROL_SIZES } from '../utils/sizes.js'
 
-const SIZES = ['sm', 'md', 'lg']
+const SIZES = CONTROL_SIZES
 const VARIANTS = ['default', 'plain']
 
 export default {

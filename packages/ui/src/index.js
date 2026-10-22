@@ -8,11 +8,12 @@ import AvatarGroup from './components/AvatarGroup.vue'
 import Badge from './components/Badge.vue'
 import Button from './components/Button.vue'
 import Card from './components/Card.vue'
-import ColorPicker from './components/ColorPicker.vue'
-import CurrencyInput from './components/CurrencyInput.vue'
 import Checkbox from './components/Checkbox.vue'
 import CheckboxGroup from './components/CheckboxGroup.vue'
+import ChipGroup from './components/ChipGroup.vue'
+import ColorPicker from './components/ColorPicker.vue'
 import ConfirmDialog from './components/ConfirmDialog.vue'
+import CurrencyInput from './components/CurrencyInput.vue'
 import DatePicker from './components/DatePicker.vue'
 import DateRangePicker from './components/DateRangePicker.vue'
 import Dialog from './components/Dialog.vue'
@@ -22,39 +23,46 @@ import Empty from './components/Empty.vue'
 import Field from './components/Field.vue'
 import FieldAction from './components/FieldAction.vue'
 import File from './components/File.vue'
+import FilterChip from './components/FilterChip.vue'
 import FormRow from './components/FormRow.vue'
 import Guidance from './components/Guidance.vue'
 import Icon from './components/Icon.vue'
 import IconPicker from './components/IconPicker.vue'
+import IconTile from './components/IconTile.vue'
 import Input from './components/Input.vue'
 import Intro from './components/Intro.vue'
+import List from './components/List.vue'
+import ListItem from './components/ListItem.vue'
+import Menu from './components/Menu.vue'
+import MenuGroup from './components/MenuGroup.vue'
+import MenuItem from './components/MenuItem.vue'
+import MenuNav from './components/MenuNav.vue'
+import Password from './components/Password.vue'
+import Phone from './components/Phone.vue'
+import Photo from './components/Photo.vue'
+import Photos from './components/Photos.vue'
+import Pin from './components/Pin.vue'
+import Popover from './components/Popover.vue'
 import PriceDisplay from './components/PriceDisplay.vue'
 import PriceDisplayGroup from './components/PriceDisplayGroup.vue'
 import PriceDisplayRow from './components/PriceDisplayRow.vue'
 import PriceInput from './components/PriceInput.vue'
 import PriceText from './components/PriceText.vue'
-import Password from './components/Password.vue'
-import Phone from './components/Phone.vue'
-import Pin from './components/Pin.vue'
-import List from './components/List.vue'
-import ListItem from './components/ListItem.vue'
-import Popover from './components/Popover.vue'
 import Progress from './components/Progress.vue'
 import Radio from './components/Radio.vue'
 import RadioGroup from './components/RadioGroup.vue'
-import Select from './components/Select.vue'
-import Sheet from './components/Sheet.vue'
-import Menu from './components/Menu.vue'
-import MenuGroup from './components/MenuGroup.vue'
-import MenuItem from './components/MenuItem.vue'
-import MenuNav from './components/MenuNav.vue'
-import SidebarItem from './components/SidebarItem.vue'
+import Section from './components/Section.vue'
 import Segment from './components/Segment.vue'
 import SegmentGroup from './components/SegmentGroup.vue'
-import Step from './components/Step.vue'
-import Stepper from './components/Stepper.vue'
+import Select from './components/Select.vue'
+import Sheet from './components/Sheet.vue'
+import SidebarItem from './components/SidebarItem.vue'
 import Skeleton from './components/Skeleton.vue'
 import Slider from './components/Slider.vue'
+import Stat from './components/Stat.vue'
+import StatGroup from './components/StatGroup.vue'
+import Step from './components/Step.vue'
+import Stepper from './components/Stepper.vue'
 import Switch from './components/Switch.vue'
 import Table from './components/Table.vue'
 import TableBody from './components/TableBody.vue'
@@ -63,22 +71,22 @@ import TableHead from './components/TableHead.vue'
 import TableHeader from './components/TableHeader.vue'
 import TablePagination from './components/TablePagination.vue'
 import TableRow from './components/TableRow.vue'
-import Tag from './components/Tag.vue'
 import TabList from './components/TabList.vue'
 import TabPanel from './components/TabPanel.vue'
 import Tabs from './components/Tabs.vue'
-import ThemeProvider from './components/ThemeProvider.vue'
 import TabTrigger from './components/TabTrigger.vue'
+import Tag from './components/Tag.vue'
+import ThemeProvider from './components/ThemeProvider.vue'
 import TimePicker from './components/TimePicker.vue'
 import Toast from './components/Toast.vue'
+import Toolbar from './components/Toolbar.vue'
 import Tooltip from './components/Tooltip.vue'
-import Photo from './components/Photo.vue'
-import Photos from './components/Photos.vue'
 import en from './locales/en.js'
 import tr from './locales/tr.js'
 import { applyUiTheme } from './theme/apply-theme.js'
 import { getThemePackage, registerTheme, resolveTheme } from './theme/registry.js'
 import { provideUiDefaults, setUiDefaults } from './theme/ui-defaults.js'
+import { applyUiDensity } from './theme/defaults-base.js'
 import { setPriceInputConfig } from './price-input-config.js'
 
 export {
@@ -149,6 +157,7 @@ export {
   BASE_UI_DEFAULTS,
   UI_DEFAULTS_KEY,
 } from './theme/ui-defaults.js'
+export { applyUiDensity, UI_DENSITIES } from './theme/defaults-base.js'
 export { iconTypeProp, themeIconTypeComputed, UI_ICON_TYPES } from './theme/icon-type-prop.js'
 export { uiPortalMixin, UI_PORTAL_KEY } from './theme/ui-portal.js'
 export {
@@ -160,6 +169,7 @@ export { createUiId, createUiIdFactory, resetUiIds } from './utils/ui-id.js'
 export { resolveControlSize } from './utils/control-size.js'
 export { resolveUiText } from './utils/resolve-ui-text.js'
 export { pickPassthroughAttrs } from './utils/pick-passthrough-attrs.js'
+export { CONTROL_SIZES, SCALE_SIZES, SIZE_SCALE } from './utils/sizes.js'
 export {
   UI_KEYBOARD_INSET_EVENT,
   readKeyboardInset,
@@ -203,9 +213,10 @@ export {
   Card,
   Checkbox,
   CheckboxGroup,
+  ChipGroup,
   ColorPicker,
-  CurrencyInput,
   ConfirmDialog,
+  CurrencyInput,
   DatePicker,
   DateRangePicker,
   Dialog,
@@ -215,33 +226,40 @@ export {
   Field,
   FieldAction,
   File,
+  FilterChip,
   FormRow,
   Guidance,
   Icon,
   IconPicker,
-  Intro,
+  IconTile,
   Input,
-  PriceInput,
-  Password,
-  Phone,
-  Pin,
+  Intro,
   List,
   ListItem,
-  Popover,
-  Progress,
-  Radio,
-  RadioGroup,
-  Select,
-  Sheet,
   Menu,
   MenuGroup,
   MenuItem,
   MenuNav,
-  SidebarItem,
+  Password,
+  Phone,
+  Photo,
+  Photos,
+  Pin,
+  Popover,
+  PriceInput,
+  Progress,
+  Radio,
+  RadioGroup,
+  Section,
   Segment,
   SegmentGroup,
+  Select,
+  Sheet,
+  SidebarItem,
   Skeleton,
   Slider,
+  Stat,
+  StatGroup,
   Step,
   Stepper,
   Switch,
@@ -252,17 +270,16 @@ export {
   TableHeader,
   TablePagination,
   TableRow,
-  Tag,
   TabList,
   TabPanel,
   Tabs,
   TabTrigger,
+  Tag,
   ThemeProvider,
   TimePicker,
   Toast,
+  Toolbar,
   Tooltip,
-  Photo,
-  Photos,
 }
 
 /** `LOCALE_PACKS` anahtarları — `getUiMessages` / `app.use(UiLib, { locales })` */
@@ -293,9 +310,10 @@ const GLOBAL_COMPONENTS = [
   ['ui-card', Card],
   ['ui-checkbox', Checkbox],
   ['ui-checkbox-group', CheckboxGroup],
+  ['ui-chip-group', ChipGroup],
   ['ui-color-picker', ColorPicker],
-  ['ui-currency-input', CurrencyInput],
   ['ui-confirm-dialog', ConfirmDialog],
+  ['ui-currency-input', CurrencyInput],
   ['ui-date-picker', DatePicker],
   ['ui-date-range-picker', DateRangePicker],
   ['ui-dialog', Dialog],
@@ -305,40 +323,50 @@ const GLOBAL_COMPONENTS = [
   ['ui-field', Field],
   ['ui-field-action', FieldAction],
   ['ui-file', File],
+  ['ui-filter-chip', FilterChip],
   ['ui-form-row', FormRow],
   ['ui-guidance', Guidance],
   ['ui-icon', Icon],
   ['ui-icon-picker', IconPicker],
-  ['ui-intro', Intro],
+  ['ui-icon-tile', IconTile],
   ['ui-input', Input],
+  ['ui-intro', Intro],
+  ['ui-list', List],
+  ['ui-list-item', ListItem],
+  ['ui-menu', Menu],
+  ['ui-menu-group', MenuGroup],
+  ['ui-menu-item', MenuItem],
+  ['ui-menu-nav', MenuNav],
+  ['ui-password', Password],
+  ['ui-phone', Phone],
+  ['ui-photo', Photo],
+  ['ui-photos', Photos],
+  ['ui-pin', Pin],
+  ['ui-popover', Popover],
   ['ui-price-display', PriceDisplay],
   ['ui-price-display-group', PriceDisplayGroup],
   ['ui-price-display-row', PriceDisplayRow],
   ['ui-price-input', PriceInput],
   ['ui-price-text', PriceText],
-  ['ui-password', Password],
-  ['ui-phone', Phone],
-  ['ui-pin', Pin],
-  ['ui-list', List],
-  ['ui-list-item', ListItem],
-  ['ui-popover', Popover],
   ['ui-progress', Progress],
   ['ui-radio', Radio],
   ['ui-radio-group', RadioGroup],
-  ['ui-select', Select],
-  ['ui-sheet', Sheet],
-  ['ui-menu', Menu],
-  ['ui-menu-group', MenuGroup],
-  ['ui-menu-item', MenuItem],
-  ['ui-menu-nav', MenuNav],
-  ['ui-sidebar-item', SidebarItem],
+  ['ui-section', Section],
   ['ui-segment', Segment],
   ['ui-segment-group', SegmentGroup],
+  ['ui-select', Select],
+  ['ui-sheet', Sheet],
+  ['ui-sidebar-item', SidebarItem],
   ['ui-skeleton', Skeleton],
   ['ui-slider', Slider],
+  ['ui-stat', Stat],
+  ['ui-stat-group', StatGroup],
   ['ui-step', Step],
   ['ui-stepper', Stepper],
   ['ui-switch', Switch],
+  ['ui-tab-list', TabList],
+  ['ui-tab-panel', TabPanel],
+  ['ui-tab-trigger', TabTrigger],
   ['ui-table', Table],
   ['ui-table-body', TableBody],
   ['ui-table-cell', TableCell],
@@ -346,17 +374,13 @@ const GLOBAL_COMPONENTS = [
   ['ui-table-header', TableHeader],
   ['ui-table-pagination', TablePagination],
   ['ui-table-row', TableRow],
-  ['ui-tag', Tag],
-  ['ui-tab-list', TabList],
-  ['ui-tab-panel', TabPanel],
   ['ui-tabs', Tabs],
-  ['ui-tab-trigger', TabTrigger],
+  ['ui-tag', Tag],
   ['ui-theme-provider', ThemeProvider],
   ['ui-time-picker', TimePicker],
-  ['ui-tooltip', Tooltip],
   ['ui-toast', Toast],
-  ['ui-photo', Photo],
-  ['ui-photos', Photos],
+  ['ui-toolbar', Toolbar],
+  ['ui-tooltip', Tooltip],
 ]
 
 /**
@@ -390,7 +414,14 @@ export function setUiTheme(theme, options = {}) {
   const pkg = resolveTheme(theme)
   if (!getThemePackage(pkg.id)) registerTheme(pkg)
   applyUiTheme(pkg, options)
-  if (appDefaults) setUiDefaults(appDefaults, { ...pkg.defaults, ...options.defaults })
+  if (appDefaults) {
+    setUiDefaults(appDefaults, { ...pkg.defaults, ...options.defaults })
+    if (typeof document !== 'undefined') {
+      const root =
+        typeof options.root === 'string' ? document.querySelector(options.root) : options.root
+      applyUiDensity(root || document.documentElement, appDefaults.density)
+    }
+  }
   return pkg
 }
 

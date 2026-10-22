@@ -11,6 +11,7 @@ import Dropdown from './components/Dropdown.vue'
 import Empty from './components/Empty.vue'
 import FormRow from './components/FormRow.vue'
 import Icon from './components/Icon.vue'
+import IconTile from './components/IconTile.vue'
 import Input from './components/Input.vue'
 import List from './components/List.vue'
 import ListItem from './components/ListItem.vue'
@@ -119,6 +120,7 @@ const GLOBAL_COMPONENTS = [
   ['ui-empty', Empty],
   ['ui-form-row', FormRow],
   ['ui-icon', Icon],
+  ['ui-icon-tile', IconTile],
   ['ui-input', Input],
   ['ui-list', List],
   ['ui-list-item', ListItem],

@@ -32,10 +32,11 @@ import {
   resolveCurrencyCode,
 } from '../utils/currency.js'
 import { createUiIdFactory } from '../utils/ui-id.js'
+import { CONTROL_SIZES } from '../utils/sizes.js'
 
 const nextCurrencyInputId = createUiIdFactory('ui-currency-input')
 
-const SIZES = ['sm', 'md', 'lg']
+const SIZES = CONTROL_SIZES
 
 export default {
   name: 'CurrencyInput',

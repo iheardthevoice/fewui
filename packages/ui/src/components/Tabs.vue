@@ -90,6 +90,14 @@ export default {
       default: false,
       validator: isIconOnlyProp,
     },
+    /**
+     * `segmented`: seçili zemin yeni sekmenin arkasına kayarak geçer (yolda hafif büyür).
+     * `false`: her tetikleyici kendi zeminini çizer (eski davranış).
+     */
+    animated: {
+      type: Boolean,
+      default: true,
+    },
   },
   emits: ['update:modelValue'],
   setup() {

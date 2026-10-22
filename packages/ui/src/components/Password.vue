@@ -64,10 +64,11 @@
 <script>
 import { scorePassword } from '../utils/passwordStrength.js'
 import { createUiIdFactory } from '../utils/ui-id.js'
+import { CONTROL_SIZES } from '../utils/sizes.js'
 
 const nextPasswordId = createUiIdFactory('ui-password')
 
-const SIZES = ['sm', 'md', 'lg']
+const SIZES = CONTROL_SIZES
 
 export default {
   name: 'Password',

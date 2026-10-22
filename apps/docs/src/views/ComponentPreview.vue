@@ -45,6 +45,29 @@ async function runConfirmDemo() {
   else toastUi.info({ title: 'İptal edildi' })
 }
 
+const demoDensity = ref('comfortable')
+const demoPeriod = ref('today')
+const demoPeriodOptions = [
+  { value: 'today', label: 'Bugün' },
+  { value: 'week', label: 'Bu hafta' },
+  { value: 'month', label: 'Bu ay' },
+  { value: 'custom', label: 'Özel aralık', icon: 'calendar' },
+]
+const demoMenuTags = ref(['vegan'])
+const demoMenuTagOptions = [
+  { value: 'vegan', label: 'Vegan' },
+  { value: 'gluten', label: 'Glutensiz' },
+  { value: 'spicy', label: 'Acılı' },
+]
+const demoTableFilter = ref('')
+const demoRangeOpen = ref(false)
+const demoRange = ref(['', ''])
+const demoRangeAnchor = ref(null)
+
+function onDemoPeriodChange(value) {
+  if (value === 'custom') demoRangeOpen.value = true
+}
+
 const LOCALE_KEY = 'ui-preview-locale'
 
 function readStoredLocale() {
@@ -1171,6 +1194,80 @@ function submitLogin() {
               Save Preferences
             </ui-button>
           </template>
+        </ui-card>
+
+        <ui-card class="mb-8 break-inside-avoid w-full" title="Pano ve listeler"
+          description="Metrik kartı, seçim çipleri, filtre çipi, ikon karosu, liste satırı ve bölüm. Yoğunluk boşlukları birlikte daraltır.">
+          <ui-theme-provider :defaults="{ density: demoDensity }">
+            <div class="flex flex-col gap-6">
+              <ui-segment-group v-model="demoDensity" :block="false" aria-label="Yoğunluk">
+                <ui-segment value="comfortable" label="Rahat" />
+                <ui-segment value="compact" label="Yoğun" />
+              </ui-segment-group>
+
+              <ui-toolbar aria-label="Pano filtreleri">
+                <template #start>
+                  <span ref="demoRangeAnchor">
+                    <ui-chip-group v-model="demoPeriod" :options="demoPeriodOptions" aria-label="Dönem"
+                      @change="onDemoPeriodChange" />
+                  </span>
+                  <ui-date-range-picker v-model="demoRange" v-model:open="demoRangeOpen" :show-trigger="false"
+                    :anchor="demoRangeAnchor" :presets="[]" />
+                </template>
+                <template #end>
+                  <ui-filter-chip icon="table" empty-label="Masa seç" :value-label="demoTableFilter"
+                    :empty="!demoTableFilter" clearable @click="demoTableFilter = 'Bahçe 4'"
+                    @clear="demoTableFilter = ''" />
+                </template>
+              </ui-toolbar>
+
+              <ui-stat-group :columns="3" aria-label="Günün özeti">
+                <ui-stat title="Ciro" icon="sack-dollar" value="₺48.250" :change="12.5" change-label="dünden" />
+                <ui-stat title="İptal" icon="ban" color="danger" value="₺1.120" :change="8" invert-trend
+                  change-label="dünden" />
+                <ui-stat title="Masa devri" icon="chair" value="3,4" :change="null" change-text="Yeni dönem"
+                  interactive>
+                  Ortalama 52 dk oturma
+                </ui-stat>
+              </ui-stat-group>
+
+              <ui-chip-group v-model="demoMenuTags" multiple :scrollable="false" :options="demoMenuTagOptions"
+                aria-label="Etiketler" />
+
+              <div class="flex flex-wrap items-center gap-3">
+                <ui-icon-tile icon="utensils" />
+                <ui-icon-tile icon="utensils" color="primary" />
+                <ui-icon-tile icon="check" color="success" shape="circle" />
+                <ui-icon-tile icon="triangle-exclamation" color="warning" />
+                <ui-icon-tile icon="bell" color="info" variant="solid" />
+                <ui-icon-tile icon="trash" color="danger" size="lg" />
+                <ui-icon-tile icon="wifi" hex="#34C759" variant="solid" size="sm" />
+              </div>
+
+              <ui-card remove-padding>
+                <ui-list>
+                  <ui-list-item title="Restoran bilgileri" description="Ad, adres ve çalışma saatleri" icon="store"
+                    icon-hex="#007AFF" size="lg" interactive />
+                  <ui-list-item title="Para birimi" value="TRY" icon="coins" icon-hex="#34C759" size="lg" interactive />
+                  <ui-list-item title="Hesabı sil" icon="trash" icon-hex="#FF3B30" color="danger" size="lg"
+                    interactive />
+                </ui-list>
+              </ui-card>
+
+              <div>
+                <ui-section title="Misafir" icon="user" description="Rezervasyonu yapan kişi ve iletişim bilgisi.">
+                  <ui-form-row label="Ad soyad">
+                    <ui-input model-value="Deniz Yılmaz" />
+                  </ui-form-row>
+                </ui-section>
+                <ui-section title="Not" icon="note-sticky">
+                  <template #body>
+                    <p class="ui-text-default m-0">Pencere kenarı tercih ediliyor.</p>
+                  </template>
+                </ui-section>
+              </div>
+            </div>
+          </ui-theme-provider>
         </ui-card>
 
         <ui-card class="mb-8 break-inside-avoid w-full" title="Distribute Track"
