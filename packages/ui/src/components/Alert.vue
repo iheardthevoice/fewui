@@ -35,11 +35,17 @@
         </p>
       </div>
       <div
-        v-if="$slots.default"
+        v-if="$slots.default && !resolvedActionsEnd"
         class="ui-alert-slot"
       >
         <slot />
       </div>
+    </div>
+    <div
+      v-if="$slots.default && resolvedActionsEnd"
+      class="ui-alert-actions"
+    >
+      <slot />
     </div>
     <ui-button
       v-if="dismissible"
@@ -120,6 +126,14 @@ export default {
       type: Boolean,
       default: true,
     },
+    /**
+     * Varsayılan slot’u açıklamanın altına değil, satırın sağına koyar.
+     * `banner` zaten sağ CTA kullanır; bu prop kart / soft alert için.
+     */
+    actionsEnd: {
+      type: Boolean,
+      default: false,
+    },
   },
   emits: ['dismiss'],
   computed: {
@@ -132,11 +146,15 @@ export default {
     iconToneClass() {
       return COLOR_ICON_CLASS[this.color] || COLOR_ICON_CLASS.info
     },
+    resolvedActionsEnd() {
+      return Boolean(this.banner || this.actionsEnd)
+    },
     rootClasses() {
       return cn(
         `ui-alert ui-alert--${this.color}`,
         this.banner ? 'ui-alert--banner' : '',
         this.soft && !this.banner ? 'ui-alert--soft' : '',
+        this.actionsEnd && !this.banner ? 'ui-alert--actions-end' : '',
         this.$attrs.class,
       )
     },

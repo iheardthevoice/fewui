@@ -611,7 +611,8 @@
 
   /** Gösterim fiyatları — giriş alanları (`ui-price-input`) hariç monospace */
   .ui-price-text {
-    @apply shrink-0 font-medium tabular-nums [font-family:var(_--font-mono,_ui-monospace,_SFMono-Regular,_Menlo,_Monaco,_Consolas,_'Liberation_Mono',_'Courier_New',_monospace_)];
+    @apply shrink-0 font-medium tabular-nums;
+    font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace);
   }
 
   .ui-price-text--sm {
@@ -2804,8 +2805,24 @@
     @apply flex w-full items-start gap-3;
   }
 
+  /**
+   * `highlight`: her satır aynı kutu geometrisinde (kenarlıksız); seçili satır yalnız dolgu alır.
+   * Seçime / odağa göre kenarlık açılıp kapanmaz.
+   */
+  .ui-radio-group--list:has(> .ui-radio--highlight) {
+    @apply gap-1;
+  }
+
   .ui-radio--list.ui-radio--highlight {
-    @apply rounded-xl border border-foreground bg-surface-input p-3 shadow-sm;
+    @apply rounded-xl p-3 transition-colors duration-150;
+  }
+
+  .ui-radio--list.ui-radio--highlight:not(.ui-radio--checked):hover {
+    @apply bg-muted/60;
+  }
+
+  .ui-radio--list.ui-radio--highlight.ui-radio--checked {
+    @apply bg-muted;
   }
 
   .ui-radio--button {
@@ -2851,6 +2868,10 @@
     @apply rounded-md;
   }
 
+  .ui-radio--list.ui-radio--highlight:has(input:focus-visible) {
+    @apply rounded-xl;
+  }
+
   .ui-radio--button:has(input:focus-visible) {
     @apply rounded-xl;
   }
@@ -2880,8 +2901,21 @@
     @apply w-full;
   }
 
+  /** `highlight`: Radio ile aynı — eşit kutu, seçili satır yalnız dolgu (kenarlık yok). */
+  .ui-checkbox-group--list:has(> .ui-checkbox--highlight) {
+    @apply gap-1;
+  }
+
   .ui-checkbox--list.ui-checkbox--highlight {
-    @apply rounded-xl border border-foreground bg-surface-input p-3 shadow-sm;
+    @apply rounded-xl p-3 transition-colors duration-150;
+  }
+
+  .ui-checkbox--list.ui-checkbox--highlight:not(.ui-checkbox--checked):hover {
+    @apply bg-muted/60;
+  }
+
+  .ui-checkbox--list.ui-checkbox--highlight.ui-checkbox--checked {
+    @apply bg-muted;
   }
 
   .ui-checkbox--button {
@@ -2928,6 +2962,10 @@
 
   .ui-checkbox--list:has(input:focus-visible) {
     @apply rounded-md;
+  }
+
+  .ui-checkbox--list.ui-checkbox--highlight:has(input:focus-visible) {
+    @apply rounded-xl;
   }
 
   .ui-checkbox--button:has(input:focus-visible) {
@@ -2996,6 +3034,20 @@
 
   .ui-menu-group-items {
     @apply flex flex-col gap-0.5;
+  }
+
+  /**
+   * Çok satırlı (`wrap`) düğme: önek ikonu ilk metin satırına ortalanır,
+   * sonek ikonu (ör. gezinme oku) satırın dikey ortasında durur.
+   */
+  .ui-button--wrap > .ui-button-prefix {
+    height: 1.25rem;
+    height: 1lh;
+    @apply self-start;
+  }
+
+  .ui-button--wrap > .ui-button-suffix {
+    @apply self-center;
   }
 
   /** MenuItem — `ui-button` ghost; köşe yarıçapı `ui-control-h-*` (ek rounded yok) */

@@ -742,7 +742,9 @@ export default {
         this.finishLayerMotion(el)
         done()
       }
-      if (!el || this.prefersReducedMotion()) {
+      // Görünmez sayfada (arka plan sekmesi, uyuyan ekran) rAF çalışmaz; animasyon
+      // hiç başlamaz ve katman açık kalır. Görülmeyen kapanışı canlandırmaya gerek yok.
+      if (!el || this.prefersReducedMotion() || document.visibilityState === 'hidden') {
         finish()
         return
       }

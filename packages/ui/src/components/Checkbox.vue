@@ -65,7 +65,7 @@ export default {
       type: String,
       default: '',
     },
-    /** `list` varyantında seçili satır vurgusu (hover değil, yalnızca işaretliyken). */
+    /** `list` varyantında satırları eşit iç boşluklu kutu yapar; işaretli satır dolgu ile vurgulanır (kenarlık yok). */
     highlight: {
       type: Boolean,
       default: false,
@@ -104,7 +104,7 @@ export default {
         `ui-checkbox--${variant}`,
         {
           'ui-checkbox--checked': this.isChecked,
-          'ui-checkbox--highlight': this.highlight && this.isChecked,
+          'ui-checkbox--highlight': this.highlight,
         },
       ]
     },

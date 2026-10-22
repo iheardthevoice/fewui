@@ -1,5 +1,5 @@
-import { $ as x, av as q, b5 as E, b1 as re, aT as De, ac as C, aY as z, af as N, aU as Ee, aQ as je, t as Ke, aw as Oe, aq as Ze, aW as G, aF as Re, l as Ve, b6 as Xe, an as Be, aM as Qe, aH as Je, c as be, X as ve, aA as et, aX as tt, aR as it, aS as Fe, _ as rt, aa as at, ai as st, aI as H, aN as nt, aG as lt, b4 as ot, aj as ut, A as dt, a as ct, b as ht, d as ft, e as mt, f as pt, g as gt, j as yt, k as bt, m as vt, E as _t, q as kt, I as wt, r as xt, P as St, u as Ct, L as Tt, s as Lt, v as It, R as At, w as Mt, z as zt, x as Pt, y as Dt, H as Et, J as Ot, U as Rt, N as Vt, Q as Bt, O as Ft, W as Nt, V as Ht, at as $t, aK as Wt, a3 as Ut, a_ as Yt } from "./custom-css-DK7_Rx68.js";
-import { B as Su, C as Cu, h as Tu, i as Lu, F as Iu, n as Au, o as Mu, p as zu, G as Pu, M as Du, S as Eu, D as Ou, T as Ru, K as Vu, Y as Bu, Z as Fu, a0 as Nu, a1 as Hu, a2 as $u, a4 as Wu, a5 as Uu, a6 as Yu, a7 as Gu, a8 as qu, a9 as ju, ab as Ku, ad as Zu, ae as Xu, ag as Qu, ah as Ju, ak as ed, al as td, am as id, ao as rd, ap as ad, ar as sd, as as nd, au as ld, ax as od, ay as ud, az as dd, aB as cd, aC as hd, aD as fd, aE as md, aJ as pd, aL as gd, aO as yd, aP as bd, aV as vd, aZ as _d, a$ as kd, b0 as wd, b2 as xd, b3 as Sd, b7 as Cd, b8 as Td, b9 as Ld, ba as Id } from "./custom-css-DK7_Rx68.js";
+import { $ as x, av as q, b5 as E, b1 as re, aT as De, ac as C, aY as z, af as N, aU as Ee, aQ as je, t as Ke, aw as Oe, aq as Ze, aW as G, aF as Re, l as Ve, b6 as Xe, an as Be, aM as Qe, aH as Je, c as be, X as ve, aA as et, aX as tt, aR as it, aS as Fe, _ as rt, aa as at, ai as st, aI as H, aN as nt, aG as lt, b4 as ot, aj as ut, A as dt, a as ct, b as ht, d as ft, e as mt, f as pt, g as gt, j as yt, k as bt, m as vt, E as _t, q as kt, I as wt, r as xt, P as St, u as Ct, L as Tt, s as Lt, v as It, R as At, w as Mt, z as zt, x as Pt, y as Dt, H as Et, J as Ot, U as Rt, N as Vt, Q as Bt, O as Ft, W as Nt, V as Ht, at as $t, aK as Wt, a3 as Ut, a_ as Yt } from "./custom-css-C_AAUS5Y.js";
+import { B as Su, C as Cu, h as Tu, i as Lu, F as Iu, n as Au, o as Mu, p as zu, G as Pu, M as Du, S as Eu, D as Ou, T as Ru, K as Vu, Y as Bu, Z as Fu, a0 as Nu, a1 as Hu, a2 as $u, a4 as Wu, a5 as Uu, a6 as Yu, a7 as Gu, a8 as qu, a9 as ju, ab as Ku, ad as Zu, ae as Xu, ag as Qu, ah as Ju, ak as ed, al as td, am as id, ao as rd, ap as ad, ar as sd, as as nd, au as ld, ax as od, ay as ud, az as dd, aB as cd, aC as hd, aD as fd, aE as md, aJ as pd, aL as gd, aO as yd, aP as bd, aV as vd, aZ as _d, a$ as kd, b0 as wd, b2 as xd, b3 as Sd, b7 as Cd, b8 as Td, b9 as Ld, ba as Id } from "./custom-css-C_AAUS5Y.js";
 import { resolveComponent as _, openBlock as a, createElementBlock as l, normalizeClass as v, renderSlot as g, createVNode as w, createCommentVNode as f, createElementVNode as d, toDisplayString as p, createBlock as b, normalizeStyle as D, mergeProps as A, withCtx as y, withModifiers as R, createTextVNode as I, Fragment as L, renderList as P, withKeys as oe, createSlots as ee, normalizeProps as Gt, guardReactiveProps as qt, Teleport as j, Transition as K, readonly as jt, reactive as he, Comment as Kt, Text as Zt, withDirectives as Ne, vShow as He, resolveDynamicComponent as W, computed as Xt } from "vue";
 import { RouterLink as Qt } from "vue-router";
 const Jt = {
@@ -747,7 +747,7 @@ const Ye = /* @__PURE__ */ x(Hi, [["render", Wi]]), Ui = {
       type: String,
       default: ""
     },
-    /** `list` varyantında seçili satır vurgusu (hover değil, yalnızca işaretliyken). */
+    /** `list` varyantında satırları eşit iç boşluklu kutu yapar; işaretli satır dolgu ile vurgulanır (kenarlık yok). */
     highlight: {
       type: Boolean,
       default: !1
@@ -781,7 +781,7 @@ const Ye = /* @__PURE__ */ x(Hi, [["render", Wi]]), Ui = {
         `ui-checkbox--${this.inGroup && this.uiCheckboxGroup != null ? this.uiCheckboxGroup.normalizedVariant : "list"}`,
         {
           "ui-checkbox--checked": this.isChecked,
-          "ui-checkbox--highlight": this.highlight && this.isChecked
+          "ui-checkbox--highlight": this.highlight
         }
       ];
     }

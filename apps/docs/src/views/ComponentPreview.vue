@@ -911,14 +911,14 @@ function submitLogin() {
             <ui-list density="relaxed">
               <ui-list-item prefix-icon="check">
                 <p class="m-0">
-                  <span class="font-semibold text-foreground">Code reviews</span>
+                  <span class="font-medium text-foreground">Code reviews</span>
                   <span class="text-muted-foreground"> in GitHub with context from your codebase and deployment
                     history.</span>
                 </p>
               </ui-list-item>
               <ui-list-item prefix-icon="check">
                 <p class="m-0 text-muted-foreground">
-                  Catch <span class="font-semibold text-foreground">hard-to-find</span> issues before they reach
+                  Catch <span class="font-medium text-foreground">hard-to-find</span> issues before they reach
                   production.
                 </p>
               </ui-list-item>

@@ -92,7 +92,7 @@
       <template v-else>
         <span
           v-if="prefixIcon"
-          class="inline-flex shrink-0 items-center justify-center"
+          class="ui-button-prefix inline-flex shrink-0 items-center justify-center"
           aria-hidden="true"
         >
           <ui-icon
@@ -108,7 +108,7 @@
         </span>
         <span
           v-if="suffixIcon"
-          class="inline-flex shrink-0 items-center justify-center"
+          class="ui-button-suffix inline-flex shrink-0 items-center justify-center"
           aria-hidden="true"
         >
           <ui-icon
@@ -206,7 +206,7 @@
     <template v-else>
       <span
         v-if="prefixIcon"
-        class="inline-flex shrink-0 items-center justify-center"
+        class="ui-button-prefix inline-flex shrink-0 items-center justify-center"
         aria-hidden="true"
       >
         <ui-icon
@@ -222,7 +222,7 @@
       </span>
       <span
         v-if="suffixIcon"
-        class="inline-flex shrink-0 items-center justify-center"
+        class="ui-button-suffix inline-flex shrink-0 items-center justify-center"
         aria-hidden="true"
       >
         <ui-icon
@@ -580,6 +580,7 @@ export default {
         'ui-button ui-control font-sans',
         this.stack ? 'ui-button--stack' : '',
         this.textAlign === 'left' ? 'ui-button--align-start' : '',
+        this.wrap && !isLink && !isNav && !this.stack && !this.cubed ? 'ui-button--wrap' : '',
         variantColor,
         sizeOrCubedResolved,
         isBlock ? 'ui-button--block w-full' : '',

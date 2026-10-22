@@ -5,7 +5,7 @@
       `ui-radio--${groupVariant}`,
       {
         'ui-radio--checked': isChecked,
-        'ui-radio--highlight': highlight && isChecked,
+        'ui-radio--highlight': highlight,
       },
     ]"
     @click="select"
@@ -62,7 +62,7 @@ export default {
       type: String,
       default: '',
     },
-    /** `list` varyantında seçili satır vurgusu (hover değil, yalnızca seçiliyken). */
+    /** `list` varyantında satırları eşit iç boşluklu kutu yapar; seçili satır dolgu ile vurgulanır (kenarlık yok). */
     highlight: {
       type: Boolean,
       default: false,
