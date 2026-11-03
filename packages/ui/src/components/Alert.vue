@@ -2,6 +2,7 @@
   <div
     :class="rootClasses"
     :role="alertRole"
+    :aria-atomic="alertRole ? 'true' : undefined"
     v-bind="passthroughAttrs"
   >
     <span
@@ -25,13 +26,16 @@
           v-if="title"
           class="ui-alert-title"
         >
-          {{ title }}
+          <span class="sr-only">{{ toneLabel }}: </span>{{ title }}
         </p>
         <p
           v-if="description"
           class="ui-alert-description ui-text-default"
         >
-          {{ description }}
+          <span
+            v-if="!title"
+            class="sr-only"
+          >{{ toneLabel }}: </span>{{ description }}
         </p>
       </div>
       <div
@@ -74,12 +78,15 @@ const COLOR_ICON = {
   danger: 'circle-xmark',
 }
 
+/** İkon tonlu zeminde ≥3:1 (WCAG 1.4.11) — ham ton warning'de 1.77:1 kalıyordu; ink tonu kullanılır. */
 const COLOR_ICON_CLASS = {
-  info: 'text-info',
-  success: 'text-success',
-  warning: 'text-warning',
-  danger: 'text-danger',
+  info: 'text-[var(--info-ink)]',
+  success: 'text-[var(--success-ink)]',
+  warning: 'text-[var(--warning-ink)]',
+  danger: 'text-[var(--danger-ink)]',
 }
+
+const LIVE_MODES = ['', 'polite', 'assertive']
 
 export default {
   name: 'Alert',
@@ -109,6 +116,16 @@ export default {
       type: Boolean,
       default: true,
     },
+    /**
+     * Ekran okuyucu duyurusu (WCAG 4.1.3). Varsayılan `''`: sayfada kalıcı bilgi kutusu, duyurulmaz.
+     * `polite` → `role="status"` (işlem sonucu), `assertive` → `role="alert"` (acil hata / uyarı).
+     * Eskiden rol renkten türetiliyordu: her warning/danger `alert` oluyor, kalıcı kutular araya giriyordu.
+     */
+    live: {
+      type: String,
+      default: '',
+      validator: (v) => LIVE_MODES.includes(v),
+    },
     dismissible: {
       type: Boolean,
       default: false,
@@ -119,8 +136,8 @@ export default {
       default: false,
     },
     /**
-     * Dialog / form / sayfa çağrı kutusu (varsayılan).
-     * Bordersız, kompakt, `rounded-3xl` — banner ile birlikte kullanılmaz.
+     * Kullanımdan kalktı — alert tek görünümdür; kenarlık temadan gelir (`--ui-alert-border-width`).
+     * Eski kullanımlar kırılmasın diye kabul edilir, etkisi yoktur.
      */
     soft: {
       type: Boolean,
@@ -138,7 +155,14 @@ export default {
   emits: ['dismiss'],
   computed: {
     alertRole() {
-      return this.color === 'danger' || this.color === 'warning' ? 'alert' : 'status'
+      if (this.live === 'assertive') return 'alert'
+      if (this.live === 'polite') return 'status'
+      return undefined
+    },
+    toneLabel() {
+      const fallback = { info: 'Info', success: 'Success', warning: 'Warning', danger: 'Error' }
+      if (typeof this.$t === 'function') return this.$t(`ui.alert.tone.${this.color}`)
+      return fallback[this.color] || fallback.info
     },
     resolvedIcon() {
       return this.icon || COLOR_ICON[this.color] || COLOR_ICON.info
@@ -153,7 +177,6 @@ export default {
       return cn(
         `ui-alert ui-alert--${this.color}`,
         this.banner ? 'ui-alert--banner' : '',
-        this.soft && !this.banner ? 'ui-alert--soft' : '',
         this.actionsEnd && !this.banner ? 'ui-alert--actions-end' : '',
         this.$attrs.class,
       )

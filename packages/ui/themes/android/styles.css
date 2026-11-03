@@ -4,190 +4,190 @@
  */
 
 /** M3 — düz tonal chrome; header / footer aynı surface + elevation */
-html.cap-native.cap-android .app-ios-glass-bar,
-html.cap-native.cap-android .app-ios-glass-bar--header,
-html.cap-native.cap-android .app-ios-glass-bar--footer,
-html.cap-native.cap-android .app-ios-glass-bar--pos-footer {
-  @apply border-none! bg-background! bg-none! [-webkit-backdrop-filter:none]! [backdrop-filter:none]!;
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .app-ios-glass-bar,
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .app-ios-glass-bar--header,
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .app-ios-glass-bar--footer,
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .app-ios-glass-bar--pos-footer {
+  @apply border-none! bg-background! bg-none! [backdrop-filter:none]!;
 }
 
-html.cap-native.cap-android .app-ios-glass-bar--header {
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .app-ios-glass-bar--header {
   @apply [border-bottom:1px_solid_var(--border)]! [box-shadow:var(--ui-shadow-sm)];
 }
 
-html.cap-native.cap-android .app-ios-glass-bar--footer,
-html.cap-native.cap-android .app-ios-glass-bar--pos-footer {
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .app-ios-glass-bar--footer,
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .app-ios-glass-bar--pos-footer {
   @apply [border-top:1px_solid_var(--border)]! [box-shadow:0_-1px_3px_rgb(0_0_0_/_0.06)];
 }
 
-html.cap-native.cap-android .app-ios-glass-bar.ui-surface {
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .app-ios-glass-bar.ui-surface {
   @apply rounded-none! shadow-none! bg-background!;
 }
 
-html.cap-native.cap-android .app-ios-glass-bar--pos-footer {
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .app-ios-glass-bar--pos-footer {
   @apply [padding-bottom:env(safe-area-inset-bottom,_0px)];
 }
 
 /**
  * Kart — surface-container-low, soft elevation, outline yok (M3 elevated card).
  */
-html.cap-native.cap-android .ui-card.ui-surface:not(.ui-dialog-panel):not(.ui-card--transparent) {
-  @apply [background-color:var(--ui-m3-card-surface-bg,_var(--ui-m3-surface-low))]! bg-none! border-none! [box-shadow:var(--ui-shadow-surface)]! [-webkit-backdrop-filter:none]! [backdrop-filter:none]!;
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-card.ui-surface:not(.ui-dialog-panel):not(.ui-card--transparent) {
+  @apply [background-color:var(--ui-m3-card-surface-bg,_var(--ui-m3-surface-low))]! bg-none! border-none! [box-shadow:var(--ui-shadow-surface)]! [backdrop-filter:none]!;
 }
 
-html.cap-native.cap-android .ui-surface:not(.ui-popover-panel):not(.app-ios-glass-bar):not(.ui-dialog-panel) {
-  @apply [-webkit-backdrop-filter:none] [backdrop-filter:none];
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-surface:not(.ui-popover-panel):not(.app-ios-glass-bar):not(.ui-dialog-panel) {
+  @apply [backdrop-filter:none];
 }
 
-html.cap-native.cap-android .ui-card.ui-surface:not(.ui-dialog-panel):not(.ui-card--transparent) .ui-input,
-html.cap-native.cap-android .ui-card.ui-surface:not(.ui-dialog-panel):not(.ui-card--transparent) .ui-select-field,
-html.cap-native.cap-android .ui-card.ui-surface:not(.ui-dialog-panel):not(.ui-card--transparent) .ui-textarea-field,
-html.cap-native.cap-android .ui-card.ui-surface:not(.ui-dialog-panel):not(.ui-card--transparent) .ui-input .ui-field-control-fill,
-html.cap-native.cap-android .ui-card.ui-surface:not(.ui-dialog-panel):not(.ui-card--transparent) .ui-select-field .ui-field-control-fill {
-  @apply [background-color:var(--ui-m3-dialog-field-bg)]! border-none! bg-none! shadow-none! [-webkit-backdrop-filter:none]! [backdrop-filter:none]!;
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-card.ui-surface:not(.ui-dialog-panel):not(.ui-card--transparent) .ui-input,
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-card.ui-surface:not(.ui-dialog-panel):not(.ui-card--transparent) .ui-select-field,
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-card.ui-surface:not(.ui-dialog-panel):not(.ui-card--transparent) .ui-textarea-field,
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-card.ui-surface:not(.ui-dialog-panel):not(.ui-card--transparent) .ui-input .ui-field-control-fill,
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-card.ui-surface:not(.ui-dialog-panel):not(.ui-card--transparent) .ui-select-field .ui-field-control-fill {
+  @apply [background-color:var(--ui-m3-dialog-field-bg)]! border-none! bg-none! shadow-none! [backdrop-filter:none]!;
 }
 
 /**
  * Filled / tonal / outline butonlar — düz, gölgesiz; state layer (opacity) ile basılı.
  */
-html.cap-native.cap-android .ui-button.ui-control:not([data-variant='link']):not([data-variant='nav']):not([data-pos-category-chip]) {
-  @apply shadow-none! [-webkit-backdrop-filter:none]! [backdrop-filter:none]!;
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-button.ui-control:not([data-variant='link']):not([data-variant='nav']):not([data-pos-category-chip]) {
+  @apply shadow-none! [backdrop-filter:none]!;
 }
 
-html.cap-native.cap-android .ui-button.ui-control[data-variant='solid'] {
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-button.ui-control[data-variant='solid'] {
   @apply shadow-none! bg-none!;
 }
 
-html.cap-native.cap-android .ui-button.ui-control[data-variant='solid'][data-color='primary'] {
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-button.ui-control[data-variant='solid'][data-color='primary'] {
   @apply bg-none!;
 }
 
-html.cap-native.cap-android .ui-button.ui-control[data-variant='solid'][data-color='secondary'],
-html.cap-native.cap-android .ui-button.ui-control[data-variant='solid'][data-color='input'] {
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-button.ui-control[data-variant='solid'][data-color='secondary'],
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-button.ui-control[data-variant='solid'][data-color='input'] {
   @apply [background-color:var(--secondary)]! bg-none! text-secondary-foreground;
 }
 
-html.cap-native.cap-android .ui-button.ui-control[data-variant='outline']:not([data-pos-category-chip]) {
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-button.ui-control[data-variant='outline']:not([data-pos-category-chip]) {
   @apply [border-color:var(--ui-m3-outline,_var(--border))]! bg-transparent! bg-none!;
 }
 
-html.cap-native.cap-android .ui-button.ui-control[data-variant='ghost']:not([data-pos-category-chip]) {
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-button.ui-control[data-variant='ghost']:not([data-pos-category-chip]) {
   @apply bg-none!;
 }
 
-html.cap-native.cap-android .ui-button.ui-control:active:not(:disabled):not([data-variant='link']) {
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-button.ui-control:active:not(:disabled):not([data-variant='link']) {
   @apply opacity-88;
 }
 
-html.cap-native.cap-android .ui-tab-trigger:active:not(:disabled),
-html.cap-native.cap-android .ui-segment:active:not(:disabled) {
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-tab-trigger:active:not(:disabled),
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-segment:active:not(:disabled) {
   @apply opacity-88;
 }
 
-html.cap-native.cap-android .ui-button.ui-control:not([data-variant='link']),
-html.cap-native.cap-android .ui-tab-trigger,
-html.cap-native.cap-android .ui-segment {
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-button.ui-control:not([data-variant='link']),
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-tab-trigger,
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-segment {
   @apply [transition-property:transform,_color,_background-color,_background-image,_box-shadow,_opacity] [transition-duration:120ms] [transition-timing-function:cubic-bezier(0.2,_0,_0,_1)];
 }
 
 /** Segment / input — surface-container-highest oyuk */
-html.cap-native.cap-android .ui-segment-group:not(.ui-segment-group--vertical) {
-  @apply [background-color:var(--input-background)]! bg-none! shadow-none! border-transparent! [-webkit-backdrop-filter:none]! [backdrop-filter:none]!;
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-segment-group:not(.ui-segment-group--vertical) {
+  @apply [background-color:var(--input-background)]! bg-none! shadow-none! border-transparent! [backdrop-filter:none]!;
 }
 
-html.cap-native.cap-android .ui-segment-group:not(.ui-segment-group--vertical)::before,
-html.cap-native.cap-android .ui-segment-group:not(.ui-segment-group--vertical)::after {
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-segment-group:not(.ui-segment-group--vertical)::before,
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-segment-group:not(.ui-segment-group--vertical)::after {
   @apply [content:none]!;
 }
 
-html.cap-native.cap-android .ui-input,
-html.cap-native.cap-android .ui-select-field,
-html.cap-native.cap-android .ui-textarea-field,
-html.cap-native.cap-android .ui-input .ui-field-control-fill,
-html.cap-native.cap-android .ui-select-field .ui-field-control-fill {
-  @apply [background-color:var(--input-background)]! bg-none! shadow-none! [-webkit-backdrop-filter:none]! [backdrop-filter:none]!;
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-input,
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-select-field,
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-textarea-field,
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-input .ui-field-control-fill,
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-select-field .ui-field-control-fill {
+  @apply [background-color:var(--input-background)]! bg-none! shadow-none! [backdrop-filter:none]!;
 }
 
-html.cap-native.cap-android .ui-tab-list--horizontal.ui-tab-list--segmented {
-  @apply [background-color:var(--ui-m3-surface-container)]! bg-none! border-none! shadow-none! [-webkit-backdrop-filter:none]! [backdrop-filter:none]!;
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-tab-list--horizontal.ui-tab-list--segmented {
+  @apply [background-color:var(--ui-m3-surface-container)]! bg-none! border-none! shadow-none! [backdrop-filter:none]!;
 }
 
-html.cap-native.cap-android .ui-tab-list--horizontal.ui-tab-list--segmented::before,
-html.cap-native.cap-android .ui-tab-list--horizontal.ui-tab-list--segmented::after {
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-tab-list--horizontal.ui-tab-list--segmented::before,
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-tab-list--horizontal.ui-tab-list--segmented::after {
   @apply [content:none]!;
 }
 
 /** Popover / menu — surface-container, elevation 2 */
-html.cap-native.cap-android .ui-popover-panel.ui-surface {
-  @apply [background-color:var(--ui-m3-surface-container)]! bg-none! border border-border! [box-shadow:var(--ui-shadow-md)]! [-webkit-backdrop-filter:none]! [backdrop-filter:none]!;
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-popover-panel.ui-surface {
+  @apply [background-color:var(--ui-m3-surface-container)]! bg-none! border border-border! [box-shadow:var(--ui-shadow-md)]! [backdrop-filter:none]!;
 }
 
-html.cap-native.cap-android .ui-popover-panel.ui-surface::before,
-html.cap-native.cap-android .ui-popover-panel.ui-surface::after {
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-popover-panel.ui-surface::before,
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-popover-panel.ui-surface::after {
   @apply [content:none]!;
 }
 
 /**
  * Dialog sheet — surface-container; alanlar surface-highest.
  */
-html.cap-native.cap-android .ui-dialog-panel.ui-surface {
-  @apply [background-color:var(--ui-m3-dialog-sheet-bg)]! bg-none! border-none! [box-shadow:var(--ui-shadow-md)]! [-webkit-backdrop-filter:none]! [backdrop-filter:none]!;
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-dialog-panel.ui-surface {
+  @apply [background-color:var(--ui-m3-dialog-sheet-bg)]! bg-none! border-none! [box-shadow:var(--ui-shadow-md)]! [backdrop-filter:none]!;
 }
 
-html.cap-native.cap-android .ui-dialog-panel.ui-surface::before,
-html.cap-native.cap-android .ui-dialog-panel.ui-surface::after {
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-dialog-panel.ui-surface::before,
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-dialog-panel.ui-surface::after {
   @apply [content:none]!;
 }
 
-html.cap-native.cap-android .ui-dialog-panel .ui-input,
-html.cap-native.cap-android .ui-dialog-panel .ui-select-field,
-html.cap-native.cap-android .ui-dialog-panel .ui-textarea-field {
-  @apply [background-color:var(--ui-m3-dialog-field-bg)]! border-none! bg-none! shadow-none! [-webkit-backdrop-filter:none]! [backdrop-filter:none]!;
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-dialog-panel .ui-input,
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-dialog-panel .ui-select-field,
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-dialog-panel .ui-textarea-field {
+  @apply [background-color:var(--ui-m3-dialog-field-bg)]! border-none! bg-none! shadow-none! [backdrop-filter:none]!;
 }
 
-html.cap-native.cap-android .ui-dialog-panel .ui-card-footer {
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-dialog-panel .ui-card-footer {
   @apply [padding-bottom:max(1rem,_env(safe-area-inset-bottom,_0px))];
 }
 
-html.cap-native.cap-android .ui-dialog-panel--footer-transparent .ui-card-footer.ui-dialog-footer--transparent {
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-dialog-panel--footer-transparent .ui-card-footer.ui-dialog-footer--transparent {
   @apply bg-transparent! bg-none! border-t-0! shadow-none!;
 }
 
-html.cap-native.cap-android
+:is(html.cap-native.cap-android, [data-ui-platform='android'])
   .ui-dialog-panel--footer-transparent
   .ui-card-footer.ui-dialog-footer--transparent
   .ui-button.ui-control[data-variant='ghost'],
-html.cap-native.cap-android
+:is(html.cap-native.cap-android, [data-ui-platform='android'])
   .ui-dialog-panel--footer-transparent
   .ui-card-footer.ui-dialog-footer--transparent
   .ui-button.ui-control[data-variant='outline'],
-html.cap-native.cap-android
+:is(html.cap-native.cap-android, [data-ui-platform='android'])
   .ui-dialog-panel--footer-transparent
   .ui-card-footer.ui-dialog-footer--transparent
   .ui-button.ui-control[data-variant='link'] {
   @apply [background-color:var(--ui-m3-surface-high)]! bg-none!;
 }
 
-html.cap-native.cap-android .ui-action-card-list {
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-action-card-list {
   @apply gap-3;
 }
 
-html.cap-native.cap-android .ui-action-card {
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-action-card {
   @apply [background-color:var(--ui-m3-card-surface-bg)]! [box-shadow:var(--ui-shadow-sm)] border-none!;
 }
 
-html.cap-native.cap-android .ui-skeleton {
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-skeleton {
   @apply border-none! shadow-none!;
 }
 
 /** Sidebar — cam/blur yok; düz ghost */
-html.cap-native.cap-android aside .ui-button.ui-control {
-  @apply [-webkit-backdrop-filter:none]! [backdrop-filter:none]!;
+:is(html.cap-native.cap-android, [data-ui-platform='android']) aside .ui-button.ui-control {
+  @apply [backdrop-filter:none]!;
 }
 
-html.cap-native.cap-android aside .ui-button.ui-control[data-variant='ghost'],
-html.cap-native.cap-android aside .ui-button.ui-control[data-variant='outline'],
-html.cap-native.cap-android aside .ui-button.ui-control[data-variant='nav'] {
+:is(html.cap-native.cap-android, [data-ui-platform='android']) aside .ui-button.ui-control[data-variant='ghost'],
+:is(html.cap-native.cap-android, [data-ui-platform='android']) aside .ui-button.ui-control[data-variant='outline'],
+:is(html.cap-native.cap-android, [data-ui-platform='android']) aside .ui-button.ui-control[data-variant='nav'] {
   @apply bg-none!;
 }
 
@@ -195,7 +195,7 @@ html.cap-native.cap-android aside .ui-button.ui-control[data-variant='nav'] {
  * Kayan seçim göstergesi açıkken zemin geçişi yok (yalnız basış ölçeği, renk, opaklık):
  * zemin geçişli olursa yeni seçilinin eski zemini solarken göstergeyle üst üste biner.
  */
-html.cap-native.cap-android .ui-segment-group--indicator[data-ui-indicator='ready'] .ui-segment,
-html.cap-native.cap-android .ui-tab-list--indicator[data-ui-indicator='ready'] .ui-tab-trigger {
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-segment-group--indicator[data-ui-indicator='ready'] .ui-segment,
+:is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-tab-list--indicator[data-ui-indicator='ready'] .ui-tab-trigger {
   transition-property: transform, color, opacity;
 }

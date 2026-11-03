@@ -31,9 +31,16 @@
           />
         </div>
           <div class="ui-datepicker-weekdays mb-2">
-            <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+            <span
+              v-for="w in weekdayLabels"
+              :key="w.key"
+              :title="w.long"
+            >{{ w.short }}</span>
           </div>
-          <div class="ui-datepicker-grid">
+          <div
+            class="ui-datepicker-grid"
+            @keydown="onGridKeydown"
+          >
             <ui-button
               v-for="cell in calendarCells"
               :key="cell.key"
@@ -42,7 +49,11 @@
               size="sm"
               cubed
               :disabled="cell.disabled"
-              :aria-selected="cell.sel ? 'true' : 'false'"
+              :data-key="cell.key"
+              :tabindex="cell.key === rovingKey ? 0 : -1"
+              :aria-label="cellLabel(cell)"
+              :aria-pressed="cell.sel ? 'true' : 'false'"
+              :aria-current="cell.today ? 'date' : undefined"
               :aria-disabled="cell.disabled ? 'true' : undefined"
               :data-outside="cell.inMonth ? undefined : 'true'"
               :data-today="cell.today ? 'true' : undefined"
@@ -150,9 +161,17 @@
             />
           </div>
           <div class="ui-datepicker-weekdays mb-2">
-            <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+            <span
+              v-for="w in weekdayLabels"
+              :key="w.key"
+              :title="w.long"
+            >{{ w.short }}</span>
           </div>
-          <div class="ui-datepicker-grid">
+          <div
+            ref="popoverGrid"
+            class="ui-datepicker-grid"
+            @keydown="onGridKeydown"
+          >
             <ui-button
               v-for="cell in calendarCells"
               :key="cell.key"
@@ -161,7 +180,11 @@
               size="sm"
               cubed
               :disabled="cell.disabled"
-              :aria-selected="cell.sel ? 'true' : 'false'"
+              :data-key="cell.key"
+              :tabindex="cell.key === rovingKey ? 0 : -1"
+              :aria-label="cellLabel(cell)"
+              :aria-pressed="cell.sel ? 'true' : 'false'"
+              :aria-current="cell.today ? 'date' : undefined"
               :aria-disabled="cell.disabled ? 'true' : undefined"
               :data-outside="cell.inMonth ? undefined : 'true'"
               :data-today="cell.today ? 'true' : undefined"
@@ -215,6 +238,7 @@
 </template>
 
 <script>
+import { captureReturnFocus, restoreFocus } from '../utils/focus-trap.js'
 import { formatDateDisplay, resolveDateDisplayLocale, formatYmdDisplay } from '../utils/format-ymd-display.js'
 import { resolveThemeDefault } from '../theme/resolve-theme-default.js'
 import { createUiIdFactory } from '../utils/ui-id.js'
@@ -312,6 +336,8 @@ export default {
     return {
       fallbackId: nextDatePickerId(),
       menuOpen: false,
+      /** Klavye ile gezilen gün (roving tabindex); seçim değil. */
+      focusDate: null,
       viewYear: initial.getFullYear(),
       viewMonth: initial.getMonth(),
     }
@@ -376,6 +402,29 @@ export default {
       d.setDate(d.getDate() + 1)
       return this.isQuickDateDisabled(d)
     },
+    /** Hafta günü başlıkları dile göre (eskiden sabit "Su Mo Tu" — TR arayüzde İngilizce). Izgara pazardan başlar. */
+    weekdayLabels() {
+      const sunday = new Date(2024, 0, 7)
+      return Array.from({ length: 7 }, (_, i) => {
+        const d = new Date(sunday.getFullYear(), sunday.getMonth(), sunday.getDate() + i)
+        return {
+          key: i,
+          short: d.toLocaleDateString(this.locale, { weekday: 'short' }).replace('.', ''),
+          long: d.toLocaleDateString(this.locale, { weekday: 'long' }),
+        }
+      })
+    },
+    /** Izgarada tek Tab durağı: gezilen gün → seçili → bugün → ayın ilk günü. */
+    rovingKey() {
+      const cells = this.calendarCells.filter((c) => c.inMonth && !c.disabled)
+      const target = this.focusDate ? toYmd(this.focusDate) : null
+      return (
+        cells.find((c) => target && toYmd(c.date) === target)?.key
+        || cells.find((c) => c.sel)?.key
+        || cells.find((c) => c.today)?.key
+        || cells[0]?.key
+      )
+    },
     calendarCells() {
       const y = this.viewYear
       const m = this.viewMonth
@@ -407,6 +456,21 @@ export default {
     },
   },
   watch: {
+    /** Açılınca odak seçili / bugün gününe (WAI-ARIA date picker dialog). */
+    menuOpen(open) {
+      if (!open) {
+        this.focusDate = null
+        // Odak takvimdeydi; kapanınca açan düğmeye döner (yoksa sayfa başına düşer).
+        const active = document.activeElement
+        if (!active || active === document.body || this.$refs.popoverGrid?.contains(active)) {
+          restoreFocus(this.returnFocusEl)
+        }
+        this.returnFocusEl = null
+        return
+      }
+      this.returnFocusEl = captureReturnFocus()
+      this.$nextTick(() => requestAnimationFrame(() => this.focusRovingCell(this.$refs.popoverGrid)))
+    },
     modelValue() {
       const p = parseYmd(this.modelValue)
       if (p) {
@@ -420,6 +484,36 @@ export default {
       if (!date) return true
       const ymd = toYmd(date)
       return Boolean(this.minYmd && ymd < this.minYmd)
+    },
+    cellLabel(cell) {
+      return cell.date.toLocaleDateString(this.locale, { day: 'numeric', month: 'long', year: 'numeric', weekday: 'long' })
+    },
+    focusRovingCell(grid) {
+      grid?.querySelector?.(`[data-key="${this.rovingKey}"]`)?.focus?.()
+    },
+    /** ← → ±1 gün, ↑ ↓ ±1 hafta, Home/End hafta başı/sonu, PageUp/PageDown ±1 ay. */
+    onGridKeydown(e) {
+      const grid = e.currentTarget
+      const current = this.calendarCells.find((c) => c.key === this.rovingKey)
+      if (!current) return
+      const d = new Date(current.date)
+      const map = {
+        ArrowRight: () => d.setDate(d.getDate() + 1),
+        ArrowLeft: () => d.setDate(d.getDate() - 1),
+        ArrowDown: () => d.setDate(d.getDate() + 7),
+        ArrowUp: () => d.setDate(d.getDate() - 7),
+        Home: () => d.setDate(d.getDate() - d.getDay()),
+        End: () => d.setDate(d.getDate() + (6 - d.getDay())),
+        PageDown: () => d.setMonth(d.getMonth() + 1),
+        PageUp: () => d.setMonth(d.getMonth() - 1),
+      }
+      if (!map[e.key]) return
+      e.preventDefault()
+      map[e.key]()
+      this.focusDate = d
+      this.viewYear = d.getFullYear()
+      this.viewMonth = d.getMonth()
+      this.$nextTick(() => this.focusRovingCell(grid))
     },
     shiftMonth(delta) {
       const d = new Date(this.viewYear, this.viewMonth + delta, 1)

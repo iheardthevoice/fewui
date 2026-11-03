@@ -10,10 +10,37 @@
  *      <span class="ui-selection-indicator-fill" /></span>`
  * - kapsayıcıda `v-bind="indicatorRootAttrs"`
  *
+ * İsteğe bağlı `indicatorPersistKey` (computed): aynı anahtarlı kapsayıcı yeniden kurulunca (ör. her
+ * rotada yeniden çizilen sekme şeridi) gösterge son konumdan yeni seçiliye kayar.
+ *
  * JS ölçene kadar (SSR dahil) seçili öğe kendi zeminini gösterir; `data-ui-indicator="ready"`
  * olunca zemin göstergeye geçer. İlk yerleşim ve yeniden boyutlanma animasyonsuzdur; yalnız seçim
  * değişimi kayar. `prefers-reduced-motion` CSS tarafında hareketi kapatır.
  */
+/** Son gösterge konumu — `indicatorPersistKey` → ölçü (kapsayıcıya göre). */
+const persistedRects = new Map()
+
+/**
+ * Seçili öğe kapsayıcı içinde kırpılarak gizlenmiş mi — ör. kapanan açılır grubun
+ * `overflow: hidden` + sıfır yükseklikli sarmalayıcısı. Öğe DOM’da ve ölçülebilir kalır;
+ * gösterge yine de onun arkasına (görünmeyen konuma) yerleşmemeli.
+ */
+function isClippedOut(el, root) {
+  const rect = el.getBoundingClientRect()
+  let node = el.parentElement
+  while (node && node !== root) {
+    const { overflowX, overflowY } = getComputedStyle(node)
+    if (overflowX !== 'visible' || overflowY !== 'visible') {
+      const clip = node.getBoundingClientRect()
+      const w = Math.min(rect.right, clip.right) - Math.max(rect.left, clip.left)
+      const h = Math.min(rect.bottom, clip.bottom) - Math.max(rect.top, clip.top)
+      if (w < 1 || h < 1) return true
+    }
+    node = node.parentElement
+  }
+  return false
+}
+
 export const selectionIndicatorMixin = {
   data() {
     return {
@@ -39,6 +66,7 @@ export const selectionIndicatorMixin = {
               width: `${rect.width}px`,
               height: `${rect.height}px`,
               transform: `translate3d(${rect.x}px, ${rect.y}px, 0)`,
+              '--ui-indicator-radius': rect.radius || undefined,
             }
           : { opacity: '0' },
       }
@@ -57,10 +85,16 @@ export const selectionIndicatorMixin = {
     this.stopIndicator()
   },
   methods: {
+    /** Ölçüm kapsayıcısı — varsayılan bileşenin kökü; `ui-selection-indicator` üst öğeyi kullanır. */
+    indicatorRootEl() {
+      return this.$el
+    },
     startIndicator() {
-      const root = this.$el
+      const root = this.indicatorRootEl()
       if (!root || typeof window === 'undefined') return
       this.stopIndicator()
+      const persistKey = this.indicatorPersistKey || ''
+      this._indicatorPersisted = persistKey ? persistedRects.get(persistKey) || null : null
       this.measureIndicator({ animate: false })
 
       this._indicatorMutation = new MutationObserver((records) => {
@@ -73,7 +107,7 @@ export const selectionIndicatorMixin = {
         subtree: true,
         childList: true,
         attributes: true,
-        attributeFilter: ['class', 'aria-selected', 'aria-checked'],
+        attributeFilter: ['class', 'aria-selected', 'aria-checked', 'aria-expanded', 'data-open', 'hidden'],
       })
 
       if (typeof ResizeObserver !== 'undefined') {
@@ -104,9 +138,10 @@ export const selectionIndicatorMixin = {
       })
     },
     measureIndicator({ animate }) {
-      const root = this.$el
+      if (this._indicatorHandoff) return
+      const root = this.indicatorRootEl()
       const selected = root?.querySelector?.(this.indicatorSelector)
-      if (!selected || selected.offsetWidth === 0) {
+      if (!selected || selected.offsetWidth === 0 || isClippedOut(selected, root)) {
         this.indicatorRect = null
         return
       }
@@ -128,10 +163,34 @@ export const selectionIndicatorMixin = {
         y: Math.round((centerY - height / 2) * 2) / 2,
         width,
         height,
+        // Göstergenin köşesi seçili öğeninkini alır (segment hap, sidebar satırı farklı köşe).
+        radius: getComputedStyle(selected).borderTopLeftRadius,
         rootWidth: root.offsetWidth,
         rootHeight: root.offsetHeight,
       }
       const prev = this.indicatorRect
+      const persistKey = this.indicatorPersistKey || ''
+      if (persistKey) persistedRects.set(persistKey, next)
+      // Yeniden kurulan kapsayıcı: önce önceki konuma yerleş, bir kare sonra yeniye kay.
+      if (!prev && persistKey && this._indicatorPersisted) {
+        const stored = this._indicatorPersisted
+        this._indicatorPersisted = null
+        if (stored.rootHeight === next.rootHeight && (stored.x !== next.x || stored.y !== next.y)) {
+          this.indicatorInstant = true
+          this.indicatorRect = stored
+          // Bekleme sırasında gelen ölçüm (yazı tipi, boyut) göstergeyi anlık yerleştirip kaymayı bozmasın.
+          this._indicatorHandoff = true
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              this._indicatorHandoff = false
+              this.indicatorInstant = false
+              this.indicatorPop = this.indicatorPop === 'a' ? 'b' : 'a'
+              this.indicatorRect = next
+            })
+          })
+          return
+        }
+      }
       if (
         prev &&
         prev.x === next.x &&

@@ -163,6 +163,7 @@ import { createUiIdFactory } from '../utils/ui-id.js'
 import { resolveUiText } from '../utils/resolve-ui-text.js'
 import { pickPassthroughAttrs } from '../utils/pick-passthrough-attrs.js'
 import { focusFirstField } from '../utils/focus-first-field.js'
+import { trapTabKey, captureReturnFocus, restoreFocus } from '../utils/focus-trap.js'
 import { resolveThemeDefault, resolveThemeIconType } from '../theme/resolve-theme-default.js'
 import { lockBodyScroll, unlockBodyScroll } from '../utils/scroll-lock.js'
 import { isMobileViewport } from '../utils/viewport.js'
@@ -356,6 +357,7 @@ export default {
       handler(isOpen) {
         if (isOpen) {
           if (this.layerMounted || this.layerClosing) return
+          this.returnFocusEl = captureReturnFocus()
           this.rootZIndex = this.resolveRootZIndex()
           this.layerMounted = true
           lockBodyScroll()
@@ -552,17 +554,17 @@ export default {
       if (mobile) {
         const easing = this.mobileSheetEasing()
         return {
-          enterMs: readMotionDuration('--ui-dialog-sheet-enter-duration', 320),
-          leaveMs: readMotionDuration('--ui-dialog-sheet-leave-duration', 280),
-          snapMs: readMotionDuration('--ui-dialog-sheet-snap-duration', 280),
+          enterMs: readMotionDuration('--ui-dialog-sheet-enter-duration', 260),
+          leaveMs: readMotionDuration('--ui-dialog-sheet-leave-duration', 200),
+          snapMs: readMotionDuration('--ui-dialog-sheet-snap-duration', 220),
           easing,
           leaveEasing: readMotionEasing('--ui-dialog-sheet-leave-easing', easing),
         }
       }
       return {
-        enterMs: readMotionDuration('--ui-dialog-enter-duration', 300),
-        leaveMs: readMotionDuration('--ui-dialog-leave-duration', 200),
-        snapMs: 220,
+        enterMs: readMotionDuration('--ui-dialog-enter-duration', 220),
+        leaveMs: readMotionDuration('--ui-dialog-leave-duration', 150),
+        snapMs: 180,
         easing: readMotionEasing('--ui-dialog-easing', 'cubic-bezier(0.16, 1, 0.3, 1)'),
         leaveEasing: readMotionEasing('--ui-dialog-leave-easing', 'cubic-bezier(0.4, 0, 0.2, 1)'),
       }
@@ -806,6 +808,8 @@ export default {
           this.$emit('update:open', false)
         }
         this.$emit('after-leave')
+        restoreFocus(this.returnFocusEl)
+        this.returnFocusEl = null
       })
     },
     resetPanelMotionStyles() {
@@ -929,7 +933,9 @@ export default {
       if (this.closeOnEscape && e.key === 'Escape') {
         e.preventDefault()
         this.close()
+        return
       }
+      trapTabKey(e, this.$refs.panelRef)
     },
     clearSheetDragListeners() {
       if (this.sheetDragCleanup) {

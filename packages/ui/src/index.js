@@ -54,6 +54,7 @@ import RadioGroup from './components/RadioGroup.vue'
 import Section from './components/Section.vue'
 import Segment from './components/Segment.vue'
 import SegmentGroup from './components/SegmentGroup.vue'
+import SelectionIndicator from './components/SelectionIndicator.vue'
 import Select from './components/Select.vue'
 import Sheet from './components/Sheet.vue'
 import SidebarItem from './components/SidebarItem.vue'
@@ -126,6 +127,11 @@ export {
 export {
   pickContrastForeground,
   ensureContrastForMode,
+  ensureLabelContrast,
+  contrastRatio,
+  colorToRgb,
+  parseOklch,
+  oklchToRgb,
   deriveBrandColorsFromPrimary,
   parseHex,
   parseOklchLightness,
@@ -253,6 +259,7 @@ export {
   Section,
   Segment,
   SegmentGroup,
+  SelectionIndicator,
   Select,
   Sheet,
   SidebarItem,
@@ -354,6 +361,7 @@ const GLOBAL_COMPONENTS = [
   ['ui-section', Section],
   ['ui-segment', Segment],
   ['ui-segment-group', SegmentGroup],
+  ['ui-selection-indicator', SelectionIndicator],
   ['ui-select', Select],
   ['ui-sheet', Sheet],
   ['ui-sidebar-item', SidebarItem],

@@ -1,9 +1,11 @@
 <template>
   <div
     :class="rootClass"
-    role="radiogroup"
-    :aria-label="ariaLabel || undefined"
+    :role="navigation ? undefined : 'radiogroup'"
+    :aria-label="(!navigation && ariaLabel) || undefined"
     v-bind="{ ...passthroughAttrs, ...indicatorRootAttrs }"
+    :data-overflowing="isScrollable && overflowing != null ? String(overflowing) : undefined"
+    @keydown="onRadioKeydown"
   >
     <span
       v-if="indicatorEnabled"
@@ -37,6 +39,12 @@ export default {
   mixins: [uiDefaultsMixin, selectionIndicatorMixin],
   inheritAttrs: false,
   emits: ['update:modelValue'],
+  data() {
+    return {
+      /** Kaydırılabilir grupta içerik gerçekten taşıyor mu — taşmıyorsa kırpma kapanır (gösterge büyümesi kesilmez). */
+      overflowing: null,
+    }
+  },
   props: {
     modelValue: {
       type: [String, Number, Boolean],
@@ -69,11 +77,12 @@ export default {
     },
     /**
      * Yatay taşmada grup içinde kaydırma; seçili segment ortalanır.
-     * Dikey yönde etkisiz.
+     * Varsayılan açık — dar kart / mobil’de etiketler patlamasın.
+     * Dikey yönde etkisiz. `block=false` (fit) gruplarda da taşmayı keser.
      */
     scrollable: {
       type: Boolean,
-      default: false,
+      default: true,
     },
     /**
      * Seçili zemin yeni seçilinin arkasına kayarak geçer (yolda hafif büyür).
@@ -82,6 +91,14 @@ export default {
     animated: {
       type: Boolean,
       default: true,
+    },
+    /**
+     * Gezinme kapsülü: segmentler `to` ile bağlantıdır, grup `radiogroup` rolü taşımaz.
+     * Erişilebilir ad sarmalayan `<nav aria-label>` öğesinden gelir; `modelValue` etkin rotanın değeridir.
+     */
+    navigation: {
+      type: Boolean,
+      default: false,
     },
     /** `radiogroup` erişilebilir adı */
     ariaLabel: {
@@ -137,17 +154,72 @@ export default {
     scrollable(enabled) {
       if (enabled) this.scheduleScrollSelected('auto')
     },
+    isScrollable: {
+      handler(enabled) {
+        if (enabled) this.$nextTick(() => this.watchOverflow())
+        else this.unwatchOverflow()
+      },
+    },
   },
   mounted() {
     this.scheduleScrollSelected('auto')
+    if (this.isScrollable) this.watchOverflow()
   },
   beforeUnmount() {
+    this.unwatchOverflow()
     if (this._scrollSelectedRaf != null) {
       cancelAnimationFrame(this._scrollSelectedRaf)
       this._scrollSelectedRaf = null
     }
   },
   methods: {
+    watchOverflow() {
+      this.unwatchOverflow()
+      const root = this.$el
+      if (!root || typeof ResizeObserver === 'undefined') return
+      // Öğelerin kapladığı genişlik — `scrollWidth` büyüyen göstergenin dönüşümünü de sayar.
+      const measure = () => {
+        let left = Infinity
+        let right = -Infinity
+        for (const child of root.children) {
+          if (child === this.$refs.indicator) continue
+          const r = child.getBoundingClientRect()
+          if (r.width === 0) continue
+          left = Math.min(left, r.left)
+          right = Math.max(right, r.right)
+        }
+        this.overflowing = right > left && right - left > root.clientWidth + 1
+      }
+      this._overflowResize = new ResizeObserver(measure)
+      this._overflowResize.observe(root)
+      for (const child of root.children) this._overflowResize.observe(child)
+      measure()
+    },
+    unwatchOverflow() {
+      this._overflowResize?.disconnect()
+      this._overflowResize = null
+      this.overflowing = null
+    },
+    /**
+     * WAI-ARIA Radio Group: ok tuşları seçimi değiştirir ve odağı taşır; grup tek Tab durağıdır
+     * (seçili segment `tabindex=0`, diğerleri `-1`). Gezinme kapsülü (`navigation`) bağlantıdır, dahil değil.
+     */
+    onRadioKeydown(e) {
+      if (this.navigation) return
+      const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key]
+      const edge = e.key === 'Home' ? 'first' : e.key === 'End' ? 'last' : null
+      if (!step && !edge) return
+      const radios = [...this.$el.querySelectorAll('[role="radio"]:not([disabled])')]
+      if (!radios.length) return
+      e.preventDefault()
+      const cur = radios.indexOf(document.activeElement)
+      let next
+      if (edge === 'first') next = 0
+      else if (edge === 'last') next = radios.length - 1
+      else next = ((cur < 0 ? 0 : cur + step) % radios.length + radios.length) % radios.length
+      radios[next].click()
+      radios[next].focus()
+    },
     scheduleScrollSelected(behavior = 'smooth') {
       if (!this.isScrollable) return
       if (this._scrollSelectedRaf != null) cancelAnimationFrame(this._scrollSelectedRaf)

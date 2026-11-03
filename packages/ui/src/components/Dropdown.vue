@@ -19,10 +19,12 @@
     </template>
     <template #content="{ close }">
       <div
-        class="ui-dropdown-menu p-3"
+        ref="menu"
+        class="ui-dropdown-menu"
         :class="hasDescribedItems ? 'ui-dropdown-menu--described' : ''"
         role="menu"
         @click.stop
+        @keydown="onMenuKeydown($event, close)"
       >
         <slot
           name="before"
@@ -56,6 +58,7 @@
               block
               text-align="left"
               role="menuitem"
+              tabindex="-1"
               :prefix-icon="it.description ? null : (it.icon || null)"
               :suffix-icon="itemSuffixIcon(it)"
               :disabled="it.disabled"
@@ -90,6 +93,7 @@
 
 <script>
 import Divider from './Divider.vue'
+import { captureReturnFocus, restoreFocus } from '../utils/focus-trap.js'
 
 const PLACEMENTS = [
   'bottom-start',
@@ -155,6 +159,23 @@ export default {
       internalOpen: false,
     }
   },
+  watch: {
+    /**
+     * WAI-ARIA Menu Button: açılınca odak ilk öğeye, kapanınca açan düğmeye döner.
+     * `#menu` slotuyla özel içerik verilirse de `[role="menuitem"]` öğeleri gezilir.
+     */
+    isOpen(open) {
+      if (open) {
+        this.returnFocusEl = captureReturnFocus()
+        this.$nextTick(() => requestAnimationFrame(() => this.focusItem(0)))
+      } else {
+        const active = document.activeElement
+        const lost = !active || active === document.body || this.$refs.menu?.contains(active)
+        if (lost) restoreFocus(this.returnFocusEl)
+        this.returnFocusEl = null
+      }
+    },
+  },
   computed: {
     isOpen: {
       get() {
@@ -173,6 +194,37 @@ export default {
     },
   },
   methods: {
+    menuItems() {
+      const menu = this.$refs.menu
+      if (!menu) return []
+      return [...menu.querySelectorAll('[role="menuitem"]:not([disabled]):not([aria-disabled="true"])')]
+    },
+    focusItem(index) {
+      const items = this.menuItems()
+      if (!items.length) return
+      const i = ((index % items.length) + items.length) % items.length
+      items[i].focus()
+    },
+    onMenuKeydown(e, close) {
+      const items = this.menuItems()
+      const current = items.indexOf(document.activeElement)
+      const keys = {
+        ArrowDown: () => this.focusItem(current + 1),
+        ArrowUp: () => this.focusItem(current < 0 ? -1 : current - 1),
+        Home: () => this.focusItem(0),
+        End: () => this.focusItem(-1),
+      }
+      if (keys[e.key]) {
+        e.preventDefault()
+        keys[e.key]()
+        return
+      }
+      // Tab menüden çıkar: menü kapanır, odak açan düğmeye döner (APG).
+      if (e.key === 'Tab') {
+        e.preventDefault()
+        close()
+      }
+    },
     onOpenChange(value) {
       this.isOpen = value
     },

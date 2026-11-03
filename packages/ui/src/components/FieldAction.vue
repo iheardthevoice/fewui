@@ -28,6 +28,7 @@
           <ui-button
             v-if="iconOnly"
             type="button"
+            class="ui-filter-chip"
             :variant="triggerVariant"
             :color="triggerColor"
             :size="size"
@@ -40,23 +41,23 @@
             :aria-label="triggerAriaLabel"
             @click="onTriggerClick($event, toggle)"
           />
-          <ui-button
+          <ui-filter-chip
             v-else
-            type="button"
-            :variant="triggerVariant"
-            :color="triggerColor"
-            :size="size"
-            rounded
-            :prefix-icon="prefixIcon"
-            :suffix-icon="triggerSuffixIcon"
+            :icon="prefixIcon || ''"
+            :suffix-icon="suffixIcon || ''"
+            :empty="!hasValue"
+            :empty-label="emptyTriggerLabel"
+            :value-label="hasValue ? String(value) : ''"
+            :active="open"
+            :clearable="clearable"
             :disabled="disabled"
+            :size="size"
             :aria-expanded="open ? 'true' : 'false'"
-            :aria-haspopup="true"
+            aria-haspopup="true"
             :aria-label="triggerAriaLabel"
-            @click="onLabeledTriggerClick($event, toggle)"
-          >
-            {{ triggerLabel }}
-          </ui-button>
+            @click="onTriggerClick($event, toggle)"
+            @clear="onClear(close)"
+          />
         </slot>
       </template>
       <template
@@ -141,23 +142,23 @@
           :aria-label="triggerAriaLabel"
           @click="onTriggerClick($event, toggle)"
         />
-        <ui-button
+        <ui-filter-chip
           v-else
-          type="button"
-          :variant="triggerVariant"
-          :color="triggerColor"
-          :size="size"
-          rounded
-          :prefix-icon="prefixIcon"
-          :suffix-icon="triggerSuffixIcon"
+          :icon="prefixIcon || ''"
+          :suffix-icon="suffixIcon || ''"
+          :empty="!hasValue"
+          :empty-label="emptyTriggerLabel"
+          :value-label="hasValue ? String(value) : ''"
+          :active="resolvedOpen"
+          :clearable="clearable"
           :disabled="disabled"
+          :size="size"
           :aria-expanded="resolvedOpen ? 'true' : 'false'"
-          :aria-haspopup="true"
+          aria-haspopup="dialog"
           :aria-label="triggerAriaLabel"
-          @click="onLabeledTriggerClick($event, toggle)"
-        >
-          {{ triggerLabel }}
-        </ui-button>
+          @click="onTriggerClick($event, toggle)"
+          @clear="onClear(close)"
+        />
       </slot>
 
       <ui-dialog
@@ -272,10 +273,14 @@ export default {
       type: Boolean,
       default: false,
     },
+    /**
+     * Tetikleyici boyutu. Verilmezse `ui-filter-chip` gibi temanın kontrol boyutu — yan yana
+     * duran filtre çipleriyle aynı yükseklik (eskiden sabit `sm` idi, bir kademe küçük kalıyordu).
+     */
     size: {
       type: String,
-      default: 'sm',
-      validator: (v) => SIZES.includes(v),
+      default: undefined,
+      validator: (v) => v == null || SIZES.includes(v),
     },
     placement: {
       type: String,
@@ -351,26 +356,22 @@ export default {
       if (this.hasValue) return String(this.value)
       return this.actionName || this.title || ''
     },
+    emptyTriggerLabel() {
+      return this.actionName || this.title || ''
+    },
     triggerAriaLabel() {
       if (this.title) return this.title
       return this.triggerLabel || this.actionName || 'Field action'
     },
     triggerVariant() {
-      // AppDataFilterChip ile aynı: boş = solid secondary, dolu/açık = muted primary
-      // (dolu primary sayfanın birincil aksiyonuna kalır). İkon-only ve etiketli chip aynı kuralı izler.
-      return this.hasValue || this.resolvedOpen ? 'muted' : 'solid'
+      // FilterChip ile aynı: boş = solid secondary, dolu/açık = seçim dili (soluk primary + primary
+      // metin, `.ui-filter-chip` → overrides.css). Eskiden `muted primary` (%24 saydam) — yan yana
+      // FilterChip'lerden farklı tonda kalıyordu.
+      return 'solid'
     },
     triggerColor() {
       if (this.hasValue || this.resolvedOpen) return 'primary'
       return 'secondary'
-    },
-    /** AppDataFilterChip ile aynı: doluyken tetikleyicide xmark. */
-    showTriggerClear() {
-      return this.clearable && this.hasValue && !this.iconOnly
-    },
-    triggerSuffixIcon() {
-      if (this.showTriggerClear) return 'xmark'
-      return this.suffixIcon
     },
     showPopoverHeader() {
       return Boolean(
@@ -403,16 +404,6 @@ export default {
     onTriggerClick(_event, toggleFn) {
       if (typeof toggleFn === 'function') toggleFn()
       else this.toggle()
-    },
-    /** Chip üzerindeki xmark temizler; geri kalan alan paneli açar. */
-    onLabeledTriggerClick(event, toggleFn) {
-      if (this.showTriggerClear && event?.target?.closest?.('.fa-xmark, [data-icon="xmark"]')) {
-        event.preventDefault()
-        event.stopPropagation()
-        this.onClear(this.close)
-        return
-      }
-      this.onTriggerClick(event, toggleFn)
     },
     onClear(closeFn) {
       this.$emit('clear')

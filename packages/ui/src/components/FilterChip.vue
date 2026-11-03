@@ -1,15 +1,17 @@
 <template>
   <ui-button
     type="button"
+    class="ui-filter-chip"
     :variant="buttonVariant"
     :color="buttonColor"
     :size="size"
     rounded
     :prefix-icon="icon || undefined"
-    :suffix-icon="showClear ? 'xmark' : undefined"
+    :suffix-icon="showClear ? 'xmark' : (suffixIcon || undefined)"
     :disabled="disabled"
     :aria-label="ariaLabel || triggerLabel"
     :aria-expanded="expandedAttr"
+    :aria-haspopup="ariaHaspopup || undefined"
     :aria-keyshortcuts="showClear ? 'Backspace Delete' : undefined"
     @click="onClick"
     @keydown="onKeydown"
@@ -26,7 +28,7 @@ const CHIP_COLORS = ['primary', 'secondary', 'success', 'warning', 'danger']
 
 /**
  * Filtre / seçim çipi — boşken nötr (`solid secondary`), değer seçiliyken veya açıkken
- * `muted primary`. Dolu primary birincil eyleme (CTA) kalır.
+ * `solid primary` (seçim dili: segment, çip, Select ile aynı). Özel `color` verilirse `muted` ton.
  * Popover / select tetikleyicisi olarak kullanılır; değer doluyken sağdaki × veya
  * Backspace / Delete `clear` yayar.
  */
@@ -72,10 +74,25 @@ export default {
       type: [Boolean, String],
       default: undefined,
     },
+    /** Açtığı katman türü (`true` / `dialog` / `listbox` …) — `aria-haspopup`. */
+    ariaHaspopup: {
+      type: [Boolean, String],
+      default: undefined,
+    },
+    /** Değer boşken (veya temizlenemezken) sağdaki ikon; doluyken × önceliklidir. */
+    suffixIcon: {
+      type: String,
+      default: '',
+    },
+    /**
+     * Verilmezse temanın kontrol boyutu (`controlSize`, varsayılan md = 32px) — yanındaki arama
+     * kutusu ve butonlarla aynı yükseklik. Eskiden sabit `sm` idi: tablo araç çubuğundaki çipler
+     * panelin geri kalanından bir kademe küçük kalıyordu. Yoğun yerlerde `size="sm"` verilir.
+     */
     size: {
       type: String,
-      default: 'sm',
-      validator: (v) => SIZES.includes(v),
+      default: undefined,
+      validator: (v) => v == null || SIZES.includes(v),
     },
     /** Verilirse boş / dolu durum rengi yerine sabit ton kullanılır */
     color: {
@@ -97,7 +114,7 @@ export default {
       return !this.empty || this.active ? 'primary' : 'secondary'
     },
     buttonVariant() {
-      return this.buttonColor === 'secondary' ? 'solid' : 'muted'
+      return this.buttonColor === 'secondary' || this.buttonColor === 'primary' ? 'solid' : 'muted'
     },
     expandedAttr() {
       if (this.ariaExpanded === undefined || this.ariaExpanded === null) return undefined

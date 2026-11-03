@@ -1,10 +1,8 @@
 <template>
-  <button
-    type="button"
-    role="radio"
+  <component
+    :is="hasRouterTo ? 'RouterLink' : 'button'"
+    v-bind="rootAttrs"
     :class="segmentClass"
-    :aria-checked="isSelected ? 'true' : 'false'"
-    :disabled="disabled"
     @click="select"
   >
     <span
@@ -38,15 +36,17 @@
     >
       <slot name="append" />
     </span>
-  </button>
+  </component>
 </template>
 
 <script>
+import { RouterLink } from 'vue-router'
 import { iconTypeProp, themeIconTypeComputed } from '../theme/icon-type-prop.js'
 import { uiDefaultsMixin } from '../theme/ui-defaults.js'
 
 export default {
   name: 'Segment',
+  components: { RouterLink },
   mixins: [uiDefaultsMixin],
   inject: {
     uiSegmentGroup: {
@@ -72,6 +72,14 @@ export default {
       type: Boolean,
       default: false,
     },
+    /**
+     * `vue-router` hedefi; verildiğinde segment `<a>` olarak çizilir (gezinme kapsülü).
+     * Seçili durum yine grubun `modelValue` değerinden gelir; seçili bağlantı `aria-current="page"` alır.
+     */
+    to: {
+      type: [String, Object],
+      default: null,
+    },
   },
   computed: {
     ...themeIconTypeComputed('iconType'),
@@ -82,6 +90,22 @@ export default {
       }
       return 'duotone'
     },
+    hasRouterTo() {
+      return this.to != null && this.to !== '' && !this.disabled
+    },
+    rootAttrs() {
+      if (this.hasRouterTo) {
+        return { to: this.to, 'aria-current': this.isSelected ? 'page' : undefined }
+      }
+      const navigation = Boolean(this.uiSegmentGroup?.navigation)
+      return {
+        type: 'button',
+        role: navigation ? undefined : 'radio',
+        'aria-checked': navigation ? undefined : this.isSelected ? 'true' : 'false',
+        tabindex: navigation ? undefined : this.rovingTabindex,
+        disabled: this.disabled,
+      }
+    },
     hasPrepend() {
       return Boolean(this.$slots.prepend)
     },
@@ -90,6 +114,12 @@ export default {
     },
     hasAffixes() {
       return this.hasPrepend || this.hasAppend
+    },
+    /** Radio grubunda tek Tab durağı: seçili segment; seçim yoksa hepsi odaklanabilir. */
+    rovingTabindex() {
+      const v = this.uiSegmentGroup?.modelValue
+      if (v === undefined || v === null || v === '') return 0
+      return this.isSelected ? 0 : -1
     },
     isSelected() {
       if (!this.uiSegmentGroup) return false
@@ -128,7 +158,7 @@ export default {
   },
   methods: {
     select() {
-      if (this.disabled || !this.uiSegmentGroup) return
+      if (this.disabled || !this.uiSegmentGroup || this.hasRouterTo) return
       this.uiSegmentGroup.$emit('update:modelValue', this.value)
     },
   },

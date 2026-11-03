@@ -9,6 +9,8 @@
       :name="nativeName"
       :value="groupValueString"
       :checked="isChecked"
+      :indeterminate="isIndeterminate"
+      :aria-checked="isIndeterminate ? 'mixed' : undefined"
       :tabindex="presentational ? -1 : undefined"
       :aria-hidden="presentational ? 'true' : undefined"
       class="sr-only"
@@ -19,7 +21,13 @@
       aria-hidden="true"
     >
       <ui-icon
-        v-if="isChecked"
+        v-if="isIndeterminate"
+        name="minus"
+        size="xs"
+        class="ui-checkbox-check-icon text-primary-foreground"
+      />
+      <ui-icon
+        v-else-if="isChecked"
         name="check"
         size="xs"
         class="ui-checkbox-check-icon text-primary-foreground"
@@ -93,11 +101,22 @@ export default {
       type: Boolean,
       default: false,
     },
+    /**
+     * Kısmi seçim — "Tümünü seç" alt öğelerin bir kısmı seçiliyken (WAI-ARIA Checkbox, tri-state).
+     * Görünüm dolu + çizgi; `aria-checked="mixed"`. Tıklanınca `update:modelValue` normal akışla çalışır.
+     */
+    indeterminate: {
+      type: Boolean,
+      default: false,
+    },
   },
   emits: ['update:modelValue'],
   computed: {
     inGroup() {
       return this.uiCheckboxGroup != null
+    },
+    isIndeterminate() {
+      return this.indeterminate && !this.inGroup
     },
     isChecked() {
       if (this.inGroup) {
@@ -127,7 +146,7 @@ export default {
         `ui-checkbox--${variant}`,
         this.size !== 'md' ? `ui-checkbox--${this.size}` : '',
         {
-          'ui-checkbox--checked': this.isChecked,
+          'ui-checkbox--checked': this.isChecked || this.isIndeterminate,
           'ui-checkbox--highlight': this.highlight,
           'ui-checkbox--presentational': this.presentational,
         },

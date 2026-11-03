@@ -62,6 +62,11 @@ export { expandTokens, mergeTokens, formatFontFamily } from './theme/tokens.js'
 export {
   pickContrastForeground,
   ensureContrastForMode,
+  ensureLabelContrast,
+  contrastRatio,
+  colorToRgb,
+  parseOklch,
+  oklchToRgb,
   deriveBrandColorsFromPrimary,
 } from './theme/color-utils.js'
 export { withDerivedBrandTokens } from './theme/derive-theme.js'

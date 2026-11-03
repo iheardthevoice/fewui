@@ -3,10 +3,10 @@
  * Tema token’ları: `import '@ui/lib/style.css'` veya `themes/default.css` önce yüklensin.
  *
  * Yüzey kabuğu: `.ui-surface` — Card, Popover panel, Dialog panel (aynı `rounded-3xl`, `shadow-lg`, `bg-surface`).
- * Boyut referansı (md): h 36px, yatay padding 12px, gap 6px, kontrol metni 14px/20px, font-weight 500,
+ * Boyut referansı (md): h 32px (`h-8`), yatay padding 16px, gap 6px, kontrol metni 14px/20px, font-weight 500,
  * köşe `rounded-lg` / `ui-surface` (`rounded-3xl`) → `--radius` (26px).
  * `xl`/`2xl` TW default bırakılır (küçük karolar; `--radius` üstüne basamaklama şişirir).
- * Card: iç boşluk = bölüm arası = `--ui-card-space` (varsayılan 1.5rem), `border-border`.
+ * Card: iç boşluk = bölüm arası = `--ui-card-space` (varsayılan `--ui-space-card` = 20px, `p-5`), `border-border`.
  * Başlıklar: `ui-heading-3` = 16px / 24px satır / font-medium (text-base leading-6); üst seviyeler büyük, altı text-sm → text-xs.
  * Yardımcı / gövde varsayılanı: `ui-text-default` = 14px / 20px satır / `text-muted-foreground` (oklch ~0.556); kart gövdesi aynı tabanı kullanır.
  *
@@ -15,8 +15,9 @@
  */
 
 /** Form kontrol dolgu — `--input-background` */
+/** Kenarlık kalınlığı `--ui-field-border-width` — iç boşluk hesapları (çoklu Select) aynı değeri okur. */
 @utility ui-field-control-fill {
-  @apply border border-transparent text-foreground [background-color:var(--input-background)] [-webkit-backdrop-filter:blur(var(--ui-input-backdrop-blur))] [backdrop-filter:blur(var(--ui-input-backdrop-blur))];
+  @apply border-[length:var(--ui-field-border-width,1px)] border-solid border-transparent text-foreground [background-color:var(--input-background)] [backdrop-filter:blur(var(--ui-input-backdrop-blur))];
 }
 
 @utility ui-field-control-focus {
@@ -41,6 +42,19 @@
   --ui-fill-grad-bottom: var(--ui-fill-grad-bottom-primary);
 }
 
+/**
+ * Seçim durumu — her seçili / aktif öğe: soluk primary zemin + primary metin ve ikon (`--ui-selected-fg`;
+ * saf primary metin bu zeminde light 4.1:1 / dark 3.0:1 kalıyordu, AA 4.5:1). Dolu primary aksiyondur.
+ */
+/* Kalınlık değişmez: içerik genişliğindeki çip / segment seçimde 0.5–1px oynuyordu. */
+@utility ui-fill-primary-soft {
+  @apply shadow-none bg-none [background-color:var(--primary-soft)] [color:var(--ui-selected-fg)];
+}
+
+@utility ui-fill-primary-soft-hover {
+  @apply bg-none [background-color:var(--primary-soft-hover)] [color:var(--ui-selected-fg)];
+}
+
 /** Muted dolgulu seçili yüzey — menü aktif satır vb. */
 @utility ui-fill-muted {
   @apply border-0 text-foreground shadow-none bg-muted bg-none;
@@ -49,27 +63,24 @@
 /**
  * Yatay kaydırma şeridi (çip, sekme, kategori). `overflow-y: hidden` şart: bir eksen `auto` iken
  * diğer eksenin `visible` değeri `auto` olur; odak halkası / gölge 1–2px taşınca şerit dikey de
- * kayar ve iOS'ta yukarı-aşağı esneyip geri döner.
+ * kayar ve iOS'ta yukarı-aşağı esneyip geri döner. `touch-action: pan-x pan-y` — yalnız `pan-x`
+ * şeridin ve tüm çocuklarının üzerinden başlayan dikey kaydırmayı yasaklar (sayfa / dialog kaymaz);
+ * dikey hareket şeritte kaymaz, üst kaydırıcıya geçer.
  */
 @utility ui-scroll-x {
-  @apply overflow-x-auto overflow-y-hidden [overscroll-behavior-x:contain] [-webkit-overflow-scrolling:touch];
+  @apply overflow-x-auto overflow-y-hidden [overscroll-behavior-x:contain] [-webkit-overflow-scrolling:touch] [touch-action:pan-x_pan-y];
 }
 
 /**
  * Yatay şeritte taşma payı: gölge, odak halkası ve basılı büyüme (`scale`) kaydırıcı kenarında
  * kırpılmasın. Dikeyde `--ui-scroll-bleed` kadar iç boşluk + aynı kadar negatif dış boşluk —
- * yerleşim değişmez. Pay alanı komşu düğmelerin tıklamasını çalmasın diye şerit tıklamaya kapalı,
- * çocukları açık (çocuk üzerinde kaydırma çalışır). Yalnız zeminsiz şeritlerde kullanılır;
+ * yerleşim değişmez. `pointer-events: none` kullanılmaz — iOS WKWebView, overflow kaydırmayı
+ * `pointer-events: none` olan scrollport üzerinde başlatmaz. Yalnız zeminsiz şeritlerde kullanılır;
  * zeminli iz (segmented sekme, segment grubu) büyüyeceği için kullanılmaz.
  */
 @utility ui-scroll-bleed {
   padding-block: var(--ui-scroll-bleed, 0.625rem);
   margin-block: calc(var(--ui-scroll-bleed, 0.625rem) * -1);
-  pointer-events: none;
-
-  & > * {
-    pointer-events: auto;
-  }
 }
 
 /** Kaydırma çubuğunu gizle (yatay sekme listesi, sidebar nav vb.) */

@@ -110,7 +110,8 @@
     --tw-ring-color: var(--ui-focus-ring);
   }
 
-  .ui-button.border-0 {
+  /** Yalnız link varyantı — eskiden `.border-0`'a bağlıydı; dolu primary de `border-0` taşıdığından halka yerine alt çizgi alıyordu. */
+  .ui-button[data-variant='link'] {
     @apply focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:underline;
   }
 
@@ -150,7 +151,7 @@
 
   /** Form alanı dolgusu — input/select ile aynı (açık özellikler: TW @utility + attribute selector) */
   .ui-button.ui-control[data-variant='solid'][data-color='input'] {
-    @apply border border-transparent text-foreground shadow-none [background-color:var(--input-background)] bg-none [-webkit-backdrop-filter:blur(var(--ui-input-backdrop-blur))] [backdrop-filter:blur(var(--ui-input-backdrop-blur))];
+    @apply border border-transparent text-foreground shadow-none [background-color:var(--input-background)] bg-none [backdrop-filter:blur(var(--ui-input-backdrop-blur))];
   }
 
   .ui-button.ui-control[data-variant='solid'][data-color='input'] .ui-icon {
@@ -165,8 +166,13 @@
    * Button variant × color — `@ui/lib` kaynak sınıfları uygulama TW taramasına girmediği için
    * `bg-primary` vb. utility'ler üretilmez; token tabanlı attribute selector zorunlu.
    */
+  /**
+   * Kutu modeli tüm varyantlarda aynı: 1px kenarlık (dolu ve muted'da şeffaf). Outline ↔ dolu
+   * geçişinde (ChipGroup, FilterChip, tarih aralığı hazır seçimi) genişlik 2px oynayıp yandaki
+   * öğeleri itiyordu.
+   */
   .ui-button.ui-control[data-variant='solid'][data-color='primary'] {
-    @apply border-0 shadow-none ui-button-fill-gradient;
+    @apply border border-transparent shadow-none ui-button-fill-gradient;
     --ui-fill-base: var(--primary);
     --ui-fill-grad-top: var(--ui-fill-grad-top-primary);
     --ui-fill-grad-bottom: var(--ui-fill-grad-bottom-primary);
@@ -174,7 +180,7 @@
   }
 
   .ui-button.ui-control[data-variant='solid'][data-color='secondary'] {
-    @apply border border-transparent shadow-none [background-color:var(--input-background)] bg-none text-foreground [-webkit-backdrop-filter:blur(var(--ui-input-backdrop-blur))] [backdrop-filter:blur(var(--ui-input-backdrop-blur))];
+    @apply border border-transparent shadow-none [background-color:var(--input-background)] bg-none text-foreground [backdrop-filter:blur(var(--ui-input-backdrop-blur))];
   }
 
   .ui-button.ui-control[data-variant='solid'][data-color='secondary']:hover:not(:disabled) {
@@ -182,19 +188,19 @@
   }
 
   .ui-button.ui-control[data-variant='solid'][data-color='warning'] {
-    @apply border-0 shadow-none bg-warning bg-none text-warning-foreground;
+    @apply border border-transparent shadow-none bg-warning bg-none text-warning-foreground;
   }
 
   .ui-button.ui-control[data-variant='solid'][data-color='success'] {
-    @apply border-0 shadow-none bg-success bg-none text-success-foreground;
+    @apply border border-transparent shadow-none bg-success bg-none text-success-foreground;
   }
 
   .ui-button.ui-control[data-variant='solid'][data-color='info'] {
-    @apply border-0 shadow-none bg-info bg-none text-info-foreground;
+    @apply border border-transparent shadow-none bg-info bg-none text-info-foreground;
   }
 
   .ui-button.ui-control[data-variant='solid'][data-color='danger'] {
-    @apply border-0 shadow-none bg-danger bg-none text-danger-foreground;
+    @apply border border-transparent shadow-none bg-danger bg-none text-danger-foreground;
   }
 
   .ui-button.ui-control[data-variant='solid']:not([data-color='input']):not([data-color='secondary']):hover:not(:disabled) {
@@ -203,11 +209,11 @@
 
   /** Muted — tonlu yumuşak dolgu; seçili filtre chip'i gibi CTA ile yarışmayan vurgu */
   .ui-button.ui-control[data-variant='muted'] {
-    @apply border-0 shadow-none bg-none;
+    @apply border border-transparent shadow-none bg-none;
   }
 
   .ui-button.ui-control[data-variant='muted'][data-color='primary'] {
-    @apply [background-color:color-mix(in_oklab,_var(--primary)_24%,_transparent)] text-primary;
+    @apply [background-color:color-mix(in_oklab,_var(--primary)_24%,_transparent)] [color:var(--primary-ink)];
   }
 
   .ui-button.ui-control[data-variant='muted'][data-color='primary']:hover:not(:disabled) {
@@ -220,6 +226,38 @@
 
   .ui-button.ui-control[data-variant='muted'][data-color='secondary']:hover:not(:disabled) {
     @apply [background-color:color-mix(in_oklab,_var(--foreground)_18%,_transparent)];
+  }
+
+  .ui-button.ui-control[data-variant='muted'][data-color='warning'] {
+    @apply [background-color:color-mix(in_oklab,_var(--warning)_18%,_transparent)] [color:var(--warning-ink)];
+  }
+
+  .ui-button.ui-control[data-variant='muted'][data-color='warning']:hover:not(:disabled) {
+    @apply [background-color:color-mix(in_oklab,_var(--warning)_28%,_transparent)];
+  }
+
+  .ui-button.ui-control[data-variant='muted'][data-color='success'] {
+    @apply [background-color:color-mix(in_oklab,_var(--success)_18%,_transparent)] [color:var(--success-ink)];
+  }
+
+  .ui-button.ui-control[data-variant='muted'][data-color='success']:hover:not(:disabled) {
+    @apply [background-color:color-mix(in_oklab,_var(--success)_28%,_transparent)];
+  }
+
+  .ui-button.ui-control[data-variant='muted'][data-color='info'] {
+    @apply [background-color:color-mix(in_oklab,_var(--info)_18%,_transparent)] [color:var(--info-ink)];
+  }
+
+  .ui-button.ui-control[data-variant='muted'][data-color='info']:hover:not(:disabled) {
+    @apply [background-color:color-mix(in_oklab,_var(--info)_28%,_transparent)];
+  }
+
+  .ui-button.ui-control[data-variant='muted'][data-color='danger'] {
+    @apply [background-color:color-mix(in_oklab,_var(--danger)_18%,_transparent)] [color:var(--danger-ink)];
+  }
+
+  .ui-button.ui-control[data-variant='muted'][data-color='danger']:hover:not(:disabled) {
+    @apply [background-color:color-mix(in_oklab,_var(--danger)_28%,_transparent)];
   }
 
   /** Ghost / outline — dinlenmede şeffaf; gradient yalnızca hover’da */
@@ -245,11 +283,11 @@
   }
 
   .ui-button.ui-control[data-variant='ghost'][data-color='secondary']:hover:not(:disabled) {
-    @apply bg-muted bg-none text-foreground;
+    @apply bg-none text-foreground [background-color:var(--ui-hover)];
   }
 
   .ui-button.ui-control[data-variant='ghost'][data-color='warning'] {
-    @apply border-0 shadow-none text-warning;
+    @apply border-0 shadow-none [color:var(--warning-ink)];
   }
 
   .ui-button.ui-control[data-variant='ghost'][data-color='warning']:hover:not(:disabled) {
@@ -257,7 +295,7 @@
   }
 
   .ui-button.ui-control[data-variant='ghost'][data-color='success'] {
-    @apply border-0 shadow-none text-success;
+    @apply border-0 shadow-none [color:var(--success-ink)];
   }
 
   .ui-button.ui-control[data-variant='ghost'][data-color='success']:hover:not(:disabled) {
@@ -265,7 +303,7 @@
   }
 
   .ui-button.ui-control[data-variant='ghost'][data-color='info'] {
-    @apply border-0 shadow-none text-info;
+    @apply border-0 shadow-none [color:var(--info-ink)];
   }
 
   .ui-button.ui-control[data-variant='ghost'][data-color='info']:hover:not(:disabled) {
@@ -273,7 +311,7 @@
   }
 
   .ui-button.ui-control[data-variant='ghost'][data-color='danger'] {
-    @apply border-0 shadow-none text-danger;
+    @apply border-0 shadow-none [color:var(--danger-ink)];
   }
 
   .ui-button.ui-control[data-variant='ghost'][data-color='danger']:hover:not(:disabled) {
@@ -281,7 +319,7 @@
   }
 
   .ui-button.ui-control[data-variant='outline'][data-color='primary'] {
-    @apply shadow-none border border-current text-primary;
+    @apply shadow-none border border-current [color:var(--primary-ink)];
   }
 
   .ui-button.ui-control[data-variant='outline'][data-color='primary']:hover:not(:disabled) {
@@ -297,7 +335,7 @@
   }
 
   .ui-button.ui-control[data-variant='outline'][data-color='warning'] {
-    @apply shadow-none border border-current text-warning;
+    @apply shadow-none border border-current [color:var(--warning-ink)];
   }
 
   .ui-button.ui-control[data-variant='outline'][data-color='warning']:hover:not(:disabled) {
@@ -305,7 +343,7 @@
   }
 
   .ui-button.ui-control[data-variant='outline'][data-color='success'] {
-    @apply shadow-none border border-current text-success;
+    @apply shadow-none border border-current [color:var(--success-ink)];
   }
 
   .ui-button.ui-control[data-variant='outline'][data-color='success']:hover:not(:disabled) {
@@ -313,7 +351,7 @@
   }
 
   .ui-button.ui-control[data-variant='outline'][data-color='info'] {
-    @apply shadow-none border border-current text-info;
+    @apply shadow-none border border-current [color:var(--info-ink)];
   }
 
   .ui-button.ui-control[data-variant='outline'][data-color='info']:hover:not(:disabled) {
@@ -321,7 +359,7 @@
   }
 
   .ui-button.ui-control[data-variant='outline'][data-color='danger'] {
-    @apply shadow-none border border-current text-danger;
+    @apply shadow-none border border-current [color:var(--danger-ink)];
   }
 
   .ui-button.ui-control[data-variant='outline'][data-color='danger']:hover:not(:disabled) {
@@ -329,7 +367,7 @@
   }
 
   .ui-button.ui-control[data-variant='link'] {
-    @apply bg-transparent bg-none [-webkit-backdrop-filter:none] [backdrop-filter:none];
+    @apply bg-transparent bg-none [backdrop-filter:none];
   }
 
   /** Kübik düğme içi — avatar / ikon kutuyu doldurur (`truncate` satırından kaçınmak için) */
@@ -516,7 +554,7 @@
   }
 
   .ui-control {
-    @apply box-border text-control-foreground inline-flex shrink-0 items-center justify-center gap-1.5 font-normal [background-color:var(--control-bg)] [-webkit-backdrop-filter:blur(var(--ui-control-backdrop-blur))] [backdrop-filter:blur(var(--ui-control-backdrop-blur))];
+    @apply box-border text-control-foreground inline-flex shrink-0 items-center justify-center gap-1.5 font-normal [background-color:var(--control-bg)] [backdrop-filter:blur(var(--ui-control-backdrop-blur))];
   }
 
   /**
@@ -527,7 +565,7 @@
   .ui-button.ui-control[data-variant='outline'],
   .ui-button.ui-control[data-variant='link'],
   .ui-button.ui-control[data-variant='nav'] {
-    @apply bg-transparent bg-none [-webkit-backdrop-filter:none] [backdrop-filter:none];
+    @apply bg-transparent bg-none [backdrop-filter:none];
   }
 
   /** FA webfont gliflerini buton içinde optik olarak ortala */
@@ -540,15 +578,15 @@
   }
 
   .ui-control-h-sm {
-    @apply box-border rounded-md px-2.5 py-0 text-xs leading-4 h-[var(--ui-control-h-sm)] min-h-[var(--ui-control-h-sm)];
+    @apply box-border rounded-[var(--ui-radius-control-sm)] px-[var(--ui-control-px-sm)] py-0 text-xs leading-4 h-[var(--ui-control-h-sm)] min-h-[var(--ui-control-h-sm)];
   }
 
   .ui-control-h-md {
-    @apply box-border rounded-lg px-3 py-0 text-sm leading-5 h-[var(--ui-control-h-md)] min-h-[var(--ui-control-h-md)];
+    @apply box-border rounded-[var(--ui-radius-control-md)] px-[var(--ui-control-px-md)] py-0 text-sm leading-5 h-[var(--ui-control-h-md)] min-h-[var(--ui-control-h-md)];
   }
 
   .ui-control-h-lg {
-    @apply box-border rounded-lg px-4 py-0 text-sm leading-5 h-[var(--ui-control-h-lg)] min-h-[var(--ui-control-h-lg)];
+    @apply box-border rounded-[var(--ui-radius-control-lg)] px-[var(--ui-control-px-lg)] py-0 text-base leading-6 h-[var(--ui-control-h-lg)] min-h-[var(--ui-control-h-lg)];
   }
 
   /** `ui-button cubed` — TW utility purge’a bağlı kalmadan kare + daire */
@@ -570,9 +608,12 @@
     @apply w-[var(--ui-control-h-lg)] h-[var(--ui-control-h-lg)] [font-size:var(--text-sm)] [line-height:var(--text-sm--line-height)];
   }
 
-  /** Tek satır input / textarea kabuğu — referans: `--ui-control-h-md`, `rounded-lg` (`--radius`), 14/20 metin */
+  /**
+   * Tek satır input / textarea kabuğu — `--ui-control-h-md`, 14/20 metin.
+   * Köşe ve yan boşluk tema token'ından: hap kontrolde yan boşluk kavis kadar artar.
+   */
   .ui-input {
-    @apply ui-field-control-fill box-border flex w-full min-w-0 cursor-text items-center gap-2 rounded-lg px-3 py-1 transition-colors transition-shadow duration-200 ease-out h-[var(--ui-control-h-md)] min-h-[var(--ui-control-h-md)];
+    @apply ui-field-control-fill box-border flex w-full min-w-0 cursor-text items-center gap-2 rounded-[var(--ui-radius-control-md)] px-[var(--ui-control-px-md)] py-1 transition-colors transition-shadow duration-200 ease-out h-[var(--ui-control-h-md)] min-h-[var(--ui-control-h-md)];
   }
 
   .ui-input:focus-within {
@@ -580,12 +621,12 @@
   }
 
   .ui-input--multiline {
-    @apply h-auto items-start rounded-lg py-2 min-h-[var(--ui-control-h-md)];
+    @apply h-auto items-start rounded-[var(--ui-radius-control-md)] py-2 min-h-[var(--ui-control-h-md)];
   }
 
   /** Inline / composer: dolgu ve odak halkası yok */
   .ui-input--plain {
-    @apply h-auto min-h-0 gap-0 rounded-none border-0 bg-transparent px-0 py-0 shadow-none bg-transparent [-webkit-backdrop-filter:none] [backdrop-filter:none];
+    @apply h-auto min-h-0 gap-0 rounded-none border-0 bg-transparent px-0 py-0 shadow-none bg-transparent [backdrop-filter:none];
   }
 
   .ui-input--plain:focus-within {
@@ -602,7 +643,7 @@
 
   /** Salt okunur fiyat satırı — input kabuğu ile aynı dolgu / köşe (`rounded-lg`) */
   .ui-price-display {
-    @apply ui-field-control-fill box-border flex w-full min-w-0 items-center justify-between gap-3 rounded-lg px-3 h-[var(--ui-control-h-md)] min-h-[var(--ui-control-h-md)];
+    @apply ui-field-control-fill box-border flex w-full min-w-0 items-center justify-between gap-3 rounded-[var(--ui-radius-control-md)] px-[var(--ui-control-px-md)] h-[var(--ui-control-h-md)] min-h-[var(--ui-control-h-md)];
   }
 
   .ui-price-display--sm {
@@ -618,7 +659,7 @@
   }
 
   .ui-price-display-group {
-    @apply ui-field-control-fill box-border w-full min-w-0 space-y-2 rounded-lg px-3 py-3;
+    @apply ui-field-control-fill box-border w-full min-w-0 space-y-2 rounded-[var(--ui-radius-control-md)] px-[var(--ui-control-px-md)] py-3;
   }
 
   .ui-price-display-row {
@@ -676,11 +717,11 @@
   }
 
   .ui-price-text--danger {
-    @apply text-danger;
+    @apply [color:var(--danger-ink)];
   }
 
   .ui-price-text--primary {
-    @apply text-primary;
+    @apply [color:var(--primary-ink)];
   }
 
   .ui-price-text--strike {
@@ -725,11 +766,11 @@
   }
 
   .ui-password-strength-label--weak {
-    @apply text-danger;
+    @apply [color:var(--danger-ink)];
   }
 
   .ui-password-strength-label--fair {
-    @apply text-warning;
+    @apply [color:var(--warning-ink)];
   }
 
   .ui-password .ui-input {
@@ -762,16 +803,28 @@
 
   .ui-password-strength-label--good,
   .ui-password-strength-label--strong {
-    @apply text-success;
+    @apply [color:var(--success-ink)];
   }
 
-  /** Pin / OTP — hane kutuları (konteyner genişliğine yayılır, kare oran korunur) */
+  /**
+   * Pin / OTP — eşit grid slot’ları; dar kartta birlikte küçülür.
+   * Slot aspect-ratio taşır; input absolute doldurur (tek karakter hizası).
+   */
   .ui-pin {
-    @apply flex w-full min-w-0 items-center justify-center gap-1.5 sm:gap-2;
+    --ui-pin-cols: 6;
+    @apply grid w-full min-w-0 gap-1.5 sm:gap-2;
+    grid-template-columns: repeat(var(--ui-pin-cols), minmax(0, 1fr));
   }
 
+  .ui-pin-slot {
+    @apply relative min-w-0 w-full justify-self-center;
+    aspect-ratio: 1;
+    max-width: 3rem;
+  }
+
+  /** Diğer form input’ları ile aynı yüzey: `ui-field-control-fill` (border yok / transparent) */
   .ui-pin-cell {
-    @apply ui-field-control-fill box-border h-11 w-11 shrink-0 rounded-lg text-center text-base font-medium tracking-[0.15em] outline-none transition-colors transition-shadow duration-200 ease-out sm:h-12 sm:w-12 sm:text-lg sm:tracking-[0.2em] [border-color:color-mix(in_oklab,_var(--foreground)_14%,_transparent)];
+    @apply ui-field-control-fill absolute inset-0 box-border m-0 h-full w-full rounded-lg p-0 text-center text-base font-medium leading-none text-foreground outline-none transition-shadow duration-200 ease-out sm:text-lg;
   }
 
   .ui-pin-cell:focus-visible {
@@ -783,7 +836,7 @@
   }
 
   .ui-pin[data-mask='true'] .ui-pin-cell {
-    @apply tracking-normal [-webkit-text-security:disc];
+    @apply [-webkit-text-security:disc];
   }
 
   /** Progress — ince çubuk (şifre, slider) ve daire (kullanım / kota) */
@@ -808,7 +861,7 @@
   }
 
   .ui-progress-bar-indicator {
-    @apply h-full min-w-0 rounded-full bg-foreground transition-[width] duration-200 ease-out;
+    @apply h-full min-w-0 rounded-full bg-primary transition-[width] duration-200 ease-out;
   }
 
   .ui-progress--weak .ui-progress-bar-indicator {
@@ -856,7 +909,7 @@
   }
 
   .ui-progress-circle-indicator {
-    @apply fill-none [stroke:var(--foreground)] [stroke-linecap:butt] [transition:stroke-dashoffset_200ms_ease-out];
+    @apply fill-none [stroke:var(--primary)] [stroke-linecap:butt] [transition:stroke-dashoffset_200ms_ease-out];
   }
 
   .ui-progress--indeterminate .ui-progress-bar-indicator {
@@ -939,28 +992,29 @@
 
   /** Muted badge tonları — JS sınıf string’i TW taramasından kaçsa bile dolgu kalsın */
   .ui-badge.bg-primary\/12 {
-    @apply border-transparent [background-color:color-mix(in_oklab,_var(--primary)_18%,_transparent)] text-primary;
+    @apply border-transparent [background-color:color-mix(in_oklab,_var(--primary)_18%,_transparent)] [color:var(--primary-ink)];
   }
 
   .ui-badge.bg-success\/12 {
-    @apply border-transparent [background-color:color-mix(in_oklab,_var(--success)_18%,_transparent)] text-success;
+    @apply border-transparent [background-color:color-mix(in_oklab,_var(--success)_18%,_transparent)] [color:var(--success-ink)];
   }
 
   .ui-badge.bg-warning\/15 {
-    @apply border-transparent [background-color:color-mix(in_oklab,_var(--warning)_18%,_transparent)] text-warning;
+    @apply border-transparent [background-color:color-mix(in_oklab,_var(--warning)_18%,_transparent)] [color:var(--warning-ink)];
   }
 
   .ui-badge.bg-info\/12 {
-    @apply border-transparent [background-color:color-mix(in_oklab,_var(--info)_18%,_transparent)] text-info;
+    @apply border-transparent [background-color:color-mix(in_oklab,_var(--info)_18%,_transparent)] [color:var(--info-ink)];
   }
 
   .ui-badge.bg-danger\/12 {
-    @apply border-transparent [background-color:color-mix(in_oklab,_var(--danger)_18%,_transparent)] text-danger;
+    @apply border-transparent [background-color:color-mix(in_oklab,_var(--danger)_18%,_transparent)] [color:var(--danger-ink)];
   }
 
   /** Tag — boyut / dolgu Badge ile (`Tag.vue` + `ui-badge--*`); kapat düğmesi */
+  /** Görünür ikon 16px; dokunma alanı 24px (WCAG 2.5.8) — `::after` ile, yerleşim değişmez. */
   .ui-tag-remove {
-    @apply -mr-px inline-flex size-4 shrink-0 items-center justify-center rounded-md text-inherit opacity-70 outline-none transition-opacity hover:opacity-100 focus-visible:opacity-100;
+    @apply relative -mr-px inline-flex size-4 shrink-0 items-center justify-center rounded-md text-inherit opacity-70 outline-none transition-opacity hover:opacity-100 focus-visible:opacity-100 after:absolute after:-inset-1 after:content-[''];
   }
 
   .ui-tag-remove:focus-visible {
@@ -980,7 +1034,7 @@
 
   .ui-tooltip-fade-enter-active .ui-tooltip-motion,
   .ui-tooltip-fade-leave-active .ui-tooltip-motion {
-    @apply [transition:opacity_0.2s_cubic-bezier(0.16,_1,_0.3,_1),_transform_0.2s_cubic-bezier(0.16,_1,_0.3,_1)];
+    @apply [transition:opacity_0.14s_cubic-bezier(0.16,_1,_0.3,_1),_transform_0.14s_cubic-bezier(0.16,_1,_0.3,_1)];
   }
 
   .ui-tooltip-fade-enter-from .ui-tooltip-motion,
@@ -996,11 +1050,11 @@
    * Süreler Popover.vue `:duration` ile aynı tutulur.
    */
   .ui-overlay-popover-enter-active .ui-popover-panel {
-    @apply [transition:opacity_0.18s_cubic-bezier(0.16,_1,_0.3,_1),_transform_0.24s_cubic-bezier(0.16,_1,_0.3,_1)] [will-change:opacity,_transform] [transform-origin:var(--ui-popover-origin,_top_center)];
+    @apply [transition:opacity_0.13s_cubic-bezier(0.16,_1,_0.3,_1),_transform_0.18s_cubic-bezier(0.16,_1,_0.3,_1)] [will-change:opacity,_transform] [transform-origin:var(--ui-popover-origin,_top_center)];
   }
 
   .ui-overlay-popover-leave-active .ui-popover-panel {
-    @apply [transition:opacity_0.14s_cubic-bezier(0.4,_0,_1,_1),_transform_0.16s_cubic-bezier(0.4,_0,_1,_1)] [will-change:opacity,_transform] [transform-origin:var(--ui-popover-origin,_top_center)];
+    @apply [transition:opacity_0.1s_cubic-bezier(0.4,_0,_1,_1),_transform_0.12s_cubic-bezier(0.4,_0,_1,_1)] [will-change:opacity,_transform] [transform-origin:var(--ui-popover-origin,_top_center)];
   }
 
   .ui-overlay-popover-leave-active {
@@ -1025,7 +1079,7 @@
    */
   .ui-overlay-popover-enter-active[data-popover-align-active] .ui-popover-panel,
   .ui-overlay-popover-leave-active[data-popover-align-active] .ui-popover-panel {
-    @apply [transition:opacity_0.12s_ease-out];
+    @apply [transition:opacity_0.1s_ease-out];
   }
 
   .ui-overlay-popover-enter-from[data-popover-align-active] .ui-popover-panel,
@@ -1040,11 +1094,11 @@
   }
 
   .ui-overlay-popover-backdrop-enter-active {
-    @apply [transition:opacity_0.22s_cubic-bezier(0.16,_1,_0.3,_1)] [will-change:opacity];
+    @apply [transition:opacity_0.16s_cubic-bezier(0.16,_1,_0.3,_1)] [will-change:opacity];
   }
 
   .ui-overlay-popover-backdrop-leave-active {
-    @apply [transition:opacity_0.2s_cubic-bezier(0.4,_0,_0.2,_1)] [will-change:opacity] pointer-events-none;
+    @apply [transition:opacity_0.14s_cubic-bezier(0.4,_0,_0.2,_1)] [will-change:opacity] pointer-events-none;
   }
 
   .ui-overlay-popover-backdrop-enter-from,
@@ -1054,6 +1108,16 @@
 
   .ui-popover-backdrop {
     @apply z-[409] pointer-events-auto touch-none;
+  }
+
+  /**
+   * Enter/leave sırasında `.ui-popover-backdrop` `pointer-events-auto` ile üstün gelmesin —
+   * aksi halde opacity-0 backdrop tıklamayı yutar ve leave tamamlanmadan takılı kalır.
+   */
+  .ui-popover-backdrop.ui-overlay-popover-backdrop-enter-from,
+  .ui-popover-backdrop.ui-overlay-popover-backdrop-leave-active,
+  .ui-popover-backdrop.ui-overlay-popover-backdrop-leave-to {
+    pointer-events: none !important;
   }
 
   /**
@@ -1103,11 +1167,11 @@
   }
 
   .ui-overlay-dialog-enter-active .ui-dialog-backdrop {
-    @apply [transition:opacity_0.2s_cubic-bezier(0.16,_1,_0.3,_1)] [will-change:opacity];
+    @apply [transition:opacity_0.15s_cubic-bezier(0.16,_1,_0.3,_1)] [will-change:opacity];
   }
 
   .ui-overlay-dialog-leave-active .ui-dialog-backdrop {
-    @apply [transition:opacity_0.16s_cubic-bezier(0.4,_0,_1,_1)] [will-change:opacity];
+    @apply [transition:opacity_0.12s_cubic-bezier(0.4,_0,_1,_1)] [will-change:opacity];
   }
 
   .ui-overlay-dialog-enter-from .ui-dialog-backdrop,
@@ -1116,11 +1180,11 @@
   }
 
   .ui-overlay-dialog-enter-active .ui-dialog-panel {
-    @apply [transition:opacity_0.26s_cubic-bezier(0.16,_1,_0.3,_1),_transform_0.26s_cubic-bezier(0.16,_1,_0.3,_1)] [will-change:opacity,_transform];
+    @apply [transition:opacity_0.2s_cubic-bezier(0.16,_1,_0.3,_1),_transform_0.2s_cubic-bezier(0.16,_1,_0.3,_1)] [will-change:opacity,_transform];
   }
 
   .ui-overlay-dialog-leave-active .ui-dialog-panel {
-    @apply [transition:opacity_0.18s_cubic-bezier(0.4,_0,_1,_1),_transform_0.18s_cubic-bezier(0.4,_0,_1,_1)] [will-change:opacity,_transform];
+    @apply [transition:opacity_0.14s_cubic-bezier(0.4,_0,_1,_1),_transform_0.14s_cubic-bezier(0.4,_0,_1,_1)] [will-change:opacity,_transform];
   }
 
   .ui-overlay-dialog-enter-active .ui-dialog-motion {
@@ -1165,12 +1229,12 @@
    */
   .ui-overlay-sheet-right-enter-active .ui-sheet-backdrop,
   .ui-overlay-sheet-left-enter-active .ui-sheet-backdrop {
-    @apply [transition:opacity_0.28s_cubic-bezier(0.22,_1,_0.36,_1)] [will-change:opacity];
+    @apply [transition:opacity_0.22s_cubic-bezier(0.22,_1,_0.36,_1)] [will-change:opacity];
   }
 
   .ui-overlay-sheet-right-leave-active .ui-sheet-backdrop,
   .ui-overlay-sheet-left-leave-active .ui-sheet-backdrop {
-    @apply [transition:opacity_0.32s_cubic-bezier(0.4,_0,_0.2,_1)] [will-change:opacity];
+    @apply [transition:opacity_0.22s_cubic-bezier(0.4,_0,_0.2,_1)] [will-change:opacity];
   }
 
   .ui-overlay-sheet-right-enter-from .ui-sheet-backdrop,
@@ -1182,12 +1246,12 @@
 
   .ui-overlay-sheet-right-enter-active .ui-sheet-panel,
   .ui-overlay-sheet-left-enter-active .ui-sheet-panel {
-    @apply [transition:transform_0.36s_cubic-bezier(0.22,_1,_0.36,_1)] [will-change:transform];
+    @apply [transition:transform_0.28s_cubic-bezier(0.22,_1,_0.36,_1)] [will-change:transform];
   }
 
   .ui-overlay-sheet-right-leave-active .ui-sheet-panel,
   .ui-overlay-sheet-left-leave-active .ui-sheet-panel {
-    @apply [transition:transform_0.32s_cubic-bezier(0.4,_0,_0.2,_1)] [will-change:transform];
+    @apply [transition:transform_0.22s_cubic-bezier(0.4,_0,_0.2,_1)] [will-change:transform];
   }
 
   .ui-overlay-sheet-right-enter-from .ui-sheet-panel,
@@ -1249,25 +1313,27 @@
     }
   }
 
-  /** File — Finder tarzı ikon plakası (hafif iç parlama + derinlik) */
+  /** File — Finder tarzı ikon plakası (kart üzerinde nötr, hafif kabartma) */
   .ui-file-icon-shell {
-    @apply border border-border bg-muted shadow-md [box-shadow:inset_0_1px_0_0_rgb(255_255_255_/_0.12),_0_1px_2px_rgb(0_0_0_/_0.06),_0_6px_16px_rgb(0_0_0_/_0.07)];
+    @apply border border-border bg-surface-subtle shadow-sm [box-shadow:inset_0_1px_0_0_rgb(255_255_255_/_0.55),_0_1px_2px_rgb(0_0_0_/_0.04)];
   }
 
   .dark .ui-file-icon-shell:not([data-ui-mode='light'] *) {
-    @apply [box-shadow:inset_0_1px_0_0_rgb(255_255_255_/_0.06),_0_2px_6px_rgb(0_0_0_/_0.45),_0_12px_28px_rgb(0_0_0_/_0.35)];
+    @apply bg-surface-sunken [box-shadow:inset_0_1px_0_0_rgb(255_255_255_/_0.06),_0_1px_3px_rgb(0_0_0_/_0.35)];
   }
 
   /** Klasör satırı — gökyüzü tonu (macOS klasör ipucu) */
-  .ui-file-icon-shell--folder {
-    @apply border-sky-400 bg-sky-50 dark:border-sky-600 dark:bg-sky-950;
+  /** Klasör tonu `info` token'ından — sabit sky paleti koyu yüzeyli light temada (landing) beyaz kutu çiziyordu */
+  .ui-file-icon-shell--folder,
+  .dark .ui-file-icon-shell--folder:not([data-ui-mode='light'] *) {
+    @apply [border-color:color-mix(in_oklab,var(--info)_45%,var(--border))] [background-color:color-mix(in_oklab,var(--info)_14%,var(--surface-subtle))];
   }
 
   /**
    * Ortak yüzey — `bg-surface` + `shadow-lg` + `rounded-3xl` (Card, Popover, Dialog).
    */
   .ui-surface {
-    @apply box-border rounded-3xl border border-border text-surface-foreground subpixel-antialiased [background-color:var(--surface-bg)] [-webkit-backdrop-filter:blur(var(--ui-surface-backdrop-blur))] [backdrop-filter:blur(var(--ui-surface-backdrop-blur))] [box-shadow:var(--ui-shadow-surface)];
+    @apply box-border rounded-3xl border border-border text-surface-foreground subpixel-antialiased [background-color:var(--surface-bg)] [backdrop-filter:blur(var(--ui-surface-backdrop-blur))] [box-shadow:var(--ui-shadow-surface)];
   }
 
   /**
@@ -1276,7 +1342,7 @@
    * `--ui-card-padding` / `--ui-card-gap`: dikey ve yatay kenar ile bölüm arası eşit (1.5rem).
    */
   .ui-card {
-    --ui-card-padding: var(--ui-card-space, var(--ui-space-card, 1.5rem));
+    --ui-card-padding: var(--ui-card-space, var(--ui-space-card));
     --ui-card-gap: var(--ui-card-padding);
     @apply isolate flex min-w-0 flex-col p-[var(--ui-card-padding)] gap-[var(--ui-card-gap)];
   }
@@ -1304,9 +1370,12 @@
   /**
    * Masaüstünde gövde yatay 0.5rem iç boşluk alır: hücre px-3 ile birlikte içerik kart
    * kenarından 1.25rem içeride — rounded-3xl köşeye yapışmaz. Mobilde dar ekran için 0.
+   * Değer `--ui-data-table-body-px` ile açılır: gövdeye gömülü araç çubuğu (`app-data-table embedded`)
+   * üst boşluğuna ekler, yatay ve dikey kenar boşluğu eşit kalır.
    */
   .ui-card--data-table > .ui-card-body {
-    @apply min-w-0 text-foreground lg:px-2;
+    --ui-data-table-body-px: 0px;
+    @apply min-w-0 text-foreground px-[var(--ui-data-table-body-px)] lg:[--ui-data-table-body-px:0.5rem];
     /* `.ui-card-body` flex-1 shorthand’dan sonra gelmeli; aksi halde basis:0% + grow-0
        gövdeyi çökertebilir / flex zincirinde tablo satırları şişebilir (Chrome). */
     @apply flex-initial;
@@ -1321,8 +1390,11 @@
   }
 
   .ui-card--data-table > .ui-card-toolbar {
-    /* Gövde (lg:px-2) + hücre `px-3` ile aynı — filtre / arama sol kenarı sütun başlıklarıyla hizalı */
-    @apply px-3 py-3 lg:px-5;
+    /*
+     * Gövde (lg:px-2) + hücre `px-3` ile aynı — filtre / arama sol kenarı sütun başlıklarıyla hizalı.
+     * Üst boşluk yanlarla eşit (kart boşluğu `p-5`); araç çubuğu → sütun başlığı 12.
+     */
+    @apply px-3 pt-3 pb-3 lg:px-5 lg:pt-5;
   }
 
   .ui-card--data-table > .ui-card-toolbar > * {
@@ -1330,7 +1402,7 @@
   }
 
   .ui-card--data-table > .ui-card-footer {
-    @apply w-full px-3 pb-4 pt-3 lg:px-5;
+    @apply w-full px-3 pb-4 pt-3 lg:px-5 lg:pb-5;
   }
 
   .ui-card--data-table > .ui-card-footer > .ui-table-pagination {
@@ -1608,7 +1680,7 @@
   }
 
   .ui-intro__track {
-    @apply flex h-full [transition:transform_280ms_cubic-bezier(0.22,_1,_0.36,_1)];
+    @apply flex h-full [transition:transform_220ms_cubic-bezier(0.22,_1,_0.36,_1)];
   }
 
   .ui-intro__track--dragging {
@@ -1640,7 +1712,7 @@
   }
 
   .ui-intro__dot {
-    @apply box-border relative h-2 w-2 border-0 rounded-full p-0 [background:color-mix(in_srgb,_var(--foreground)_22%,_transparent)] [transition:width_220ms_ease,_background-color_220ms_ease];
+    @apply box-border relative h-2 w-2 border-0 rounded-full p-0 [background:color-mix(in_srgb,_var(--foreground)_22%,_transparent)] [transition:width_180ms_ease,_background-color_180ms_ease];
   }
 
   .ui-intro__dot::before {
@@ -1653,7 +1725,7 @@
 
   .ui-intro-shell-enter-active,
   .ui-intro-shell-leave-active {
-    @apply [transition:opacity_320ms_ease,_transform_420ms_cubic-bezier(0.22,_1,_0.36,_1)];
+    @apply [transition:opacity_240ms_ease,_transform_320ms_cubic-bezier(0.22,_1,_0.36,_1)];
   }
 
   .ui-intro-shell-enter-from,
@@ -1703,7 +1775,7 @@
   }
 
   .ui-avatar-group--sm .ui-avatar-group-overflow {
-    @apply h-8 w-8 min-h-8 min-w-8 text-[10px] leading-none;
+    @apply h-8 w-8 min-h-8 min-w-8 text-[0.6875rem] leading-none;
   }
 
   .ui-avatar-group--md .ui-avatar-group-overflow {
@@ -1740,7 +1812,7 @@
   }
 
   .ui-avatar--sm {
-    @apply h-8 w-8 min-h-8 min-w-8 shrink-0 text-[10px] leading-none;
+    @apply h-8 w-8 min-h-8 min-w-8 shrink-0 text-[0.6875rem] leading-none;
   }
 
   .ui-avatar--md {
@@ -1930,7 +2002,7 @@
   }
 
   .ui-action-card--selected {
-    @apply bg-control ring-1 ring-ring;
+    @apply [background-color:var(--primary-soft)] hover:[background-color:var(--primary-soft-hover)];
   }
 
   .ui-action-card__icon {
@@ -2005,11 +2077,11 @@
   }
 
   .ui-list-item-prefix {
-    @apply mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-foreground text-background;
+    @apply mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground;
   }
 
   .ui-list-item-prefix-icon {
-    @apply text-[10px] leading-none;
+    @apply text-[0.625rem] leading-none;
   }
 
   .ui-list-item-prefix-slot {
@@ -2050,6 +2122,7 @@
     @apply bg-surface-subtle;
   }
 
+
   .ui-list-item--disabled:not(.ui-list-item--actionable) {
     @apply opacity-50;
   }
@@ -2067,7 +2140,7 @@
   }
 
   .ui-list-item-title--danger {
-    @apply text-danger;
+    @apply [color:var(--danger-ink)];
   }
 
   .ui-list-item-description {
@@ -2165,7 +2238,7 @@
   }
 
   .ui-skeleton-host--height-active {
-    @apply overflow-hidden [transition:height_0.48s_cubic-bezier(0.22,_1,_0.36,_1)];
+    @apply overflow-hidden [transition:height_0.32s_cubic-bezier(0.22,_1,_0.36,_1)];
   }
 
   .ui-skeleton-host--height-locked {
@@ -2173,7 +2246,7 @@
   }
 
   .ui-skeleton-placeholder {
-    @apply w-full min-w-0 transition-opacity duration-[480ms] ease-[cubic-bezier(0.22,1,0.36,1)];
+    @apply w-full min-w-0 transition-opacity duration-[320ms] ease-[cubic-bezier(0.22,1,0.36,1)];
   }
 
   .ui-skeleton-placeholder--flow {
@@ -2207,7 +2280,7 @@
   }
 
   .ui-skeleton-content-wrap--revealing {
-    @apply relative z-[1] opacity-0 [transform:translateY(0.5rem)] [transition:opacity_0.48s_cubic-bezier(0.22,_1,_0.36,_1),_transform_0.48s_cubic-bezier(0.22,_1,_0.36,_1)];
+    @apply relative z-[1] opacity-0 [transform:translateY(0.5rem)] [transition:opacity_0.32s_cubic-bezier(0.22,_1,_0.36,_1),_transform_0.32s_cubic-bezier(0.22,_1,_0.36,_1)];
   }
 
   .ui-skeleton-content-wrap--revealing-visible {
@@ -2260,12 +2333,30 @@
     @apply min-w-0;
   }
 
+  /** Dikey satır — etiket → kontrol 6px, kontrol → açıklama / hata 4px (alanlar arası boşluk kapsayıcıda: `gap-4`) */
   .ui-form-row--vertical {
     @apply flex flex-col gap-1.5;
   }
 
   .ui-form-row--vertical .ui-form-row-control {
-    @apply flex w-full min-w-0 shrink flex-col gap-1.5;
+    @apply flex w-full min-w-0 shrink flex-col gap-1;
+  }
+
+  /** Alan hatası — ikon + metin (renge tek başına dayanmaz, WCAG 1.4.1); kontrol danger kenarlık alır. */
+  .ui-form-row-error {
+    @apply m-0 flex items-start gap-1.5 text-sm leading-5 [color:var(--danger-ink)];
+  }
+
+  .ui-form-row-error-icon {
+    @apply mt-0.5 shrink-0;
+  }
+
+  .ui-input:has(> .ui-input-field[aria-invalid='true']),
+  .ui-select:not(.ui-select--inline) .ui-select-field[aria-invalid='true'],
+  .ui-select-field--values:has([aria-invalid='true']),
+  .ui-phone .ui-input:has([aria-invalid='true']) {
+    /* outline: odak halkası box-shadow'dur, ikisi birlikte görünür */
+    @apply [outline:1.5px_solid_var(--danger)] [outline-offset:-1.5px];
   }
 
   .ui-form-row--vertical .ui-form-row-control .ui-form-row-description {
@@ -2285,7 +2376,7 @@
   }
 
   .ui-form-row--horizontal .ui-form-row-control {
-    @apply flex min-w-0 max-w-full shrink-0 flex-col items-end justify-center gap-1.5;
+    @apply flex min-w-0 max-w-full shrink flex-col items-end justify-center gap-1;
   }
 
   /** `stack-on-mobile` — yatay satır dar ekranda dikey (FormRow prop). */
@@ -2318,7 +2409,7 @@
   }
 
   .ui-form-row--card-vertical .ui-form-row-control {
-    @apply flex w-full min-w-0 shrink flex-col gap-1.5;
+    @apply flex w-full min-w-0 shrink flex-col gap-1;
   }
 
   .ui-form-row--card-vertical .ui-form-row-control .ui-form-row-description {
@@ -2357,7 +2448,7 @@
    * eşitlenince kısa sütundaki input alta kaymasın. `flex-1` yalnız yatayda.
    */
   .ui-form-row-text {
-    @apply min-w-0 shrink-0 space-y-1.5;
+    @apply min-w-0 shrink-0 space-y-0.5;
   }
 
   /** Etiket satırı — solda label, sağda `#action` (ör. “Şifremi unuttum”) */
@@ -2526,11 +2617,11 @@
   }
 
   .ui-icon-picker-cell {
-    @apply flex aspect-square min-w-0 items-center justify-center rounded-md border border-transparent text-muted-foreground transition-colors hover:border-border hover:bg-muted hover:text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-ring;
+    @apply flex aspect-square min-w-0 items-center justify-center rounded-md border border-transparent text-muted-foreground transition-colors hover:border-transparent hover:[background-color:var(--ui-hover)] hover:text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-ring;
   }
 
   .ui-icon-picker-cell--selected {
-    @apply border-primary bg-primary/10 text-foreground;
+    @apply border-transparent ui-fill-primary-soft hover:border-transparent hover:[color:var(--ui-selected-fg)];
   }
 
   .ui-color-picker-swatches {
@@ -2580,7 +2671,7 @@
    * ColorPicker ve IconPicker `ui-select-field` kullanır ama `.ui-select` içinde değildir.
    */
   .ui-select-field {
-    @apply relative m-0 box-border flex w-full min-w-0 cursor-pointer items-center gap-2 appearance-none rounded-lg py-1 pl-3 pr-3 text-left outline-none transition-shadow h-[var(--ui-control-h-md)] min-h-[var(--ui-control-h-md)];
+    @apply relative m-0 box-border flex w-full min-w-0 cursor-pointer items-center gap-2 appearance-none rounded-[var(--ui-radius-control-md)] py-1 px-[var(--ui-control-px-md)] text-left outline-none transition-shadow h-[var(--ui-control-h-md)] min-h-[var(--ui-control-h-md)];
   }
 
   .ui-select:not(.ui-select--inline) .ui-select-field,
@@ -2589,13 +2680,22 @@
     @apply ui-field-control-fill;
   }
 
-  .ui-select:not(.ui-select--inline) .ui-select-field[aria-expanded='true'],
+  /**
+   * Halka yalnız klavye odağında. Panel açıkken tetikleyici halka almaz — panel ve içindeki
+   * arama kutusuyla birlikte çift çerçeve oluşuyordu.
+   */
   .ui-select:not(.ui-select--inline) .ui-select-field:focus-visible,
-  .ui-color-picker .ui-select-field[aria-expanded='true'],
   .ui-color-picker .ui-select-field:focus-visible,
-  .ui-icon-picker .ui-select-field[aria-expanded='true'],
   .ui-icon-picker .ui-select-field:focus-visible {
     @apply ui-field-control-focus;
+  }
+
+  /**
+   * Açık Select'te odak göstergesi vurgulanan seçenektir (`aria-activedescendant`); tetikleyici
+   * halkası Esc sonrası `:focus-visible` kalınca panel ile çift çerçeve yapıyordu.
+   */
+  .ui-select:not(.ui-select--inline) .ui-select-field[aria-expanded='true']:focus-visible {
+    @apply ring-0 ring-offset-0;
   }
 
   .ui-select-value {
@@ -2620,11 +2720,11 @@
 
   /** `size="sm"` / `lg` — çift sınıf ile md kabuk ölçülerinin üzerine yazar (Tailwind sıra çakışması) */
   .ui-input.ui-input--sm {
-    @apply gap-1.5 rounded-md px-2.5 py-0 h-[var(--ui-control-h-sm)] min-h-[var(--ui-control-h-sm)];
+    @apply gap-1.5 rounded-[var(--ui-radius-control-sm)] px-[var(--ui-control-px-sm)] py-0 h-[var(--ui-control-h-sm)] min-h-[var(--ui-control-h-sm)];
   }
 
   .ui-input.ui-input--sm.ui-input--multiline {
-    @apply h-auto py-1.5 min-h-[var(--ui-control-h-sm)];
+    @apply h-auto items-start py-1.5 min-h-[var(--ui-control-h-sm)];
   }
 
   .ui-input.ui-input--sm .ui-input-field {
@@ -2632,11 +2732,12 @@
   }
 
   .ui-input.ui-input--lg {
-    @apply rounded-lg px-4 py-1 h-[var(--ui-control-h-lg)] min-h-[var(--ui-control-h-lg)];
+    @apply rounded-[var(--ui-radius-control-lg)] px-[var(--ui-control-px-lg)] py-1 h-[var(--ui-control-h-lg)] min-h-[var(--ui-control-h-lg)];
   }
 
+  /** Çok satırda sabit yükseklik kalkar — aksi halde `--lg` yüksekliği textarea'yı tek satıra sıkıştırır */
   .ui-input.ui-input--lg.ui-input--multiline {
-    @apply py-2 min-h-[var(--ui-control-h-lg)];
+    @apply h-auto items-start py-2 min-h-[var(--ui-control-h-lg)];
   }
 
   .ui-input.ui-input--lg .ui-input-field {
@@ -2644,7 +2745,7 @@
   }
 
   .ui-select.ui-select--sm .ui-select-field {
-    @apply rounded-md py-0 pl-2.5 pr-2 h-[var(--ui-control-h-sm)] min-h-[var(--ui-control-h-sm)];
+    @apply rounded-[var(--ui-radius-control-sm)] py-0 px-[var(--ui-control-px-sm)] h-[var(--ui-control-h-sm)] min-h-[var(--ui-control-h-sm)];
   }
 
   .ui-select.ui-select--sm .ui-select-field,
@@ -2653,7 +2754,7 @@
   }
 
   .ui-select.ui-select--lg .ui-select-field {
-    @apply rounded-lg py-0 pl-4 pr-4 h-[var(--ui-control-h-lg)] min-h-[var(--ui-control-h-lg)];
+    @apply rounded-[var(--ui-radius-control-lg)] py-0 px-[var(--ui-control-px-lg)] h-[var(--ui-control-h-lg)] min-h-[var(--ui-control-h-lg)];
   }
 
   .ui-select.ui-select--lg .ui-select-field,
@@ -2676,7 +2777,7 @@
   .ui-select-field--bare:focus,
   .ui-select-field--bare:focus-visible,
   .ui-select-field--bare[aria-expanded='true'] {
-    @apply h-8 min-h-8 gap-1 rounded-none border-0 border-r border-border bg-transparent py-0 pl-0 pr-2 text-sm shadow-none ring-0 ring-offset-0 bg-transparent bg-none [-webkit-backdrop-filter:none] [backdrop-filter:none] shadow-none;
+    @apply h-6 min-h-6 gap-1 rounded-none border-0 border-r border-border bg-transparent py-0 pl-0 pr-2 text-sm shadow-none ring-0 ring-offset-0 bg-transparent bg-none [backdrop-filter:none] shadow-none;
   }
 
   .ui-select--inline .ui-select-value {
@@ -2688,12 +2789,17 @@
     @apply w-full min-w-0;
   }
 
+  /**
+   * Ülke kodu ile numara arasında ayırıcı yok: `--border` input dolgusuyla aynı renk olduğundan
+   * çizgi görünmüyor, ona ayrılan boşluk (pr + mr + Input gap ≈ 29px) boş delik gibi kalıyordu.
+   * Numara, chevron'dan Input `gap` + 4px (≈12px) sonra başlar — ikon ile kod arasındaki ritimle aynı aile.
+   */
   .ui-phone-prepend {
-    @apply mr-2 flex shrink-0 select-none items-center gap-2 border-r border-border-subtle bg-transparent pr-3 bg-transparent bg-none [-webkit-backdrop-filter:none] [backdrop-filter:none];
+    @apply mr-1 flex shrink-0 select-none items-center gap-2 bg-transparent bg-none [backdrop-filter:none];
   }
 
   .ui-phone .ui-input > .ui-text-default:has(.ui-phone-prepend) {
-    @apply bg-transparent bg-none [-webkit-backdrop-filter:none] [backdrop-filter:none];
+    @apply bg-transparent bg-none [backdrop-filter:none];
   }
 
   .ui-phone-country-static {
@@ -2705,51 +2811,57 @@
   .ui-phone .ui-select--inline .ui-select-field:focus,
   .ui-phone .ui-select--inline .ui-select-field:focus-visible,
   .ui-phone .ui-select--inline .ui-select-field[aria-expanded='true'] {
-    @apply h-auto min-h-0 w-auto gap-2 rounded-none border-0 border-r-0 bg-transparent py-0 pl-0 pr-0 shadow-none ring-0 ring-offset-0 bg-transparent bg-none [-webkit-backdrop-filter:none] [backdrop-filter:none] shadow-none;
+    @apply h-auto min-h-6 w-auto gap-2 rounded-none border-0 border-r-0 bg-transparent py-0 pl-0 pr-0 shadow-none ring-0 ring-offset-0 bg-transparent bg-none [backdrop-filter:none] shadow-none;
   }
 
   .ui-phone .ui-select--inline .ui-select-chevron {
     @apply ml-0.5;
   }
 
+  /**
+   * Panel içi arama — listenin ilk satırı gibi: seçeneklerle aynı yükseklik (`--ui-option-h-*`), köşe ve metin
+   * hizası; odakta halka yok (imleç ve panel zaten bağlamı veriyor).
+   */
   .ui-select-filter-input {
-    @apply ui-field-control-fill m-0 box-border w-full min-w-0 rounded-lg px-3 py-1 text-sm leading-5 outline-none transition-shadow duration-200 ease-out placeholder:text-muted-foreground h-[var(--ui-control-h-md)] min-h-[var(--ui-control-h-md)];
+    @apply m-0 box-border w-full min-w-0 border-0 bg-surface-sunken bg-none rounded-[min(var(--ui-radius-inner),calc(var(--ui-option-h-md)/2))] px-[var(--ui-control-px-md)] py-0 text-sm leading-5 text-foreground outline-none transition-colors duration-200 ease-out placeholder:text-muted-foreground h-[var(--ui-option-h-md)] min-h-[var(--ui-option-h-md)];
   }
 
   .ui-select-filter-input--sm {
-    @apply rounded-md px-2.5 text-xs leading-4 h-[var(--ui-control-h-sm)] min-h-[var(--ui-control-h-sm)];
+    @apply rounded-[min(var(--ui-radius-inner),calc(var(--ui-option-h-sm)/2))] px-[var(--ui-control-px-sm)] text-xs leading-4 h-[var(--ui-option-h-sm)] min-h-[var(--ui-option-h-sm)];
   }
 
   .ui-select-filter-input--lg {
-    @apply rounded-lg px-4 text-sm leading-5 h-[var(--ui-control-h-lg)] min-h-[var(--ui-control-h-lg)];
+    @apply rounded-[min(var(--ui-radius-inner),calc(var(--ui-option-h-lg)/2))] px-[var(--ui-control-px-lg)] text-base leading-6 h-[var(--ui-option-h-lg)] min-h-[var(--ui-option-h-lg)];
   }
 
   .ui-select-filter-input:focus {
-    @apply ui-field-control-focus ring-offset-surface;
+    @apply ring-0 ring-offset-0;
   }
 
+  /**
+   * Liste — panel kenarından `--ui-surface-inset` içeride; seçenek köşesi eş merkezli.
+   * Seçenek metni arama metniyle aynı sütunda başlar (ikisi de kontrol `px` token'ı).
+   */
   .ui-select-listbox {
-    @apply flex max-h-64 min-h-0 min-w-0 flex-col gap-0.5 overflow-auto p-1.5;
+    @apply flex max-h-64 min-h-0 min-w-0 flex-col gap-px overflow-auto p-[var(--ui-surface-inset)];
   }
 
   .ui-select-listbox--sm {
-    @apply max-h-56 gap-0.5 p-1;
+    @apply max-h-56;
   }
 
   .ui-select-listbox--lg {
-    @apply max-h-80 gap-1 p-2;
+    @apply max-h-80 gap-0.5;
   }
 
+  /** Köşe `overrides.css` içinde (katmansız; Button boyut sınıfını yener). */
   .ui-select-listbox .ui-select-option.ui-button {
-    @apply justify-start rounded-lg;
+    @apply justify-start;
   }
 
-  .ui-select-listbox--sm .ui-select-option.ui-button {
-    @apply rounded-md;
-  }
-
-  .ui-select-listbox--lg .ui-select-option.ui-button {
-    @apply rounded-lg;
+  /** Arama başlığı ile liste aynı içeriden; aradaki boşluk (inset ×1.5) satır arasından belirgin büyük. */
+  .ui-popover-header:has(> .ui-select-filter-input) {
+    @apply px-[var(--ui-surface-inset)] pt-[var(--ui-surface-inset)] pb-[calc(var(--ui-surface-inset)/2)];
   }
 
   .ui-select-listbox .ui-select-option.ui-button[data-variant='ghost'] {
@@ -2757,7 +2869,7 @@
   }
 
   .ui-select-listbox .ui-select-option.ui-button[data-variant='ghost']:hover:not(:disabled) {
-    @apply bg-muted bg-none;
+    @apply bg-none [background-color:var(--ui-hover)];
   }
 
   .ui-select-listbox .ui-empty {
@@ -2768,9 +2880,42 @@
     @apply py-6;
   }
 
-  /** Seçili değer(ler) pill — tek ve çoklu aynı tetikleyici düzeni */
+  /**
+   * Seçili değer(ler) pill — tek ve çoklu aynı tetikleyici düzeni.
+   * Chip’e eşit iç boşluk: varsayılan `pl-3` + `py-1` solda fazla / dikeyde az görünüyordu.
+   */
+  /** Çoklu seçim kapsayıcısı `div` — odak içerideki input'ta; halka kapsayıcıda. */
+  .ui-select:not(.ui-select--inline) .ui-select-field--values:focus-within,
+  .ui-select:not(.ui-select--inline) .ui-select-field--values:focus-visible {
+    @apply ui-field-control-focus;
+  }
+
+  .ui-select-field--values.ui-select-field--disabled {
+    @apply cursor-not-allowed opacity-50;
+  }
+
+  /**
+   * Çoklu değer alanı — çip satırı kontrolün köşesiyle eş merkezli: üst, alt ve sol boşluk
+   * `(kontrol yüksekliği − satır) / 2 − kenarlık`. Tek satırda alan tam kontrol yüksekliğindedir;
+   * kontrol büyüyünce (iOS 44pt, `lg`) boşluk da büyür. Eskiden sabit `px-1 py-1` vardı: yüksek
+   * kontrolde çip kavisli köşeye yapışıyordu. Sağ boşluk tek seçimle aynı (`--ui-control-px-*`),
+   * ok iki alanda aynı hizada.
+   */
   .ui-select-field--values {
-    @apply h-auto min-h-9 flex-wrap items-center gap-1.5 py-1;
+    --ui-values-row: 1.375rem;
+    --ui-values-inset: calc((var(--ui-control-h-md) - var(--ui-values-row)) / 2 - var(--ui-field-border-width, 1px));
+    @apply h-auto min-h-[var(--ui-control-h-md)] flex-wrap items-center gap-1 [padding-block:var(--ui-values-inset)] [padding-inline-start:var(--ui-values-inset)] [padding-inline-end:var(--ui-control-px-md)];
+  }
+
+  /** `--sm` / `--lg` alan kuralı (yüksek özgüllük) sabit yükseklik verir — çoklu alanda aynı formül. */
+  .ui-select.ui-select--sm .ui-select-field--values {
+    --ui-values-inset: calc((var(--ui-control-h-sm) - var(--ui-values-row)) / 2 - var(--ui-field-border-width, 1px));
+    @apply h-auto min-h-[var(--ui-control-h-sm)] [padding-block:var(--ui-values-inset)] [padding-inline-start:var(--ui-values-inset)] [padding-inline-end:var(--ui-control-px-sm)];
+  }
+
+  .ui-select.ui-select--lg .ui-select-field--values {
+    --ui-values-inset: calc((var(--ui-control-h-lg) - var(--ui-values-row)) / 2 - var(--ui-field-border-width, 1px));
+    @apply h-auto min-h-[var(--ui-control-h-lg)] [padding-block:var(--ui-values-inset)] [padding-inline-start:var(--ui-values-inset)] [padding-inline-end:var(--ui-control-px-lg)];
   }
 
   .ui-select-values-inner {
@@ -2782,11 +2927,11 @@
    * `--secondary` / `--muted` kullanıldığında kaybolmasın; primary muted ile ayrışır.
    */
   .ui-select-values-inner > .ui-tag {
-    @apply h-6 max-w-full shrink-0 border-transparent [background-color:color-mix(in_oklab,_var(--primary)_18%,_transparent)] text-primary;
+    @apply h-[var(--ui-values-row)] max-w-full shrink-0 border-transparent [background-color:color-mix(in_oklab,_var(--primary)_18%,_transparent)] [color:var(--primary-ink)];
   }
 
   .ui-select-values-input {
-    @apply m-0 box-border h-6 min-h-6 min-w-0 flex-1 basis-0 cursor-pointer border-0 bg-transparent p-0 text-foreground outline-none placeholder:text-muted-foreground;
+    @apply m-0 box-border h-[var(--ui-values-row)] min-h-[var(--ui-values-row)] min-w-0 flex-1 basis-0 cursor-pointer border-0 bg-transparent p-0 text-foreground outline-none placeholder:text-muted-foreground;
   }
 
   .ui-select-values-input--solo {
@@ -2809,23 +2954,14 @@
     @apply [-webkit-appearance:none] appearance-none hidden;
   }
 
-  /** Seçili satır — `Select` solid/primary; ghost sınıflarının üstüne çıkmak için attribute seçicisi */
-  .ui-select-option.ui-button.ui-select-option--selected[data-variant='solid'][data-color='primary'],
-  .ui-select-option.ui-button.ui-select-option--selected[data-variant='solid'][data-color='primary']:hover {
-    @apply ui-fill-primary;
-  }
-
-  .ui-select-option.ui-button.ui-select-option--selected[data-variant='solid'][data-color='primary'] .ui-icon,
-  .ui-select-option.ui-button.ui-select-option--selected[data-variant='solid'][data-color='primary'] [data-popover-align] {
-    @apply text-primary-foreground;
-  }
+  /** Seçili seçenek: dolu primary — `overrides.css` (sidebar ve menü ile aynı seçim dili). */
 
   /** Option içi badge — buton rengine yenilmesin */
   .ui-select-listbox .ui-select-option.ui-button .ui-badge {
     @apply shrink-0;
   }
 
-  /** Aralık — dolu uç foreground, boş uç muted; squircle tutamaç; hover’da yarı saydam halka */
+  /** Aralık — dolu uç primary (Progress), boş uç muted; tutamaç; hover’da primary halka */
   .ui-slider {
     @apply flex min-w-0 flex-col gap-3;
   }
@@ -2850,8 +2986,16 @@
     @apply pointer-events-none absolute inset-x-0 top-1/2 z-0 -translate-y-1/2;
   }
 
+  /**
+   * Tıklama alanı 24px (WCAG 2.5.8); görünür iz 8px — negatif dış boşlukla yerleşim aynı kalır,
+   * iz yüksekliği `::-webkit-slider-runnable-track` / `::-moz-range-track` ile 0.5rem.
+   */
   .ui-slider-input {
-    @apply relative z-[1] m-0 h-2 w-full min-w-0 cursor-pointer appearance-none rounded-full border-0 bg-transparent p-0;
+    @apply relative z-[1] -my-2 m-0 h-6 w-full min-w-0 cursor-pointer appearance-none rounded-full border-0 bg-transparent p-0;
+  }
+
+  .ui-slider-input::-webkit-slider-runnable-track {
+    @apply h-2 bg-transparent;
   }
 
   .ui-slider-input:focus-visible {
@@ -2869,7 +3013,7 @@
 
   .ui-slider:not(.ui-slider--disabled):hover .ui-slider-input::-webkit-slider-thumb,
   .ui-slider:not(.ui-slider--disabled) .ui-slider-input:hover::-webkit-slider-thumb {
-    @apply [box-shadow:0_1px_2px_rgb(0_0_0_/_0.08),_0_0_0_6px_color-mix(in_oklch,_var(--muted)_55%,_transparent)];
+    @apply [box-shadow:0_1px_2px_rgb(0_0_0_/_0.08),_0_0_0_6px_color-mix(in_oklch,_var(--primary)_35%,_transparent)];
   }
 
   .ui-slider-input::-moz-range-track {
@@ -2882,7 +3026,7 @@
 
   .ui-slider:not(.ui-slider--disabled):hover .ui-slider-input::-moz-range-thumb,
   .ui-slider:not(.ui-slider--disabled) .ui-slider-input:hover::-moz-range-thumb {
-    @apply [box-shadow:0_1px_2px_rgb(0_0_0_/_0.08),_0_0_0_6px_color-mix(in_oklch,_var(--muted)_55%,_transparent)];
+    @apply [box-shadow:0_1px_2px_rgb(0_0_0_/_0.08),_0_0_0_6px_color-mix(in_oklch,_var(--primary)_35%,_transparent)];
   }
 
   .ui-slider-scale {
@@ -2894,20 +3038,28 @@
     @apply flex min-w-0 flex-col gap-4;
   }
 
+  /** Yatay liste — öğe içerik genişliğinde; `w-full` her radyoyu ayrı satıra itiyordu */
   .ui-radio-group--list.ui-radio-group--horizontal {
-    @apply flex-row flex-wrap items-center gap-6;
+    @apply flex-row flex-wrap items-center gap-x-6 gap-y-3;
+  }
+
+  .ui-radio-group--list.ui-radio-group--horizontal > .ui-radio--list {
+    @apply w-auto;
   }
 
   /**
-   * Yatay button grup: 2 sütun — uzun etiketler taşmadan eşit padding ile sığar.
+   * Yatay button grup: `auto-fit` — dar kartta tek sütun, genişte 2+.
+   * Sabit `grid-cols-2` dar sütunda metni patlatıyordu.
    * Dikey (`orientation="vertical"`): tek sütun flex listesi.
    */
   .ui-radio-group--button {
-    @apply grid w-full min-w-0 grid-cols-2 gap-3;
+    @apply grid w-full min-w-0 gap-3;
+    grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
   }
 
   .ui-radio-group--button.ui-radio-group--vertical {
     @apply flex flex-col;
+    grid-template-columns: none;
   }
 
   .ui-radio {
@@ -2931,7 +3083,7 @@
   }
 
   .ui-radio--list.ui-radio--highlight:not(.ui-radio--checked):hover {
-    @apply bg-surface-sunken;
+    @apply [background-color:var(--ui-hover)];
   }
 
   .ui-radio--list.ui-radio--highlight.ui-radio--checked {
@@ -2939,7 +3091,7 @@
   }
 
   .ui-radio--button {
-    @apply flex min-w-0 items-start gap-3 overflow-hidden rounded-xl border border-border bg-surface p-4 transition-colors duration-150;
+    @apply flex min-w-0 items-start gap-3 overflow-hidden rounded-xl border border-border bg-surface p-3.5 transition-colors duration-150;
   }
 
   .ui-radio-group--button.ui-radio-group--vertical > .ui-radio--button {
@@ -2947,16 +3099,30 @@
   }
 
   .ui-radio--button.ui-radio--checked {
-    @apply border-foreground bg-surface-input shadow-sm;
+    @apply shadow-none;
+    /* Seçim dili: soluk primary zemin, kenarlık aynı ailede (diğer seçimlerle uyumlu) */
+    border-color: var(--primary-soft-hover);
+    background-color: var(--primary-soft);
   }
 
   .ui-radio-indicator {
-    @apply mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full border-0 bg-muted;
+    @apply mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full border-0 [background-color:var(--input-background)];
+  }
+
+  /** Kart tipi seçili başlık — seçim dilindeki primary metin. */
+  .ui-radio--button.ui-radio--checked .ui-radio-label,
+  .ui-checkbox--button.ui-checkbox--checked .ui-checkbox-label {
+    @apply [color:var(--ui-selected-fg)];
   }
 
   .ui-radio--checked .ui-radio-indicator {
-    @apply border-0 ui-fill-gradient;
+    @apply border-0 shadow-none ui-fill-gradient;
     --ui-fill-base: var(--primary);
+  }
+
+  /** Radio seçili işareti nokta — tik checkbox'a aittir; ikisi aynı görünüyordu. */
+  .ui-radio-dot {
+    @apply block size-[40%] rounded-full bg-primary-foreground;
   }
 
   .ui-radio-body {
@@ -2995,11 +3161,13 @@
   }
 
   .ui-checkbox-group--button {
-    @apply flex w-full min-w-0 flex-row gap-3;
+    @apply grid w-full min-w-0 gap-3;
+    grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
   }
 
   .ui-checkbox-group--button.ui-checkbox-group--vertical {
-    @apply flex-col;
+    @apply flex flex-col;
+    grid-template-columns: none;
   }
 
   .ui-checkbox-group--button.ui-checkbox-group--vertical > .ui-checkbox--button {
@@ -3024,7 +3192,7 @@
   }
 
   .ui-checkbox--list.ui-checkbox--highlight:not(.ui-checkbox--checked):hover {
-    @apply bg-surface-sunken;
+    @apply [background-color:var(--ui-hover)];
   }
 
   .ui-checkbox--list.ui-checkbox--highlight.ui-checkbox--checked {
@@ -3032,15 +3200,18 @@
   }
 
   .ui-checkbox--button {
-    @apply flex flex-1 items-start gap-3 rounded-xl border border-border bg-surface p-4 transition-colors duration-150;
+    @apply flex flex-1 items-start gap-3 rounded-xl border border-border bg-surface p-3.5 transition-colors duration-150;
   }
 
   .ui-checkbox--button.ui-checkbox--checked {
-    @apply border-foreground bg-surface-input shadow-sm;
+    @apply shadow-none;
+    /* Seçim dili: soluk primary zemin, kenarlık aynı ailede (diğer seçimlerle uyumlu) */
+    border-color: var(--primary-soft-hover);
+    background-color: var(--primary-soft);
   }
 
   .ui-checkbox-box {
-    @apply mt-0.5 flex size-[1.125rem] shrink-0 items-center justify-center overflow-hidden rounded-sm border-0 bg-muted;
+    @apply mt-0.5 flex size-[1.125rem] shrink-0 items-center justify-center overflow-hidden rounded-[var(--ui-radius-checkbox)] border-0 [background-color:var(--input-background)];
   }
 
   .ui-checkbox--sm .ui-checkbox-box {
@@ -3061,7 +3232,7 @@
   }
 
   .ui-checkbox--checked .ui-checkbox-box {
-    @apply border-0 ui-fill-gradient;
+    @apply border-0 shadow-none ui-fill-gradient;
     --ui-fill-base: var(--primary);
   }
 
@@ -3102,7 +3273,7 @@
     @apply rounded-xl;
   }
 
-  /** Switch — kompakt iz; açıkken başparmak primary */
+  /** Switch — açık iz primary; başparmak her zaman beyaz (kontrast) */
   .ui-switch {
     @apply inline-flex shrink-0 cursor-pointer rounded-full border-0 bg-transparent p-0 outline-none transition-opacity;
   }
@@ -3121,16 +3292,15 @@
   }
 
   .ui-switch-track--on {
-    @apply [background-color:color-mix(in_oklab,_var(--primary)_88%,_var(--muted))] bg-none;
+    @apply bg-primary shadow-none;
   }
 
   .ui-switch-thumb {
-    @apply pointer-events-none block h-5 w-[1.375rem] translate-x-0 rounded-full bg-white shadow-sm transition-[transform,background,background-image] duration-150 ease-out;
+    @apply pointer-events-none block size-5 translate-x-0 rounded-full bg-white shadow-sm transition-transform duration-150 ease-out;
   }
 
   .ui-switch-thumb--on {
-    @apply translate-x-[1.125rem] ui-fill-gradient;
-    --ui-fill-base: var(--primary);
+    @apply translate-x-[1.25rem] bg-white;
   }
 
   /** Menu — düz liste; kabuk yok (card içinde / dışında). Yüzen panel: dışarıda `ui-card` / `ui-surface`. */
@@ -3190,20 +3360,17 @@
   }
 
   .ui-menu-item.ui-button:not(.ui-menu-item--active):not(:disabled):hover {
-    @apply bg-muted text-foreground shadow-none bg-none;
+    @apply text-foreground shadow-none bg-none [background-color:var(--ui-hover)];
   }
 
-  .ui-menu-item--active.ui-button,
-  .ui-menu-item--active.ui-button:hover {
-    @apply ui-fill-muted;
-  }
+  /** Aktif renk ve hover `overrides.css` içinde (ghost hover utility'sini yenmesi için katmansız). */
 
   .ui-menu-item.ui-button .ui-icon {
     @apply text-muted-foreground;
   }
 
   .ui-menu-item--active.ui-button .ui-icon {
-    @apply text-foreground;
+    @apply [color:var(--ui-selected-fg)];
   }
 
   /**
@@ -3211,27 +3378,26 @@
    * Görünüm ghost/solid cubed düğme ile aynı.
    */
   .ui-sidebar-item {
-    @apply box-border inline-flex shrink-0 items-center justify-center gap-2.5 border-0 bg-transparent font-normal text-secondary-foreground shadow-none bg-none [-webkit-backdrop-filter:none] [backdrop-filter:none] cursor-pointer appearance-none [text-decoration:none];
+    @apply box-border inline-flex shrink-0 items-center justify-center gap-2.5 border-0 bg-transparent font-normal text-secondary-foreground shadow-none bg-none [backdrop-filter:none] cursor-pointer appearance-none [text-decoration:none];
   }
 
   .ui-sidebar-item:hover:not(:disabled):not(.ui-sidebar-item--active) {
-    @apply bg-secondary text-secondary-foreground bg-none;
+    @apply text-secondary-foreground bg-none [background-color:var(--ui-hover)];
   }
 
   /**
-   * Aktif öğe yumuşak primary — dolu primary sayfa CTA'sına ve aktif sekmeye kalır.
-   * Metin foreground (dark modda primary metin zayıf kontrast verir), ikon primary.
+   * Aktif öğe — seçim dili: soluk primary zemin + primary metin (segment, sekme, çip, takvim, Select, menü ile aynı).
    */
   .ui-sidebar-item--active {
-    @apply font-medium text-foreground shadow-none bg-none [background-color:color-mix(in_oklab,_var(--primary)_16%,_transparent)];
+    @apply ui-fill-primary-soft font-medium;
   }
 
   .ui-sidebar-item--active .ui-icon {
-    @apply text-primary;
+    @apply [color:var(--ui-selected-fg)];
   }
 
   .ui-sidebar-item--active:hover:not(:disabled) {
-    @apply text-foreground bg-none [background-color:color-mix(in_oklab,_var(--primary)_22%,_transparent)];
+    @apply ui-fill-primary-soft-hover;
   }
 
   .ui-sidebar-item:focus-visible {
@@ -3243,10 +3409,11 @@
   }
 
   .ui-sidebar-item--block {
-    @apply justify-start;
+    @apply justify-start gap-2;
   }
 
-  /** SegmentGroup / Segment — input ile aynı dış yükseklik (h-9), `ui-control-value` tipografi */
+
+  /** SegmentGroup / Segment — input ile aynı dış yükseklik (`--ui-control-h-*`), `ui-control-value` tipografi */
   /** SegmentGroup — iz rengi input ile aynı token (`surface-input`) */
   /** Tabs — TabList + TabTrigger + TabPanel (`role="tablist"` / `tab` / `tabpanel`) */
   .ui-tab-list--horizontal.ui-tab-list--line {
@@ -3259,7 +3426,8 @@
 
   /** Tabs — segmented: `--ui-tab-h-*` (button’dan bir kademe büyük); içerik kadar genişlik */
   .ui-tab-list--horizontal.ui-tab-list--segmented {
-    @apply inline-flex box-border w-auto max-w-full min-w-0 flex-row flex-nowrap items-stretch gap-1 overflow-x-auto overflow-y-hidden overscroll-x-contain rounded-full border border-border bg-surface p-1 ui-scrollbar-none h-[var(--ui-tab-h-md)] min-h-[var(--ui-tab-h-md)] [-webkit-overflow-scrolling:touch];
+    /* Sekme izi segmentten farklı: iç boşluk (p-1) — seçili sekme izin içinde ayrı bir hap. Kenarlık iç gölge. */
+    @apply inline-flex box-border w-auto max-w-full min-w-0 flex-row flex-nowrap items-stretch gap-1 overflow-x-auto overflow-y-hidden overscroll-x-contain rounded-full border-0 [box-shadow:inset_0_0_0_1px_var(--border)] bg-surface p-1 ui-scrollbar-none h-[var(--ui-tab-h-md)] min-h-[var(--ui-tab-h-md)] [-webkit-overflow-scrolling:touch];
   }
 
   /** Button ile aynı hizada — `--ui-control-h-*` */
@@ -3275,9 +3443,13 @@
     @apply h-[var(--ui-control-h-lg)] min-h-[var(--ui-control-h-lg)];
   }
 
-  /** Tetikleyiciler küçülmez — taşınca liste kayar (mobil / dar kart). */
+  /**
+   * Tetikleyici rahat alanda 5rem; dar alanda içerik genişliğine kadar daralır, ancak içerik de
+   * sığmazsa liste kayar. Eskiden `shrink-0` ile birkaç piksellik taşma bile şeridi kaydırıyor,
+   * son sekme seçilince ilk sekme kırpılıyordu.
+   */
   .ui-tab-list--horizontal.ui-tab-list--segmented .ui-tab-trigger--segmented {
-    @apply min-w-[5rem] shrink-0;
+    @apply min-w-max shrink grow-0 basis-auto;
   }
 
   /** Segmented kök — `fit="full"` yoksa iz yalnızca sekme sayısı kadar yer kaplar. */
@@ -3295,7 +3467,7 @@
   }
 
   .ui-tabs--scrollable .ui-tab-list--horizontal.ui-tab-list--segmented .ui-tab-trigger--segmented {
-    @apply min-w-[5rem] shrink-0 flex-none;
+    @apply min-w-max shrink grow-0 basis-auto;
   }
 
   .ui-tabs--transparent .ui-tab-list--horizontal.ui-tab-list--segmented {
@@ -3322,26 +3494,25 @@
     @apply w-full max-w-full;
   }
 
-  /** fit-full: alan varken büyür; min genişliğin altına inmez → taşınca scroll. */
+  /** fit-full: alan varken eşit büyür; içerik genişliğinin altına inmez → taşınca scroll. */
   .ui-tabs--fit-full .ui-tab-list--horizontal.ui-tab-list--segmented .ui-tab-trigger--segmented {
-    @apply min-w-[5rem] flex-1 shrink-0;
+    @apply min-w-max flex-1 shrink-0;
   }
 
   .ui-tabs:not(.ui-tabs--fit-full) .ui-tab-list--segmented {
     @apply w-auto max-w-full;
   }
 
-  /** Yatay: sekme genişliği; dikeyde bu kural uygulanmaz (tersi: yükseklik + dar iz). */
+  /**
+   * Yatay: sekme içerik + iç boşluk kadar (sabit / en az genişlik yok); dikeyde bu kural uygulanmaz.
+   * İkon üstte dizilimde etiket dar kalır — yan boşluk kontrollerden bir kademe geniş (16).
+   */
   .ui-tabs:not(.ui-tabs--fit-full) .ui-tab-list--horizontal.ui-tab-list--segmented .ui-tab-trigger--segmented {
-    @apply min-w-[5.75rem] flex-none px-3;
+    @apply w-auto min-w-max shrink grow-0 basis-auto px-4;
   }
 
   .ui-tabs--segmented-sm .ui-tab-list--horizontal.ui-tab-list--segmented {
-    @apply gap-0 p-0.5 h-[var(--ui-tab-h-sm)] min-h-[var(--ui-tab-h-sm)];
-  }
-
-  .ui-tabs--segmented-sm .ui-tab-list--horizontal.ui-tab-list--segmented .ui-tab-trigger--segmented {
-    @apply min-w-[4.5rem];
+    @apply gap-0 p-1 h-[var(--ui-tab-h-sm)] min-h-[var(--ui-tab-h-sm)];
   }
 
   .ui-tabs--segmented-sm .ui-tab-trigger--segmented {
@@ -3349,7 +3520,7 @@
   }
 
   .ui-tabs--segmented-sm .ui-tab-trigger--segmented .ui-tab-trigger-label {
-    @apply text-[10px] leading-none;
+    @apply text-[0.6875rem] leading-none;
   }
 
   .ui-tabs--segmented-sm .ui-tab-trigger-badge {
@@ -3376,6 +3547,18 @@
     @apply pointer-events-none absolute end-2 top-1 z-10;
   }
 
+  /**
+   * Native alt dock — rozet ikonun sağ üst köşesine oturur (iOS sekme çubuğu); tetikleyici kenarına
+   * hizalı olunca geniş etikette ikonun üstüne biniyordu. Metin ve yükseklik bir kademe küçük.
+   */
+  .ui-tabs--native-chrome .ui-tab-trigger-badge {
+    @apply end-auto top-0 start-[calc(50%_+_0.375rem)];
+  }
+
+  .ui-tabs--native-chrome .ui-tab-trigger-badge .ui-badge {
+    @apply h-4 min-w-4 justify-center px-1 py-0 text-[0.625rem] leading-none;
+  }
+
   .ui-tab-trigger--segmented .ui-tab-trigger-icon {
     @apply inline-flex shrink-0 items-center justify-center leading-none [&_.ui-icon]:leading-none;
   }
@@ -3389,7 +3572,7 @@
   }
 
   .ui-tab-trigger--segmented .ui-tab-trigger-label {
-    @apply min-w-0 max-w-none whitespace-nowrap text-center text-[11px] font-medium leading-none tracking-tight text-base-600;
+    @apply min-w-0 max-w-none whitespace-nowrap text-center text-[0.6875rem] font-medium leading-none tracking-tight text-base-600;
   }
 
   .dark .ui-tab-trigger--segmented .ui-tab-trigger-label:not([data-ui-mode='light'] *) {
@@ -3410,43 +3593,43 @@
   }
 
   .ui-tab-trigger--segmented-selected {
-    @apply ui-fill-primary;
+    @apply ui-fill-primary-soft;
   }
 
   .ui-tab-trigger--segmented-selected .ui-tab-trigger-label {
-    @apply text-primary-foreground;
+    @apply [color:var(--ui-selected-fg)];
   }
 
   .ui-tab-trigger--segmented-selected .ui-tab-trigger-icon {
-    @apply [&_.ui-icon]:text-primary-foreground;
+    @apply [&_.ui-icon]:[color:var(--ui-selected-fg)];
   }
 
   .dark .ui-tab-trigger--segmented-selected .ui-tab-trigger-label:not([data-ui-mode='light'] *) {
-    @apply text-primary-foreground;
+    @apply [color:var(--ui-selected-fg)];
   }
 
   .dark .ui-tab-trigger--segmented-selected .ui-tab-trigger-icon .ui-icon:not([data-ui-mode='light'] *) {
-    @apply text-primary-foreground;
+    @apply [color:var(--ui-selected-fg)];
   }
 
   .dark .ui-tab-trigger--segmented-selected:not([data-ui-mode='light'] *) {
-    @apply ui-fill-primary;
+    @apply ui-fill-primary-soft;
   }
 
   /**
    * iOS Liquid Glass — `html.cap-native.cap-ios` (Capacitor iOS).
    * Kenar çizgileri uygulama katmanında (`frontend/src/style.css`); burada yalnızca opaklık / blur.
    */
-  html.cap-native.cap-ios .ui-tab-list--horizontal.ui-tab-list--segmented {
-    @apply border-transparent [background-color:var(--ui-ios-glass-bg)] [-webkit-backdrop-filter:blur(var(--ui-ios-glass-blur-surface,_18px))_saturate(180%)] [backdrop-filter:blur(var(--ui-ios-glass-blur-surface,_18px))_saturate(180%)] shadow-none;
+  :is(html.cap-native.cap-ios, [data-ui-platform='ios']) .ui-tab-list--segmented:not(.ui-tabs--transparent *) {
+    @apply border-transparent [background-color:var(--ui-ios-glass-bg)] [backdrop-filter:blur(var(--ui-ios-glass-blur-surface,_18px))_saturate(180%)] shadow-none;
   }
 
-  html.cap-native.cap-ios .ui-popover-panel.ui-surface {
-    @apply border-transparent [background-color:var(--ui-ios-glass-bg-popover)] [-webkit-backdrop-filter:blur(var(--ui-ios-glass-blur-popover,_24px))_saturate(180%)] [backdrop-filter:blur(var(--ui-ios-glass-blur-popover,_24px))_saturate(180%)] shadow-none;
+  :is(html.cap-native.cap-ios, [data-ui-platform='ios']) .ui-popover-panel.ui-surface {
+    @apply border-transparent [background-color:var(--ui-ios-glass-bg-popover)] [backdrop-filter:blur(var(--ui-ios-glass-blur-popover,_24px))_saturate(180%)] shadow-none;
   }
 
-  html.cap-native.cap-ios .ui-segment-group:not(.ui-segment-group--vertical) {
-    @apply border-transparent [background-color:var(--input-background)] bg-none shadow-none [-webkit-backdrop-filter:none] [backdrop-filter:none];
+  :is(html.cap-native.cap-ios, [data-ui-platform='ios']) .ui-segment-group:not(.ui-segment-group--vertical) {
+    @apply border-transparent [background-color:var(--input-background)] bg-none shadow-none [backdrop-filter:none];
   }
 
   /**
@@ -3458,13 +3641,13 @@
   }
 
   .ui-tabs--native-chrome .ui-tab-list--horizontal.ui-tab-list--segmented .ui-tab-trigger--segmented {
-    @apply min-w-[3.25rem] gap-0.5 px-1 py-0.5;
+    @apply gap-0.5 px-1 py-0.5;
   }
 
   .ui-tabs--native-chrome.ui-tabs--fit-full
     .ui-tab-list--horizontal.ui-tab-list--segmented
     .ui-tab-trigger--segmented {
-    @apply min-w-[2.75rem] flex-1;
+    @apply flex-1;
   }
 
   .ui-tabs--native-chrome .ui-tab-trigger--segmented .ui-tab-trigger-label {
@@ -3475,11 +3658,11 @@
     @apply text-lg leading-none;
   }
 
-  html.cap-native.cap-android .ui-tabs--native-chrome .ui-tab-list--horizontal.ui-tab-list--segmented {
-    @apply [border-color:color-mix(in_srgb,_var(--border)_80%,_transparent)] [background-color:color-mix(in_srgb,_var(--surface)_92%,_transparent)] [-webkit-backdrop-filter:blur(12px)] [backdrop-filter:blur(12px)] [box-shadow:0_0.375rem_1.25rem_color-mix(in_srgb,_var(--background)_55%,_transparent)];
+  :is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-tabs--native-chrome .ui-tab-list--horizontal.ui-tab-list--segmented {
+    @apply [border-color:color-mix(in_srgb,_var(--border)_80%,_transparent)] [background-color:color-mix(in_srgb,_var(--surface)_92%,_transparent)] [backdrop-filter:blur(12px)] [box-shadow:0_0.375rem_1.25rem_color-mix(in_srgb,_var(--background)_55%,_transparent)];
   }
 
-  html.cap-native.cap-android .ui-tabs--native-chrome .ui-tab-trigger--segmented-selected {
+  :is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-tabs--native-chrome .ui-tab-trigger--segmented-selected {
     @apply [box-shadow:0_0.125rem_0.5rem_color-mix(in_srgb,_var(--background)_45%,_transparent)];
   }
 
@@ -3495,28 +3678,28 @@
     @apply w-[var(--ui-tab-h-lg)] h-[var(--ui-tab-h-lg)];
   }
 
-  html.cap-native.cap-android .ui-native-dock-fab .ui-button.ui-control {
-    @apply [border-color:color-mix(in_srgb,_var(--border)_80%,_transparent)] [background-color:color-mix(in_srgb,_var(--surface)_92%,_transparent)] [-webkit-backdrop-filter:blur(12px)] [backdrop-filter:blur(12px)] [box-shadow:0_0.375rem_1.25rem_color-mix(in_srgb,_var(--background)_55%,_transparent)];
+  :is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-native-dock-fab .ui-button.ui-control {
+    @apply [border-color:color-mix(in_srgb,_var(--border)_80%,_transparent)] [background-color:color-mix(in_srgb,_var(--surface)_92%,_transparent)] [backdrop-filter:blur(12px)] [box-shadow:0_0.375rem_1.25rem_color-mix(in_srgb,_var(--background)_55%,_transparent)];
   }
 
-  html.cap-native.cap-android .ui-native-dock-fab[data-active='true'] .ui-button.ui-control {
+  :is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-native-dock-fab[data-active='true'] .ui-button.ui-control {
     @apply [box-shadow:0_0.125rem_0.5rem_color-mix(in_srgb,_var(--background)_45%,_transparent),_0_0.375rem_1.25rem_color-mix(in_srgb,_var(--background)_55%,_transparent)];
   }
 
-  html.cap-native.cap-ios .ui-native-dock-fab .ui-button.ui-control {
-    @apply border-transparent [background-color:var(--ui-ios-glass-bg)] [-webkit-backdrop-filter:blur(var(--ui-ios-glass-blur-control,_16px))_saturate(180%)] [backdrop-filter:blur(var(--ui-ios-glass-blur-control,_16px))_saturate(180%)] shadow-none;
+  :is(html.cap-native.cap-ios, [data-ui-platform='ios']) .ui-native-dock-fab .ui-button.ui-control {
+    @apply border-transparent [background-color:var(--ui-ios-glass-bg)] [backdrop-filter:blur(var(--ui-ios-glass-blur-control,_16px))_saturate(180%)] shadow-none;
   }
 
-  html.cap-native.cap-ios .ui-native-dock-fab[data-active='true'] .ui-button.ui-control {
-    @apply [background-color:color-mix(in_srgb,_var(--primary)_88%,_transparent)] text-primary-foreground;
+  :is(html.cap-native.cap-ios, [data-ui-platform='ios']) .ui-native-dock-fab[data-active='true'] .ui-button.ui-control {
+    @apply [background-color:var(--primary-soft)] [color:var(--ui-selected-fg)];
   }
 
-  html.cap-native.cap-android .ui-native-dock-fab[data-active='true'] .ui-button.ui-control {
-    @apply bg-primary text-primary-foreground;
+  :is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-native-dock-fab[data-active='true'] .ui-button.ui-control {
+    @apply [background-color:var(--primary-soft)] [color:var(--ui-selected-fg)];
   }
 
   html:not(.cap-native) .ui-native-dock-fab[data-active='true'] .ui-button.ui-control {
-    @apply ui-fill-primary text-primary-foreground;
+    @apply ui-fill-primary-soft;
   }
 
   /**
@@ -3582,7 +3765,7 @@
   }
 
   .ui-tab-list--vertical.ui-tab-list--segmented .ui-tab-trigger--segmented .ui-tab-trigger-label {
-    @apply max-w-full truncate whitespace-nowrap text-center text-[10px] leading-none tracking-tight;
+    @apply max-w-full truncate whitespace-nowrap text-center text-[0.6875rem] leading-none tracking-tight;
   }
 
   /** Dikey + yalnız ikon: kare hücreler */
@@ -3591,19 +3774,19 @@
   }
 
   .ui-tabs--icon-only .ui-tab-list--vertical.ui-tab-list--segmented .ui-tab-trigger--segmented {
-    @apply aspect-square size-9 h-9 w-9 min-h-9 min-w-9 max-h-9 max-w-9 flex-col items-center justify-center self-center rounded-full px-0 py-0;
+    @apply aspect-square size-[var(--ui-control-h-md)] h-[var(--ui-control-h-md)] w-[var(--ui-control-h-md)] min-h-[var(--ui-control-h-md)] min-w-[var(--ui-control-h-md)] max-h-[var(--ui-control-h-md)] max-w-[var(--ui-control-h-md)] flex-col items-center justify-center self-center rounded-full px-0 py-0;
   }
 
   .ui-tabs--segmented-sm.ui-tabs--icon-only .ui-tab-list--vertical.ui-tab-list--segmented .ui-tab-trigger--segmented {
-    @apply size-8 h-8 w-8 min-h-8 min-w-8 max-h-8 max-w-8;
+    @apply size-[var(--ui-control-h-sm)] h-[var(--ui-control-h-sm)] w-[var(--ui-control-h-sm)] min-h-[var(--ui-control-h-sm)] min-w-[var(--ui-control-h-sm)] max-h-[var(--ui-control-h-sm)] max-w-[var(--ui-control-h-sm)];
   }
 
   .ui-tabs--segmented-lg.ui-tabs--icon-only .ui-tab-list--vertical.ui-tab-list--segmented .ui-tab-trigger--segmented {
-    @apply size-11 h-11 w-11 min-h-11 min-w-11 max-h-11 max-w-11;
+    @apply size-[var(--ui-control-h-lg)] h-[var(--ui-control-h-lg)] w-[var(--ui-control-h-lg)] min-h-[var(--ui-control-h-lg)] min-w-[var(--ui-control-h-lg)] max-h-[var(--ui-control-h-lg)] max-w-[var(--ui-control-h-lg)];
   }
 
-  html.cap-native.cap-ios .ui-tab-list--vertical.ui-tab-list--segmented {
-    @apply border-transparent [background-color:var(--ui-ios-glass-bg)] [-webkit-backdrop-filter:blur(var(--ui-ios-glass-blur-surface,_18px))_saturate(180%)] [backdrop-filter:blur(var(--ui-ios-glass-blur-surface,_18px))_saturate(180%)] shadow-none;
+  :is(html.cap-native.cap-ios, [data-ui-platform='ios']) .ui-tab-list--vertical.ui-tab-list--segmented {
+    @apply border-transparent [background-color:var(--ui-ios-glass-bg)] [backdrop-filter:blur(var(--ui-ios-glass-blur-surface,_18px))_saturate(180%)] shadow-none;
   }
 
   .ui-tab-list--vertical.ui-tab-list--line {
@@ -3636,7 +3819,7 @@
   }
 
   .ui-tab-trigger--line-selected .ui-tab-trigger-icon {
-    @apply text-foreground opacity-100;
+    @apply [color:var(--ui-selected-fg)] opacity-100;
   }
 
   /** Dikey şerit: gösterge solda (yükseklik metinle hizalı, tam satır border değil) */
@@ -3650,16 +3833,17 @@
     --tw-ring-color: var(--ui-focus-ring);
   }
 
+  /** Çizgili sekme seçili: primary metin + primary çizgi (seçim dili; zemin yok — çizgili varyant). */
   .ui-tab-trigger--line-selected {
-    @apply border-b-foreground text-foreground;
+    @apply [border-bottom-color:var(--ui-selected-fg)] [color:var(--ui-selected-fg)];
   }
 
   .ui-tab-list--vertical.ui-tab-list--line .ui-tab-trigger--line-selected {
-    @apply border-b-transparent text-foreground;
+    @apply border-b-transparent [color:var(--ui-selected-fg)];
   }
 
   .ui-tab-list--vertical.ui-tab-list--line .ui-tab-trigger--line-selected::before {
-    @apply [content:''] absolute left-0 top-1/2 h-5 w-0.5 -translate-y-1/2 rounded-full bg-foreground;
+    @apply [content:''] absolute left-0 top-1/2 h-5 w-0.5 -translate-y-1/2 rounded-full [background-color:var(--ui-selected-fg)];
   }
 
   .ui-tab-trigger--disabled {
@@ -3671,25 +3855,43 @@
     --tw-ring-color: var(--ui-focus-ring);
   }
 
-  /** Dikey düzen: panel metni ilk tetikleyici ile aynı hizada */
-  .ui-tabs--vertical .ui-tab-panel {
-    @apply min-w-0 flex-1 pt-2.5 sm:pt-0;
+  /** Yatay sekme şeridi ile panel arası — içerik çizgiye / iz'e yapışmasın (eskiden 0px). */
+  .ui-tabs:not(.ui-tabs--vertical) > .ui-tab-panel {
+    @apply pt-[var(--ui-space-stack)];
   }
 
+  /**
+   * Dikey sekmeler — kök kapsayıcıdır (`@container`): şerit + içerik düzeni ekran değil sekme
+   * genişliğine göre kurulur (`@md:flex-row`). Dar kartta / dialog'da şerit üste geçer;
+   * ekran genişliğine bakan `sm:` kuralı 278px'lik kartta içeriği eziyordu.
+   * Yalnız panel taşıyan sekmede: `@container` genişliği içerikten koparır — yalnız şerit olan dikey
+   * sekme (yan ray) içerik kadar daralan kapsayıcıda sıfır genişliğe çöküyordu.
+   */
+  .ui-tabs--vertical:has(> .ui-tab-panel) {
+    @apply @container;
+  }
+
+  /** Dikey düzen: panel metni ilk tetikleyici ile aynı hizada */
+  .ui-tabs--vertical .ui-tab-panel {
+    @apply min-w-0 flex-1 pt-2.5 @md:pt-0;
+  }
+
+  /** İz iç boşluksuz — seçili segment izin tam yüksekliğinde (kenarlık da yok: dolgu kenara kadar). */
   .ui-segment-group {
-    @apply ui-field-control-fill box-border flex min-w-0 items-center gap-0 rounded-full p-0.5 h-[var(--ui-control-h-md)] min-h-[var(--ui-control-h-md)];
+    @apply ui-field-control-fill box-border flex min-w-0 items-center gap-0 rounded-full border-0 p-0 h-[var(--ui-control-h-md)] min-h-[var(--ui-control-h-md)];
   }
 
   .ui-segment-group--block {
     @apply w-full;
   }
 
+  /** `w-fit` — dikey flex kapsayıcıda `align-items: stretch` grubu tam genişliğe uzatıyordu (`w-auto` engellemez). */
   .ui-segment-group--fit {
-    @apply w-auto max-w-full shrink-0;
+    @apply w-fit max-w-full shrink-0;
   }
 
   .ui-segment-group--vertical:not(.ui-segment-group--icon-only) {
-    @apply flex h-auto min-h-0 w-full flex-col items-stretch gap-0.5 rounded-none border-0 bg-transparent p-0 shadow-none [-webkit-backdrop-filter:none] [backdrop-filter:none];
+    @apply flex h-auto min-h-0 w-full flex-col items-stretch gap-0.5 rounded-none border-0 bg-transparent p-0 shadow-none [backdrop-filter:none];
   }
 
   /** Dikey + yalnız ikon: sabit kare hücreler; `w-full` + `aspect-square` genişliği yüksekliğe taşır */
@@ -3698,19 +3900,19 @@
   }
 
   .ui-segment-group--vertical.ui-segment-group--sm:not(.ui-segment-group--icon-only) {
-    @apply h-auto min-h-0 w-full gap-0.5 rounded-none border-0 bg-transparent p-0 shadow-none [-webkit-backdrop-filter:none] [backdrop-filter:none];
+    @apply h-auto min-h-0 w-full gap-0.5 rounded-none border-0 bg-transparent p-0 shadow-none [backdrop-filter:none];
   }
 
   .ui-segment-group--vertical.ui-segment-group--sm.ui-segment-group--icon-only {
-    @apply h-auto w-auto gap-0.5 p-0.5;
+    @apply h-auto w-auto gap-0.5 p-0;
   }
 
   .ui-segment-group--vertical.ui-segment-group--lg:not(.ui-segment-group--icon-only) {
-    @apply h-auto min-h-0 w-full gap-0.5 rounded-none border-0 bg-transparent p-0 shadow-none [-webkit-backdrop-filter:none] [backdrop-filter:none];
+    @apply h-auto min-h-0 w-full gap-0.5 rounded-none border-0 bg-transparent p-0 shadow-none [backdrop-filter:none];
   }
 
   .ui-segment-group--vertical.ui-segment-group--lg.ui-segment-group--icon-only {
-    @apply h-auto w-auto gap-1 p-1;
+    @apply h-auto w-auto gap-1 p-0;
   }
 
   .ui-segment-group--icon-only {
@@ -3718,7 +3920,7 @@
   }
 
   .ui-segment-group--inline {
-    @apply inline-flex w-auto max-w-full flex-none;
+    @apply inline-flex w-fit max-w-full flex-none;
   }
 
   .ui-segment-group--vertical.ui-segment-group--inline {
@@ -3730,29 +3932,74 @@
     @apply min-w-0 max-w-full flex-nowrap overflow-x-auto overflow-y-hidden overscroll-x-contain ui-scrollbar-none [-webkit-overflow-scrolling:touch];
   }
 
+  /**
+   * İçerik sığıyorsa kırpma yok — seçim göstergesi geçişte izin dışına büyüyüp geri döner.
+   * Ölçülene kadar (SSR) kaydırma açık kalır; taşan içerik dışarı dökülmez.
+   */
+  .ui-segment-group--scrollable[data-overflowing='false'] {
+    @apply overflow-visible;
+  }
+
+  /**
+   * İçerik taşıyor (gerçek kaydırma) — kaydırma kutusu iz ile aynı şekilde kırpmalı; dikey pay verilirse
+   * kırpma kutusu izden büyük olur ve hover / seçim zemininin köşesi izinkinden farklı kesilir.
+   * Bu durumda gösterge dikeyde büyümez (yatay büyüme kayan içerikte kalır).
+   */
+  .ui-segment-group--scrollable.ui-segment-group--indicator[data-overflowing='true'] {
+    --ui-indicator-pop-scale-y: 1;
+  }
+
   .ui-segment-group--scrollable.ui-segment-group--fit,
   .ui-segment-group--scrollable.ui-segment-group--inline {
-    @apply w-full min-w-0 shrink;
+    @apply max-w-full min-w-0 shrink;
   }
 
   .ui-segment-group--scrollable .ui-segment {
     @apply flex-none flex-grow-0 whitespace-nowrap;
   }
 
-  .ui-segment-group.ui-segment-group--sm:not(.ui-segment-group--vertical) {
-    @apply gap-0 p-0.5 h-[var(--ui-control-h-sm)] min-h-[var(--ui-control-h-sm)];
+  /**
+   * `block` (varsayılan) her zaman tam genişlik: segmentler alanı eşit paylaşır (`basis 0` + `grow`),
+   * etiketinden dar olmaz (`min-width: max-content`); sığmazsa iz kayar. Eskiden kaydırılabilir
+   * grup `w-fit` oluyordu — form satırında iz içerik kadar kalıp sağı boş bırakıyordu.
+   * Yalnız ikonlu kareler büyümez. İçerik genişliği için `:block="false"`.
+   */
+  .ui-segment-group--scrollable.ui-segment-group--block {
+    @apply w-full max-w-full;
   }
 
+  .ui-segment-group--scrollable.ui-segment-group--block .ui-segment:not(.ui-segment--icon-only) {
+    @apply min-w-max shrink grow basis-0;
+  }
+
+  /** Form satırı içi dil seçici vb. — kontrol sütunu daralsa taşmayı kes */
+  .ui-form-row-control .ui-segment-group {
+    @apply max-w-full;
+  }
+
+  .ui-segment-group.ui-segment-group--sm:not(.ui-segment-group--vertical) {
+    @apply gap-0 p-0 h-[var(--ui-control-h-sm)] min-h-[var(--ui-control-h-sm)];
+  }
+
+  /** Yan boşluk buton / input ile aynı token (`--ui-control-px-*`) — aynı yükseklikte aynı oran. */
   .ui-segment-group.ui-segment-group--sm .ui-segment {
-    @apply px-2 text-xs leading-4;
+    @apply text-xs leading-4;
+  }
+
+  .ui-segment-group.ui-segment-group--sm .ui-segment:not(.ui-segment--icon-only) {
+    @apply px-[var(--ui-control-px-sm)];
   }
 
   .ui-segment-group.ui-segment-group--lg:not(.ui-segment-group--vertical) {
-    @apply gap-1 p-1 h-[var(--ui-control-h-lg)] min-h-[var(--ui-control-h-lg)];
+    @apply gap-0 p-0 h-[var(--ui-control-h-lg)] min-h-[var(--ui-control-h-lg)];
   }
 
   .ui-segment-group.ui-segment-group--lg .ui-segment {
-    @apply px-3 text-base leading-6;
+    @apply text-base leading-6;
+  }
+
+  .ui-segment-group.ui-segment-group--lg .ui-segment:not(.ui-segment--icon-only) {
+    @apply px-[var(--ui-control-px-lg)];
   }
 
   .ui-segment-group--fit:not(.ui-segment-group--icon-only):not(.ui-segment-group--vertical) .ui-segment:not(.ui-segment--icon-only) {
@@ -3764,11 +4011,11 @@
   }
 
   .ui-segment {
-    @apply box-border flex h-full min-h-0 min-w-0 flex-1 cursor-pointer select-none items-center justify-center rounded-full border-0 bg-transparent px-2.5 text-center outline-none transition-[color,box-shadow,background-color,background-image] duration-150 ease-out;
+    @apply box-border flex h-full min-h-0 min-w-0 flex-1 cursor-pointer select-none items-center justify-center rounded-full border-0 bg-transparent px-[var(--ui-control-px-md)] text-center no-underline outline-none transition-[color,box-shadow,background-color,background-image] duration-150 ease-out;
   }
 
   .ui-segment-group--vertical .ui-segment {
-    @apply flex-none flex-grow-0 justify-start rounded-lg px-3 h-[var(--ui-control-h-md)] min-h-[var(--ui-control-h-md)];
+    @apply flex-none flex-grow-0 justify-start rounded-lg px-[var(--ui-control-px-md)] h-[var(--ui-control-h-md)] min-h-[var(--ui-control-h-md)];
   }
 
   .ui-segment-group--vertical .ui-segment:not(.ui-segment--icon-only) {
@@ -3807,26 +4054,26 @@
     @apply bg-transparent;
   }
 
+  /** Seçili segment soluk primary — iç düğme ve sayım primary tonunda. */
   .ui-segment--selected .ui-segment-affix .ui-button[data-variant='ghost'] {
-    @apply bg-transparent text-primary-foreground hover:text-primary-foreground;
+    @apply bg-transparent [color:var(--ui-selected-fg)] hover:[color:var(--ui-selected-fg)];
   }
 
   .ui-segment--selected .ui-segment-affix .ui-button[data-variant='ghost']:hover {
-    @apply [background-color:color-mix(in_oklab,_var(--primary-foreground)_14%,_transparent)] bg-none;
+    @apply [background-color:color-mix(in_oklab,_var(--primary)_14%,_transparent)] bg-none;
   }
 
   .ui-segment--selected .ui-segment-affix .ui-button[data-variant='solid'] {
-    @apply text-primary-foreground [background-color:color-mix(in_oklab,_var(--primary-foreground)_18%,_transparent)] bg-none;
+    @apply [color:var(--ui-selected-fg)] [background-color:color-mix(in_oklab,_var(--primary)_18%,_transparent)] bg-none;
   }
 
   .ui-segment--selected .ui-segment-affix .ui-button[data-variant='solid']:hover {
-    @apply [background-color:color-mix(in_oklab,_var(--primary-foreground)_24%,_transparent)] bg-none;
+    @apply [background-color:color-mix(in_oklab,_var(--primary)_24%,_transparent)] bg-none;
   }
 
-  /** Seçili segment üzerinde sayım badge — primary yüzeyde okunur (utility `bg-muted`’i ezer) */
   .ui-segment--selected .ui-segment-affix .ui-badge,
   .ui-segment--selected .ui-segment-affix .ui-badge.bg-muted {
-    @apply border-transparent [background-color:color-mix(in_oklab,_var(--primary-foreground)_22%,_transparent)] text-primary-foreground;
+    @apply border-transparent [background-color:color-mix(in_oklab,_var(--primary)_22%,_transparent)] [color:var(--ui-selected-fg)];
   }
 
   .ui-segment:not(.ui-segment--selected) .ui-segment-affix .ui-badge,
@@ -3839,43 +4086,53 @@
   }
 
   .ui-segment--icon-only {
-    @apply aspect-square size-8 min-h-8 min-w-8 max-h-8 max-w-8 flex-none flex-grow-0 p-0;
+    /* İz iç boşluksuz: yalnız ikonlu segment kontrol yüksekliğinde kare; ikon her yönde ortada */
+    @apply justify-center aspect-square size-[var(--ui-control-h-md)] h-[var(--ui-control-h-md)] w-[var(--ui-control-h-md)] min-h-[var(--ui-control-h-md)] min-w-[var(--ui-control-h-md)] max-h-[var(--ui-control-h-md)] max-w-[var(--ui-control-h-md)] flex-none flex-grow-0 p-0;
   }
 
   .ui-segment-group.ui-segment-group--sm:not(.ui-segment-group--vertical) .ui-segment--icon-only {
-    @apply size-7 h-7 w-7 min-h-7 min-w-7 max-h-7 max-w-7;
+    @apply size-[var(--ui-control-h-sm)] h-[var(--ui-control-h-sm)] w-[var(--ui-control-h-sm)] min-h-[var(--ui-control-h-sm)] min-w-[var(--ui-control-h-sm)] max-h-[var(--ui-control-h-sm)] max-w-[var(--ui-control-h-sm)];
   }
 
   .ui-segment-group.ui-segment-group--lg:not(.ui-segment-group--vertical) .ui-segment--icon-only {
-    @apply size-9 h-9 w-9 min-h-9 min-w-9 max-h-9 max-w-9;
+    @apply size-[var(--ui-control-h-lg)] h-[var(--ui-control-h-lg)] w-[var(--ui-control-h-lg)] min-h-[var(--ui-control-h-lg)] min-w-[var(--ui-control-h-lg)] max-h-[var(--ui-control-h-lg)] max-w-[var(--ui-control-h-lg)];
   }
 
-  .ui-segment-group--icon-only:not(.ui-segment-group--vertical) {
+  /**
+   * Kayan gösterge açıkken kırpma yok — kare öğeler izi zaten taşırmaz; gösterge geçişte izin dışına
+   * büyüyüp döner (kırpılırsa izin kenarında kesik görünür).
+   */
+  .ui-segment-group--icon-only:not(.ui-segment-group--vertical):not(.ui-segment-group--indicator) {
     @apply overflow-hidden;
   }
 
+  /**
+   * Dikey grupta etiketli segment sola yaslıdır (`justify-start`); yalnız ikonlu kare ortalanır.
+   * Eskiden ortalama `px-3` dolgusunun tesadüfüne bağlıydı — `p-0` gelince ikon sola kaydı.
+   */
   .ui-segment-group--vertical .ui-segment--icon-only {
-    @apply size-9 h-9 w-9 min-h-9 min-w-9 max-h-9 max-w-9 self-center;
+    @apply size-[var(--ui-control-h-md)] h-[var(--ui-control-h-md)] w-[var(--ui-control-h-md)] min-h-[var(--ui-control-h-md)] min-w-[var(--ui-control-h-md)] max-h-[var(--ui-control-h-md)] max-w-[var(--ui-control-h-md)] self-center justify-center p-0;
   }
 
   .ui-segment-group--vertical.ui-segment-group--sm .ui-segment:not(.ui-segment--icon-only) {
-    @apply h-8 min-h-8;
+    @apply h-[var(--ui-control-h-sm)] min-h-[var(--ui-control-h-sm)];
   }
 
   .ui-segment-group--vertical.ui-segment-group--sm .ui-segment--icon-only {
-    @apply size-8 h-8 w-8 min-h-8 min-w-8 max-h-8 max-w-8;
+    @apply size-[var(--ui-control-h-sm)] h-[var(--ui-control-h-sm)] w-[var(--ui-control-h-sm)] min-h-[var(--ui-control-h-sm)] min-w-[var(--ui-control-h-sm)] max-h-[var(--ui-control-h-sm)] max-w-[var(--ui-control-h-sm)];
   }
 
   .ui-segment-group--vertical.ui-segment-group--lg .ui-segment:not(.ui-segment--icon-only) {
-    @apply h-11 min-h-11;
+    @apply h-[var(--ui-control-h-lg)] min-h-[var(--ui-control-h-lg)];
   }
 
   .ui-segment-group--vertical.ui-segment-group--lg .ui-segment--icon-only {
-    @apply size-11 h-11 w-11 min-h-11 min-w-11 max-h-11 max-w-11;
+    @apply size-[var(--ui-control-h-lg)] h-[var(--ui-control-h-lg)] w-[var(--ui-control-h-lg)] min-h-[var(--ui-control-h-lg)] min-w-[var(--ui-control-h-lg)] max-h-[var(--ui-control-h-lg)] max-w-[var(--ui-control-h-lg)];
   }
 
+  /** Gri iz üstünde ≥4.5:1 — düz `muted-foreground` input dolgusunda 4.36:1 kalıyordu. */
   .ui-segment:not(.ui-segment--selected):not(:disabled) {
-    @apply text-muted-foreground;
+    @apply [color:color-mix(in_oklab,_var(--muted-foreground)_80%,_var(--foreground))];
   }
 
   /** Hover zemini yalnız gerçek hover'ı olan cihazlarda — dokunmatikte `:hover` yapışık kalır. */
@@ -3891,7 +4148,7 @@
   }
 
   .ui-segment--selected {
-    @apply ui-fill-primary;
+    @apply ui-fill-primary-soft;
   }
 
   .ui-segment-label {
@@ -3907,7 +4164,10 @@
   }
 
   .dark .ui-radio--button.ui-radio--checked:not([data-ui-mode='light'] *) {
-    @apply border-border shadow-none;
+    @apply shadow-none;
+    /* Seçim dili: soluk primary zemin, kenarlık aynı ailede (diğer seçimlerle uyumlu) */
+    border-color: var(--primary-soft-hover);
+    background-color: var(--primary-soft);
   }
 
   .dark .ui-checkbox--button:not(.ui-checkbox--checked):not([data-ui-mode='light'] *) {
@@ -3915,20 +4175,15 @@
   }
 
   .dark .ui-checkbox--button.ui-checkbox--checked:not([data-ui-mode='light'] *) {
-    @apply border-border shadow-none;
-  }
-
-  .dark .ui-radio-indicator:not([data-ui-mode='light'] *) {
-    @apply border border-border bg-transparent;
+    @apply shadow-none;
+    /* Seçim dili: soluk primary zemin, kenarlık aynı ailede (diğer seçimlerle uyumlu) */
+    border-color: var(--primary-soft-hover);
+    background-color: var(--primary-soft);
   }
 
   .dark .ui-radio--checked .ui-radio-indicator:not([data-ui-mode='light'] *) {
     @apply border-0 ui-fill-gradient;
     --ui-fill-base: var(--primary);
-  }
-
-  .dark .ui-checkbox-box:not([data-ui-mode='light'] *) {
-    @apply border border-border bg-transparent;
   }
 
   .dark .ui-checkbox--checked .ui-checkbox-box:not([data-ui-mode='light'] *) {
@@ -3958,6 +4213,18 @@
 
   .ui-stepper-pills-track {
     @apply flex min-w-0 flex-1 items-center gap-1.5;
+  }
+
+  /**
+   * Tıklanabilir noktalar — WCAG 2.5.8 boşluk istisnası: nokta merkezleri ≥24px aralıklı (8px nokta + 16px),
+   * dikey dokunma alanı `::before` ile 24px.
+   */
+  .ui-stepper--interactive .ui-stepper-pills-track {
+    @apply gap-4;
+  }
+
+  button.ui-stepper-pill {
+    @apply relative before:absolute before:inset-x-0 before:-inset-y-[0.5625rem] before:content-[''];
   }
 
   .ui-stepper-pill {
@@ -4019,8 +4286,9 @@
     --ui-fill-grad-bottom: var(--ui-fill-grad-bottom-primary);
   }
 
+  /** Geçerli adım seçim dilinde; tamamlanan adımlar dolu (ilerleme işareti). */
   .ui-stepper-indicator--current {
-    @apply bg-muted font-medium text-foreground bg-none;
+    @apply font-medium bg-none [background-color:var(--primary-soft)] [color:var(--ui-selected-fg)];
   }
 
   .ui-stepper-indicator--upcoming {
@@ -4065,29 +4333,34 @@
   }
 
   /** Alert — kart yüzeyinden hafif tonlu çağrı kutusu; kart değil bildirim gibi okunsun diye kart radius'undan küçük (`rounded-2xl`; gölgesiz, liste gap-3) */
+  /**
+   * Tek görünüm: tonlu zemin, kart köşesi, kompakt boşluk. Kenarlık temanın tercihidir —
+   * `--ui-alert-border-width` (varsayılan 0); verilirse ton rengiyle çizilir.
+   */
   .ui-alert {
-    @apply flex items-start gap-3 rounded-2xl border border-border p-4 text-sm leading-5 text-foreground subpixel-antialiased;
+    @apply flex items-start gap-2.5 rounded-3xl border-solid p-3 text-sm leading-5 text-foreground shadow-none;
+    border-width: var(--ui-alert-border-width, 0px);
   }
 
   .ui-alert--info {
-    @apply [border-color:color-mix(in_oklab,_var(--info)_30%,_var(--border))] [background-color:color-mix(in_oklab,_var(--info)_6%,_var(--surface))];
+    @apply [border-color:color-mix(in_oklab,_var(--info)_30%,_var(--border))] [background-color:color-mix(in_oklab,_var(--info)_10%,_var(--surface))];
   }
 
   .ui-alert--success {
-    @apply [border-color:color-mix(in_oklab,_var(--success)_30%,_var(--border))] [background-color:color-mix(in_oklab,_var(--success)_6%,_var(--surface))];
+    @apply [border-color:color-mix(in_oklab,_var(--success)_30%,_var(--border))] [background-color:color-mix(in_oklab,_var(--success)_10%,_var(--surface))];
   }
 
   .ui-alert--warning {
-    @apply [border-color:color-mix(in_oklab,_var(--warning)_30%,_var(--border))] [background-color:color-mix(in_oklab,_var(--warning)_6%,_var(--surface))];
+    @apply [border-color:color-mix(in_oklab,_var(--warning)_30%,_var(--border))] [background-color:color-mix(in_oklab,_var(--warning)_10%,_var(--surface))];
   }
 
   .ui-alert--danger {
-    @apply [border-color:color-mix(in_oklab,_var(--danger)_30%,_var(--border))] [background-color:color-mix(in_oklab,_var(--danger)_6%,_var(--surface))];
+    @apply [border-color:color-mix(in_oklab,_var(--danger)_30%,_var(--border))] [background-color:color-mix(in_oklab,_var(--danger)_10%,_var(--surface))];
   }
 
   /** İkon zeminleri — muted yerine varyant tonu */
   .ui-alert-icon {
-    @apply mt-0.5 inline-flex size-8 shrink-0 items-center justify-center rounded-xl;
+    @apply inline-flex size-6 shrink-0 items-center justify-center rounded-full;
   }
 
   .ui-alert--info .ui-alert-icon {
@@ -4106,12 +4379,16 @@
     @apply [background-color:color-mix(in_oklab,_var(--danger)_22%,_var(--surface))];
   }
 
+  /**
+   * Dikey ritim: başlık + açıklama tek blok (2px), eylemler bloktan net bir adım sonra (12px).
+   * Gövde üst boşluğu ilk satırı ikonun dikey ortasına hizalar (ikon 24px, satır 20px → 2px).
+   */
   .ui-alert-body {
-    @apply min-w-0 flex-1 space-y-1;
+    @apply flex min-w-0 flex-1 flex-col gap-3 pt-0.5;
   }
 
   .ui-alert-copy {
-    @apply min-w-0 space-y-1;
+    @apply flex min-w-0 flex-col gap-0.5;
   }
 
   .ui-alert-title {
@@ -4123,11 +4400,12 @@
   }
 
   .ui-alert-slot {
-    @apply pt-0.5 text-sm leading-5 text-foreground;
+    @apply text-sm leading-5 text-foreground;
   }
 
+  /** Kapat düğmesi (32px) ilk satırla aynı eksende; köşeye doğru hafif çekilir. */
   .ui-alert-dismiss {
-    @apply self-start;
+    @apply -my-1 -me-1 self-start;
   }
 
   /**
@@ -4135,7 +4413,11 @@
    * Tek satır: metin + CTA yan yana; CTA asla tam genişlik olmaz.
    */
   .ui-alert--banner {
-    @apply min-w-0 items-center gap-2 rounded-none border-x-0 border-t-0 px-3 py-1.5 sm:gap-2 sm:px-4 sm:py-2;
+    @apply min-w-0 items-center gap-2 rounded-none border-0 border-b px-3 py-1.5 sm:gap-2 sm:px-4 sm:py-2;
+  }
+
+  .ui-alert--banner .ui-alert-dismiss {
+    @apply my-0 me-0 self-center;
   }
 
   .ui-alert--banner .ui-alert-icon {
@@ -4143,11 +4425,11 @@
   }
 
   .ui-alert--banner .ui-alert-body {
-    @apply flex min-w-0 flex-1 flex-row items-center gap-x-2 space-y-0 sm:gap-x-3;
+    @apply flex min-w-0 flex-1 flex-row items-center gap-x-2 pt-0 sm:gap-x-3;
   }
 
   .ui-alert--banner .ui-alert-copy {
-    @apply min-w-0 flex-1 space-y-0;
+    @apply min-w-0 flex-1 gap-0;
   }
 
   .ui-alert--banner .ui-alert-title {
@@ -4166,58 +4448,44 @@
     @apply w-auto;
   }
 
-  /** Kart / soft alert: CTA açıklamanın altında değil sağda. */
+  /**
+   * Kart / soft alert: CTA metnin altında değil sağda (hap düğme sola hizalı metnin altında hizasız görünür).
+   * Dar ekranda CTA ayrı satıra iner ve tam genişlik olur; ikon, metin ve kapat ilk satırda kalır.
+   */
+  /**
+   * Sağda aksiyon — alert kapsayıcıdır (`@container`), düzen ekran değil alert genişliğine göre:
+   * dar alanda (kart, dialog, yan panel) aksiyon metnin altına iner. Ekran genişliğine bakan `sm:`
+   * kuralı geniş ekrandaki 278px'lik kartta metni 72px'lik sütuna sıkıştırıyordu.
+   */
   .ui-alert--actions-end {
-    @apply items-center;
+    @apply @container flex-wrap items-start;
   }
 
-  .ui-alert--actions-end .ui-alert-icon {
-    @apply mt-0;
-  }
-
-  .ui-alert--actions-end .ui-alert-body {
-    @apply flex-1 space-y-0;
+  .ui-alert.ui-alert--actions-end .ui-alert-body {
+    @apply flex-1 @md:pt-0;
   }
 
   .ui-alert--actions-end .ui-alert-actions {
-    @apply ml-auto shrink-0 self-center;
+    @apply order-last flex basis-full gap-2 @md:order-none @md:ml-auto @md:basis-auto @md:shrink-0 @md:self-center;
   }
 
+  .ui-alert--actions-end .ui-alert-actions > *,
   .ui-alert--actions-end .ui-alert-actions .ui-button {
-    @apply w-auto;
+    @apply flex-1 @md:w-auto @md:flex-none;
   }
 
-  /** Dar alan / dialog içi — kompakt, bordersız, kart ile aynı köşe. */
-  .ui-alert.ui-alert--soft {
-    @apply items-start gap-2.5 rounded-3xl border-0 px-3 py-2.5 text-xs leading-4 shadow-none border-transparent;
+  .ui-alert--actions-end .ui-alert-dismiss {
+    @apply -my-1 @md:my-0 @md:self-center;
   }
 
-  .ui-alert--soft .ui-alert-icon {
-    @apply mt-0 size-6 rounded-full;
+  .ui-alert-title,
+  .ui-alert-description,
+  .ui-alert-slot {
+    @apply text-sm leading-5;
   }
 
-  /**
-   * Metin bloğu sıkı (6px). Eylem kutusu paragrafın hemen altında, küçük bir adımla durur.
-   * Dolu düğmenin yatay dolgusu etiketi içeri kaydırmaz; etiket metinle aynı sol kenardadır.
-   */
-  .ui-alert--soft .ui-alert-body {
-    @apply flex min-w-0 flex-col gap-2 space-y-0;
-  }
-
-  .ui-alert--soft .ui-alert-copy {
-    @apply space-y-1.5;
-  }
-
-  .ui-alert--soft .ui-alert-title {
-    @apply text-xs leading-4;
-  }
-
-  .ui-alert--soft .ui-alert-description {
-    @apply text-xs leading-4;
-  }
-
-  .ui-alert--soft .ui-alert-slot {
-    @apply p-0 text-xs leading-4;
+  .ui-alert-slot {
+    @apply p-0;
   }
 
   .ui-alert--info .ui-alert-description,
@@ -4240,29 +4508,19 @@
     @apply [color:color-mix(in_oklab,_var(--danger)_40%,_var(--foreground))];
   }
 
-  .ui-alert--soft:not(.ui-alert--banner):not(.ui-alert--toast) .ui-alert-slot > .ui-button.ui-control:not([data-variant='link']):not([data-variant='nav']):not(.aspect-square),
-  .ui-alert--soft:not(.ui-alert--banner):not(.ui-alert--toast) .ui-alert-slot > .ui-action-group {
-    @apply -mt-1;
-  }
-
-  .ui-alert:not(.ui-alert--banner):not(.ui-alert--toast) .ui-alert-slot > .ui-button.ui-control-h-sm:not([data-variant='link']):not([data-variant='nav']),
-  .ui-alert:not(.ui-alert--banner):not(.ui-alert--toast) .ui-alert-slot > .ui-button[data-size='sm']:not([data-variant='link']):not([data-variant='nav']):not(.aspect-square),
-  .ui-alert:not(.ui-alert--banner):not(.ui-alert--toast) .ui-alert-slot > .ui-action-group:has(> .ui-button.ui-control-h-sm),
-  .ui-alert:not(.ui-alert--banner):not(.ui-alert--toast) .ui-alert-slot > .ui-action-group:has(> .ui-button[data-size='sm']) {
+  /**
+   * Dolu / outline düğme (hap) kendi kenarıyla metin sütununa hizalanır; zemini metnin soluna taşmaz.
+   * Yalnız ghost düğmede zemin görünmediği için etiket metinle aynı kenara çekilir.
+   */
+  .ui-alert:not(.ui-alert--banner):not(.ui-alert--toast) .ui-alert-slot > .ui-button[data-variant='ghost'][data-size='sm']:not(.aspect-square) {
     @apply -ms-2.5;
   }
 
-  .ui-alert:not(.ui-alert--banner):not(.ui-alert--toast) .ui-alert-slot > .ui-button.ui-control-h-md:not([data-variant='link']):not([data-variant='nav']),
-  .ui-alert:not(.ui-alert--banner):not(.ui-alert--toast) .ui-alert-slot > .ui-button[data-size='md']:not([data-variant='link']):not([data-variant='nav']):not(.aspect-square),
-  .ui-alert:not(.ui-alert--banner):not(.ui-alert--toast) .ui-alert-slot > .ui-action-group:has(> .ui-button.ui-control-h-md),
-  .ui-alert:not(.ui-alert--banner):not(.ui-alert--toast) .ui-alert-slot > .ui-action-group:has(> .ui-button[data-size='md']) {
+  .ui-alert:not(.ui-alert--banner):not(.ui-alert--toast) .ui-alert-slot > .ui-button[data-variant='ghost'][data-size='md']:not(.aspect-square) {
     @apply -ms-3;
   }
 
-  .ui-alert:not(.ui-alert--banner):not(.ui-alert--toast) .ui-alert-slot > .ui-button.ui-control-h-lg:not([data-variant='link']):not([data-variant='nav']),
-  .ui-alert:not(.ui-alert--banner):not(.ui-alert--toast) .ui-alert-slot > .ui-button[data-size='lg']:not([data-variant='link']):not([data-variant='nav']):not(.aspect-square),
-  .ui-alert:not(.ui-alert--banner):not(.ui-alert--toast) .ui-alert-slot > .ui-action-group:has(> .ui-button.ui-control-h-lg),
-  .ui-alert:not(.ui-alert--banner):not(.ui-alert--toast) .ui-alert-slot > .ui-action-group:has(> .ui-button[data-size='lg']) {
+  .ui-alert:not(.ui-alert--banner):not(.ui-alert--toast) .ui-alert-slot > .ui-button[data-variant='ghost'][data-size='lg']:not(.aspect-square) {
     @apply -ms-4;
   }
 
@@ -4427,9 +4685,23 @@
 
   /**
    * Popover panel — boyut/taşma; yüzey `ui-surface` (Vue: `ui-surface ui-popover-panel`).
+   * Malzeme kartınkinden ayrı: `--popover-bg` + bulanıklık (`popoverStyle`, varsayılan %85 + 20px).
+   * Eskiden kart camını devralmamak için opak `--surface` + `backdrop-filter: none` zorlanıyordu;
+   * bu web temasında da popover'ı düz levhaya çeviriyordu. iOS platform katmanı kendi camını korur.
    */
   .ui-popover-panel {
     @apply flex max-h-[min(var(--ui-popover-available-h,_calc(100vh_-_2rem)),_24rem)] max-w-[min(100vw-1rem,24rem)] flex-col overflow-hidden outline-none;
+  }
+
+  .ui-popover-panel.ui-surface {
+    @apply [background-color:var(--popover-bg)] [backdrop-filter:blur(var(--ui-popover-backdrop-blur))_saturate(160%)];
+  }
+
+  /** Şeffaflığı azalt — yüzen katman opak, bulanıklık yok (okunabilirlik önce). */
+  @media (prefers-reduced-transparency: reduce) {
+    .ui-popover-panel.ui-surface {
+      @apply [background-color:var(--surface)] [backdrop-filter:none];
+    }
   }
 
   /** DatePicker paneli — hızlı seçim satırı kesilmesin */
@@ -4704,6 +4976,13 @@
     @apply [transform-origin:center_center];
   }
 
+  /** Dialog — yüzen panelde cam opacity okunabilirliği bozmasın. */
+  .ui-dialog-panel.ui-surface {
+    --ui-surface-opacity: 100%;
+    --ui-surface-mix-from: var(--surface);
+    @apply [background-color:var(--surface)] [backdrop-filter:none];
+  }
+
   .ui-dialog-panel--max-sm {
     @apply [max-width:min(24rem,_100%)];
   }
@@ -4789,7 +5068,7 @@
   }
 
   .ui-dialog-panel--footer-transparent .ui-card-footer.ui-dialog-footer--transparent {
-    @apply absolute inset-x-0 bottom-0 z-10 border-0 shadow-none bg-transparent bg-none [-webkit-backdrop-filter:none] [backdrop-filter:none] pointer-events-none;
+    @apply absolute inset-x-0 bottom-0 z-10 border-0 shadow-none bg-transparent bg-none [backdrop-filter:none] pointer-events-none;
   }
 
   .ui-dialog-panel--footer-transparent .ui-card-footer.ui-dialog-footer--transparent > * {
@@ -4801,7 +5080,7 @@
    * Unlayered `overrides.css` ile güçlendirilir.
    */
   .ui-dialog-panel--footer-transparent .ui-card-footer.ui-dialog-footer--transparent .ui-button.ui-control {
-    @apply [-webkit-backdrop-filter:blur(var(--ui-control-backdrop-blur,_16px))_saturate(180%)] [backdrop-filter:blur(var(--ui-control-backdrop-blur,_16px))_saturate(180%)];
+    @apply [backdrop-filter:blur(var(--ui-control-backdrop-blur,_16px))_saturate(180%)];
   }
 
   .ui-dialog-panel--footer-transparent
@@ -4907,8 +5186,9 @@
     @apply w-full shrink-0;
   }
 
+  /** Panel kenarından `--ui-surface-inset`; satır köşesi eş merkezli (`--ui-radius-inner`). */
   .ui-dropdown-menu {
-    @apply flex min-w-[10rem] flex-col text-sm text-surface-foreground;
+    @apply flex min-w-[10rem] flex-col p-[var(--ui-surface-inset)] text-sm text-surface-foreground;
   }
 
   .ui-dropdown-menu--described {
@@ -4916,11 +5196,11 @@
   }
 
   .ui-dropdown-menu > .ui-input {
-    @apply mb-2;
+    @apply mb-1 rounded-[min(var(--ui-radius-inner),var(--ui-radius-control-md))];
   }
 
   .ui-dropdown-heading {
-    @apply mt-2 border-t border-border px-3 pb-1 pt-2 text-xs font-medium text-muted-foreground;
+    @apply mt-2 border-t border-border px-[var(--ui-control-px-md)] pb-1 pt-2 text-xs font-medium text-muted-foreground;
   }
 
   .ui-dropdown-menu > .ui-input + .ui-dropdown-heading,
@@ -4929,7 +5209,7 @@
   }
 
   .ui-dropdown-menu > .ui-button {
-    @apply w-full min-w-0 justify-start gap-2.5;
+    @apply w-full min-w-0 justify-start gap-2.5 rounded-[min(var(--ui-radius-inner),var(--ui-radius-control-md))];
   }
 
   .ui-dropdown-menu > .ui-button:has(.ui-dropdown-item-description) {
@@ -4980,7 +5260,7 @@
 
   /** DatePicker — gün ızgarası (`ui-button` + varyantlar) */
   .ui-datepicker-weekdays {
-    @apply grid grid-cols-7 gap-1 place-items-center text-center text-[10px] font-medium uppercase leading-none text-muted-foreground;
+    @apply grid grid-cols-7 gap-1 place-items-center text-center text-[0.6875rem] font-medium uppercase leading-none text-muted-foreground;
   }
 
   .ui-datepicker-grid {
@@ -5000,7 +5280,7 @@
   }
 
   .ui-datepicker-grid > .ui-button[data-variant='ghost']:hover:not(:disabled) {
-    @apply bg-muted bg-none;
+    @apply bg-none [background-color:var(--ui-hover)];
   }
 
   .ui-datepicker-grid > .ui-button[data-variant='outline'] {
@@ -5024,11 +5304,13 @@
   }
 
   .ui-datepicker-quick > .ui-button[data-variant='ghost']:hover:not(:disabled) {
-    @apply bg-muted bg-none;
+    @apply bg-none [background-color:var(--ui-hover)];
   }
 
+  /** Aralık ortası hafif tint; uçlar seçili gün gibi dolu primary. */
   .ui-datepicker-grid > .ui-button[data-in-range='true'] {
-    @apply bg-primary/15 text-foreground;
+    /* Seçili zeminin yarı tonu — moda göre ayarlanır (sabit %7 dark'ta görünmüyordu). */
+    @apply [background-color:color-mix(in_oklab,_var(--primary-soft)_55%,_var(--surface))] text-foreground;
   }
 
   .ui-datepicker-grid > .ui-button[data-range-endpoint='true'] {
@@ -5085,7 +5367,7 @@
   }
 
   .ui-timepicker-selection-band {
-    @apply pointer-events-none absolute inset-x-1 z-0 rounded-md bg-muted [top:50%] h-10 [transform:translateY(-50%)];
+    @apply pointer-events-none absolute inset-x-1 z-0 rounded-md [background-color:var(--primary-soft)] [top:50%] h-10 [transform:translateY(-50%)];
   }
 
   .ui-timepicker-colon {
@@ -5120,14 +5402,29 @@
     @apply text-foreground;
   }
 
+  /** Seçim dili: soluk primary bant + primary metin (eskiden gri bant + koyu metin). */
+  /**
+   * Tekerlek klavye odağı — halka sütunda değil odaklı sütunun seçili değerinde (bant içinde);
+   * sütun boyu halka solma katmanlarının altında kırpılıyordu.
+   */
+  .ui-timepicker [role='spinbutton']:focus-visible,
+  .ui-timepicker-panel [role='spinbutton']:focus-visible {
+    @apply outline-none;
+  }
+
+  .ui-timepicker [role='spinbutton']:focus-visible .ui-timepicker-wheel-item--selected,
+  .ui-timepicker-panel [role='spinbutton']:focus-visible .ui-timepicker-wheel-item--selected {
+    @apply rounded-md [box-shadow:inset_0_0_0_2px_var(--ui-focus-ring)];
+  }
+
   .ui-timepicker-wheel-item--selected {
-    @apply font-medium text-foreground;
+    @apply font-medium [color:var(--ui-selected-fg)];
   }
 
   /** Toast — TransitionGroup */
   .ui-toast-enter-active,
   .ui-toast-leave-active {
-    @apply [transition:opacity_0.2s_ease,_transform_0.2s_ease];
+    @apply [transition:opacity_0.16s_ease,_transform_0.16s_ease];
   }
 
   .ui-toast-enter-from,
@@ -5136,7 +5433,7 @@
   }
 
   .ui-toast-move {
-    @apply [transition:transform_0.2s_ease];
+    @apply [transition:transform_0.16s_ease];
   }
 
   /** Table primitives */
@@ -5259,11 +5556,12 @@
   }
 
   .ui-table-body .ui-table-row:hover:not(.ui-table-row--no-hover) > td:not(.ui-table-cell--empty)::before {
-    @apply [background-color:color-mix(in_oklab,_var(--muted)_40%,_transparent)];
+    @apply [background-color:var(--ui-hover)];
   }
 
+  /** Seçili satır: soluk primary (seçim dili). Metin satır okunurluğu için foreground kalır. */
   .ui-table-body .ui-table-row--selected > td:not(.ui-table-cell--empty)::before {
-    @apply [background-color:color-mix(in_oklab,_var(--muted)_50%,_transparent)];
+    @apply [background-color:var(--primary-soft)];
   }
 
   .ui-table-body .ui-table-row--soft-hover:hover > td:not(.ui-table-cell--empty)::before {
@@ -5573,7 +5871,7 @@
     .ui-overlay-dialog-leave-active .ui-dialog-backdrop,
     .ui-overlay-dialog-enter-active .ui-dialog-panel,
     .ui-overlay-dialog-leave-active .ui-dialog-panel {
-      @apply [transition-duration:0.32s] [transition-timing-function:cubic-bezier(0.32,_0.72,_0,_1)];
+      @apply [transition-duration:0.26s] [transition-timing-function:cubic-bezier(0.32,_0.72,_0,_1)];
     }
 
     .ui-overlay-dialog-enter-from .ui-dialog-backdrop,
@@ -5980,7 +6278,7 @@
 
   /** Sayfa üzerinde tek başına: kart yüzeyi + kart iç boşluğu */
   .ui-stat--surface {
-    @apply p-[var(--ui-card-space,_var(--ui-space-card,_1.5rem))];
+    @apply p-[var(--ui-card-space,_var(--ui-space-card))];
   }
 
   .ui-stat--surface.ui-stat--interactive {
@@ -6008,11 +6306,11 @@
   }
 
   .ui-stat-change--positive {
-    @apply text-success;
+    @apply [color:var(--success-ink)];
   }
 
   .ui-stat-change--negative {
-    @apply text-danger;
+    @apply [color:var(--danger-ink)];
   }
 
   .ui-stat-change--neutral {
@@ -6032,20 +6330,31 @@
   }
 
   /** StatGroup — metrik ızgarası; aralık `--ui-space-stack`. */
+  /**
+   * Sütun sayısı kapsayıcı genişliğinden: her metrik en az `--ui-stat-min`, en fazla `cols` sütun.
+   * Ekran genişliğine bakan `lg:grid-cols-3` geniş ekrandaki dar kartta metriğe 48px bırakıyor,
+   * değer yandaki karta taşıyordu. (Grid kendi genişliğini container query ile sorgulayamaz.)
+   */
   .ui-stat-group {
-    @apply grid grid-cols-1 items-stretch gap-[var(--ui-space-stack)];
+    --ui-stat-cols: 1;
+    --ui-stat-min: 11rem;
+    @apply grid items-stretch gap-[var(--ui-space-stack)];
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(max(min(100%, var(--ui-stat-min)), calc((100% - (var(--ui-stat-cols) - 1) * var(--ui-space-stack)) / var(--ui-stat-cols))), 1fr)
+    );
   }
 
   .ui-stat-group--cols-2 {
-    @apply sm:grid-cols-2;
+    --ui-stat-cols: 2;
   }
 
   .ui-stat-group--cols-3 {
-    @apply sm:grid-cols-2 lg:grid-cols-3;
+    --ui-stat-cols: 3;
   }
 
   .ui-stat-group--cols-4 {
-    @apply sm:grid-cols-2 xl:grid-cols-4;
+    --ui-stat-cols: 4;
   }
 
   /** ChipGroup — seçim çipleri; dar ekranda yatay kaydırma. */
@@ -6073,10 +6382,18 @@
    */
   .ui-segment-group--indicator,
   .ui-tab-list--indicator {
-    --ui-indicator-duration: 420ms;
+    --ui-indicator-duration: 300ms;
     --ui-indicator-ease: cubic-bezier(0.32, 0.72, 0, 1);
     --ui-indicator-pop-scale: 1.05;
     @apply relative isolate;
+  }
+
+  /**
+   * Segment izi iç boşluksuz — seçili zemin izin tam yüksekliğinde; geçişte dikeyde belirgin büyüyerek
+   * izin dışına taşar ve geri döner (sekme izinde `p-1` olduğundan orada yalnız hafif büyür).
+   */
+  .ui-segment-group--indicator {
+    --ui-indicator-pop-scale-y: 1.22;
   }
 
   .ui-selection-indicator {
@@ -6093,7 +6410,29 @@
   }
 
   .ui-selection-indicator-fill {
-    @apply block size-full rounded-full ui-fill-primary;
+    @apply block size-full rounded-[var(--ui-indicator-radius,9999px)] ui-fill-primary-soft;
+  }
+
+  /**
+   * `ui-selection-indicator` kapsayıcısı (sidebar, menü) — liste satırı geniş olduğundan yoldaki
+   * büyüme daha az. Öğeler göstergenin üstünde; hazır olunca seçili öğe kendi zeminini bırakır.
+   */
+  [data-ui-indicator-host] {
+    --ui-indicator-duration: 300ms;
+    --ui-indicator-ease: cubic-bezier(0.32, 0.72, 0, 1);
+    --ui-indicator-pop-scale: 1.015;
+    --ui-indicator-pop-scale-y: 1.14;
+    @apply relative isolate;
+  }
+
+  [data-ui-indicator-host] .ui-sidebar-item,
+  [data-ui-indicator-host] .ui-menu-item {
+    @apply relative z-[1];
+  }
+
+  [data-ui-indicator-host][data-ui-indicator='ready'] .ui-sidebar-item--active,
+  [data-ui-indicator-host][data-ui-indicator='ready'] .ui-sidebar-item--active:hover:not(:disabled) {
+    @apply bg-transparent bg-none;
   }
 
   .ui-selection-indicator[data-pop='a'] > .ui-selection-indicator-fill {
@@ -6129,11 +6468,11 @@
   }
 
   /** Android native dock — seçili gölge göstergeye taşınır. */
-  html.cap-native.cap-android .ui-tabs--native-chrome .ui-tab-list--indicator[data-ui-indicator='ready'] .ui-tab-trigger--segmented-selected {
+  :is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-tabs--native-chrome .ui-tab-list--indicator[data-ui-indicator='ready'] .ui-tab-trigger--segmented-selected {
     @apply shadow-none;
   }
 
-  html.cap-native.cap-android .ui-tabs--native-chrome .ui-tab-list--indicator .ui-selection-indicator-fill {
+  :is(html.cap-native.cap-android, [data-ui-platform='android']) .ui-tabs--native-chrome .ui-tab-list--indicator .ui-selection-indicator-fill {
     @apply [box-shadow:0_0.125rem_0.5rem_color-mix(in_srgb,_var(--background)_45%,_transparent)];
   }
 
@@ -6148,14 +6487,35 @@
   }
 }
 
+/* Yatay ve dikey büyüme ayrı: `--ui-indicator-pop-scale-y` verilmezse ikisi eşit. */
 @keyframes ui-indicator-pop-a {
   0% { transform: scale(1); }
-  45% { transform: scale(var(--ui-indicator-pop-scale, 1.05)); }
+  45% { transform: scale(var(--ui-indicator-pop-scale, 1.05), var(--ui-indicator-pop-scale-y, var(--ui-indicator-pop-scale, 1.05))); }
   100% { transform: scale(1); }
 }
 
 @keyframes ui-indicator-pop-b {
   0% { transform: scale(1); }
-  45% { transform: scale(var(--ui-indicator-pop-scale, 1.05)); }
+  45% { transform: scale(var(--ui-indicator-pop-scale, 1.05), var(--ui-indicator-pop-scale-y, var(--ui-indicator-pop-scale, 1.05))); }
   100% { transform: scale(1); }
+}
+
+@layer components {
+  /**
+   * Hareket azaltma (WCAG 2.3.3) — basma ölçeği, switch topuzu, ilerleme ve stepper geçişleri kapanır;
+   * renk geçişleri kalır.
+   */
+  @media (prefers-reduced-motion: reduce) {
+    .ui-button,
+    .ui-button:enabled:active {
+      @apply transition-colors scale-100;
+    }
+
+    .ui-switch-thumb,
+    .ui-progress-bar-indicator,
+    .ui-file-icon-shell,
+    .ui-stepper-pill {
+      @apply transition-none;
+    }
+  }
 }

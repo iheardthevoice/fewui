@@ -92,15 +92,15 @@ const SIZE_PRESET = {
     shell: 'min-h-[3.25rem] min-w-[3.25rem] rounded-xl px-2.5 py-2.5',
     icon: 'md',
     iconBoost: '',
-    label: 'text-[11px] leading-4',
-    root: 'max-w-[6rem]',
+    label: 'ui-text-2xs leading-4',
+    root: 'max-w-[7rem]',
   },
   md: {
     shell: 'min-h-[4.25rem] min-w-[4.25rem] rounded-2xl px-3.5 py-3.5',
     icon: 'lg',
     iconBoost: '',
     label: 'text-xs leading-4',
-    root: 'max-w-[9rem]',
+    root: 'max-w-[10rem]',
   },
   lg: {
     shell: 'min-h-[5.75rem] min-w-[5.75rem] rounded-[1.25rem] px-5 py-5',

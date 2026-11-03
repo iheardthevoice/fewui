@@ -26,9 +26,9 @@
               aria-hidden="true"
             >
               <span
-                v-if="localColor"
+                v-if="triggerSwatch"
                 class="ui-color-picker-swatch ui-color-picker-swatch--trigger"
-                :style="{ backgroundColor: localColor }"
+                :style="{ backgroundColor: triggerSwatch }"
               />
               <ui-icon
                 v-else
@@ -64,7 +64,7 @@
               {{ popoverTitleLabel }}
             </span>
             <ui-button
-              v-if="localColor"
+              v-if="showClear && localColor"
               type="button"
               variant="ghost"
               color="secondary"
@@ -78,17 +78,19 @@
 
           <div class="ui-color-picker-swatches">
             <button
-              v-for="color in presetColors"
-              :key="color"
+              v-for="option in swatches"
+              :key="option.value"
               type="button"
               class="ui-color-picker-swatch ui-color-picker-swatch--preset"
-              :class="{ 'ui-color-picker-swatch--selected': localColor === color }"
-              :style="{ backgroundColor: color }"
-              :title="color"
-              @click="selectColor(color)"
+              :class="{ 'ui-color-picker-swatch--selected': localColor === option.value }"
+              :style="{ backgroundColor: option.color }"
+              :title="option.label"
+              :aria-label="option.label"
+              :aria-pressed="localColor === option.value ? 'true' : 'false'"
+              @click="selectColor(option.value)"
             >
               <ui-icon
-                v-if="localColor === color"
+                v-if="localColor === option.value"
                 name="check"
                 type="solid"
                 size="xs"
@@ -97,7 +99,10 @@
             </button>
           </div>
 
-          <div class="ui-color-picker-custom">
+          <div
+            v-if="showCustom"
+            class="ui-color-picker-custom"
+          >
             <span class="ui-color-picker-panel__title">
               {{ customColorLabelText }}
             </span>
@@ -171,12 +176,30 @@ export default {
       type: Boolean,
       default: true,
     },
+    /**
+     * Renk örnekleri — `'#hex'` veya `{ value, label?, color? }`. `color` verilirse örnek o renkle çizilir,
+     * `value` anahtar olabilir (ör. `'zinc'`); tetikleyici seçili öğenin `label`'ını gösterir.
+     * Verilmezse yerleşik palet.
+     */
+    options: {
+      type: Array,
+      default: null,
+    },
+    /** Özel hex alanı — yalnız paletten seçilecekse `false`. */
+    showCustom: {
+      type: Boolean,
+      default: true,
+    },
+    /** Paneldeki “Temizle” — değer boş bırakılamıyorsa `false`. */
+    showClear: {
+      type: Boolean,
+      default: true,
+    },
   },
   emits: ['update:modelValue'],
   data() {
     return {
       popoverOpen: false,
-      presetColors: PRESET_COLORS,
     }
   },
   computed: {
@@ -200,8 +223,23 @@ export default {
       if (this.triggerPlaceholder) return this.triggerPlaceholder
       return resolveUiText(this, 'ui.colorPicker.triggerPlaceholder', 'Pick a color')
     },
+    /** `{ value, label, color }` listesi — düz hex dizisi de aynı biçime çevrilir. */
+    swatches() {
+      return (this.options || PRESET_COLORS).map((option) =>
+        typeof option === 'string'
+          ? { value: option, label: option, color: option }
+          : { value: option.value, label: option.label ?? option.value, color: option.color ?? option.value },
+      )
+    },
+    selectedSwatch() {
+      return this.swatches.find((option) => option.value === this.localColor) || null
+    },
+    /** Anahtar değerli örnekte (ör. `'zinc'`) tetikleyici rengi örnekten gelir. */
+    triggerSwatch() {
+      return this.selectedSwatch?.color || this.localColor || ''
+    },
     displayValue() {
-      return this.localColor || this.triggerLabel
+      return this.selectedSwatch?.label || this.localColor || this.triggerLabel
     },
     popoverTitleLabel() {
       if (this.popoverTitle) return this.popoverTitle

@@ -1,9 +1,19 @@
 /**
  * Popover list / calendar cells — `ui-control-h-*` utilities (`rounded-lg`, `border`) beat @layer components.
  * Unlayered rules so DatePicker and Select menus render flat menu rows, not pill outlines.
+ * Satır yüksekliği alt sınırdır: avatar gibi uzun `#option` içeriği satırı büyütür, metin satırları aynı kalır.
  */
 .ui-select-listbox .ui-select-option.ui-button {
-  @apply rounded-lg border-0 shadow-none border-transparent;
+  @apply h-auto min-h-[var(--ui-option-h-md)] rounded-[min(var(--ui-radius-inner),calc(var(--ui-option-h-md)/2))] border-0 shadow-none border-transparent;
+}
+
+/** Seçenek köşesi eş merkezli: panel köşesi − panel iç boşluğu, satır yarı yüksekliğini geçmez. */
+.ui-select-listbox--sm .ui-select-option.ui-button {
+  @apply h-auto min-h-[var(--ui-option-h-sm)] rounded-[min(var(--ui-radius-inner),calc(var(--ui-option-h-sm)/2))];
+}
+
+.ui-select-listbox--lg .ui-select-option.ui-button {
+  @apply h-auto min-h-[var(--ui-option-h-lg)] rounded-[min(var(--ui-radius-inner),calc(var(--ui-option-h-lg)/2))];
 }
 
 .ui-dropdown-menu > .ui-button:has(.ui-dropdown-item-description) {
@@ -27,17 +37,49 @@
   @apply rounded-full shadow-none;
 }
 
-.ui-select-listbox .ui-select-option.ui-button.ui-select-option--selected,
 .ui-datepicker-grid > .ui-button[data-variant='solid'] {
   @apply border-0 shadow-none;
 }
 
-.ui-select-listbox .ui-select-option.ui-button.ui-select-option--selected[data-variant='solid'][data-color='primary'],
-.ui-datepicker-grid > .ui-button[data-variant='solid'][data-color='primary'] {
-  @apply ui-fill-gradient text-primary-foreground;
-  --ui-fill-base: var(--primary);
-  --ui-fill-grad-top: var(--ui-fill-grad-top-primary);
-  --ui-fill-grad-bottom: var(--ui-fill-grad-bottom-primary);
+/** Vurgulanan seçenek (klavye ↑↓ veya fare) — hover ile aynı; seçili kuralları aşağıda üstüne yazar. */
+.ui-select-listbox .ui-select-option.ui-button.ui-select-option--active {
+  @apply bg-none [background-color:var(--ui-hover)];
+}
+
+/**
+ * Seçim dili — soluk primary zemin + primary metin: Select seçeneği, MenuItem, SidebarItem, segment,
+ * sekme, çip, FilterChip, takvim günü. Katmansız: Button utility'leri (`hover:bg-secondary`,
+ * `text-primary-foreground`) seçili görünümü ezmesin. Bileşen API'si aynı (`solid primary` vb.).
+ */
+.ui-select-listbox .ui-select-option.ui-button.ui-select-option--selected,
+.ui-menu-item--active.ui-button,
+.ui-button[data-ui-chip][data-variant='solid'][data-color='primary'],
+.ui-daterangepicker-quick > .ui-button[data-variant='solid'][data-color='primary'],
+.ui-filter-chip.ui-button[data-variant='solid'][data-color='primary'] {
+  @apply ui-fill-primary-soft border-transparent;
+}
+
+.ui-select-listbox .ui-select-option.ui-button.ui-select-option--selected:hover:not(:disabled),
+.ui-select-listbox .ui-select-option.ui-button.ui-select-option--selected.ui-select-option--active,
+.ui-menu-item--active.ui-button:hover:not(:disabled),
+.ui-button[data-ui-chip][data-variant='solid'][data-color='primary']:hover:not(:disabled),
+.ui-daterangepicker-quick > .ui-button[data-variant='solid'][data-color='primary']:hover:not(:disabled),
+.ui-filter-chip.ui-button[data-variant='solid'][data-color='primary']:hover:not(:disabled) {
+  @apply ui-fill-primary-soft-hover opacity-100;
+}
+
+/** Seçili öğedeki ikon ve ikincil metin primary tonunda. */
+.ui-select-listbox .ui-select-option.ui-button.ui-select-option--selected .ui-icon,
+.ui-select-listbox .ui-select-option.ui-button.ui-select-option--selected .text-muted-foreground,
+.ui-menu-item--active.ui-button .ui-icon,
+.ui-button[data-ui-chip][data-variant='solid'][data-color='primary'] .ui-icon,
+.ui-filter-chip.ui-button[data-variant='solid'][data-color='primary'] .ui-icon {
+  color: var(--ui-selected-fg);
+}
+
+.ui-datepicker-grid > .ui-button[data-variant='solid'][data-color='primary'],
+.ui-datepicker-grid > .ui-button[data-variant='solid'][data-color='primary']:hover:not(:disabled) {
+  @apply ui-fill-primary-soft;
 }
 
 .ui-datepicker-grid > .ui-button[data-today='true']:not([data-variant='solid']) {
@@ -45,7 +87,8 @@
 }
 
 .ui-datepicker-grid > .ui-button[data-today='true']:not([data-variant='solid'])::after {
-  @apply [content:''] absolute [inset:3px] rounded-full [border:1.5px_solid_color-mix(in_oklab,_var(--primary)_70%,_transparent)] pointer-events-none;
+  /* Seçili günle aynı ölçü (hücre sınırı) — eskiden 3px içeride, seçiliden küçük görünüyordu. */
+  @apply [content:''] absolute inset-0 rounded-full [border:1.5px_solid_var(--ui-selected-fg)] pointer-events-none;
 }
 
 /**
@@ -93,7 +136,7 @@
 }
 
 .ui-dialog-panel--footer-transparent .ui-card-footer.ui-dialog-footer--transparent {
-  @apply bg-transparent! bg-none! border-t-0! shadow-none! [-webkit-backdrop-filter:none]! [backdrop-filter:none]!;
+  @apply bg-transparent! bg-none! border-t-0! shadow-none! [backdrop-filter:none]!;
 }
 
 /**
@@ -217,4 +260,26 @@
 .ui-table-body .ui-table-cell .ui-table-cell-title,
 .ui-table-body .ui-table-cell .ui-table-cell-subtitle {
   @apply whitespace-normal;
+}
+
+/**
+ * Liste satırı düğmesi klavye odağı — zemin farkı tek başına görünmüyordu (piksel farkı %0).
+ * Katmansız: `nav` varyantının `shadow-none` utility'si halkayı eziyordu.
+ */
+.ui-list-item--actionable > .ui-button[data-variant='nav']:focus-visible {
+  box-shadow: inset 0 0 0 2px var(--ui-focus-ring);
+}
+
+/** Hareket azaltma — utility katmanındaki `transition-transform` sınıflarını da kapatır (katmansız). */
+@media (prefers-reduced-motion: reduce) {
+  .ui-file-icon-shell {
+    transition: none;
+  }
+}
+
+/** Kayan seçim göstergesi hazırken aktif menü öğesi kendi zeminini bırakır (gösterge çizer). */
+[data-ui-indicator-host][data-ui-indicator='ready'] .ui-menu-item--active.ui-button,
+[data-ui-indicator-host][data-ui-indicator='ready'] .ui-menu-item--active.ui-button:hover:not(:disabled) {
+  background-color: transparent;
+  background-image: none;
 }

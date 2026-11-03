@@ -20,10 +20,12 @@
     >
       <Transition
         name="ui-overlay-popover-backdrop"
-        appear
+        :duration="motionDuration"
+        @after-leave="onBackdropAfterLeave"
       >
         <div
           v-if="showMobileBackdrop"
+          key="ui-popover-mobile-backdrop"
           class="ui-popover-backdrop fixed inset-0 bg-black/70"
           :style="backdropStyle"
           aria-hidden="true"
@@ -228,14 +230,16 @@ export default {
       rafId: 0,
       mobileCenteredActive: false,
       mobileCenteredLeaving: false,
+      /** Mobil backdrop — `open` ile senkron; leave süresi `motionDuration` ile zorunlu biter. */
+      backdropVisible: false,
       portalReady: false,
       /** Transition süresi — tema `--ui-popover-enter-duration` / `--ui-popover-leave-duration` verebilir. */
-      motionDuration: { enter: 240, leave: 160 },
+      motionDuration: { enter: 180, leave: 120 },
     }
   },
   computed: {
     showMobileBackdrop() {
-      return this.open && this.mobileCentered && isMobileViewport()
+      return this.backdropVisible
     },
     popoverMobileCenteredAttr() {
       return this.mobileCenteredActive || this.mobileCenteredLeaving
@@ -272,6 +276,7 @@ export default {
         this.syncMotionDuration()
         this.mobileCenteredLeaving = false
         this.mobileCenteredActive = this.mobileCentered && isMobileViewport()
+        this.backdropVisible = this.mobileCenteredActive
         // Panel ölçülmeden önce de z-index ver — aksi halde ilk karede z-auto
         // kalıp dialog (400) altında boyanabiliyor.
         this.acquireLayer()
@@ -285,6 +290,7 @@ export default {
           this.mobileCenteredLeaving = true
         }
         this.mobileCenteredActive = false
+        this.backdropVisible = false
         this.releaseLayer()
         this.teardownGlobalListeners()
       }
@@ -318,12 +324,15 @@ export default {
     syncMotionDuration() {
       const el = this.$refs.rootRef
       this.motionDuration = {
-        enter: readMotionDuration('--ui-popover-enter-duration', 240, el),
-        leave: readMotionDuration('--ui-popover-leave-duration', 160, el),
+        enter: readMotionDuration('--ui-popover-enter-duration', 180, el),
+        leave: readMotionDuration('--ui-popover-leave-duration', 120, el),
       }
     },
     onPopoverAfterLeave() {
       this.mobileCenteredLeaving = false
+    },
+    onBackdropAfterLeave() {
+      this.backdropVisible = false
     },
     onBackdropDismiss() {
       this.close()
@@ -414,6 +423,7 @@ export default {
 
       if (isMobileViewport() && this.mobileCentered) {
         this.mobileCenteredActive = true
+        this.backdropVisible = true
         const maxW = vw - margin * 2
         const widthPx = Math.min(panelW, maxW)
         const left = Math.max(margin, Math.round((vw - widthPx) / 2))
@@ -440,6 +450,7 @@ export default {
       }
 
       this.mobileCenteredActive = false
+      this.backdropVisible = false
       let top
       let left
 

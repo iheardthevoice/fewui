@@ -1,13 +1,8 @@
 <script>
 import { defineComponent } from 'vue'
-import {
-  BACKDROP_BLUR_SCALE,
-  CARD_PADDING_SCALE,
-  MIX_FROM_MAP,
-  TOKEN_GROUPS,
-  googleFontSelectOptions,
-} from 'fewui'
+import { googleFontSelectOptions } from 'fewui'
 import { NEUTRAL_SCALES, matchNeutralScale } from './neutral-scales.js'
+import { PRIMARY_PALETTE } from './primary-palette.js'
 import {
   buildThemeZip,
   downloadFile,
@@ -15,11 +10,10 @@ import {
   exportCursorRule,
 } from './export-theme-bundle.js'
 
-const SURFACE_STYLES = ['surfaceStyle', 'controlStyle', 'inputStyle']
-const COLOR_TOKENS = TOKEN_GROUPS.colors.filter((key) => key !== 'primary' && key !== 'white')
 const ICON_TYPES = ['light', 'regular', 'solid', 'duotone', 'thin']
-const DIALOG_WIDTHS = ['sm', 'md', 'lg', 'xl']
 const CONTROL_SIZES = ['sm', 'md', 'lg']
+/** Köşe kademeleri — `--radius`; kontroller yarı yüksekliği geçmez, `round` kontrolleri hap yapar. */
+const RADIUS_PRESETS = { sharp: 4, soft: 12, round: 24 }
 
 /**
  * @param {unknown} value
@@ -29,6 +23,10 @@ function firstFontFamily(value) {
   return String(value || '').split(',')[0].replace(/["']/g, '').trim()
 }
 
+/**
+ * Tema oluşturucu paneli — yalnız kararlar: başlangıç teması, base, primary ve stil.
+ * Diğer renkler base / primary'den türer; yüzey opaklığı ve durum renkleri temanın kendisindedir.
+ */
 export default defineComponent({
   name: 'ThemePlaygroundSidebar',
   props: {
@@ -43,6 +41,7 @@ export default defineComponent({
       importOpen: false,
       importText: '',
       importError: false,
+      exportOpen: false,
       copied: false,
       menuOpen: false,
     }
@@ -50,14 +49,6 @@ export default defineComponent({
   computed: {
     draft() {
       return this.playground.draft
-    },
-    editMode: {
-      get() {
-        return this.playground.editMode.value
-      },
-      set(value) {
-        this.playground.editMode.value = value
-      },
     },
     baseThemeId: {
       get() {
@@ -67,68 +58,54 @@ export default defineComponent({
         this.playground.setBaseTheme(value)
       },
     },
-    modeOptions() {
-      return ['light', 'dark'].map((value) => ({
+    /** Base örnekleri — her skalanın 500 tonu; değer skala anahtarıdır. */
+    baseScaleOptions() {
+      return Object.entries(NEUTRAL_SCALES).map(([value, scale]) => ({
         value,
-        label: this.$t(`themePlayground.mode.${value}`),
+        label: this.$t(`themePlayground.neutral.${value}`),
+        color: scale[500],
       }))
     },
-    colorTokens() {
-      return COLOR_TOKENS
+    /** Tailwind skalası değilse boş — tetikleyici “Tema skalası” der. */
+    baseScale() {
+      return matchNeutralScale(this.playground.getToken('base')) || ''
     },
-    statusTokens() {
-      return TOKEN_GROUPS.status
-    },
-    surfaceStyles() {
-      return SURFACE_STYLES
-    },
-    neutralOptions() {
-      return [
-        ...Object.keys(NEUTRAL_SCALES).map((value) => ({
-          value,
-          label: this.$t(`themePlayground.neutral.${value}`),
-        })),
-        { value: 'custom', label: this.$t('themePlayground.neutral.custom') },
-      ]
-    },
-    neutralScale() {
-      return matchNeutralScale(this.playground.getToken('base', 'light')) || 'custom'
-    },
-    mixFromOptions() {
-      return Object.keys(MIX_FROM_MAP).map((value) => ({
-        value: `var(--${value})`,
-        label: this.$t(`themePlayground.mixFrom.${value}`),
+    /** Tailwind ana renkleri; başlangıç temasının kendi rengi paletin dışındaysa başa eklenir. */
+    primaryOptions() {
+      const palette = Object.entries(PRIMARY_PALETTE).map(([key, color]) => ({
+        value: color,
+        label: this.$t(`themePlayground.primary.${key}`),
       }))
+      const themePrimary = String(this.playground.baseTheme.value?.preset.tokens.light.primary || '')
+      const inPalette = palette.some((opt) => opt.value.toLowerCase() === themePrimary.toLowerCase())
+      return themePrimary && !inPalette
+        ? [{ value: themePrimary, label: this.$t('themePlayground.primary.theme') }, ...palette]
+        : palette
     },
-    blurOptions() {
-      return Object.entries(BACKDROP_BLUR_SCALE).map(([key, value]) => ({
-        value,
-        label: key === 'DEFAULT' ? value : `${key} · ${value}`,
-      }))
+    primaryColor() {
+      return String(this.playground.getToken('primary') || '')
     },
     fontOptions() {
       return googleFontSelectOptions()
     },
-    cardPaddingOptions() {
-      return Object.keys(CARD_PADDING_SCALE).map((value) => ({
-        value,
-        label: this.$t(`themePlayground.cardPadding.${value}`),
-      }))
+    /** En yakın köşe kademesi — tema ara bir değer kullanıyorsa (ör. 20px) ona en yakını seçili görünür. */
+    radiusPreset() {
+      const px = Number.parseFloat(String(this.playground.getToken('radius') || '0')) || 0
+      return Object.entries(RADIUS_PRESETS).reduce((best, [key, value]) =>
+        Math.abs(value - px) < Math.abs(RADIUS_PRESETS[best] - px) ? key : best,
+      'soft')
     },
-    iconTypeOptions() {
-      return ICON_TYPES.map((value) => ({ value, label: this.$t(`themePlayground.iconType.${value}`) }))
-    },
-    buttonRoundedOptions() {
-      return ['lg', 'full'].map((value) => ({
+    radiusOptions() {
+      return Object.keys(RADIUS_PRESETS).map((value) => ({
         value,
-        label: this.$t(`themePlayground.buttonRounded.${value}`),
+        label: this.$t(`themePlayground.radius.${value}`),
       }))
     },
     controlSizeOptions() {
       return CONTROL_SIZES.map((value) => ({ value, label: value.toUpperCase() }))
     },
-    dialogWidthOptions() {
-      return DIALOG_WIDTHS.map((value) => ({ value, label: value.toUpperCase() }))
+    iconTypeOptions() {
+      return ICON_TYPES.map((value) => ({ value, label: this.$t(`themePlayground.iconType.${value}`) }))
     },
     menuItems() {
       return [
@@ -141,53 +118,42 @@ export default defineComponent({
         { value: 'reset', icon: 'rotate-left', label: this.$t('themePlayground.actions.reset'), color: 'danger' },
       ]
     },
-    radiusPx() {
-      return Number.parseFloat(String(this.playground.getToken('radius') || '0')) || 0
-    },
-    cardPadding() {
-      const value = this.playground.getToken('cardPadding')
-      return Object.entries(CARD_PADDING_SCALE).find(([key, size]) => value === key || value === size)?.[0] || 'default'
-    },
   },
   methods: {
-    tokenValue(key) {
-      return this.playground.getToken(key) ?? ''
+    setBaseScale(id) {
+      this.playground.setBaseScale(id)
     },
-    setToken(key, value) {
-      this.playground.setToken(key, value)
+    /** @param {'body'|'heading'} slot */
+    fontStack(slot) {
+      return String(this.playground.theme.value.preset.fonts?.[slot] || '')
     },
-    styleField(key, field) {
-      return this.playground.getToken(key)?.[field] ?? ''
+    /**
+     * Google Fonts listesi; temanın yazı tipi listede yoksa (ör. Liquid Glass `-apple-system`)
+     * “Tema yazı tipi” olarak başa eklenir — seçim boş görünmesin.
+     * @param {'body'|'heading'} slot
+     */
+    fontOptionsFor(slot) {
+      const name = firstFontFamily(this.fontStack(slot))
+      if (!name || this.fontOptions.some((opt) => opt.value === name)) return this.fontOptions
+      return [{ value: name, label: this.$t('themePlayground.fields.themeFont'), fontFamily: this.fontStack(slot) }, ...this.fontOptions]
     },
-    styleOpacity(key) {
-      return Number.parseFloat(String(this.styleField(key, 'opacity') || '100')) || 0
-    },
-    setStyleField(key, field, value) {
-      this.playground.setStyleField(key, field, value)
-    },
-    setNeutralScale(id) {
-      const scale = NEUTRAL_SCALES[id]
-      if (!scale) return
-      this.playground.setToken('base', { ...scale }, 'light')
-      delete this.draft.tokens.dark.base
-    },
+    /** @param {'body'|'heading'} slot */
     fontValue(slot) {
-      const name = firstFontFamily(this.playground.theme.value.preset.fonts?.[slot])
-      return this.fontOptions.find((opt) => opt.value === name)?.value ?? null
+      return firstFontFamily(this.fontStack(slot)) || null
     },
+    /** @param {'body'|'heading'} slot */
     setFont(slot, value) {
-      const option = this.fontOptions.find((opt) => opt.value === value)
+      const option = this.fontOptionsFor(slot).find((opt) => opt.value === value)
       this.draft.fonts = { ...this.draft.fonts, [slot]: option?.fontFamily || value }
     },
-    tokenLabel(key) {
-      return this.$t(`themePlayground.tokens.${key}`)
-    },
-    styleLabel(key) {
-      return this.$t(`themePlayground.styles.${key}`)
+    setRadius(preset) {
+      const px = RADIUS_PRESETS[preset]
+      if (px != null) this.playground.setToken('radius', `${px}px`)
     },
     downloadZip() {
       const data = this.playground.exportPackage()
       downloadFile(`${data.id}.zip`, buildThemeZip(data))
+      this.exportOpen = false
     },
     async copyJson() {
       await navigator.clipboard?.writeText(JSON.stringify(this.playground.exportPackage(), null, 2))
@@ -231,229 +197,136 @@ export default defineComponent({
 </script>
 
 <template>
-  <aside class="flex h-full w-80 shrink-0 flex-col border-r border-border bg-background">
-    <div class="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto p-4">
-      <div>
-        <p class="text-sm font-medium text-foreground">
+  <aside class="flex h-full min-h-0 w-full flex-col">
+    <div class="flex min-h-0 flex-1 flex-col gap-8 overflow-y-auto px-4 py-5">
+      <div class="flex flex-col gap-1">
+        <p class="ui-heading-3 m-0">
           {{ $t('themePlayground.title') }}
         </p>
-        <p class="mt-1 text-xs text-muted-foreground">
+        <p class="ui-text-default m-0 text-muted-foreground">
           {{ $t('themePlayground.description') }}
         </p>
       </div>
 
-      <ui-form-row
-        :label="$t('themePlayground.fields.base')"
-        :description="$t('themePlayground.fields.baseHint')"
-      >
-        <ui-select
-          v-model="baseThemeId"
-          :options="playground.themeOptions.value"
-        />
-      </ui-form-row>
-      <ui-form-row :label="$t('themePlayground.fields.label')">
-        <ui-input v-model="draft.label" />
-      </ui-form-row>
-      <ui-form-row :label="$t('themePlayground.fields.id')">
-        <ui-input
-          v-model="draft.id"
-          autocomplete="off"
-        />
-      </ui-form-row>
-
-      <ui-divider :title="$t('themePlayground.sections.mode')" />
-      <ui-form-row :description="$t('themePlayground.fields.editModeHint')">
-        <ui-segment-group
-          v-model="editMode"
-          block
+      <section class="flex flex-col gap-4">
+        <p class="ui-section-label m-0">
+          {{ $t('themePlayground.sections.start') }}
+        </p>
+        <ui-form-row
+          :label="$t('themePlayground.fields.base')"
+          :description="$t('themePlayground.fields.baseHint')"
         >
-          <ui-segment
-            v-for="opt in modeOptions"
-            :key="opt.value"
-            :value="opt.value"
-            :label="opt.label"
+          <ui-select
+            v-model="baseThemeId"
+            :options="playground.themeOptions.value"
           />
-        </ui-segment-group>
-      </ui-form-row>
+        </ui-form-row>
+      </section>
 
-      <ui-divider :title="$t('themePlayground.sections.colors')" />
-      <ui-form-row :label="tokenLabel('primary')">
-        <ui-color-picker
-          :model-value="tokenValue('primary')"
-          @update:model-value="setToken('primary', $event)"
-        />
-        <template #action>
-          <ui-button
-            variant="link"
+      <section class="flex flex-col gap-4">
+        <p class="ui-section-label m-0">
+          {{ $t('themePlayground.sections.color') }}
+        </p>
+        <ui-form-row
+          :label="$t('themePlayground.fields.baseScale')"
+          :description="$t('themePlayground.fields.baseScaleHint')"
+        >
+          <ui-color-picker
+            :model-value="baseScale"
+            :options="baseScaleOptions"
+            :show-custom="false"
+            :show-clear="false"
+            :trigger-placeholder="$t('themePlayground.neutral.custom')"
+            :popover-title="$t('themePlayground.fields.baseScale')"
+            @update:model-value="setBaseScale"
+          />
+        </ui-form-row>
+        <ui-form-row
+          :label="$t('themePlayground.fields.primary')"
+          :description="$t('themePlayground.fields.primaryHint')"
+        >
+          <ui-color-picker
+            :model-value="primaryColor"
+            :options="primaryOptions"
+            :show-clear="false"
+            :popover-title="$t('themePlayground.fields.primary')"
+            :custom-color-label="$t('themePlayground.primary.custom')"
+            @update:model-value="playground.setPrimaryColor($event)"
+          />
+        </ui-form-row>
+      </section>
+
+      <section class="flex flex-col gap-4">
+        <p class="ui-section-label m-0">
+          {{ $t('themePlayground.sections.style') }}
+        </p>
+        <ui-form-row :label="$t('themePlayground.fields.headingFont')">
+          <ui-select
+            :model-value="fontValue('heading')"
+            :options="fontOptionsFor('heading')"
+            filterable
+            @update:model-value="setFont('heading', $event)"
+          />
+        </ui-form-row>
+        <ui-form-row :label="$t('themePlayground.fields.bodyFont')">
+          <ui-select
+            :model-value="fontValue('body')"
+            :options="fontOptionsFor('body')"
+            filterable
+            @update:model-value="setFont('body', $event)"
+          />
+        </ui-form-row>
+        <ui-form-row :label="$t('themePlayground.fields.radius')">
+          <ui-segment-group
+            :model-value="radiusPreset"
             size="sm"
-            @click="playground.deriveFromPrimary()"
+            block
+            :scrollable="false"
+            :aria-label="$t('themePlayground.fields.radius')"
+            @update:model-value="setRadius"
           >
-            {{ $t('themePlayground.actions.derive') }}
-          </ui-button>
-        </template>
-      </ui-form-row>
-      <ui-form-row
-        v-for="key in colorTokens"
-        :key="key"
-        :label="tokenLabel(key)"
-      >
-        <ui-color-picker
-          :model-value="tokenValue(key)"
-          @update:model-value="setToken(key, $event)"
-        />
-      </ui-form-row>
-
-      <ui-divider :title="$t('themePlayground.sections.status')" />
-      <ui-form-row
-        v-for="key in statusTokens"
-        :key="key"
-        :label="tokenLabel(key)"
-      >
-        <ui-color-picker
-          :model-value="tokenValue(key)"
-          @update:model-value="setToken(key, $event)"
-        />
-      </ui-form-row>
-      <ui-form-row :label="$t('themePlayground.fields.neutral')">
-        <ui-select
-          :model-value="neutralScale"
-          :options="neutralOptions"
-          @update:model-value="setNeutralScale"
-        />
-      </ui-form-row>
-
-      <ui-divider :title="$t('themePlayground.sections.surfaces')" />
-      <template
-        v-for="key in surfaceStyles"
-        :key="key"
-      >
-        <ui-form-row :label="styleLabel(key)">
+            <ui-segment
+              v-for="opt in radiusOptions"
+              :key="opt.value"
+              :value="opt.value"
+              :label="opt.label"
+            />
+          </ui-segment-group>
+        </ui-form-row>
+        <ui-form-row :label="$t('themePlayground.fields.controlSize')">
+          <ui-segment-group
+            :model-value="playground.getDefault('controlSize')"
+            size="sm"
+            block
+            :scrollable="false"
+            :aria-label="$t('themePlayground.fields.controlSize')"
+            @update:model-value="playground.setDefault('controlSize', $event)"
+          >
+            <ui-segment
+              v-for="opt in controlSizeOptions"
+              :key="opt.value"
+              :value="opt.value"
+              :label="opt.label"
+            />
+          </ui-segment-group>
+        </ui-form-row>
+        <ui-form-row :label="$t('themePlayground.fields.iconType')">
           <ui-select
-            :model-value="styleField(key, 'mixFrom')"
-            :options="mixFromOptions"
-            @update:model-value="setStyleField(key, 'mixFrom', $event)"
+            :model-value="playground.getDefault('iconType')"
+            :options="iconTypeOptions"
+            @update:model-value="playground.setDefault('iconType', $event)"
           />
         </ui-form-row>
-        <ui-slider
-          :model-value="styleOpacity(key)"
-          :min="0"
-          :max="100"
-          :label="$t('themePlayground.fields.opacity')"
-          :value-text="`${styleOpacity(key)}%`"
-          @update:model-value="setStyleField(key, 'opacity', `${$event}%`)"
-        />
-        <ui-form-row :label="$t('themePlayground.fields.blur')">
-          <ui-select
-            :model-value="styleField(key, 'backdropBlur')"
-            :options="blurOptions"
-            @update:model-value="setStyleField(key, 'backdropBlur', $event)"
-          />
-        </ui-form-row>
-      </template>
-
-      <ui-divider :title="$t('themePlayground.sections.typography')" />
-      <ui-form-row :label="$t('themePlayground.fields.bodyFont')">
-        <ui-select
-          :model-value="fontValue('body')"
-          :options="fontOptions"
-          filterable
-          @update:model-value="setFont('body', $event)"
-        />
-      </ui-form-row>
-      <ui-form-row :label="$t('themePlayground.fields.headingFont')">
-        <ui-select
-          :model-value="fontValue('heading')"
-          :options="fontOptions"
-          filterable
-          @update:model-value="setFont('heading', $event)"
-        />
-      </ui-form-row>
-
-      <ui-divider :title="$t('themePlayground.sections.shape')" />
-      <ui-slider
-        :model-value="radiusPx"
-        :min="0"
-        :max="32"
-        :label="$t('themePlayground.fields.radius')"
-        :value-text="`${radiusPx}px`"
-        @update:model-value="setToken('radius', `${$event}px`)"
-      />
-      <ui-form-row :label="$t('themePlayground.fields.cardPadding')">
-        <ui-select
-          :model-value="cardPadding"
-          :options="cardPaddingOptions"
-          @update:model-value="setToken('cardPadding', $event)"
-        />
-      </ui-form-row>
-
-      <ui-divider :title="$t('themePlayground.sections.components')" />
-      <ui-form-row :label="$t('themePlayground.fields.iconType')">
-        <ui-select
-          :model-value="playground.getDefault('iconType')"
-          :options="iconTypeOptions"
-          @update:model-value="playground.setDefault('iconType', $event)"
-        />
-      </ui-form-row>
-      <ui-form-row :label="$t('themePlayground.fields.buttonRounded')">
-        <ui-segment-group
-          :model-value="playground.getDefault('buttonRounded')"
-          block
-          @update:model-value="playground.setDefault('buttonRounded', $event)"
-        >
-          <ui-segment
-            v-for="opt in buttonRoundedOptions"
-            :key="opt.value"
-            :value="opt.value"
-            :label="opt.label"
-          />
-        </ui-segment-group>
-      </ui-form-row>
-      <ui-form-row :label="$t('themePlayground.fields.controlSize')">
-        <ui-segment-group
-          :model-value="playground.getDefault('controlSize')"
-          block
-          @update:model-value="playground.setDefault('controlSize', $event)"
-        >
-          <ui-segment
-            v-for="opt in controlSizeOptions"
-            :key="opt.value"
-            :value="opt.value"
-            :label="opt.label"
-          />
-        </ui-segment-group>
-      </ui-form-row>
-      <ui-form-row :label="$t('themePlayground.fields.dialogMaxWidth')">
-        <ui-segment-group
-          :model-value="playground.getDefault('dialogMaxWidth')"
-          block
-          @update:model-value="playground.setDefault('dialogMaxWidth', $event)"
-        >
-          <ui-segment
-            v-for="opt in dialogWidthOptions"
-            :key="opt.value"
-            :value="opt.value"
-            :label="opt.label"
-          />
-        </ui-segment-group>
-      </ui-form-row>
-
-      <ui-divider :title="$t('themePlayground.sections.css')" />
-      <ui-form-row :description="$t('themePlayground.fields.customCssHint')">
-        <ui-input
-          v-model="draft.customCss"
-          multiline
-          :rows="5"
-          :placeholder="$t('themePlayground.fields.customCssPlaceholder')"
-        />
-      </ui-form-row>
+      </section>
     </div>
 
-    <div class="flex shrink-0 gap-2 border-t border-border p-4">
+    <div class="flex shrink-0 gap-2 border-t border-border px-4 py-3">
       <div class="min-w-0 flex-1">
         <ui-button
           prefix-icon="file-zipper"
           block
-          @click="downloadZip"
+          rounded
+          @click="exportOpen = true"
         >
           {{ $t('themePlayground.actions.downloadZip') }}
         </ui-button>
@@ -480,6 +353,36 @@ export default defineComponent({
     </div>
 
     <ui-dialog
+      v-model:open="exportOpen"
+      :title="$t('themePlayground.export.title')"
+      :description="$t('themePlayground.export.description')"
+    >
+      <div class="flex flex-col gap-4">
+        <ui-form-row :label="$t('themePlayground.fields.label')">
+          <ui-input v-model="draft.label" />
+        </ui-form-row>
+        <ui-form-row
+          :label="$t('themePlayground.fields.id')"
+          :description="$t('themePlayground.fields.idHint')"
+        >
+          <ui-input
+            v-model="draft.id"
+            autocomplete="off"
+          />
+        </ui-form-row>
+      </div>
+      <template #footer>
+        <ui-button
+          prefix-icon="download"
+          rounded
+          @click="downloadZip"
+        >
+          {{ $t('themePlayground.export.submit') }}
+        </ui-button>
+      </template>
+    </ui-dialog>
+
+    <ui-dialog
       v-model:open="importOpen"
       :title="$t('themePlayground.import.title')"
       :description="$t('themePlayground.import.description')"
@@ -488,9 +391,8 @@ export default defineComponent({
         <ui-alert
           v-if="importError"
           color="danger"
-        >
-          {{ $t('themePlayground.import.invalid') }}
-        </ui-alert>
+          :description="$t('themePlayground.import.invalid')"
+        />
         <ui-form-row :label="$t('themePlayground.import.field')">
           <ui-input
             v-model="importText"
@@ -503,6 +405,7 @@ export default defineComponent({
       <template #footer>
         <ui-button
           prefix-icon="file-import"
+          rounded
           :disabled="!importText.trim()"
           @click="submitImport"
         >

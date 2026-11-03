@@ -24,11 +24,9 @@
       class="ui-radio-indicator"
       aria-hidden="true"
     >
-      <ui-icon
+      <span
         v-if="isChecked"
-        name="check"
-        size="xs"
-        class="ui-radio-check-icon text-primary-foreground"
+        class="ui-radio-dot"
       />
     </span>
     <span class="ui-radio-body">

@@ -37,9 +37,13 @@ export default {
   name: 'Menu',
   inheritAttrs: false,
   props: {
+    /**
+     * `full` (varsayılan): kapsayıcıyı (kart, sidebar) doldurur.
+     * `sm` / `md` / `lg`: sabit genişlik — yüzen panel vb.
+     */
     width: {
       type: String,
-      default: 'md',
+      default: 'full',
       validator: (v) => WIDTHS.includes(v),
     },
   },
@@ -47,7 +51,7 @@ export default {
     rootClass() {
       return cn(
         'ui-menu',
-        WIDTH_CLASS[this.width] || WIDTH_CLASS.md,
+        WIDTH_CLASS[this.width] || WIDTH_CLASS.full,
         this.$attrs.class,
       )
     },

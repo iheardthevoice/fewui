@@ -102,6 +102,12 @@
 
 @import "fewui/components.css";
 
+/** Platform katmanları — yalnız `[data-ui-platform]` önizlemesinde eşleşir (Create sayfası). */
+@import "../../../packages/ui/themes/liquidglass/platform/ios.css";
+@import "../../../packages/ui/themes/liquidglass/styles.css";
+@import "../../../packages/ui/themes/android/platform/android.css";
+@import "../../../packages/ui/themes/android/styles.css";
+
 @layer base {
   html {
     width: 100%;

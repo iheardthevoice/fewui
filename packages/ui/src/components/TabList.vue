@@ -46,6 +46,9 @@ export default {
     indicatorSelector() {
       return '.ui-tab-trigger--segmented-selected'
     },
+    indicatorPersistKey() {
+      return this.uiTabs?.indicatorKey || ''
+    },
     ariaOrientation() {
       return this.uiTabs?.orientation === 'vertical' ? 'vertical' : 'horizontal'
     },
@@ -87,6 +90,11 @@ export default {
       let delta = 0
       if (keysNext.includes(k)) delta = 1
       else if (keysPrev.includes(k)) delta = -1
+      else if (k === 'Home' || k === 'End') {
+        e.preventDefault()
+        triggers[k === 'Home' ? 0 : triggers.length - 1]?.focus?.()
+        return
+      }
       else return
 
       e.preventDefault()

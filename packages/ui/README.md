@@ -69,7 +69,7 @@ ActionCard, ActionCardList, ActionGroup, AiButton, Alert, Avatar, AvatarGroup, B
 | `ui-section` | Detay / form bölümü: etiketli ayırıcı, açıklama, alan yığını (`--ui-space-section` / `--ui-space-stack`) |
 | `ui-toolbar` | Araç / filtre çubuğu: `start` · varsayılan · `end`; `direction` `horizontal` (mobilde yığılır) · `vertical` |
 
-Ek API'ler: `ui-segment-group` ve `ui-tabs variant="segmented"` seçili zemini kayan göstergeyle taşır (`animated`, varsayılan açık; `--ui-indicator-*` değişkenleri), `ui-date-range-picker` `show-trigger=false` + `anchor` (tetikleyicisiz, başka öğeye bağlı açılır; `ui-popover` `anchor`), `ui-checkbox` `size` + `presentational` (yalnız durum kutusu), `ui-field` `icon-tone` `primary` / `secondary`.
+Ek API'ler: `ui-segment-group` `navigation` + `ui-segment` `to` (bağlantılı gezinme kapsülü; seçili sayfa `aria-current="page"`), `ui-segment-group` ve `ui-tabs variant="segmented"` seçili zemini kayan göstergeyle taşır (`animated`, varsayılan açık; `--ui-indicator-*` değişkenleri), `ui-date-range-picker` `show-trigger=false` + `anchor` (tetikleyicisiz, başka öğeye bağlı açılır; `ui-popover` `anchor`), `ui-checkbox` `size` + `presentational` (yalnız durum kutusu), `ui-field` `icon-tone` `primary` / `secondary`.
 
 ## i18n
 

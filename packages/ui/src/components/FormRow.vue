@@ -38,7 +38,8 @@
     <div class="ui-form-row-control">
       <slot
         :control-id="controlId"
-        :description-id="descriptionId"
+        :description-id="describedBy"
+        :invalid="invalid"
       />
       <p
         v-if="description && !descriptionWithLabel"
@@ -47,12 +48,27 @@
       >
         {{ description }}
       </p>
+      <p
+        v-if="invalid"
+        :id="errorId"
+        class="ui-form-row-error"
+      >
+        <ui-icon
+          name="circle-exclamation"
+          size="xs"
+          class="ui-form-row-error-icon"
+          aria-hidden="true"
+        />
+        <span>{{ error }}</span>
+      </p>
     </div>
   </div>
 </template>
 
 <script>
+import { reactive } from 'vue'
 import { createUiIdFactory } from '../utils/ui-id.js'
+import { UI_FORM_FIELD_KEY } from '../utils/form-field.js'
 
 const nextFormRowId = createUiIdFactory('ui-form-control')
 
@@ -102,6 +118,14 @@ export default {
       type: String,
       default: undefined,
     },
+    /**
+     * Alan hatası (WCAG 3.3.1). Verilince kontrolün altında gösterilir; kontrol `aria-invalid`
+     * ve `aria-describedby` ile otomatik bağlanır (FormRow içindeki ilk fewui kontrolü).
+     */
+    error: {
+      type: String,
+      default: '',
+    },
     /** Dialog oluşturma formlarında ana alan — açılışta odak hedefi (kontrol boyutunu değiştirmez) */
     primary: {
       type: Boolean,
@@ -114,7 +138,18 @@ export default {
     return {
       fallbackId,
       fallbackDescId: `ui-form-desc-${seq}`,
+      fallbackErrorId: `ui-form-error-${seq}`,
+      /** İçerideki kontrolün okuduğu bağlam — id, açıklama/hata bağlantısı, geçersizlik. */
+      fieldContext: reactive({ id: '', describedBy: undefined, invalid: false, ownerUid: null }),
     }
+  },
+  provide() {
+    return { [UI_FORM_FIELD_KEY]: this.fieldContext }
+  },
+  watch: {
+    controlId: { immediate: true, handler(v) { this.fieldContext.id = v } },
+    describedBy: { immediate: true, handler(v) { this.fieldContext.describedBy = v } },
+    invalid: { immediate: true, handler(v) { this.fieldContext.invalid = v } },
   },
   computed: {
     controlId() {
@@ -125,6 +160,16 @@ export default {
     },
     descriptionId() {
       return this.description ? this.fallbackDescId : undefined
+    },
+    invalid() {
+      return Boolean(this.error)
+    },
+    errorId() {
+      return this.invalid ? this.fallbackErrorId : undefined
+    },
+    /** Kontrolün `aria-describedby` değeri: açıklama + hata. */
+    describedBy() {
+      return [this.descriptionId, this.errorId].filter(Boolean).join(' ') || undefined
     },
     /** Yatay / Preferences: açıklama etiketle solda. */
     descriptionWithLabel() {

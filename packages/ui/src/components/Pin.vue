@@ -3,31 +3,36 @@
     role="group"
     :aria-label="resolvedAriaLabel"
     :data-mask="mask ? 'true' : undefined"
+    :style="{ '--ui-pin-cols': String(length) }"
     :class="[
       'ui-pin',
       isDisabled ? 'pointer-events-none opacity-50' : '',
       $attrs.class,
     ]"
   >
-    <input
+    <span
       v-for="(_, index) in length"
       :key="index"
-      ref="cells"
-      class="ui-pin-cell"
-      :value="cells[index] ?? ''"
-      :type="cellInputType"
-      :inputmode="type === 'numeric' ? 'numeric' : 'text'"
-      :pattern="type === 'numeric' ? '[0-9]*' : undefined"
-      :disabled="disabled"
-      :readonly="readonly"
-      :autocomplete="index === 0 ? resolvedAutocomplete : 'off'"
-      maxlength="1"
-      :aria-label="cellAriaLabel(index)"
-      @input="onCellInput(index, $event)"
-      @keydown="onCellKeydown(index, $event)"
-      @focus="onCellFocus(index)"
-      @paste="onPaste"
+      class="ui-pin-slot"
     >
+      <input
+        ref="cells"
+        class="ui-pin-cell"
+        :value="cells[index] ?? ''"
+        :type="cellInputType"
+        :inputmode="type === 'numeric' ? 'numeric' : 'text'"
+        :pattern="type === 'numeric' ? '[0-9]*' : undefined"
+        :disabled="disabled"
+        :readonly="readonly"
+        :autocomplete="index === 0 ? resolvedAutocomplete : 'off'"
+        maxlength="1"
+        :aria-label="cellAriaLabel(index)"
+        @input="onCellInput(index, $event)"
+        @keydown="onCellKeydown(index, $event)"
+        @focus="onCellFocus(index)"
+        @paste="onPaste"
+      >
+    </span>
   </div>
 </template>
 

@@ -15,6 +15,8 @@ export default {
     alert: {
       /** Alert / Toast kapat düğmesi */
       dismiss: 'Kapat',
+      /** Ekran okuyucu ton öneki — önem renge tek başına bırakılmaz (WCAG 1.4.1) */
+      tone: { info: 'Bilgi', success: 'Başarılı', warning: 'Uyarı', danger: 'Hata' },
     },
     toast: {
       /** Daraltılmış grup özeti */

@@ -254,11 +254,14 @@ const sizeClasses = {
   lg: 'ui-control-h-lg',
 }
 
-/** Pill (`rounded-full`) — yükseklik/padding; köşe yuvarlaklığı size sınıfından gelmez */
+/**
+ * Pill (`rounded-full`) — yükseklik/padding; köşe yuvarlaklığı size sınıfından gelmez.
+ * Yan boşluk yükseklik yarısına yakın (14 / 16 / 20px): kavis metnin yanını yer.
+ */
 const pillSizeClasses = {
-  sm: 'box-border h-[var(--ui-control-h-sm)] min-h-[var(--ui-control-h-sm)] px-2.5 py-0 text-xs leading-4',
-  md: 'box-border h-[var(--ui-control-h-md)] min-h-[var(--ui-control-h-md)] px-3 py-0 text-sm leading-5',
-  lg: 'box-border h-[var(--ui-control-h-lg)] min-h-[var(--ui-control-h-lg)] px-4 py-0 text-base leading-6',
+  sm: 'box-border h-[var(--ui-control-h-sm)] min-h-[var(--ui-control-h-sm)] px-[var(--ui-control-px-sm)] py-0 text-xs leading-4',
+  md: 'box-border h-[var(--ui-control-h-md)] min-h-[var(--ui-control-h-md)] px-[var(--ui-control-px-md)] py-0 text-sm leading-5',
+  lg: 'box-border h-[var(--ui-control-h-lg)] min-h-[var(--ui-control-h-lg)] px-[var(--ui-control-px-lg)] py-0 text-base leading-6',
 }
 
 /** Çok satırlı etiket / açıklama — sabit kontrol yüksekliği yok. */
@@ -277,9 +280,9 @@ const cubedSizeClasses = {
 
 /** İkon üstte, etiket altta — satır yüksekliğine (segment tab) uzanır, daire kalır */
 const stackSizeClasses = {
-  sm: 'aspect-square h-auto w-auto self-stretch shrink-0 !min-h-0 !min-w-0 px-1 py-0.5 text-[10px] leading-none',
-  md: 'aspect-square h-auto w-auto self-stretch shrink-0 !min-h-0 !min-w-0 px-1 py-0.5 text-[10px] leading-none',
-  lg: 'aspect-square h-auto w-auto self-stretch shrink-0 !min-h-0 !min-w-0 px-1 py-0.5 text-[10px] leading-none',
+  sm: 'aspect-square h-auto w-auto self-stretch shrink-0 !min-h-0 !min-w-0 px-1 py-0.5 text-[0.6875rem] leading-none',
+  md: 'aspect-square h-auto w-auto self-stretch shrink-0 !min-h-0 !min-w-0 px-1 py-0.5 text-[0.6875rem] leading-none',
+  lg: 'aspect-square h-auto w-auto self-stretch shrink-0 !min-h-0 !min-w-0 px-1 py-0.5 text-[0.6875rem] leading-none',
 }
 
 const linkSizeClasses = {
@@ -295,67 +298,67 @@ const linkSizeClasses = {
 const VARIANT_COLOR_CLASSES = {
   solid: {
     primary:
-      'border-0 bg-primary text-primary-foreground shadow-none hover:opacity-90',
+      'border border-transparent bg-primary text-primary-foreground shadow-none hover:opacity-90',
     secondary:
       'border border-transparent text-foreground shadow-none',
     input:
-      'border-0 shadow-none',
+      'border border-transparent shadow-none',
     warning:
-      'border-0 bg-warning text-warning-foreground shadow-none hover:opacity-90',
+      'border border-transparent bg-warning text-warning-foreground shadow-none hover:opacity-90',
     success:
-      'border-0 bg-success text-success-foreground shadow-none hover:opacity-90',
-    info: 'border-0 bg-info text-info-foreground shadow-none hover:opacity-90',
+      'border border-transparent bg-success text-success-foreground shadow-none hover:opacity-90',
+    info: 'border border-transparent bg-info text-info-foreground shadow-none hover:opacity-90',
     danger:
-      'border-0 bg-danger text-danger-foreground shadow-none hover:opacity-90',
+      'border border-transparent bg-danger text-danger-foreground shadow-none hover:opacity-90',
   },
   outline: {
     primary:
-      'border border-current bg-transparent text-primary shadow-none hover:bg-primary/10',
+      'border border-current bg-transparent text-[var(--primary-ink)] shadow-none hover:bg-primary/10',
     secondary:
       'border bg-transparent text-foreground shadow-none hover:bg-[var(--input-background)]',
     warning:
-      'shadow-none border border-current bg-transparent text-warning hover:bg-warning/10',
+      'shadow-none border border-current bg-transparent text-[var(--warning-ink)] hover:bg-warning/10',
     success:
-      'shadow-none border border-current bg-transparent text-success hover:bg-success/10',
-    info: 'shadow-none border border-current bg-transparent text-info hover:bg-info/10',
+      'shadow-none border border-current bg-transparent text-[var(--success-ink)] hover:bg-success/10',
+    info: 'shadow-none border border-current bg-transparent text-[var(--info-ink)] hover:bg-info/10',
     danger:
-      'shadow-none border border-current bg-transparent text-danger hover:bg-danger/10',
+      'shadow-none border border-current bg-transparent text-[var(--danger-ink)] hover:bg-danger/10',
   },
   ghost: {
     primary:
       'shadow-none border-0 bg-transparent text-foreground hover:bg-primary hover:text-primary-foreground',
     secondary:
-      'shadow-none border-0 bg-transparent text-secondary-foreground hover:bg-secondary hover:text-secondary-foreground',
+      'shadow-none border-0 bg-transparent text-secondary-foreground hover:bg-[var(--ui-hover)] hover:text-secondary-foreground',
     warning:
-      'shadow-none border-0 bg-transparent text-warning hover:bg-warning hover:text-warning-foreground',
+      'shadow-none border-0 bg-transparent text-[var(--warning-ink)] hover:bg-warning hover:text-warning-foreground',
     success:
-      'shadow-none border-0 bg-transparent text-success hover:bg-success hover:text-success-foreground',
+      'shadow-none border-0 bg-transparent text-[var(--success-ink)] hover:bg-success hover:text-success-foreground',
     info:
-      'shadow-none border-0 bg-transparent text-info hover:bg-info hover:text-info-foreground',
+      'shadow-none border-0 bg-transparent text-[var(--info-ink)] hover:bg-info hover:text-info-foreground',
     danger:
-      'shadow-none border-0 bg-transparent text-danger hover:bg-danger hover:text-danger-foreground',
+      'shadow-none border-0 bg-transparent text-[var(--danger-ink)] hover:bg-danger hover:text-danger-foreground',
   },
   /** Yumuşak dolgu — seçili filtre / ikincil vurgu; dolu primary'yi CTA'ya bırakır. */
   muted: {
-    primary: 'border-0 shadow-none bg-primary/12 text-primary hover:bg-primary/18',
-    secondary: 'border-0 shadow-none bg-muted text-foreground hover:bg-muted/80',
-    warning: 'border-0 shadow-none bg-warning/14 text-warning hover:bg-warning/20',
-    success: 'border-0 shadow-none bg-success/14 text-success hover:bg-success/20',
-    info: 'border-0 shadow-none bg-info/14 text-info hover:bg-info/20',
-    danger: 'border-0 shadow-none bg-danger/14 text-danger hover:bg-danger/20',
+    primary: 'border border-transparent shadow-none bg-primary/12 text-[var(--primary-ink)] hover:bg-primary/18',
+    secondary: 'border border-transparent shadow-none bg-muted text-foreground hover:bg-muted/80',
+    warning: 'border border-transparent shadow-none bg-warning/14 text-[var(--warning-ink)] hover:bg-warning/20',
+    success: 'border border-transparent shadow-none bg-success/14 text-[var(--success-ink)] hover:bg-success/20',
+    info: 'border border-transparent shadow-none bg-info/14 text-[var(--info-ink)] hover:bg-info/20',
+    danger: 'border border-transparent shadow-none bg-danger/14 text-[var(--danger-ink)] hover:bg-danger/20',
   },
   link: {
     primary:
-      'border-0 bg-transparent p-0 !h-auto !min-h-0 shadow-none font-medium text-primary underline-offset-4 hover:underline',
+      'border-0 bg-transparent p-0 !h-auto !min-h-0 shadow-none font-medium text-[var(--primary-ink)] underline-offset-4 hover:underline',
     secondary:
       'border-0 bg-transparent p-0 !h-auto !min-h-0 shadow-none text-secondary-foreground underline-offset-4 hover:underline',
     warning:
-      'border-0 bg-transparent p-0 !h-auto !min-h-0 shadow-none text-warning underline-offset-4 hover:underline',
+      'border-0 bg-transparent p-0 !h-auto !min-h-0 shadow-none text-[var(--warning-ink)] underline-offset-4 hover:underline',
     success:
-      'border-0 bg-transparent p-0 !h-auto !min-h-0 shadow-none text-success underline-offset-4 hover:underline',
-    info: 'border-0 bg-transparent p-0 !h-auto !min-h-0 shadow-none text-info underline-offset-4 hover:underline',
+      'border-0 bg-transparent p-0 !h-auto !min-h-0 shadow-none text-[var(--success-ink)] underline-offset-4 hover:underline',
+    info: 'border-0 bg-transparent p-0 !h-auto !min-h-0 shadow-none text-[var(--info-ink)] underline-offset-4 hover:underline',
     danger:
-      'border-0 bg-transparent p-0 !h-auto !min-h-0 shadow-none text-danger underline-offset-4 hover:underline',
+      'border-0 bg-transparent p-0 !h-auto !min-h-0 shadow-none text-[var(--danger-ink)] underline-offset-4 hover:underline',
   },
   nav: {
     primary:
@@ -365,13 +368,13 @@ const VARIANT_COLOR_CLASSES = {
     input:
       'shadow-none border-0 bg-transparent text-foreground hover:bg-transparent',
     warning:
-      'shadow-none border-0 bg-transparent text-warning hover:bg-transparent',
+      'shadow-none border-0 bg-transparent text-[var(--warning-ink)] hover:bg-transparent',
     success:
-      'shadow-none border-0 bg-transparent text-success hover:bg-transparent',
+      'shadow-none border-0 bg-transparent text-[var(--success-ink)] hover:bg-transparent',
     info:
-      'shadow-none border-0 bg-transparent text-info hover:bg-transparent',
+      'shadow-none border-0 bg-transparent text-[var(--info-ink)] hover:bg-transparent',
     danger:
-      'shadow-none border-0 bg-transparent text-danger hover:bg-transparent',
+      'shadow-none border-0 bg-transparent text-[var(--danger-ink)] hover:bg-transparent',
   },
 }
 

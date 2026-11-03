@@ -25,21 +25,17 @@
           :label="displayLabel"
           :has-value="!isPlaceholderDisplay"
         >
-          <button
-            type="button"
-            :id="resolvedId"
+          <component
+            :is="multiple ? 'div' : 'button'"
             class="ui-select-field"
             :class="{
               'ui-select-field--values': multiple,
               'ui-select-field--bare': variant === 'inline',
+              'ui-select-field--disabled': multiple && isDisabled,
             }"
-            :disabled="isDisabled"
-            :aria-expanded="open ? 'true' : 'false'"
-            :aria-haspopup="listboxRole"
-            :aria-controls="listboxId"
-            :aria-describedby="ariaDescribedby"
-            v-bind="triggerPassthrough"
+            v-bind="triggerAttrs(open)"
             @click="onTriggerClick(toggle)"
+            @keydown="onTriggerKeydown($event, toggle)"
           >
             <span
               v-if="prefixIcon"
@@ -77,7 +73,15 @@
                   'ui-select-values-input--open': menuOpen,
                 }"
                 :placeholder="multipleInputPlaceholder"
+                :id="resolvedId"
+                role="combobox"
                 :aria-label="resolvedFilterPlaceholder"
+                aria-haspopup="listbox"
+                :aria-expanded="menuOpen ? 'true' : 'false'"
+                :aria-controls="menuOpen ? listboxId : undefined"
+                :aria-activedescendant="menuOpen ? activeOptionId : undefined"
+                :aria-describedby="formFieldDescribedBy(ariaDescribedby)"
+                :aria-invalid="formFieldInvalid"
                 autocomplete="off"
                 :disabled="isDisabled"
                 @click.stop="onSearchInputActivate"
@@ -120,7 +124,7 @@
                 />
               </span>
             </span>
-          </button>
+          </component>
         </slot>
       </template>
       <template
@@ -136,10 +140,11 @@
           :data-size="resolvedSize"
           :placeholder="resolvedFilterPlaceholder"
           :aria-label="resolvedFilterPlaceholder"
+          :aria-activedescendant="activeOptionId"
+          :aria-controls="listboxId"
           autocomplete="off"
           @mousedown.prevent
-          @keydown.enter.prevent="pickFirstFiltered(close)"
-          @keydown.esc.prevent="close()"
+          @keydown="onFilterKeydown($event, close)"
         >
       </template>
       <template #content="{ close }">
@@ -166,19 +171,25 @@
           </div>
           <template v-else-if="filteredOptions.length">
             <ui-button
-              v-for="opt in filteredOptions"
+              v-for="(opt, i) in filteredOptions"
+              :id="optionId(i)"
               :key="String(opt.value)"
-              :variant="isSelected(opt) ? 'solid' : 'ghost'"
-              :color="isSelected(opt) ? 'primary' : 'secondary'"
+              variant="ghost"
+              color="secondary"
               :size="optionButtonSize"
               block
               text-align="left"
               role="option"
               class="ui-select-option"
-              :class="{ 'ui-select-option--selected': isSelected(opt) }"
+              :class="{
+                'ui-select-option--selected': isSelected(opt),
+                'ui-select-option--active': i === activeIndex,
+              }"
               :suffix-icon="isSelected(opt) ? 'check' : undefined"
               :aria-selected="isSelected(opt) ? 'true' : 'false'"
+              tabindex="-1"
               @click="pick(opt, close)"
+              @mousemove="activeIndex = i"
             >
               <slot
                 name="option"
@@ -241,6 +252,7 @@ import { createUiIdFactory } from '../utils/ui-id.js'
 import Tag from './Tag.vue'
 import { uiDefaultsMixin } from '../theme/ui-defaults.js'
 import { CONTROL_SIZES } from '../utils/sizes.js'
+import { formFieldMixin } from '../utils/form-field.js'
 
 /** Reset via `resetUiIds()` — module counters drift on Cloudflare Worker isolates. */
 const nextSelectId = createUiIdFactory('ui-select')
@@ -250,7 +262,7 @@ const SIZES = CONTROL_SIZES
 
 export default {
   name: 'Select',
-  mixins: [uiDefaultsMixin],
+  mixins: [uiDefaultsMixin, formFieldMixin],
   components: { Tag },
   inheritAttrs: false,
   props: {
@@ -359,6 +371,8 @@ export default {
       menuOpen: this.open ?? false,
       filterQuery: '',
       filterDebounceTimer: null,
+      /** Klavye / fare vurgusu — `aria-activedescendant`; odak tetikleyicide veya aramada kalır. */
+      activeIndex: -1,
     }
   },
   computed: {
@@ -416,12 +430,16 @@ export default {
       if (this.id != null && this.id !== '') {
         return this.id
       }
-      return this.fallbackId
+      return this.formFieldId || this.fallbackId
+    },
+    activeOptionId() {
+      return this.activeIndex >= 0 && this.activeIndex < this.filteredOptions.length
+        ? this.optionId(this.activeIndex)
+        : undefined
     },
     listboxId() {
-      if (this.id != null && this.id !== '') {
-        return `${this.id}-listbox`
-      }
+      const id = this.id || this.formFieldId
+      if (id) return `${id}-listbox`
       return this.fallbackListboxId
     },
     resolvedPlaceholder() {
@@ -566,6 +584,7 @@ export default {
   },
   watch: {
     filterQuery(q) {
+      this.activeIndex = this.filteredOptions.length ? 0 : -1
       if (
         this.multiple
         && !this.menuOpen
@@ -593,8 +612,10 @@ export default {
           this.filterDebounceTimer = null
         }
         this.filterQuery = ''
+        this.activeIndex = -1
         return
       }
+      this.activeIndex = this.initialActiveIndex()
       this.$nextTick(() => {
         if (this.isFilterable) {
           this.focusSearch()
@@ -606,6 +627,36 @@ export default {
     },
   },
   methods: {
+    /**
+     * Tetikleyici öznitelikleri. Tek seçim: `button` combobox tetikleyicisi. Çoklu seçim: kapsayıcı
+     * `div` — içinde etiket silme düğmeleri ve arama input'u olduğundan `button` içinde iç içe
+     * etkileşim oluşuyordu (axe nested-interactive). Aramalı çoklu seçimde combobox rolü input'tadır;
+     * aramasızda kapsayıcı odaklanabilir combobox olur.
+     */
+    triggerAttrs(open) {
+      const aria = {
+        'aria-expanded': open ? 'true' : 'false',
+        'aria-haspopup': this.listboxRole,
+        'aria-controls': open ? this.listboxId : undefined,
+        'aria-activedescendant': open ? this.activeOptionId : undefined,
+        'aria-describedby': this.formFieldDescribedBy(this.ariaDescribedby),
+        'aria-invalid': this.formFieldInvalid,
+      }
+      if (!this.multiple) {
+        return { type: 'button', id: this.resolvedId, disabled: this.isDisabled, ...aria, ...this.triggerPassthrough }
+      }
+      if (this.isFilterable) {
+        return { 'aria-disabled': this.isDisabled ? 'true' : undefined }
+      }
+      return {
+        id: this.resolvedId,
+        role: 'combobox',
+        tabindex: this.isDisabled ? -1 : 0,
+        'aria-disabled': this.isDisabled ? 'true' : undefined,
+        ...aria,
+        ...this.triggerPassthrough,
+      }
+    },
     normalizeFilter(value) {
       return String(value ?? '')
         .trim()
@@ -625,6 +676,7 @@ export default {
       }
     },
     onTriggerClick(toggle) {
+      if (this.isDisabled) return
       toggle()
       if (this.multiple && this.menuOpen) {
         this.$nextTick(() => this.focusSearch())
@@ -701,6 +753,89 @@ export default {
       }
       this.menuOpen = false
     },
+    optionId(i) {
+      return `${this.listboxId}-option-${i}`
+    },
+    /** Açılışta seçili seçenek (yoksa ilki) vurgulanır. */
+    initialActiveIndex() {
+      if (!this.filteredOptions.length) return -1
+      const i = this.filteredOptions.findIndex((o) => this.isSelected(o))
+      return i >= 0 ? i : 0
+    },
+    moveActive(next) {
+      const n = this.filteredOptions.length
+      if (!n) return
+      this.activeIndex = Math.max(0, Math.min(n - 1, next))
+      this.$nextTick(() => {
+        const el = this.activeOptionId && document.getElementById(this.activeOptionId)
+        el?.scrollIntoView?.({ block: 'nearest', inline: 'nearest' })
+      })
+    },
+    /**
+     * Liste gezinmesi — ↑ ↓ Home End; tetikleyici, panel araması ve çoklu arama aynı yolu kullanır.
+     * @returns {boolean} tuş işlendi mi
+     */
+    handleListKey(e) {
+      const page = 8
+      const keys = {
+        ArrowDown: () => this.activeIndex + 1,
+        ArrowUp: () => this.activeIndex - 1,
+        Home: () => 0,
+        End: () => this.filteredOptions.length - 1,
+        PageDown: () => this.activeIndex + page,
+        PageUp: () => this.activeIndex - page,
+      }
+      if (!keys[e.key]) return false
+      e.preventDefault()
+      if (!this.menuOpen) {
+        if (e.key === 'ArrowDown' || e.key === 'ArrowUp') this.menuOpen = true
+        return true
+      }
+      this.moveActive(keys[e.key]())
+      return true
+    },
+    /** Vurgulanan seçeneği seçer; tek seçimde odak tetikleyiciye döner (panel araması kapanır). */
+    pickActive(close) {
+      const opt = this.filteredOptions[this.activeIndex]
+      if (!opt) return false
+      this.pick(opt, close)
+      if (!this.multiple) {
+        this.$nextTick(() => this.$el?.querySelector?.('.ui-select-field')?.focus?.())
+      }
+      return true
+    },
+    onTriggerKeydown(e, toggle) {
+      if (this.isDisabled) return
+      if (this.multiple) {
+        // Aramalı çoklu seçimde tuşlar input'ta işlenir; aramasızda kapsayıcı combobox'tır.
+        if (this.isFilterable || e.target !== e.currentTarget) return
+        if (this.handleListKey(e)) return
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault()
+          if (!this.menuOpen) toggle()
+          else this.pickActive(() => {})
+        }
+        return
+      }
+      if (this.handleListKey(e)) return
+      if (this.menuOpen && (e.key === 'Enter' || e.key === ' ')) {
+        e.preventDefault()
+        this.pickActive(() => {})
+      }
+    },
+    onFilterKeydown(e, close) {
+      if (this.handleListKey(e)) return
+      if (e.key === 'Enter') {
+        e.preventDefault()
+        if (!this.pickActive(close)) this.pickFirstFiltered(close)
+        return
+      }
+      if (e.key === 'Escape') {
+        e.preventDefault()
+        close()
+        this.$nextTick(() => this.$el?.querySelector?.('.ui-select-field')?.focus?.())
+      }
+    },
     pickFirstFiltered(close) {
       if (this.filteredOptions.length === 0) return
       const first = this.filteredOptions[0]
@@ -713,9 +848,14 @@ export default {
       this.pick(first, close)
     },
     onSearchKeydown(e) {
+      if (this.handleListKey(e)) return
       if (e.key === 'Enter') {
         e.preventDefault()
-        this.pickFirstFiltered(() => {})
+        if (!this.menuOpen) {
+          this.menuOpen = true
+          return
+        }
+        if (!this.pickActive(() => {})) this.pickFirstFiltered(() => {})
         return
       }
       if (e.key === 'Escape') {

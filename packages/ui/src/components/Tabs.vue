@@ -98,6 +98,14 @@ export default {
       type: Boolean,
       default: true,
     },
+    /**
+     * Kayan göstergenin son konumunu aynı anahtarlı şeritler arasında taşır. Her rotada yeniden kurulan
+     * sekme şeridi (sayfa başına `ui-tabs`) önceki sekmeden kayarak gelir; anahtarsız şerit anlık yerleşir.
+     */
+    indicatorKey: {
+      type: String,
+      default: '',
+    },
   },
   emits: ['update:modelValue'],
   setup() {

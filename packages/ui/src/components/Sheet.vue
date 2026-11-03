@@ -137,6 +137,7 @@ import { createUiIdFactory } from '../utils/ui-id.js'
 import { resolveUiText } from '../utils/resolve-ui-text.js'
 import { pickPassthroughAttrs } from '../utils/pick-passthrough-attrs.js'
 import { focusFirstField } from '../utils/focus-first-field.js'
+import { trapTabKey, captureReturnFocus, restoreFocus } from '../utils/focus-trap.js'
 import { resolveThemeIconType } from '../theme/resolve-theme-default.js'
 import { uiDefaultsMixin } from '../theme/ui-defaults.js'
 import { uiPortalMixin } from '../theme/ui-portal.js'
@@ -270,6 +271,7 @@ export default {
     open: {
       handler(isOpen) {
         if (isOpen) {
+          this.returnFocusEl = captureReturnFocus()
           this.acquireLayer()
           this.scheduleInitialFocus()
         } else {
@@ -379,13 +381,17 @@ export default {
       if (e.key === 'Escape' && this.closeOnEscape) {
         e.stopPropagation()
         this.close()
+        return
       }
+      if (this.overlay) trapTabKey(e, this.$refs.panelRef)
     },
     onOverlayAfterEnter() {
       this.scheduleInitialFocus()
     },
     onOverlayAfterLeave() {
       this.$emit('after-leave')
+      restoreFocus(this.returnFocusEl)
+      this.returnFocusEl = null
     },
     clearFocusFallback() {
       if (this.focusFallbackTimer != null) {

@@ -32,11 +32,12 @@ export const MIX_FROM_MAP = {
 }
 
 /** @type {Record<string, string>} */
+/** Kart iç boşluğu — Tailwind boşluk birimiyle, artan sırada: 16 · 20 · 24 · 32 (`p-4` / `p-5` / `p-6` / `p-8`). */
 export const CARD_PADDING_SCALE = {
-  compact: '1rem',
-  default: '1.5rem',
-  comfortable: '1.25rem',
-  spacious: '2rem',
+  compact: 'calc(var(--spacing, 0.25rem) * 4)',
+  default: 'calc(var(--spacing, 0.25rem) * 5)',
+  comfortable: 'calc(var(--spacing, 0.25rem) * 6)',
+  spacious: 'calc(var(--spacing, 0.25rem) * 8)',
 }
 
 /** Durum tonları — bileşen `color` prop sözlüğüyle aynı. */
@@ -71,7 +72,7 @@ export const TOKEN_GROUPS = {
   ],
   status: STATUS_TONES.flatMap((tone) => [tone, `${tone}Foreground`]),
   chart: [...CHART_SCALE_STEPS.map((step) => `chart${step}`), 'chart', 'chartForeground'],
-  surfaces: ['surfaceStyle', 'controlStyle', 'inputStyle'],
+  surfaces: ['surfaceStyle', 'controlStyle', 'inputStyle', 'popoverStyle'],
   shape: ['radius', 'radius4xl', 'cardPadding'],
   effects: [
     'uiShadowSm',
@@ -101,8 +102,44 @@ export const DERIVED_VARS = {
   '--radius-sm': 'calc(var(--radius) - 4px)',
   '--radius-md': 'calc(var(--radius) - 2px)',
   '--radius-3xl': 'var(--radius)',
+  /**
+   * Kontrol köşesi — yükseklik yarısını geçmez (`--radius` büyükse kontrol hap olur,
+   * değer gerçek görünen köşeyi taşır). Kontroller `rounded-lg` yerine bunları kullanır;
+   * uygulamanın Tailwind `--radius-*` eşlemesine bağlı kalmaz.
+   */
+  '--ui-radius-control-sm': 'min(var(--radius-md), calc(var(--ui-control-h-sm) / 2))',
+  '--ui-radius-control-md': 'min(var(--radius), calc(var(--ui-control-h-md) / 2))',
+  '--ui-radius-control-lg': 'min(var(--radius), calc(var(--ui-control-h-lg) / 2))',
+  /**
+   * Yüzey içi öğe köşesi — panel (`--radius`) içinde `--ui-surface-inset` boşlukla duran
+   * satır / arama kutusu. İç köşe = dış köşe − boşluk (eş merkezli).
+   */
+  '--ui-surface-inset': '0.5rem',
+  /**
+   * Liste / menü / popover satırı hover zemini — seçili zeminden (`--primary-soft`) her zaman daha
+   * hafif: hover ara durumdur. Eskiden `bg-muted` (light L 0.92) seçili tondan (L 0.95) koyu kalıyordu.
+   */
+  '--ui-hover': 'color-mix(in oklab, var(--foreground) 4%, var(--surface))',
+  /** Alert kenarlığı — tek görünüm; kenarlık temanın tercihidir (preset `uiAlertBorderWidth: '1px'`). */
+  '--ui-alert-border-width': '0px',
+  /**
+   * Checkbox köşesi — tema yarıçapından bağımsız küçük kare (4–6px). `rounded-sm` (`--radius − 4px`)
+   * 18px kutuda 22px olup checkbox'ı daireye, yani radio'ya çeviriyordu.
+   */
+  '--ui-radius-checkbox': 'clamp(0.25rem, calc(var(--radius) / 4), 0.375rem)',
+  '--ui-radius-inner': 'max(0.375rem, calc(var(--radius) - var(--ui-surface-inset)))',
   '--surface-bg':
     'color-mix(in oklab, var(--ui-surface-mix-from) var(--ui-surface-opacity), transparent)',
+  /**
+   * Yüzen katman malzemesi (popover, menü, Select listesi, takvim) — kart malzemesinden ayrı
+   * (`popoverStyle`). Kart camı (%4–8) menüde okunmaz; popover yüksek opaklıkta yarı saydam +
+   * bulanık: arkadaki içerik sezilir, metin okunur. Tema `popoverStyle` ile değiştirir.
+   */
+  '--ui-popover-opacity': '85%',
+  '--ui-popover-backdrop-blur': '20px',
+  '--ui-popover-mix-from': 'var(--surface)',
+  '--popover-bg':
+    'color-mix(in oklab, var(--ui-popover-mix-from) var(--ui-popover-opacity), transparent)',
   '--control-bg':
     'color-mix(in oklab, var(--ui-control-mix-from) var(--ui-control-opacity), transparent)',
   '--input-background':
@@ -114,12 +151,67 @@ export const DERIVED_VARS = {
   '--surface-sunken': 'color-mix(in oklab, var(--muted) 60%, transparent)',
   /** Satır ayırıcı ve ikincil çerçeve. */
   '--border-subtle': 'color-mix(in oklab, var(--border) 60%, transparent)',
-  '--ui-focus-ring': 'color-mix(in oklab, var(--ring) 45%, transparent)',
+  /**
+   * Klavye odak halkası — WCAG 1.4.11 / 2.4.13: komşu renge ≥3:1. Eskiden `--ring` %45 saydam
+   * (light 1.45:1). Primary %20 foreground ile: light'ta koyulaşır, dark'ta açılır.
+   */
+  '--ui-focus-ring': 'color-mix(in oklab, var(--primary) 80%, var(--foreground))',
+  /**
+   * Tonlu metin ("ink") — ton rengi metin olarak (muted / ghost / outline / link düğme, rozet,
+   * etiket, istatistik değişimi). Ton foreground'a karıştırılır: light'ta koyulaşır, dark'ta açılır.
+   * Ham ton rengi kendi %18–24 tint zemininde 1.7–3.8:1 kalıyordu (AA 4.5:1). Oranlar web
+   * temasında yüzey ve tint üzerinde ≥4.5:1 ölçülerek seçildi. İkon / dolgu ham tonu kullanır.
+   */
+  /**
+   * Seçim zemini — seçili / aktif öğe (sidebar, menü, segment, sekme, çip, takvim, Select): soluk
+   * primary zemin + primary metin (`--primary-ink`). Opak: gri iz üstünde de aynı ton.
+   */
+  '--primary-soft': 'color-mix(in oklab, var(--primary) 10%, var(--surface))',
+  '--primary-soft-hover': 'color-mix(in oklab, var(--primary) 15%, var(--surface))',
+  /** Seçili / aktif metin ve ikon rengi — saf primary (tasarım kararı). */
+  '--ui-selected-fg': 'var(--primary)',
+  '--primary-ink': 'color-mix(in oklab, var(--primary) 65%, var(--foreground))',
+  '--warning-ink': 'color-mix(in oklab, var(--warning) 55%, var(--foreground))',
+  '--success-ink': 'color-mix(in oklab, var(--success) 70%, var(--foreground))',
+  '--info-ink': 'color-mix(in oklab, var(--info) 75%, var(--foreground))',
+  '--danger-ink': 'color-mix(in oklab, var(--danger) 75%, var(--foreground))',
   '--ui-button-grad-top': 'var(--ui-fill-grad-top-primary)',
   '--ui-button-grad-bottom': 'var(--ui-fill-grad-bottom-primary)',
   '--ui-button-grad-light': 'var(--ui-fill-grad-light)',
   '--ui-button-grad-dark': 'var(--ui-fill-grad-dark)',
 }
+
+/**
+ * Dark modda türetilmiş değerler (preset `dark` içinde açıkça verilmemişse `.dark` bloğuna yazılır).
+ * Göreli renk sözdizimi desteklenmeyen tarayıcılar (Safari < 16.4) için `color-mix` yedekleri.
+ */
+export const DERIVED_DARK_VARS = {
+  '--ui-hover': 'color-mix(in oklab, var(--foreground) 7%, var(--surface))',
+  '--primary-soft': 'color-mix(in oklab, var(--primary) 26%, var(--surface))',
+  '--primary-soft-hover': 'color-mix(in oklab, var(--primary) 34%, var(--surface))',
+  '--ui-selected-fg': 'color-mix(in oklab, var(--primary) 55%, var(--foreground))',
+  '--ui-focus-ring': 'color-mix(in oklab, var(--primary) 70%, var(--foreground))',
+}
+
+/**
+ * Primary'den moda göre ideal ton — ton ve doygunluk korunur, yalnız açıklık ayarlanır; böylece hangi
+ * primary seçilirse seçilsin (few, turuncu, lime, slate …) seçili metin soluk zeminde ≥4.5:1, odak
+ * halkası ≥3:1 kalır. Light: seçili metin en fazla L 0.5, halka en fazla 0.55. Dark: seçili metin en
+ * az L 0.8, halka en az 0.72. Soluk zemin açılmış tondan değil ham primary'den türer (`DERIVED_DARK_VARS`):
+ * L 0.8'e çekilen doygun ton sRGB dışına taşıp kırpılıyor, zemin primary'den farklı bir renk gibi okunuyordu.
+ * `@supports (color: oklch(from red l c h))` bloğunda üretilir.
+ */
+export const RELATIVE_VARS = {
+  '--ui-selected-fg': 'oklch(from var(--primary) min(l, 0.5) c h)',
+  '--ui-focus-ring': 'oklch(from var(--primary) min(l, 0.55) c h)',
+}
+
+export const RELATIVE_DARK_VARS = {
+  '--ui-selected-fg': 'oklch(from var(--primary) max(l, 0.8) c h)',
+  '--ui-focus-ring': 'oklch(from var(--primary) max(l, 0.72) c h)',
+}
+
+export const RELATIVE_COLOR_SUPPORTS = '(color: oklch(from red l c h))'
 
 /**
  * @param {string} key
@@ -221,6 +313,7 @@ export function resolveCardPadding(value) {
  *   surfaceStyle?: UiThemeBgStyle,
  *   controlStyle?: UiThemeBgStyle,
  *   inputStyle?: UiThemeBgStyle,
+ *   popoverStyle?: UiThemeBgStyle,
  *   radius?: string,
  *   cardPadding?: 'compact'|'default'|'comfortable'|'spacious'|string,
  * }} UiThemeTokens
@@ -228,7 +321,7 @@ export function resolveCardPadding(value) {
 
 /**
  * @param {Record<string, string>} vars
- * @param {'surface'|'control'|'input'} prefix
+ * @param {'surface'|'control'|'input'|'popover'} prefix
  * @param {UiThemeBgStyle|undefined} style
  */
 function expandBgStyle(vars, prefix, style) {
@@ -261,7 +354,7 @@ export function expandTokens(tokens) {
       }
       continue
     }
-    if (key === 'surfaceStyle' || key === 'controlStyle' || key === 'inputStyle') {
+    if (key === 'surfaceStyle' || key === 'controlStyle' || key === 'inputStyle' || key === 'popoverStyle') {
       expandBgStyle(vars, key.replace('Style', ''), value)
       continue
     }

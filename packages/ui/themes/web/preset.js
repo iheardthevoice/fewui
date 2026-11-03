@@ -44,7 +44,7 @@ export const webPreset = {
       secondaryForeground: 'var(--base-950)',
       warning: 'oklch(0.78 0.15 72)',
       warningForeground: 'oklch(0.26 0.055 72)',
-      success: 'oklch(0.58 0.155 152)',
+      success: 'oklch(0.53 0.15 152)',
       successForeground: 'oklch(0.99 0.01 152)',
       info: 'oklch(0.54 0.125 252)',
       infoForeground: 'oklch(0.99 0.01 252)',
@@ -63,7 +63,8 @@ export const webPreset = {
       chart: 'var(--chart-500)',
       chartForeground: '#ffffff',
       muted: 'var(--base-200)',
-      mutedForeground: 'var(--base-500)',
+      /** base-500 tonlu yüzeyde (surface-subtle, field kartı) 4.27:1 kalıyordu; %30 base-600 → ≥4.5. */
+      mutedForeground: 'color-mix(in oklab, var(--base-500) 70%, var(--base-600))',
       accent: 'var(--base-100)',
       accentForeground: 'var(--base-900)',
       inputStyle: {
@@ -85,6 +86,8 @@ export const webPreset = {
       uiScrollbarThumbHover: 'color-mix(in oklab, var(--foreground) 36%, transparent)',
     },
     dark: {
+      /** Primary metin dark'ta soluk zeminde ≥4.5:1 (65% karışım 4.15:1 kalıyordu). */
+      primaryInk: 'color-mix(in oklab, var(--primary) 50%, var(--foreground))',
       background: '#000000',
       foreground: 'var(--base-50)',
       surface: 'var(--base-900)',
@@ -95,9 +98,10 @@ export const webPreset = {
       secondaryForeground: 'var(--base-50)',
       warning: 'oklch(0.82 0.13 75)',
       warningForeground: 'oklch(0.22 0.05 75)',
-      success: 'oklch(0.62 0.14 152)',
-      info: 'oklch(0.72 0.11 252)',
-      danger: 'oklch(0.62 0.19 27)',
+      /** Dolu tonlar beyaz metinle ≥4.5:1 (eskisi: success 3.4, info 2.4, danger 3.8). Tonlu metin `--*-ink`. */
+      success: 'oklch(0.54 0.14 152)',
+      info: 'oklch(0.55 0.11 252)',
+      danger: 'oklch(0.57 0.19 27)',
       chart50: '#1e1b4b',
       chart100: '#312e81',
       chart200: '#3730a3',

@@ -110,7 +110,7 @@ export default {
     },
     tabIconSize() {
       if (this.triggerKind === 'segmented') {
-        // Segmented kartları (yatay / dikey): varsayılan `lg`; `sm` boyutta bir kademe küçük.
+        // İkon üstte, etiket altta (segment'ten ayrılan yan): varsayılan `lg`; `sm` boyutta bir kademe küçük.
         return this.uiTabs?.resolvedSize === 'sm' ? 'md' : 'lg'
       }
       return 'xs'

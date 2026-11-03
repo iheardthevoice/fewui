@@ -54,7 +54,7 @@ import { CONTROL_SIZES } from '../utils/sizes.js'
 
 const VARIANTS = ['line', 'circle', 'block', 'pill']
 const SIZES = CONTROL_SIZES
-const REVEAL_MS = 480
+const REVEAL_MS = 320
 
 const VARIANT_CLASS = {
   line: 'ui-skeleton--line',

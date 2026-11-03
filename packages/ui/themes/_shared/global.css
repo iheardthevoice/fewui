@@ -8,36 +8,58 @@
  * Bileşenler `ui-control-h-*` veya doğrudan bu değişkenleri kullanır.
  */
 :root {
-  --ui-control-h-sm: 2rem;
-  --ui-control-h-md: 2.25rem;
-  --ui-control-h-lg: 2.75rem;
-  /** Segmented tab — varsayılan button ölçeğinden bir kademe büyük. */
-  --ui-tab-h-sm: var(--ui-control-h-md);
-  --ui-tab-h-md: var(--ui-control-h-lg);
-  --ui-tab-h-lg: 3.125rem;
+  /**
+   * Ölçek Tailwind boşluk birimiyle (`--spacing` = 0.25rem → `h-7` / `h-8` / `h-9`): tek tip 4px adım.
+   * Kontrol yüksekliği — button, input, select, segment (aynı `size` = aynı yükseklik): sm 28 · md 32 · lg 36.
+   */
+  --ui-unit: var(--spacing, 0.25rem);
+  --ui-control-h-sm: calc(var(--ui-unit) * 7);
+  --ui-control-h-md: calc(var(--ui-unit) * 8);
+  --ui-control-h-lg: calc(var(--ui-unit) * 9);
+  /**
+   * Kontrol yatay iç boşluğu — dikey boşluğun (ikon üstü: (yükseklik − ikon) / 2 = 7 · 8 · 9) ~1.33 katı:
+   * sm 9 · md 11 · lg 12. Button, Input, Select, Segment, SidebarItem aynı token'ı kullanır.
+   */
+  --ui-control-px-sm: calc(var(--ui-unit) * 2.25);
+  --ui-control-px-md: calc(var(--ui-unit) * 2.75);
+  --ui-control-px-lg: calc(var(--ui-unit) * 3);
+  /**
+   * Segmented tab — ikon üstte, etiket altta (segment'ten ayrılan yan); izde `p-1` var.
+   * Kontrollerden her zaman büyük: 40 · 44 · 48 (iç yükseklik 32 · 36 · 40 — ikon + etiket sığar).
+   */
+  --ui-tab-h-sm: calc(var(--ui-unit) * 10);
+  --ui-tab-h-md: calc(var(--ui-unit) * 11);
+  --ui-tab-h-lg: calc(var(--ui-unit) * 12);
+  /**
+   * Panel içi liste satırı (select seçeneği, menü, panel araması) — kontrolle aynı ölçek (shadcn: menü /
+   * select / sidebar satırı = 32): 28 · 32 · 36.
+   */
+  --ui-option-h-sm: var(--ui-control-h-sm);
+  --ui-option-h-md: var(--ui-control-h-md);
+  --ui-option-h-lg: var(--ui-control-h-lg);
 
   /**
    * Boşluk ölçeği — bileşenler ve uygulama yerleşimi aynı adımları kullanır.
    * `section`: bölümler arası · `stack`: alan yığını · `inline`: satır içi öğeler ·
    * `list-row-py`: liste satırı dikey dolgu · `toolbar-gap`: filtre / araç çubuğu ·
-   * `card`: kart iç boşluğu (tema `cardPadding` → `--ui-card-space` önceliklidir).
+   * `card`: kart iç boşluğu ve bölüm arası (tema `cardPadding` → `--ui-card-space` önceliklidir).
    */
-  --ui-space-section: 1.5rem;
-  --ui-space-stack: 1rem;
-  --ui-space-inline: 0.5rem;
-  --ui-list-row-py: 0.75rem;
-  --ui-toolbar-gap: 0.75rem;
-  --ui-space-card: 1.5rem;
+  --ui-space-section: calc(var(--ui-unit) * 6);
+  --ui-space-stack: calc(var(--ui-unit) * 4);
+  --ui-space-inline: calc(var(--ui-unit) * 2);
+  --ui-list-row-py: calc(var(--ui-unit) * 3);
+  --ui-toolbar-gap: calc(var(--ui-unit) * 3);
+  --ui-space-card: calc(var(--ui-unit) * 5);
 }
 
 /** Yoğun ölçek — `defaults.density = 'compact'` (`data-ui-density`). */
 [data-ui-density='compact'] {
-  --ui-space-section: 1rem;
-  --ui-space-stack: 0.75rem;
-  --ui-space-inline: 0.375rem;
-  --ui-list-row-py: 0.5rem;
-  --ui-toolbar-gap: 0.5rem;
-  --ui-space-card: 1rem;
+  --ui-space-section: calc(var(--ui-unit) * 4);
+  --ui-space-stack: calc(var(--ui-unit) * 3);
+  --ui-space-inline: calc(var(--ui-unit) * 1.5);
+  --ui-list-row-py: calc(var(--ui-unit) * 2);
+  --ui-toolbar-gap: calc(var(--ui-unit) * 2);
+  --ui-space-card: calc(var(--ui-unit) * 4);
 }
 
 /**

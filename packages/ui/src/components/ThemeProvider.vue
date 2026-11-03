@@ -2,11 +2,15 @@
   <component
     :is="tag"
     class="ui-theme-provider"
-    :class="{ dark: resolvedMode === 'dark', 'ui-theme-provider--background': background }"
+    :class="[
+      { dark: resolvedMode === 'dark', 'ui-theme-provider--background': background },
+      $attrs.class,
+    ]"
     :data-ui-theme="themeId"
     :data-ui-mode="resolvedMode"
     :data-ui-density="mergedDefaults.density === 'compact' ? 'compact' : undefined"
     :style="cssVars"
+    v-bind="passthroughAttrs"
   >
     <div
       ref="portal"
@@ -20,7 +24,7 @@
 </template>
 
 <script>
-import { computed, reactive } from 'vue'
+import { computed, reactive, unref } from 'vue'
 import { resolveOverrideVars } from '../theme/apply-theme.js'
 import { resolveThemeVars } from '../theme/build-theme-css.js'
 import { BASE_UI_DEFAULTS, UI_DEFAULTS_KEY, mergeUiDefaults } from '../theme/defaults-base.js'
@@ -36,6 +40,7 @@ const UI_THEME_MODE_KEY = Symbol('uiThemeMode')
  */
 export default {
   name: 'ThemeProvider',
+  inheritAttrs: false,
   inject: {
     parentDefaults: { from: UI_DEFAULTS_KEY, default: () => BASE_UI_DEFAULTS },
     parentMode: { from: UI_THEME_MODE_KEY, default: null },
@@ -79,7 +84,10 @@ export default {
     },
     resolvedMode() {
       if (this.mode) return this.mode
-      if (this.parentMode?.value) return this.parentMode.value
+      // Options API inject ref'i açar (Vue 3.3+): `this.parentMode` doğrudan 'light' | 'dark'.
+      // `.value` okumak her zaman undefined veriyordu; iç provider üstün dark modunu yok sayıp light'a düşüyordu.
+      const parent = unref(this.parentMode)
+      if (parent) return parent
       return this.documentDark ? 'dark' : 'light'
     },
     cssVars() {
@@ -92,6 +100,10 @@ export default {
         ...this.pkg?.defaults,
         ...this.defaults,
       })
+    },
+    passthroughAttrs() {
+      const { class: _class, style: _style, ...rest } = this.$attrs
+      return rest
     },
   },
   watch: {

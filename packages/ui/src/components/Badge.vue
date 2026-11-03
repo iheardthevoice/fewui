@@ -75,22 +75,22 @@ const SOLID_CLASSES = {
 
 /** @type {Record<string, string>} */
 const OUTLINE_CLASSES = {
-  primary: 'border border-current bg-transparent text-primary',
+  primary: 'border border-current bg-transparent text-[var(--primary-ink)]',
   secondary: 'border border-border bg-transparent text-foreground',
-  success: 'border border-current bg-transparent text-success',
-  warning: 'border border-current bg-transparent text-warning',
-  info: 'border border-current bg-transparent text-info',
-  danger: 'border border-current bg-transparent text-danger',
+  success: 'border border-current bg-transparent text-[var(--success-ink)]',
+  warning: 'border border-current bg-transparent text-[var(--warning-ink)]',
+  info: 'border border-current bg-transparent text-[var(--info-ink)]',
+  danger: 'border border-current bg-transparent text-[var(--danger-ink)]',
 }
 
 /** @type {Record<string, string>} */
 const MUTED_CLASSES = {
-  primary: 'border border-transparent bg-primary/12 text-primary',
+  primary: 'border border-transparent bg-primary/12 text-[var(--primary-ink)]',
   secondary: 'border border-transparent bg-muted text-muted-foreground',
-  success: 'border border-transparent bg-success/12 text-success',
-  warning: 'border border-transparent bg-warning/15 text-warning',
-  info: 'border border-transparent bg-info/12 text-info',
-  danger: 'border border-transparent bg-danger/12 text-danger',
+  success: 'border border-transparent bg-success/12 text-[var(--success-ink)]',
+  warning: 'border border-transparent bg-warning/15 text-[var(--warning-ink)]',
+  info: 'border border-transparent bg-info/12 text-[var(--info-ink)]',
+  danger: 'border border-transparent bg-danger/12 text-[var(--danger-ink)]',
 }
 
 const VARIANT_CLASSES = { solid: SOLID_CLASSES, outline: OUTLINE_CLASSES, muted: MUTED_CLASSES }

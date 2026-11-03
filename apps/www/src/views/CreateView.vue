@@ -19,6 +19,10 @@ export default defineComponent({
         this.playground.previewMode.value = value
       },
     },
+    /** Başlangıç teması platform katmanı taşıyorsa (Liquid Glass → ios) önizleme onu uygular. */
+    previewPlatform() {
+      return Object.keys(this.playground.baseTheme.value?.css?.platform || {})[0] || undefined
+    },
     previewModes() {
       return this.previewMode === 'split' ? ['light', 'dark'] : [this.previewMode]
     },
@@ -58,7 +62,9 @@ export default defineComponent({
     </div>
 
     <div class="flex min-h-0 flex-1">
-      <ThemePlaygroundSidebar :playground="playground" />
+      <div class="w-72 shrink-0 border-r border-border bg-background">
+        <ThemePlaygroundSidebar :playground="playground" />
+      </div>
       <div
         class="grid min-h-0 flex-1"
         :class="previewModes.length > 1 ? 'grid-cols-2 divide-x divide-border' : 'grid-cols-1'"
@@ -66,11 +72,13 @@ export default defineComponent({
         <div
           v-for="mode in previewModes"
           :key="mode"
-          class="min-h-0 overflow-y-auto"
+          class="min-h-0 overflow-hidden"
         >
           <ui-theme-provider
+            class="h-full overflow-y-auto overscroll-contain"
             :theme="playground.theme.value"
             :mode="mode"
+            :data-ui-platform="previewPlatform"
             background
           >
             <component :is="'style'">{{ playground.draft.customCss }}</component>

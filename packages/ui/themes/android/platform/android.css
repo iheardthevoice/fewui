@@ -3,7 +3,7 @@
  * Restta `default.css` web tokenlarını bu sınıf altında ezer (liquidglass/ios.css paralel).
  */
 
-html.cap-native.cap-android {
+:is(html.cap-native.cap-android, [data-ui-platform='android']) {
   --font-sans: Roboto, ui-sans-serif, system-ui, sans-serif;
   --font-heading: var(--font-sans);
 
@@ -101,7 +101,7 @@ html.cap-native.cap-android {
   --text-xl: 1.25rem;
 }
 
-html.cap-native.cap-android.dark {
+:is(html.cap-native.cap-android.dark, [data-ui-platform='android'].dark) {
   --background: #1c1b1f;
   --foreground: #e6e1e5;
   --surface: #1c1b1f;

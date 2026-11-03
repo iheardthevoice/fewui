@@ -2,6 +2,11 @@
  * iOS Liquid Glass — Capacitor iOS kabuğu (`html.cap-native.cap-ios`).
  * Kart/dialog/form opak grouped; cam chrome / popover / kontrol. Web ve Android etkilenmez.
  */
+/**
+ * Cihaz ölçüleri — yalnız native iOS kabuğu: HIG 44pt dokunma hedefi, Dynamic Type ölçeği ve
+ * sistem yazı tipi. Liquid Glass bir malzemedir, ölçü değildir: tema önizlemesinde (`[data-ui-platform]`)
+ * ve web'de kontrol boyutu / yazı tipi kullanıcının seçimidir (md = 32px), tema değiştirmez.
+ */
 html.cap-native.cap-ios {
   --font-sans: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   --font-heading: var(--font-sans);
@@ -43,6 +48,11 @@ html.cap-native.cap-ios {
   --text-7xl--line-height: 1;
   --text-8xl: 7.5rem;
   --text-8xl--line-height: 1;
+}
+
+:is(html.cap-native.cap-ios, [data-ui-platform='ios']) {
+  /** Alanlar kenarlıksız (`styles.css` border-none) — iç boşluk hesapları da 0 okur. */
+  --ui-field-border-width: 0px;
   --ui-ios-glass-bg: color-mix(in srgb, var(--foreground) 7%, transparent);
   /**
    * Popover cam — dialog sheet ile aynı gri (`--surface`), yarı saydam + blur.
@@ -55,7 +65,8 @@ html.cap-native.cap-ios {
   --ui-ios-glass-edge-top: var(--ui-ios-glass-edge);
   --ui-ios-glass-edge-bottom: var(--ui-ios-glass-edge);
   --ui-ios-glass-border: transparent;
-  --ui-ios-glass-highlight: transparent;
+  /** Speküler kenar — camın üst kenarında ışık kırılması (Liquid Glass "lensing" izlenimi). */
+  --ui-ios-glass-highlight: color-mix(in srgb, white 55%, transparent);
   --ui-ios-glass-shadow: transparent;
   --ui-ios-glass-blur-chrome: 16px;
   --ui-ios-glass-blur-popover: 24px;
@@ -97,29 +108,54 @@ html.cap-native.cap-ios {
   --ui-ios-spring-smooth: linear(0, 0.0604, 0.1882, 0.3329, 0.4697, 0.5883, 0.6861, 0.7639, 0.8244, 0.8706, 0.9053, 0.9312, 0.9503, 0.9642, 0.9744, 0.9817, 0.987, 0.9908, 0.9935, 0.9954, 0.9967, 0.9977, 0.9984, 0.9989, 1);
   /** Kapanış — hızlı, yumuşak çıkış (yay yok). */
   --ui-ios-ease-dismiss: cubic-bezier(0.3, 0, 0.2, 1);
-  --ui-popover-enter-duration: 420ms;
-  --ui-popover-leave-duration: 220ms;
-  --ui-dialog-enter-duration: 460ms;
-  --ui-dialog-leave-duration: 240ms;
+  --ui-popover-enter-duration: 320ms;
+  --ui-popover-leave-duration: 160ms;
+  --ui-dialog-enter-duration: 360ms;
+  --ui-dialog-leave-duration: 180ms;
   --ui-dialog-easing: var(--ui-ios-spring-snappy);
   --ui-dialog-leave-easing: var(--ui-ios-ease-dismiss);
-  --ui-dialog-sheet-enter-duration: 500ms;
-  --ui-dialog-sheet-leave-duration: 300ms;
-  --ui-dialog-sheet-snap-duration: 420ms;
+  --ui-dialog-sheet-enter-duration: 400ms;
+  --ui-dialog-sheet-leave-duration: 230ms;
+  --ui-dialog-sheet-snap-duration: 320ms;
   --ui-dialog-sheet-easing: var(--ui-ios-spring-smooth);
   --ui-dialog-sheet-leave-easing: var(--ui-ios-ease-dismiss);
 }
 
-html.cap-native.cap-ios.dark {
+:is(html.cap-native.cap-ios.dark, [data-ui-platform='ios'].dark) {
   --ui-ios-glass-bg: color-mix(in srgb, var(--foreground) 6%, transparent);
   --ui-ios-glass-bg-popover: color-mix(in srgb, var(--surface) 78%, transparent);
   --ui-ios-glass-bg-chrome: color-mix(in srgb, var(--foreground) 3%, transparent);
   --ui-ios-glass-edge: color-mix(in srgb, var(--foreground) 18%, transparent);
   --ui-ios-glass-edge-top: var(--ui-ios-glass-edge);
   --ui-ios-glass-edge-bottom: var(--ui-ios-glass-edge);
+  --ui-ios-glass-highlight: color-mix(in srgb, white 14%, transparent);
   --ui-surface-opacity: 100%;
   --ui-control-opacity: 100%;
   --ui-input-opacity: 100%;
   --border: color-mix(in oklab, var(--foreground) 18%, transparent);
   --app-data-table-cell-bg: var(--ui-ios-card-surface-bg);
+}
+
+/**
+ * Erişilebilirlik — Liquid Glass sistem ayarlarına uyar (Apple: Reduce Transparency, Increase Contrast).
+ * Şeffaflık azaltılınca cam opak yüzeye döner, bulanıklık kapanır; kontrast artınca kenar belirginleşir.
+ */
+@media (prefers-reduced-transparency: reduce) {
+  :is(html.cap-native.cap-ios, [data-ui-platform='ios']) {
+    --ui-ios-glass-bg: var(--control);
+    --ui-ios-glass-bg-popover: var(--surface);
+    --ui-ios-glass-bg-chrome: var(--background);
+    --ui-ios-glass-blur-chrome: 0px;
+    --ui-ios-glass-blur-popover: 0px;
+    --ui-ios-glass-blur-surface: 0px;
+    --ui-ios-glass-blur-control: 0px;
+    --ui-ios-glass-highlight: transparent;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :is(html.cap-native.cap-ios, [data-ui-platform='ios']) {
+    --ui-ios-glass-edge: color-mix(in srgb, var(--foreground) 45%, transparent);
+    --ui-ios-glass-highlight: transparent;
+  }
 }

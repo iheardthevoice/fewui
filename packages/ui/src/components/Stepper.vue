@@ -1,7 +1,7 @@
 <template>
   <div
     :class="rootClass"
-    role="list"
+    :role="variant === 'pills' ? 'group' : 'list'"
     :aria-label="ariaLabel"
     v-bind="passthroughAttrs"
   >
@@ -13,9 +13,9 @@
           :is="interactive ? 'button' : 'span'"
           class="ui-stepper-pill"
           :class="pillClass(index)"
-          role="listitem"
-          :aria-current="index === modelValue ? 'step' : undefined"
-          :aria-label="step.title"
+          :aria-current="interactive && index === modelValue ? 'step' : undefined"
+          :aria-label="interactive ? step.title : undefined"
+          :aria-hidden="interactive ? undefined : 'true'"
           v-bind="interactive ? { type: 'button' } : {}"
           @click="interactive ? go(index) : undefined"
         />
@@ -208,6 +208,7 @@ export default {
       return cn(
         'ui-stepper',
         this.variant === 'pills' && 'ui-stepper--pills',
+        this.variant === 'pills' && this.interactive && 'ui-stepper--interactive',
         this.variant === 'default' && this.direction === 'vertical' && 'ui-stepper--vertical',
         this.variant === 'default' && this.direction === 'horizontal' && 'ui-stepper--horizontal',
         this.$attrs.class,

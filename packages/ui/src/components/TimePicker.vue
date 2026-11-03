@@ -18,6 +18,10 @@
             <div
               class="min-h-0 min-w-0 flex-1"
               role="spinbutton"
+              tabindex="0"
+              data-ui-spin="hour"
+              :aria-valuetext="pad2(draftHour)"
+              @keydown="onSpinKeydown($event, 'hour')"
               :aria-valuenow="draftHour"
               aria-valuemin="0"
               aria-valuemax="23"
@@ -26,6 +30,7 @@
               <div
                 ref="hourWheel"
                 class="ui-timepicker-wheel-viewport"
+                tabindex="-1"
               >
                 <div class="ui-timepicker-wheel-spacer">
                   <button
@@ -51,6 +56,10 @@
             <div
               class="min-h-0 min-w-0 flex-1"
               role="spinbutton"
+              tabindex="0"
+              data-ui-spin="minute"
+              :aria-valuetext="pad2(draftMinute)"
+              @keydown="onSpinKeydown($event, 'minute')"
               :aria-valuenow="draftMinute"
               aria-valuemin="0"
               aria-valuemax="59"
@@ -59,6 +68,7 @@
               <div
                 ref="minuteWheel"
                 class="ui-timepicker-wheel-viewport"
+                tabindex="-1"
               >
                 <div class="ui-timepicker-wheel-spacer">
                   <button
@@ -133,6 +143,10 @@
               <div
                 class="min-h-0 min-w-0 flex-1"
                 role="spinbutton"
+                tabindex="0"
+                data-ui-spin="hour"
+                :aria-valuetext="pad2(draftHour)"
+                @keydown="onSpinKeydown($event, 'hour')"
                 :aria-valuenow="draftHour"
                 aria-valuemin="0"
                 aria-valuemax="23"
@@ -141,6 +155,7 @@
                 <div
                   ref="hourWheel"
                   class="ui-timepicker-wheel-viewport"
+                  tabindex="-1"
                 >
                   <div class="ui-timepicker-wheel-spacer">
                     <button
@@ -166,6 +181,10 @@
               <div
                 class="min-h-0 min-w-0 flex-1"
                 role="spinbutton"
+                tabindex="0"
+                data-ui-spin="minute"
+                :aria-valuetext="pad2(draftMinute)"
+                @keydown="onSpinKeydown($event, 'minute')"
                 :aria-valuenow="draftMinute"
                 aria-valuemin="0"
                 aria-valuemax="59"
@@ -174,6 +193,7 @@
                 <div
                   ref="minuteWheel"
                   class="ui-timepicker-wheel-viewport"
+                  tabindex="-1"
                 >
                   <div class="ui-timepicker-wheel-spacer">
                     <button
@@ -210,6 +230,7 @@
 
 <script>
 import { createUiIdFactory } from '../utils/ui-id.js'
+import { captureReturnFocus, restoreFocus } from '../utils/focus-trap.js'
 import { resolveUiText } from '../utils/resolve-ui-text.js'
 import { formatTimeParts, formatTimeString } from '../utils/format-time-display.js'
 import { resolveThemeDefault } from '../theme/resolve-theme-default.js'
@@ -325,16 +346,23 @@ export default {
   watch: {
     menuOpen(open) {
       if (open) {
+        this.returnFocusEl = captureReturnFocus()
         this.applyModelToDraft()
         /* Teleport + v-show: refs ikinci tick’te hazır olabiliyor */
         this.$nextTick(() => {
           this.$nextTick(() => {
             this.scrollWheelsToDraft()
             this.bindWheelListeners()
+            // WAI-ARIA spinbutton: açılınca odak saat tekerleğine (klavyeyle seçilebilsin).
+            this.$refs.hourWheel?.closest('[role="spinbutton"]')?.focus?.({ preventScroll: true })
           })
         })
       } else {
         this.unbindWheelListeners()
+        const active = document.activeElement
+        const panel = this.$refs.hourWheel?.closest('.ui-timepicker-panel')
+        if (!active || active === document.body || panel?.contains(active)) restoreFocus(this.returnFocusEl)
+        this.returnFocusEl = null
       }
     },
     embedded: {
@@ -453,6 +481,23 @@ export default {
           this.wheelSyncing = false
         })
       })
+    },
+    /**
+     * WAI-ARIA Spinbutton — ↑/↓ bir adım, PageUp/PageDown büyük adım (saat 6, dakika 4 adım),
+     * Home/End en küçük / en büyük. Tekerlek de aynı değere kayar.
+     */
+    onSpinKeydown(e, which) {
+      const isHour = which === 'hour'
+      const count = isHour ? this.hourOptions.length : this.minuteValues.length
+      if (!count) return
+      const cur = isHour ? this.draftHour : Math.max(0, this.minuteValues.indexOf(this.draftMinute))
+      const big = isHour ? 6 : 4
+      const map = { ArrowUp: cur - 1, ArrowDown: cur + 1, PageUp: cur - big, PageDown: cur + big, Home: 0, End: count - 1 }
+      if (!(e.key in map)) return
+      e.preventDefault()
+      const next = Math.min(count - 1, Math.max(0, map[e.key]))
+      if (isHour) this.selectHour(next)
+      else this.selectMinute(next)
     },
     selectHour(h) {
       this.draftHour = h

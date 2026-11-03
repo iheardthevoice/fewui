@@ -11,6 +11,7 @@ export default {
     },
     alert: {
       dismiss: 'Dismiss',
+      tone: { info: 'Info', success: 'Success', warning: 'Warning', danger: 'Error' },
     },
     toast: {
       groupCount: '{count} notifications',

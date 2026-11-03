@@ -69,7 +69,10 @@
                 {{ rangeHint }}
               </p>
 
-              <div class="ui-daterangepicker-month-row">
+              <div
+                ref="monthRow"
+                class="ui-daterangepicker-month-row"
+              >
                 <section
                   v-for="pane in calendarPanes"
                   :key="pane.key"
@@ -87,7 +90,7 @@
                     />
                     <span
                       v-else
-                      class="size-9 shrink-0"
+                      class="size-[var(--ui-control-h-md)] shrink-0"
                       aria-hidden="true"
                     />
                     <span class="min-w-0 flex-1 text-center text-sm font-medium tabular-nums text-foreground">
@@ -104,14 +107,21 @@
                     />
                     <span
                       v-else
-                      class="size-9 shrink-0"
+                      class="size-[var(--ui-control-h-md)] shrink-0"
                       aria-hidden="true"
                     />
                   </div>
                   <div class="ui-datepicker-weekdays mb-1">
-                    <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+                    <span
+                      v-for="w in weekdayLabels"
+                      :key="w.key"
+                      :title="w.long"
+                    >{{ w.short }}</span>
                   </div>
-                  <div class="ui-datepicker-grid">
+                  <div
+                    class="ui-datepicker-grid"
+                    @keydown="onGridKeydown"
+                  >
                     <ui-button
                       v-for="cell in pane.cells"
                       :key="cell.key"
@@ -120,7 +130,11 @@
                       size="sm"
                       cubed
                       :disabled="cell.disabled"
-                      :aria-selected="cell.endpoint ? 'true' : 'false'"
+                      :data-ymd="cell.inMonth ? ymdOf(cell.date) : undefined"
+                      :tabindex="cell.inMonth && ymdOf(cell.date) === rovingYmd ? 0 : -1"
+                      :aria-label="cellLabel(cell)"
+                      :aria-pressed="cell.endpoint ? 'true' : 'false'"
+                      :aria-current="cell.today ? 'date' : undefined"
                       :aria-disabled="cell.disabled ? 'true' : undefined"
                       :data-outside="cell.inMonth ? undefined : 'true'"
                       :data-today="cell.today ? 'true' : undefined"
@@ -146,6 +160,7 @@
 import { formatYmdDisplay, resolveDateDisplayLocale } from '../utils/format-ymd-display.js'
 import { resolveThemeDefault } from '../theme/resolve-theme-default.js'
 import { createUiIdFactory } from '../utils/ui-id.js'
+import { captureReturnFocus, restoreFocus } from '../utils/focus-trap.js'
 import { isMobileViewport, MOBILE_MAX_WIDTH_MEDIA } from '../utils/viewport.js'
 import { uiDefaultsMixin } from '../theme/ui-defaults.js'
 
@@ -176,16 +191,17 @@ function compareYmd(a, b) {
   return a < b ? -1 : 1
 }
 
+/** Ay başlığı yıl ile — aralık yıl aşınca "Ekim" / "Kasım" tek başına belirsiz kalıyordu. */
 function monthName(year, monthIndex, locale) {
-  return new Date(year, monthIndex, 1).toLocaleString(locale, { month: 'long' })
+  return new Date(year, monthIndex, 1).toLocaleString(locale, { month: 'long', year: 'numeric' })
 }
 
 function weekBoundsFrom(todayYmd, maxYmd, minYmd) {
-  const { year, month, day } = parseIsoParts(todayYmd)
-  const dt = new Date(year, month - 1, day)
+  const dt = parseYmd(todayYmd)
+  if (!dt) return null
   const wd = dt.getDay()
   const diff = wd === 0 ? -6 : 1 - wd
-  const mondayDate = new Date(year, month - 1, day + diff)
+  const mondayDate = new Date(dt.getFullYear(), dt.getMonth(), dt.getDate() + diff)
   const from = toYmd(mondayDate)
   const sundayDate = new Date(mondayDate.getFullYear(), mondayDate.getMonth(), mondayDate.getDate() + 6)
   let to = toYmd(sundayDate)
@@ -198,7 +214,9 @@ function weekBoundsFrom(todayYmd, maxYmd, minYmd) {
 }
 
 function yearBoundsFrom(todayYmd, maxYmd, minYmd) {
-  const { year } = parseIsoParts(todayYmd)
+  const dt = parseYmd(todayYmd)
+  if (!dt) return null
+  const year = dt.getFullYear()
   const from = `${year}-01-01`
   let to = `${year}-12-31`
   if (maxYmd && to > maxYmd) to = maxYmd
@@ -289,6 +307,8 @@ export default {
       pickingStart: '',
       pickingEnd: '',
       hoverYmd: '',
+      /** Klavye ile gezilen gün (roving tabindex). */
+      focusYmd: '',
       /** Mobilde tek ay — çift ay dikey yığılınca panel sığmıyor. */
       narrowViewport: typeof window !== 'undefined' ? isMobileViewport() : false,
     }
@@ -467,6 +487,27 @@ export default {
         disabled: !preset.range || this.isRangeDisabled(preset.range[0], preset.range[1]),
       }))
     },
+    /** Hafta günü başlıkları dile göre (eskiden sabit "Su Mo Tu"). Izgara pazardan başlar. */
+    weekdayLabels() {
+      return Array.from({ length: 7 }, (_, i) => {
+        const d = new Date(2024, 0, 7 + i)
+        return {
+          key: i,
+          short: d.toLocaleDateString(this.locale, { weekday: 'short' }).replace('.', ''),
+          long: d.toLocaleDateString(this.locale, { weekday: 'long' }),
+        }
+      })
+    },
+    /** Tek Tab durağı: gezilen gün → bitiş / başlangıç → bugün → görünen ilk ay günü. */
+    rovingYmd() {
+      const cells = this.calendarPanes.flatMap((p) => p.cells).filter((c) => c.inMonth && !c.disabled)
+      const has = (ymd) => ymd && cells.some((c) => toYmd(c.date) === ymd)
+      const todayYmd = toYmd(new Date())
+      for (const ymd of [this.focusYmd, this.pickingEnd, this.pickingStart, this.endYmd, this.startYmd, todayYmd]) {
+        if (has(ymd)) return ymd
+      }
+      return cells[0] ? toYmd(cells[0].date) : ''
+    },
     calendarPanes() {
       if (this.narrowViewport) {
         return [
@@ -516,14 +557,22 @@ export default {
     },
     resolvedOpen(open) {
       if (open) {
+        this.returnFocusEl = captureReturnFocus()
         this.pickingStart = this.startYmd
         this.pickingEnd = this.endYmd
         this.hoverYmd = ''
+        this.focusYmd = ''
         this.syncViewFromValue()
+        // WAI-ARIA date picker: açılınca odak başlangıç / bitiş / bugün gününe.
+        this.$nextTick(() => requestAnimationFrame(() => this.focusRovingCell()))
       } else {
         this.pickingStart = ''
         this.pickingEnd = ''
         this.hoverYmd = ''
+        this.focusYmd = ''
+        const active = document.activeElement
+        if (!active || active === document.body || this.$refs.monthRow?.contains(active)) restoreFocus(this.returnFocusEl)
+        this.returnFocusEl = null
       }
     },
   },
@@ -595,6 +644,48 @@ export default {
         })
       }
       return cells
+    },
+    ymdOf(date) {
+      return toYmd(date)
+    },
+    cellLabel(cell) {
+      return cell.date.toLocaleDateString(this.locale, { day: 'numeric', month: 'long', year: 'numeric', weekday: 'long' })
+    },
+    focusRovingCell() {
+      this.$refs.monthRow?.querySelector(`[data-ymd="${this.rovingYmd}"]`)?.focus?.()
+    },
+    /** ← → ±1 gün, ↑ ↓ ±1 hafta, Home/End hafta başı/sonu, PageUp/PageDown ±1 ay; görünen aylar kayar. */
+    onGridKeydown(e) {
+      const base = parseYmd(this.rovingYmd)
+      if (!base) return
+      const d = new Date(base)
+      const map = {
+        ArrowRight: () => d.setDate(d.getDate() + 1),
+        ArrowLeft: () => d.setDate(d.getDate() - 1),
+        ArrowDown: () => d.setDate(d.getDate() + 7),
+        ArrowUp: () => d.setDate(d.getDate() - 7),
+        Home: () => d.setDate(d.getDate() - d.getDay()),
+        End: () => d.setDate(d.getDate() + (6 - d.getDay())),
+        PageDown: () => d.setMonth(d.getMonth() + 1),
+        PageUp: () => d.setMonth(d.getMonth() - 1),
+      }
+      if (!map[e.key]) return
+      e.preventDefault()
+      map[e.key]()
+      const ymd = toYmd(d)
+      const visible = this.calendarPanes.some((p) => p.year === d.getFullYear() && p.month === d.getMonth())
+      if (!visible) {
+        const first = this.calendarPanes[0]
+        const forward = d > new Date(first.year, first.month, 1)
+        const target = forward
+          ? new Date(d.getFullYear(), d.getMonth() - (this.calendarPanes.length - 1), 1)
+          : new Date(d.getFullYear(), d.getMonth(), 1)
+        this.viewYear = target.getFullYear()
+        this.viewMonth = target.getMonth()
+      }
+      this.focusYmd = ymd
+      if (this.pickingStart && !this.pickingEnd) this.hoverYmd = ymd
+      this.$nextTick(() => this.focusRovingCell())
     },
     onCellHover(cell) {
       if (!cell.date || cell.disabled) return

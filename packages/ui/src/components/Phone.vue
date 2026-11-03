@@ -12,7 +12,8 @@
       :name="numberName"
       :autocomplete="autocomplete"
       :maxlength="numberMaxlength"
-      :aria-describedby="ariaDescribedby"
+      :aria-describedby="formFieldDescribedBy(ariaDescribedby)"
+      :aria-invalid="formFieldInvalid"
       v-bind="numberPassthrough"
       @focus="$emit('focus', $event)"
       @blur="$emit('blur', $event)"
@@ -36,7 +37,7 @@
             :size="resolvedSize"
             :options="countryOptions"
             :disabled="disabled"
-            :aria-label="resolvedCountryAria"
+            :aria-label="countryTriggerLabel"
           />
         </div>
       </template>
@@ -50,6 +51,7 @@ import { resolveThemeControlSize } from '../theme/resolve-theme-default.js'
 import { createUiIdFactory } from '../utils/ui-id.js'
 import { uiDefaultsMixin } from '../theme/ui-defaults.js'
 import { CONTROL_SIZES } from '../utils/sizes.js'
+import { formFieldMixin } from '../utils/form-field.js'
 
 const nextPhoneId = createUiIdFactory('ui-phone-number')
 
@@ -64,7 +66,7 @@ const DEFAULT_COUNTRIES = [
 
 export default {
   name: 'Phone',
-  mixins: [uiDefaultsMixin],
+  mixins: [uiDefaultsMixin, formFieldMixin],
   inheritAttrs: false,
   props: {
     country: {
@@ -162,7 +164,7 @@ export default {
       if (this.id != null && this.id !== '') {
         return this.id
       }
-      return this.fallbackId
+      return this.formFieldId || this.fallbackId
     },
     resolvedPlaceholder() {
       if (this.placeholder != null && this.placeholder !== '') {
@@ -172,6 +174,10 @@ export default {
         return this.$t('ui.phone.placeholder')
       }
       return ''
+    },
+    /** Görünen değer ("+90") erişilebilir adın başında — WCAG 2.5.3 Label in Name. */
+    countryTriggerLabel() {
+      return [this.innerCountry, this.resolvedCountryAria].filter(Boolean).join(' ')
     },
     resolvedCountryAria() {
       if (this.countryAriaLabel) return this.countryAriaLabel

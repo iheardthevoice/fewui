@@ -13,12 +13,19 @@
  * - `:deep(.ui-…)`             → fewui'ye prop / variant
  * - `dark:` karşılığı olmayan sabit palet rengi (`bg-amber-500` …)
  * - elle `aria-pressed` toggle → `ui-chip-group` / `ui-segment-group`
+ * - `@apply` içinde `[-webkit-backdrop-filter:…]` → yalnız `[backdrop-filter:…]`. Tailwind `@apply`
+ *   bildirimleri yeniden sıralar (standart önce); Lightning CSS sonra gelen `-webkit-` önekini
+ *   üstün sayıp standart bildirimi siler — üretimde Chrome / Firefox'ta bulanıklık kaybolur.
+ *   Önek Lightning CSS tarafından hedef tarayıcılar için zaten eklenir.
+ *
+ * `--only=<kural,…>` yalnız verilen kuralları çalıştırır (ör. fewui `prebuild`).
  */
 import { readFileSync, readdirSync, statSync } from 'node:fs'
 import { join, relative, resolve } from 'node:path'
 
 const args = process.argv.slice(2)
 const strict = args.includes('--strict')
+const only = args.find((arg) => arg.startsWith('--only='))?.slice('--only='.length).split(',') ?? null
 const roots = args.filter((arg) => !arg.startsWith('--')).map((dir) => resolve(dir))
 
 const PALETTE =
@@ -35,7 +42,12 @@ const RULES = [
   },
   { id: 'deep-ui', re: /:deep\(\.ui-/g, hint: 'fewui prop / variant' },
   { id: 'manual-toggle', re: /<ui-button\b[^>]*\s:?aria-pressed=/gs, hint: 'ui-chip-group / ui-segment-group' },
-]
+  {
+    id: 'prefixed-backdrop-apply',
+    re: /\[-webkit-backdrop-filter:/g,
+    hint: 'yalnız [backdrop-filter:…] — önek Lightning CSS ile eklenir; @apply sırası standart bildirimi düşürür',
+  },
+].filter((rule) => !only || only.includes(rule.id))
 
 const PALETTE_RE = new RegExp(`(?<![\\w:-])(bg|text|border)-(${PALETTE})-\\d{2,3}(?:\\/\\d+)?`, 'g')
 
@@ -69,6 +81,7 @@ for (const root of roots) {
       }
     }
     // Palet rengi: aynı class dizisinde `dark:` karşılığı yoksa
+    if (only && !only.includes('palette-no-dark')) continue
     for (const classMatch of source.matchAll(/class="([^"]*)"/g)) {
       const classes = classMatch[1]
       if (classes.includes('dark:')) continue

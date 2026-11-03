@@ -33,7 +33,7 @@
     "./tailwind-preset": "./tailwind-preset.cjs"
   },
   "scripts": {
-    "prebuild": "node ./scripts/build-theme-css.mjs && node ./scripts/check-api-consistency.mjs",
+    "prebuild": "node ./scripts/build-theme-css.mjs && node ./scripts/check-api-consistency.mjs && node ./scripts/check-design-tokens.mjs themes --only=prefixed-backdrop-apply --strict",
     "check:api": "node ./scripts/check-api-consistency.mjs",
     "build": "vite build",
     "build:themes": "node ./scripts/build-theme-css.mjs",

@@ -28,7 +28,6 @@
     <div
       v-if="hasValue"
       class="ui-field__value"
-      :class="fill ? 'mt-auto' : undefined"
     >
       <slot />
     </div>

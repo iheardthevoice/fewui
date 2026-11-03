@@ -1,12 +1,16 @@
 import { computed, reactive, ref, watch } from 'vue'
 import {
   BASE_UI_DEFAULTS,
+  colorToRgb,
   defineTheme,
   deriveBrandColorsFromPrimary,
   listThemes,
   pickContrastForeground,
   resolveTheme,
 } from 'fewui'
+import { NEUTRAL_ROLE_TOKENS, NEUTRAL_SCALES, bindColorToBaseStep, matchNeutralScale } from './neutral-scales.js'
+
+const MODES = ['light', 'dark']
 
 const STORAGE_KEY = 'fewui-theme-playground-v2'
 
@@ -72,12 +76,13 @@ function slugify(value) {
 
 /**
  * Create sayfası tema taslağı: başlangıç teması + light/dark token değişiklikleri → v2 paket.
+ * Kullanıcı yalnız base skalasını ve primary rengini seçer; nötr roller base'den, odak / seçim /
+ * vurgu primary'den türer. Yüzey stili (opaklık, bulanıklık) ve durum renkleri temanın kendisindedir.
  * @param {{ defaultThemeId?: string }} [options]
  */
 export function useThemePlayground(options = {}) {
   const stored = readStored()
   const draft = reactive({ ...createThemeDraft(options.defaultThemeId), ...stored?.draft })
-  const editMode = ref(stored?.editMode === 'dark' ? 'dark' : 'light')
   const previewMode = ref(['light', 'dark', 'split'].includes(stored?.previewMode) ? stored.previewMode : 'split')
 
   const baseTheme = computed(() => resolveTheme(draft.baseThemeId))
@@ -103,7 +108,7 @@ export function useThemePlayground(options = {}) {
    * @param {string} key
    * @param {'light'|'dark'} [mode]
    */
-  function getToken(key, mode = editMode.value) {
+  function getToken(key, mode = 'light') {
     const { light, dark } = theme.value.preset.tokens
     if (mode === 'dark' && dark[key] != null) return dark[key]
     return light[key]
@@ -114,7 +119,7 @@ export function useThemePlayground(options = {}) {
    * @param {unknown} value
    * @param {'light'|'dark'} [mode]
    */
-  function setToken(key, value, mode = editMode.value) {
+  function setToken(key, value, mode = 'light') {
     if (value == null || value === '') {
       delete draft.tokens[mode][key]
       return
@@ -123,28 +128,43 @@ export function useThemePlayground(options = {}) {
   }
 
   /**
-   * Yüzey stili alanı (`surfaceStyle.opacity` vb.).
-   * @param {'surfaceStyle'|'controlStyle'|'inputStyle'} key
-   * @param {'mixFrom'|'opacity'|'backdropBlur'} field
-   * @param {unknown} value
-   * @param {'light'|'dark'} [mode]
+   * Base skalasını seçer ve nötr rolleri (metin, yüzey, kontrol, sönük …) her iki modda
+   * skalaya bağlar: sabit nötr renkler en yakın `var(--base-N)` basamağına döner.
+   * @param {string} id `NEUTRAL_SCALES` anahtarı
    */
-  function setStyleField(key, field, value, mode = editMode.value) {
-    const current = /** @type {Record<string, unknown>} */ (getToken(key, mode) || {})
-    draft.tokens[mode][key] = { ...current, [field]: value }
+  function setBaseScale(id) {
+    const scale = NEUTRAL_SCALES[id]
+    if (!scale) return
+    draft.tokens.light.base = { ...scale }
+    delete draft.tokens.dark.base
+    for (const mode of MODES) {
+      for (const key of NEUTRAL_ROLE_TOKENS) {
+        // Dark yalnız kendi değeri varsa ayrıca bağlanır; yoksa light'tan devralır.
+        if (mode === 'dark' && theme.value.preset.tokens.dark[key] == null) continue
+        const current = getToken(key, mode)
+        const bound = bindColorToBaseStep(current, colorToRgb)
+        if (bound !== current) setToken(key, bound, mode)
+      }
+    }
   }
 
-  /** Ana renkten ön plan, halka ve vurgu renklerini türetir. */
-  function deriveFromPrimary(mode = editMode.value) {
-    const primary = String(getToken('primary', mode) || '')
-    if (!primary) return
-    const { accent, brandAccent } = deriveBrandColorsFromPrimary(primary)
-    setToken('primaryForeground', pickContrastForeground(primary), mode)
-    setToken('ring', `color-mix(in oklab, ${primary} 55%, transparent)`, mode)
-    if (accent !== primary) {
-      setToken('accent', accent, mode)
-      setToken('accentForeground', pickContrastForeground(accent), mode)
-      setToken('brandAccent', brandAccent, mode)
+  /**
+   * Primary rengini seçer; ön plan, `ring` ve marka vurgusu ondan türer. Odak halkası, seçili
+   * metin ve soluk seçim zemini CSS'te zaten `--primary`'den hesaplanır. Her iki mod aynı rengi kullanır.
+   * @param {string} color
+   */
+  function setPrimaryColor(color) {
+    if (!color) return
+    const { brandAccent } = deriveBrandColorsFromPrimary(color)
+    const derived = {
+      primary: color,
+      primaryForeground: pickContrastForeground(color),
+      ring: `color-mix(in oklab, ${color} 55%, transparent)`,
+      brandAccent,
+    }
+    // Başlangıç temasının kendi dark değeri (ör. landing `ring`) devralmayla gelir; silmek yetmez, yazılır.
+    for (const mode of MODES) {
+      for (const [key, value] of Object.entries(derived)) setToken(key, value, mode)
     }
   }
 
@@ -158,12 +178,28 @@ export function useThemePlayground(options = {}) {
     return theme.value.defaults[key] ?? BASE_UI_DEFAULTS[key]
   }
 
-  /** Başlangıç temasını değiştirir; token değişiklikleri sıfırlanır. */
+  /**
+   * Başlangıç temasını değiştirir. Kullanıcının seçimleri (base, primary, yazı tipleri, köşe,
+   * bileşen varsayılanları) korunur ve yeni temanın üzerine yeniden uygulanır: base yeni temanın
+   * nötr rollerini o skalaya bağlar, primary türevleriyle birlikte yazılır. Yalnız seçilmeyenler
+   * temadan gelir.
+   * @param {string} id
+   */
   function setBaseTheme(id) {
+    const picks = {
+      baseScale: draft.tokens.light.base ? matchNeutralScale(draft.tokens.light.base) : null,
+      primary: draft.tokens.light.primary || null,
+      radius: draft.tokens.light.radius || null,
+      fonts: { ...draft.fonts },
+      defaults: { ...draft.defaults },
+    }
     draft.baseThemeId = id
-    draft.fonts = {}
     draft.tokens = { light: {}, dark: {} }
-    draft.defaults = {}
+    draft.fonts = picks.fonts
+    draft.defaults = picks.defaults
+    if (picks.radius) setToken('radius', picks.radius)
+    if (picks.baseScale) setBaseScale(picks.baseScale)
+    if (picks.primary) setPrimaryColor(picks.primary)
   }
 
   function reset() {
@@ -209,24 +245,23 @@ export function useThemePlayground(options = {}) {
   }
 
   watch(
-    [draft, editMode, previewMode],
+    [draft, previewMode],
     () => {
-      writeStored({ draft, editMode: editMode.value, previewMode: previewMode.value })
+      writeStored({ draft, previewMode: previewMode.value })
     },
     { deep: true },
   )
 
   return {
     draft,
-    editMode,
     previewMode,
     baseTheme,
     theme,
     themeOptions,
     getToken,
     setToken,
-    setStyleField,
-    deriveFromPrimary,
+    setBaseScale,
+    setPrimaryColor,
     getDefault,
     setDefault,
     setBaseTheme,

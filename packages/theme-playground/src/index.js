@@ -1,6 +1,7 @@
 export { createThemeDraft, useThemePlayground } from './use-theme-playground.js'
 export { themePlaygroundMessages } from './messages.js'
 export { NEUTRAL_SCALES, matchNeutralScale } from './neutral-scales.js'
+export { PRIMARY_PALETTE, matchPrimaryPalette } from './primary-palette.js'
 export {
   THEME_PLAYGROUND_MESSAGE,
   applyThemePlaygroundPayload,

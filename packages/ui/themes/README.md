@@ -31,7 +31,7 @@ yazılır ve CSS değişkenine çevrilir (`surfaceForeground` → `--surface-for
 | İkincil yüzey | `surfaceSubtle`, `surfaceSunken`, `borderSubtle` — verilmezse `muted` / `border` üzerinden türetilir (Tailwind: `bg-surface-subtle`, `bg-surface-sunken`, `border-border-subtle`) |
 | Durum | `success`, `warning`, `info`, `danger` + her birinin `*Foreground`'u |
 | Skala | `base: { 50 … 950 }` → `--base-*` |
-| Yüzeyler | `surfaceStyle`, `controlStyle`, `inputStyle`: `{ mixFrom, opacity, backdropBlur }` |
+| Yüzeyler | `surfaceStyle`, `controlStyle`, `inputStyle`, `popoverStyle`: `{ mixFrom, opacity, backdropBlur }` — `popoverStyle` yüzen katman (popover, menü, Select listesi); varsayılan `%85` + `20px`, kart camından bağımsız |
 | Şekil | `radius` (`--radius`; `sm` / `md` / `3xl` basamakları türetilir), `cardPadding` (`compact` · `default` · `comfortable` · `spacious` veya CSS uzunluğu) |
 | Efekt | `uiShadowSm`, `uiShadowMd`, `uiShadowSurface`, `uiFillGrad*`, `uiScrollbar*` |
 | Grafik | `chart50` … `chart900`, `chart`, `chartForeground` |
@@ -126,7 +126,7 @@ aynı değişkenleri küçültür.
 | `--ui-space-inline` | 0.5rem | 0.375rem | satır içi öğeler |
 | `--ui-list-row-py` | 0.75rem | 0.5rem | `ui-list` satırı dikey dolgu |
 | `--ui-toolbar-gap` | 0.75rem | 0.5rem | `ui-toolbar` |
-| `--ui-space-card` | 1.5rem | 1rem | kart iç boşluğu (tema `cardPadding` önceliklidir) |
+| `--ui-space-card` | 20px (`p-5`) | 16px (`p-4`) | kart iç boşluğu (tema `cardPadding` önceliklidir) |
 
 Options API bileşenleri değerleri `uiDefaultsMixin` (`this.uiDefaults`) ile, Composition API
 `useUiDefaults()` ile okur; en yakın `ui-theme-provider` veya uygulama varsayılanı kullanılır.

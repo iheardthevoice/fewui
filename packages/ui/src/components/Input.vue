@@ -31,6 +31,8 @@
       :name="name"
       :autocomplete="autocomplete"
       :maxlength="maxlength"
+      :aria-describedby="resolvedDescribedBy"
+      :aria-invalid="resolvedInvalid"
       v-bind="passthroughAttrs"
       @input="onInput"
       @change="$emit('change', $event)"
@@ -50,6 +52,8 @@
       :name="name"
       :autocomplete="autocomplete"
       :maxlength="maxlength"
+      :aria-describedby="resolvedDescribedBy"
+      :aria-invalid="resolvedInvalid"
       v-bind="passthroughAttrs"
       @input="onInput"
       @change="$emit('change', $event)"
@@ -82,13 +86,14 @@ import { useId } from 'vue'
 import { pickPassthroughAttrs } from '../utils/pick-passthrough-attrs.js'
 import { uiDefaultsMixin } from '../theme/ui-defaults.js'
 import { CONTROL_SIZES } from '../utils/sizes.js'
+import { formFieldMixin } from '../utils/form-field.js'
 
 const SIZES = CONTROL_SIZES
 const VARIANTS = ['default', 'plain']
 
 export default {
   name: 'Input',
-  mixins: [uiDefaultsMixin],
+  mixins: [uiDefaultsMixin, formFieldMixin],
   inheritAttrs: false,
   props: {
     /** `default` dolgulu kabuk; `plain` border/fill yok (inline düzenleme). */
@@ -187,10 +192,18 @@ export default {
       if (this.id != null && this.id !== '') {
         return this.id
       }
-      return this.fallbackId
+      return this.formFieldId || this.fallbackId
+    },
+    resolvedDescribedBy() {
+      return this.formFieldDescribedBy(this.$attrs['aria-describedby'])
+    },
+    resolvedInvalid() {
+      return this.$attrs['aria-invalid'] ?? this.formFieldInvalid
     },
     passthroughAttrs() {
       return pickPassthroughAttrs(this.$attrs, [
+        'aria-describedby',
+        'aria-invalid',
         'class',
         'style',
         'type',
