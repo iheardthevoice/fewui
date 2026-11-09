@@ -20,9 +20,21 @@
           v-if="hasDefaultHeader"
           class="ui-header-lead"
         >
-          <div class="ui-header-lead__main">
+          <div
+            class="ui-header-lead__main"
+            :class="{ 'ui-header-lead__main--tile': hasIconTile }"
+          >
+            <ui-icon-tile
+              v-if="icon && hasIconTile"
+              :icon="icon"
+              :icon-type="resolvedIconType"
+              :color="iconColor"
+              :hex="iconHex"
+              :variant="resolvedIconVariant"
+              size="md"
+            />
             <span
-              v-if="icon"
+              v-else-if="icon"
               class="ui-header-lead__icon"
             >
               <ui-icon
@@ -137,6 +149,21 @@ export default {
       default: undefined,
       validator: (v) => v == null || ICON_TYPES.includes(v),
     },
+    /** Başlık ikonu karosu tonu (`ui-icon-tile` `color`); verilirse ikon renkli zeminde çizilir. */
+    iconColor: {
+      type: String,
+      default: '',
+    },
+    /** Başlık ikonu karosu hex rengi (`ui-icon-tile` `hex`) — rapor / kategori rengi */
+    iconHex: {
+      type: String,
+      default: '',
+    },
+    /** `soft` | `solid` — hex verildiğinde varsayılan `solid` */
+    iconVariant: {
+      type: String,
+      default: '',
+    },
     /** Gövde: yatay satır (buton / ikon sıraları). */
     row: {
       type: Boolean,
@@ -191,6 +218,12 @@ export default {
   computed: {
     resolvedIconType() {
       return resolveThemeIconType(this.uiDefaults, this.iconType)
+    },
+    hasIconTile() {
+      return Boolean(this.iconColor || this.iconHex)
+    },
+    resolvedIconVariant() {
+      return this.iconVariant || (this.iconHex ? 'solid' : 'soft')
     },
     hasDefaultHeader() {
       return !!(

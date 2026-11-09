@@ -5,10 +5,17 @@
   >
     <div
       v-if="title || showIcon"
-      class="ui-field__title-row"
+      :class="['ui-field__title-row', { 'ui-field__title-row--tile': showIcon && iconTile }]"
     >
+      <ui-icon-tile
+        v-if="showIcon && iconTile"
+        :icon="icon"
+        :icon-type="resolvedIconType"
+        :color="iconTileColor"
+        size="sm"
+      />
       <span
-        v-if="showIcon"
+        v-else-if="showIcon"
         :class="titleIconClass"
         aria-hidden="true"
       >
@@ -45,6 +52,9 @@ import { cn } from '../utils/cn.js'
 import { iconTypeProp, themeIconTypeComputed } from '../theme/icon-type-prop.js'
 import { uiDefaultsMixin } from '../theme/ui-defaults.js'
 
+/** `md` metrik / ayar değeri (16px, medium); `sm` detay listesi değeri (14px, normal) */
+const SIZES = ['sm', 'md']
+
 export default {
   name: 'Field',
   mixins: [uiDefaultsMixin],
@@ -62,6 +72,15 @@ export default {
     card: {
       type: Boolean,
       default: false,
+    },
+    /**
+     * Değer boyutu. `md` (varsayılan): metrik ve ayar özeti — 16px medium. `sm`: salt okunur detay
+     * listesi (kayıt detayı, özet) — 14px normal; etiket aynı kalır (12px büyük harf, soluk).
+     */
+    size: {
+      type: String,
+      default: 'md',
+      validator: (v) => SIZES.includes(v),
     },
     /** Grid / flex hücrede kart yüksekliğini eşitlemek için `h-full`. */
     fill: {
@@ -83,6 +102,11 @@ export default {
       validator: (v) =>
         !v || ['primary', 'secondary', 'success', 'warning', 'danger', 'info', 'muted'].includes(v),
     },
+    /** Başlık ikonu `ui-icon-tile` (sm) içinde, `iconTone` zemininde gösterilir. */
+    iconTile: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     ...themeIconTypeComputed(),
@@ -96,6 +120,9 @@ export default {
     showIcon() {
       return Boolean(this.icon)
     },
+    iconTileColor() {
+      return this.iconTone === 'muted' ? '' : this.iconTone
+    },
     titleIconClass() {
       const tone = this.iconTone || 'muted'
       return cn('ui-field__title-icon', `ui-field__title-icon--${tone}`)
@@ -103,6 +130,7 @@ export default {
     rootClass() {
       return cn(
         'ui-field',
+        this.size === 'sm' && 'ui-field--sm',
         this.card && 'ui-field--card',
         this.fill && 'h-full min-h-0 flex flex-col',
         this.$attrs.class,

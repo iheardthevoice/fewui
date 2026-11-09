@@ -678,10 +678,12 @@
     @apply min-w-0 text-muted-foreground;
   }
 
-  /** Gösterim fiyatları — giriş alanları (`ui-price-input`) hariç monospace */
+  /**
+   * Gösterim fiyatları — gövde yazı tipi + eşit genişlikli rakam (`tabular-nums`): sütunda hizalı,
+   * yanındaki metinle aynı aile. Eskiden monospace idi; satırda ikinci bir yazı tipi gibi duruyordu.
+   */
   .ui-price-text {
     @apply shrink-0 font-medium tabular-nums;
-    font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace);
   }
 
   .ui-price-text--sm {
@@ -1475,6 +1477,11 @@
 
   .ui-header-lead__icon {
     @apply flex h-6 shrink-0 items-center justify-center text-muted-foreground;
+  }
+
+  /** İkon karosu (`icon-color` / `icon-hex`) başlık bloğuyla dikeyde ortalanır. */
+  .ui-header-lead__main--tile {
+    @apply items-center;
   }
 
   .ui-header-lead__icon--page {
@@ -2480,6 +2487,10 @@
     @apply flex min-w-0 items-center gap-1.5;
   }
 
+  .ui-field__title-row--tile {
+    @apply gap-2;
+  }
+
   .ui-field__title-icon {
     @apply inline-flex shrink-0 items-center text-base leading-none text-muted-foreground;
   }
@@ -2512,12 +2523,18 @@
     @apply text-info;
   }
 
+  /** Tablo başlığı ve bölüm etiketiyle (`ui-section-label`) aynı tipografi — harf aralığı dahil. */
   .ui-field__title {
-    @apply text-xs font-normal uppercase leading-4 tracking-[0.06em] text-muted-foreground;
+    @apply text-xs font-normal uppercase leading-4 tracking-wider text-muted-foreground;
   }
 
   .ui-field__value {
     @apply min-w-0 text-base font-medium leading-5 text-foreground;
+  }
+
+  /** Salt okunur detay listesi — değer gövde metni (14px, normal); bağlantı ve rozet satır başında. */
+  .ui-field--sm .ui-field__value {
+    @apply flex min-w-0 flex-wrap items-center gap-2 text-sm font-normal;
   }
 
   .ui-field__subtitle {
@@ -3637,7 +3654,7 @@
    * Web’de (`cap-native` yok) mevcut solid surface korunur.
    */
   .ui-tabs--native-chrome .ui-tab-list--horizontal.ui-tab-list--segmented {
-    @apply p-0.5;
+    @apply p-0.5 h-[var(--ui-tab-h-chrome)] min-h-[var(--ui-tab-h-chrome)];
   }
 
   .ui-tabs--native-chrome .ui-tab-list--horizontal.ui-tab-list--segmented .ui-tab-trigger--segmented {
@@ -6293,6 +6310,15 @@
     @apply border-border;
   }
 
+  /** Kutusuz metrik: tıklanabilirken başlık ön plana çıkar. */
+  .ui-stat--plain.ui-stat--interactive {
+    @apply rounded-xl;
+  }
+
+  .ui-stat--plain.ui-stat--interactive:hover .ui-field__title {
+    @apply text-foreground;
+  }
+
   .ui-stat-value {
     @apply m-0;
   }
@@ -6355,6 +6381,14 @@
 
   .ui-stat-group--cols-4 {
     --ui-stat-cols: 4;
+  }
+
+  /** Dar kapsayıcıda da en az iki sütun (kutusuz `plain` metrikler). */
+  .ui-stat-group--min-cols-2 {
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(max(min(calc((100% - var(--ui-space-stack)) / 2), var(--ui-stat-min)), calc((100% - (var(--ui-stat-cols) - 1) * var(--ui-space-stack)) / var(--ui-stat-cols))), 1fr)
+    );
   }
 
   /** ChipGroup — seçim çipleri; dar ekranda yatay kaydırma. */

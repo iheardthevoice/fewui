@@ -34,7 +34,7 @@ yazılır ve CSS değişkenine çevrilir (`surfaceForeground` → `--surface-for
 | Yüzeyler | `surfaceStyle`, `controlStyle`, `inputStyle`, `popoverStyle`: `{ mixFrom, opacity, backdropBlur }` — `popoverStyle` yüzen katman (popover, menü, Select listesi); varsayılan `%85` + `20px`, kart camından bağımsız |
 | Şekil | `radius` (`--radius`; `sm` / `md` / `3xl` basamakları türetilir), `cardPadding` (`compact` · `default` · `comfortable` · `spacious` veya CSS uzunluğu) |
 | Efekt | `uiShadowSm`, `uiShadowMd`, `uiShadowSurface`, `uiFillGrad*`, `uiScrollbar*` |
-| Grafik | `chart50` … `chart900`, `chart`, `chartForeground` |
+| Grafik | `chart50` … `chart900`, `chart`, `chartForeground` (tek tonlu rampa) · `chartSeries1` … `chartSeries8` (kategorik seri: mavi, turuncu, turkuaz, amber, pembe, yeşil, mor, kırmızı — light/dark ayrı) |
 
 Türetilmiş değişkenler (`--surface-bg`, `--control-bg`, `--input-background`, `--border` varsayılanı,
 `--surface-subtle` = muted %30, `--surface-sunken` = muted %60, `--border-subtle` = border %60,

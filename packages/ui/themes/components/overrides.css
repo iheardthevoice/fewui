@@ -283,3 +283,12 @@
   background-color: transparent;
   background-image: none;
 }
+
+/**
+ * Detay listesi (`ui-field size="sm"`) değerindeki bağlantı metin gibi davranır: aynı boyut (14px),
+ * iç boşluk / kontrol yüksekliği yok, satır başında. Katmansız: Button boyut utility'leri
+ * (dokunmatikte `lg` → `text-base`) bunu ezmesin.
+ */
+.ui-field--sm .ui-field__value > .ui-button[data-variant='link'] {
+  @apply h-auto min-h-0 px-0 py-0 text-sm leading-5;
+}

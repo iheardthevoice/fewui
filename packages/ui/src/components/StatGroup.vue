@@ -13,9 +13,10 @@
 import { cn } from '../utils/cn.js'
 
 const COLUMNS = [1, 2, 3, 4]
+const MIN_COLUMNS = [1, 2]
 
 /**
- * `ui-stat` ızgarası — mobilde tek sütun, `sm` üstünde 2, geniş ekranda `columns` sütun.
+ * `ui-stat` ızgarası — mobilde tek sütun (`min-columns="2"` ile iki), `sm` üstünde 2, geniş ekranda `columns` sütun.
  * Kartlar aynı satırda eşit yükseklikte; aralık `--ui-space-stack`.
  */
 export default {
@@ -28,6 +29,12 @@ export default {
       default: 3,
       validator: (v) => COLUMNS.includes(v),
     },
+    /** Dar ekranda en az sütun sayısı; `2` mobilde de metrikleri ikişer dizer */
+    minColumns: {
+      type: Number,
+      default: 1,
+      validator: (v) => MIN_COLUMNS.includes(v),
+    },
     ariaLabel: {
       type: String,
       default: '',
@@ -35,7 +42,12 @@ export default {
   },
   computed: {
     rootClass() {
-      return cn('ui-stat-group', `ui-stat-group--cols-${this.columns}`, this.$attrs.class)
+      return cn(
+        'ui-stat-group',
+        `ui-stat-group--cols-${this.columns}`,
+        this.minColumns > 1 ? `ui-stat-group--min-cols-${this.minColumns}` : '',
+        this.$attrs.class,
+      )
     },
     passthroughAttrs() {
       const { class: _c, ...rest } = this.$attrs

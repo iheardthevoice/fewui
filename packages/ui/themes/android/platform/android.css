@@ -14,9 +14,7 @@
   --ui-control-h-sm: 2rem;
   --ui-control-h-md: 2.5rem;
   --ui-control-h-lg: 3rem;
-  --ui-tab-h-sm: 2.5rem;
-  --ui-tab-h-md: 3rem;
-  --ui-tab-h-lg: 3.25rem;
+  /** Sekme ve alt dock yüksekliği kontrolden türer (`_shared/global.css`). */
 
   --radius: 16px;
   --radius-sm: 12px;

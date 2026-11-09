@@ -94,6 +94,19 @@ export const androidPreset = {
       chart900: '#21005d',
       chart: 'var(--chart-500)',
       chartForeground: '#ffffff',
+      /**
+       * Kategorik grafik serisi (pasta / çok serili) — sabit sıra: 1 mavi · 2 turuncu · 3 turkuaz ·
+       * 4 amber · 5 pembe · 6 yeşil · 7 mor · 8 kırmızı. Komşu sıra renk körlüğü denetiminden geçer;
+       * koyu değerler koyu zemin için ayrı seçilir (otomatik ters çevrilmez).
+       */
+      chartSeries1: '#2a78d6',
+      chartSeries2: '#eb6834',
+      chartSeries3: '#1baf7a',
+      chartSeries4: '#eda100',
+      chartSeries5: '#e87ba4',
+      chartSeries6: '#008300',
+      chartSeries7: '#6250d6',
+      chartSeries8: '#e34948',
     },
     dark: {
       background: '#1c1b1f',
@@ -127,6 +140,14 @@ export const androidPreset = {
       chart800: '#e8def8',
       chart900: '#f3edf7',
       chartForeground: '#381e72',
+      chartSeries1: '#3987e5',
+      chartSeries2: '#d95926',
+      chartSeries3: '#199e70',
+      chartSeries4: '#c98500',
+      chartSeries5: '#d55181',
+      chartSeries6: '#008300',
+      chartSeries7: '#9085e9',
+      chartSeries8: '#e66767',
     },
   },
 }

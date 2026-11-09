@@ -6,6 +6,11 @@ export const liquidglassPreset = {
   },
   tokens: {
     light: {
+      /**
+       * Grouped canvas — iOS `systemGroupedBackground` (#F2F2F7) parlaklığı. `base-50` beyaz kartla
+       * neredeyse aynı tondaydı (kart seçilmiyordu); dark'taki siyah zemin / gri kart basamağının karşılığı.
+       */
+      background: 'color-mix(in oklab, var(--base-100) 80%, var(--base-200))',
       surfaceStyle: {
         opacity: '100%',
         backdropBlur: '0px',

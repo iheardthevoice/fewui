@@ -13,7 +13,7 @@
       type="button"
       :size="size"
       rounded
-      :variant="isSelected(option) ? 'solid' : 'outline'"
+      variant="solid"
       :color="isSelected(option) ? 'primary' : 'secondary'"
       :prefix-icon="option.icon || undefined"
       :disabled="disabled || option.disabled"
@@ -47,7 +47,9 @@ const SIZES = CONTROL_SIZES
 /**
  * Seçim çipleri — dönem, kapsam veya etiket gibi kısa seçenekler yatay sırada.
  * Tek seçimde `radiogroup` (ok tuşları seçimi taşır), `multiple` ile `aria-pressed` düğme grubu.
- * `scrollable` dar ekranda yatay kaydırır. Seçili çip dolu primary, diğerleri outline.
+ * `scrollable` dar ekranda yatay kaydırır. Seçili çip soluk primary, diğerleri `ui-filter-chip` boşken
+ * olduğu gibi dolgulu nötr (`solid secondary`) — yapışkan araç çubuğunda arkadaki içerik görünmez,
+ * yanındaki filtre çipleri ve seçicilerle aynı yüzey dilini konuşur.
  * Sekme için değil (`ui-tabs`), form içi ikili seçim için değil (`ui-segment-group`).
  */
 export default {
@@ -73,10 +75,14 @@ export default {
       type: Boolean,
       default: false,
     },
+    /**
+     * Verilmezse temanın kontrol boyutu (`controlSize`, varsayılan md) — yanındaki seçici ve filtre
+     * çipleriyle aynı yükseklik ve metin. Eskiden sabit `sm` idi. Yoğun yerlerde `size="sm"` verilir.
+     */
     size: {
       type: String,
-      default: 'sm',
-      validator: (v) => SIZES.includes(v),
+      default: undefined,
+      validator: (v) => v == null || SIZES.includes(v),
     },
     /** Tek satırda yatay kaydırma (dar ekran); `false` iken alt satıra kayar */
     scrollable: {

@@ -16,6 +16,7 @@
       :icon="icon"
       :icon-type="iconType"
       :icon-tone="color || undefined"
+      :icon-tile="iconTile"
     >
       <span
         v-if="loading"
@@ -81,7 +82,7 @@ import { CONTROL_SIZES } from '../utils/sizes.js'
 
 const SIZES = CONTROL_SIZES
 const STAT_COLORS = ['primary', 'secondary', 'success', 'warning', 'info', 'danger']
-const STAT_VARIANTS = ['soft', 'surface']
+const STAT_VARIANTS = ['soft', 'surface', 'plain']
 
 const VALUE_CLASS_BY_SIZE = {
   sm: 'ui-display-sm',
@@ -96,7 +97,8 @@ const VALUE_CLASS_BY_SIZE = {
  * korunur (aynı ızgarada kartlar hizalı kalır) veya `changeText` gösterilir (ör. “Yeni dönem”).
  * Artış `success`, azalış `danger` renktedir; gider gibi azalmanın iyi olduğu metriklerde `invertTrend`.
  *
- * `variant`: `soft` kart içinde (dolgulu kutu), `surface` sayfa üzerinde tek başına (kart yüzeyi).
+ * `variant`: `soft` kart içinde (dolgulu kutu), `surface` sayfa üzerinde tek başına (kart yüzeyi),
+ * `plain` kutusuz — kart içinde sık metrik ızgarası (yer kazanmak için; genelde `icon-tile` ile).
  */
 export default {
   name: 'Stat',
@@ -121,6 +123,11 @@ export default {
       default: '',
       validator: (v) => !v || STAT_COLORS.includes(v),
     },
+    /** Başlık ikonu `ui-icon-tile` içinde, `color` zemininde */
+    iconTile: {
+      type: Boolean,
+      default: false,
+    },
     /** Yüzde değişim; `undefined` satırı gizler, `null` yerini korur */
     change: {
       type: Number,
@@ -141,7 +148,7 @@ export default {
       type: Boolean,
       default: false,
     },
-    /** `soft`: kart içi dolgulu kutu · `surface`: sayfa üzerinde kart yüzeyi */
+    /** `soft`: kart içi dolgulu kutu · `surface`: sayfa üzerinde kart yüzeyi · `plain`: kutusuz */
     variant: {
       type: String,
       default: 'soft',
@@ -169,6 +176,7 @@ export default {
       return cn(
         'ui-stat',
         this.variant === 'surface' ? 'ui-surface ui-stat--surface' : '',
+        this.variant === 'plain' ? 'ui-stat--plain' : '',
         this.interactive ? 'ui-stat--interactive' : '',
         this.$attrs.class,
       )

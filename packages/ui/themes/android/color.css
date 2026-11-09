@@ -82,6 +82,14 @@
   --chart-900: #21005d;
   --chart: var(--chart-500);
   --chart-foreground: #ffffff;
+  --chart-series-1: #2a78d6;
+  --chart-series-2: #eb6834;
+  --chart-series-3: #1baf7a;
+  --chart-series-4: #eda100;
+  --chart-series-5: #e87ba4;
+  --chart-series-6: #008300;
+  --chart-series-7: #6250d6;
+  --chart-series-8: #e34948;
   --ui-radius-control-sm: min(var(--radius-md), calc(var(--ui-control-h-sm) / 2));
   --ui-radius-control-md: min(var(--radius), calc(var(--ui-control-h-md) / 2));
   --ui-radius-control-lg: min(var(--radius), calc(var(--ui-control-h-lg) / 2));
@@ -151,6 +159,14 @@
   --chart-800: #e8def8;
   --chart-900: #f3edf7;
   --chart-foreground: #381e72;
+  --chart-series-1: #3987e5;
+  --chart-series-2: #d95926;
+  --chart-series-3: #199e70;
+  --chart-series-4: #c98500;
+  --chart-series-5: #d55181;
+  --chart-series-6: #008300;
+  --chart-series-7: #9085e9;
+  --chart-series-8: #e66767;
 }
 @supports (color: oklch(from red l c h)) {
   :root {

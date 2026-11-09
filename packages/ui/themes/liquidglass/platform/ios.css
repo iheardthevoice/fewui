@@ -18,9 +18,7 @@ html.cap-native.cap-ios {
   --ui-control-h-sm: 2.125rem;
   --ui-control-h-md: 2.75rem;
   --ui-control-h-lg: 2.75rem;
-  --ui-tab-h-sm: 2.375rem;
-  --ui-tab-h-md: 2.75rem;
-  --ui-tab-h-lg: 3.125rem;
+  /** Sekme ve alt dock yüksekliği kontrolden türer (`_shared/global.css`). */
   /**
    * Tipografi — önceki “bir kademe büyüt” ile web arası; hafif kompakt.
    */
@@ -89,6 +87,11 @@ html.cap-native.cap-ios {
   /** Divider / kart stroke — input dolgusundan bağımsız, okunaklı separator. */
   --border: color-mix(in oklab, var(--foreground) 14%, transparent);
   /**
+   * Grouped canvas — iOS `systemGroupedBackground` (#F2F2F7) parlaklığı; beyaz kart (`--surface`)
+   * zeminden ayrışır. Web'in `base-50` zemini kartla neredeyse aynı tondaydı. Palet tonundan türer.
+   */
+  --background: color-mix(in oklab, var(--base-100) 80%, var(--base-200));
+  /**
    * Grouped yüzey basamağı — canvas (`--background`) ile form (`--control`) arası.
    * Sheet: `--surface`; alanlar bir kademe daha açık/kontrastlı `--control`.
    */
@@ -133,6 +136,8 @@ html.cap-native.cap-ios {
   --ui-control-opacity: 100%;
   --ui-input-opacity: 100%;
   --border: color-mix(in oklab, var(--foreground) 18%, transparent);
+  /** Açık moddaki grouped canvas değerini geri alır (web dark zemini; seçici `.dark`'tan güçlü). */
+  --background: #000000;
   --app-data-table-cell-bg: var(--ui-ios-card-surface-bg);
 }
 

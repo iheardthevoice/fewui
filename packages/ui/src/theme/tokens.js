@@ -8,6 +8,8 @@
 
 export const BASE_SCALE_STEPS = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950]
 export const CHART_SCALE_STEPS = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900]
+/** Kategorik grafik serisi: `chartSeries1` … `chartSeries8` → `--chart-series-1` … */
+export const CHART_SERIES_COUNT = 8
 
 const FONT_FALLBACKS = 'ui-sans-serif, system-ui, sans-serif'
 
@@ -71,7 +73,12 @@ export const TOKEN_GROUPS = {
     'borderSubtle',
   ],
   status: STATUS_TONES.flatMap((tone) => [tone, `${tone}Foreground`]),
-  chart: [...CHART_SCALE_STEPS.map((step) => `chart${step}`), 'chart', 'chartForeground'],
+  chart: [
+    ...CHART_SCALE_STEPS.map((step) => `chart${step}`),
+    'chart',
+    'chartForeground',
+    ...Array.from({ length: CHART_SERIES_COUNT }, (_, i) => `chartSeries${i + 1}`),
+  ],
   surfaces: ['surfaceStyle', 'controlStyle', 'inputStyle', 'popoverStyle'],
   shape: ['radius', 'radius4xl', 'cardPadding'],
   effects: [

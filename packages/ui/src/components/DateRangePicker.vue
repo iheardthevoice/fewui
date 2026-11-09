@@ -4,7 +4,7 @@
   >
     <ui-popover
       v-model:open="resolvedOpen"
-      placement="bottom-end"
+      :placement="placement"
       :match-trigger-width="false"
       :width="popoverWidth"
       :disabled="disabled"
@@ -166,6 +166,8 @@ import { uiDefaultsMixin } from '../theme/ui-defaults.js'
 
 const nextDateRangePickerId = createUiIdFactory('ui-daterangepicker')
 
+const PLACEMENTS = ['bottom-start', 'bottom-end', 'bottom', 'top-start', 'top-end', 'top']
+
 function pad2(n) {
   return String(n).padStart(2, '0')
 }
@@ -247,6 +249,15 @@ export default {
     modelValue: {
       type: Array,
       default: () => ['', ''],
+    },
+    /**
+     * Masaüstü panelin tetikleyiciye göre yeri. Varsayılan sağa hizalı (`bottom-end`);
+     * araç çubuğunun solundaki filtre çipinde `bottom-start` verilir, panel sola taşmaz.
+     */
+    placement: {
+      type: String,
+      default: 'bottom-end',
+      validator: (v) => PLACEMENTS.includes(v),
     },
     placeholder: {
       type: String,

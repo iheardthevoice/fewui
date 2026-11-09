@@ -680,11 +680,11 @@ const notifSelectAll = computed({
             <ui-toolbar aria-label="Pano filtreleri">
               <template #start>
                 <span ref="dashRangeAnchor">
-                  <ui-chip-group v-model="dashPeriod" size="md" :options="dashPeriodOptions" aria-label="Dönem"
+                  <ui-chip-group v-model="dashPeriod" :options="dashPeriodOptions" aria-label="Dönem"
                     @change="onDashPeriodChange" />
                 </span>
                 <ui-date-range-picker v-model="dashRange" v-model:open="dashRangeOpen" :show-trigger="false"
-                  :anchor="dashRangeAnchor" :presets="[]" />
+                  :anchor="dashRangeAnchor" :presets="[]" placement="bottom-start" />
               </template>
               <template #end>
                 <ui-filter-chip icon="table" empty-label="Masa" :value-label="dashTable" :empty="!dashTable"
@@ -699,6 +699,30 @@ const notifSelectAll = computed({
                 Ortalama 52 dk oturma
               </ui-stat>
             </ui-stat-group>
+            <ui-divider />
+            <ui-stat-group :columns="3" :min-columns="2" aria-label="Operasyon">
+              <ui-stat variant="plain" size="md" icon-tile title="Bahşiş" icon="coins" color="success"
+                value="₺1.240" interactive>
+                Satışın %4
+              </ui-stat>
+              <ui-stat variant="plain" size="md" icon-tile title="İndirim" icon="percent" color="warning"
+                value="₺380">
+                6 adisyonda indirim
+              </ui-stat>
+              <ui-stat variant="plain" size="md" icon-tile title="İptal ürün" icon="ban" color="danger"
+                value="3">
+                ₺210 · %1,2
+              </ui-stat>
+            </ui-stat-group>
+            <ui-divider />
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <ui-field size="sm" title="Kasa">
+                <ui-button variant="link" color="primary">Ana Kasa</ui-button>
+              </ui-field>
+              <ui-field size="sm" title="Ödeme">Nakit</ui-field>
+              <ui-field size="sm" title="Masa">Bahçe 4</ui-field>
+              <ui-field size="sm" title="Kaydeden">Ayşe Yılmaz</ui-field>
+            </div>
           </div>
         </ui-card>
       </ui-theme-provider>

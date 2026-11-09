@@ -25,11 +25,19 @@
   --ui-control-px-lg: calc(var(--ui-unit) * 3);
   /**
    * Segmented tab — ikon üstte, etiket altta (segment'ten ayrılan yan); izde `p-1` var.
-   * Kontrollerden her zaman büyük: 40 · 44 · 48 (iç yükseklik 32 · 36 · 40 — ikon + etiket sığar).
+   * Kontrolden türetilir: her boyda `--ui-control-h-*` + bir adım (web 40 · 44 · 48). Platform
+   * kontrolü büyütünce (iOS HIG 44pt, Android 48dp) sekme de büyür — Tab > Button ≥ çip sırası
+   * her ortamda korunur. Platform dosyaları sekme yüksekliğini ayrıca yazmaz.
    */
-  --ui-tab-h-sm: calc(var(--ui-unit) * 10);
-  --ui-tab-h-md: calc(var(--ui-unit) * 11);
-  --ui-tab-h-lg: calc(var(--ui-unit) * 12);
+  --ui-tab-step: calc(var(--ui-unit) * 3);
+  --ui-tab-h-sm: calc(var(--ui-control-h-sm) + var(--ui-tab-step));
+  --ui-tab-h-md: calc(var(--ui-control-h-md) + var(--ui-tab-step));
+  --ui-tab-h-lg: calc(var(--ui-control-h-lg) + var(--ui-tab-step));
+  /**
+   * Native alt dock (`ui-tabs native-chrome`) — ana gezinme sayfa sekmesinden küçük olamaz:
+   * en büyük sekme boyu (`lg`). Platform kontrolü büyüyünce dock da büyür.
+   */
+  --ui-tab-h-chrome: var(--ui-tab-h-lg);
   /**
    * Panel içi liste satırı (select seçeneği, menü, panel araması) — kontrolle aynı ölçek (shadcn: menü /
    * select / sidebar satırı = 32): 28 · 32 · 36.

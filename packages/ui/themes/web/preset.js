@@ -62,6 +62,19 @@ export const webPreset = {
       chart900: '#312e81',
       chart: 'var(--chart-500)',
       chartForeground: '#ffffff',
+      /**
+       * Kategorik grafik serisi (pasta / çok serili) — sabit sıra: 1 mavi · 2 turuncu · 3 turkuaz ·
+       * 4 amber · 5 pembe · 6 yeşil · 7 mor · 8 kırmızı. Komşu sıra renk körlüğü denetiminden geçer;
+       * koyu değerler koyu zemin için ayrı seçilir (otomatik ters çevrilmez).
+       */
+      chartSeries1: '#2a78d6',
+      chartSeries2: '#eb6834',
+      chartSeries3: '#1baf7a',
+      chartSeries4: '#eda100',
+      chartSeries5: '#e87ba4',
+      chartSeries6: '#008300',
+      chartSeries7: '#6250d6',
+      chartSeries8: '#e34948',
       muted: 'var(--base-200)',
       /** base-500 tonlu yüzeyde (surface-subtle, field kartı) 4.27:1 kalıyordu; %30 base-600 → ≥4.5. */
       mutedForeground: 'color-mix(in oklab, var(--base-500) 70%, var(--base-600))',
@@ -112,6 +125,14 @@ export const webPreset = {
       chart800: '#c7d2fe',
       chart900: '#e0e7ff',
       chartForeground: 'var(--base-950)',
+      chartSeries1: '#3987e5',
+      chartSeries2: '#d95926',
+      chartSeries3: '#199e70',
+      chartSeries4: '#c98500',
+      chartSeries5: '#d55181',
+      chartSeries6: '#008300',
+      chartSeries7: '#9085e9',
+      chartSeries8: '#e66767',
       muted: 'var(--base-800)',
       mutedForeground: 'var(--base-400)',
       accent: 'var(--base-800)',

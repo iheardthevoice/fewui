@@ -112,6 +112,8 @@ const PLACEMENTS = [
 
 /** Görünüm kenarı ile panel arası minimum boşluk (px) */
 const VIEW_MARGIN = 10
+/** Mobil ortalı panelin taban genişliği (px) — 16rem. */
+const MOBILE_CENTERED_MIN_W = 256
 /** Klavye görünür alanı daraltsa da panel en az bu kadar kalsın (arama + birkaç satır). */
 const MIN_AVAILABLE_H = 120
 /** Dialog sheet `margin-bottom` klavye geçişi (0.25s) + pay. */
@@ -404,6 +406,8 @@ export default {
       const explicitW = this.resolvedWidth
       // Önceki yükseklik tavanını kaldır; doğal yükseklik ölçülsün (klavye kapanınca büyüsün).
       this.$refs.layerRef?.style.removeProperty('--ui-popover-available-h')
+      // Önceki açılışın sabit genişliği ölçümü daraltmasın (mobil ortalı panel kendini besliyordu).
+      if (explicitW == null) this.$refs.layerRef?.style.removeProperty('width')
       const r = trigger.getBoundingClientRect()
       const contentW = panel.offsetWidth || 0
       const triggerW = Math.ceil(r.width)
@@ -425,7 +429,8 @@ export default {
         this.mobileCenteredActive = true
         this.backdropVisible = true
         const maxW = vw - margin * 2
-        const widthPx = Math.min(panelW, maxW)
+        // Ortalı mobil menü tetikleyiciye bağlı değil: iOS menüsü gibi okunur bir taban genişlik.
+        const widthPx = Math.min(Math.max(panelW, MOBILE_CENTERED_MIN_W), maxW)
         const left = Math.max(margin, Math.round((vw - widthPx) / 2))
         const availableH = vh - margin * 2
         const top = Math.max(margin, Math.round((vh - Math.min(panelH, availableH)) / 2))

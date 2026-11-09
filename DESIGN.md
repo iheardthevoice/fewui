@@ -12,6 +12,7 @@ Bu belge **fewui** ile geliştirdiğimiz arayüz dilini, token’ları ve tekrar
 - **Özel yüzey:** `surface-input` (`--input-background`) — input / select / segment izi gibi “konteyner içi” dolgular için.
 - **`--radius`:** 26px; `rounded-lg` ile eşlenen kontrol kabuğu için referans.
 - **Klavye odak:** `--ui-focus-ring` = `color-mix(ring, 45% transparent)` — `ring-2`, `ring-offset-2` ile birlikte kullanılır.
+- **Grafik:** tek ölçülü dağılım (çubuk, alan) `--chart-50` … `--chart-900` rampasıyla. Kimlik taşıyan dilimler (pasta, çok serili grafik) `--chart-series-1` … `--chart-series-8` ile: mavi, turuncu, turkuaz, amber, pembe, yeşil, mor, kırmızı. Sıra sabittir ve komşu renkler renk körlüğü denetiminden geçer; koyu değerler ayrı seçilir. Dilimde nötr gri kullanılmaz; renk tek başına anlam taşımaz, lejantta etiket ve tutar bulunur.
 
 **Koyu tema:** Sayfa `background` daha derin; kart ve paneller `surface` ile hizalanır. Border ve `surface-input` yüzeyden ayrışır, kart üzerinde gereksiz çift çerçeve oluşmaz.
 
@@ -192,10 +193,14 @@ Kart gövdesi (`ui-card-body`) varsayılan olarak bu tabanı kullanır.
 - **Stepper:** `default` ve `pills` (bu “pills” **Tabs** değil).
 - **Dialog / Toast / Confirm:** Programatik API’ler (`useDialog`, `useConfirm`, `useToast`); kökte ilgili portal bileşenleri gerekir.
 - **ListItem, Badge, Alert, Radio, Checkbox, Switch:** Ortak input/foreground/border token’ları; checkbox’ta köşe “hap” değil, kontrollü küçük radius.
-- **Stat / StatGroup:** Metrik her zaman `ui-stat`. Değer `ui-display-*`; değişim artışta `success`, azalışta `danger` — azalmanın iyi olduğu metrikte (gider, iptal, ret) `invert-trend`. Kart içinde `variant="soft"`, sayfada tek başına `variant="surface"`. `text-emerald-*` gibi sabit renk yazılmaz.
+- **Stat / StatGroup:** Metrik her zaman `ui-stat`. Değer `ui-display-*`; değişim artışta `success`, azalışta `danger` — azalmanın iyi olduğu metrikte (gider, iptal, ret) `invert-trend`. Kart içinde `variant="soft"`, sayfada tek başına `variant="surface"`. Yer darsa (özet kartı, mobil) kutusuz `variant="plain"` + `icon-tile` + `ui-stat-group :min-columns="2"` — metrikler mobilde de ikişer dizilir. Kart başlığında renkli ikon karosu `ui-card` `icon-color` / `icon-hex` (+ `icon-variant`) ile verilir; `ui-list-item` ile aynı adlar. `text-emerald-*` gibi sabit renk yazılmaz.
 - **IconTile:** Satır, kart ve metrik başlığındaki renkli ikon kutusu. Elle `flex size-10 rounded-xl bg-muted/40` karo yazılmaz. Nötr varsayılan; tonlu karo yalnız anlam taşıdığında.
 - **ListItem (satır düzeni):** Ayar / gezinme satırı `title` + `description` + `icon` + `to` / `interactive`. Kart içinde `ui-card remove-padding` + `ui-list`.
 - **FilterChip / ChipGroup:** Filtre tetikleyicisi `ui-filter-chip`; kısa seçenek sırası (dönem, kapsam, etiket) `ui-chip-group`. `ui-button` + `aria-pressed` ile elle toggle grubu yazılmaz. Sekme için `ui-tabs`, form içi ikili seçim için `ui-segment-group`.
+- **Filtre şeridi:** Seçili olmayan çip, boş filtre çipi, seçici ve takvim düğmesi aynı dolgulu nötr yüzeyi kullanır (`solid secondary`); outline (zeminsiz) çip yapışkan araç çubuğunda arkadaki içeriği gösterir, kullanılmaz. Şeritteki tüm kontroller aynı boyuttadır, aralarında tek boşluk vardır (çip grubu ile aynı, 6px). Çip içinde iki parçalı etiket ("5 Kas") tek boyutta yazılır, ikincil parça yalnız tonla ayrılır.
+- **Boyut sırası — Sekme > Düğme ≥ Filtre çipi:** Gezinme (sekme izi) eylemden, eylem (sayfa düğmesi) filtreden büyük ya da eşittir. Filtre çipi ve seçici sayfa düğmesiyle aynı kontrol boyutunu kullanır; daha büyük yapılmaz. Rozet (18px) bilgi taşır, tıklanmaz.
+- **Yazı ölçeği (panel):** 24 sayfa başlığı ve detaydaki ana tutar · 20 pencere başlığı · 16 bölüm başlığı · 14 içerik (satır başlığı, değer, düğme, çip, listedeki tutar) · 12 ikincil (alt satır, büyük harfli etiket, rozet, sekme yazısı, sayfalama). Kalınlık 400 / 500; `<b>` / `font-bold` yok. Tutar `ui-price-text` ile gövde yazı tipinde, eşit genişlikli rakamla yazılır; listede satır başlığından büyük olmaz (`size="md"`).
+- **Salt okunur detay:** Kayıt detayında `ui-form-row` (form alanı) kullanılmaz; `ui-field size="sm"` kullanılır: etiket 12px büyük harf, aralıklı, soluk; değer 14px. Boş alan gösterilmez; aynı bilgi başlıkta, rozette ve alanda tekrarlanmaz.
 - **Section:** Detay ve form bölümleri `ui-section` (etiketli ayırıcı + açıklama + alan yığını).
 - **Toolbar:** Liste / rapor üstü araç ve filtre satırı `ui-toolbar`; aralık `--ui-toolbar-gap`.
 
