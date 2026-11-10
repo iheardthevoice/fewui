@@ -6984,7 +6984,7 @@ const Ru = {
       if (!e) return ue;
       const i = e.querySelector(".ui-timepicker-wheel-item");
       if (!i) return ue;
-      const t = i.getBoundingClientRect().height;
+      const t = i.offsetHeight || i.getBoundingClientRect().height;
       return t > 0 ? t : ue;
     },
     wheelSpacerTop(e) {

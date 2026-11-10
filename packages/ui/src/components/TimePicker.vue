@@ -434,7 +434,9 @@ export default {
       if (!el) return WHEEL_ITEM_PX
       const item = el.querySelector('.ui-timepicker-wheel-item')
       if (!item) return WHEEL_ITEM_PX
-      const h = item.getBoundingClientRect().height
+      // Yerleşim yüksekliği: popover açılış animasyonundaki scale getBoundingClientRect'i
+      // küçültür, snap seçimi bir öğe yukarı kaydırırdı (14 → 13).
+      const h = item.offsetHeight || item.getBoundingClientRect().height
       return h > 0 ? h : WHEEL_ITEM_PX
     },
     wheelSpacerTop(el) {
