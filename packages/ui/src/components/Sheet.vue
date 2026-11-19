@@ -141,7 +141,9 @@ import { trapTabKey, captureReturnFocus, restoreFocus } from '../utils/focus-tra
 import { resolveThemeIconType } from '../theme/resolve-theme-default.js'
 import { uiDefaultsMixin } from '../theme/ui-defaults.js'
 import { uiPortalMixin } from '../theme/ui-portal.js'
-import { pushOverlay, releaseOverlay } from '../theme/overlay-stack.js'
+import { pushOverlay, releaseOverlay, isTopModalOverlay } from '../theme/overlay-stack.js'
+import { shouldContainFocus } from '../utils/focus-guard.js'
+import { lockBodyScroll, unlockBodyScroll } from '../utils/scroll-lock.js'
 
 const nextSheetId = createUiIdFactory('ui-sheet')
 
@@ -273,6 +275,7 @@ export default {
         if (isOpen) {
           this.returnFocusEl = captureReturnFocus()
           this.acquireLayer()
+          this.lockScroll()
           this.scheduleInitialFocus()
         } else {
           this.releaseLayer()
@@ -287,6 +290,7 @@ export default {
   },
   beforeUnmount() {
     this.releaseLayer()
+    this.unlockScroll()
     this.clearFocusFallback()
   },
   computed: {
@@ -356,7 +360,8 @@ export default {
     rootLayerClasses() {
       return cn(
         'ui-sheet-root fixed inset-0 flex outline-none',
-        this.side === 'left' ? 'justify-start' : 'justify-end',
+        // `side` fizikseldir: RTL’de flex başlangıcı sağa geçtiği için hizalama ters çevrilir.
+        this.side === 'left' ? 'justify-start rtl:justify-end' : 'justify-end rtl:justify-start',
         !this.overlay && 'ui-sheet-root--no-overlay',
       )
     },
@@ -365,11 +370,34 @@ export default {
     acquireLayer() {
       if (this.rootZIndex != null) return
       this.rootZIndex = pushOverlay(this, 'modal', () => this.close())
+      if (this.overlay && typeof document !== 'undefined') {
+        document.addEventListener('focusin', this.onDocumentFocusIn)
+      }
+    },
+    /** Odak arkadaki sayfaya kaçarsa panele geri çağırır (bkz. `utils/focus-guard.js`). */
+    onDocumentFocusIn(e) {
+      if (!this.overlay || !isTopModalOverlay(this)) return
+      if (!shouldContainFocus(e.target, this.$refs.layerRef)) return
+      this.$refs.panelRef?.focus?.({ preventScroll: true })
     },
     releaseLayer() {
       if (this.rootZIndex == null) return
+      if (typeof document !== 'undefined') {
+        document.removeEventListener('focusin', this.onDocumentFocusIn)
+      }
       releaseOverlay(this)
       this.rootZIndex = null
+    },
+    /** Yalnız modal (`overlay`) sheet arka plan kaydırmasını kilitler; kilit çıkış animasyonu bitince açılır. */
+    lockScroll() {
+      if (this.scrollLocked || !this.overlay) return
+      this.scrollLocked = true
+      lockBodyScroll()
+    },
+    unlockScroll() {
+      if (!this.scrollLocked) return
+      this.scrollLocked = false
+      unlockBodyScroll()
     },
     close() {
       this.$emit('update:open', false)
@@ -379,6 +407,8 @@ export default {
     },
     onLayerKeydown(e) {
       if (e.key === 'Escape' && this.closeOnEscape) {
+        // İçteki açık katman (popover, select, lightbox) tuşu tüketti; aynı basışta sheet kapanmaz.
+        if (e.defaultPrevented) return
         e.stopPropagation()
         this.close()
         return
@@ -389,6 +419,7 @@ export default {
       this.scheduleInitialFocus()
     },
     onOverlayAfterLeave() {
+      if (!this.open) this.unlockScroll()
       this.$emit('after-leave')
       restoreFocus(this.returnFocusEl)
       this.returnFocusEl = null

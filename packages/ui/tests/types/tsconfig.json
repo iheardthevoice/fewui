@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": false,
+    "types": [],
+    "baseUrl": "../..",
+    "paths": {
+      "fewui": ["./types/index.d.ts"],
+      "fewui/landing": ["./types/landing.d.ts"]
+    }
+  },
+  "include": ["./consumer.ts", "../../types/*.d.ts"]
+}

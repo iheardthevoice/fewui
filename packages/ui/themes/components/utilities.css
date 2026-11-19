@@ -91,3 +91,16 @@
     @apply hidden;
   }
 }
+
+/**
+ * Yön bildiren ikon (ileri / geri, sonraki / önceki oku) — RTL’de yatay aynalanır; LTR’de etkisizdir.
+ * İkonun kendisine ya da ikonu çizen düğmeye verilir (`ui-button` içindeki `prefix-icon` / `suffix-icon`);
+ * yükleniyor göstergesi (`fa-spin`) aynalanmaz. `scale` özelliği kullanılır: `transform` / `rotate` ile çakışmaz.
+ * Yön bildirmeyen ikonlara (dış bağlantı, yenile, onay…) verilmez.
+ */
+@layer components {
+  .ui-icon--dir:where(.ui-icon),
+  .ui-icon--dir .ui-icon:not(.fa-spin) {
+    @apply rtl:-scale-x-100;
+  }
+}

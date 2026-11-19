@@ -1,4 +1,5 @@
 import { reactive } from 'vue'
+import { uiFeedback } from './utils/feedback.js'
 
 /** @typedef {'info' | 'success' | 'warning' | 'danger'} ToastColor */
 
@@ -8,6 +9,7 @@ import { reactive } from 'vue'
  * @property {string} title
  * @property {string} [description]
  * @property {ToastColor} color
+ * @property {{ label: string, onClick?: () => void, keepOpen?: boolean } | null} [action]
  */
 
 /**
@@ -77,9 +79,36 @@ function bumpDismissTimer(item) {
     clearTimeout(item._timer)
     item._timer = null
   }
+  // İmleç ya da odak toastın üzerindeyken süre işlemez (WCAG 2.2.1).
+  if (item._paused) return
   if (item.duration > 0) {
     item._timer = setTimeout(() => dismissToast(item.id), item.duration)
   }
+}
+
+/**
+ * Otomatik kapanmayı bekletir — imleç ya da klavye odağı toastın üzerindeyken.
+ * @param {number} id
+ */
+export function pauseToast(id) {
+  const item = toastState.items.find((row) => row.id === id)
+  if (!item) return
+  item._paused = true
+  if (item._timer) {
+    clearTimeout(item._timer)
+    item._timer = null
+  }
+}
+
+/**
+ * Bekletilen toastın süresini baştan başlatır; açık grup elle kapatılana kadar kalır.
+ * @param {number} id
+ */
+export function resumeToast(id) {
+  const item = toastState.items.find((row) => row.id === id)
+  if (!item || !item._paused) return
+  item._paused = false
+  if (!item.expanded) bumpDismissTimer(item)
 }
 
 function maxColor(a, b) {
@@ -94,6 +123,20 @@ function makeChild(payload, id) {
     title: payload.title ?? '',
     description: payload.description ?? '',
     color: payload.color ?? 'info',
+    action: normalizeAction(payload.action),
+  }
+}
+
+/**
+ * @param {unknown} action
+ * @returns {{ label: string, onClick?: () => void, keepOpen?: boolean } | null}
+ */
+function normalizeAction(action) {
+  if (!action || typeof action !== 'object' || !action.label) return null
+  return {
+    label: String(action.label),
+    onClick: typeof action.onClick === 'function' ? action.onClick : undefined,
+    keepOpen: action.keepOpen === true,
   }
 }
 
@@ -108,14 +151,23 @@ function makeChild(payload, id) {
  *   color?: ToastColor,
  *   duration?: number,
  *   group?: boolean,
+ *   action?: { label: string, onClick?: () => void, keepOpen?: boolean },
  * }} payload
+ * @param {object} [payload.action] Toast içi eylem düğmesi ("Geri al"); tıklanınca `onClick` çalışır ve
+ *   `keepOpen` verilmediyse toast kapanır. Eylemli toast gruplanmaz.
  * @param {number} [payload.duration] ms; `0` — yalnızca elle kapatma
  * @param {boolean} [payload.group=true] `false` ise bu toast gruplanmaz
  * @returns {number} toast id (grup id)
  */
+const TOAST_FEEDBACK = { success: 'success', warning: 'warning', danger: 'error' }
+
 export function pushToast(payload = {}) {
+  // Bilgi toast'ı titretmez; sonuç bildiren tonlar (başarı / uyarı / hata) dokunsal karşılık alır.
+  const feedback = TOAST_FEEDBACK[payload.color]
+  if (feedback) uiFeedback(feedback)
   const now = Date.now()
-  const allowGroup = payload.group !== false
+  // Eylemli toast tek başına kalır: grup kartında hangi eylemin gösterileceği belirsiz olurdu.
+  const allowGroup = payload.group !== false && !payload.action
   const duration = payload.duration !== undefined ? payload.duration : 4500
   const childColor = payload.color ?? 'info'
 

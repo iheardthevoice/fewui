@@ -19,6 +19,8 @@ export default {
       tone: { info: 'Bilgi', success: 'Başarılı', warning: 'Uyarı', danger: 'Hata' },
     },
     toast: {
+      expand: '{count} bildirimi göster',
+      collapse: 'Bildirimleri daralt',
       /** Daraltılmış grup özeti */
       groupCount: '{count} bildirim',
       /** Açılmış grup başlığı */
@@ -27,6 +29,9 @@ export default {
     dialog: {
       close: 'Kapat',
       back: 'Geri',
+      unsavedTitle: 'Değişiklikler kaydedilmedi',
+      unsavedDescription: 'Şimdi kapatırsanız girdiğiniz bilgiler kaybolur.',
+      unsavedConfirm: 'Değişiklikleri at',
     },
     guidance: {
       go: 'Devam',
@@ -99,6 +104,8 @@ export default {
       today: 'Bugün',
       yesterday: 'Dün',
       tomorrow: 'Yarın',
+      prevMonth: 'Önceki ay',
+      nextMonth: 'Sonraki ay',
     },
     dateRangePicker: {
       placeholder: 'Tarih aralığı seçin',
@@ -128,6 +135,39 @@ export default {
     },
     photos: {
       more: '+{count}',
+    },
+    breadcrumb: {
+      ariaLabel: 'Sayfa yolu',
+      more: 'Gizlenen sayfaları göster',
+    },
+    pagination: {
+      ariaLabel: 'Sayfalama',
+      prev: 'Önceki sayfa',
+      next: 'Sonraki sayfa',
+      page: 'Sayfa {page}',
+    },
+    scrollArea: {
+      ariaLabel: 'Kaydırılabilir alan',
+    },
+    command: {
+      placeholder: 'Komut yazın veya arayın…',
+      empty: 'Sonuç bulunamadı.',
+      loading: 'Aranıyor…',
+      label: 'Komut paleti',
+    },
+    chart: {
+      empty: 'Gösterilecek veri yok',
+      legend: 'Seriler',
+      total: 'Toplam',
+      category: 'Kategori',
+      keyboardHint: 'Değerleri okumak için ok tuşlarını kullanın.',
+    },
+    resizable: {
+      handle: 'Panelleri yeniden boyutlandır',
+    },
+    slider: {
+      minThumb: 'En az',
+      maxThumb: 'En çok',
     },
   },
 }

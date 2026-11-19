@@ -82,7 +82,7 @@
             color="secondary"
             cubed
             prefix-icon="chevron-left"
-            class="ui-photo-preview__nav ui-photo-preview__nav--prev"
+            class="ui-photo-preview__nav ui-photo-preview__nav--prev ui-icon--dir"
             :aria-label="prevLabel"
             @click.stop="goPrev"
           />
@@ -99,7 +99,7 @@
             color="secondary"
             cubed
             prefix-icon="chevron-right"
-            class="ui-photo-preview__nav ui-photo-preview__nav--next"
+            class="ui-photo-preview__nav ui-photo-preview__nav--next ui-icon--dir"
             :aria-label="nextLabel"
             @click.stop="goNext"
           />
@@ -117,6 +117,7 @@
 
 <script>
 import { cn } from '../utils/cn.js'
+import { logicalArrowKey } from '../utils/direction.js'
 
 const ASPECTS = ['square', 'video', 'auto']
 const SIZES = ['fill', 'sm', 'md', 'lg']
@@ -292,13 +293,15 @@ export default {
       if (this.showNext) this.previewIndex += 1
     },
     onPreviewKeydown(event) {
+      // RTL’de önceki / sonraki düğmeleri yer değiştirir; oklar görsel yönü izler.
+      const arrow = logicalArrowKey(event.key, event.currentTarget)
       if (event.key === 'Escape') {
         event.preventDefault()
         this.closePreview()
-      } else if (event.key === 'ArrowLeft') {
+      } else if (arrow === 'ArrowLeft') {
         event.preventDefault()
         this.goPrev()
-      } else if (event.key === 'ArrowRight') {
+      } else if (arrow === 'ArrowRight') {
         event.preventDefault()
         this.goNext()
       }

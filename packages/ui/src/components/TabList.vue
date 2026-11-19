@@ -22,6 +22,7 @@
 <script>
 import { cn } from '../utils/cn.js'
 import { selectionIndicatorMixin } from '../utils/selection-indicator.js'
+import { logicalArrowKey } from '../utils/direction.js'
 
 export default {
   name: 'TabList',
@@ -85,7 +86,8 @@ export default {
 
       const keysNext = vert ? ['ArrowDown', 'ArrowRight'] : ['ArrowRight', 'ArrowDown']
       const keysPrev = vert ? ['ArrowUp', 'ArrowLeft'] : ['ArrowLeft', 'ArrowUp']
-      const k = e.key
+      // RTL’de yatay oklar görsel sırayı izler (sol = sonraki).
+      const k = logicalArrowKey(e.key, this.$el)
 
       let delta = 0
       if (keysNext.includes(k)) delta = 1

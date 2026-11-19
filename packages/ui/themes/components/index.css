@@ -1,3 +1,23 @@
 @import "./utilities.css";
 @import "./layer.css";
+/* Bileşen başına stil dosyaları — yeni bileşenler buraya eklenir (layer.css büyümez). */
+@import "./parts/toast.css";
+@import "./parts/collapsible.css";
+@import "./parts/accordion.css";
+@import "./parts/breadcrumb.css";
+@import "./parts/kbd.css";
+@import "./parts/scroll-area.css";
+@import "./parts/pagination.css";
+@import "./parts/menu.css";
+@import "./parts/hover-card.css";
+@import "./parts/command.css";
+@import "./parts/chart.css";
+@import "./parts/resizable.css";
+@import "./parts/slider-range.css";
+@import "./parts/menu-rail.css";
+@import "./parts/table-interactive.css";
+@import "./parts/table-cards.css";
+@import "./parts/touch.css";
+@import "./parts/dialog-sheet-actions.css";
+@import "./parts/toast-placement.css";
 @import "./overrides.css";

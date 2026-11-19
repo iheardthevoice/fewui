@@ -40,8 +40,10 @@
 </template>
 
 <script>
+import { formDirtyMixin } from '../utils/form-dirty.js'
 export default {
   name: 'Radio',
+  mixins: [formDirtyMixin],
   inject: {
     uiRadioGroup: {
       default: null,
@@ -89,6 +91,7 @@ export default {
   methods: {
     select() {
       if (this.uiRadioGroup) {
+        this.notifyFormDirty()
         this.uiRadioGroup.$emit('update:modelValue', this.value)
       }
     },

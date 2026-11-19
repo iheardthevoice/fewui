@@ -66,7 +66,7 @@
                   prefix-icon="xmark"
                   class="ui-dialog-header__close"
                   :aria-label="resolvedCloseLabel"
-                  @click="close"
+                  @click="requestClose"
                 />
                 <ui-button
                   v-if="withBack"
@@ -75,7 +75,7 @@
                   color="secondary"
                   size="md"
                   prefix-icon="arrow-left"
-                  class="ui-dialog-header__back"
+                  class="ui-dialog-header__back ui-icon--dir"
                   @click="onBack"
                 >
                   {{ resolvedBackLabel }}
@@ -157,6 +157,7 @@
 </template>
 
 <script>
+import { uiFeedback } from '../utils/feedback.js'
 import Divider from './Divider.vue'
 import { cn } from '../utils/cn.js'
 import { createUiIdFactory } from '../utils/ui-id.js'
@@ -170,7 +171,10 @@ import { isMobileViewport } from '../utils/viewport.js'
 import { readMotionDuration, readMotionEasing } from '../utils/motion-token.js'
 import { uiDefaultsMixin } from '../theme/ui-defaults.js'
 import { uiPortalMixin } from '../theme/ui-portal.js'
-import { OVERLAY_BASE_Z, pushOverlay, releaseOverlay } from '../theme/overlay-stack.js'
+import { OVERLAY_BASE_Z, pushOverlay, releaseOverlay, isTopModalOverlay } from '../theme/overlay-stack.js'
+import { shouldContainFocus } from '../utils/focus-guard.js'
+import { UI_FORM_DIRTY_KEY } from '../utils/form-dirty.js'
+import { requestConfirm, hasConfirmHost } from '../confirm-state.js'
 
 const nextDialogId = createUiIdFactory('ui-dialog')
 
@@ -187,6 +191,9 @@ const ICON_TYPES = ['solid', 'regular', 'brands', 'light', 'duotone', 'thin']
 
 const MAX_WIDTHS = ['sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl', '5xl', 'full']
 
+/** Enter ile gönderimi tetikleyen tek satırlı `<input>` tipleri. */
+const SUBMIT_INPUT_TYPES = ['', 'text', 'email', 'number', 'tel', 'url', 'password', 'search']
+
 const MAX_WIDTH_CLASS = {
   sm: 'ui-dialog-panel--max-sm',
   md: 'ui-dialog-panel--max-md',
@@ -198,6 +205,9 @@ const MAX_WIDTH_CLASS = {
   '5xl': 'ui-dialog-panel--max-5xl',
   full: 'ui-dialog-panel--max-full',
 }
+
+/** Alt sayfa bu kadar aşağı sürüklenip bırakılırsa kapanır (px). */
+const SHEET_DISMISS_PX = 72
 
 export default {
   name: 'Dialog',
@@ -318,7 +328,10 @@ export default {
       type: String,
       default: '',
     },
-    /** Açılışta gövdedeki ilk form alanına odaklan (yoksa panele düşer). */
+    /**
+     * Açılışta gövdedeki ilk form alanına odaklan (yoksa panele düşer).
+     * `false`: alan seçilmez, odak yalnız panele taşınır (klavye / Escape dialoga gider).
+     */
     initialFocus: {
       type: Boolean,
       default: true,
@@ -332,8 +345,38 @@ export default {
       default: 'default',
       validator: (v) => v === 'default' || v === 'confirm',
     },
+    /**
+     * Kaydedilmemiş değişiklik koruması: form kirliyken Escape / arka plan / X / sheet sürükleme
+     * kapatmadan önce onay ister. Verilmezse tema varsayılanı `dialogGuardUnsaved` (false).
+     * Programatik kapanış (`open=false`) hiçbir zaman sormaz.
+     */
+    guardUnsaved: {
+      type: Boolean,
+      default: undefined,
+    },
+    /**
+     * Kirli durumu elle belirler; verilmezse içerideki fewui form kontrollerinin
+     * kullanıcı değişiklikleri izlenir.
+     */
+    dirty: {
+      type: Boolean,
+      default: undefined,
+    },
+    /**
+     * Tek satırlı metin alanında Enter (ve her yerde Cmd/Ctrl+Enter) footer'daki birincil
+     * eylemi tetikler: `data-ui-dialog-primary` işaretli ilk etkin düğme, yoksa son etkin
+     * solid primary `ui-button`. Verilmezse tema varsayılanı `dialogSubmitOnEnter` (false).
+     */
+    submitOnEnter: {
+      type: Boolean,
+      default: undefined,
+    },
   },
   emits: ['update:open', 'after-leave', 'back'],
+  provide() {
+    // İç içe dialogda içteki kontroller yalnız en yakın (içteki) dialogu işaretler.
+    return { [UI_FORM_DIRTY_KEY]: () => this.markDirty() }
+  },
   data() {
     const id = nextDialogId()
     return {
@@ -349,18 +392,24 @@ export default {
       footerClearancePx: null,
       /** Katman kaydından gelen z-index */
       rootZIndex: null,
+      /** Kullanıcı içerideki bir form kontrolünü değiştirdi. */
+      detectedDirty: false,
+      /** Kaydedilmemiş değişiklik onayı ekranda. */
+      unsavedPromptOpen: false,
     }
   },
   watch: {
     open: {
       immediate: true,
       handler(isOpen) {
+        this.detectedDirty = false
         if (isOpen) {
           if (this.layerMounted || this.layerClosing) return
           this.returnFocusEl = captureReturnFocus()
           this.rootZIndex = this.resolveRootZIndex()
           this.layerMounted = true
           lockBodyScroll()
+          this.bindFocusGuard()
           this.$nextTick(() => {
             this.resetPanelMotionStyles()
             this.resetBodyScroll()
@@ -391,6 +440,7 @@ export default {
     this.clearFocusFallback()
     this.clearSheetDragListeners()
     this.unbindFooterClearanceObserver()
+    this.unbindFocusGuard()
     if (this.layerMounted) {
       unlockBodyScroll()
     }
@@ -511,6 +561,15 @@ export default {
       }
       return resolveUiText(this, 'ui.dialog.back', 'Back')
     },
+    resolvedGuardUnsaved() {
+      return resolveThemeDefault(this.uiDefaults, this.guardUnsaved, 'dialogGuardUnsaved') === true
+    },
+    resolvedSubmitOnEnter() {
+      return resolveThemeDefault(this.uiDefaults, this.submitOnEnter, 'dialogSubmitOnEnter') === true
+    },
+    isDirty() {
+      return this.dirty !== undefined ? this.dirty : this.detectedDirty
+    },
     rootLayerClasses() {
       return cn(
         'ui-dialog-root fixed inset-0 flex outline-none',
@@ -525,18 +584,32 @@ export default {
     },
   },
   methods: {
-    /**
-     * Onay diyaloğu her zaman en üsttedir: kayıt üstüne `confirm` tabanı kadar pay eklenir.
-     */
+    bindFocusGuard() {
+      if (this.focusGuardBound || typeof document === 'undefined') return
+      this.focusGuardBound = true
+      document.addEventListener('focusin', this.onDocumentFocusIn)
+    },
+    unbindFocusGuard() {
+      if (!this.focusGuardBound) return
+      this.focusGuardBound = false
+      document.removeEventListener('focusin', this.onDocumentFocusIn)
+    },
+    /** Odak arkadaki sayfaya kaçarsa panele geri çağırır (bkz. `utils/focus-guard.js`). */
+    onDocumentFocusIn(e) {
+      if (this.layerClosing || !isTopModalOverlay(this)) return
+      if (!shouldContainFocus(e.target, this.$refs.layerRef)) return
+      this.$refs.panelRef?.focus?.({ preventScroll: true })
+    },
     releaseLayer() {
       if (this.rootZIndex == null) return
       releaseOverlay(this)
       this.rootZIndex = null
     },
     resolveRootZIndex() {
-      const z = pushOverlay(this, 'modal', () => {})
-      if (this.stackLayer !== 'confirm') return z
-      return Math.max(z, OVERLAY_BASE_Z.confirm) + (z >= OVERLAY_BASE_Z.confirm ? 10 : 0)
+      // Onay katmanı açık modalların üstünde başlar; kayda gerçek değer yazılır ki
+      // onun içinden açılan dialog (ör. düzenleme) altında kalmasın.
+      const minZ = this.stackLayer === 'confirm' ? OVERLAY_BASE_Z.confirm : 0
+      return pushOverlay(this, 'modal', () => {}, minZ)
     },
     prefersReducedMotion() {
       if (typeof window === 'undefined') return false
@@ -801,6 +874,7 @@ export default {
       this.animateLayerOut(el, () => {
         this.layerMounted = false
         this.layerClosing = false
+        this.unbindFocusGuard()
         this.releaseLayer()
         unlockBodyScroll()
         this.resetPanelMotionStyles()
@@ -883,7 +957,7 @@ export default {
       }
     },
     scheduleInitialFocus() {
-      if (!this.open || !this.initialFocus) return
+      if (!this.open) return
       this.clearFocusFallback()
       this.$nextTick(() => {
         const panel = this.$refs.panelRef
@@ -909,32 +983,115 @@ export default {
       })
     },
     runInitialFocus() {
-      if (!this.open || !this.initialFocus) return
+      if (!this.open) return
       this.$nextTick(() => {
         this.focusInitialField()
       })
     },
     focusInitialField() {
-      if (isMobileViewport()) return
       const panel = this.$refs.panelRef
+      if (!this.initialFocus) {
+        // Odak arkada (ör. dialogu açan popover düğmesinde) kalmasın; panel klavye göndermez.
+        if (panel && !panel.contains(document.activeElement)) panel.focus?.({ preventScroll: true })
+        return
+      }
+      if (isMobileViewport()) return
       if (panel && focusFirstField(panel)) return
       panel?.focus?.()
     },
+    /** Koşulsuz kapatır (programatik). Kullanıcı kaynaklı kapanış `requestClose` kullanır. */
     close() {
       this.dismissLayer()
+    },
+    markDirty() {
+      if (this.layerMounted && !this.layerClosing) this.detectedDirty = true
+    },
+    /** Kirli işaretini sıfırlar (ör. kaydetmeden sonra dialog açık kalıyorsa). */
+    markPristine() {
+      this.detectedDirty = false
+    },
+    /** Kapanış onay gerektiriyor mu: koruma açık, form kirli ve onay katmanı kurulu. */
+    shouldGuardClose() {
+      return this.resolvedGuardUnsaved && this.isDirty && hasConfirmHost()
+    },
+    /** Kullanıcı kaynaklı kapanış (Escape, arka plan, X, sheet sürükleme). */
+    async requestClose() {
+      if (!this.shouldGuardClose()) {
+        this.close()
+        return
+      }
+      if (this.unsavedPromptOpen) return
+      this.unsavedPromptOpen = true
+      let discard = false
+      try {
+        discard = await requestConfirm({
+          title: resolveUiText(this, 'ui.dialog.unsavedTitle', 'Unsaved changes'),
+          description: resolveUiText(
+            this,
+            'ui.dialog.unsavedDescription',
+            'If you close now, what you entered will be lost.',
+          ),
+          confirmLabel: resolveUiText(this, 'ui.dialog.unsavedConfirm', 'Discard changes'),
+          color: 'danger',
+        })
+      } finally {
+        this.unsavedPromptOpen = false
+      }
+      if (discard && this.layerMounted) this.close()
+    },
+    /** Footer'daki birincil eylem düğmesi (bkz. `submitOnEnter`). */
+    findPrimaryAction() {
+      const footer = this.$refs.footerRef
+      if (!footer) return null
+      const enabled = (el) =>
+        !el.disabled && el.getAttribute('aria-disabled') !== 'true' && el.getAttribute('data-loading') !== 'true'
+      const marked = [...footer.querySelectorAll('[data-ui-dialog-primary]')].filter(enabled)
+      if (marked.length) return marked[0]
+      const solid = [...footer.querySelectorAll('.ui-button[data-variant="solid"][data-color="primary"]')].filter(enabled)
+      return solid.length ? solid[solid.length - 1] : null
+    },
+    isSubmitKeyTarget(target) {
+      if (!(target instanceof Element)) return false
+      if (target.tagName !== 'INPUT') return false
+      if (!SUBMIT_INPUT_TYPES.includes((target.getAttribute('type') || '').toLowerCase())) return false
+      // Yerel <form> kendi gönderimini yapar; çift gönderim olmasın.
+      if (target.form) return false
+      if (target.readOnly && target.getAttribute('role') !== 'combobox') return false
+      // Alanın sahip olduğu açık liste / popover (select, combobox, tarih seçici) Enter'ı kullanır.
+      if (target.closest('[aria-expanded="true"]')) return false
+      if (target.closest('[role="listbox"], [role="menu"], [role="grid"], .ui-popover-panel')) return false
+      return true
+    },
+    /** @returns {boolean} tuş tüketildi */
+    handleSubmitKey(e) {
+      if (!this.resolvedSubmitOnEnter || e.key !== 'Enter') return false
+      if (e.defaultPrevented || e.isComposing || e.keyCode === 229 || e.repeat) return false
+      if (e.altKey || e.shiftKey) return false
+      const panel = this.$refs.panelRef
+      if (!panel || !(e.target instanceof Node) || !panel.contains(e.target)) return false
+      const modifier = e.metaKey || e.ctrlKey
+      if (!modifier && !this.isSubmitKeyTarget(e.target)) return false
+      const action = this.findPrimaryAction()
+      if (!action) return false
+      e.preventDefault()
+      action.click()
+      return true
     },
     onBack() {
       this.$emit('back')
     },
     onBackdrop() {
-      if (this.closeOnBackdrop) this.close()
+      if (this.closeOnBackdrop) this.requestClose()
     },
     onLayerKeydown(e) {
       if (this.closeOnEscape && e.key === 'Escape') {
+        // İçteki açık katman (popover, select, lightbox) tuşu tüketti; aynı basışta dialog kapanmaz.
+        if (e.defaultPrevented) return
         e.preventDefault()
-        this.close()
+        this.requestClose()
         return
       }
+      if (this.handleSubmitKey(e)) return
       trapTabKey(e, this.$refs.panelRef)
     },
     clearSheetDragListeners() {
@@ -970,17 +1127,29 @@ export default {
       const prevBackdropTransition = backdrop?.style.transition || ''
       panel.style.transition = 'none'
       if (backdrop) backdrop.style.transition = 'none'
+      let pastDismiss = false
       const onMove = (ev) => {
         const dy = Math.max(0, ev.clientY - startY)
+        // Bırakınca kapanacağı eşik geçildiğinde (ve geri dönüldüğünde) hafif dokunsal işaret.
+        if ((dy >= SHEET_DISMISS_PX) !== pastDismiss) {
+          pastDismiss = !pastDismiss
+          uiFeedback('impact-light')
+        }
         panel.style.transform = `translate3d(0, ${dy}px, 0)`
         if (backdrop) {
           backdrop.style.opacity = String(this.sheetBackdropOpacityForDrag(panel, dy))
         }
       }
-      const finishSheetDrag = (dy, dismiss) => {
+      const finishSheetDrag = (dy, wantsDismiss) => {
+        let dismiss = wantsDismiss
         if (this.sheetDragCleanup) {
           this.sheetDragCleanup()
           this.sheetDragCleanup = null
+        }
+        if (dismiss && this.shouldGuardClose()) {
+          // Kirli form: sheet yerine döner, kapanış onaydan sonra olur.
+          dismiss = false
+          this.requestClose()
         }
         if (dismiss) {
           panel.style.removeProperty('transition')
@@ -1012,7 +1181,7 @@ export default {
       }
       const onUp = (ev) => {
         const dy = Math.max(0, ev.clientY - startY)
-        finishSheetDrag(dy, dy >= 72)
+        finishSheetDrag(dy, dy >= SHEET_DISMISS_PX)
       }
       const onCancel = () => {
         finishSheetDrag(0, false)

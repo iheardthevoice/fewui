@@ -1,0 +1,35 @@
+@layer components {
+  /**
+   * Menu `collapsed` — ikon rayı. Etiket ve grup başlığı görsel olarak gizlenir (ekran okuyucuda kalır);
+   * öğe kontrol yüksekliğinde kare ikon düğmesidir. Varsayılan (açık) menü bu dosyadan etkilenmez.
+   */
+  .ui-menu--collapsed {
+    @apply w-fit max-w-full;
+  }
+
+  .ui-menu--collapsed .ui-menu-group-label {
+    @apply sr-only;
+  }
+
+  /** Başlık gizlenince gruplar ince çizgiyle ayrılır. */
+  .ui-menu--collapsed .ui-menu-group + .ui-menu-group {
+    @apply border-t border-border pt-3;
+  }
+
+  .ui-menu--collapsed .ui-menu-group-items {
+    @apply items-center;
+  }
+
+  .ui-menu--collapsed .ui-menu-group-items > .ui-tooltip {
+    @apply flex justify-center;
+  }
+
+  /** Kare: yükseklik `ui-control-h-*` sınıfından, genişlik oranla aynı değere gelir. */
+  .ui-menu--collapsed .ui-menu-item.ui-button {
+    @apply aspect-square w-auto shrink-0 justify-center gap-0 px-0;
+  }
+
+  .ui-menu--collapsed .ui-menu-item.ui-button .ui-button-text {
+    @apply sr-only;
+  }
+}

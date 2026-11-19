@@ -1,0 +1,444 @@
+[
+  {
+    "text": "Actions",
+    "collapsed": false,
+    "items": [
+      {
+        "text": "ui-action-group",
+        "link": "/kit/components/ui-action-group"
+      },
+      {
+        "text": "ui-ai-button",
+        "link": "/kit/components/ui-ai-button"
+      },
+      {
+        "text": "ui-button",
+        "link": "/kit/components/ui-button"
+      },
+      {
+        "text": "ui-chip-group",
+        "link": "/kit/components/ui-chip-group"
+      },
+      {
+        "text": "ui-filter-chip",
+        "link": "/kit/components/ui-filter-chip"
+      },
+      {
+        "text": "ui-segment",
+        "link": "/kit/components/ui-segment"
+      },
+      {
+        "text": "ui-segment-group",
+        "link": "/kit/components/ui-segment-group"
+      }
+    ]
+  },
+  {
+    "text": "Forms",
+    "collapsed": false,
+    "items": [
+      {
+        "text": "ui-checkbox",
+        "link": "/kit/components/ui-checkbox"
+      },
+      {
+        "text": "ui-checkbox-group",
+        "link": "/kit/components/ui-checkbox-group"
+      },
+      {
+        "text": "ui-color-picker",
+        "link": "/kit/components/ui-color-picker"
+      },
+      {
+        "text": "ui-currency-input",
+        "link": "/kit/components/ui-currency-input"
+      },
+      {
+        "text": "ui-date-picker",
+        "link": "/kit/components/ui-date-picker"
+      },
+      {
+        "text": "ui-date-range-picker",
+        "link": "/kit/components/ui-date-range-picker"
+      },
+      {
+        "text": "ui-field-action",
+        "link": "/kit/components/ui-field-action"
+      },
+      {
+        "text": "ui-form-row",
+        "link": "/kit/components/ui-form-row"
+      },
+      {
+        "text": "ui-icon-picker",
+        "link": "/kit/components/ui-icon-picker"
+      },
+      {
+        "text": "ui-input",
+        "link": "/kit/components/ui-input"
+      },
+      {
+        "text": "ui-password",
+        "link": "/kit/components/ui-password"
+      },
+      {
+        "text": "ui-phone",
+        "link": "/kit/components/ui-phone"
+      },
+      {
+        "text": "ui-pin",
+        "link": "/kit/components/ui-pin"
+      },
+      {
+        "text": "ui-price-input",
+        "link": "/kit/components/ui-price-input"
+      },
+      {
+        "text": "ui-radio",
+        "link": "/kit/components/ui-radio"
+      },
+      {
+        "text": "ui-radio-group",
+        "link": "/kit/components/ui-radio-group"
+      },
+      {
+        "text": "ui-select",
+        "link": "/kit/components/ui-select"
+      },
+      {
+        "text": "ui-slider",
+        "link": "/kit/components/ui-slider"
+      },
+      {
+        "text": "ui-switch",
+        "link": "/kit/components/ui-switch"
+      },
+      {
+        "text": "ui-time-picker",
+        "link": "/kit/components/ui-time-picker"
+      }
+    ]
+  },
+  {
+    "text": "Overlays",
+    "collapsed": false,
+    "items": [
+      {
+        "text": "ui-command",
+        "link": "/kit/components/ui-command"
+      },
+      {
+        "text": "ui-confirm-dialog",
+        "link": "/kit/components/ui-confirm-dialog"
+      },
+      {
+        "text": "ui-context-menu",
+        "link": "/kit/components/ui-context-menu"
+      },
+      {
+        "text": "ui-dialog",
+        "link": "/kit/components/ui-dialog"
+      },
+      {
+        "text": "ui-dropdown",
+        "link": "/kit/components/ui-dropdown"
+      },
+      {
+        "text": "ui-guidance",
+        "link": "/kit/components/ui-guidance"
+      },
+      {
+        "text": "ui-hover-card",
+        "link": "/kit/components/ui-hover-card"
+      },
+      {
+        "text": "ui-intro",
+        "link": "/kit/components/ui-intro"
+      },
+      {
+        "text": "ui-menubar",
+        "link": "/kit/components/ui-menubar"
+      },
+      {
+        "text": "ui-popover",
+        "link": "/kit/components/ui-popover"
+      },
+      {
+        "text": "ui-sheet",
+        "link": "/kit/components/ui-sheet"
+      },
+      {
+        "text": "ui-tooltip",
+        "link": "/kit/components/ui-tooltip"
+      }
+    ]
+  },
+  {
+    "text": "Navigation",
+    "collapsed": false,
+    "items": [
+      {
+        "text": "ui-breadcrumb",
+        "link": "/kit/components/ui-breadcrumb"
+      },
+      {
+        "text": "ui-breadcrumb-item",
+        "link": "/kit/components/ui-breadcrumb-item"
+      },
+      {
+        "text": "ui-menu",
+        "link": "/kit/components/ui-menu"
+      },
+      {
+        "text": "ui-menu-group",
+        "link": "/kit/components/ui-menu-group"
+      },
+      {
+        "text": "ui-menu-item",
+        "link": "/kit/components/ui-menu-item"
+      },
+      {
+        "text": "ui-menu-nav",
+        "link": "/kit/components/ui-menu-nav"
+      },
+      {
+        "text": "ui-pagination",
+        "link": "/kit/components/ui-pagination"
+      },
+      {
+        "text": "ui-sidebar-item",
+        "link": "/kit/components/ui-sidebar-item"
+      },
+      {
+        "text": "ui-step",
+        "link": "/kit/components/ui-step"
+      },
+      {
+        "text": "ui-stepper",
+        "link": "/kit/components/ui-stepper"
+      },
+      {
+        "text": "ui-tab-list",
+        "link": "/kit/components/ui-tab-list"
+      },
+      {
+        "text": "ui-tab-panel",
+        "link": "/kit/components/ui-tab-panel"
+      },
+      {
+        "text": "ui-tab-trigger",
+        "link": "/kit/components/ui-tab-trigger"
+      },
+      {
+        "text": "ui-table-pagination",
+        "link": "/kit/components/ui-table-pagination"
+      },
+      {
+        "text": "ui-tabs",
+        "link": "/kit/components/ui-tabs"
+      }
+    ]
+  },
+  {
+    "text": "Data display",
+    "collapsed": false,
+    "items": [
+      {
+        "text": "ui-accordion",
+        "link": "/kit/components/ui-accordion"
+      },
+      {
+        "text": "ui-accordion-item",
+        "link": "/kit/components/ui-accordion-item"
+      },
+      {
+        "text": "ui-action-card",
+        "link": "/kit/components/ui-action-card"
+      },
+      {
+        "text": "ui-action-card-list",
+        "link": "/kit/components/ui-action-card-list"
+      },
+      {
+        "text": "ui-avatar",
+        "link": "/kit/components/ui-avatar"
+      },
+      {
+        "text": "ui-avatar-group",
+        "link": "/kit/components/ui-avatar-group"
+      },
+      {
+        "text": "ui-badge",
+        "link": "/kit/components/ui-badge"
+      },
+      {
+        "text": "ui-card",
+        "link": "/kit/components/ui-card"
+      },
+      {
+        "text": "ui-chart",
+        "link": "/kit/components/ui-chart"
+      },
+      {
+        "text": "ui-collapsible",
+        "link": "/kit/components/ui-collapsible"
+      },
+      {
+        "text": "ui-field",
+        "link": "/kit/components/ui-field"
+      },
+      {
+        "text": "ui-file",
+        "link": "/kit/components/ui-file"
+      },
+      {
+        "text": "ui-icon",
+        "link": "/kit/components/ui-icon"
+      },
+      {
+        "text": "ui-icon-tile",
+        "link": "/kit/components/ui-icon-tile"
+      },
+      {
+        "text": "ui-kbd",
+        "link": "/kit/components/ui-kbd"
+      },
+      {
+        "text": "ui-list",
+        "link": "/kit/components/ui-list"
+      },
+      {
+        "text": "ui-list-item",
+        "link": "/kit/components/ui-list-item"
+      },
+      {
+        "text": "ui-photo",
+        "link": "/kit/components/ui-photo"
+      },
+      {
+        "text": "ui-photos",
+        "link": "/kit/components/ui-photos"
+      },
+      {
+        "text": "ui-price-display",
+        "link": "/kit/components/ui-price-display"
+      },
+      {
+        "text": "ui-price-display-group",
+        "link": "/kit/components/ui-price-display-group"
+      },
+      {
+        "text": "ui-price-display-row",
+        "link": "/kit/components/ui-price-display-row"
+      },
+      {
+        "text": "ui-price-text",
+        "link": "/kit/components/ui-price-text"
+      },
+      {
+        "text": "ui-stat",
+        "link": "/kit/components/ui-stat"
+      },
+      {
+        "text": "ui-stat-group",
+        "link": "/kit/components/ui-stat-group"
+      },
+      {
+        "text": "ui-table",
+        "link": "/kit/components/ui-table"
+      },
+      {
+        "text": "ui-table-body",
+        "link": "/kit/components/ui-table-body"
+      },
+      {
+        "text": "ui-table-cell",
+        "link": "/kit/components/ui-table-cell"
+      },
+      {
+        "text": "ui-table-head",
+        "link": "/kit/components/ui-table-head"
+      },
+      {
+        "text": "ui-table-header",
+        "link": "/kit/components/ui-table-header"
+      },
+      {
+        "text": "ui-table-row",
+        "link": "/kit/components/ui-table-row"
+      },
+      {
+        "text": "ui-tag",
+        "link": "/kit/components/ui-tag"
+      }
+    ]
+  },
+  {
+    "text": "Feedback",
+    "collapsed": false,
+    "items": [
+      {
+        "text": "ui-alert",
+        "link": "/kit/components/ui-alert"
+      },
+      {
+        "text": "ui-empty",
+        "link": "/kit/components/ui-empty"
+      },
+      {
+        "text": "ui-progress",
+        "link": "/kit/components/ui-progress"
+      },
+      {
+        "text": "ui-skeleton",
+        "link": "/kit/components/ui-skeleton"
+      },
+      {
+        "text": "ui-toast",
+        "link": "/kit/components/ui-toast"
+      }
+    ]
+  },
+  {
+    "text": "Layout",
+    "collapsed": false,
+    "items": [
+      {
+        "text": "ui-divider",
+        "link": "/kit/components/ui-divider"
+      },
+      {
+        "text": "ui-resizable-group",
+        "link": "/kit/components/ui-resizable-group"
+      },
+      {
+        "text": "ui-resizable-handle",
+        "link": "/kit/components/ui-resizable-handle"
+      },
+      {
+        "text": "ui-resizable-panel",
+        "link": "/kit/components/ui-resizable-panel"
+      },
+      {
+        "text": "ui-scroll-area",
+        "link": "/kit/components/ui-scroll-area"
+      },
+      {
+        "text": "ui-section",
+        "link": "/kit/components/ui-section"
+      },
+      {
+        "text": "ui-selection-indicator",
+        "link": "/kit/components/ui-selection-indicator"
+      },
+      {
+        "text": "ui-theme-provider",
+        "link": "/kit/components/ui-theme-provider"
+      },
+      {
+        "text": "ui-toolbar",
+        "link": "/kit/components/ui-toolbar"
+      }
+    ]
+  }
+]

@@ -1,0 +1,114 @@
+@layer components {
+  /**
+   * Accordion — yükseklik animasyonu `collapsible.css` içindeki `.ui-collapse` sınıflarından gelir.
+   * Satır dolgusu `--ui-accordion-py` (sm / md / lg); yazı boyutu her boyutta aynıdır (14 başlık, 12 açıklama).
+   */
+  .ui-accordion {
+    --ui-accordion-py: calc(var(--ui-unit) * 3);
+    --ui-accordion-px: 0px;
+    @apply flex min-w-0 flex-col;
+  }
+
+  .ui-accordion--sm {
+    --ui-accordion-py: calc(var(--ui-unit) * 2);
+  }
+
+  .ui-accordion--lg {
+    --ui-accordion-py: calc(var(--ui-unit) * 4);
+  }
+
+  /** `line`: çerçeve yok, öğeler arasında yalnız ayırıcı çizgi. */
+  .ui-accordion--line > .ui-accordion-item + .ui-accordion-item {
+    @apply border-t border-border;
+  }
+
+  /** `card`: her öğe ayrı yüzey. */
+  .ui-accordion--card {
+    --ui-accordion-px: calc(var(--ui-unit) * 4);
+    @apply gap-2;
+  }
+
+  .ui-accordion--card > .ui-accordion-item {
+    @apply rounded-lg border border-border bg-surface;
+  }
+
+  .ui-accordion-item {
+    @apply min-w-0;
+  }
+
+  .ui-accordion-header {
+    @apply m-0 flex;
+  }
+
+  /** `items-start`: ikon ve chevron çok satırlı başlıkta ilk metin satırıyla hizalı kalır. */
+  .ui-accordion-trigger {
+    @apply flex w-full min-w-0 cursor-pointer items-start gap-3 rounded-md border-0 bg-transparent px-[var(--ui-accordion-px)] py-[var(--ui-accordion-py)] text-start text-sm leading-5 text-foreground outline-none transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-background;
+  }
+
+  .ui-accordion-trigger:focus-visible {
+    --tw-ring-color: var(--ui-focus-ring);
+  }
+
+  .ui-accordion--card .ui-accordion-trigger {
+    @apply rounded-lg;
+  }
+
+  .ui-accordion-trigger:disabled {
+    @apply cursor-not-allowed opacity-50;
+  }
+
+  /** Kapatılamayan açık öğe (`collapsible: false`). */
+  .ui-accordion-trigger[aria-disabled='true'] {
+    @apply cursor-default;
+  }
+
+  /** İkon ve chevron kutusu başlık satır yüksekliğinde (20px): tek satırda ortalı, çok satırda ilk satırda. */
+  .ui-accordion-icon,
+  .ui-accordion-chevron {
+    @apply inline-flex h-5 w-5 shrink-0 items-center justify-center text-muted-foreground;
+  }
+
+  .ui-accordion-chevron {
+    @apply transition-transform duration-200 ease-out;
+  }
+
+  .ui-accordion-item--open > .ui-accordion-header .ui-accordion-chevron {
+    @apply rotate-180;
+  }
+
+  .ui-accordion-trigger:hover:not(:disabled):not([aria-disabled='true']) .ui-accordion-chevron {
+    @apply text-foreground;
+  }
+
+  .ui-accordion-text {
+    @apply flex min-w-0 flex-1 flex-col gap-0.5;
+  }
+
+  .ui-accordion-title {
+    @apply text-sm font-medium leading-5 text-foreground;
+  }
+
+  .ui-accordion-description {
+    @apply text-xs font-normal leading-4 text-muted-foreground;
+  }
+
+  .ui-accordion-append {
+    @apply flex h-5 shrink-0 items-center gap-2;
+  }
+
+  .ui-accordion-content {
+    @apply px-[var(--ui-accordion-px)] pb-[var(--ui-accordion-py)] text-sm leading-5 text-muted-foreground;
+  }
+
+  /** İçerik başlık metniyle aynı sütunda başlar (ikon 20px + boşluk 12px). */
+  .ui-accordion-item--with-icon .ui-accordion-content {
+    @apply ps-[calc(var(--ui-accordion-px)_+_2rem)];
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ui-accordion-chevron,
+    .ui-accordion-trigger {
+      @apply transition-none;
+    }
+  }
+}

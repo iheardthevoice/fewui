@@ -52,12 +52,14 @@
 </template>
 
 <script>
+import { formDirtyMixin } from '../utils/form-dirty.js'
 import { CONTROL_SIZES } from '../utils/sizes.js'
 
 const SIZES = CONTROL_SIZES
 
 export default {
   name: 'Checkbox',
+  mixins: [formDirtyMixin],
   inject: {
     uiCheckboxGroup: {
       default: null,
@@ -165,8 +167,10 @@ export default {
         } else if (!checked && i !== -1) {
           arr.splice(i, 1)
         }
+        this.notifyFormDirty()
         this.uiCheckboxGroup.$emit('update:modelValue', arr)
       } else {
+        this.notifyFormDirty()
         this.$emit('update:modelValue', e.target.checked)
       }
     },
@@ -180,8 +184,10 @@ export default {
         } else {
           arr.splice(i, 1)
         }
+        this.notifyFormDirty()
         this.uiCheckboxGroup.$emit('update:modelValue', arr)
       } else {
+        this.notifyFormDirty()
         this.$emit('update:modelValue', !this.modelValue)
       }
     },

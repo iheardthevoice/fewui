@@ -1,0 +1,15 @@
+@layer components {
+  /** HoverCard — tetikleyici satır içi kalır (bağlantı, avatar, etiket). */
+  .ui-hover-card-trigger {
+    @apply inline-flex max-w-full;
+  }
+
+  /** Kart gövdesi; genişlik `--ui-hover-card-w` ile temadan ya da `width` prop'undan gelir. */
+  .ui-hover-card {
+    @apply w-[var(--ui-hover-card-w,18rem)] max-w-full p-4 text-sm text-surface-foreground;
+  }
+
+  .ui-hover-card--sized {
+    @apply w-full;
+  }
+}

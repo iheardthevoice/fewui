@@ -300,6 +300,7 @@ import {
 } from '../utils/tour-target-bounds.js'
 import { iconTypeProp, themeIconTypeComputed } from '../theme/icon-type-prop.js'
 import { uiDefaultsMixin } from '../theme/ui-defaults.js'
+import { isRtl } from '../utils/direction.js'
 
 const MODES = ['dialog', 'popover', 'card', 'tour']
 const PLACEMENTS = [
@@ -316,7 +317,6 @@ const PLACEMENTS = [
 ]
 const MAX_WIDTHS = ['sm', 'md', 'lg', 'xl', '2xl', 'full']
 
-const TOUR_GAP = 8
 const TOUR_PANEL_MARGIN = 12
 const TOUR_DEFAULT_TARGET_PADDING = 8
 
@@ -559,7 +559,9 @@ export default {
       }
 
       let top = highlightBottom + TOUR_PANEL_MARGIN
-      let left = highlightLeft
+      // Satır başı kenarı: LTR’de sol, RTL’de sağ (`*-end` tersi). `left*` / `right*` fizikseldir.
+      const rtl = isRtl(targetEl)
+      let left = rtl ? highlightRight - panelW : highlightLeft
 
       if (this.placement.startsWith('top')) {
         top = highlightTop - panelH - TOUR_PANEL_MARGIN
@@ -570,7 +572,7 @@ export default {
         top = highlightTop
         left = highlightLeft - panelW - TOUR_PANEL_MARGIN
       } else if (this.placement.includes('end')) {
-        left = highlightRight - panelW
+        left = rtl ? highlightLeft : highlightRight - panelW
       }
 
       if (

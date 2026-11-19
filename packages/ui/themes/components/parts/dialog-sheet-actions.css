@@ -1,0 +1,26 @@
+/**
+ * Dialog — telefon alt sayfasında (bottom sheet) footer eylemleri.
+ * Birincil eylem tam genişlikte ve en altta durur (başparmak erişimi); ikincil düğmeler bir üst
+ * satırı paylaşır. Yalnız footer'ın DOĞRUDAN çocuğu olan düğmeler etkilenir — kendi yerleşimini
+ * kuran footer'lar (sarmalayıcı `div`) olduğu gibi kalır. Tablet ve masaüstü değişmez.
+ *
+ * `layer.css` içindeki mobil dialog kurallarından SONRA içe aktarılmalıdır.
+ */
+@layer components {
+  @media (max-width: 767px) {
+    .ui-dialog-panel > .ui-dialog-motion > .ui-card-footer > .ui-button {
+      @apply min-w-0 flex-auto;
+    }
+
+    .ui-dialog-panel > .ui-dialog-motion > .ui-card-footer > .ui-button:only-child,
+    .ui-dialog-panel > .ui-dialog-motion > .ui-card-footer > .ui-button[data-variant='solid'][data-color='primary'],
+    .ui-dialog-panel > .ui-dialog-motion > .ui-card-footer > .ui-button[data-variant='solid'][data-color='danger'] {
+      @apply basis-full;
+    }
+
+    /** Yalnız ikonlu düğme (ör. sil) satırı doldurmaz. */
+    .ui-dialog-panel > .ui-dialog-motion > .ui-card-footer > .ui-button[class*='ui-control-cubed-']:not(:only-child) {
+      @apply flex-none;
+    }
+  }
+}

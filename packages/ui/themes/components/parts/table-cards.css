@@ -1,0 +1,116 @@
+@layer components {
+  /**
+   * Kart satırlar — dar ekranda tablo yerine: her kayıt başlık satırı (ortam · başlık · tutar · menü)
+   * ve altında etiket–değer satırlarından oluşur. Sütun sırası tabloyla aynıdır; hücre rolü sınıfla verilir.
+   */
+  .ui-data-cards {
+    @apply flex min-w-0 flex-col;
+  }
+
+  .ui-data-card {
+    @apply relative grid min-w-0 items-center gap-y-1.5 px-3 py-3 [grid-template-columns:auto_auto_minmax(0,1fr)_auto_auto] [border-radius:var(--radius)];
+  }
+
+  .ui-data-card + .ui-data-card::before {
+    @apply [content:''] pointer-events-none absolute inset-x-3 top-0 h-px bg-border;
+  }
+
+  /** Uzun basış bağlam menüsü açar: iOS'un bağlantı / metin balonu çıkmasın. */
+  .ui-data-card--interactive,
+  .ui-table-row--interactive {
+    -webkit-touch-callout: none;
+  }
+
+  .ui-data-card--interactive {
+    @apply cursor-pointer [-webkit-tap-highlight-color:transparent] transition-colors duration-150 active:[background-color:var(--ui-hover)];
+  }
+
+  .ui-data-card--interactive:focus-visible {
+    @apply [outline:2px_solid_var(--ui-focus-ring)] [outline-offset:-2px];
+  }
+
+  .ui-data-card--selected {
+    @apply [background-color:var(--primary-soft)] [border-radius:var(--ui-radius-inner)];
+  }
+
+  /** Ardışık seçili kartlar tek blok: aradaki çizgi ve iç köşeler kalkar. */
+  .ui-data-card--selected:has(+ .ui-data-card--selected) {
+    @apply [border-end-start-radius:0] [border-end-end-radius:0];
+  }
+
+  .ui-data-card--selected + .ui-data-card--selected {
+    @apply [border-start-start-radius:0] [border-start-end-radius:0];
+  }
+
+  .ui-data-card--selected + .ui-data-card--selected::before,
+  .ui-data-card--selected + .ui-data-card::before,
+  .ui-data-card + .ui-data-card--selected::before {
+    @apply opacity-0;
+  }
+
+  .ui-data-card--custom {
+    @apply block;
+  }
+
+  .ui-data-card-cell {
+    @apply min-w-0;
+  }
+
+  .ui-data-card-cell--select {
+    @apply col-start-1 row-start-1 me-3 flex items-center;
+  }
+
+  .ui-data-card-cell--media {
+    @apply col-start-2 row-start-1 me-3 self-start;
+  }
+
+  .ui-data-card-cell--title {
+    @apply col-start-3 row-start-1 text-sm font-medium text-foreground [overflow-wrap:anywhere];
+  }
+
+  .ui-data-card-cell--trailing {
+    @apply col-start-4 row-start-1 ms-3 self-center text-end text-sm text-foreground;
+  }
+
+  /** Satır menüsü: görünür düğme küçük kalır, dokunma alanı 44px. */
+  .ui-data-card-cell--actions {
+    @apply col-start-5 row-start-1 -my-2.5 -me-2 ms-1 flex items-center justify-end self-center;
+  }
+
+  .ui-data-card-cell--actions .ui-button {
+    @apply [min-width:2.75rem] [min-height:2.75rem];
+  }
+
+  .ui-data-card-cell--line {
+    @apply col-start-3 col-end-[-1] grid items-baseline gap-x-3 [grid-template-columns:minmax(4.5rem,34%)_minmax(0,1fr)];
+  }
+
+  .ui-data-card-label {
+    @apply text-xs leading-5 text-muted-foreground [overflow-wrap:anywhere];
+  }
+
+  .ui-data-card-value {
+    @apply min-w-0 text-sm leading-5 text-foreground [overflow-wrap:anywhere];
+  }
+
+  .ui-data-card-cell--title > .ui-data-card-value,
+  .ui-data-card-cell--trailing > .ui-data-card-value {
+    @apply text-inherit;
+  }
+
+  /** Tablet dikey: etiket–değer satırları iki sütuna dizilir. */
+  @media (min-width: 640px) {
+    .ui-data-card {
+      @apply px-4;
+    }
+
+    .ui-data-card-cell--line {
+      @apply [grid-template-columns:minmax(6rem,22%)_minmax(0,1fr)];
+    }
+  }
+
+  /** Boş değer (metin / görsel yok) kartta hiç çizilmez; rol sınıflarından sonra gelir. */
+  .ui-data-card-cell.ui-data-card-cell--empty {
+    @apply hidden;
+  }
+}

@@ -148,7 +148,7 @@ Kart gövdesi (`ui-card-body`) varsayılan olarak bu tabanı kullanır.
 - **`Pin`:** Hücreler `rounded-[22px]`, input ile aynı kabuk hissi.
 - **`Phone`:** `Input` + inline `Select` birleşimi (ülke + numara).
 - **`Select`:** `filterable`, uzun listelerde scroll; kısa listelerde panel hizası davranışı.
-- **`Tags`:** Etiket girişi; boş durumda `--solo` ile yükseklik uyumu.
+- **`Select` (`multiple` + `filterable`):** Etiket girişi; boş durumda `--solo` ile yükseklik uyumu. Ayrı bir `Tags` bileşeni yoktur.
 
 ---
 
@@ -220,12 +220,14 @@ Geliştirmede `warnListFilterRule` (panel `list-query-mixin.js`) kurala uymayan 
 
 - Örnekler mümkün olduğunca **gerçek ekran senaryolarına** yakın (kayıt, giriş, profil, etkinlik formu, hesap sekmeleri); saf “API demo” metinlerinden kaçınılır.
 - Tema / dil: header’da segment ile `light` / `dark`, `TR` / `EN`.
+- **Bileşen örnekleri** `apps/docs/src/examples/<Ad>Example.vue` dosyalarındadır: `/?examples=1` hepsini, `/?example=Accordion` tekini açar (`&mode=dark`, `&dir=rtl`, `&theme=landing`). Doküman sitesi bu sayfayı gömer; her örnek testte de hatasız çizilmek zorundadır.
 
 ---
 
 ## 14. i18n
 
-- Bileşen metinleri **`$t('ui.…')`** ile; locale paketleri `app.use(UiLib, { i18n, locale: 'tr' })` ile birleştirilir. Ayrıntı: `packages/ui/README.md`.
+- Bileşen metinleri **`$t('ui.…')`** ile; locale paketleri `app.use(UiLib, { i18n, locales: ['tr', 'en'] })` ile birleştirilir. Paketi olmayan dil İngilizceye düşer. Ayrıntı: `packages/ui/README.md`.
+- **Yön (RTL):** stil yazarken mantıksal yardımcılar (`ms/me/ps/pe`, `start/end`, `text-start`) kullanılır; ileri / geri bildiren ikon `ui-icon--dir` alır. Yatay ok tuşu işleyen bileşen yönü `utils/direction.js` ile okur.
 
 ---
 
@@ -237,7 +239,7 @@ import 'fewui/style.css' // default.css + components.css zinciri
 app.use(UiLib, { i18n, locale: 'tr' })
 ```
 
-Tailwind: `packages/ui/tailwind-preset.cjs` — `base` / `neutral`, semantik renkler ve `borderRadius.lg` → `var(--radius)`.
+Tailwind v4: `packages/ui/themes/tailwind.css` (`fewui/tailwind.css`) — `@theme inline` ile `base` / `neutral`, semantik renkler ve `--radius-lg` → `var(--radius)`; `dark` çeşidi de buradan gelir. `tailwind-preset.cjs` yalnız eski v3 tüketicileri içindir.
 
 ---
 

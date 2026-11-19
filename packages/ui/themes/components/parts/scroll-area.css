@@ -1,0 +1,89 @@
+@layer components {
+  /**
+   * ScrollArea — ince, token renkli kaydırma çubuğu. Kök kaydırmaz: odak halkası kökte çizilir,
+   * çünkü solma maskesi kaydıran öğenin dışına taşan halkayı da keserdi.
+   */
+  .ui-scroll-area {
+    @apply relative flex min-h-0 min-w-0 flex-col rounded-md;
+  }
+
+  .ui-scroll-area:has(> .ui-scroll-area-viewport:focus-visible) {
+    --tw-ring-color: var(--ui-focus-ring);
+    @apply ring-2 ring-offset-2 ring-offset-background;
+  }
+
+  .ui-scroll-area-viewport {
+    --ui-scroll-area-fade: calc(var(--ui-unit) * 6);
+    --ui-scroll-area-fade-top: 0px;
+    --ui-scroll-area-fade-bottom: 0px;
+    --ui-scroll-area-fade-left: 0px;
+    --ui-scroll-area-fade-right: 0px;
+    @apply min-h-0 min-w-0 flex-1 overscroll-contain outline-none [scrollbar-width:thin] [scrollbar-color:var(--ui-scrollbar-thumb)_transparent] [-webkit-overflow-scrolling:touch];
+  }
+
+  .ui-scroll-area--vertical > .ui-scroll-area-viewport {
+    @apply overflow-y-auto overflow-x-hidden;
+  }
+
+  .ui-scroll-area--horizontal > .ui-scroll-area-viewport {
+    @apply overflow-x-auto overflow-y-hidden;
+  }
+
+  .ui-scroll-area--both > .ui-scroll-area-viewport {
+    @apply overflow-auto;
+  }
+
+  /** Yatay kaydırmada içerik kendi genişliğini alır; boyut değişimi `ResizeObserver` ile izlenir. */
+  .ui-scroll-area--horizontal > .ui-scroll-area-viewport > .ui-scroll-area-content,
+  .ui-scroll-area--both > .ui-scroll-area-viewport > .ui-scroll-area-content {
+    @apply w-max min-w-full;
+  }
+
+  .ui-scroll-area-viewport::-webkit-scrollbar {
+    @apply h-[var(--ui-scrollbar-size,8px)] w-[var(--ui-scrollbar-size,8px)];
+  }
+
+  .ui-scroll-area-viewport::-webkit-scrollbar-track,
+  .ui-scroll-area-viewport::-webkit-scrollbar-corner {
+    @apply [background:transparent];
+  }
+
+  .ui-scroll-area-viewport::-webkit-scrollbar-thumb {
+    @apply rounded-full [background-clip:padding-box] [background-color:var(--ui-scrollbar-thumb)] [border:2px_solid_transparent];
+  }
+
+  .ui-scroll-area-viewport::-webkit-scrollbar-thumb:hover {
+    @apply [background-color:var(--ui-scrollbar-thumb-hover)];
+  }
+
+  /**
+   * Kenar solması: iki doğrusal maske kesişir (dikey × yatay). Kenar değişkeni 0 iken o kenar tam görünür;
+   * bileşen yalnız devamı olan kenarın sınıfını ekler.
+   */
+  .ui-scroll-area--fade > .ui-scroll-area-viewport {
+    -webkit-mask-image:
+      linear-gradient(to bottom, transparent, #000 var(--ui-scroll-area-fade-top), #000 calc(100% - var(--ui-scroll-area-fade-bottom)), transparent),
+      linear-gradient(to right, transparent, #000 var(--ui-scroll-area-fade-left), #000 calc(100% - var(--ui-scroll-area-fade-right)), transparent);
+    mask-image:
+      linear-gradient(to bottom, transparent, #000 var(--ui-scroll-area-fade-top), #000 calc(100% - var(--ui-scroll-area-fade-bottom)), transparent),
+      linear-gradient(to right, transparent, #000 var(--ui-scroll-area-fade-left), #000 calc(100% - var(--ui-scroll-area-fade-right)), transparent);
+    -webkit-mask-composite: source-in;
+    mask-composite: intersect;
+  }
+
+  .ui-scroll-area--fade-top > .ui-scroll-area-viewport {
+    --ui-scroll-area-fade-top: var(--ui-scroll-area-fade);
+  }
+
+  .ui-scroll-area--fade-bottom > .ui-scroll-area-viewport {
+    --ui-scroll-area-fade-bottom: var(--ui-scroll-area-fade);
+  }
+
+  .ui-scroll-area--fade-left > .ui-scroll-area-viewport {
+    --ui-scroll-area-fade-left: var(--ui-scroll-area-fade);
+  }
+
+  .ui-scroll-area--fade-right > .ui-scroll-area-viewport {
+    --ui-scroll-area-fade-right: var(--ui-scroll-area-fade);
+  }
+}

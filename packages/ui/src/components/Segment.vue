@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import { formDirtyMixin } from '../utils/form-dirty.js'
 import { RouterLink } from 'vue-router'
 import { iconTypeProp, themeIconTypeComputed } from '../theme/icon-type-prop.js'
 import { uiDefaultsMixin } from '../theme/ui-defaults.js'
@@ -47,7 +48,7 @@ import { uiDefaultsMixin } from '../theme/ui-defaults.js'
 export default {
   name: 'Segment',
   components: { RouterLink },
-  mixins: [uiDefaultsMixin],
+  mixins: [uiDefaultsMixin, formDirtyMixin],
   inject: {
     uiSegmentGroup: {
       default: null,
@@ -159,6 +160,7 @@ export default {
   methods: {
     select() {
       if (this.disabled || !this.uiSegmentGroup || this.hasRouterTo) return
+      this.notifyFormDirty()
       this.uiSegmentGroup.$emit('update:modelValue', this.value)
     },
   },

@@ -1,7 +1,7 @@
 {
   "name": "fewui",
-  "version": "0.0.1",
-  "description": "Fewui — Vue 3 UI (Button, Icon), vue-i18n (tr), theme CSS, Tailwind preset",
+  "version": "0.1.0",
+  "description": "fewui — Vue 3 design system: ui-* components, theme packages, vue-i18n (tr / en), Tailwind v4 component styles",
   "type": "module",
   "sideEffects": [
     "./themes/*.css",
@@ -10,18 +10,24 @@
   ],
   "files": [
     "dist",
+    "types",
     "themes",
     "tailwind-preset.cjs"
   ],
   "main": "./dist/index.js",
+  "types": "./types/index.d.ts",
   "module": "./dist/index.js",
   "exports": {
     ".": {
+      "types": "./types/index.d.ts",
       "import": "./dist/index.js"
     },
     "./landing": {
+      "types": "./types/landing.d.ts",
       "import": "./dist/landing.js"
     },
+    "./components.json": "./types/components.json",
+    "./tokens/*.json": "./themes/*/tokens.json",
     "./style.css": "./themes/default.css",
     "./themes/web.css": "./themes/web.css",
     "./themes/liquidglass.css": "./themes/liquidglass.css",
@@ -30,19 +36,28 @@
     "./themes/fewui.css": "./themes/fewui.css",
     "./fonts.css": "./themes/fonts.css",
     "./components.css": "./themes/components.css",
+    "./tailwind.css": "./themes/tailwind.css",
     "./tailwind-preset": "./tailwind-preset.cjs"
   },
   "scripts": {
-    "prebuild": "node ./scripts/build-theme-css.mjs && node ./scripts/check-api-consistency.mjs && node ./scripts/check-design-tokens.mjs themes --only=prefixed-backdrop-apply --strict",
+    "prebuild": "node ./scripts/build-theme-css.mjs && node ./scripts/check-api-consistency.mjs && node ./scripts/check-design-tokens.mjs themes --only=prefixed-backdrop-apply --strict && node ./scripts/build-component-meta.mjs",
     "check:api": "node ./scripts/check-api-consistency.mjs",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "build:meta": "node ./scripts/build-component-meta.mjs",
+    "check:meta": "node ./scripts/build-component-meta.mjs --check",
+    "check:types": "tsc -p tests/types/tsconfig.json",
+    "test:watch": "vitest",
     "build": "vite build",
     "build:themes": "node ./scripts/build-theme-css.mjs",
     "check:themes": "node ./scripts/build-theme-css.mjs --check",
+    "check": "pnpm run check:themes && pnpm run check:api && pnpm run check:meta && pnpm run check:types && pnpm run lint && pnpm run test",
     "fonts:download": "node ./scripts/download-fonts.mjs",
-    "postbuild": "node ../../../frontend/scripts/sync-fewui-pin.mjs"
+    "postbuild": "node ./scripts/sync-consumer-pin.mjs"
   },
   "peerDependencies": {
-    "vue": "^3.4.0",
+    "tailwindcss": "^4.0.0",
+    "vue": "^3.5.0",
     "vue-i18n": "^9.14.0",
     "vue-router": "^4.0.0 || ^5.0.0"
   },
@@ -53,8 +68,15 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.1",
-    "tailwindcss": "^3.4.17",
+    "@vue/test-utils": "^2.4.6",
+    "eslint": "^9",
+    "eslint-plugin-vue": "^10",
+    "globals": "^17.14.0",
+    "happy-dom": "^21.0.4",
+    "tailwindcss": "^4.3.5",
+    "typescript": "^5.9",
     "vite": "^6.0.11",
+    "vitest": "^3.2.4",
     "vue": "^3.5.13",
     "vue-i18n": "^9.14.5",
     "vue-router": "^5.0.3"

@@ -1,0 +1,83 @@
+@layer components {
+  /** Command — komut paleti: arama alanı + gruplu seçenek listesi. */
+  .ui-command {
+    @apply flex min-h-0 w-full min-w-0 flex-col text-sm text-foreground;
+  }
+
+  .ui-command--inline {
+    @apply overflow-hidden rounded-lg border border-border bg-surface;
+  }
+
+  .ui-command-search {
+    @apply flex shrink-0 items-center gap-2.5 border-b border-border px-3.5 py-1;
+  }
+
+  /** Sonuç ve boş durum yokken alt çizgi iki kat görünmesin. */
+  .ui-command-search:has(+ .ui-command-list:empty + .ui-command-empty:empty) {
+    @apply border-b-0;
+  }
+
+  .ui-command-search-icon {
+    @apply inline-flex w-5 shrink-0 items-center justify-center text-muted-foreground;
+  }
+
+  .ui-command-input {
+    @apply h-[var(--ui-control-h-lg)] min-w-0 flex-1 appearance-none border-0 bg-transparent p-0 text-sm text-foreground outline-none placeholder:text-muted-foreground;
+  }
+
+  .ui-command-list {
+    @apply max-h-80 min-h-0 overflow-y-auto overscroll-contain p-1.5 [scroll-padding-block:0.375rem];
+  }
+
+  .ui-command-list:empty {
+    @apply hidden;
+  }
+
+  .ui-command-group + .ui-command-group {
+    @apply mt-1.5;
+  }
+
+  .ui-command-group-label {
+    @apply px-2.5 pb-1 pt-1.5 text-xs font-medium text-muted-foreground;
+  }
+
+  .ui-command-item {
+    @apply flex min-h-[var(--ui-control-h-lg)] cursor-default select-none items-center gap-2.5 rounded-md px-2.5 py-1.5;
+  }
+
+  .ui-command-item[aria-selected='true'] {
+    @apply [background-color:var(--ui-hover)];
+  }
+
+  .ui-command-item[aria-disabled='true'] {
+    @apply pointer-events-none text-muted-foreground opacity-60;
+  }
+
+  .ui-command-item-icon {
+    @apply inline-flex w-5 shrink-0 items-center justify-center text-muted-foreground;
+  }
+
+  .ui-command-item-copy {
+    @apply flex min-w-0 flex-1 flex-col;
+  }
+
+  .ui-command-item-label {
+    @apply truncate;
+  }
+
+  .ui-command-item-description {
+    @apply truncate text-xs text-muted-foreground;
+  }
+
+  .ui-command-item-shortcut {
+    @apply ms-4;
+  }
+
+  .ui-command-empty {
+    @apply px-4 py-6 text-center text-sm text-muted-foreground;
+  }
+
+  .ui-command-empty:empty {
+    @apply hidden;
+  }
+}

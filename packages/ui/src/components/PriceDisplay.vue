@@ -4,13 +4,13 @@
     :class="rootClass"
   >
     <span class="ui-price-display__label">{{ label }}</span>
-    <ui-price-text
+    <PriceText
       :value="value"
       :size="valueSize"
       :tone="tone"
     >
       <slot name="value">{{ value }}</slot>
-    </ui-price-text>
+    </PriceText>
   </div>
 </template>
 

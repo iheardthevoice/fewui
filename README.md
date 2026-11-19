@@ -8,7 +8,9 @@ Monorepo: **`fewui`**, **theme playground**, **docs playground**, **Kit docs (Vi
 
 | Komut | Açıklama |
 | --- | --- |
-| `pnpm build` | `fewui` kütüphane bundle |
+| `pnpm build` | `fewui` kütüphane bundle (tema CSS, tipler ve bileşen doküman sayfaları dahil) |
+| `pnpm test` / `pnpm lint` / `pnpm check` | Testler, lint, CI'ın çalıştırdığı tüm denetimler |
+| `pnpm build:meta` | `types/` ve kit-docs bileşen sayfalarını kaynaktan yeniden üret |
 | `pnpm playground:dev` / `pnpm docs:dev` | Component + tema playground (`:5175`) |
 | `pnpm kit-docs:dev` | Kit dokümantasyonu VitePress (`:5174`) |
 | `pnpm www:dev` | fewui.com marketing (`:5176`) |

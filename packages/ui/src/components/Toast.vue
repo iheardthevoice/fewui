@@ -1,6 +1,30 @@
 <template>
   <Teleport to="body">
     <div class="ui-toast-host">
+      <!--
+        Kalıcı canlı bölgeler: ekran okuyucu yalnız DOM'da önceden var olan bölgeye eklenen metni
+        güvenilir okur. Görsel toast kartları rol taşımaz; duyuru buradan yapılır.
+      -->
+      <div
+        class="sr-only"
+        aria-live="polite"
+        aria-relevant="additions"
+      >
+        <p
+          v-for="m in politeMessages"
+          :key="m.id"
+        >{{ m.text }}</p>
+      </div>
+      <div
+        class="sr-only"
+        aria-live="assertive"
+        aria-relevant="additions"
+      >
+        <p
+          v-for="m in assertiveMessages"
+          :key="m.id"
+        >{{ m.text }}</p>
+      </div>
       <TransitionGroup
         name="ui-toast"
         tag="div"
@@ -19,14 +43,11 @@
             :aria-label="groupHeading(item)"
           >
             <div
-              v-for="child in item.children"
+              v-for="(child, index) in item.children"
               :key="child.id"
               :class="childToastClasses(child)"
               class="pointer-events-auto"
-              v-bind="childA11y(child)"
               @click="onToastClick(item)"
-              @keydown.enter.prevent="onToastClick(item)"
-              @keydown.space.prevent="onToastClick(item)"
             >
               <span
                 :class="['ui-alert-icon', iconToneClass(child.color)]"
@@ -62,6 +83,20 @@
                 :aria-label="dismissLabel"
                 @click.stop="queueDismissToastChild(item.id, child.id)"
               />
+              <!-- Grubu daraltan gerçek düğme (klavye + ekran okuyucu); karta tıklamak da daraltır. -->
+              <ui-button
+                v-if="index === 0"
+                native-type="button"
+                variant="ghost"
+                color="secondary"
+                cubed
+                size="sm"
+                class="ui-toast-dismiss shrink-0"
+                prefix-icon="chevron-up"
+                aria-expanded="true"
+                :aria-label="t('ui.toast.collapse')"
+                @click.stop="toggleToastExpanded(item.id)"
+              />
             </div>
           </div>
 
@@ -79,10 +114,11 @@
             <div
               :class="toastClasses(item)"
               class="pointer-events-auto"
-              v-bind="toastA11y(item)"
+              @pointerenter="onToastPointerEnter($event, item)"
+              @pointerleave="onToastPointerLeave($event, item)"
+              @focusin="pauseToast(item.id)"
+              @focusout="resumeToast(item.id)"
               @click="onToastClick(item)"
-              @keydown.enter.prevent="onToastClick(item)"
-              @keydown.space.prevent="onToastClick(item)"
             >
               <span
                 :class="['ui-alert-icon', iconToneClass(item.color)]"
@@ -108,6 +144,17 @@
                 </p>
               </div>
               <ui-button
+                v-if="singleAction(item)"
+                native-type="button"
+                variant="ghost"
+                color="primary"
+                size="sm"
+                class="ui-toast-action shrink-0"
+                @click.stop="runAction(item)"
+              >
+                {{ singleAction(item).label }}
+              </ui-button>
+              <ui-button
                 native-type="button"
                 variant="ghost"
                 color="secondary"
@@ -117,6 +164,19 @@
                 prefix-icon="xmark"
                 :aria-label="dismissLabel"
                 @click.stop="queueDismissToast(item.id)"
+              />
+              <ui-button
+                v-if="isGrouped(item)"
+                native-type="button"
+                variant="ghost"
+                color="secondary"
+                cubed
+                size="sm"
+                class="ui-toast-dismiss shrink-0"
+                prefix-icon="chevron-down"
+                aria-expanded="false"
+                :aria-label="t('ui.toast.expand', { count: item.children.length })"
+                @click.stop="toggleToastExpanded(item.id)"
               />
             </div>
           </div>
@@ -132,7 +192,10 @@ import {
   dismissToast as queueDismissToast,
   dismissToastChild as queueDismissToastChild,
   toggleToastExpanded,
+  pauseToast,
+  resumeToast,
 } from '../toast-queue.js'
+import { resolveUiText } from '../utils/resolve-ui-text.js'
 
 const COLOR_ICON = {
   info: 'circle-info',
@@ -150,18 +213,74 @@ const COLOR_ICON_CLASS = {
 
 export default {
   name: 'Toast',
+  data() {
+    return {
+      /** @type {{ id: number, text: string, assertive: boolean }[]} */
+      liveMessages: [],
+    }
+  },
   computed: {
     items() {
       return toastState.items
     },
+    /** Görünen tüm bildirimlerin (grup çocukları dahil) kimlikleri — yeni geleni ayırt etmek için. */
+    childIds() {
+      return this.items.flatMap((item) => item.children.map((child) => child.id))
+    },
+    politeMessages() {
+      return this.liveMessages.filter((m) => !m.assertive)
+    },
+    assertiveMessages() {
+      return this.liveMessages.filter((m) => m.assertive)
+    },
     dismissLabel() {
-      if (typeof this.$t === 'function') {
-        return this.$t('ui.alert.dismiss')
-      }
-      return 'Kapat'
+      return resolveUiText(this, 'ui.alert.dismiss', 'Dismiss')
     },
   },
+  watch: {
+    childIds(ids) {
+      this.announceNew(ids)
+    },
+  },
+  created() {
+    this.announcedIds = new Set(this.childIds)
+    this.liveTimers = new Set()
+  },
+  beforeUnmount() {
+    for (const timer of this.liveTimers) clearTimeout(timer)
+    this.liveTimers.clear()
+  },
   methods: {
+    pauseToast,
+    resumeToast,
+    /** Yeni gelen bildirimi canlı bölgeye yazar; metin okunduktan sonra bölgeden kaldırılır. */
+    announceNew(ids) {
+      const present = new Set(ids)
+      for (const id of this.announcedIds) {
+        if (!present.has(id)) this.announcedIds.delete(id)
+      }
+      for (const item of this.items) {
+        for (const child of item.children) {
+          if (this.announcedIds.has(child.id)) continue
+          this.announcedIds.add(child.id)
+          const text = [child.title, child.description].filter(Boolean).join('. ')
+          if (!text) continue
+          this.liveMessages.push({ id: child.id, text, assertive: child.color === 'danger' })
+          const timer = setTimeout(() => {
+            this.liveTimers.delete(timer)
+            this.liveMessages = this.liveMessages.filter((m) => m.id !== child.id)
+          }, 8000)
+          this.liveTimers.add(timer)
+        }
+      }
+    },
+    /** Dokunmatik ekranda `pointerleave` gelmez; bekletme yalnız fare imleciyle çalışır. */
+    onToastPointerEnter(e, item) {
+      if (e.pointerType === 'mouse') pauseToast(item.id)
+    },
+    onToastPointerLeave(e, item) {
+      if (e.pointerType === 'mouse') resumeToast(item.id)
+    },
     queueDismissToast,
     queueDismissToastChild,
     toggleToastExpanded,
@@ -189,6 +308,8 @@ export default {
       if (key === 'ui.toast.groupCount') {
         return `${params?.count ?? 0}`
       }
+      if (key === 'ui.toast.expand') return `Show ${params?.count ?? 0} notifications`
+      if (key === 'ui.toast.collapse') return 'Collapse notifications'
       if (key === 'ui.toast.groupHeading') {
         return `${params?.count ?? 0}`
       }
@@ -244,28 +365,15 @@ export default {
         'ui-alert--toast-grouped',
       ]
     },
-    toastA11y(item) {
-      const assertive = item.color === 'danger'
-      const grouped = this.isGrouped(item)
-      return {
-        role: assertive ? 'alert' : 'status',
-        'aria-live': assertive ? 'assertive' : 'polite',
-        ...(grouped
-          ? {
-              'aria-expanded': 'false',
-              tabindex: 0,
-            }
-          : {}),
-      }
+    /** Eylem yalnız tekil toastta gösterilir. */
+    singleAction(item) {
+      return this.isGrouped(item) ? null : item.children?.[0]?.action || null
     },
-    childA11y(child) {
-      const assertive = child.color === 'danger'
-      return {
-        role: assertive ? 'alert' : 'status',
-        'aria-live': assertive ? 'assertive' : 'polite',
-        'aria-expanded': 'true',
-        tabindex: 0,
-      }
+    runAction(item) {
+      const action = this.singleAction(item)
+      if (!action) return
+      action.onClick?.()
+      if (!action.keepOpen) this.queueDismissToast(item.id)
     },
   },
 }

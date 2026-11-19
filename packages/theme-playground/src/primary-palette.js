@@ -1,3 +1,5 @@
+import { colorToHex, colorToRgb } from 'fewui'
+
 /**
  * Tailwind v4 ana renkler — playground primary seçimi (`500` tonu).
  * @type {Record<string, string>}
@@ -23,20 +25,13 @@ export const PRIMARY_PALETTE = {
 }
 
 /**
- * @param {string} hex
+ * Tema token'ları OKLCH tutulur; palet örnekleri hex'tir. Karşılaştırma sRGB üzerinden yapılır.
+ * @param {string} color hex veya `oklch(...)`
  * @returns {[number, number, number]|null}
  */
-function parseHex(hex) {
-  const raw = String(hex || '')
-    .trim()
-    .replace('#', '')
-  if (raw.length === 3) {
-    return [0, 1, 2].map((i) => parseInt(raw[i] + raw[i], 16))
-  }
-  if (raw.length === 6) {
-    return [parseInt(raw.slice(0, 2), 16), parseInt(raw.slice(2, 4), 16), parseInt(raw.slice(4, 6), 16)]
-  }
-  return null
+function parseHex(color) {
+  const rgb = colorToRgb(String(color || '').trim())
+  return rgb ? rgb.map(Math.round) : null
 }
 
 /**
@@ -59,8 +54,8 @@ function hexDistance(a, b) {
  * @returns {string|null} Palet id veya `null` (özel renk)
  */
 export function matchPrimaryPalette(value) {
-  const hex = String(value || '').trim()
-  if (!hex.startsWith('#')) return null
+  const hex = colorToHex(String(value || '').trim())
+  if (!hex) return null
   const exact = Object.entries(PRIMARY_PALETTE).find(
     ([, swatch]) => swatch.toLowerCase() === hex.toLowerCase(),
   )

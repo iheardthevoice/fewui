@@ -1,0 +1,6803 @@
+[
+  {
+    "tag": "ui-accordion",
+    "name": "Accordion",
+    "props": [
+      {
+        "name": "modelValue",
+        "type": "string | number | unknown[]",
+        "required": false,
+        "default": "",
+        "description": "Açık öğe(ler): tekli kullanımda `value` (yoksa `null`), `multiple` ile dizi. Verilmezse bileşen kendi iç durumunu yönetir (`defaultValue`)."
+      },
+      {
+        "name": "defaultValue",
+        "type": "string | number | unknown[]",
+        "required": false,
+        "default": "null",
+        "description": "Kontrolsüz kullanımda ilk açık öğe(ler)."
+      },
+      {
+        "name": "multiple",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Aynı anda birden fazla öğe açık kalabilir."
+      },
+      {
+        "name": "collapsible",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Tekli kullanımda açık öğe yeniden tıklanınca kapanır. `false`: her zaman bir öğe açık kalır."
+      },
+      {
+        "name": "variant",
+        "type": "'line' | 'card'",
+        "required": false,
+        "default": "\"line\"",
+        "description": "`line` — ayırıcı çizgili satırlar; `card` — her öğe ayrı yüzey."
+      },
+      {
+        "name": "size",
+        "type": "'md'",
+        "required": false,
+        "default": "",
+        "description": "Satır dikey dolgusu; verilmezse tema kontrol boyutu."
+      },
+      {
+        "name": "headingLevel",
+        "type": "number",
+        "required": false,
+        "default": "3",
+        "description": "Başlık düğmesini saran başlık seviyesi (`h2`–`h6`); sayfa hiyerarşisine göre seçilir."
+      }
+    ],
+    "events": [
+      "update:modelValue",
+      "change"
+    ],
+    "slots": [
+      {
+        "name": "default",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-accordion-item",
+    "name": "AccordionItem",
+    "props": [
+      {
+        "name": "value",
+        "type": "string | number",
+        "required": true,
+        "default": "",
+        "description": "`ui-accordion` `modelValue` ile eşleşen kimlik."
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Başlığın altında ikincil satır."
+      },
+      {
+        "name": "icon",
+        "type": "string",
+        "required": false,
+        "default": "null",
+        "description": "`ui-icon` `name` — başlığın ilk satırıyla hizalanır."
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "title",
+        "props": []
+      },
+      {
+        "name": "append",
+        "props": []
+      },
+      {
+        "name": "default",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-action-card",
+    "name": "ActionCard",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "required": true,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "icon",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "iconType",
+        "type": "string",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "selected",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "showTrailing",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": ""
+      }
+    ],
+    "events": [
+      "click"
+    ],
+    "slots": [
+      {
+        "name": "leading",
+        "props": []
+      },
+      {
+        "name": "trailing",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-action-card-list",
+    "name": "ActionCardList",
+    "props": [
+      {
+        "name": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "maxHeight",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "default",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-action-group",
+    "name": "ActionGroup",
+    "props": [
+      {
+        "name": "orientation",
+        "type": "'horizontal' | 'vertical'",
+        "required": false,
+        "default": "\"horizontal\"",
+        "description": "Satır (`horizontal`) veya sütun (`vertical`) dizilimi — form alanları için `vertical` + `joined`"
+      },
+      {
+        "name": "joined",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "true: doğrudan çocukların bitişik iç köşelerinde border-radius sıfırlanır (dış uçlar korunur). Kapsayıcıya border, arka plan veya divide eklenmez. Dikeyde Input / Select / Button yan yana yığılmış tek kontrol gibi görünür."
+      },
+      {
+        "name": "divided",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "`joined` ile birlikte: çocuklar arasında ince ayırıcı çizgi (dikeyde üst kenar, yatayda sol kenar — inset)."
+      },
+      {
+        "name": "grow",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Yatayda çocuklar eşit büyür; dikeyde grup ve çocuklar tam genişlik. (`min-width` / `min-height: max-content` — erken “…” kesilmesini önler)."
+      },
+      {
+        "name": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "`role=\"group\"` erişilebilir adı"
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "default",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-ai-button",
+    "name": "AiButton",
+    "props": [
+      {
+        "name": "prefixIcon",
+        "type": "string",
+        "required": false,
+        "default": "\"wand-magic-sparkles\"",
+        "description": ""
+      },
+      {
+        "name": "size",
+        "type": "string",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "loading",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "loadingText",
+        "type": "string",
+        "required": false,
+        "default": "null",
+        "description": "Boş bırakılırsa `ui.button.loading` (i18n) kullanılır"
+      },
+      {
+        "name": "block",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      }
+    ],
+    "events": [
+      "click"
+    ],
+    "slots": [
+      {
+        "name": "default",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-alert",
+    "name": "Alert",
+    "props": [
+      {
+        "name": "color",
+        "type": "'info' | 'success' | 'warning' | 'danger'",
+        "required": false,
+        "default": "\"info\"",
+        "description": "Durum tonu"
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "icon",
+        "type": "string",
+        "required": false,
+        "default": "null",
+        "description": "Varsayılan ikon yerine `circle-info` vb."
+      },
+      {
+        "name": "showIcon",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "`false` — sol ikon gösterilmez; `#icon` slotu ile özelleştirilebilir"
+      },
+      {
+        "name": "live",
+        "type": "'polite' | 'assertive'",
+        "required": false,
+        "default": "\"\"",
+        "description": "Ekran okuyucu duyurusu (WCAG 4.1.3). Varsayılan `''`: sayfada kalıcı bilgi kutusu, duyurulmaz. `polite` → `role=\"status\"` (işlem sonucu), `assertive` → `role=\"alert\"` (acil hata / uyarı). Eskiden rol renkten türetiliyordu: her warning/danger `alert` oluyor, kalıcı kutular araya giriyordu."
+      },
+      {
+        "name": "dismissible",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "banner",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Sayfa üstünde ince, tam genişlikte durum çubuğu. Metin + CTA tek satır."
+      },
+      {
+        "name": "soft",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Kullanımdan kalktı — alert tek görünümdür; kenarlık temadan gelir (`--ui-alert-border-width`). Eski kullanımlar kırılmasın diye kabul edilir, etkisi yoktur."
+      },
+      {
+        "name": "actionsEnd",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Varsayılan slot’u açıklamanın altına değil, satırın sağına koyar. `banner` zaten sağ CTA kullanır; bu prop kart / soft alert için."
+      }
+    ],
+    "events": [
+      "dismiss"
+    ],
+    "slots": [
+      {
+        "name": "icon",
+        "props": []
+      },
+      {
+        "name": "default",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-avatar",
+    "name": "Avatar",
+    "props": [
+      {
+        "name": "src",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Görsel URL; yüklenemezse baş harf yedeği gösterilir."
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Tam ad; baş harf ve renk üretimi için birincil kaynak."
+      },
+      {
+        "name": "alt",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "`img` alt metni."
+      },
+      {
+        "name": "fallback",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Harf yedek metni (ör. `JD`). Boşsa `name` / `alt` kullanılır."
+      },
+      {
+        "name": "size",
+        "type": "'md'",
+        "required": false,
+        "default": "\"md\"",
+        "description": ""
+      },
+      {
+        "name": "shape",
+        "type": "'circle' | 'rounded' | 'square'",
+        "required": false,
+        "default": "\"circle\"",
+        "description": "`circle` (varsayılan) | `rounded` (albüm kapağı) | `square`"
+      },
+      {
+        "name": "ring",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "interactive",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      }
+    ],
+    "events": [
+      "click"
+    ],
+    "slots": []
+  },
+  {
+    "tag": "ui-avatar-group",
+    "name": "AvatarGroup",
+    "props": [
+      {
+        "name": "size",
+        "type": "'md'",
+        "required": false,
+        "default": "\"md\"",
+        "description": ""
+      },
+      {
+        "name": "overflowCount",
+        "type": "number",
+        "required": false,
+        "default": "0",
+        "description": "Extra count shown as +N after visible avatars."
+      },
+      {
+        "name": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "default",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-badge",
+    "name": "Badge",
+    "props": [
+      {
+        "name": "color",
+        "type": "'primary' | 'secondary' | 'success' | 'warning' | 'info' | 'danger'",
+        "required": false,
+        "default": "",
+        "description": "Ton; boşsa `solid`/`outline` için `primary`, `muted` için nötr (`secondary`)."
+      },
+      {
+        "name": "variant",
+        "type": "'solid' | 'outline' | 'muted'",
+        "required": false,
+        "default": "\"solid\"",
+        "description": "Görsel stil — `solid` dolgu, `outline` çerçeve, `muted` tonun soluk zemini"
+      },
+      {
+        "name": "size",
+        "type": "'xs' | 'sm' | 'md' | 'lg'",
+        "required": false,
+        "default": "\"sm\"",
+        "description": "sm — varsayılan kompakt; md / lg daha geniş padding"
+      },
+      {
+        "name": "truncate",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Uzun metinde kısaltma (…) — `maxWidth` üst sınırından sonra (varsayılan ~12rem)"
+      },
+      {
+        "name": "maxWidth",
+        "type": "'32' | '40' | '48' | '64'",
+        "required": false,
+        "default": "\"48\"",
+        "description": "Tailwind max-w-* anahtarı: 32, 40, 48, 64, full — truncate açıkken üst sınır"
+      },
+      {
+        "name": "tooltip",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Tooltip metni; boşsa slot metni kullanılır"
+      },
+      {
+        "name": "hex",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Geçerli hex renk (#RGB / #RRGGBB); arka plan ve metin kontrastı buna göre uygulanır"
+      },
+      {
+        "name": "prefixIcon",
+        "type": "string",
+        "required": false,
+        "default": "null",
+        "description": ""
+      },
+      {
+        "name": "suffixIcon",
+        "type": "string",
+        "required": false,
+        "default": "null",
+        "description": ""
+      },
+      {
+        "name": "clickable",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Tıklanabilir etiket — `button` olarak basılır (kaldır / seç)."
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "prepend",
+        "props": []
+      },
+      {
+        "name": "default",
+        "props": []
+      },
+      {
+        "name": "append",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-breadcrumb",
+    "name": "Breadcrumb",
+    "props": [
+      {
+        "name": "items",
+        "type": "unknown[]",
+        "required": false,
+        "default": "[]",
+        "description": "Kısa yol: `[{ label, to, href, icon }]`. Son öğe bulunulan sayfadır. Verilmezse öğeler slot'a `ui-breadcrumb-item` olarak yazılır."
+      },
+      {
+        "name": "maxItems",
+        "type": "number",
+        "required": false,
+        "default": "0",
+        "description": "`items` bu sayıyı aşarsa ilk öğe ile son öğeler kalır, aradakiler `…` menüsünde toplanır. `0`: daraltma yok. Yalnız `items` ile çalışır (slot öğeleri daraltılmaz)."
+      },
+      {
+        "name": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Verilmezse `ui.breadcrumb.ariaLabel`."
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "default",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-breadcrumb-item",
+    "name": "BreadcrumbItem",
+    "props": [
+      {
+        "name": "to",
+        "type": "RouteLocationRaw",
+        "required": false,
+        "default": "null",
+        "description": "`vue-router` hedefi; `href`'e göre önceliklidir."
+      },
+      {
+        "name": "href",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Düz bağlantı adresi (`to` yokken)."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Slot kullanılmazsa gösterilen metin."
+      },
+      {
+        "name": "icon",
+        "type": "string",
+        "required": false,
+        "default": "null",
+        "description": ""
+      },
+      {
+        "name": "current",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Bulunulan sayfa: bağlantı değil, `aria-current=\"page\"` taşıyan metin."
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "default",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-button",
+    "name": "Button",
+    "props": [
+      {
+        "name": "to",
+        "type": "RouteLocationRaw",
+        "required": false,
+        "default": "null",
+        "description": "`vue-router` hedefi; verildiğinde `<a>` + istemci navigasyonu (`RouterLink` custom)."
+      },
+      {
+        "name": "nativeType",
+        "type": "'button' | 'submit' | 'reset'",
+        "required": false,
+        "default": "\"button\"",
+        "description": "Native `<button type=\"...\">` — `to` yokken; forms için `submit` / `reset`."
+      },
+      {
+        "name": "variant",
+        "type": "'solid' | 'outline' | 'ghost' | 'muted' | 'link' | 'nav'",
+        "required": false,
+        "default": "\"solid\"",
+        "description": ""
+      },
+      {
+        "name": "color",
+        "type": "'primary' | 'secondary' | 'input' | 'warning' | 'success' | 'info' | 'danger'",
+        "required": false,
+        "default": "\"primary\"",
+        "description": ""
+      },
+      {
+        "name": "size",
+        "type": "'sm' | 'md' | 'lg'",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "prefixIcon",
+        "type": "string",
+        "required": false,
+        "default": "null",
+        "description": ""
+      },
+      {
+        "name": "suffixIcon",
+        "type": "string",
+        "required": false,
+        "default": "null",
+        "description": ""
+      },
+      {
+        "name": "loading",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "loadingText",
+        "type": "string",
+        "required": false,
+        "default": "null",
+        "description": "Boş bırakılırsa `ui.button.loading` (i18n) kullanılır"
+      },
+      {
+        "name": "cubed",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "stack",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "İkon + metin dikey yığılır (`prefixIcon` üstte, slot altta). `cubed` ile birlikte kullanılmaz."
+      },
+      {
+        "name": "rounded",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "block",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Tam genişlik."
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "textAlign",
+        "type": "'center' | 'left'",
+        "required": false,
+        "default": "\"center\"",
+        "description": "Metin slot’u (ve `loading` durumunda görünen satır) yatay hizası."
+      },
+      {
+        "name": "wrap",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Çok satırlı etiket / açıklama — truncate ve nowrap kapatılır."
+      }
+    ],
+    "events": [
+      "click"
+    ],
+    "slots": [
+      {
+        "name": "default",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-card",
+    "name": "Card",
+    "props": [
+      {
+        "name": "border",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Dış çerçeve (1px `border-border`)."
+      },
+      {
+        "name": "borderType",
+        "type": "'solid' | 'dashed' | 'dotted' | 'double'",
+        "required": false,
+        "default": "\"solid\"",
+        "description": "`border-*` stili."
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "icon",
+        "type": "string",
+        "required": false,
+        "default": "null",
+        "description": "Varsayılan üst başlıkta gösterilecek ikon (`ui-icon` `name`)."
+      },
+      {
+        "name": "iconType",
+        "type": "'solid' | 'regular' | 'brands' | 'light' | 'duotone' | 'thin'",
+        "required": false,
+        "default": "",
+        "description": "`ui-icon` `type` prop’u."
+      },
+      {
+        "name": "iconColor",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Başlık ikonu karosu tonu (`ui-icon-tile` `color`); verilirse ikon renkli zeminde çizilir."
+      },
+      {
+        "name": "iconHex",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Başlık ikonu karosu hex rengi (`ui-icon-tile` `hex`) — rapor / kategori rengi"
+      },
+      {
+        "name": "iconVariant",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "`soft` | `solid` — hex verildiğinde varsayılan `solid`"
+      },
+      {
+        "name": "row",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Gövde: yatay satır (buton / ikon sıraları)."
+      },
+      {
+        "name": "headerDivider",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Üst blok (toolbar + varsayılan başlık) ile gövde arasında ayırıcı"
+      },
+      {
+        "name": "removePadding",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Kök padding ve bölüm aralığını kaldırır; gövde kenara yaslanır. Başlık/alt bilgi için kompakt iç boşluk kalır."
+      },
+      {
+        "name": "transparent",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Dolgu ve gölge olmadan yalnızca çerçeve (boş tablo kabuğu vb.)."
+      },
+      {
+        "name": "interactive",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Hover’da hafif yükselme + primary vurgu (etkinlik / tıklanabilir kart)."
+      },
+      {
+        "name": "emphasized",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Primary kenar / zemin vurgusu (ör. “bugün” etkinlik kartı)."
+      },
+      {
+        "name": "stickyHeader",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Başlık (başlık + `#actions`) sabit kalır, gövde kartın içinde kayar — uzun form kartlarında Kaydet görünür kalsın diye. Yükseklik sınırını üst öğe verir (ör. sticky + max-h sarmalayıcı). Varsayılan kapalı."
+      },
+      {
+        "name": "fullHeight",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Üst flex satırında kardeşlerle aynı yüksekliğe yayılır (`h-full`)."
+      },
+      {
+        "name": "layout",
+        "type": "'default' | 'data-table'",
+        "required": false,
+        "default": "\"default\"",
+        "description": "`data-table` — sıfır kök padding; toolbar/footer DataTable boşlukları."
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "toolbar",
+        "props": []
+      },
+      {
+        "name": "header",
+        "props": []
+      },
+      {
+        "name": "append",
+        "props": []
+      },
+      {
+        "name": "actions",
+        "props": []
+      },
+      {
+        "name": "default",
+        "props": []
+      },
+      {
+        "name": "footer",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-chart",
+    "name": "Chart",
+    "props": [
+      {
+        "name": "type",
+        "type": "'bar' | 'line' | 'area' | 'donut'",
+        "required": false,
+        "default": "\"bar\"",
+        "description": ""
+      },
+      {
+        "name": "data",
+        "type": "unknown[]",
+        "required": false,
+        "default": "[]",
+        "description": "Satır nesneleri: `[{ day: 'Pzt', salon: 12400, paket: 3200 }]`."
+      },
+      {
+        "name": "categoryKey",
+        "type": "string",
+        "required": false,
+        "default": "\"label\"",
+        "description": "Kategori (x ekseni / dilim etiketi) alanı."
+      },
+      {
+        "name": "series",
+        "type": "unknown[]",
+        "required": false,
+        "default": "[]",
+        "description": "`[{ key, label, color? }]`. Renk verilmezse sıra ile `--chart-series-1…8`. `donut` yalnız ilk seriyi okur; dilimler satırlardır."
+      },
+      {
+        "name": "stacked",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "`bar` ve `area` için serileri üst üste yığar."
+      },
+      {
+        "name": "height",
+        "type": "string",
+        "required": false,
+        "default": "\"240px\"",
+        "description": "Çizim alanı yüksekliği (CSS uzunluğu). Genişlik kapsayıcıdan gelir."
+      },
+      {
+        "name": "showLegend",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": ""
+      },
+      {
+        "name": "showGrid",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": ""
+      },
+      {
+        "name": "showAxis",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": ""
+      },
+      {
+        "name": "showTooltip",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": ""
+      },
+      {
+        "name": "valueFormatter",
+        "type": "(...args: any[]) => any",
+        "required": false,
+        "default": "null",
+        "description": "`(value, context) => string` — `context`: `'axis' | 'tooltip' | 'table'`. Eksen için kısa, ipucu için tam biçim döndürülebilir."
+      },
+      {
+        "name": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Grafiğin erişilebilir adı; gizli tablonun başlığı da budur."
+      },
+      {
+        "name": "categoryLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Gizli tablodaki kategori sütunu başlığı (varsayılan `ui.chart.category`)."
+      },
+      {
+        "name": "loading",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "emptyTitle",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "emptyDescription",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "empty",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-checkbox",
+    "name": "Checkbox",
+    "props": [
+      {
+        "name": "value",
+        "type": "string | number | boolean",
+        "required": false,
+        "default": "",
+        "description": "Grup modunda seçenek kimliği."
+      },
+      {
+        "name": "modelValue",
+        "type": "boolean",
+        "required": false,
+        "default": "",
+        "description": "Tekil mod: `v-model` boolean."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "highlight",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "`list` varyantında satırları eşit iç boşluklu kutu yapar; işaretli satır dolgu ile vurgulanır (kenarlık yok)."
+      },
+      {
+        "name": "size",
+        "type": "'md'",
+        "required": false,
+        "default": "\"md\"",
+        "description": "Kutu ölçüsü: sm 16px · md 18px · lg 22px (dokunmatik satır)"
+      },
+      {
+        "name": "presentational",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Yalnız durum göstergesi — etiket gövdesi yok, tıklama / odak dıştaki satır düğmesinde (ör. sepet satırında seçim kutusu). Satır kendi `aria-pressed` / `aria-checked` bilgisini taşır."
+      },
+      {
+        "name": "indeterminate",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Kısmi seçim — \"Tümünü seç\" alt öğelerin bir kısmı seçiliyken (WAI-ARIA Checkbox, tri-state). Görünüm dolu + çizgi; `aria-checked=\"mixed\"`. Tıklanınca `update:modelValue` normal akışla çalışır."
+      }
+    ],
+    "events": [
+      "update:modelValue"
+    ],
+    "slots": [
+      {
+        "name": "label",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-checkbox-group",
+    "name": "CheckboxGroup",
+    "props": [
+      {
+        "name": "modelValue",
+        "type": "unknown[]",
+        "required": false,
+        "default": "[]",
+        "description": "Seçili değerler dizisi (ilkel karşılaştırma)."
+      },
+      {
+        "name": "variant",
+        "type": "'list' | 'button'",
+        "required": false,
+        "default": "\"list\"",
+        "description": "`list` — dikey liste; `button` — kart seçenekleri (RadioGroup `button` ile aynı yüzey)."
+      },
+      {
+        "name": "orientation",
+        "type": "'vertical' | 'horizontal'",
+        "required": false,
+        "default": "null",
+        "description": "`button`: varsayılan yatay; `vertical` alt alta (uzun açıklamalı seçim vb.)."
+      },
+      {
+        "name": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      }
+    ],
+    "events": [
+      "update:modelValue"
+    ],
+    "slots": [
+      {
+        "name": "default",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-chip-group",
+    "name": "ChipGroup",
+    "props": [
+      {
+        "name": "modelValue",
+        "type": "string | number | boolean | unknown[]",
+        "required": false,
+        "default": "null",
+        "description": "Tek seçimde değer, `multiple` ile dizi"
+      },
+      {
+        "name": "options",
+        "type": "unknown[]",
+        "required": false,
+        "default": "[]",
+        "description": "`{ value, label, icon?, disabled?, ariaLabel?, ariaCurrent? }[]` (`ariaCurrent`: ör. `'date'` bugünkü birim)"
+      },
+      {
+        "name": "multiple",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "clearable",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Tek seçimde seçili çipe tekrar basınca seçimi kaldırır"
+      },
+      {
+        "name": "size",
+        "type": "string",
+        "required": false,
+        "default": "",
+        "description": "Verilmezse temanın kontrol boyutu (`controlSize`, varsayılan md) — yanındaki seçici ve filtre çipleriyle aynı yükseklik ve metin. Eskiden sabit `sm` idi. Yoğun yerlerde `size=\"sm\"` verilir."
+      },
+      {
+        "name": "scrollable",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Tek satırda yatay kaydırma (dar ekran); `false` iken alt satıra kayar"
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      }
+    ],
+    "events": [
+      "update:modelValue",
+      "change"
+    ],
+    "slots": [
+      {
+        "name": "option",
+        "props": [
+          "option",
+          "selected"
+        ]
+      }
+    ]
+  },
+  {
+    "tag": "ui-collapsible",
+    "name": "Collapsible",
+    "props": [
+      {
+        "name": "open",
+        "type": "boolean",
+        "required": false,
+        "default": "",
+        "description": "`v-model:open` — verilmezse bileşen kendi iç durumunu yönetir."
+      },
+      {
+        "name": "defaultOpen",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Kontrolsüz kullanımda ilk durum."
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Açma / kapama kilitlenir; mevcut durum korunur."
+      }
+    ],
+    "events": [
+      "update:open"
+    ],
+    "slots": [
+      {
+        "name": "trigger",
+        "props": [
+          "open",
+          "toggle",
+          "triggerAttrs"
+        ]
+      },
+      {
+        "name": "default",
+        "props": [
+          "open",
+          "toggle"
+        ]
+      }
+    ]
+  },
+  {
+    "tag": "ui-color-picker",
+    "name": "ColorPicker",
+    "props": [
+      {
+        "name": "modelValue",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "triggerPlaceholder",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "popoverTitle",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "clearLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "customColorLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "block",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Form satırı: tam genişlik. Rozet / satır içi tetikleyici için `false`."
+      },
+      {
+        "name": "options",
+        "type": "unknown[]",
+        "required": false,
+        "default": "null",
+        "description": "Renk örnekleri — `'#hex'` veya `{ value, label?, color? }`. `color` verilirse örnek o renkle çizilir, `value` anahtar olabilir (ör. `'zinc'`); tetikleyici seçili öğenin `label`'ını gösterir. Verilmezse yerleşik palet."
+      },
+      {
+        "name": "showCustom",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Özel hex alanı — yalnız paletten seçilecekse `false`."
+      },
+      {
+        "name": "showClear",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Paneldeki “Temizle” — değer boş bırakılamıyorsa `false`."
+      }
+    ],
+    "events": [
+      "update:modelValue"
+    ],
+    "slots": [
+      {
+        "name": "trigger",
+        "props": [
+          "open",
+          "toggle",
+          "close"
+        ]
+      }
+    ]
+  },
+  {
+    "tag": "ui-command",
+    "name": "Command",
+    "props": [
+      {
+        "name": "open",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "`v-model:open` — palet (dialog) kullanımı."
+      },
+      {
+        "name": "inline",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "true: dialog olmadan, liste bulunduğu yerde çizilir."
+      },
+      {
+        "name": "items",
+        "type": "unknown[]",
+        "required": false,
+        "default": "[]",
+        "description": "`[{ id, label, description, icon, shortcut, keywords, group, disabled, to }]`"
+      },
+      {
+        "name": "groups",
+        "type": "unknown[]",
+        "required": false,
+        "default": "[]",
+        "description": "`[{ label, items }]` — verilirse `items` yerine kullanılır."
+      },
+      {
+        "name": "query",
+        "type": "string",
+        "required": false,
+        "default": "",
+        "description": "`v-model:query` — verilmezse arama metni içeride tutulur."
+      },
+      {
+        "name": "placeholder",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "emptyText",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "loading",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "filter",
+        "type": "(...args: any[]) => any",
+        "required": false,
+        "default": "null",
+        "description": "Eşleşme fonksiyonu `(item, query) => boolean`. Varsayılan: etiket + `keywords` içinde harf / aksan duyarsız arama. Sunucu taraflı aramada `() => true` verilip `update:query` dinlenir."
+      },
+      {
+        "name": "hotkey",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Paleti açıp kapatan genel kısayol (örn. `mod+k`); `inline` iken arama alanına odaklar."
+      }
+    ],
+    "events": [
+      "update:open",
+      "update:query",
+      "select"
+    ],
+    "slots": [
+      {
+        "name": "item",
+        "props": [
+          "item",
+          "active"
+        ]
+      },
+      {
+        "name": "empty",
+        "props": [
+          "query"
+        ]
+      }
+    ]
+  },
+  {
+    "tag": "ui-confirm-dialog",
+    "name": "ConfirmDialog",
+    "props": [],
+    "events": [],
+    "slots": []
+  },
+  {
+    "tag": "ui-context-menu",
+    "name": "ContextMenu",
+    "props": [
+      {
+        "name": "open",
+        "type": "boolean",
+        "required": false,
+        "default": "",
+        "description": "`v-model:open` — verilmezse bileşen kendi iç durumunu yönetir."
+      },
+      {
+        "name": "items",
+        "type": "unknown[]",
+        "required": false,
+        "default": "[]",
+        "description": "`ui-dropdown` ile aynı öğe şeması."
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "true: menü açılmaz, tarayıcının kendi bağlam menüsü çalışır."
+      }
+    ],
+    "events": [
+      "update:open",
+      "select"
+    ],
+    "slots": [
+      {
+        "name": "default",
+        "props": []
+      },
+      {
+        "name": "menu",
+        "props": [
+          "close"
+        ]
+      }
+    ]
+  },
+  {
+    "tag": "ui-currency-input",
+    "name": "CurrencyInput",
+    "props": [
+      {
+        "name": "modelValue",
+        "type": "string | number",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "currency",
+        "type": "string",
+        "required": false,
+        "default": "\"TRY\"",
+        "description": "ISO veya sembol (TRY, ₺, …); verilmezse `TRY` (seeder varsayılanı)."
+      },
+      {
+        "name": "locale",
+        "type": "string",
+        "required": false,
+        "default": "\"tr-TR\"",
+        "description": "Binlik ve ondalık ayırıcılarını belirleyen BCP 47 locale."
+      },
+      {
+        "name": "size",
+        "type": "string",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "readonly",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "placeholder",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "autocomplete",
+        "type": "string",
+        "required": false,
+        "default": "\"off\"",
+        "description": ""
+      },
+      {
+        "name": "ariaDescribedby",
+        "type": "string",
+        "required": false,
+        "default": "",
+        "description": ""
+      }
+    ],
+    "events": [
+      "update:modelValue",
+      "input",
+      "change",
+      "focus",
+      "blur"
+    ],
+    "slots": []
+  },
+  {
+    "tag": "ui-date-picker",
+    "name": "DatePicker",
+    "props": [
+      {
+        "name": "weekStart",
+        "type": "number",
+        "required": false,
+        "default": "",
+        "description": "Haftanın ilk günü (0 pazar … 6 cumartesi). Verilmezse dilden çözülür: `tr` / `en-GB` pazartesi, `en-US` pazar."
+      },
+      {
+        "name": "modelValue",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "`YYYY-MM-DD`"
+      },
+      {
+        "name": "placeholder",
+        "type": "string",
+        "required": false,
+        "default": "\"Pick a date\"",
+        "description": ""
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "block",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": ""
+      },
+      {
+        "name": "embedded",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "true: tetikleyici/popover yok — paneli doğrudan yerleştir (FieldAction vb.)."
+      },
+      {
+        "name": "showQuick",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Hızlı seçim satırını göster"
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "min",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "En erken seçilebilir gün (`YYYY-MM-DD`)"
+      },
+      {
+        "name": "todayLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "yesterdayLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "tomorrowLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "businessDayEnd",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Restaurant day-end (`HH:mm`). When set, dün/bugün/yarın and “today” highlight follow the business day (same as backend `toBusinessDate`)."
+      }
+    ],
+    "events": [
+      "update:modelValue",
+      "change"
+    ],
+    "slots": [
+      {
+        "name": "trigger",
+        "props": [
+          "open",
+          "toggle",
+          "close"
+        ]
+      }
+    ]
+  },
+  {
+    "tag": "ui-date-range-picker",
+    "name": "DateRangePicker",
+    "props": [
+      {
+        "name": "weekStart",
+        "type": "number",
+        "required": false,
+        "default": "",
+        "description": "Haftanın ilk günü (0 pazar … 6 cumartesi). Verilmezse dilden çözülür: `tr` / `en-GB` pazartesi, `en-US` pazar."
+      },
+      {
+        "name": "modelValue",
+        "type": "unknown[]",
+        "required": false,
+        "default": "[\"\",\"\"]",
+        "description": "`[startYmd, endYmd]`"
+      },
+      {
+        "name": "placement",
+        "type": "'bottom-start' | 'bottom-end' | 'bottom' | 'top-start' | 'top-end' | 'top'",
+        "required": false,
+        "default": "\"bottom-end\"",
+        "description": "Masaüstü panelin tetikleyiciye göre yeri. Varsayılan sağa hizalı (`bottom-end`); araç çubuğunun solundaki filtre çipinde `bottom-start` verilir, panel sola taşmaz."
+      },
+      {
+        "name": "placeholder",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "min",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "max",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "presets",
+        "type": "unknown[]",
+        "required": false,
+        "default": "",
+        "description": "Hızlı aralık listesi. Verilmezse varsayılan set kullanılır."
+      },
+      {
+        "name": "open",
+        "type": "boolean",
+        "required": false,
+        "default": "",
+        "description": "Kontrollü aç/kapa (`undefined` = dahili state)."
+      },
+      {
+        "name": "showTrigger",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "`false`: tetikleyici çizilmez; panel `anchor` öğesine göre `v-model:open` ile açılır (ör. bir seçim çipindeki “Özel aralık”)."
+      },
+      {
+        "name": "anchor",
+        "type": "string | Record<string, unknown>",
+        "required": false,
+        "default": "null",
+        "description": "Konum referansı (HTMLElement, bileşen örneği veya CSS seçici) — `ui-popover` `anchor`"
+      }
+    ],
+    "events": [
+      "update:modelValue",
+      "change",
+      "update:open"
+    ],
+    "slots": [
+      {
+        "name": "trigger",
+        "props": [
+          "open",
+          "toggle",
+          "close"
+        ]
+      }
+    ]
+  },
+  {
+    "tag": "ui-dialog",
+    "name": "Dialog",
+    "props": [
+      {
+        "name": "open",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "`v-model:open`"
+      },
+      {
+        "name": "closeOnBackdrop",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": ""
+      },
+      {
+        "name": "closeOnEscape",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": ""
+      },
+      {
+        "name": "maxWidth",
+        "type": "'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | 'full'",
+        "required": false,
+        "default": "",
+        "description": "İç panel genişliği (`max-w-*`)."
+      },
+      {
+        "name": "border",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Dış çerçeve (1px `border-border`) — `ui-card` ile aynı."
+      },
+      {
+        "name": "borderType",
+        "type": "'solid' | 'dashed' | 'dotted' | 'double'",
+        "required": false,
+        "default": "\"solid\"",
+        "description": "`border-*` stili."
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "icon",
+        "type": "string",
+        "required": false,
+        "default": "null",
+        "description": "Varsayılan üst başlıkta gösterilecek ikon (`ui-icon` `name`)."
+      },
+      {
+        "name": "iconType",
+        "type": "'solid' | 'regular' | 'brands' | 'light' | 'duotone' | 'thin'",
+        "required": false,
+        "default": "",
+        "description": "`ui-icon` `type` prop’u."
+      },
+      {
+        "name": "showClose",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Sağ üst kapat düğmesi."
+      },
+      {
+        "name": "closeLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Kapat düğmesi `aria-label`; boşsa `ui.dialog.close` (i18n)."
+      },
+      {
+        "name": "withBack",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Başlıkta geri düğmesi; `@back` ile birlikte kullanılır."
+      },
+      {
+        "name": "backLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Geri düğmesi metni; boşsa `ui.dialog.back` (i18n)."
+      },
+      {
+        "name": "row",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Gövde: yatay satır (buton / ikon sıraları)."
+      },
+      {
+        "name": "bodyPadding",
+        "type": "'default' | 'none'",
+        "required": false,
+        "default": "\"default\"",
+        "description": "Gövde dolgusu — `none`: kenar padding sıfır (POS ödeme vb.)."
+      },
+      {
+        "name": "bodyLayout",
+        "type": "'default' | 'flex'",
+        "required": false,
+        "default": "\"default\"",
+        "description": "Gövde düzeni — `flex`: dikey flex + taşma kontrolü (içerik paneli)."
+      },
+      {
+        "name": "footerTransparent",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Footer şeffaf — arka plan/border yok; gövde üzerine biner. Kaydırılabilir içerik footer altında görünür; gövde alt boşluğu otomatik artar. Varsayılan açık: yalnızca eylem butonları görünür."
+      },
+      {
+        "name": "panelMaxHeight",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Panel `max-height` — örn. `min(85vh, 36rem)`."
+      },
+      {
+        "name": "headerDivider",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Üst blok (toolbar + varsayılan başlık) ile gövde arasında ayırıcı."
+      },
+      {
+        "name": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Başlık yokken `role=\"dialog\"` için erişilebilir ad. Başlık varsa `aria-labelledby` önceliklidir."
+      },
+      {
+        "name": "initialFocus",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Açılışta gövdedeki ilk form alanına odaklan (yoksa panele düşer). `false`: alan seçilmez, odak yalnız panele taşınır (klavye / Escape dialoga gider)."
+      },
+      {
+        "name": "stackLayer",
+        "type": "'default' | 'confirm'",
+        "required": false,
+        "default": "\"default\"",
+        "description": "Yığılma katmanı — `confirm`: açık modalların üstünde (programatik onay)."
+      },
+      {
+        "name": "guardUnsaved",
+        "type": "boolean",
+        "required": false,
+        "default": "",
+        "description": "Kaydedilmemiş değişiklik koruması: form kirliyken Escape / arka plan / X / sheet sürükleme kapatmadan önce onay ister. Verilmezse tema varsayılanı `dialogGuardUnsaved` (false). Programatik kapanış (`open=false`) hiçbir zaman sormaz."
+      },
+      {
+        "name": "dirty",
+        "type": "boolean",
+        "required": false,
+        "default": "",
+        "description": "Kirli durumu elle belirler; verilmezse içerideki fewui form kontrollerinin kullanıcı değişiklikleri izlenir."
+      },
+      {
+        "name": "submitOnEnter",
+        "type": "boolean",
+        "required": false,
+        "default": "",
+        "description": "Tek satırlı metin alanında Enter (ve her yerde Cmd/Ctrl+Enter) footer'daki birincil eylemi tetikler: `data-ui-dialog-primary` işaretli ilk etkin düğme, yoksa son etkin solid primary `ui-button`. Verilmezse tema varsayılanı `dialogSubmitOnEnter` (false)."
+      }
+    ],
+    "events": [
+      "update:open",
+      "after-leave",
+      "back"
+    ],
+    "slots": [
+      {
+        "name": "header",
+        "props": []
+      },
+      {
+        "name": "title",
+        "props": []
+      },
+      {
+        "name": "append",
+        "props": []
+      },
+      {
+        "name": "actions",
+        "props": []
+      },
+      {
+        "name": "description",
+        "props": []
+      },
+      {
+        "name": "toolbar",
+        "props": []
+      },
+      {
+        "name": "default",
+        "props": []
+      },
+      {
+        "name": "footer",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-divider",
+    "name": "Divider",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Ortada gösterilecek başlık — `icon` ile birlikte etiketli ayırıcı"
+      },
+      {
+        "name": "icon",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Başlık yanında gösterilecek ikon (`ui-icon` `name`)"
+      },
+      {
+        "name": "spacing",
+        "type": "'none' | 'sm' | 'md'",
+        "required": false,
+        "default": "\"md\"",
+        "description": "Dikey boşluk (üst/alt). `none`: yalnızca çizgi — üst bileşenin kendi gap’i ile hizalamak için."
+      },
+      {
+        "name": "decorative",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "true: yalnızca görsel — `role=\"presentation\"`, ekran okuyucu atlar. false: `role=\"separator\"` + `aria-orientation=\"horizontal\"`."
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  {
+    "tag": "ui-dropdown",
+    "name": "Dropdown",
+    "props": [
+      {
+        "name": "open",
+        "type": "boolean",
+        "required": false,
+        "default": "",
+        "description": "`v-model:open` — verilmezse bileşen kendi iç durumunu yönetir"
+      },
+      {
+        "name": "placement",
+        "type": "'bottom-start' | 'bottom-end' | 'bottom' | 'right-start' | 'right-end' | 'left-start' | 'left-end' | 'top-start' | 'top-end'",
+        "required": false,
+        "default": "\"bottom-start\"",
+        "description": ""
+      },
+      {
+        "name": "matchTriggerWidth",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "block",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Tetikleyici tam genişlik"
+      },
+      {
+        "name": "inheritLayout",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Flex satırında tetikleyicinin doğrudan katılımı (`ui-tab-list` içi menü sekmesi)."
+      },
+      {
+        "name": "closeOnOutsideClick",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": ""
+      },
+      {
+        "name": "closeOnEscape",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": ""
+      },
+      {
+        "name": "outsideClickIgnoreSelector",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "items",
+        "type": "unknown[]",
+        "required": false,
+        "default": "[]",
+        "description": ""
+      }
+    ],
+    "events": [
+      "update:open",
+      "select"
+    ],
+    "slots": [
+      {
+        "name": "trigger",
+        "props": [
+          "triggerAttrs",
+          "…"
+        ]
+      },
+      {
+        "name": "before",
+        "props": [
+          "close"
+        ]
+      },
+      {
+        "name": "menu",
+        "props": [
+          "close"
+        ]
+      }
+    ]
+  },
+  {
+    "tag": "ui-empty",
+    "name": "Empty",
+    "props": [
+      {
+        "name": "icon",
+        "type": "string",
+        "required": false,
+        "default": "\"plus\"",
+        "description": "`ui-icon` `name` (örn. `plus`). Boş string → ikon kutusu gösterilmez."
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "iconType",
+        "type": "string",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "size",
+        "type": "'sm' | 'md' | 'lg'",
+        "required": false,
+        "default": "",
+        "description": ""
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "default",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-field",
+    "name": "Field",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "subtitle",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "card",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "true: yuvarlatılmış arka plan (kenarlık yok)."
+      },
+      {
+        "name": "size",
+        "type": "'sm' | 'md'",
+        "required": false,
+        "default": "\"md\"",
+        "description": "Değer boyutu. `md` (varsayılan): metrik ve ayar özeti — 16px medium. `sm`: salt okunur detay listesi (kayıt detayı, özet) — 14px normal; etiket aynı kalır (12px büyük harf, soluk)."
+      },
+      {
+        "name": "fill",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Grid / flex hücrede kart yüksekliğini eşitlemek için `h-full`."
+      },
+      {
+        "name": "icon",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "iconType",
+        "type": "string",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "iconTone",
+        "type": "'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'info' | 'muted'",
+        "required": false,
+        "default": "\"\"",
+        "description": "Başlık ikonu rengi: ortak `color` kümesi (`primary` | `secondary` | `success` | `warning` | `danger` | `info`) veya `muted` | ''. Boş / muted → varsayılan muted-foreground."
+      },
+      {
+        "name": "iconTile",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Başlık ikonu `ui-icon-tile` (sm) içinde, `iconTone` zemininde gösterilir."
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "default",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-field-action",
+    "name": "FieldAction",
+    "props": [
+      {
+        "name": "open",
+        "type": "boolean",
+        "required": false,
+        "default": "",
+        "description": "`v-model:open`"
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "actionName",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Boş değerde tetikleyici metni (örn. “Tarih ekle”)."
+      },
+      {
+        "name": "mode",
+        "type": "'popover' | 'dialog'",
+        "required": false,
+        "default": "\"popover\"",
+        "description": "`popover` | `dialog`"
+      },
+      {
+        "name": "value",
+        "type": "string | number",
+        "required": false,
+        "default": "\"\"",
+        "description": "Seçili değerin görünen metni; doluysa tetikleyicide `actionName` yerine gösterilir."
+      },
+      {
+        "name": "prefixIcon",
+        "type": "string",
+        "required": false,
+        "default": "null",
+        "description": ""
+      },
+      {
+        "name": "suffixIcon",
+        "type": "string",
+        "required": false,
+        "default": "null",
+        "description": ""
+      },
+      {
+        "name": "iconOnly",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Yalnız ikon tetikleyici (kübik düğme)."
+      },
+      {
+        "name": "clearable",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "size",
+        "type": "'sm'",
+        "required": false,
+        "default": "",
+        "description": "Tetikleyici boyutu. Verilmezse `ui-filter-chip` gibi temanın kontrol boyutu — yan yana duran filtre çipleriyle aynı yükseklik (eskiden sabit `sm` idi, bir kademe küçük kalıyordu)."
+      },
+      {
+        "name": "placement",
+        "type": "'bottom-start' | 'bottom-end' | 'bottom' | 'top-start' | 'top-end' | 'right-start' | 'right-end' | 'left-start' | 'left-end'",
+        "required": false,
+        "default": "\"bottom-start\"",
+        "description": ""
+      },
+      {
+        "name": "popoverWidth",
+        "type": "string | number",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "mobileCentered",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": ""
+      },
+      {
+        "name": "maxWidth",
+        "type": "string",
+        "required": false,
+        "default": "\"sm\"",
+        "description": ""
+      },
+      {
+        "name": "dialogIcon",
+        "type": "string",
+        "required": false,
+        "default": "null",
+        "description": ""
+      },
+      {
+        "name": "closeOnBackdrop",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": ""
+      },
+      {
+        "name": "closeOnEscape",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": ""
+      },
+      {
+        "name": "clearLabel",
+        "type": "string",
+        "required": false,
+        "default": "null",
+        "description": ""
+      },
+      {
+        "name": "doneLabel",
+        "type": "string",
+        "required": false,
+        "default": "null",
+        "description": ""
+      },
+      {
+        "name": "showFooter",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Dialog modunda alt çubuğu göster (varsayılan: true)."
+      }
+    ],
+    "events": [
+      "update:open",
+      "clear"
+    ],
+    "slots": [
+      {
+        "name": "trigger",
+        "props": [
+          "open",
+          "toggle",
+          "close",
+          "label",
+          "hasValue",
+          "clear"
+        ]
+      },
+      {
+        "name": "header",
+        "props": [
+          "close"
+        ]
+      },
+      {
+        "name": "default",
+        "props": [
+          "close",
+          "open"
+        ]
+      },
+      {
+        "name": "footer",
+        "props": [
+          "close"
+        ]
+      }
+    ]
+  },
+  {
+    "tag": "ui-file",
+    "name": "File",
+    "props": [
+      {
+        "name": "name",
+        "type": "string",
+        "required": true,
+        "default": "",
+        "description": "Dosya veya klasör adı (veya yol — `basename-only` ile yalnız son parça gösterilir)"
+      },
+      {
+        "name": "kind",
+        "type": "'auto' | 'file' | 'folder'",
+        "required": false,
+        "default": "\"auto\"",
+        "description": "`auto`: sonda `/` veya `\\\\` → klasör; aksi dosya"
+      },
+      {
+        "name": "size",
+        "type": "'md' | 'lg'",
+        "required": false,
+        "default": "\"md\"",
+        "description": "Finder tarzı düzen ölçeği"
+      },
+      {
+        "name": "icon",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Font Awesome `name` (önek yok); verilirse uzantı eşlemesi yok sayılır"
+      },
+      {
+        "name": "iconType",
+        "type": "string",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "İkon rengi: `NAMED_ICON_COLORS` anahtarı veya doğrudan Tailwind sınıfı (`text-red-500`)"
+      },
+      {
+        "name": "basenameOnly",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "true: etikette yalnızca yolun son segmenti"
+      },
+      {
+        "name": "hideLabel",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "true: yalnızca ikon kabuğu (dışarıda etiket gösteren grid’ler için)"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  {
+    "tag": "ui-filter-chip",
+    "name": "FilterChip",
+    "props": [
+      {
+        "name": "icon",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "emptyLabel",
+        "type": "string",
+        "required": true,
+        "default": "",
+        "description": "Değer yokken etiket (ör. “Masa seç”)"
+      },
+      {
+        "name": "valueLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Değer varken etiket"
+      },
+      {
+        "name": "empty",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "active",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Bağlı seçici açıkken değer yokken de vurgulu görünür"
+      },
+      {
+        "name": "clearable",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "ariaExpanded",
+        "type": "boolean | string",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "ariaHaspopup",
+        "type": "boolean | string",
+        "required": false,
+        "default": "",
+        "description": "Açtığı katman türü (`true` / `dialog` / `listbox` …) — `aria-haspopup`."
+      },
+      {
+        "name": "suffixIcon",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Değer boşken (veya temizlenemezken) sağdaki ikon; doluyken × önceliklidir."
+      },
+      {
+        "name": "size",
+        "type": "string",
+        "required": false,
+        "default": "",
+        "description": "Verilmezse temanın kontrol boyutu (`controlSize`, varsayılan md = 32px) — yanındaki arama kutusu ve butonlarla aynı yükseklik. Eskiden sabit `sm` idi: tablo araç çubuğundaki çipler panelin geri kalanından bir kademe küçük kalıyordu. Yoğun yerlerde `size=\"sm\"` verilir."
+      },
+      {
+        "name": "color",
+        "type": "'primary' | 'secondary' | 'success' | 'warning' | 'danger'",
+        "required": false,
+        "default": "\"\"",
+        "description": "Verilirse boş / dolu durum rengi yerine sabit ton kullanılır"
+      }
+    ],
+    "events": [
+      "click",
+      "clear"
+    ],
+    "slots": []
+  },
+  {
+    "tag": "ui-form-row",
+    "name": "FormRow",
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "direction",
+        "type": "'vertical' | 'horizontal'",
+        "required": false,
+        "default": "\"vertical\"",
+        "description": "`vertical`: etiket üstte, kontrol altta, açıklama kontrolün altında. `horizontal`: etiket + açıklama solda, kontrol sağda (Preferences)."
+      },
+      {
+        "name": "stackOnMobile",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "`direction=\"horizontal\"` iken dar viewport’ta dikey yığılır (`max-width: 1023px` — segment `icon-only=\"mobile\"` ile aynı kırılım)."
+      },
+      {
+        "name": "variant",
+        "type": "'default' | 'card'",
+        "required": false,
+        "default": "\"default\"",
+        "description": "`default`: mevcut `direction` düzeni. `card`: kenarlıklı, yuvarlatılmış yüzey; küçük ekranda dikey, `sm+` yatay `space-between`."
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "default": "",
+        "description": "Dışarıdan sabit id vermek için (ör. test); verilmezse otomatik üretilir."
+      },
+      {
+        "name": "error",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Alan hatası (WCAG 3.3.1). Verilince kontrolün altında gösterilir; kontrol `aria-invalid` ve `aria-describedby` ile otomatik bağlanır (FormRow içindeki ilk fewui kontrolü)."
+      },
+      {
+        "name": "field",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Alan adı. Üstteki form hata bağlamında (`UI_FORM_ERRORS_KEY`) bu ada bir mesaj varsa `error` verilmiş gibi gösterilir; kullanıcı satırdaki kontrolü değiştirince mesaj silinir. Birden çok ad boşlukla ayrılır (`\"startDate endDate\"`)."
+      },
+      {
+        "name": "primary",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Dialog oluşturma formlarında ana alan — açılışta odak hedefi (kontrol boyutunu değiştirmez)"
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "action",
+        "props": []
+      },
+      {
+        "name": "default",
+        "props": [
+          "controlId",
+          "descriptionId",
+          "invalid"
+        ]
+      }
+    ]
+  },
+  {
+    "tag": "ui-guidance",
+    "name": "Guidance",
+    "props": [
+      {
+        "name": "mode",
+        "type": "'dialog' | 'popover' | 'card' | 'tour'",
+        "required": false,
+        "default": "\"dialog\"",
+        "description": "`dialog` | `popover` | `card` | `tour`"
+      },
+      {
+        "name": "open",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "v-model:open — dialog, popover, tour"
+      },
+      {
+        "name": "icon",
+        "type": "string",
+        "required": false,
+        "default": "null",
+        "description": ""
+      },
+      {
+        "name": "iconType",
+        "type": "string",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "goLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "closeLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "showGo",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": ""
+      },
+      {
+        "name": "showClose",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Üst köşe X (dialog/tour)"
+      },
+      {
+        "name": "showFooterClose",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Alt ikincil düğme (card/popover/tour)"
+      },
+      {
+        "name": "placement",
+        "type": "'bottom-start' | 'bottom-end' | 'bottom' | 'top-start' | 'top-end' | 'top' | 'right-start' | 'right-end' | 'left-start' | 'left-end'",
+        "required": false,
+        "default": "\"bottom-start\"",
+        "description": ""
+      },
+      {
+        "name": "target",
+        "type": "string | Record<string, unknown>",
+        "required": false,
+        "default": "\"\"",
+        "description": "Tour: CSS seçici veya HTMLElement"
+      },
+      {
+        "name": "targetPadding",
+        "type": "number",
+        "required": false,
+        "default": "8",
+        "description": "Tour: hedef etrafındaki vurgu boşluğu (px)"
+      },
+      {
+        "name": "maxWidth",
+        "type": "'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'full'",
+        "required": false,
+        "default": "\"sm\"",
+        "description": ""
+      },
+      {
+        "name": "popoverWidth",
+        "type": "string",
+        "required": false,
+        "default": "\"18rem\"",
+        "description": ""
+      },
+      {
+        "name": "closeOnBackdrop",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": ""
+      },
+      {
+        "name": "closeOnEscape",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": ""
+      },
+      {
+        "name": "repeatable",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "`false` iken `seen` true olduğunda bileşen render edilmez. Kalıcılık üst katmanda `persistKey` ile yönetilir."
+      },
+      {
+        "name": "seen",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Kullanıcı bu bilgilendirmeyi gördü mü (üst katman tercihlerinden)"
+      },
+      {
+        "name": "persistKey",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Üst katman tercih anahtarı (dokümantasyon / erişilebilirlik)"
+      }
+    ],
+    "events": [
+      "update:open",
+      "go",
+      "close",
+      "after-leave"
+    ],
+    "slots": [
+      {
+        "name": "actions",
+        "props": []
+      },
+      {
+        "name": "default",
+        "props": []
+      },
+      {
+        "name": "footer",
+        "props": []
+      },
+      {
+        "name": "trigger",
+        "props": [
+          "…"
+        ]
+      }
+    ]
+  },
+  {
+    "tag": "ui-hover-card",
+    "name": "HoverCard",
+    "props": [
+      {
+        "name": "open",
+        "type": "boolean",
+        "required": false,
+        "default": "",
+        "description": "`v-model:open` — verilmezse bileşen kendi iç durumunu yönetir."
+      },
+      {
+        "name": "openDelay",
+        "type": "number",
+        "required": false,
+        "default": "500",
+        "description": "Açılış gecikmesi (ms)."
+      },
+      {
+        "name": "closeDelay",
+        "type": "number",
+        "required": false,
+        "default": "200",
+        "description": "Kapanış gecikmesi (ms) — işaretçinin karta geçmesine izin verir."
+      },
+      {
+        "name": "placement",
+        "type": "'bottom-start' | 'bottom-end' | 'bottom' | 'right-start' | 'right-end' | 'left-start' | 'left-end' | 'top-start' | 'top-end' | 'top'",
+        "required": false,
+        "default": "\"bottom\"",
+        "description": ""
+      },
+      {
+        "name": "width",
+        "type": "string | number",
+        "required": false,
+        "default": "",
+        "description": "Kart genişliği (örn. `20rem`); verilmezse içerik + tema üst sınırı."
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Kart panelinin erişilebilir adı; metin i18n'den gelir."
+      }
+    ],
+    "events": [
+      "update:open"
+    ],
+    "slots": [
+      {
+        "name": "trigger",
+        "props": [
+          "open"
+        ]
+      },
+      {
+        "name": "default",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-icon",
+    "name": "Icon",
+    "props": [
+      {
+        "name": "name",
+        "type": "string",
+        "required": true,
+        "default": "",
+        "description": "Font Awesome icon name without the `fa-` prefix (e.g. `house`)."
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "size",
+        "type": "'md'",
+        "required": false,
+        "default": "\"md\"",
+        "description": "Visual size (maps to Tailwind `text-*`)."
+      },
+      {
+        "name": "showAccessibleName",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "true: `aria-label` i18n `ui.icon.accessible` ile, `role=\"img\"`. false: dekoratif — `aria-hidden=\"true\"`."
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  {
+    "tag": "ui-icon-picker",
+    "name": "IconPicker",
+    "props": [
+      {
+        "name": "modelValue",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "icons",
+        "type": "unknown[]",
+        "required": false,
+        "default": "[]",
+        "description": ""
+      },
+      {
+        "name": "iconType",
+        "type": "string",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "triggerPlaceholder",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "popoverTitle",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "clearLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "searchPlaceholder",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "noResultsLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "maxResults",
+        "type": "number",
+        "required": false,
+        "default": "0",
+        "description": "0 veya negatif = limit yok (tüm ikonlar)."
+      },
+      {
+        "name": "panelWidth",
+        "type": "string",
+        "required": false,
+        "default": "\"22rem\"",
+        "description": ""
+      },
+      {
+        "name": "block",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Form satırı: tam genişlik. Rozet / satır içi tetikleyici için `false`."
+      }
+    ],
+    "events": [
+      "update:modelValue"
+    ],
+    "slots": [
+      {
+        "name": "trigger",
+        "props": [
+          "open",
+          "toggle",
+          "close"
+        ]
+      }
+    ]
+  },
+  {
+    "tag": "ui-icon-tile",
+    "name": "IconTile",
+    "props": [
+      {
+        "name": "icon",
+        "type": "string",
+        "required": true,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "iconType",
+        "type": "'solid'",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "color",
+        "type": "'primary' | 'secondary' | 'success' | 'warning' | 'info' | 'danger'",
+        "required": false,
+        "default": "\"\"",
+        "description": "`primary | secondary | success | warning | info | danger`; boş → nötr"
+      },
+      {
+        "name": "variant",
+        "type": "'soft' | 'solid'",
+        "required": false,
+        "default": "\"soft\"",
+        "description": "`soft`: tonun açık zemini + ton rengi ikon · `solid`: dolu ton + ön plan rengi"
+      },
+      {
+        "name": "hex",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Geçerli hex (#RGB / #RRGGBB); verilirse `color` yerine kullanılır"
+      },
+      {
+        "name": "size",
+        "type": "'sm' | 'md' | 'lg'",
+        "required": false,
+        "default": "\"md\"",
+        "description": "sm 28px · md 40px · lg 44px"
+      },
+      {
+        "name": "shape",
+        "type": "'rounded' | 'circle'",
+        "required": false,
+        "default": "\"rounded\"",
+        "description": ""
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  {
+    "tag": "ui-input",
+    "name": "Input",
+    "props": [
+      {
+        "name": "variant",
+        "type": "'default' | 'plain'",
+        "required": false,
+        "default": "\"default\"",
+        "description": "`default` dolgulu kabuk; `plain` border/fill yok (inline düzenleme)."
+      },
+      {
+        "name": "size",
+        "type": "'md'",
+        "required": false,
+        "default": "",
+        "description": "`sm` 32px, `md` 36px (varsayılan), `lg` 44px — select / segment ile hizalı"
+      },
+      {
+        "name": "modelValue",
+        "type": "string | number",
+        "required": false,
+        "default": "\"\"",
+        "description": "`v-model`"
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "required": false,
+        "default": "\"text\"",
+        "description": "Tek satır için native `type`."
+      },
+      {
+        "name": "multiline",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "`<textarea>` kullan."
+      },
+      {
+        "name": "rows",
+        "type": "number",
+        "required": false,
+        "default": "3",
+        "description": ""
+      },
+      {
+        "name": "prefixIcon",
+        "type": "string",
+        "required": false,
+        "default": "null",
+        "description": ""
+      },
+      {
+        "name": "suffixIcon",
+        "type": "string",
+        "required": false,
+        "default": "null",
+        "description": ""
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "readonly",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "placeholder",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "autocomplete",
+        "type": "string",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "maxlength",
+        "type": "number | string",
+        "required": false,
+        "default": "",
+        "description": ""
+      }
+    ],
+    "events": [
+      "update:modelValue",
+      "input",
+      "change",
+      "focus",
+      "blur"
+    ],
+    "slots": [
+      {
+        "name": "prepend",
+        "props": []
+      },
+      {
+        "name": "append",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-intro",
+    "name": "Intro",
+    "props": [
+      {
+        "name": "open",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Overlay iken görünürlük; `overlay` kapalıysa yok sayılır."
+      },
+      {
+        "name": "modelValue",
+        "type": "number",
+        "required": false,
+        "default": "0",
+        "description": "Aktif slayt (0 tabanlı)."
+      },
+      {
+        "name": "steps",
+        "type": "unknown[]",
+        "required": false,
+        "default": "[]",
+        "description": "`{ key, icon, iconType, title, description, ariaLabel }`"
+      },
+      {
+        "name": "overlay",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Tam ekran katman (`Teleport` + `role=dialog`)."
+      },
+      {
+        "name": "showSkip",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": ""
+      },
+      {
+        "name": "skipLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "nextLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "finishLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      }
+    ],
+    "events": [
+      "update:open",
+      "update:modelValue",
+      "skip",
+      "finish",
+      "next"
+    ],
+    "slots": [
+      {
+        "name": "header",
+        "props": []
+      },
+      {
+        "name": "default",
+        "props": [
+          "step",
+          "index",
+          "active"
+        ]
+      },
+      {
+        "name": "footer",
+        "props": [
+          "index",
+          "isLast",
+          "goNext",
+          "goPrev",
+          "goTo"
+        ]
+      }
+    ]
+  },
+  {
+    "tag": "ui-kbd",
+    "name": "Kbd",
+    "props": [
+      {
+        "name": "keys",
+        "type": "unknown[] | string",
+        "required": false,
+        "default": "[]",
+        "description": "Tuş(lar): dizi (`['mod', 'k']`) ya da `+` ile ayrılmış metin (`\"mod+shift+p\"`). `mod` Apple platformlarında ⌘, diğerlerinde Ctrl olarak yazılır."
+      },
+      {
+        "name": "size",
+        "type": "'sm' | 'md'",
+        "required": false,
+        "default": "\"md\"",
+        "description": ""
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "default",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-list",
+    "name": "List",
+    "props": [
+      {
+        "name": "tag",
+        "type": "'ul' | 'ol' | 'div'",
+        "required": false,
+        "default": "\"ul\"",
+        "description": "Anlamsal etiket: `ul` | `ol` | `div` (rol `list` kalır)."
+      },
+      {
+        "name": "variant",
+        "type": "'plain' | 'bordered' | 'divided'",
+        "required": false,
+        "default": "\"plain\"",
+        "description": "`plain`: dikey gap’li liste. `bordered`: kenarlıklı, satır ayırıcılı grup. `divided`: dış çerçeve yok; yalnızca satır ayırıcı (şarkı sırası vb.)."
+      },
+      {
+        "name": "density",
+        "type": "'compact' | 'normal' | 'relaxed'",
+        "required": false,
+        "default": "\"normal\"",
+        "description": "Öğeler arası dikey boşluk. `plain`: gap. `divided` / `bordered`: satır içi dikey padding."
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "default",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-list-item",
+    "name": "ListItem",
+    "props": [
+      {
+        "name": "prefixIcon",
+        "type": "string",
+        "required": false,
+        "default": "null",
+        "description": "Dolu daire içinde `ui-icon` (ör. `check`) — serbest içerik düzeni."
+      },
+      {
+        "name": "prefixIconType",
+        "type": "'solid'",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "align",
+        "type": "'start' | 'center'",
+        "required": false,
+        "default": "\"start\"",
+        "description": "Prefiks / trailing ile dikey hizalama (`center` medya satırları için)."
+      },
+      {
+        "name": "tag",
+        "type": "'li' | 'div'",
+        "required": false,
+        "default": "\"li\"",
+        "description": "`div`: `role=\"list\"` taşıyan `div` içinde (ör. kart içi ayar listesi)"
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Sağdaki kısa durum metni (chevron'un solunda)"
+      },
+      {
+        "name": "icon",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Satır başı ikon karosu (`ui-icon-tile`)"
+      },
+      {
+        "name": "iconType",
+        "type": "'solid'",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "iconColor",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "İkon karosu tonu (`ui-icon-tile` `color`)"
+      },
+      {
+        "name": "iconHex",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "İkon karosu hex rengi (`ui-icon-tile` `hex`) — kategori / marka rengi"
+      },
+      {
+        "name": "iconVariant",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "`soft` | `solid` — hex verildiğinde varsayılan `solid`"
+      },
+      {
+        "name": "color",
+        "type": "'danger'",
+        "required": false,
+        "default": "\"\"",
+        "description": "`danger`: başlık tehlike tonunda (ör. hesabı sil)"
+      },
+      {
+        "name": "size",
+        "type": "'sm' | 'md' | 'lg'",
+        "required": false,
+        "default": "\"md\"",
+        "description": "sm / md: 14px başlık · lg: 16px başlık"
+      },
+      {
+        "name": "to",
+        "type": "RouteLocationRaw",
+        "required": false,
+        "default": "",
+        "description": "`vue-router` hedefi — satır bağlantı olur"
+      },
+      {
+        "name": "interactive",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Satır düğme olur ve `click` yayar"
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "trailingIcon",
+        "type": "'chevron' | 'external' | 'none'",
+        "required": false,
+        "default": "\"chevron\"",
+        "description": "Tıklanabilir satırda sağ gösterge: `chevron` | `external` | `none`"
+      }
+    ],
+    "events": [
+      "click"
+    ],
+    "slots": [
+      {
+        "name": "prefix",
+        "props": []
+      },
+      {
+        "name": "title",
+        "props": []
+      },
+      {
+        "name": "description",
+        "props": []
+      },
+      {
+        "name": "default",
+        "props": []
+      },
+      {
+        "name": "trailing",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-menu",
+    "name": "Menu",
+    "props": [
+      {
+        "name": "width",
+        "type": "'sm' | 'md' | 'lg' | 'full'",
+        "required": false,
+        "default": "\"full\"",
+        "description": "`full` (varsayılan): kapsayıcıyı (kart, sidebar) doldurur. `sm` / `md` / `lg`: sabit genişlik — yüzen panel vb."
+      },
+      {
+        "name": "collapsed",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "İkon rayı: etiketler ve grup başlıkları gizlenir (ekran okuyucuda kalır), öğeler kare ikon düğmesi olur ve etiket ipucu olarak gösterilir. Genişlik içeriğe iner (`width` yok sayılır)."
+      }
+    ],
+    "events": [
+      "update:collapsed"
+    ],
+    "slots": [
+      {
+        "name": "header",
+        "props": [
+          "collapsed",
+          "toggle"
+        ]
+      },
+      {
+        "name": "default",
+        "props": []
+      },
+      {
+        "name": "footer",
+        "props": [
+          "collapsed",
+          "toggle"
+        ]
+      }
+    ]
+  },
+  {
+    "tag": "ui-menu-group",
+    "name": "MenuGroup",
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "default",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-menu-item",
+    "name": "MenuItem",
+    "props": [
+      {
+        "name": "to",
+        "type": "RouteLocationRaw",
+        "required": false,
+        "default": "null",
+        "description": "`vue-router` hedefi; verildiğinde menü öğesi bağlantı olarak davranır."
+      },
+      {
+        "name": "prefixIcon",
+        "type": "string",
+        "required": false,
+        "default": "null",
+        "description": ""
+      },
+      {
+        "name": "suffixIcon",
+        "type": "string",
+        "required": false,
+        "default": "null",
+        "description": ""
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "loading",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "active",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      }
+    ],
+    "events": [
+      "click"
+    ],
+    "slots": [
+      {
+        "name": "default",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-menu-nav",
+    "name": "MenuNav",
+    "props": [
+      {
+        "name": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "default",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-menubar",
+    "name": "Menubar",
+    "props": [
+      {
+        "name": "menus",
+        "type": "unknown[]",
+        "required": false,
+        "default": "[]",
+        "description": "`[{ label, items, disabled }]` — `items` `ui-dropdown` ile aynı şemadadır."
+      },
+      {
+        "name": "size",
+        "type": "'sm'",
+        "required": false,
+        "default": "\"sm\"",
+        "description": ""
+      },
+      {
+        "name": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "`role=\"menubar\"` için erişilebilir ad; metin i18n'den gelir."
+      }
+    ],
+    "events": [
+      "select"
+    ],
+    "slots": [
+      {
+        "name": "menu",
+        "props": [
+          "menu",
+          "index",
+          "close"
+        ]
+      }
+    ]
+  },
+  {
+    "tag": "ui-pagination",
+    "name": "Pagination",
+    "props": [
+      {
+        "name": "modelValue",
+        "type": "number",
+        "required": false,
+        "default": "1",
+        "description": "Bulunulan sayfa (1 tabanlı)."
+      },
+      {
+        "name": "total",
+        "type": "number",
+        "required": false,
+        "default": "0",
+        "description": "Toplam kayıt sayısı; `pageSize` ile sayfa sayısına çevrilir."
+      },
+      {
+        "name": "pageSize",
+        "type": "number",
+        "required": false,
+        "default": "10",
+        "description": ""
+      },
+      {
+        "name": "pageCount",
+        "type": "number",
+        "required": false,
+        "default": "null",
+        "description": "Sayfa sayısı doğrudan verilir; `total` / `pageSize` yerine geçer."
+      },
+      {
+        "name": "siblingCount",
+        "type": "number",
+        "required": false,
+        "default": "1",
+        "description": "Bulunulan sayfanın her iki yanında gösterilen sayfa sayısı."
+      },
+      {
+        "name": "showEdges",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "İlk ve son sayfa düğmeleri (aradaki boşluk `…`)."
+      },
+      {
+        "name": "size",
+        "type": "string",
+        "required": false,
+        "default": "",
+        "description": "Verilmezse tema kontrol boyutu (düğmeler `ui-button` ile aynı yükseklikte)."
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Verilmezse `ui.pagination.ariaLabel`."
+      }
+    ],
+    "events": [
+      "update:modelValue",
+      "change"
+    ],
+    "slots": []
+  },
+  {
+    "tag": "ui-password",
+    "name": "Password",
+    "props": [
+      {
+        "name": "size",
+        "type": "string",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "modelValue",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "readonly",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "placeholder",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "autocomplete",
+        "type": "string",
+        "required": false,
+        "default": "\"new-password\"",
+        "description": ""
+      },
+      {
+        "name": "maxlength",
+        "type": "number | string",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "showStrength",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Güç çubuğu ve etiket"
+      }
+    ],
+    "events": [
+      "update:modelValue",
+      "focus",
+      "blur"
+    ],
+    "slots": []
+  },
+  {
+    "tag": "ui-phone",
+    "name": "Phone",
+    "props": [
+      {
+        "name": "country",
+        "type": "string",
+        "required": false,
+        "default": "\"+90\"",
+        "description": ""
+      },
+      {
+        "name": "number",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "countries",
+        "type": "unknown[]",
+        "required": false,
+        "default": "[{\"value\":\"+90\",\"label\":\"+90\"},{\"value\":\"+1\",\"label\":\"+1\"},{\"value\":\"+44\",\"label\":\"+44\"},{\"value\":\"+49\",\"label\":\"+49\"}]",
+        "description": ""
+      },
+      {
+        "name": "size",
+        "type": "'md'",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "readonly",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "placeholder",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "numberName",
+        "type": "string",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "autocomplete",
+        "type": "string",
+        "required": false,
+        "default": "\"tel-national\"",
+        "description": ""
+      },
+      {
+        "name": "numberMaxlength",
+        "type": "number | string",
+        "required": false,
+        "default": "15",
+        "description": ""
+      },
+      {
+        "name": "countryAriaLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "ariaDescribedby",
+        "type": "string",
+        "required": false,
+        "default": "",
+        "description": ""
+      }
+    ],
+    "events": [
+      "update:country",
+      "update:number",
+      "focus",
+      "blur"
+    ],
+    "slots": []
+  },
+  {
+    "tag": "ui-photo",
+    "name": "Photo",
+    "props": [
+      {
+        "name": "src",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "alt",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "favorite",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "aspect",
+        "type": "'square' | 'video' | 'auto'",
+        "required": false,
+        "default": "\"square\"",
+        "description": ""
+      },
+      {
+        "name": "size",
+        "type": "'fill' | 'sm' | 'md' | 'lg'",
+        "required": false,
+        "default": "\"fill\"",
+        "description": ""
+      },
+      {
+        "name": "interactive",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": ""
+      },
+      {
+        "name": "preview",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": ""
+      },
+      {
+        "name": "overflowLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "galleryIndex",
+        "type": "number",
+        "required": false,
+        "default": "-1",
+        "description": ""
+      }
+    ],
+    "events": [
+      "click",
+      "open-preview"
+    ],
+    "slots": []
+  },
+  {
+    "tag": "ui-photos",
+    "name": "Photos",
+    "props": [
+      {
+        "name": "items",
+        "type": "unknown[]",
+        "required": false,
+        "default": "[]",
+        "description": ""
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "required": false,
+        "default": "4",
+        "description": ""
+      },
+      {
+        "name": "aspect",
+        "type": "'square' | 'video' | 'auto'",
+        "required": false,
+        "default": "\"square\"",
+        "description": ""
+      },
+      {
+        "name": "preview",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": ""
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  {
+    "tag": "ui-pin",
+    "name": "Pin",
+    "props": [
+      {
+        "name": "modelValue",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Tam kod — `v-model`"
+      },
+      {
+        "name": "length",
+        "type": "number",
+        "required": false,
+        "default": "6",
+        "description": "Hane sayısı"
+      },
+      {
+        "name": "type",
+        "type": "'numeric' | 'alphanumeric'",
+        "required": false,
+        "default": "\"numeric\"",
+        "description": "`numeric` yalnızca rakam; `alphanumeric` harf + rakam"
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "readonly",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "mask",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Haneleri gizler (PIN / şifre); OTP için kapalı bırakın."
+      },
+      {
+        "name": "autocomplete",
+        "type": "string",
+        "required": false,
+        "default": "\"one-time-code\"",
+        "description": ""
+      },
+      {
+        "name": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      }
+    ],
+    "events": [
+      "update:modelValue",
+      "complete",
+      "focus",
+      "blur"
+    ],
+    "slots": []
+  },
+  {
+    "tag": "ui-popover",
+    "name": "Popover",
+    "props": [
+      {
+        "name": "open",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "`v-model:open`"
+      },
+      {
+        "name": "placement",
+        "type": "'bottom-start' | 'bottom-end' | 'bottom' | 'right-start' | 'right-end' | 'left-start' | 'left-end' | 'top-start' | 'top-end' | 'top'",
+        "required": false,
+        "default": "\"bottom-start\"",
+        "description": ""
+      },
+      {
+        "name": "matchTriggerWidth",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Tetikleyici ile aynı minimum genişlik"
+      },
+      {
+        "name": "width",
+        "type": "string | number",
+        "required": false,
+        "default": "",
+        "description": "Panel genişliği (örn. `13rem`, `208px`). Verildiğinde katman sabitlenir; `matchTriggerWidth` ile birlikteyse bu önceliklidir."
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "anchor",
+        "type": "string | Record<string, unknown>",
+        "required": false,
+        "default": "null",
+        "description": "Konum referansı — verilirse panel tetikleyici yerine bu öğeye göre açılır (HTMLElement, bileşen örneği, CSS seçici ya da sanal referans: `{ x, y }` görünüm noktası / `{ getBoundingClientRect() }`). Tetikleyicisiz kullanımda (`#trigger` boş) `v-model:open` ile programatik açılır; bu öğeye tıklama dış tıklama sayılmaz."
+      },
+      {
+        "name": "closeOnOutsideClick",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": ""
+      },
+      {
+        "name": "closeOnEscape",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": ""
+      },
+      {
+        "name": "outsideClickIgnoreSelector",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Ek `closest` seçicileri (iç içe Select / DatePicker / TimePicker)."
+      },
+      {
+        "name": "keepOpenOnAncestorPopoverClick",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "true: bu popover, üst (ata) popover paneline tıklanınca da açık kalır. false (varsayılan): üst panelde ama kendi panelinin dışında tıklanınca kapanır."
+      },
+      {
+        "name": "alignSelectedOptionToTrigger",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "true: panel içinde `[role=\"option\"][aria-selected=\"true\"]` satırının üstü, tetikleyicinin üstü ile aynı hizada olacak şekilde katman kaydırılır (Select)."
+      },
+      {
+        "name": "block",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "true: tetikleyici satır genişliğini doldurur (sidebar footer vb.)"
+      },
+      {
+        "name": "inheritLayout",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "true: kök ve tetikleyici kabuğu `display: contents` — flex satırında yalnızca slot (ör. `ui-tab-trigger`) katılır; konumlandırma ilk çocuk öğeden alınır."
+      },
+      {
+        "name": "mobileCentered",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Mobil görünümde paneli ekran ortasında aç (varsayılan). false: tetikleyiciye göre konumlanır (Dropdown menüler)."
+      },
+      {
+        "name": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Panelin (`role=\"dialog\"`) erişilebilir adı; metin i18n'den gelir."
+      }
+    ],
+    "events": [
+      "update:open"
+    ],
+    "slots": [
+      {
+        "name": "trigger",
+        "props": [
+          "open",
+          "toggle",
+          "close",
+          "triggerAttrs"
+        ]
+      },
+      {
+        "name": "header",
+        "props": [
+          "close"
+        ]
+      },
+      {
+        "name": "content",
+        "props": [
+          "close"
+        ]
+      },
+      {
+        "name": "footer",
+        "props": [
+          "close"
+        ]
+      }
+    ]
+  },
+  {
+    "tag": "ui-price-display",
+    "name": "PriceDisplay",
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "size",
+        "type": "'sm' | 'md' | 'lg'",
+        "required": false,
+        "default": "\"md\"",
+        "description": ""
+      },
+      {
+        "name": "valueSize",
+        "type": "'sm' | 'md' | 'lg' | 'xl' | '2xl'",
+        "required": false,
+        "default": "\"lg\"",
+        "description": ""
+      },
+      {
+        "name": "tone",
+        "type": "'default' | 'foreground' | 'muted' | 'success' | 'danger' | 'primary'",
+        "required": false,
+        "default": "\"default\"",
+        "description": ""
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "value",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-price-display-group",
+    "name": "PriceDisplayGroup",
+    "props": [
+      {
+        "name": "size",
+        "type": "'md'",
+        "required": false,
+        "default": "\"md\"",
+        "description": ""
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "default",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-price-display-row",
+    "name": "PriceDisplayRow",
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "valueSize",
+        "type": "'sm' | 'md' | 'lg' | 'xl' | '2xl'",
+        "required": false,
+        "default": "\"md\"",
+        "description": ""
+      },
+      {
+        "name": "tone",
+        "type": "'default' | 'foreground' | 'muted' | 'success' | 'danger' | 'primary'",
+        "required": false,
+        "default": "\"default\"",
+        "description": ""
+      },
+      {
+        "name": "divider",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "emphasis",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "value",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-price-input",
+    "name": "PriceInput",
+    "props": [
+      {
+        "name": "modelValue",
+        "type": "string | number",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "currency",
+        "type": "string",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "format",
+        "type": "string",
+        "required": false,
+        "default": "",
+        "description": "BCP 47 fiyat biçimi; verilmezse fewui global ayarı kullanılır."
+      },
+      {
+        "name": "locale",
+        "type": "string",
+        "required": false,
+        "default": "",
+        "description": "`format` için geriye uyumlu alias."
+      }
+    ],
+    "events": [
+      "update:modelValue",
+      "input",
+      "change",
+      "focus",
+      "blur"
+    ],
+    "slots": []
+  },
+  {
+    "tag": "ui-price-text",
+    "name": "PriceText",
+    "props": [
+      {
+        "name": "value",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "size",
+        "type": "'sm' | 'md' | 'lg' | 'xl' | '2xl'",
+        "required": false,
+        "default": "\"md\"",
+        "description": ""
+      },
+      {
+        "name": "tone",
+        "type": "'default' | 'foreground' | 'muted' | 'success' | 'danger' | 'primary'",
+        "required": false,
+        "default": "\"default\"",
+        "description": ""
+      },
+      {
+        "name": "strike",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "truncate",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "default",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-progress",
+    "name": "Progress",
+    "props": [
+      {
+        "name": "type",
+        "type": "'bar' | 'circle'",
+        "required": false,
+        "default": "\"bar\"",
+        "description": "`bar` — yatay çizgi; `circle` — halka (12 yönünden saat yönü)"
+      },
+      {
+        "name": "value",
+        "type": "number",
+        "required": false,
+        "default": "0",
+        "description": "0 … `max`"
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "required": false,
+        "default": "100",
+        "description": ""
+      },
+      {
+        "name": "size",
+        "type": "string",
+        "required": false,
+        "default": "\"md\"",
+        "description": "Daire: sm 16px, md 20px, lg 24px, xl 40px, 2xl 56px. Çubuk: thin 4px (şifre gücü), md 8px (slider izi)."
+      },
+      {
+        "name": "variant",
+        "type": "'default' | 'weak' | 'fair' | 'good' | 'strong'",
+        "required": false,
+        "default": "\"default\"",
+        "description": "Çubuk / halka dolgu rengi — şifre gücü vb."
+      },
+      {
+        "name": "indeterminate",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "presentational",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Slider izi gibi — progressbar rolü / aria yok"
+      },
+      {
+        "name": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "ariaValuetext",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  {
+    "tag": "ui-radio",
+    "name": "Radio",
+    "props": [
+      {
+        "name": "value",
+        "type": "string | number | boolean",
+        "required": true,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "highlight",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "`list` varyantında satırları eşit iç boşluklu kutu yapar; seçili satır dolgu ile vurgulanır (kenarlık yok)."
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  {
+    "tag": "ui-radio-group",
+    "name": "RadioGroup",
+    "props": [
+      {
+        "name": "modelValue",
+        "type": "string | number | boolean",
+        "required": false,
+        "default": "null",
+        "description": ""
+      },
+      {
+        "name": "variant",
+        "type": "'list' | 'button'",
+        "required": false,
+        "default": "\"list\"",
+        "description": "`list` — satır listesi; `button` — kart seçenekleri"
+      },
+      {
+        "name": "orientation",
+        "type": "'vertical' | 'horizontal'",
+        "required": false,
+        "default": "null",
+        "description": "`list`: varsayılan dikey; `horizontal` yan yana. `button`: varsayılan yatay; `vertical` alt alta (uzun açıklamalı plan seçimi vb.)."
+      },
+      {
+        "name": "columns",
+        "type": "number",
+        "required": false,
+        "default": "0",
+        "description": "`button` + yatay: sabit sütun sayısı (dar dialog'da 3 seçenek yan yana). `0` (varsayılan) — `auto-fit` ile genişliğe göre sarılır."
+      },
+      {
+        "name": "size",
+        "type": "string",
+        "required": false,
+        "default": "",
+        "description": "Yalnız `button`: kartlar kontrol boyuna iner (button / input ile aynı yükseklik ve köşe), etiket tek satır ortalı, seçim dolgu ile gösterilir. Boş (varsayılan) — açıklamalı kart."
+      },
+      {
+        "name": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "`radiogroup` erişilebilir adı"
+      }
+    ],
+    "events": [
+      "update:modelValue"
+    ],
+    "slots": [
+      {
+        "name": "default",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-resizable-group",
+    "name": "ResizableGroup",
+    "props": [
+      {
+        "name": "direction",
+        "type": "'horizontal' | 'vertical'",
+        "required": false,
+        "default": "\"horizontal\"",
+        "description": "`horizontal` — paneller yan yana; `vertical` — alt alta."
+      },
+      {
+        "name": "modelValue",
+        "type": "unknown[]",
+        "required": false,
+        "default": "null",
+        "description": "Panel boyutları (yüzde, toplam 100). Verilmezse bileşen kendi durumunu tutar."
+      },
+      {
+        "name": "autoSaveId",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Boyutlar `localStorage` içinde bu kimlikle saklanır (yalnız mount sonrası okunur)."
+      },
+      {
+        "name": "keyboardStep",
+        "type": "number",
+        "required": false,
+        "default": "5",
+        "description": "Ok tuşu adımı (yüzde)."
+      }
+    ],
+    "events": [
+      "update:modelValue",
+      "resize-end"
+    ],
+    "slots": [
+      {
+        "name": "default",
+        "props": [
+          "sizes"
+        ]
+      }
+    ]
+  },
+  {
+    "tag": "ui-resizable-handle",
+    "name": "ResizableHandle",
+    "props": [
+      {
+        "name": "showGrip",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Çizginin ortasında görünür tutma kulpu."
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  {
+    "tag": "ui-resizable-panel",
+    "name": "ResizablePanel",
+    "props": [
+      {
+        "name": "defaultSize",
+        "type": "number",
+        "required": false,
+        "default": "null",
+        "description": "Başlangıç boyutu (yüzde). Verilmezse kalan alan eşit paylaşılır."
+      },
+      {
+        "name": "minSize",
+        "type": "number",
+        "required": false,
+        "default": "0",
+        "description": ""
+      },
+      {
+        "name": "maxSize",
+        "type": "number",
+        "required": false,
+        "default": "100",
+        "description": ""
+      },
+      {
+        "name": "collapsible",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "`minSize` altına sürüklenince `collapsedSize` değerine kapanır."
+      },
+      {
+        "name": "collapsedSize",
+        "type": "number",
+        "required": false,
+        "default": "0",
+        "description": ""
+      }
+    ],
+    "events": [
+      "collapse",
+      "expand"
+    ],
+    "slots": [
+      {
+        "name": "default",
+        "props": [
+          "collapsed",
+          "size"
+        ]
+      }
+    ]
+  },
+  {
+    "tag": "ui-scroll-area",
+    "name": "ScrollArea",
+    "props": [
+      {
+        "name": "orientation",
+        "type": "'vertical' | 'horizontal' | 'both'",
+        "required": false,
+        "default": "\"vertical\"",
+        "description": "Kaydırma ekseni."
+      },
+      {
+        "name": "maxHeight",
+        "type": "string | number",
+        "required": false,
+        "default": "\"\"",
+        "description": "CSS uzunluğu (`\"16rem\"`, `\"50vh\"`); sayı verilirse piksel. Boşsa yükseklik ebeveynden gelir."
+      },
+      {
+        "name": "fade",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Kenar solması: yalnız devamı olan kenarda görünür."
+      },
+      {
+        "name": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "İçerik taştığında bölgenin erişilebilir adı; verilmezse `ui.scrollArea.ariaLabel`."
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "default",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-section",
+    "name": "Section",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "icon",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "showDivider",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "`false`: üstteki sekme / segment konumu zaten gösteriyorsa etiketli ayırıcı çizilmez"
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "empty",
+        "props": []
+      },
+      {
+        "name": "default",
+        "props": []
+      },
+      {
+        "name": "body",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-segment",
+    "name": "Segment",
+    "props": [
+      {
+        "name": "value",
+        "type": "string | number | boolean",
+        "required": true,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "icon",
+        "type": "string",
+        "required": false,
+        "default": "null",
+        "description": "Font Awesome ikon adı; `iconOnly` veya dar düzenlerde yalnız ikon gösterilir"
+      },
+      {
+        "name": "iconType",
+        "type": "'duotone'",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "to",
+        "type": "RouteLocationRaw",
+        "required": false,
+        "default": "null",
+        "description": "`vue-router` hedefi; verildiğinde segment `<a>` olarak çizilir (gezinme kapsülü). Seçili durum yine grubun `modelValue` değerinden gelir; seçili bağlantı `aria-current=\"page\"` alır."
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "prepend",
+        "props": []
+      },
+      {
+        "name": "append",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-segment-group",
+    "name": "SegmentGroup",
+    "props": [
+      {
+        "name": "modelValue",
+        "type": "string | number | boolean",
+        "required": false,
+        "default": "null",
+        "description": ""
+      },
+      {
+        "name": "size",
+        "type": "'md'",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "direction",
+        "type": "'horizontal' | 'vertical'",
+        "required": false,
+        "default": "\"horizontal\"",
+        "description": "`horizontal` (varsayılan) veya `vertical` — dar yan menü gibi düzenler"
+      },
+      {
+        "name": "iconOnly",
+        "type": "'mobile' | boolean",
+        "required": false,
+        "default": "false",
+        "description": "Yalnız ikon; etiketler ekran okuyucu için gizli kalır. `true` — her zaman; `mobile` — yalnızca dar viewport (`max-width: 1023px`)."
+      },
+      {
+        "name": "block",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "false: başlık çubuğu gibi içeriğe göre genişlik (`w-full` değil)"
+      },
+      {
+        "name": "scrollable",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Yatay taşmada grup içinde kaydırma; seçili segment ortalanır. Varsayılan açık — dar kart / mobil’de etiketler patlamasın. Dikey yönde etkisiz. `block=false` (fit) gruplarda da taşmayı keser."
+      },
+      {
+        "name": "animated",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Seçili zemin yeni seçilinin arkasına kayarak geçer (yolda hafif büyür). `false`: her segment kendi zeminini çizer (eski davranış)."
+      },
+      {
+        "name": "navigation",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Gezinme kapsülü: segmentler `to` ile bağlantıdır, grup `radiogroup` rolü taşımaz. Erişilebilir ad sarmalayan `<nav aria-label>` öğesinden gelir; `modelValue` etkin rotanın değeridir."
+      },
+      {
+        "name": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "`radiogroup` erişilebilir adı"
+      }
+    ],
+    "events": [
+      "update:modelValue"
+    ],
+    "slots": [
+      {
+        "name": "default",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-select",
+    "name": "Select",
+    "props": [
+      {
+        "name": "variant",
+        "type": "'field' | 'inline'",
+        "required": false,
+        "default": "\"field\"",
+        "description": ""
+      },
+      {
+        "name": "size",
+        "type": "'md' | 'lg' | 'sm'",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "modelValue",
+        "type": "string | number | boolean | unknown[]",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "multiple",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Çoklu seçim — `modelValue` dizi; tetikleyicide etiketler + arama, listede onay işareti"
+      },
+      {
+        "name": "options",
+        "type": "unknown[]",
+        "required": false,
+        "default": "[]",
+        "description": ""
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "loading",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "placeholder",
+        "type": "string",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "clearable",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "filterable",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "filterPlaceholder",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "prefixIcon",
+        "type": "string",
+        "required": false,
+        "default": "null",
+        "description": "Tetikleyici sol ikon (`ui-icon` `name`)"
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "ariaDescribedby",
+        "type": "string",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "block",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": ""
+      },
+      {
+        "name": "matchTriggerWidth",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": ""
+      },
+      {
+        "name": "width",
+        "type": "string | number",
+        "required": false,
+        "default": "null",
+        "description": "Seçenek panelinin sabit genişliği (ör. `'18rem'`). Özel `#trigger` ile açılan ve seçenekleri açılınca yüklenen listelerde panel boş/iskelet hâliyle daralmaz."
+      },
+      {
+        "name": "scrollListThreshold",
+        "type": "number",
+        "required": false,
+        "default": "6",
+        "description": ""
+      },
+      {
+        "name": "remoteFilter",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Sunucu tarafı arama — liste yerel filtrelenmez; `filter-change` yayınlanır"
+      },
+      {
+        "name": "open",
+        "type": "boolean",
+        "required": false,
+        "default": "",
+        "description": "Liste açık durumu — `v-model:open` ile kontrol edilebilir"
+      }
+    ],
+    "events": [
+      "update:modelValue",
+      "change",
+      "update:open",
+      "filter-change"
+    ],
+    "slots": [
+      {
+        "name": "trigger",
+        "props": [
+          "open",
+          "toggle",
+          "close",
+          "label",
+          "hasValue"
+        ]
+      },
+      {
+        "name": "option",
+        "props": [
+          "option",
+          "selected"
+        ]
+      },
+      {
+        "name": "footer",
+        "props": [
+          "…"
+        ]
+      }
+    ]
+  },
+  {
+    "tag": "ui-selection-indicator",
+    "name": "SelectionIndicator",
+    "props": [
+      {
+        "name": "selector",
+        "type": "string",
+        "required": true,
+        "default": "",
+        "description": "Seçili öğe seçicisi (kapsayıcı içinde aranır)."
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  {
+    "tag": "ui-sheet",
+    "name": "Sheet",
+    "props": [
+      {
+        "name": "open",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "`v-model:open`"
+      },
+      {
+        "name": "side",
+        "type": "'left' | 'right'",
+        "required": false,
+        "default": "\"right\"",
+        "description": "`left` | `right`"
+      },
+      {
+        "name": "overlay",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "`true` — karartmalı tam ekran katman (modal). `false` — arka plan etkileşime açık kalır; değişiklikler anında görünür."
+      },
+      {
+        "name": "closeOnBackdrop",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": ""
+      },
+      {
+        "name": "closeOnEscape",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": ""
+      },
+      {
+        "name": "size",
+        "type": "'sm' | 'md' | 'lg' | 'xl'",
+        "required": false,
+        "default": "\"md\"",
+        "description": ""
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "icon",
+        "type": "string",
+        "required": false,
+        "default": "null",
+        "description": ""
+      },
+      {
+        "name": "iconType",
+        "type": "'solid' | 'regular' | 'brands' | 'light' | 'duotone' | 'thin'",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "showClose",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": ""
+      },
+      {
+        "name": "closeLabel",
+        "type": "string",
+        "required": false,
+        "default": "null",
+        "description": ""
+      },
+      {
+        "name": "bodyPadding",
+        "type": "'default' | 'none'",
+        "required": false,
+        "default": "\"default\"",
+        "description": ""
+      },
+      {
+        "name": "bodyLayout",
+        "type": "'default' | 'flex'",
+        "required": false,
+        "default": "\"default\"",
+        "description": ""
+      },
+      {
+        "name": "headerDivider",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "footerBorder",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Footer üst kenar çizgisi — `false` ile border-t kalkar."
+      },
+      {
+        "name": "fullOnMobile",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Dar viewport’ta (`max-width: 1023px`) panel tam genişlik."
+      },
+      {
+        "name": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "initialFocus",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": ""
+      }
+    ],
+    "events": [
+      "update:open",
+      "after-leave"
+    ],
+    "slots": [
+      {
+        "name": "header",
+        "props": []
+      },
+      {
+        "name": "append",
+        "props": []
+      },
+      {
+        "name": "actions",
+        "props": []
+      },
+      {
+        "name": "toolbar",
+        "props": []
+      },
+      {
+        "name": "default",
+        "props": []
+      },
+      {
+        "name": "footer",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-sidebar-item",
+    "name": "SidebarItem",
+    "props": [
+      {
+        "name": "to",
+        "type": "RouteLocationRaw",
+        "required": false,
+        "default": "null",
+        "description": ""
+      },
+      {
+        "name": "nativeType",
+        "type": "'button' | 'submit' | 'reset'",
+        "required": false,
+        "default": "\"button\"",
+        "description": ""
+      },
+      {
+        "name": "size",
+        "type": "'sm' | 'md' | 'lg'",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "prefixIcon",
+        "type": "string",
+        "required": false,
+        "default": "null",
+        "description": ""
+      },
+      {
+        "name": "suffixIcon",
+        "type": "string",
+        "required": false,
+        "default": "null",
+        "description": ""
+      },
+      {
+        "name": "cubed",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "block",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "active",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "textAlign",
+        "type": "'center' | 'left'",
+        "required": false,
+        "default": "\"center\"",
+        "description": ""
+      }
+    ],
+    "events": [
+      "click"
+    ],
+    "slots": [
+      {
+        "name": "default",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-skeleton",
+    "name": "Skeleton",
+    "props": [
+      {
+        "name": "variant",
+        "type": "'line' | 'circle' | 'block' | 'pill'",
+        "required": false,
+        "default": "\"line\"",
+        "description": ""
+      },
+      {
+        "name": "loading",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "size",
+        "type": "'md'",
+        "required": false,
+        "default": "\"md\"",
+        "description": "Yalnızca `variant=\"line\"` için: sm (16px), md (20px), lg (40px, liste/tablo satırı)."
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "placeholder",
+        "props": []
+      },
+      {
+        "name": "default",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-slider",
+    "name": "Slider",
+    "props": [
+      {
+        "name": "modelValue",
+        "type": "number | unknown[]",
+        "required": false,
+        "default": "0",
+        "description": "Tek değer; `range` açıkken `[alt, üst]` dizisi."
+      },
+      {
+        "name": "range",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "İki tutamaçlı aralık seçimi. Kapalıyken (varsayılan) yerel `input[type=range]` çizilir."
+      },
+      {
+        "name": "minDistance",
+        "type": "number",
+        "required": false,
+        "default": "0",
+        "description": "`range`: iki tutamaç arasında korunacak en küçük fark (değer birimi)."
+      },
+      {
+        "name": "formatValue",
+        "type": "(...args: any[]) => any",
+        "required": false,
+        "default": "null",
+        "description": "`range`: `(value) => string` — tutamacın `aria-valuetext` metni (örn. para biçimi)."
+      },
+      {
+        "name": "min",
+        "type": "number",
+        "required": false,
+        "default": "0",
+        "description": ""
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "required": false,
+        "default": "100",
+        "description": ""
+      },
+      {
+        "name": "step",
+        "type": "number",
+        "required": false,
+        "default": "1",
+        "description": ""
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "valueText",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Sağ üstte gösterilen biçimlendirilmiş değer (örn. para string’i)."
+      },
+      {
+        "name": "minLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "maxLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "ariaDescribedby",
+        "type": "string",
+        "required": false,
+        "default": "",
+        "description": ""
+      }
+    ],
+    "events": [
+      "update:modelValue",
+      "input",
+      "change"
+    ],
+    "slots": []
+  },
+  {
+    "tag": "ui-stat",
+    "name": "Stat",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string | number",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "icon",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "iconType",
+        "type": "string",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "color",
+        "type": "'primary' | 'secondary' | 'success' | 'warning' | 'info' | 'danger'",
+        "required": false,
+        "default": "\"\"",
+        "description": "Başlık ikonu tonu"
+      },
+      {
+        "name": "iconTile",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Başlık ikonu `ui-icon-tile` içinde, `color` zemininde"
+      },
+      {
+        "name": "change",
+        "type": "number",
+        "required": false,
+        "default": "",
+        "description": "Yüzde değişim; `undefined` satırı gizler, `null` yerini korur"
+      },
+      {
+        "name": "changeText",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Hazır değişim metni (biçimlendirmeyi geçersiz kılar), ör. “Yeni dönem”"
+      },
+      {
+        "name": "changeLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Değişimin yanındaki nötr açıklama, ör. “(₺1.250)” veya “dünden”"
+      },
+      {
+        "name": "invertTrend",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Azalış iyi (gider, iptal, bekleme süresi)"
+      },
+      {
+        "name": "variant",
+        "type": "'soft' | 'surface' | 'plain'",
+        "required": false,
+        "default": "\"soft\"",
+        "description": "`soft`: kart içi dolgulu kutu · `surface`: sayfa üzerinde kart yüzeyi · `plain`: kutusuz"
+      },
+      {
+        "name": "size",
+        "type": "'lg'",
+        "required": false,
+        "default": "\"lg\"",
+        "description": "Değer ölçüsü: sm 18px · md 20px · lg 24px"
+      },
+      {
+        "name": "interactive",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Kart tıklanabilir (`click` yayar; Enter / Space ile de çalışır)"
+      },
+      {
+        "name": "loading",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      }
+    ],
+    "events": [
+      "click"
+    ],
+    "slots": [
+      {
+        "name": "value",
+        "props": []
+      },
+      {
+        "name": "default",
+        "props": []
+      },
+      {
+        "name": "footer",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-stat-group",
+    "name": "StatGroup",
+    "props": [
+      {
+        "name": "columns",
+        "type": "number",
+        "required": false,
+        "default": "3",
+        "description": "Geniş ekrandaki en fazla sütun sayısı"
+      },
+      {
+        "name": "minColumns",
+        "type": "number",
+        "required": false,
+        "default": "1",
+        "description": "Dar ekranda en az sütun sayısı; `2` mobilde de metrikleri ikişer dizer"
+      },
+      {
+        "name": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "default",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-step",
+    "name": "Step",
+    "props": [
+      {
+        "name": "active",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Adım paneli görünür mü"
+      },
+      {
+        "name": "autofocus",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Görünür olduğunda ilk form alanına odaklan (dialog içinde toolbar birincil alanı dahil)"
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "default",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-stepper",
+    "name": "Stepper",
+    "props": [
+      {
+        "name": "modelValue",
+        "type": "number",
+        "required": false,
+        "default": "0",
+        "description": ""
+      },
+      {
+        "name": "steps",
+        "type": "unknown[]",
+        "required": true,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "variant",
+        "type": "'default' | 'pills'",
+        "required": false,
+        "default": "\"default\"",
+        "description": "`default` — daire + başlık (yatay / dikey). `pills` — hap ilerleme + `2/5 - Adım` etiketi (modal / kayıt formları için tercih)."
+      },
+      {
+        "name": "direction",
+        "type": "'horizontal' | 'vertical'",
+        "required": false,
+        "default": "\"horizontal\"",
+        "description": ""
+      },
+      {
+        "name": "interactive",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "showLabel",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "`pills` varyantında sağdaki `1/5 - Adım` metni"
+      },
+      {
+        "name": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      }
+    ],
+    "events": [
+      "update:modelValue"
+    ],
+    "slots": []
+  },
+  {
+    "tag": "ui-switch",
+    "name": "Switch",
+    "props": [
+      {
+        "name": "modelValue",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "`v-model`"
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "ariaDescribedby",
+        "type": "string",
+        "required": false,
+        "default": "",
+        "description": ""
+      }
+    ],
+    "events": [
+      "update:modelValue",
+      "change"
+    ],
+    "slots": []
+  },
+  {
+    "tag": "ui-tab-list",
+    "name": "TabList",
+    "props": [
+      {
+        "name": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "`tablist` erişilebilir adı (birden fazla sekme şeridi için önerilir)."
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "default",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-tab-panel",
+    "name": "TabPanel",
+    "props": [
+      {
+        "name": "value",
+        "type": "string | number",
+        "required": true,
+        "default": "",
+        "description": ""
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "default",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-tab-trigger",
+    "name": "TabTrigger",
+    "props": [
+      {
+        "name": "value",
+        "type": "string | number",
+        "required": true,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Slot kullanılmazsa gösterilen metin."
+      },
+      {
+        "name": "icon",
+        "type": "string",
+        "required": false,
+        "default": "null",
+        "description": "`ui-icon` `name` — doluysa ikon + metin (veya yalnız ikon)."
+      },
+      {
+        "name": "iconType",
+        "type": "'duotone'",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "badge",
+        "type": "string | number",
+        "required": false,
+        "default": "null",
+        "description": "Doluysa sekme köşesinde sayı rozeti (ör. sepet adedi)."
+      },
+      {
+        "name": "active",
+        "type": "boolean",
+        "required": false,
+        "default": "",
+        "description": "Verilirse `ui-tabs` seçim durumunun üzerine yazar (menü tetikleyici sekmeler)."
+      },
+      {
+        "name": "popup",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "`menu` — `aria-haspopup` / `aria-expanded` (panel `aria-controls` kapatılır)."
+      },
+      {
+        "name": "expanded",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "`popup` doluysa menü açık/kapalı durumu."
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "default",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-table",
+    "name": "Table",
+    "props": [
+      {
+        "name": "stickyHeader",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Sütun başlıkları sayfa kayarken görünür kalır (masaüstü). Üst boşluk `--ui-table-sticky-top`, zemin `--ui-table-sticky-bg` ile ayarlanır."
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "default",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-table-body",
+    "name": "TableBody",
+    "props": [],
+    "events": [],
+    "slots": [
+      {
+        "name": "default",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-table-cell",
+    "name": "TableCell",
+    "props": [
+      {
+        "name": "colspan",
+        "type": "number",
+        "required": false,
+        "default": "0",
+        "description": ""
+      },
+      {
+        "name": "align",
+        "type": "'left' | 'center' | 'right'",
+        "required": false,
+        "default": "\"left\"",
+        "description": ""
+      },
+      {
+        "name": "tone",
+        "type": "'title' | 'secondary' | 'body'",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "iconCol",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "empty",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "selectCol",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Seçim (onay kutusu) sütunu: dar, sabit genişlik."
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "default",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-table-head",
+    "name": "TableHead",
+    "props": [
+      {
+        "name": "align",
+        "type": "'left' | 'center' | 'right'",
+        "required": false,
+        "default": "\"left\"",
+        "description": ""
+      },
+      {
+        "name": "width",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "iconCol",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "selectCol",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Seçim (onay kutusu) sütunu: dar, sabit genişlik."
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "default",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-table-header",
+    "name": "TableHeader",
+    "props": [
+      {
+        "name": "sticky",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "default",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-table-pagination",
+    "name": "TablePagination",
+    "props": [
+      {
+        "name": "currentPage",
+        "type": "number",
+        "required": false,
+        "default": "1",
+        "description": ""
+      },
+      {
+        "name": "lastPage",
+        "type": "number",
+        "required": false,
+        "default": "1",
+        "description": ""
+      },
+      {
+        "name": "metaText",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "pageLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "prevAriaLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "nextAriaLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      }
+    ],
+    "events": [
+      "prev",
+      "next"
+    ],
+    "slots": [
+      {
+        "name": "meta",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-table-row",
+    "name": "TableRow",
+    "props": [
+      {
+        "name": "hover",
+        "type": "'none' | 'soft' | 'strong'",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "clickable",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "interactive",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Satır bir eylem taşır: odaklanabilir (`tabindex=\"0\"`), Enter / Boşluk `click` yayar, iç denetimlere (düğme, bağlantı, alan) yapılan tıklama satırı tetiklemez."
+      },
+      {
+        "name": "selected",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      }
+    ],
+    "events": [
+      "click"
+    ],
+    "slots": [
+      {
+        "name": "default",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-tabs",
+    "name": "Tabs",
+    "props": [
+      {
+        "name": "modelValue",
+        "type": "string | number",
+        "required": false,
+        "default": "null",
+        "description": "Aktif sekme kimliği (`TabTrigger` / `TabPanel` `value` ile eşleşir)."
+      },
+      {
+        "name": "variant",
+        "type": "'line' | 'segmented'",
+        "required": false,
+        "default": "\"line\"",
+        "description": "`line` — alt çizgi; `segmented` — düğme kartları (yatay: ikon üstte; dikey: yan ray)."
+      },
+      {
+        "name": "orientation",
+        "type": "'horizontal' | 'vertical'",
+        "required": false,
+        "default": "\"horizontal\"",
+        "description": "`horizontal` — yan yana tetikleyiciler; `vertical` — sol şerit + içerik."
+      },
+      {
+        "name": "fit",
+        "type": "'full'",
+        "required": false,
+        "default": "\"\"",
+        "description": "`full` — segmented tab listesi tam genişlik (hub / show sayfaları)."
+      },
+      {
+        "name": "size",
+        "type": "'sm' | 'md' | 'lg'",
+        "required": false,
+        "default": "",
+        "description": "Segmented yükseklik / tipografi — `sm` | `md` (varsayılan) | `lg`."
+      },
+      {
+        "name": "transparent",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Segmented iz arka planını kaldırır (mobil sabit üst şerit vb.)."
+      },
+      {
+        "name": "scrollable",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Dar alanlarda (sheet, mobil) segmented listede yatay kaydırma — varsayılan açık."
+      },
+      {
+        "name": "inlineControls",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Button ile aynı satırda / hizada — tab yüksekliği button ile aynı kalır (`--ui-control-h-*`). Varsayılan kapalı: segmented tab bir kademe büyük (`--ui-tab-h-*`)."
+      },
+      {
+        "name": "nativeChrome",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Native mobil alt dock — `cap-ios` / `cap-android` ile liquid glass veya opak blur. Web’de etkisiz; yalnızca `variant=\"segmented\"` ile kullanılır."
+      },
+      {
+        "name": "iconOnly",
+        "type": "'mobile' | boolean",
+        "required": false,
+        "default": "false",
+        "description": "Dikey segmented ray — yalnız ikon; etiketler ekran okuyucu için gizli kalır. `true` — her zaman; `mobile` — dar viewport (`max-width: 1023px`)."
+      },
+      {
+        "name": "animated",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "`segmented`: seçili zemin yeni sekmenin arkasına kayarak geçer (yolda hafif büyür). `false`: her tetikleyici kendi zeminini çizer (eski davranış)."
+      },
+      {
+        "name": "indicatorKey",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Kayan göstergenin son konumunu aynı anahtarlı şeritler arasında taşır. Her rotada yeniden kurulan sekme şeridi (sayfa başına `ui-tabs`) önceki sekmeden kayarak gelir; anahtarsız şerit anlık yerleşir."
+      }
+    ],
+    "events": [
+      "update:modelValue"
+    ],
+    "slots": [
+      {
+        "name": "default",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-tag",
+    "name": "Tag",
+    "props": [
+      {
+        "name": "color",
+        "type": "'secondary' | 'primary' | 'success' | 'warning' | 'info' | 'danger'",
+        "required": false,
+        "default": "\"secondary\"",
+        "description": "Ton — Badge ile aynı sözlük"
+      },
+      {
+        "name": "variant",
+        "type": "'solid' | 'outline' | 'muted'",
+        "required": false,
+        "default": "\"solid\"",
+        "description": ""
+      },
+      {
+        "name": "size",
+        "type": "'sm' | 'md' | 'lg'",
+        "required": false,
+        "default": "\"sm\"",
+        "description": ""
+      },
+      {
+        "name": "removable",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      }
+    ],
+    "events": [
+      "remove"
+    ],
+    "slots": [
+      {
+        "name": "default",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-theme-provider",
+    "name": "ThemeProvider",
+    "props": [
+      {
+        "name": "theme",
+        "type": "string | Record<string, unknown>",
+        "required": false,
+        "default": "null",
+        "description": "Kayıtlı tema id'si veya `defineTheme` paketi; verilmezse yalnızca mod / override uygulanır."
+      },
+      {
+        "name": "mode",
+        "type": "'light' | 'dark' | 'system'",
+        "required": false,
+        "default": "null",
+        "description": "`light` | `dark` | `system` (cihaz ayarı); verilmezse üst provider veya belge kökü."
+      },
+      {
+        "name": "overrides",
+        "type": "Record<string, unknown>",
+        "required": false,
+        "default": "null",
+        "description": "Token override'ları — düz harita veya `{ light, dark }`."
+      },
+      {
+        "name": "defaults",
+        "type": "Record<string, unknown>",
+        "required": false,
+        "default": "null",
+        "description": "Bileşen varsayılanı override'ları (`iconType`, `buttonRounded`, …)."
+      },
+      {
+        "name": "background",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Kökte `--background` dolgusu."
+      },
+      {
+        "name": "tag",
+        "type": "string",
+        "required": false,
+        "default": "\"div\"",
+        "description": ""
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "default",
+        "props": [
+          "mode",
+          "theme"
+        ]
+      }
+    ]
+  },
+  {
+    "tag": "ui-time-picker",
+    "name": "TimePicker",
+    "props": [
+      {
+        "name": "modelValue",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "`HH:mm` (24 saat)"
+      },
+      {
+        "name": "stepMinutes",
+        "type": "number",
+        "required": false,
+        "default": "15",
+        "description": "Adım (dakika)"
+      },
+      {
+        "name": "placeholder",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "embedded",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "true: tetikleyici/popover yok — tekerlek panelini doğrudan yerleştir."
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "popoverWidth",
+        "type": "string | number",
+        "required": false,
+        "default": "\"12.5rem\"",
+        "description": "`ui-popover` panel genişliği — dar zaman seçici için"
+      }
+    ],
+    "events": [
+      "update:modelValue",
+      "change"
+    ],
+    "slots": [
+      {
+        "name": "trigger",
+        "props": [
+          "open",
+          "toggle",
+          "close"
+        ]
+      }
+    ]
+  },
+  {
+    "tag": "ui-toast",
+    "name": "Toast",
+    "props": [],
+    "events": [],
+    "slots": []
+  },
+  {
+    "tag": "ui-toolbar",
+    "name": "Toolbar",
+    "props": [
+      {
+        "name": "direction",
+        "type": "'horizontal' | 'vertical'",
+        "required": false,
+        "default": "\"horizontal\"",
+        "description": ""
+      },
+      {
+        "name": "wrap",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Yatay düzende sığmayan öğeler alt satıra kayar"
+      },
+      {
+        "name": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Verilirse `role=\"toolbar\"` ile erişilebilir ad"
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "start",
+        "props": []
+      },
+      {
+        "name": "default",
+        "props": []
+      },
+      {
+        "name": "end",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-tooltip",
+    "name": "Tooltip",
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Boşsa yalnızca `content` slot’u kullanılabilir"
+      },
+      {
+        "name": "placement",
+        "type": "'top' | 'bottom' | 'left' | 'right'",
+        "required": false,
+        "default": "\"top\"",
+        "description": ""
+      },
+      {
+        "name": "showDelay",
+        "type": "number",
+        "required": false,
+        "default": "0",
+        "description": "Gecikme (ms)"
+      },
+      {
+        "name": "hideDelay",
+        "type": "number",
+        "required": false,
+        "default": "0",
+        "description": ""
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "default",
+        "props": []
+      },
+      {
+        "name": "content",
+        "props": []
+      }
+    ]
+  }
+]

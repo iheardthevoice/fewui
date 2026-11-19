@@ -17,16 +17,21 @@
             color="primary"
             cubed
             prefix-icon="chevron-left"
-            aria-label="Previous month"
+            class="ui-icon--dir"
+            :aria-label="resolvedPrevMonthLabel"
             @click.stop="shiftMonth(-1)"
           />
-          <span class="text-sm font-medium tabular-nums text-foreground">{{ monthTitle }}</span>
+          <span
+            class="text-sm font-medium tabular-nums text-foreground"
+            aria-live="polite"
+          >{{ monthTitle }}</span>
           <ui-button
             variant="ghost"
             color="primary"
             cubed
             prefix-icon="chevron-right"
-            aria-label="Next month"
+            class="ui-icon--dir"
+            :aria-label="resolvedNextMonthLabel"
             @click.stop="shiftMonth(1)"
           />
         </div>
@@ -39,6 +44,8 @@
           </div>
           <div
             class="ui-datepicker-grid"
+            role="group"
+            :aria-label="monthTitle"
             @keydown="onGridKeydown"
           >
             <ui-button
@@ -127,7 +134,7 @@
             prefix-icon="calendar"
             :disabled="disabled"
             :aria-expanded="open ? 'true' : 'false'"
-            :aria-haspopup="true"
+            aria-haspopup="dialog"
             @click="toggle"
           >
             <span
@@ -147,16 +154,21 @@
               color="primary"
               cubed
               prefix-icon="chevron-left"
-              aria-label="Previous month"
+            class="ui-icon--dir"
+              :aria-label="resolvedPrevMonthLabel"
               @click.stop="shiftMonth(-1)"
             />
-            <span class="text-sm font-medium tabular-nums text-foreground">{{ monthTitle }}</span>
+            <span
+            class="text-sm font-medium tabular-nums text-foreground"
+            aria-live="polite"
+          >{{ monthTitle }}</span>
             <ui-button
               variant="ghost"
               color="primary"
               cubed
               prefix-icon="chevron-right"
-              aria-label="Next month"
+            class="ui-icon--dir"
+              :aria-label="resolvedNextMonthLabel"
               @click.stop="shiftMonth(1)"
             />
           </div>
@@ -170,6 +182,8 @@
           <div
             ref="popoverGrid"
             class="ui-datepicker-grid"
+            role="group"
+            :aria-label="monthTitle"
             @keydown="onGridKeydown"
           >
             <ui-button
@@ -238,11 +252,14 @@
 </template>
 
 <script>
+import { formDirtyMixin } from '../utils/form-dirty.js'
+import { normalizeWeekStart } from '../utils/week-start.js'
 import { captureReturnFocus, restoreFocus } from '../utils/focus-trap.js'
-import { formatDateDisplay, resolveDateDisplayLocale, formatYmdDisplay } from '../utils/format-ymd-display.js'
+import { formatDateDisplay, resolveDateDisplayLocale } from '../utils/format-ymd-display.js'
 import { resolveThemeDefault } from '../theme/resolve-theme-default.js'
 import { createUiIdFactory } from '../utils/ui-id.js'
 import { uiDefaultsMixin } from '../theme/ui-defaults.js'
+import { resolveUiText } from '../utils/resolve-ui-text.js'
 
 const nextDatePickerId = createUiIdFactory('ui-datepicker')
 
@@ -268,9 +285,18 @@ function parseYmd(s) {
 
 export default {
   name: 'DatePicker',
-  mixins: [uiDefaultsMixin],
+  mixins: [uiDefaultsMixin, formDirtyMixin],
   inheritAttrs: false,
   props: {
+    /**
+     * Haftanın ilk günü (0 pazar … 6 cumartesi). Verilmezse dilden çözülür:
+     * `tr` / `en-GB` pazartesi, `en-US` pazar.
+     */
+    weekStart: {
+      type: Number,
+      default: undefined,
+      validator: (v) => v == null || (Number.isInteger(v) && v >= 0 && v <= 6),
+    },
     /** `YYYY-MM-DD` */
     modelValue: {
       type: String,
@@ -357,6 +383,12 @@ export default {
       const format = resolveThemeDefault(this.uiDefaults, undefined, 'dateFormat')
       return formatDateDisplay(this.selectedDate, this.locale, format)
     },
+    resolvedPrevMonthLabel() {
+      return resolveUiText(this, 'ui.datePicker.prevMonth', 'Previous month')
+    },
+    resolvedNextMonthLabel() {
+      return resolveUiText(this, 'ui.datePicker.nextMonth', 'Next month')
+    },
     monthTitle() {
       return new Date(this.viewYear, this.viewMonth, 1).toLocaleString(this.locale, {
         month: 'long',
@@ -402,11 +434,14 @@ export default {
       d.setDate(d.getDate() + 1)
       return this.isQuickDateDisabled(d)
     },
-    /** Hafta günü başlıkları dile göre (eskiden sabit "Su Mo Tu" — TR arayüzde İngilizce). Izgara pazardan başlar. */
+    /** Hafta günü başlıkları dile göre; ızgara dilin hafta başından (`resolvedWeekStart`) başlar. */
+    resolvedWeekStart() {
+      return normalizeWeekStart(this.weekStart, this.locale)
+    },
     weekdayLabels() {
-      const sunday = new Date(2024, 0, 7)
+      // 7 Ocak 2024 pazar — `getDay()` ile aynı ölçek.
       return Array.from({ length: 7 }, (_, i) => {
-        const d = new Date(sunday.getFullYear(), sunday.getMonth(), sunday.getDate() + i)
+        const d = new Date(2024, 0, 7 + this.resolvedWeekStart + i)
         return {
           key: i,
           short: d.toLocaleDateString(this.locale, { weekday: 'short' }).replace('.', ''),
@@ -429,7 +464,7 @@ export default {
       const y = this.viewYear
       const m = this.viewMonth
       const first = new Date(y, m, 1)
-      const start = new Date(y, m, 1 - first.getDay())
+      const start = new Date(y, m, 1 - ((first.getDay() - this.resolvedWeekStart + 7) % 7))
       const todayYmd = toYmd(this.referenceTodayDate)
       const cells = []
       for (let i = 0; i < 42; i += 1) {
@@ -497,13 +532,16 @@ export default {
       const current = this.calendarCells.find((c) => c.key === this.rovingKey)
       if (!current) return
       const d = new Date(current.date)
+      const step = getComputedStyle(e.currentTarget).direction === 'rtl' ? -1 : 1
+      const weekOffset = (d.getDay() - this.resolvedWeekStart + 7) % 7
       const map = {
-        ArrowRight: () => d.setDate(d.getDate() + 1),
-        ArrowLeft: () => d.setDate(d.getDate() - 1),
+        // Sağdan sola yazımda ← ileri, → geri gider (görsel sıra).
+        ArrowRight: () => d.setDate(d.getDate() + step),
+        ArrowLeft: () => d.setDate(d.getDate() - step),
         ArrowDown: () => d.setDate(d.getDate() + 7),
         ArrowUp: () => d.setDate(d.getDate() - 7),
-        Home: () => d.setDate(d.getDate() - d.getDay()),
-        End: () => d.setDate(d.getDate() + (6 - d.getDay())),
+        Home: () => d.setDate(d.getDate() - weekOffset),
+        End: () => d.setDate(d.getDate() + (6 - weekOffset)),
         PageDown: () => d.setMonth(d.getMonth() + 1),
         PageUp: () => d.setMonth(d.getMonth() - 1),
       }
@@ -523,6 +561,7 @@ export default {
     pick(cell, close) {
       if (!cell.date || cell.disabled) return
       const ymd = toYmd(cell.date)
+      this.notifyFormDirty()
       this.$emit('update:modelValue', ymd)
       this.$emit('change', ymd)
       if (typeof close === 'function') close()
@@ -539,6 +578,7 @@ export default {
       const ymd = toYmd(date)
       this.viewYear = date.getFullYear()
       this.viewMonth = date.getMonth()
+      this.notifyFormDirty()
       this.$emit('update:modelValue', ymd)
       this.$emit('change', ymd)
       if (typeof close === 'function') close()

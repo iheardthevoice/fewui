@@ -109,12 +109,72 @@ export function oklchToRgb(l, c, h) {
   })
 }
 
+/**
+ * sRGB 0–255 → OKLCH (`l` 0–1, `c`, `h` derece). `oklchToRgb`'nin tersi.
+ * @param {number} r
+ * @param {number} g
+ * @param {number} b
+ * @returns {{ l: number, c: number, h: number }}
+ */
+export function rgbToOklch(r, g, b) {
+  const [lr, lg, lb] = [r, g, b].map((v) => {
+    const x = v / 255
+    return x <= 0.04045 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4
+  })
+  const l_ = Math.cbrt(0.4122214708 * lr + 0.5363325363 * lg + 0.0514459929 * lb)
+  const m_ = Math.cbrt(0.2119034982 * lr + 0.6806995451 * lg + 0.1073969566 * lb)
+  const s_ = Math.cbrt(0.0883024619 * lr + 0.2817188376 * lg + 0.6299787005 * lb)
+  const l = 0.2104542553 * l_ + 0.793617785 * m_ - 0.0040720468 * s_
+  const a = 1.9779984951 * l_ - 2.428592205 * m_ + 0.4505937099 * s_
+  const bb = 0.0259040371 * l_ + 0.7827717662 * m_ - 0.808675766 * s_
+  const c = Math.hypot(a, bb)
+  const h = c < 1e-5 ? 0 : ((Math.atan2(bb, a) * 180) / Math.PI + 360) % 360
+  return { l, c: c < 1e-5 ? 0 : c, h }
+}
+
+/**
+ * Hex rengi (`#rgb`, `#rgba`, `#rrggbb`, `#rrggbbaa`) `oklch(L C H)` / `oklch(L C H / A)` yazımına çevirir.
+ * Ondalık sayısı, değer tarayıcıda yeniden sRGB'ye çevrildiğinde **aynı 8 bit rengi** verecek kadar
+ * tutulur (kayıpsız gidiş-dönüş). Hex olmayan değer olduğu gibi döner.
+ * @param {string} color
+ * @returns {string}
+ */
+export function hexToOklchString(color) {
+  const raw = String(color || '').trim()
+  const m = /^#([0-9a-f]{3,4}|[0-9a-f]{6}|[0-9a-f]{8})$/i.exec(raw)
+  if (!m) return raw
+  let hex = m[1]
+  if (hex.length <= 4) hex = [...hex].map((ch) => ch + ch).join('')
+  const [r, g, b] = [0, 2, 4].map((i) => parseInt(hex.slice(i, i + 2), 16))
+  const alpha = hex.length === 8 ? parseInt(hex.slice(6, 8), 16) / 255 : 1
+  const { l, c, h } = rgbToOklch(r, g, b)
+  const trim = (value, digits) => String(Number(value.toFixed(digits)))
+  for (const digits of [4, 5, 6]) {
+    const parts = [trim(l, digits), trim(c, digits), trim(h, Math.max(digits - 2, 2))]
+    const back = oklchToRgb(Number(parts[0]), Number(parts[1]), Number(parts[2])).map(Math.round)
+    if (back[0] === r && back[1] === g && back[2] === b) {
+      return alpha < 1 ? `oklch(${parts.join(' ')} / ${trim(alpha, 3)})` : `oklch(${parts.join(' ')})`
+    }
+  }
+  return raw
+}
+
 /** Hex veya `oklch(...)` → [r, g, b]; desteklenmeyen biçimde null. */
 export function colorToRgb(color) {
   const hex = parseHex(color)
   if (hex) return hex
   const o = parseOklch(color)
   return o ? oklchToRgb(o.l, o.c, o.h) : null
+}
+
+/**
+ * Hex veya `oklch(...)` → `#rrggbb`. Renk seçiciler ve palet eşlemesi hex bekler; token'lar OKLCH tutulur.
+ * @param {string} color
+ * @returns {string|null}
+ */
+export function colorToHex(color) {
+  const rgb = colorToRgb(color)
+  return rgb ? rgbToHex(Math.round(rgb[0]), Math.round(rgb[1]), Math.round(rgb[2])) : null
 }
 
 /** WCAG kontrast oranı (iki [r,g,b]). */

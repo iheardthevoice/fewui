@@ -229,6 +229,7 @@
 </template>
 
 <script>
+import { formDirtyMixin } from '../utils/form-dirty.js'
 import { createUiIdFactory } from '../utils/ui-id.js'
 import { captureReturnFocus, restoreFocus } from '../utils/focus-trap.js'
 import { resolveUiText } from '../utils/resolve-ui-text.js'
@@ -247,7 +248,7 @@ function pad2(n) {
 
 export default {
   name: 'TimePicker',
-  mixins: [uiDefaultsMixin],
+  mixins: [uiDefaultsMixin, formDirtyMixin],
   inheritAttrs: false,
   props: {
     /** `HH:mm` (24 saat) */
@@ -293,9 +294,6 @@ export default {
       draftHour: 0,
       draftMinute: 0,
       wheelSyncing: false,
-      _hourScrollTimer: null,
-      _minuteScrollTimer: null,
-      _wheelUnsub: null,
     }
   },
   computed: {
@@ -597,6 +595,7 @@ export default {
     emitDraft() {
       const next = `${pad2(this.draftHour)}:${pad2(this.draftMinute)}`
       if (next !== this.modelValue) {
+        this.notifyFormDirty()
         this.$emit('update:modelValue', next)
         this.$emit('change', next)
       }

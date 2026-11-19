@@ -19,7 +19,7 @@
           :id="tooltipId"
           ref="panelRef"
           class="ui-tooltip-panel pointer-events-none fixed"
-          :style="panelStyle"
+          :style="[panelStyle, layerStyle]"
           role="tooltip"
         >
           <span class="ui-tooltip-motion inline-flex max-w-full min-w-0">
@@ -34,11 +34,16 @@
 <script>
 import { createUiIdFactory } from '../utils/ui-id.js'
 import { uiPortalMixin } from '../theme/ui-portal.js'
+import { peekOverlayTop } from '../theme/overlay-stack.js'
 
 const nextTooltipId = createUiIdFactory('ui-tooltip')
 
 const PLACEMENTS = ['top', 'bottom', 'left', 'right']
 const VIEW_MARGIN = 8
+/** Açık dialog / popover katmanının üstünde kalma payı (katman adımı 10). */
+const OVERLAY_Z_OFFSET = 5
+const DESCRIBE_TARGET_SELECTOR =
+  'button, a[href], input, select, textarea, [role="button"], [tabindex]:not([tabindex="-1"])'
 
 export default {
   name: 'Tooltip',
@@ -74,6 +79,7 @@ export default {
       open: false,
       portalReady: false,
       panelStyle: {},
+      layerStyle: null,
       tooltipId: nextTooltipId(),
       showTimer: null,
       hideTimer: null,
@@ -95,6 +101,13 @@ export default {
     window.removeEventListener('resize', this.onScrollResize)
     document.removeEventListener('keydown', this.onDocumentKeydown)
     this.clearTimers()
+    this.unlinkDescription()
+  },
+  watch: {
+    open(isOpen) {
+      if (isOpen) this.linkDescription()
+      else this.unlinkDescription()
+    },
   },
   methods: {
     clearTimers() {
@@ -111,6 +124,9 @@ export default {
       if (this.disabled || !this.hasContent) return
       this.clearTimers()
       const run = () => {
+        // CSS tabanı z-300; açık dialog / popover varsa onun üstüne çıkar.
+        const top = peekOverlayTop()
+        this.layerStyle = top > 0 ? { zIndex: String(top + OVERLAY_Z_OFFSET) } : null
         this.open = true
         this.$nextTick(() => this.updatePosition())
       }
@@ -147,6 +163,33 @@ export default {
     },
     onScrollResize() {
       if (this.open) this.updatePosition()
+    },
+    /**
+     * Tetikleyiciyi tooltip metnine `aria-describedby` ile bağlar.
+     * Metin zaten erişilebilir adın kendisiyse (ikon düğmesi + aynı `aria-label`) çift okunmasın diye bağlanmaz.
+     */
+    linkDescription() {
+      this.unlinkDescription()
+      if (this.disabled || !this.hasContent) return
+      const root = this.$refs.wrapperRef
+      const target = root?.querySelector?.(DESCRIBE_TARGET_SELECTOR) || root?.firstElementChild
+      if (!target) return
+      const name = (target.getAttribute('aria-label') || target.textContent || '').trim()
+      if (this.label && name === this.label.trim()) return
+      const tokens = (target.getAttribute('aria-describedby') || '').split(/\s+/).filter(Boolean)
+      if (!tokens.includes(this.tooltipId)) tokens.push(this.tooltipId)
+      target.setAttribute('aria-describedby', tokens.join(' '))
+      this.describedEl = target
+    },
+    unlinkDescription() {
+      const target = this.describedEl
+      if (!target) return
+      this.describedEl = null
+      const tokens = (target.getAttribute('aria-describedby') || '')
+        .split(/\s+/)
+        .filter((token) => token && token !== this.tooltipId)
+      if (tokens.length) target.setAttribute('aria-describedby', tokens.join(' '))
+      else target.removeAttribute('aria-describedby')
     },
     onDocumentKeydown(e) {
       if (e.key === 'Escape' && this.open) {

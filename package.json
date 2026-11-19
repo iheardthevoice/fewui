@@ -5,6 +5,10 @@
   "scripts": {
     "build": "pnpm -w run build:lib",
     "build:lib": "pnpm --filter fewui build",
+    "check": "pnpm --filter fewui run check",
+    "test": "pnpm --filter fewui run test",
+    "lint": "pnpm --filter fewui run lint",
+    "build:meta": "pnpm --filter fewui run build:meta",
     "docs:dev": "pnpm --filter @fewui/docs dev",
     "docs:build": "pnpm --filter @fewui/docs build",
     "docs:preview": "pnpm --filter @fewui/docs preview",

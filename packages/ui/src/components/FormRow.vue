@@ -59,7 +59,7 @@
           class="ui-form-row-error-icon"
           aria-hidden="true"
         />
-        <span>{{ error }}</span>
+        <span>{{ resolvedError }}</span>
       </p>
     </div>
   </div>
@@ -69,6 +69,8 @@
 import { reactive } from 'vue'
 import { createUiIdFactory } from '../utils/ui-id.js'
 import { UI_FORM_FIELD_KEY } from '../utils/form-field.js'
+import { UI_FORM_DIRTY_KEY } from '../utils/form-dirty.js'
+import { UI_FORM_ERRORS_KEY, formErrorText } from '../utils/form-errors.js'
 
 const nextFormRowId = createUiIdFactory('ui-form-control')
 
@@ -126,6 +128,15 @@ export default {
       type: String,
       default: '',
     },
+    /**
+     * Alan adı. Üstteki form hata bağlamında (`UI_FORM_ERRORS_KEY`) bu ada bir mesaj varsa
+     * `error` verilmiş gibi gösterilir; kullanıcı satırdaki kontrolü değiştirince mesaj silinir.
+     * Birden çok ad boşlukla ayrılır (`"startDate endDate"`).
+     */
+    field: {
+      type: String,
+      default: '',
+    },
     /** Dialog oluşturma formlarında ana alan — açılışta odak hedefi (kontrol boyutunu değiştirmez) */
     primary: {
       type: Boolean,
@@ -143,10 +154,28 @@ export default {
       fieldContext: reactive({ id: '', describedBy: undefined, invalid: false, ownerUid: null }),
     }
   },
+  inject: {
+    uiFormErrors: { from: UI_FORM_ERRORS_KEY, default: null },
+    uiFormDirtyParent: { from: UI_FORM_DIRTY_KEY, default: null },
+  },
   provide() {
-    return { [UI_FORM_FIELD_KEY]: this.fieldContext }
+    return {
+      [UI_FORM_FIELD_KEY]: this.fieldContext,
+      // Kontrol değişince: satırın bağlam hatası silinir, bildirim üst kaba (dialog) iletilir.
+      [UI_FORM_DIRTY_KEY]: () => this.onControlEdited(),
+    }
+  },
+  created() {
+    this.registerFields(this.fieldNames)
+  },
+  beforeUnmount() {
+    this.unregisterFields(this.fieldNames)
   },
   watch: {
+    fieldNames(next, prev) {
+      this.unregisterFields(prev)
+      this.registerFields(next)
+    },
     controlId: { immediate: true, handler(v) { this.fieldContext.id = v } },
     describedBy: { immediate: true, handler(v) { this.fieldContext.describedBy = v } },
     invalid: { immediate: true, handler(v) { this.fieldContext.invalid = v } },
@@ -161,8 +190,24 @@ export default {
     descriptionId() {
       return this.description ? this.fallbackDescId : undefined
     },
+    fieldNames() {
+      return String(this.field || '').split(/\s+/).filter(Boolean)
+    },
+    /** Bağlamdaki (sunucudan gelen) alan mesajı. */
+    contextError() {
+      const errors = this.uiFormErrors?.errors
+      if (!errors || !this.fieldNames.length) return ''
+      for (const name of this.fieldNames) {
+        const text = formErrorText(errors[name])
+        if (text) return text
+      }
+      return ''
+    },
+    resolvedError() {
+      return this.error || this.contextError
+    },
     invalid() {
-      return Boolean(this.error)
+      return Boolean(this.resolvedError)
     },
     errorId() {
       return this.invalid ? this.fallbackErrorId : undefined
@@ -204,6 +249,26 @@ export default {
         return `${base} ui-form-row-label-line--action-only`
       }
       return base
+    },
+  },
+  methods: {
+    registerFields(names) {
+      const register = this.uiFormErrors?.registerField
+      if (typeof register === 'function') names.forEach((name) => register(name))
+    },
+    unregisterFields(names) {
+      const unregister = this.uiFormErrors?.unregisterField
+      if (typeof unregister === 'function') names.forEach((name) => unregister(name))
+    },
+    onControlEdited() {
+      const ctx = this.uiFormErrors
+      if (ctx?.errors) {
+        for (const name of this.fieldNames) {
+          if (typeof ctx.clearField === 'function') ctx.clearField(name)
+          else if (name in ctx.errors) delete ctx.errors[name]
+        }
+      }
+      if (typeof this.uiFormDirtyParent === 'function') this.uiFormDirtyParent()
     },
   },
 }

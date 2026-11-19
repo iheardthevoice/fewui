@@ -1,5 +1,5 @@
 import { strToU8, zipSync } from 'fflate'
-import { buildThemeCss, defineTheme } from 'fewui'
+import { buildThemeCss, defineTheme, hexToOklchString, themeToDesignTokens } from 'fewui'
 
 /**
  * @typedef {object} ThemeExport `useThemePlayground().exportPackage()` çıktısı
@@ -40,6 +40,22 @@ function presetName(id) {
 }
 
 /**
+ * Seçicilerden gelen hex renkleri OKLCH yazımına çevirir (kayıpsız); tema paketleri tek biçim tutar.
+ * @param {unknown} value
+ * @returns {any}
+ */
+function toOklchTokens(value) {
+  if (typeof value === 'string') {
+    return value.replace(/#(?:[0-9a-fA-F]{8}|[0-9a-fA-F]{6}|[0-9a-fA-F]{3,4})\b/g, (hex) => hexToOklchString(hex))
+  }
+  if (Array.isArray(value)) return value.map(toOklchTokens)
+  if (value && typeof value === 'object') {
+    return Object.fromEntries(Object.entries(value).map(([key, item]) => [key, toOklchTokens(item)]))
+  }
+  return value
+}
+
+/**
  * Tema paketi klasörünün dosyaları.
  * @param {ThemeExport} data
  * @returns {Record<string, string>}
@@ -49,7 +65,7 @@ export function buildThemePackageFiles(data) {
     id: data.id,
     label: data.label,
     description: data.description,
-    preset: data.preset,
+    preset: { ...data.preset, tokens: toOklchTokens(data.preset.tokens) },
     defaults: data.defaults,
   })
   const name = presetName(pkg.id)
@@ -72,6 +88,8 @@ export default defineTheme({
     'color.css': buildThemeCss(pkg),
     'styles.css': data.customCss ? `${data.customCss.trim()}\n` : `/* ${pkg.label} — temaya özel kurallar */\n`,
     'theme.json': `${JSON.stringify(data, null, 2)}\n`,
+    // Figma eklentileri ve Style Dictionary için W3C Design Tokens (çözülmüş sRGB renkler).
+    'tokens.json': `${JSON.stringify(themeToDesignTokens(pkg), null, 2)}\n`,
     'README.md': `# ${pkg.label}
 
 fewui tema paketi (v2) — create sayfasında üretildi.

@@ -11,6 +11,8 @@
  * @property {string} [dateRangeFormat]
  * @property {string} [timeFormat]
  * @property {string} [dialogMaxWidth]
+ * @property {boolean} [dialogGuardUnsaved] `ui-dialog` kirli formu onaysız kapatmaz (varsayılan kapalı)
+ * @property {boolean} [dialogSubmitOnEnter] `ui-dialog` içinde Enter birincil eylemi tetikler (varsayılan kapalı)
  * @property {'comfortable'|'compact'} [density] Boşluk ölçeği (`data-ui-density`); `compact` liste, kart ve araç çubuğu boşluklarını daraltır
  */
 
@@ -25,6 +27,8 @@ export const BASE_UI_DEFAULTS = {
   dateRangeFormat: 'd MMM yyyy',
   timeFormat: 'HH:mm',
   dialogMaxWidth: 'sm',
+  dialogGuardUnsaved: false,
+  dialogSubmitOnEnter: false,
   density: 'comfortable',
 }
 

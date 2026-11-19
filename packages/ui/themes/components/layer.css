@@ -66,8 +66,9 @@
   }
 
   /** Büyük rakam (metrik, tutar): font-medium + tabular-nums; sm 18px · md 20px · lg 24px. */
+  /** Rakam ölçeği yazı ölçeğiyle aynı basamaklarda: 16 · 20 · 24. */
   .ui-display-sm {
-    @apply text-lg font-medium leading-7 tabular-nums text-foreground;
+    @apply text-base font-medium leading-6 tabular-nums text-foreground;
   }
 
   .ui-display-md {
@@ -135,7 +136,7 @@
     @apply inline-flex items-center justify-center;
   }
 
-  .ui-button-text.text-left:has(> :is(.inline-flex, .flex, .inline-block, .ui-icon, .ui-badge, .ui-avatar, img, svg)) {
+  .ui-button-text.text-start:has(> :is(.inline-flex, .flex, .inline-block, .ui-icon, .ui-badge, .ui-avatar, img, svg)) {
     @apply justify-start;
   }
 
@@ -458,11 +459,11 @@
   }
 
   .ui-action-group--joined.ui-action-group--horizontal > *:not(:first-child) {
-    @apply rounded-tl-none rounded-bl-none;
+    @apply rounded-s-none;
   }
 
   .ui-action-group--joined.ui-action-group--horizontal > *:not(:last-child) {
-    @apply rounded-tr-none rounded-br-none;
+    @apply rounded-e-none;
   }
 
   .ui-action-group--joined.ui-action-group--vertical > *:not(:first-child) {
@@ -475,11 +476,11 @@
 
   /** Joined + Popover/Dropdown: köşe yuvarlaklığı tetikleyici düğmeye uygulanır */
   .ui-action-group--joined.ui-action-group--horizontal > .ui-popover:not(:first-child) > .ui-popover-trigger > .ui-button {
-    @apply rounded-tl-none rounded-bl-none;
+    @apply rounded-s-none;
   }
 
   .ui-action-group--joined.ui-action-group--horizontal > .ui-popover:not(:last-child) > .ui-popover-trigger > .ui-button {
-    @apply rounded-tr-none rounded-br-none;
+    @apply rounded-e-none;
   }
 
   .ui-action-group--joined.ui-action-group--vertical > .ui-popover:not(:first-child) > .ui-popover-trigger > .ui-button {
@@ -492,11 +493,11 @@
 
   /** Joined + Select: köşe yuvarlaklığı tetikleyici alana uygulanır */
   .ui-action-group--joined.ui-action-group--horizontal > .ui-select:not(:first-child) .ui-select-field {
-    @apply rounded-tl-none rounded-bl-none;
+    @apply rounded-s-none;
   }
 
   .ui-action-group--joined.ui-action-group--horizontal > .ui-select:not(:last-child) .ui-select-field {
-    @apply rounded-tr-none rounded-br-none;
+    @apply rounded-e-none;
   }
 
   .ui-action-group--joined.ui-action-group--vertical > .ui-select:not(:first-child) .ui-select-field {
@@ -509,11 +510,11 @@
 
   /** Joined + Input: kök kabuk köşeleri (Select ile aynı desen) */
   .ui-action-group--joined.ui-action-group--horizontal > .ui-input:not(:first-child) {
-    @apply rounded-tl-none rounded-bl-none;
+    @apply rounded-s-none;
   }
 
   .ui-action-group--joined.ui-action-group--horizontal > .ui-input:not(:last-child) {
-    @apply rounded-tr-none rounded-br-none;
+    @apply rounded-e-none;
   }
 
   .ui-action-group--joined.ui-action-group--vertical > .ui-input:not(:first-child) {
@@ -735,7 +736,7 @@
   }
 
   .ui-input-field {
-    @apply m-0 min-h-0 w-full min-w-0 flex-1 cursor-text border-0 bg-transparent p-0 text-left text-foreground outline-none appearance-auto placeholder:text-muted-foreground;
+    @apply m-0 min-h-0 w-full min-w-0 flex-1 cursor-text border-0 bg-transparent p-0 text-start text-foreground outline-none appearance-auto placeholder:text-muted-foreground;
   }
 
   .ui-input-field--single {
@@ -776,11 +777,11 @@
   }
 
   .ui-password .ui-input {
-    @apply pr-1;
+    @apply pe-1;
   }
 
   .ui-password-toggle {
-    @apply -mr-0.5 inline-flex size-7 shrink-0 items-center justify-center rounded-full border-0 bg-transparent p-0 text-muted-foreground shadow-none transition-colors hover:bg-transparent hover:text-foreground;
+    @apply -me-0.5 inline-flex size-7 shrink-0 items-center justify-center rounded-full border-0 bg-transparent p-0 text-muted-foreground shadow-none transition-colors hover:bg-transparent hover:text-foreground;
   }
 
   .ui-password-toggle:focus-visible {
@@ -930,7 +931,7 @@
 
   /** Badge — etiket metni; kısaltma yalnız `--truncate` + max-w-* ile */
   .ui-badge-label {
-    @apply inline-block text-left;
+    @apply inline-block text-start;
   }
 
   .ui-badge-label--truncate {
@@ -939,7 +940,7 @@
 
   /** Badge — boyut (her boyutta hap / `rounded-full`) */
   .ui-badge--xs {
-    @apply rounded-full px-1.5 py-0.5 text-[0.65rem] leading-none;
+    @apply rounded-full px-1.5 py-0.5 text-[0.6875rem] leading-none;
   }
 
   .ui-badge--sm {
@@ -1016,7 +1017,7 @@
   /** Tag — boyut / dolgu Badge ile (`Tag.vue` + `ui-badge--*`); kapat düğmesi */
   /** Görünür ikon 16px; dokunma alanı 24px (WCAG 2.5.8) — `::after` ile, yerleşim değişmez. */
   .ui-tag-remove {
-    @apply relative -mr-px inline-flex size-4 shrink-0 items-center justify-center rounded-md text-inherit opacity-70 outline-none transition-opacity hover:opacity-100 focus-visible:opacity-100 after:absolute after:-inset-1 after:content-[''];
+    @apply relative -me-px inline-flex size-4 shrink-0 items-center justify-center rounded-md text-inherit opacity-70 outline-none transition-opacity hover:opacity-100 focus-visible:opacity-100 after:absolute after:-inset-1 after:content-[''];
   }
 
   .ui-tag-remove:focus-visible {
@@ -1026,7 +1027,7 @@
 
   /** Tooltip — minimal yüzey (gölgésiz; diğer yüzeylerden daha sade) */
   .ui-tooltip-panel {
-    @apply z-[300] max-w-xs rounded-md border border-border bg-muted px-2 py-1 text-left text-xs font-normal leading-snug text-foreground;
+    @apply z-[300] max-w-xs rounded-md border border-border bg-muted px-2 py-1 text-start text-xs font-normal leading-snug text-foreground;
   }
 
   /** Konum dışarıda `transform` ile — hareket iç span’da (çakışma yok) */
@@ -1758,19 +1759,19 @@
   .ui-avatar-group > .ui-avatar + .ui-avatar,
   .ui-avatar-group > .ui-avatar + .ui-avatar-group-overflow,
   .ui-avatar-group > .ui-avatar-group-overflow + .ui-avatar {
-    @apply -ml-2;
+    @apply -ms-2;
   }
 
   .ui-avatar-group--xs > .ui-avatar + .ui-avatar,
   .ui-avatar-group--xs > .ui-avatar + .ui-avatar-group-overflow {
-    @apply -ml-1.5;
+    @apply -ms-1.5;
   }
 
   .ui-avatar-group--lg > .ui-avatar + .ui-avatar,
   .ui-avatar-group--lg > .ui-avatar + .ui-avatar-group-overflow,
   .ui-avatar-group--xl > .ui-avatar + .ui-avatar-group-overflow,
   .ui-avatar-group--xl > .ui-avatar + .ui-avatar {
-    @apply -ml-3;
+    @apply -ms-3;
   }
 
   .ui-avatar-group-overflow {
@@ -1815,7 +1816,7 @@
   }
 
   .ui-avatar--xs {
-    @apply h-5 w-5 min-h-5 min-w-5 shrink-0 text-[8px] leading-none;
+    @apply h-5 w-5 min-h-5 min-w-5 shrink-0 text-[0.6875rem] leading-none tracking-tight;
   }
 
   .ui-avatar--sm {
@@ -1890,7 +1891,7 @@
   }
 
   button.ui-photo.ui-photo--interactive {
-    @apply m-0 cursor-pointer appearance-none p-0 text-left outline-none transition-opacity duration-200 hover:opacity-95;
+    @apply m-0 cursor-pointer appearance-none p-0 text-start outline-none transition-opacity duration-200 hover:opacity-95;
   }
 
   button.ui-photo.ui-photo--interactive:focus-visible {
@@ -1911,7 +1912,7 @@
   }
 
   .ui-photo__favorite {
-    @apply absolute left-2 top-2 inline-flex h-7 w-7 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-sm;
+    @apply absolute start-2 top-2 inline-flex h-7 w-7 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-sm;
   }
 
   .ui-photo__overflow {
@@ -1970,7 +1971,7 @@
   }
 
   .ui-photo-preview__close {
-    @apply absolute left-3 top-3 z-[2];
+    @apply absolute start-3 top-3 z-[2];
   }
 
   .ui-photo-preview__nav {
@@ -1978,11 +1979,11 @@
   }
 
   .ui-photo-preview__nav--prev {
-    @apply left-3;
+    @apply start-3;
   }
 
   .ui-photo-preview__nav--next {
-    @apply right-3;
+    @apply end-3;
   }
 
   .ui-photo-preview__counter {
@@ -2005,7 +2006,7 @@
   }
 
   .ui-action-card {
-    @apply flex w-full min-w-0 items-center gap-3.5 rounded-2xl border-0 bg-muted px-3.5 py-3.5 text-left transition-colors duration-200 hover:bg-control focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50;
+    @apply flex w-full min-w-0 items-center gap-3.5 rounded-2xl border-0 bg-muted px-3.5 py-3.5 text-start transition-colors duration-200 hover:bg-control focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50;
   }
 
   .ui-action-card--selected {
@@ -2113,7 +2114,7 @@
   }
 
   .ui-list-item-row {
-    @apply flex w-full min-w-0 items-center gap-3 px-4 py-[var(--ui-list-row-py)] text-left;
+    @apply flex w-full min-w-0 items-center gap-3 px-4 py-[var(--ui-list-row-py)] text-start;
   }
 
   .ui-list-item--row:not(.ui-list-item--actionable) > .ui-list-item-row {
@@ -2135,7 +2136,7 @@
   }
 
   .ui-list-item-text {
-    @apply flex min-w-0 flex-1 flex-col gap-0.5 pr-1;
+    @apply flex min-w-0 flex-1 flex-col gap-0.5 pe-1;
   }
 
   .ui-list-item-title {
@@ -2688,7 +2689,7 @@
    * ColorPicker ve IconPicker `ui-select-field` kullanır ama `.ui-select` içinde değildir.
    */
   .ui-select-field {
-    @apply relative m-0 box-border flex w-full min-w-0 cursor-pointer items-center gap-2 appearance-none rounded-[var(--ui-radius-control-md)] py-1 px-[var(--ui-control-px-md)] text-left outline-none transition-shadow h-[var(--ui-control-h-md)] min-h-[var(--ui-control-h-md)];
+    @apply relative m-0 box-border flex w-full min-w-0 cursor-pointer items-center gap-2 appearance-none rounded-[var(--ui-radius-control-md)] py-1 px-[var(--ui-control-px-md)] text-start outline-none transition-shadow h-[var(--ui-control-h-md)] min-h-[var(--ui-control-h-md)];
   }
 
   .ui-select:not(.ui-select--inline) .ui-select-field,
@@ -2716,7 +2717,7 @@
   }
 
   .ui-select-value {
-    @apply min-w-0 flex-1 truncate text-left text-foreground;
+    @apply min-w-0 flex-1 truncate text-start text-foreground;
   }
 
   .ui-select-value--placeholder {
@@ -2794,7 +2795,7 @@
   .ui-select-field--bare:focus,
   .ui-select-field--bare:focus-visible,
   .ui-select-field--bare[aria-expanded='true'] {
-    @apply h-6 min-h-6 gap-1 rounded-none border-0 border-r border-border bg-transparent py-0 pl-0 pr-2 text-sm shadow-none ring-0 ring-offset-0 bg-transparent bg-none [backdrop-filter:none] shadow-none;
+    @apply h-6 min-h-6 gap-1 rounded-none border-0 border-e border-border bg-transparent py-0 ps-0 pe-2 text-sm shadow-none ring-0 ring-offset-0 bg-transparent bg-none [backdrop-filter:none] shadow-none;
   }
 
   .ui-select--inline .ui-select-value {
@@ -2812,7 +2813,7 @@
    * Numara, chevron'dan Input `gap` + 4px (≈12px) sonra başlar — ikon ile kod arasındaki ritimle aynı aile.
    */
   .ui-phone-prepend {
-    @apply mr-1 flex shrink-0 select-none items-center gap-2 bg-transparent bg-none [backdrop-filter:none];
+    @apply me-1 flex shrink-0 select-none items-center gap-2 bg-transparent bg-none [backdrop-filter:none];
   }
 
   .ui-phone .ui-input > .ui-text-default:has(.ui-phone-prepend) {
@@ -2823,16 +2824,22 @@
     @apply shrink-0 text-sm font-medium leading-5 text-muted-foreground;
   }
 
+  /** RTL: ülke kodu (`+90`) soldan sağa okunur; yön içerikten belirlenir, artı işareti sona kaymaz. */
+  .ui-phone-country-static,
+  .ui-phone .ui-select--inline .ui-select-value {
+    @apply rtl:[unicode-bidi:plaintext];
+  }
+
   .ui-phone .ui-select--inline .ui-select-field,
   .ui-phone .ui-select--inline .ui-select-field:hover,
   .ui-phone .ui-select--inline .ui-select-field:focus,
   .ui-phone .ui-select--inline .ui-select-field:focus-visible,
   .ui-phone .ui-select--inline .ui-select-field[aria-expanded='true'] {
-    @apply h-auto min-h-6 w-auto gap-2 rounded-none border-0 border-r-0 bg-transparent py-0 pl-0 pr-0 shadow-none ring-0 ring-offset-0 bg-transparent bg-none [backdrop-filter:none] shadow-none;
+    @apply h-auto min-h-6 w-auto gap-2 rounded-none border-0 border-e-0 bg-transparent py-0 ps-0 pe-0 shadow-none ring-0 ring-offset-0 bg-transparent bg-none [backdrop-filter:none] shadow-none;
   }
 
   .ui-phone .ui-select--inline .ui-select-chevron {
-    @apply ml-0.5;
+    @apply ms-0.5;
   }
 
   /**
@@ -3115,6 +3122,67 @@
     @apply w-full;
   }
 
+  /** Kart seçenek menü tetikleyicisi (ör. "Diğer" → dropdown): grid hücresini diğer kartlar gibi doldurur. */
+  .ui-radio-group--button .ui-popover-trigger--block > .ui-radio--button {
+    @apply flex-1;
+  }
+
+  /**
+   * `size` verilmiş kart grup: kontrol boyunda seçenek (numpad / button satırıyla aynı ritim).
+   * Etiket çip ölçeğinde (14 · sm'de 12); seçim dili kart ile ortak (aşağıda).
+   */
+  /** Aralık kontrol boyuyla ölçeklenir (tuş takımı / button satırı ile aynı: sm·md 8 · lg 12). */
+  .ui-radio-group--control {
+    @apply gap-2;
+  }
+
+  .ui-radio-group--control.ui-radio-group--control-lg {
+    @apply gap-3;
+  }
+
+  .ui-radio-group--control .ui-radio--button {
+    @apply items-center justify-center gap-2 py-0 text-center;
+  }
+
+  /** Seçenek ≠ eylem: dolgulu button / tuş yanında çerçeveli durur, seçilince seçim dolgusu alır. */
+  .ui-radio-group--control .ui-radio--button:not(.ui-radio--checked) {
+    @apply border-border bg-transparent;
+  }
+
+  .ui-radio-group--control .ui-radio--button:not(.ui-radio--checked):hover {
+    @apply [background-color:var(--ui-hover)];
+  }
+
+  .ui-radio-group--control-sm .ui-radio--button {
+    @apply h-[var(--ui-control-h-sm)] rounded-[var(--ui-radius-control-sm)] px-[var(--ui-control-px-sm)];
+  }
+
+  .ui-radio-group--control-md .ui-radio--button {
+    @apply h-[var(--ui-control-h-md)] rounded-[var(--ui-radius-control-md)] px-[var(--ui-control-px-md)];
+  }
+
+  .ui-radio-group--control-lg .ui-radio--button {
+    @apply h-[var(--ui-control-h-lg)] rounded-[var(--ui-radius-control-lg)] px-[var(--ui-control-px-lg)];
+  }
+
+  /** Kontrol boyunda nokta yerine dolgu seçimi gösterir; native input erişilebilir kalır. */
+  .ui-radio-group--control .ui-radio-indicator,
+  .ui-radio-group--control .ui-radio-description {
+    @apply hidden;
+  }
+
+  .ui-radio-group--control .ui-radio-body {
+    @apply items-center;
+  }
+
+  .ui-radio-group--control .ui-radio-label {
+    @apply max-w-full truncate;
+  }
+
+  .ui-radio-group--control-sm .ui-radio-label {
+    @apply text-xs leading-4;
+  }
+
   .ui-radio--button.ui-radio--checked {
     @apply shadow-none;
     /* Seçim dili: soluk primary zemin, kenarlık aynı ailede (diğer seçimlerle uyumlu) */
@@ -3317,7 +3385,7 @@
   }
 
   .ui-switch-thumb--on {
-    @apply translate-x-[1.25rem] bg-white;
+    @apply translate-x-[1.25rem] bg-white rtl:-translate-x-[1.25rem];
   }
 
   /** Menu — düz liste; kabuk yok (card içinde / dışında). Yüzen panel: dışarıda `ui-card` / `ui-surface`. */
@@ -3820,7 +3888,7 @@
   }
 
   .ui-tab-trigger--line {
-    @apply relative -mb-px inline-flex cursor-pointer select-none items-center gap-2 border-0 border-b-2 border-transparent bg-transparent px-3 py-2 text-left text-sm font-medium outline-none transition-colors;
+    @apply relative -mb-px inline-flex cursor-pointer select-none items-center gap-2 border-0 border-b-2 border-transparent bg-transparent px-3 py-2 text-start text-sm font-medium outline-none transition-colors;
   }
 
   .ui-tab-trigger-icon {
@@ -3841,7 +3909,7 @@
 
   /** Dikey şerit: gösterge solda (yükseklik metinle hizalı, tam satır border değil) */
   .ui-tab-list--vertical.ui-tab-list--line .ui-tab-trigger--line {
-    @apply mb-0 min-h-10 w-full items-center justify-start border-0 py-0 pl-4 pr-2;
+    @apply mb-0 min-h-10 w-full items-center justify-start border-0 py-0 ps-4 pe-2;
   }
 
   /** Klavye odağı: ring-offset kaldırıldı — seçili alt çizgi ile çift halka oluşmaz */
@@ -3860,7 +3928,7 @@
   }
 
   .ui-tab-list--vertical.ui-tab-list--line .ui-tab-trigger--line-selected::before {
-    @apply [content:''] absolute left-0 top-1/2 h-5 w-0.5 -translate-y-1/2 rounded-full [background-color:var(--ui-selected-fg)];
+    @apply [content:''] absolute start-0 top-1/2 h-5 w-0.5 -translate-y-1/2 rounded-full [background-color:var(--ui-selected-fg)];
   }
 
   .ui-tab-trigger--disabled {
@@ -4056,11 +4124,11 @@
   }
 
   .ui-segment-affix--prepend {
-    @apply -ml-0.5;
+    @apply -ms-0.5;
   }
 
   .ui-segment-affix--append {
-    @apply -mr-0.5;
+    @apply -me-0.5;
   }
 
   .ui-segment--affixed .ui-segment-affix .ui-button {
@@ -4090,7 +4158,7 @@
 
   .ui-segment--selected .ui-segment-affix .ui-badge,
   .ui-segment--selected .ui-segment-affix .ui-badge.bg-muted {
-    @apply border-transparent [background-color:color-mix(in_oklab,_var(--primary)_22%,_transparent)] [color:var(--ui-selected-fg)];
+    @apply border-transparent [background-color:color-mix(in_oklab,_var(--primary)_12%,_transparent)] [color:var(--ui-selected-fg)];
   }
 
   .ui-segment:not(.ui-segment--selected) .ui-segment-affix .ui-badge,
@@ -4458,7 +4526,7 @@
   }
 
   .ui-alert--banner .ui-alert-slot {
-    @apply ml-auto w-auto shrink-0 p-0;
+    @apply ms-auto w-auto shrink-0 p-0;
   }
 
   .ui-alert--banner .ui-alert-slot .ui-button {
@@ -4483,7 +4551,7 @@
   }
 
   .ui-alert--actions-end .ui-alert-actions {
-    @apply order-last flex basis-full gap-2 @md:order-none @md:ml-auto @md:basis-auto @md:shrink-0 @md:self-center;
+    @apply order-last flex basis-full gap-2 @md:order-none @md:ms-auto @md:basis-auto @md:shrink-0 @md:self-center;
   }
 
   .ui-alert--actions-end .ui-alert-actions > *,
@@ -4556,7 +4624,7 @@
    * Toast — `ui-surface` ile aynı kart gölgesi; hap şekil; yüzey üzerinde yüzen bildirim (blur yok = tema bütünlüğü).
    */
   .ui-alert--toast {
-    @apply min-h-9 w-auto max-w-[min(100vw-2rem,20rem)] items-center gap-3 rounded-full border border-border bg-surface py-2 pl-3 pr-2 text-surface-foreground shadow-lg;
+    @apply min-h-9 w-auto max-w-[min(100vw-2rem,20rem)] items-center gap-3 rounded-full border border-border bg-surface py-2 ps-3 pe-2 text-surface-foreground shadow-lg;
   }
 
   .ui-alert--toast.ui-alert--info {
@@ -4596,12 +4664,13 @@
     @apply [background-color:color-mix(in_oklab,_var(--danger)_28%,_var(--surface))];
   }
 
+  /** Toast başlık + açıklamayı `.ui-alert-copy` olmadan doğrudan gövdeye koyar; tabanın `gap-3` eylem adımı burada 2px'lik metin bloğu olur. */
   .ui-alert--toast .ui-alert-body {
-    @apply min-w-0 flex-1 space-y-0.5 py-0;
+    @apply min-w-0 flex-1 gap-0.5 py-0;
   }
 
   .ui-alert--toast .ui-alert-title {
-    @apply truncate pr-1 text-sm font-medium leading-5 text-foreground;
+    @apply truncate pe-1 text-sm font-medium leading-5 text-foreground;
   }
 
   .ui-alert--toast .ui-alert-description {
@@ -4813,7 +4882,7 @@
   }
 
   .ui-dialog-panel .ui-dialog-header__back {
-    @apply shrink-0 justify-self-start -ml-1 rounded-lg min-h-9;
+    @apply shrink-0 justify-self-start -ms-1 rounded-lg min-h-9;
   }
 
   .ui-dialog-panel .ui-dialog-header__lead {
@@ -4833,7 +4902,7 @@
   }
 
   .ui-dialog-panel .ui-dialog-header__actions {
-    @apply ml-auto flex shrink-0 items-center justify-end gap-1.5;
+    @apply ms-auto flex shrink-0 items-center justify-end gap-1.5;
   }
 
   .ui-sheet-panel .ui-sheet-header {
@@ -4955,7 +5024,7 @@
   }
 
   .ui-sheet-panel .ui-card-footer .ui-action-group {
-    @apply ml-auto flex w-auto max-w-full flex-row flex-wrap items-center justify-end gap-2;
+    @apply ms-auto flex w-auto max-w-full flex-row flex-wrap items-center justify-end gap-2;
   }
 
   /** Joined split-button: footer gap-2 birleşik grubu ayırmasın */
@@ -4964,7 +5033,7 @@
   }
 
   .ui-sheet-panel .ui-card-footer .ui-action-group--grow {
-    @apply ml-0 w-full;
+    @apply ms-0 w-full;
   }
 
   .ui-sheet-panel .ui-card-footer .ui-action-group--grow > * {
@@ -5183,7 +5252,7 @@
   }
 
   .ui-dialog-panel .ui-card-footer .ui-action-group {
-    @apply ml-auto flex w-auto max-w-full flex-row flex-wrap items-center justify-end gap-2;
+    @apply ms-auto flex w-auto max-w-full flex-row flex-wrap items-center justify-end gap-2;
   }
 
   /** Joined split-button: footer gap-2 birleşik grubu ayırmasın */
@@ -5238,7 +5307,7 @@
   }
 
   .ui-dropdown-item-copy {
-    @apply grid min-w-0 items-center gap-x-2.5 gap-y-0.5 text-left [grid-template-columns:1.25rem_minmax(0,_1fr)];
+    @apply grid min-w-0 items-center gap-x-2.5 gap-y-0.5 text-start [grid-template-columns:1.25rem_minmax(0,_1fr)];
   }
 
   .ui-dropdown-item-copy:not(:has(.ui-dropdown-item-icon)) {
@@ -5352,7 +5421,7 @@
   }
 
   .ui-daterangepicker-quick {
-    @apply flex w-full shrink-0 flex-row flex-nowrap gap-2 overflow-x-auto overflow-y-hidden pb-3 sm:w-[10.5rem] sm:flex-col sm:flex-wrap sm:gap-1.5 sm:overflow-visible sm:border-r sm:border-border sm:pb-0 sm:pr-4;
+    @apply flex w-full shrink-0 flex-row flex-nowrap gap-2 overflow-x-auto overflow-y-hidden pb-3 sm:w-[10.5rem] sm:flex-col sm:flex-wrap sm:gap-1.5 sm:overflow-visible sm:border-e sm:border-border sm:pb-0 sm:pe-4;
   }
 
   .ui-daterangepicker-quick > .ui-button {
@@ -5521,11 +5590,11 @@
   }
 
   .ui-table-header .ui-table-row > th:first-child::after {
-    @apply left-1;
+    @apply start-1;
   }
 
   .ui-table-header .ui-table-row > th:last-child::after {
-    @apply right-1;
+    @apply end-1;
   }
 
   .ui-table-body .ui-table-row > td {
@@ -5537,11 +5606,11 @@
   }
 
   .ui-table-body .ui-table-row > td:first-child::after {
-    @apply left-1;
+    @apply start-1;
   }
 
   .ui-table-body .ui-table-row > td:last-child::after {
-    @apply right-1;
+    @apply end-1;
   }
 
   .ui-table-body .ui-table-row:last-child > td::after {
@@ -5553,11 +5622,11 @@
   }
 
   .ui-table-body .ui-table-row > td:first-child::before {
-    @apply left-1 [border-top-left-radius:var(--radius)] [border-bottom-left-radius:var(--radius)];
+    @apply start-1 [border-start-start-radius:var(--radius)] [border-end-start-radius:var(--radius)];
   }
 
   .ui-table-body .ui-table-row > td:last-child::before {
-    @apply right-1 [border-top-right-radius:var(--radius)] [border-bottom-right-radius:var(--radius)];
+    @apply end-1 [border-start-end-radius:var(--radius)] [border-end-end-radius:var(--radius)];
   }
 
   .ui-table-body .ui-table-row:hover:not(.ui-table-row--no-hover) > td:not(.ui-table-cell--empty)::after,
@@ -5598,7 +5667,7 @@
   }
 
   .ui-table-head {
-    @apply min-w-0 overflow-hidden px-3 py-2 text-left align-middle text-muted-foreground [&:has([role=checkbox])]:pr-0;
+    @apply min-w-0 overflow-hidden px-3 py-2 text-start align-middle text-muted-foreground [&:has([role=checkbox])]:pe-0;
   }
 
   /** Başlık metni hücre genişliğini bilsin — aksi halde th clip eder, … görünmez. */
@@ -5631,11 +5700,11 @@
   }
 
   .ui-table-head--align-end {
-    @apply text-right;
+    @apply text-end;
   }
 
   .ui-table-cell {
-    @apply min-w-0 overflow-hidden px-3 py-2.5 align-middle [&:has([role=checkbox])]:pr-0;
+    @apply min-w-0 overflow-hidden px-3 py-2.5 align-middle [&:has([role=checkbox])]:pe-0;
   }
 
   .ui-table-cell--w-sm {
@@ -5747,7 +5816,7 @@
   }
 
   .ui-table-cell--align-end {
-    @apply text-right;
+    @apply text-end;
 
     .ui-table-cell-content {
       @apply justify-end;
@@ -5849,7 +5918,7 @@
 
     .app-data-table:not(.app-data-table--filter-empty) .ui-table-head:last-child,
     .app-data-table:not(.app-data-table--filter-empty) .ui-table-cell:has([data-app-row-menu]) {
-      @apply sticky right-0 z-[2] [background-color:var(--app-data-table-cell-bg,_var(--surface-bg,_var(--surface)))] border-l-0 shadow-none;
+      @apply sticky end-0 z-[2] [background-color:var(--app-data-table-cell-bg,_var(--surface-bg,_var(--surface)))] border-s-0 shadow-none;
     }
 
     .app-data-table:not(.app-data-table--filter-empty) .ui-table-head:last-child {
@@ -6280,7 +6349,7 @@
   }
 
   .ui-toolbar--horizontal > .ui-toolbar-end {
-    @apply sm:ml-auto;
+    @apply sm:ms-auto;
   }
 
   /** Stat — metrik kartı (`ui-field card` kabuğu üzerinde). */

@@ -54,6 +54,7 @@
       :maxlength="maxlength"
       :aria-describedby="resolvedDescribedBy"
       :aria-invalid="resolvedInvalid"
+      :enterkeyhint="type === 'search' ? 'search' : undefined"
       v-bind="passthroughAttrs"
       @input="onInput"
       @change="$emit('change', $event)"
@@ -80,6 +81,7 @@
 </template>
 
 <script>
+import { formDirtyMixin } from '../utils/form-dirty.js'
 import { cn } from '../utils/cn.js'
 import { resolveThemeControlSize } from '../theme/resolve-theme-default.js'
 import { useId } from 'vue'
@@ -93,7 +95,7 @@ const VARIANTS = ['default', 'plain']
 
 export default {
   name: 'Input',
-  mixins: [uiDefaultsMixin, formFieldMixin],
+  mixins: [uiDefaultsMixin, formFieldMixin, formDirtyMixin],
   inheritAttrs: false,
   props: {
     /** `default` dolgulu kabuk; `plain` border/fill yok (inline düzenleme). */
@@ -221,6 +223,7 @@ export default {
   },
   methods: {
     onInput(e) {
+      this.notifyFormDirty()
       this.$emit('update:modelValue', e.target.value)
       this.$emit('input', e)
     },

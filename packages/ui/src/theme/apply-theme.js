@@ -7,6 +7,7 @@ import { expandFonts, expandTokens, formatFontFamily } from './tokens.js'
  * @typedef {import('./define-theme.js').ThemePackage} ThemePackage
  * @typedef {import('./tokens.js').UiThemeTokens} UiThemeTokens
  * @typedef {'light'|'dark'} UiThemeMode
+ * @typedef {'light'|'dark'|'system'} UiThemeModePreference `system` cihaz ayarını izler
  */
 
 /**
@@ -16,14 +17,31 @@ import { expandFonts, expandTokens, formatFontFamily } from './tokens.js'
 
 /**
  * @typedef {object} ApplyThemeOptions
- * @property {UiThemeMode} [mode] Verilmezse kökteki `.dark` sınıfı korunur
+ * @property {UiThemeModePreference} [mode] Verilmezse önceki tercih / kökteki `.dark` sınıfı korunur
  * @property {string|HTMLElement} [root] Varsayılan: `document.documentElement`
  * @property {boolean} [inline=false] Tüm token'ları inline yazar (tema `color.css` yüklenmediyse)
  * @property {UiThemeOverrides} [overrides] Anlık token override'ları (her zaman inline)
+ * @property {boolean} [transition=true] Mod / renk değişimini kısa bir geçişle uygular
  */
 
-/** @type {WeakMap<HTMLElement, { theme: ThemePackage, inline: boolean, overrides?: UiThemeOverrides, keys: string[] }>} */
+/** @type {WeakMap<HTMLElement, { theme: ThemePackage, inline: boolean, overrides?: UiThemeOverrides, keys: string[], vars: Record<string, string> }>} */
 const ROOT_STATE = new WeakMap()
+
+/**
+ * Kök başına mod tercihi. `system` iken cihaz ayarı izlenir (`unwatch` dinleyiciyi kaldırır).
+ * @type {WeakMap<HTMLElement, { preference: UiThemeModePreference, unwatch?: () => void }>}
+ */
+const MODE_STATE = new WeakMap()
+
+/** @type {WeakMap<HTMLElement, ReturnType<typeof setTimeout>>} */
+const TRANSITION_TIMERS = new WeakMap()
+
+const SYSTEM_DARK_QUERY = '(prefers-color-scheme: dark)'
+/** Mod / renk değişiminde köke kısa süreliğine verilen sınıf (`_shared/properties.css`). */
+export const UI_THEME_TRANSITION_CLASS = 'ui-theme-transition'
+/** Kökte yayılan olay: `detail: { mode, preference }`. */
+export const UI_THEME_MODE_EVENT = 'ui-theme-mode-change'
+const TRANSITION_MS = 260
 
 /**
  * @param {string|HTMLElement|null|undefined} root
@@ -34,6 +52,79 @@ function resolveRoot(root) {
   if (!root) return document.documentElement
   if (typeof root === 'string') return document.querySelector(root)
   return root
+}
+
+/**
+ * Cihazın açık / koyu tercihi; tarayıcı dışında (SSR) `light`.
+ * @returns {UiThemeMode}
+ */
+export function resolveSystemMode() {
+  if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return 'light'
+  return window.matchMedia(SYSTEM_DARK_QUERY).matches ? 'dark' : 'light'
+}
+
+/**
+ * Tercihi (`light` | `dark` | `system`) uygulanacak moda çevirir.
+ * @param {UiThemeModePreference|null|undefined} preference
+ * @param {UiThemeMode} [fallback='light'] Tercih verilmediğinde
+ * @returns {UiThemeMode}
+ */
+export function resolveUiThemeMode(preference, fallback = 'light') {
+  if (preference === 'system') return resolveSystemMode()
+  if (preference === 'dark' || preference === 'light') return preference
+  return fallback
+}
+
+/**
+ * Kökün etkin modu ve tercihi (`system` seçiliyse `mode` cihazdan çözülmüş değerdir).
+ * @param {string|HTMLElement} [rootInput]
+ * @returns {{ mode: UiThemeMode, preference: UiThemeModePreference }}
+ */
+export function getUiThemeMode(rootInput) {
+  const root = resolveRoot(rootInput)
+  if (!root) return { mode: 'light', preference: 'light' }
+  const mode = root.classList.contains('dark') ? 'dark' : 'light'
+  return { mode, preference: MODE_STATE.get(root)?.preference ?? mode }
+}
+
+/** Tercih `system` ise cihaz ayarını dinler; değilse dinleyiciyi bırakır. */
+function trackPreference(root, preference) {
+  const current = MODE_STATE.get(root)
+  if (current?.preference === preference) return
+  current?.unwatch?.()
+  if (preference !== 'system' || typeof window === 'undefined' || typeof window.matchMedia !== 'function') {
+    MODE_STATE.set(root, { preference })
+    return
+  }
+  const query = window.matchMedia(SYSTEM_DARK_QUERY)
+  const onChange = () => setUiThemeMode('system', root)
+  query.addEventListener?.('change', onChange)
+  MODE_STATE.set(root, { preference, unwatch: () => query.removeEventListener?.('change', onChange) })
+}
+
+/**
+ * Renk token'ları `@property` ile tiplidir; bu sınıf varken köktekiler geçişle değişir.
+ * Hareket azaltma tercihinde ve tarayıcı dışında atlanır.
+ */
+function startThemeTransition(root) {
+  if (typeof window === 'undefined') return
+  if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return
+  root.classList.add(UI_THEME_TRANSITION_CLASS)
+  clearTimeout(TRANSITION_TIMERS.get(root))
+  TRANSITION_TIMERS.set(
+    root,
+    setTimeout(() => root.classList.remove(UI_THEME_TRANSITION_CLASS), TRANSITION_MS),
+  )
+}
+
+function emitModeChange(root, mode, preference) {
+  if (typeof CustomEvent !== 'function') return
+  root.dispatchEvent(new CustomEvent(UI_THEME_MODE_EVENT, { detail: { mode, preference } }))
+}
+
+function sameVars(a, b) {
+  const keys = Object.keys(a)
+  return keys.length === Object.keys(b).length && keys.every((key) => a[key] === b[key])
 }
 
 /**
@@ -61,7 +152,7 @@ export function resolveOverrideVars(overrides, mode) {
  */
 export function computeThemeVars(theme, options = {}) {
   const pkg = resolveTheme(theme)
-  const mode = options.mode === 'dark' ? 'dark' : 'light'
+  const mode = resolveUiThemeMode(options.mode)
   const base = options.inline ? resolveThemeVars(pkg, mode) : expandFonts(pkg.preset.fonts)
   return { ...base, ...resolveOverrideVars(options.overrides, mode) }
 }
@@ -78,13 +169,20 @@ export function applyUiTheme(theme, options = {}) {
   if (!root) return {}
 
   const pkg = resolveTheme(theme)
-  const mode = options.mode ?? (root.classList.contains('dark') ? 'dark' : 'light')
-  root.classList.toggle('dark', mode === 'dark')
+  const wasDark = root.classList.contains('dark')
+  // Mod verilmezse önceki tercih (ör. `system`) sürer; o da yoksa kökteki `.dark` korunur.
+  const preference = options.mode ?? MODE_STATE.get(root)?.preference
+  const mode = resolveUiThemeMode(preference, wasDark ? 'dark' : 'light')
 
   const inline = Boolean(options.inline)
   const vars = computeThemeVars(pkg, { mode, inline, overrides: options.overrides })
-
   const previous = ROOT_STATE.get(root)
+
+  // İlk uygulamada geçiş yok (sayfa açılışında renkler kaymasın); sonraki gerçek değişimlerde var.
+  const changed = Boolean(previous) && (wasDark !== (mode === 'dark') || !sameVars(previous.vars, vars))
+  if (changed && options.transition !== false) startThemeTransition(root)
+
+  root.classList.toggle('dark', mode === 'dark')
   if (previous) {
     for (const key of previous.keys) {
       if (!(key in vars)) root.style.removeProperty(key)
@@ -93,25 +191,41 @@ export function applyUiTheme(theme, options = {}) {
   for (const [prop, value] of Object.entries(vars)) {
     root.style.setProperty(prop, value)
   }
-  ROOT_STATE.set(root, { theme: pkg, inline, overrides: options.overrides, keys: Object.keys(vars) })
+  ROOT_STATE.set(root, { theme: pkg, inline, overrides: options.overrides, keys: Object.keys(vars), vars })
+
+  if (preference) trackPreference(root, preference)
+  if (wasDark !== (mode === 'dark')) emitModeChange(root, mode, preference ?? mode)
 
   return vars
 }
 
 /**
  * Aktif modu değiştirir; kökte `applyUiTheme` ile uygulanmış tema varsa o moda göre yeniden uygular.
- * @param {UiThemeMode} mode
+ * `system` cihazın açık / koyu ayarını izler ve ayar değiştikçe kendiliğinden güncellenir.
+ * @param {UiThemeModePreference} mode
  * @param {string|HTMLElement} [rootInput]
+ * @param {{ transition?: boolean }} [options]
  */
-export function setUiThemeMode(mode, rootInput) {
+export function setUiThemeMode(mode, rootInput, options = {}) {
   const root = resolveRoot(rootInput)
   if (!root) return
   const state = ROOT_STATE.get(root)
   if (state) {
-    applyUiTheme(state.theme, { mode, root, inline: state.inline, overrides: state.overrides })
+    applyUiTheme(state.theme, {
+      mode,
+      root,
+      inline: state.inline,
+      overrides: state.overrides,
+      transition: options.transition,
+    })
     return
   }
-  root.classList.toggle('dark', mode === 'dark')
+  const wasDark = root.classList.contains('dark')
+  const resolved = resolveUiThemeMode(mode, wasDark ? 'dark' : 'light')
+  if (wasDark !== (resolved === 'dark') && options.transition !== false) startThemeTransition(root)
+  root.classList.toggle('dark', resolved === 'dark')
+  trackPreference(root, mode)
+  if (wasDark !== (resolved === 'dark')) emitModeChange(root, resolved, mode)
 }
 
 /**
@@ -121,6 +235,8 @@ export function setUiThemeMode(mode, rootInput) {
 export function clearUiTheme(rootInput) {
   const root = resolveRoot(rootInput)
   if (!root) return
+  MODE_STATE.get(root)?.unwatch?.()
+  MODE_STATE.delete(root)
   const state = ROOT_STATE.get(root)
   if (!state) return
   for (const key of state.keys) root.style.removeProperty(key)
@@ -136,11 +252,24 @@ export function clearUiTheme(rootInput) {
 export function buildThemeStyleAttr(theme, options = {}) {
   const vars = computeThemeVars(theme, options)
   return {
+    // `system` sunucuda bilinemez: sınıf boş kalır, `buildThemeModeScript()` ilk boyamadan önce ekler.
     classAttr: options.mode === 'dark' ? 'dark' : '',
     styleAttr: Object.entries(vars)
       .map(([key, value]) => `${key}: ${value}`)
       .join('; '),
   }
+}
+
+/**
+ * `<head>` içine konacak küçük betik: ilk boyamadan önce `.dark` sınıfını ayarlar (açılışta parlama olmaz).
+ * `storageKey` verilirse kullanıcının kayıtlı tercihi (`light` | `dark` | `system`) okunur; yoksa `defaultMode`.
+ * @param {{ storageKey?: string, defaultMode?: UiThemeModePreference }} [options]
+ * @returns {string} `<script>` etiketi olmadan betik gövdesi
+ */
+export function buildThemeModeScript(options = {}) {
+  const key = options.storageKey ? JSON.stringify(options.storageKey) : 'null'
+  const fallback = JSON.stringify(options.defaultMode ?? 'system')
+  return `(function(){try{var k=${key},m=(k&&localStorage.getItem(k))||${fallback};if(m!=='light'&&m!=='dark')m=matchMedia('${SYSTEM_DARK_QUERY}').matches?'dark':'light';document.documentElement.classList.toggle('dark',m==='dark')}catch(e){}})()`
 }
 
 /**

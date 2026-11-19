@@ -154,10 +154,11 @@
 
 /**
  * Seçili segment + badge — TW `bg-muted` / `text-muted-foreground` utility’lerini ezer
- * (layer sırası yüzünden @layer components yetmeyebilir).
+ * (layer sırası yüzünden @layer components yetmeyebilir). Seçili segment soluk primary zemindir
+ * (`ui-fill-primary-soft`): rozet primary mürekkebi taşır; beyaz yazı açık temada 1,2:1 kalıyordu.
  */
 .ui-segment--selected .ui-segment-affix .ui-badge {
-  @apply border-transparent [background-color:color-mix(in_oklab,_var(--primary-foreground)_22%,_transparent)] text-primary-foreground;
+  @apply border-transparent [background-color:color-mix(in_oklab,_var(--primary)_12%,_transparent)] [color:var(--ui-selected-fg)];
 }
 
 .ui-segment:not(.ui-segment--selected) .ui-segment-affix .ui-badge,

@@ -1,0 +1,8 @@
+/* Bu dosya `scripts/build-component-meta.mjs` tarafından üretilir — elle düzenlemeyin. */
+import type { App, Plugin } from 'vue'
+import type { UiLibInstallOptions } from './index'
+
+export { createUiId, createUiIdFactory, resetUiIds, pushToast, dismissToast, clearToasts, setToastExpanded, toggleToastExpanded, TOAST_GROUP_WINDOW_MS, requestConfirm, applyUiTheme, setUiThemeMode, getUiThemeMode, resolveUiThemeMode, resolveSystemMode, buildThemeModeScript, UI_THEME_MODE_EVENT, UI_THEME_TRANSITION_CLASS, clearUiTheme, computeThemeVars, buildThemeStyleAttr, buildThemeEnforcementCss, themeConfigToTokens, withDerivedConfigBrandColors, defineTheme, extendTheme, resolveThemeVars, expandTokens, mergeTokens, formatFontFamily, pickContrastForeground, ensureContrastForMode, ensureLabelContrast, contrastRatio, colorToRgb, parseOklch, oklchToRgb, deriveBrandColorsFromPrimary, withDerivedBrandTokens, FEW_PALETTE_ID, FEW_PRIMARY, FEW_PRIMARY_FOREGROUND, FEW_COLOR_SCALE, getFewPrimaryColors, applyThemeCustomCss, clearThemeCustomCss, applyGoogleFontsForTheme, buildGoogleFontsLinkTag, buildGoogleFontsStylesheetUrl, googleFontSelectOptions, formatGoogleFontFamilyName, applyGoogleFontsCatalogPreview, GOOGLE_FONTS_CATALOG, resolveThemeFontFamilies, DEFAULT_THEME_ID, registerTheme, getThemePackage, listThemes, resolveTheme, getThemeCssPath, provideUiDefaults, setUiDefaults, useUiDefaults, uiDefaultsMixin, mergeUiDefaults, BASE_UI_DEFAULTS, UI_DEFAULTS_KEY } from './index'
+
+declare const UiLandingLib: Plugin<[UiLibInstallOptions?]> & { install(app: App, options?: UiLibInstallOptions): void }
+export default UiLandingLib

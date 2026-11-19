@@ -2,7 +2,11 @@
  * DatePicker / DateRangePicker tetikleyici metni — örn. "7 Mayıs 2026" / "7 May 2026".
  */
 
+const FALLBACK_DATE_LOCALE = 'en-GB'
+
 /**
+ * Tarih gösterim dili. Türkçe ve İngilizce sabit biçime bağlanır; `Intl`'in tanıdığı diğer diller
+ * kendi dilinde yazılır (`de` → "17. November 2026"). Boş ya da tanınmayan dil İngilizceye düşer.
  * @param {unknown} locale
  * @returns {string}
  */
@@ -11,7 +15,17 @@ export function resolveDateDisplayLocale(locale) {
     typeof locale === 'object' && locale != null && 'value' in locale
       ? locale.value
       : locale
-  return raw === 'en' || raw === 'en-GB' || raw === 'en-US' ? 'en-GB' : 'tr-TR'
+  const tag = typeof raw === 'string' ? raw.trim().replace(/_/g, '-') : ''
+  if (!tag) return FALLBACK_DATE_LOCALE
+  const lower = tag.toLowerCase()
+  if (lower === 'tr' || lower.startsWith('tr-')) return 'tr-TR'
+  if (lower === 'en' || lower === 'en-gb' || lower === 'en-us') return 'en-GB'
+  try {
+    if (Intl.DateTimeFormat.supportedLocalesOf(tag).length > 0) return tag
+  } catch {
+    // Geçersiz dil etiketi — İngilizceye düş.
+  }
+  return FALLBACK_DATE_LOCALE
 }
 
 /**
@@ -19,7 +33,7 @@ export function resolveDateDisplayLocale(locale) {
  * @param {string} [locale]
  * @returns {string}
  */
-export function formatDateDisplay(date, locale = 'tr-TR', format) {
+export function formatDateDisplay(date, locale = FALLBACK_DATE_LOCALE, format) {
   if (!(date instanceof Date) || Number.isNaN(date.getTime())) return ''
   const loc = resolveDateDisplayLocale(locale)
   if (format === 'd MMM yyyy') {
@@ -37,7 +51,7 @@ export function formatDateDisplay(date, locale = 'tr-TR', format) {
  * @param {string} [locale]
  * @returns {string}
  */
-export function formatYmdDisplay(ymd, locale = 'tr-TR', format) {
+export function formatYmdDisplay(ymd, locale = FALLBACK_DATE_LOCALE, format) {
   if (ymd == null || ymd === '') return ''
   const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(ymd).trim())
   if (!m) return ''

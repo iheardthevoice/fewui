@@ -1,3 +1,5 @@
+import Accordion from './components/Accordion.vue'
+import AccordionItem from './components/AccordionItem.vue'
 import ActionCard from './components/ActionCard.vue'
 import ActionCardList from './components/ActionCardList.vue'
 import ActionGroup from './components/ActionGroup.vue'
@@ -6,13 +8,19 @@ import Alert from './components/Alert.vue'
 import Avatar from './components/Avatar.vue'
 import AvatarGroup from './components/AvatarGroup.vue'
 import Badge from './components/Badge.vue'
+import Breadcrumb from './components/Breadcrumb.vue'
+import BreadcrumbItem from './components/BreadcrumbItem.vue'
 import Button from './components/Button.vue'
 import Card from './components/Card.vue'
+import Chart from './components/Chart.vue'
 import Checkbox from './components/Checkbox.vue'
 import CheckboxGroup from './components/CheckboxGroup.vue'
 import ChipGroup from './components/ChipGroup.vue'
+import Collapsible from './components/Collapsible.vue'
 import ColorPicker from './components/ColorPicker.vue'
+import Command from './components/Command.vue'
 import ConfirmDialog from './components/ConfirmDialog.vue'
+import ContextMenu from './components/ContextMenu.vue'
 import CurrencyInput from './components/CurrencyInput.vue'
 import DatePicker from './components/DatePicker.vue'
 import DateRangePicker from './components/DateRangePicker.vue'
@@ -26,17 +34,21 @@ import File from './components/File.vue'
 import FilterChip from './components/FilterChip.vue'
 import FormRow from './components/FormRow.vue'
 import Guidance from './components/Guidance.vue'
+import HoverCard from './components/HoverCard.vue'
 import Icon from './components/Icon.vue'
 import IconPicker from './components/IconPicker.vue'
 import IconTile from './components/IconTile.vue'
 import Input from './components/Input.vue'
 import Intro from './components/Intro.vue'
+import Kbd from './components/Kbd.vue'
 import List from './components/List.vue'
 import ListItem from './components/ListItem.vue'
 import Menu from './components/Menu.vue'
+import Menubar from './components/Menubar.vue'
 import MenuGroup from './components/MenuGroup.vue'
 import MenuItem from './components/MenuItem.vue'
 import MenuNav from './components/MenuNav.vue'
+import Pagination from './components/Pagination.vue'
 import Password from './components/Password.vue'
 import Phone from './components/Phone.vue'
 import Photo from './components/Photo.vue'
@@ -51,6 +63,10 @@ import PriceText from './components/PriceText.vue'
 import Progress from './components/Progress.vue'
 import Radio from './components/Radio.vue'
 import RadioGroup from './components/RadioGroup.vue'
+import ResizableGroup from './components/ResizableGroup.vue'
+import ResizableHandle from './components/ResizableHandle.vue'
+import ResizablePanel from './components/ResizablePanel.vue'
+import ScrollArea from './components/ScrollArea.vue'
 import Section from './components/Section.vue'
 import Segment from './components/Segment.vue'
 import SegmentGroup from './components/SegmentGroup.vue'
@@ -103,6 +119,12 @@ export {
 export {
   applyUiTheme,
   setUiThemeMode,
+  getUiThemeMode,
+  resolveUiThemeMode,
+  resolveSystemMode,
+  buildThemeModeScript,
+  UI_THEME_MODE_EVENT,
+  UI_THEME_TRANSITION_CLASS,
   clearUiTheme,
   computeThemeVars,
   buildThemeStyleAttr,
@@ -130,6 +152,9 @@ export {
   ensureLabelContrast,
   contrastRatio,
   colorToRgb,
+  colorToHex,
+  hexToOklchString,
+  rgbToOklch,
   parseOklch,
   oklchToRgb,
   deriveBrandColorsFromPrimary,
@@ -138,6 +163,10 @@ export {
   relativeLuminance,
 } from './theme/color-utils.js'
 export { withDerivedBrandTokens } from './theme/derive-theme.js'
+export { UI_FORM_DIRTY_KEY, formDirtyMixin } from './utils/form-dirty.js'
+export { setUiFeedbackHandler, uiFeedback } from './utils/feedback.js'
+export { UI_FORM_ERRORS_KEY, createFormErrorsContext } from './utils/form-errors.js'
+export { themeToDesignTokens, resolveCssColorToHex, TOKEN_LAYERS } from './theme/design-tokens.js'
 export {
   FEW_PALETTE_ID,
   FEW_PRIMARY,
@@ -207,6 +236,8 @@ export { useDialog } from './composables/useDialog.js'
 export { useConfirm } from './composables/useConfirm.js'
 
 export {
+  Accordion,
+  AccordionItem,
   ActionCard,
   ActionCardList,
   ActionGroup,
@@ -215,13 +246,19 @@ export {
   Avatar,
   AvatarGroup,
   Badge,
+  Breadcrumb,
+  BreadcrumbItem,
   Button,
   Card,
+  Chart,
   Checkbox,
   CheckboxGroup,
   ChipGroup,
+  Collapsible,
   ColorPicker,
+  Command,
   ConfirmDialog,
+  ContextMenu,
   CurrencyInput,
   DatePicker,
   DateRangePicker,
@@ -235,32 +272,44 @@ export {
   FilterChip,
   FormRow,
   Guidance,
+  HoverCard,
   Icon,
   IconPicker,
   IconTile,
   Input,
   Intro,
+  Kbd,
   List,
   ListItem,
   Menu,
+  Menubar,
   MenuGroup,
   MenuItem,
   MenuNav,
+  Pagination,
   Password,
   Phone,
   Photo,
   Photos,
   Pin,
   Popover,
+  PriceDisplay,
+  PriceDisplayGroup,
+  PriceDisplayRow,
   PriceInput,
+  PriceText,
   Progress,
   Radio,
   RadioGroup,
+  ResizableGroup,
+  ResizableHandle,
+  ResizablePanel,
+  ScrollArea,
   Section,
   Segment,
   SegmentGroup,
-  SelectionIndicator,
   Select,
+  SelectionIndicator,
   Sheet,
   SidebarItem,
   Skeleton,
@@ -297,14 +346,17 @@ const LOCALE_PACKS = {
 
 /**
  * Kütüphane UI mesajlarını verilen locale koduna göre döndürür (manuel `mergeLocaleMessage` için).
- * @param {string} [locale='tr']
+ * Paketi olmayan dil İngilizceye düşer.
+ * @param {string} [locale='en']
  */
-export function getUiMessages(locale = 'tr') {
-  return LOCALE_PACKS[locale] ?? LOCALE_PACKS.tr
+export function getUiMessages(locale = 'en') {
+  return LOCALE_PACKS[locale] ?? LOCALE_PACKS.en
 }
 
 /** Global tag names (`<ui-button>`, `<ui-card>`, …). */
 const GLOBAL_COMPONENTS = [
+  ['ui-accordion', Accordion],
+  ['ui-accordion-item', AccordionItem],
   ['ui-action-card', ActionCard],
   ['ui-action-card-list', ActionCardList],
   ['ui-action-group', ActionGroup],
@@ -313,13 +365,19 @@ const GLOBAL_COMPONENTS = [
   ['ui-avatar', Avatar],
   ['ui-avatar-group', AvatarGroup],
   ['ui-badge', Badge],
+  ['ui-breadcrumb', Breadcrumb],
+  ['ui-breadcrumb-item', BreadcrumbItem],
   ['ui-button', Button],
   ['ui-card', Card],
+  ['ui-chart', Chart],
   ['ui-checkbox', Checkbox],
   ['ui-checkbox-group', CheckboxGroup],
   ['ui-chip-group', ChipGroup],
+  ['ui-collapsible', Collapsible],
   ['ui-color-picker', ColorPicker],
+  ['ui-command', Command],
   ['ui-confirm-dialog', ConfirmDialog],
+  ['ui-context-menu', ContextMenu],
   ['ui-currency-input', CurrencyInput],
   ['ui-date-picker', DatePicker],
   ['ui-date-range-picker', DateRangePicker],
@@ -333,17 +391,21 @@ const GLOBAL_COMPONENTS = [
   ['ui-filter-chip', FilterChip],
   ['ui-form-row', FormRow],
   ['ui-guidance', Guidance],
+  ['ui-hover-card', HoverCard],
   ['ui-icon', Icon],
   ['ui-icon-picker', IconPicker],
   ['ui-icon-tile', IconTile],
   ['ui-input', Input],
   ['ui-intro', Intro],
+  ['ui-kbd', Kbd],
   ['ui-list', List],
   ['ui-list-item', ListItem],
   ['ui-menu', Menu],
   ['ui-menu-group', MenuGroup],
   ['ui-menu-item', MenuItem],
   ['ui-menu-nav', MenuNav],
+  ['ui-menubar', Menubar],
+  ['ui-pagination', Pagination],
   ['ui-password', Password],
   ['ui-phone', Phone],
   ['ui-photo', Photo],
@@ -358,11 +420,15 @@ const GLOBAL_COMPONENTS = [
   ['ui-progress', Progress],
   ['ui-radio', Radio],
   ['ui-radio-group', RadioGroup],
+  ['ui-resizable-group', ResizableGroup],
+  ['ui-resizable-handle', ResizableHandle],
+  ['ui-resizable-panel', ResizablePanel],
+  ['ui-scroll-area', ScrollArea],
   ['ui-section', Section],
   ['ui-segment', Segment],
   ['ui-segment-group', SegmentGroup],
-  ['ui-selection-indicator', SelectionIndicator],
   ['ui-select', Select],
+  ['ui-selection-indicator', SelectionIndicator],
   ['ui-sheet', Sheet],
   ['ui-sidebar-item', SidebarItem],
   ['ui-skeleton', Skeleton],
@@ -458,20 +524,26 @@ function install(app, options = {}) {
         : [
             typeof i18n.global.locale === 'string'
               ? i18n.global.locale
-              : i18n.global.locale?.value ?? 'tr',
+              : i18n.global.locale?.value ?? 'en',
           ])
 
     for (const loc of list) {
       const pack = LOCALE_PACKS[loc]
       if (pack) {
         i18n.global.mergeLocaleMessage(loc, pack)
-      } else if (typeof import.meta !== 'undefined' && import.meta.env?.DEV) {
-        console.warn(`[fewui] Bilinmeyen locale paketi: "${loc}". Mevcut: ${Object.keys(LOCALE_PACKS).join(', ')}`)
+        continue
+      }
+      // Paketi olmayan dil: uygulama kendi `ui.*` çevirisini vermediyse İngilizce metinler yüklenir.
+      if (!i18n.global.getLocaleMessage?.(loc)?.ui) {
+        i18n.global.mergeLocaleMessage(loc, LOCALE_PACKS.en)
+        if (typeof import.meta !== 'undefined' && import.meta.env?.DEV) {
+          console.warn(`[fewui] "${loc}" için dil paketi yok; İngilizce kullanılıyor. Mevcut: ${Object.keys(LOCALE_PACKS).join(', ')}`)
+        }
       }
     }
   } else if (typeof import.meta !== 'undefined' && import.meta.env?.DEV) {
     console.warn(
-      '[fewui] app.use(UiLib, { i18n, locale: "tr" }) şeklinde i18n ve locale verin; aksi halde $t anahtarları çözülmez.',
+      '[fewui] app.use(UiLib, { i18n, locale: "en" }) şeklinde i18n ve locale verin; aksi halde $t anahtarları çözülmez.',
     )
   }
 

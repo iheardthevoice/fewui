@@ -128,6 +128,7 @@
 </template>
 
 <script>
+import { formDirtyMixin } from '../utils/form-dirty.js'
 import { cn } from '../utils/cn.js'
 import { resolveUiText } from '../utils/resolve-ui-text.js'
 
@@ -143,6 +144,7 @@ const PRESET_COLORS = [
 
 export default {
   name: 'ColorPicker',
+  mixins: [formDirtyMixin],
   inheritAttrs: false,
   props: {
     modelValue: {
@@ -216,6 +218,7 @@ export default {
         return this.modelValue || ''
       },
       set(val) {
+        this.notifyFormDirty()
         this.$emit('update:modelValue', val || null)
       },
     },
@@ -260,6 +263,7 @@ export default {
     },
     clearColor() {
       this.localColor = ''
+      this.notifyFormDirty()
       this.$emit('update:modelValue', null)
       this.popoverOpen = false
     },

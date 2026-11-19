@@ -73,6 +73,7 @@
           <div class="ui-icon-picker-panel__search">
             <ui-input
               v-model="searchQuery"
+              data-form-untracked
               block
               prefix-icon="magnifying-glass"
               :placeholder="searchPlaceholderLabel"
@@ -114,13 +115,14 @@
 </template>
 
 <script>
+import { formDirtyMixin } from '../utils/form-dirty.js'
 import { cn } from '../utils/cn.js'
 import { iconTypeProp, themeIconTypeComputed } from '../theme/icon-type-prop.js'
 import { uiDefaultsMixin } from '../theme/ui-defaults.js'
 
 export default {
   name: 'IconPicker',
-  mixins: [uiDefaultsMixin],
+  mixins: [uiDefaultsMixin, formDirtyMixin],
   inheritAttrs: false,
   props: {
     modelValue: {
@@ -195,6 +197,7 @@ export default {
         return this.modelValue || ''
       },
       set(val) {
+        this.notifyFormDirty()
         this.$emit('update:modelValue', val || null)
       },
     },
@@ -239,6 +242,7 @@ export default {
     },
     clearIcon() {
       this.localIcon = ''
+      this.notifyFormDirty()
       this.$emit('update:modelValue', null)
       this.popoverOpen = false
     },

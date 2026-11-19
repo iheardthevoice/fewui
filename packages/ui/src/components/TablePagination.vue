@@ -13,6 +13,7 @@
         size="sm"
         cubed
         prefix-icon="chevron-left"
+        class="ui-icon--dir"
         :disabled="!canPrev"
         :aria-label="prevAriaLabel"
         @click="$emit('prev')"
@@ -27,6 +28,7 @@
         size="sm"
         cubed
         prefix-icon="chevron-right"
+        class="ui-icon--dir"
         :disabled="!canNext"
         :aria-label="nextAriaLabel"
         @click="$emit('next')"

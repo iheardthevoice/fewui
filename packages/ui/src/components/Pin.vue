@@ -37,10 +37,14 @@
 </template>
 
 <script>
+import { formDirtyMixin } from '../utils/form-dirty.js'
+import { logicalArrowKey } from '../utils/direction.js'
+
 const TYPES = ['numeric', 'alphanumeric']
 
 export default {
   name: 'Pin',
+  mixins: [formDirtyMixin],
   inheritAttrs: false,
   props: {
     /** Tam kod — `v-model` */
@@ -150,6 +154,7 @@ export default {
     },
     emitValue(nextCells) {
       const value = nextCells.join('').slice(0, this.length)
+      this.notifyFormDirty()
       this.$emit('update:modelValue', value)
       if (value.length === this.length) {
         this.$emit('complete', value)
@@ -200,11 +205,14 @@ export default {
         }
         return
       }
-      if (e.key === 'ArrowLeft' && index > 0) {
+      // RTL’de hücreler sağdan sola dizilir; oklar görsel sırayı izler. Yön kökten okunur:
+      // tarayıcı `tel` / `password` girişlerini RTL’de de `direction: ltr` yapabilir.
+      const arrow = logicalArrowKey(e.key, this.$el)
+      if (arrow === 'ArrowLeft' && index > 0) {
         e.preventDefault()
         this.cellEl(index - 1)?.focus()
       }
-      if (e.key === 'ArrowRight' && index < this.length - 1) {
+      if (arrow === 'ArrowRight' && index < this.length - 1) {
         e.preventDefault()
         this.cellEl(index + 1)?.focus()
       }

@@ -55,11 +55,11 @@ export default {
   props: {
     /** Kayıtlı tema id'si veya `defineTheme` paketi; verilmezse yalnızca mod / override uygulanır. */
     theme: { type: [String, Object], default: null },
-    /** `light` | `dark`; verilmezse üst provider veya belge kökü. */
+    /** `light` | `dark` | `system` (cihaz ayarı); verilmezse üst provider veya belge kökü. */
     mode: {
       type: String,
       default: null,
-      validator: (value) => value == null || value === 'light' || value === 'dark',
+      validator: (value) => value == null || value === 'light' || value === 'dark' || value === 'system',
     },
     /** Token override'ları — düz harita veya `{ light, dark }`. */
     overrides: { type: Object, default: null },
@@ -72,6 +72,7 @@ export default {
   data() {
     return {
       documentDark: false,
+      systemDark: false,
       providedDefaults: reactive({ ...BASE_UI_DEFAULTS }),
     }
   },
@@ -83,6 +84,7 @@ export default {
       return this.pkg?.id ?? null
     },
     resolvedMode() {
+      if (this.mode === 'system') return this.systemDark ? 'dark' : 'light'
       if (this.mode) return this.mode
       // Options API inject ref'i açar (Vue 3.3+): `this.parentMode` doğrudan 'light' | 'dark'.
       // `.value` okumak her zaman undefined veriyordu; iç provider üstün dark modunu yok sayıp light'a düşüyordu.
@@ -115,6 +117,16 @@ export default {
     },
   },
   mounted() {
+    if (this.mode === 'system' && typeof window !== 'undefined' && typeof window.matchMedia === 'function') {
+      // Cihazın açık / koyu ayarı izlenir (sunucuda bilinemez: ilk çizim açık moddur).
+      const query = window.matchMedia('(prefers-color-scheme: dark)')
+      this.systemDark = query.matches
+      const onChange = (event) => {
+        this.systemDark = event.matches
+      }
+      query.addEventListener?.('change', onChange)
+      this.stopSystemWatch = () => query.removeEventListener?.('change', onChange)
+    }
     if (this.mode || this.parentMode || typeof document === 'undefined') return
     const root = document.documentElement
     this.documentDark = root.classList.contains('dark')
@@ -125,6 +137,7 @@ export default {
   },
   beforeUnmount() {
     this.modeObserver?.disconnect()
+    this.stopSystemWatch?.()
   },
 }
 </script>

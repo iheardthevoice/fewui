@@ -29,12 +29,14 @@
 </template>
 
 <script>
+import { formDirtyMixin } from '../utils/form-dirty.js'
 import { createUiIdFactory } from '../utils/ui-id.js'
 
 const nextSwitchId = createUiIdFactory('ui-switch')
 
 export default {
   name: 'Switch',
+  mixins: [formDirtyMixin],
   inheritAttrs: false,
   props: {
     /** `v-model` */
@@ -91,6 +93,7 @@ export default {
     toggle() {
       if (this.isDisabled) return
       const next = !this.modelValue
+      this.notifyFormDirty()
       this.$emit('update:modelValue', next)
       this.$emit('change', next)
     },

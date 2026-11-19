@@ -22,6 +22,10 @@ Skills tell agents *when* and *how* to use Kit:
 
 Generate from the playground: **Download skill**.
 
+## Component data for agents
+
+`fewui/components.json` lists every component with props (type, default, description), events and slots. It is generated from the source on every build, so an agent can check a prop name or an allowed value instead of guessing. The same data backs the [component pages](./components/); `llms.txt` at the site root indexes them.
+
 ## Restta reference
 
 The Restta frontend and landing apps implement these patterns in production. Use them as examples when extending Kit.

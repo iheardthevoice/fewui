@@ -38,7 +38,7 @@
         name="chevron-right"
         type="light"
         size="sm"
-        class="ui-action-card__trailing"
+        class="ui-action-card__trailing ui-icon--dir"
         aria-hidden="true"
       />
     </slot>

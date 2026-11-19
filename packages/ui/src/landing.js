@@ -49,6 +49,12 @@ export { requestConfirm } from './confirm-state.js'
 export {
   applyUiTheme,
   setUiThemeMode,
+  getUiThemeMode,
+  resolveUiThemeMode,
+  resolveSystemMode,
+  buildThemeModeScript,
+  UI_THEME_MODE_EVENT,
+  UI_THEME_TRANSITION_CLASS,
   clearUiTheme,
   computeThemeVars,
   buildThemeStyleAttr,
@@ -178,13 +184,16 @@ function install(app, options = {}) {
         : [
             typeof i18n.global.locale === 'string'
               ? i18n.global.locale
-              : i18n.global.locale?.value ?? 'tr',
+              : i18n.global.locale?.value ?? 'en',
           ])
 
     for (const loc of list) {
       const pack = LOCALE_PACKS[loc]
       if (pack) {
         i18n.global.mergeLocaleMessage(loc, pack)
+      } else if (!i18n.global.getLocaleMessage?.(loc)?.ui) {
+        // Paketi olmayan dil İngilizce metinlerle çalışır.
+        i18n.global.mergeLocaleMessage(loc, LOCALE_PACKS.en)
       }
     }
   }

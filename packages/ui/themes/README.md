@@ -41,6 +41,15 @@ Türetilmiş değişkenler (`--surface-bg`, `--control-bg`, `--input-background`
 `--ui-focus-ring`, radius basamakları) `src/theme/tokens.js` → `DERIVED_VARS` içindedir ve her tema
 bloğuna yazılır. Bir token olarak açıkça verilirse türetilmiş formülün yerine geçer.
 
+### Katmanlar, renk biçimi ve üretilen dosyalar
+
+- **Katmanlar:** primitive (`base`, `chart*`, `radius`, fontlar) → semantic (`background`, `primary`, `danger` …) → component (türetilmiş `--primary-soft`, `--ui-hover` …). `TOKEN_LAYERS` (`src/theme/design-tokens.js`) listeler.
+- **Renkler OKLCH yazılır.** `build:themes` preset'te hex bulursa hata verir; `hexToOklchString('#1B5CFF')` kayıpsız çevirir.
+- **Üretilen dosyalar** (`pnpm --filter fewui run build:themes`, elle düzenlenmez):
+  - `<id>/color.css` — CSS değişkenleri.
+  - `<id>/tokens.json` — W3C Design Tokens; Figma eklentileri ve Style Dictionary için çözülmüş sRGB renkler.
+  - `_shared/properties.css` — renk token'larının `@property` tanımları ve tema geçişi. Yalnız **her temada tanımlı** token'lar tiplenir; `var(--x, yedek)` ile okunan token tiplenmez (tiplenmiş değişkende yedek hiç çalışmaz).
+
 ## Uygulamada kullanım
 
 ```js
@@ -77,16 +86,14 @@ Provider token'ları kendi elemanına inline yazar, `defaults` değerlerini alt 
 `data-ui-mode` taşır. `ui-dialog`, `ui-popover`, `ui-tooltip`, `ui-sheet` provider içindeyse body yerine
 provider portalına teleport edilir (`uiPortalMixin`), böylece katmanlar da önizleme temasıyla çizilir.
 
-Tüketen uygulamada iki ayar gerekir:
+Tüketen uygulamada tek satır gerekir:
 
 ```css
-@custom-variant dark (&:is(.dark *):not([data-ui-mode='light'] *));
-
-@theme inline {
-  --color-primary: var(--primary);
-  /* … */
-}
+@import "fewui/tailwind.css";
 ```
+
+Bu dosya `dark` çeşidini (`&:is(.dark *):not([data-ui-mode='light'] *)`) ve token → Tailwind eşlemesini
+(`@theme inline`) birlikte getirir; uygulamada elle kopyalanmaz.
 
 `inline` olmadan Tailwind utility'leri `:root` değerini okur; `dark` varyantındaki `:not(...)` koyu kök
 içindeki açık provider'ın koyu stilleri almasını engeller. Kütüphanenin kendi `.dark .ui-*` seçicileri

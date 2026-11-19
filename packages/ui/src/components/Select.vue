@@ -246,6 +246,8 @@
 </template>
 
 <script>
+import { formDirtyMixin } from '../utils/form-dirty.js'
+import { createTypeahead, isTypeaheadKey } from '../utils/typeahead.js'
 import { cn } from '../utils/cn.js'
 import { resolveThemeControlSize } from '../theme/resolve-theme-default.js'
 import { createUiIdFactory } from '../utils/ui-id.js'
@@ -262,7 +264,7 @@ const SIZES = CONTROL_SIZES
 
 export default {
   name: 'Select',
-  mixins: [uiDefaultsMixin, formFieldMixin],
+  mixins: [uiDefaultsMixin, formFieldMixin, formDirtyMixin],
   components: { Tag },
   inheritAttrs: false,
   props: {
@@ -417,7 +419,7 @@ export default {
       return this.isFilterable && !this.multiple
     },
     listboxRole() {
-      return this.multiple ? 'listbox' : 'listbox'
+      return 'listbox'
     },
     resolvedMatchTriggerWidth() {
       if (this.variant === 'inline') return false
@@ -718,6 +720,7 @@ export default {
         this.$nextTick(() => this.focusSearch())
         return
       }
+      this.notifyFormDirty()
       this.$emit('update:modelValue', opt.value)
       this.$emit('change', { type: 'change', target: { value: String(opt.value) } })
       this.menuOpen = false
@@ -731,6 +734,7 @@ export default {
       } else {
         cur.push(opt.value)
       }
+      this.notifyFormDirty()
       this.$emit('update:modelValue', cur)
       this.$emit('change', { type: 'change', target: { value: cur.map(String).join(',') } })
     },
@@ -740,14 +744,17 @@ export default {
       const idx = cur.findIndex((v) => String(v) === String(val))
       if (idx < 0) return
       cur.splice(idx, 1)
+      this.notifyFormDirty()
       this.$emit('update:modelValue', cur)
       this.$emit('change', { type: 'change', target: { value: cur.map(String).join(',') } })
     },
     clearSelection() {
       if (this.multiple) {
+        this.notifyFormDirty()
         this.$emit('update:modelValue', [])
         this.$emit('change', { type: 'change', target: { value: '' } })
       } else {
+        this.notifyFormDirty()
         this.$emit('update:modelValue', '')
         this.$emit('change', { type: 'change', target: { value: '' } })
       }
@@ -814,14 +821,28 @@ export default {
           e.preventDefault()
           if (!this.menuOpen) toggle()
           else this.pickActive(() => {})
+          return
         }
+        this.handleTypeahead(e)
         return
       }
       if (this.handleListKey(e)) return
       if (this.menuOpen && (e.key === 'Enter' || e.key === ' ')) {
         e.preventDefault()
         this.pickActive(() => {})
+        return
       }
+      if (!this.isFilterable) this.handleTypeahead(e)
+    },
+    /** Aramasız listede yazarak arama: açık menüde basılan harflerle başlayan seçeneği vurgular. */
+    handleTypeahead(e) {
+      if (!this.menuOpen || !isTypeaheadKey(e)) return
+      if (!this.typeahead) this.typeahead = createTypeahead()
+      const labels = this.filteredOptions.map((o) => String(o.label ?? ''))
+      const match = this.typeahead(e.key, labels, this.activeIndex)
+      if (match < 0) return
+      e.preventDefault()
+      this.moveActive(match)
     },
     onFilterKeydown(e, close) {
       if (this.handleListKey(e)) return
@@ -859,6 +880,8 @@ export default {
         return
       }
       if (e.key === 'Escape') {
+        // Menü kapalıyken tuş tüketilmez; içinde bulunduğu dialog kapanabilsin.
+        if (!this.menuOpen) return
         e.preventDefault()
         this.menuOpen = false
         return

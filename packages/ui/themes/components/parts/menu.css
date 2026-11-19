@@ -1,0 +1,99 @@
+@layer components {
+  /**
+   * Menü ailesi (`ui-dropdown`, `ui-context-menu`, `ui-menubar`) — `MenuList` gövdesinin yeni parçaları.
+   * `.ui-dropdown-*` kuralları layer.css'te durur; burada yalnız grup, sütunlu satır ve menü çubuğu var.
+   */
+
+  /** Başlıklı grup (`role="group"`): satırlar menünün doğrudan çocuğu gibi dizilir. */
+  .ui-dropdown-group {
+    @apply flex min-w-0 flex-col;
+  }
+
+  .ui-dropdown-group > .ui-button {
+    @apply w-full min-w-0 justify-start gap-2.5 rounded-[min(var(--ui-radius-inner),var(--ui-radius-control-md))];
+  }
+
+  .ui-dropdown-group > .ui-button:has(.ui-dropdown-item-description) {
+    @apply h-auto min-h-10 items-start py-2;
+  }
+
+  .ui-dropdown-group > .ui-button:has(.ui-dropdown-item-description) .ui-button-text {
+    @apply min-w-0 flex-1 overflow-visible whitespace-normal text-clip;
+  }
+
+  .ui-dropdown-group > .ui-button[data-color='primary'] .ui-dropdown-item-description {
+    @apply text-primary-foreground;
+  }
+
+  .ui-dropdown-group > .ui-button > [aria-hidden='true']:has(.ui-icon) {
+    @apply inline-flex w-5 shrink-0 items-center justify-center;
+  }
+
+  .ui-dropdown-group > .ui-button:has(.ui-dropdown-item-description) > [aria-hidden='true']:has(.ui-icon) {
+    @apply h-5;
+  }
+
+  /**
+   * Sütunlu satır: gösterge · ikon · etiket · kısayol · alt menü oku. Sütun genişlikleri sabit;
+   * ikonu / göstergesi olmayan satırın etiketi de aynı hizada başlar.
+   */
+  .ui-dropdown-row {
+    @apply flex min-w-0 items-center gap-2.5;
+  }
+
+  /**
+   * Klasik menüde ikonsuz öğe: etiket, ikonlu satırlardaki ikon sütunu (1.25rem) + aralık (0.625rem)
+   * kadar içeriden başlar; ikonlu ve ikonsuz öğelerin etiketleri aynı hizaya gelir.
+   */
+  .ui-dropdown-item--inset .ui-button-text {
+    @apply ps-[1.875rem];
+  }
+
+  .ui-dropdown-row-indicator {
+    @apply inline-flex w-4 shrink-0 items-center justify-center;
+  }
+
+  .ui-dropdown-row-dot {
+    @apply size-1.5 rounded-full bg-current;
+  }
+
+  .ui-dropdown-row-icon {
+    @apply inline-flex w-5 shrink-0 items-center justify-center;
+  }
+
+  .ui-dropdown-row-label {
+    @apply min-w-0 flex-1 truncate;
+  }
+
+  .ui-dropdown-row-shortcut {
+    @apply ms-4;
+  }
+
+  .ui-dropdown-row-suffix {
+    @apply inline-flex w-4 shrink-0 items-center justify-center;
+  }
+
+  /** Alt menü oku açılış yönünü gösterir; RTL'de aynalanır. */
+  .ui-dropdown-row-suffix--submenu {
+    @apply rtl:-scale-x-100;
+  }
+
+  /** Alt menüsü açık öğe, işaretçi alt menüdeyken de vurgulu kalır (düğmenin `bg-transparent` yardımcı sınıfını aşar). */
+  .ui-dropdown-item[aria-expanded='true'][data-color='secondary'] {
+    @apply ![background-color:var(--ui-hover)];
+  }
+
+  /** Bağlam menüsü alanı: iOS uzun basışta sistem balonu yerine menü açılır. */
+  .ui-context-menu {
+    @apply [-webkit-touch-callout:none];
+  }
+
+  /** Menü çubuğu — yatay üst düzey başlıklar. */
+  .ui-menubar {
+    @apply inline-flex max-w-full items-center gap-0.5 rounded-lg border border-border bg-surface p-0.5;
+  }
+
+  .ui-menubar-trigger[aria-expanded='true'] {
+    @apply ![background-color:var(--ui-hover)];
+  }
+}

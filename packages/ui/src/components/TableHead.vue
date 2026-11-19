@@ -29,12 +29,18 @@ export default {
       type: Boolean,
       default: false,
     },
+    /** Seçim (onay kutusu) sütunu: dar, sabit genişlik. */
+    selectCol: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     rootClass() {
       return cn(
         'ui-table-head',
         this.iconCol && 'ui-table-head--icon-col',
+        this.selectCol && 'ui-table-head--select',
         this.align === 'center' && 'ui-table-head--align-center',
         this.align === 'right' && 'ui-table-head--align-end',
         !this.iconCol && this.width === 'sm' && 'ui-table-head--w-sm',

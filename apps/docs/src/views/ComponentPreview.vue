@@ -1126,6 +1126,13 @@ const notifSelectAll = computed({
               <ui-radio value="paypal" label="PayPal" description="Instant Payout" />
             </ui-radio-group>
           </ui-form-row>
+          <ui-form-row label="Payment method (size=lg, columns=3)">
+            <ui-radio-group v-model="payoutPrefsReceiving" variant="button" size="lg" :columns="3" aria-label="Payment method">
+              <ui-radio value="bank" label="Cash" />
+              <ui-radio value="paypal" label="Card" />
+              <ui-radio value="other" label="Other" />
+            </ui-radio-group>
+          </ui-form-row>
           <ui-form-row label="IBAN / Account Number">
             <ui-input v-model="payoutPrefsIban" placeholder="TR00 0000 0000 0000 0000 0000 00" />
           </ui-form-row>

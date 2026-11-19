@@ -12,6 +12,7 @@
         :open="open"
         :toggle="toggle"
         :close="close"
+        :trigger-attrs="triggerAttrs"
       />
     </div>
     <Teleport
@@ -53,8 +54,10 @@
           <div
             ref="panelRef"
             class="ui-surface ui-popover-panel w-full min-w-0 outline-none"
+            :id="panelId"
             role="dialog"
             tabindex="-1"
+            :aria-label="ariaLabel || undefined"
             @keydown="onPanelKeydown"
           >
             <div class="ui-popover-motion">
@@ -93,9 +96,11 @@
 <script>
 import { isMobileViewport } from '../utils/viewport.js'
 import { uiPortalMixin } from '../theme/ui-portal.js'
-import { pushOverlay, releaseOverlay } from '../theme/overlay-stack.js'
+import { createUiIdFactory } from '../utils/ui-id.js'
+import { hasModalAbove, pushOverlay, releaseOverlay } from '../theme/overlay-stack.js'
 import { readMotionDuration } from '../utils/motion-token.js'
 import { onVisibleViewportChange, visibleViewportBottom } from '../utils/visible-viewport.js'
+import { isRtl, mirrorInlinePlacement } from '../utils/direction.js'
 
 const PLACEMENTS = [
   'bottom-start',
@@ -109,6 +114,8 @@ const PLACEMENTS = [
   'top-end',
   'top',
 ]
+
+const nextPopoverId = createUiIdFactory('ui-popover')
 
 /** Görünüm kenarı ile panel arası minimum boşluk (px) */
 const VIEW_MARGIN = 10
@@ -164,7 +171,8 @@ export default {
     },
     /**
      * Konum referansı — verilirse panel tetikleyici yerine bu öğeye göre açılır
-     * (HTMLElement, bileşen örneği veya CSS seçici). Tetikleyicisiz kullanımda (`#trigger` boş)
+     * (HTMLElement, bileşen örneği, CSS seçici ya da sanal referans: `{ x, y }` görünüm noktası /
+     * `{ getBoundingClientRect() }`). Tetikleyicisiz kullanımda (`#trigger` boş)
      * `v-model:open` ile programatik açılır; bu öğeye tıklama dış tıklama sayılmaz.
      */
     anchor: {
@@ -223,10 +231,16 @@ export default {
       type: Boolean,
       default: true,
     },
+    /** Panelin (`role="dialog"`) erişilebilir adı; metin i18n'den gelir. */
+    ariaLabel: {
+      type: String,
+      default: '',
+    },
   },
   emits: ['update:open'],
   data() {
     return {
+      panelId: nextPopoverId(),
       layerStyle: {},
       layerZIndex: 0,
       rafId: 0,
@@ -240,6 +254,17 @@ export default {
     }
   },
   computed: {
+    /**
+     * `#trigger` slot prop'u: tetikleyici düğmeye `v-bind="triggerAttrs"` ile verilir.
+     * Kendi ARIA'sını yazan bileşenler (Select, DatePicker) kullanmaz.
+     */
+    triggerAttrs() {
+      return {
+        'aria-haspopup': 'dialog',
+        'aria-expanded': this.open ? 'true' : 'false',
+        'aria-controls': this.open ? this.panelId : undefined,
+      }
+    },
     showMobileBackdrop() {
       return this.backdropVisible
     },
@@ -298,6 +323,10 @@ export default {
       }
     },
     width() {
+      if (this.open) this.schedulePosition()
+    },
+    /** Açıkken referans değişirse (bağlam menüsü yeni noktada) panel yeniden konumlanır. */
+    anchor() {
       if (this.open) this.schedulePosition()
     },
   },
@@ -383,7 +412,16 @@ export default {
       if (!anchor || typeof document === 'undefined') return null
       if (typeof anchor === 'string') return document.querySelector(anchor)
       if (anchor instanceof HTMLElement) return anchor
-      return anchor.$el instanceof HTMLElement ? anchor.$el : null
+      if (anchor.$el instanceof HTMLElement) return anchor.$el
+      // Sanal referans (bağlam menüsü, alt menü): `{ getBoundingClientRect() }` ya da `{ x, y }` noktası.
+      if (typeof anchor.getBoundingClientRect === 'function') return anchor
+      if (Number.isFinite(anchor.x) && Number.isFinite(anchor.y)) {
+        const { x, y } = anchor
+        return {
+          getBoundingClientRect: () => ({ left: x, right: x, top: y, bottom: y, x, y, width: 0, height: 0 }),
+        }
+      }
+      return null
     },
     resolveTriggerEl() {
       const anchorEl = this.resolveAnchorEl()
@@ -459,7 +497,10 @@ export default {
       let top
       let left
 
-      switch (this.placement) {
+      // RTL: `top-*` / `bottom-*` içindeki start / end tetikleyicinin satır yönüne göre aynalanır
+      // (start = sağ kenar). `left-*` / `right-*` fiziksel kalır.
+      const placement = mirrorInlinePlacement(this.placement, isRtl(trigger))
+      switch (placement) {
         case 'right-start':
           top = r.top
           left = r.right + margin
@@ -592,7 +633,8 @@ export default {
       const tr = triggerAlign.getBoundingClientRect()
       const sr = selectedAlign.getBoundingClientRect()
       const deltaY = sr.top - tr.top
-      const deltaX = sr.left - tr.left
+      // Metin satır başından hizalanır: RTL’de sağ kenarlar eşlenir.
+      const deltaX = isRtl(triggerAlign) ? sr.right - tr.right : sr.left - tr.left
 
       const lb = layer.getBoundingClientRect()
       const topStr = this.layerStyle.top
@@ -702,11 +744,13 @@ export default {
     },
     onDocPointerDown(e) {
       if (!this.open || !this.closeOnOutsideClick) return
+      // İçeriden açılan dialog (medya seçici vb.) kullanılırken popover yerinde kalır.
+      if (hasModalAbove(this)) return
       const t = e.target
       const trigger = this.$refs.triggerRef
       const panel = this.$refs.panelRef
       if (trigger?.contains(t) || panel?.contains(t)) return
-      if (this.resolveAnchorEl()?.contains(t)) return
+      if (this.resolveAnchorEl()?.contains?.(t)) return
       if (this.shouldIgnoreOutsideClick(t)) return
       // Overlay açıkken alttaki kontrole tıklama gitmesin (iOS hit-test sızıntısı).
       e.preventDefault()
@@ -741,13 +785,16 @@ export default {
     },
     onDocKeydown(e) {
       if (!this.open || !this.closeOnEscape) return
+      if (hasModalAbove(this)) return
       if (e.key === 'Escape') {
         e.preventDefault()
         this.close()
       }
     },
     onPanelKeydown(e) {
-      if (e.key === 'Escape') this.close()
+      // İçeriden açılan dialog Escape'i tükettiyse (defaultPrevented) popover açık kalır.
+      if (e.key !== 'Escape' || e.defaultPrevented || hasModalAbove(this)) return
+      this.close()
     },
   },
 }

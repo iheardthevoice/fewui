@@ -1,13 +1,18 @@
 <template>
   <nav
     :class="rootClass"
+    :data-collapsed="collapsed ? 'true' : undefined"
     v-bind="passthroughAttrs"
   >
     <div
       v-if="$slots.header"
       class="ui-menu-header"
     >
-      <slot name="header" />
+      <slot
+        name="header"
+        :collapsed="collapsed"
+        :toggle="toggleCollapsed"
+      />
     </div>
     <div class="ui-menu-body">
       <slot />
@@ -16,7 +21,11 @@
       v-if="$slots.footer"
       class="ui-menu-footer"
     >
-      <slot name="footer" />
+      <slot
+        name="footer"
+        :collapsed="collapsed"
+        :toggle="toggleCollapsed"
+      />
     </div>
   </nav>
 </template>
@@ -36,6 +45,9 @@ const WIDTH_CLASS = {
 export default {
   name: 'Menu',
   inheritAttrs: false,
+  provide() {
+    return { uiMenu: this }
+  },
   props: {
     /**
      * `full` (varsayılan): kapsayıcıyı (kart, sidebar) doldurur.
@@ -46,18 +58,33 @@ export default {
       default: 'full',
       validator: (v) => WIDTHS.includes(v),
     },
+    /**
+     * İkon rayı: etiketler ve grup başlıkları gizlenir (ekran okuyucuda kalır), öğeler kare ikon
+     * düğmesi olur ve etiket ipucu olarak gösterilir. Genişlik içeriğe iner (`width` yok sayılır).
+     */
+    collapsed: {
+      type: Boolean,
+      default: false,
+    },
   },
+  emits: ['update:collapsed'],
   computed: {
     rootClass() {
       return cn(
         'ui-menu',
-        WIDTH_CLASS[this.width] || WIDTH_CLASS.full,
+        this.collapsed ? 'ui-menu--collapsed' : WIDTH_CLASS[this.width] || WIDTH_CLASS.full,
         this.$attrs.class,
       )
     },
     passthroughAttrs() {
       const { class: _c, ...rest } = this.$attrs
       return rest
+    },
+  },
+  methods: {
+    /** `header` / `footer` slot'undaki aç-kapa düğmesi için: `v-model:collapsed` ile çalışır. */
+    toggleCollapsed() {
+      this.$emit('update:collapsed', !this.collapsed)
     },
   },
 }

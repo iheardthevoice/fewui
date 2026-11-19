@@ -1,6 +1,6 @@
 <script>
 import { defineComponent } from 'vue'
-import { googleFontSelectOptions } from 'fewui'
+import { colorToHex, googleFontSelectOptions } from 'fewui'
 import { NEUTRAL_SCALES, matchNeutralScale } from './neutral-scales.js'
 import { PRIMARY_PALETTE } from './primary-palette.js'
 import {
@@ -76,14 +76,17 @@ export default defineComponent({
         value: color,
         label: this.$t(`themePlayground.primary.${key}`),
       }))
-      const themePrimary = String(this.playground.baseTheme.value?.preset.tokens.light.primary || '')
+      // Preset rengi OKLCH yazılıdır; seçici ve palet hex ile çalışır.
+      const rawPrimary = String(this.playground.baseTheme.value?.preset.tokens.light.primary || '')
+      const themePrimary = colorToHex(rawPrimary) || rawPrimary
       const inPalette = palette.some((opt) => opt.value.toLowerCase() === themePrimary.toLowerCase())
       return themePrimary && !inPalette
         ? [{ value: themePrimary, label: this.$t('themePlayground.primary.theme') }, ...palette]
         : palette
     },
     primaryColor() {
-      return String(this.playground.getToken('primary') || '')
+      const value = String(this.playground.getToken('primary') || '')
+      return colorToHex(value) || value
     },
     fontOptions() {
       return googleFontSelectOptions()

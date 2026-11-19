@@ -39,8 +39,10 @@
 </template>
 
 <script>
+import { formDirtyMixin } from '../utils/form-dirty.js'
 import { cn } from '../utils/cn.js'
 import { CONTROL_SIZES } from '../utils/sizes.js'
+import { logicalArrowKey } from '../utils/direction.js'
 
 const SIZES = CONTROL_SIZES
 
@@ -54,6 +56,7 @@ const SIZES = CONTROL_SIZES
  */
 export default {
   name: 'ChipGroup',
+  mixins: [formDirtyMixin],
   inheritAttrs: false,
   props: {
     /** Tek seçimde değer, `multiple` ile dizi */
@@ -154,6 +157,7 @@ export default {
       this.focusIndex = firstEnabled >= 0 ? firstEnabled : 0
     },
     emitValue(next) {
+      this.notifyFormDirty()
       this.$emit('update:modelValue', next)
       this.$emit('change', next)
     },
@@ -185,11 +189,13 @@ export default {
         .filter((index) => index >= 0)
       if (!enabled.length) return
       event.preventDefault()
+      // RTL’de yatay oklar görsel sırayı izler (sol = sonraki).
+      const key = logicalArrowKey(event.key, this.$refs.root)
       const position = Math.max(0, enabled.indexOf(this.focusIndex))
       let nextPosition = position
       if (event.key === 'Home') nextPosition = 0
       else if (event.key === 'End') nextPosition = enabled.length - 1
-      else if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+      else if (key === 'ArrowRight' || key === 'ArrowDown') {
         nextPosition = (position + 1) % enabled.length
       } else {
         nextPosition = (position - 1 + enabled.length) % enabled.length

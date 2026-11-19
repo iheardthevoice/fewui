@@ -26,6 +26,7 @@ import { isMobileViewport } from '../utils/viewport.js'
 import { uiDefaultsMixin } from '../theme/ui-defaults.js'
 import { CONTROL_SIZES } from '../utils/sizes.js'
 import { selectionIndicatorMixin } from '../utils/selection-indicator.js'
+import { isRtl, logicalArrowKey } from '../utils/direction.js'
 
 const SIZES = CONTROL_SIZES
 const DIRECTIONS = ['horizontal', 'vertical']
@@ -206,7 +207,8 @@ export default {
      */
     onRadioKeydown(e) {
       if (this.navigation) return
-      const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key]
+      // RTL’de yatay oklar görsel sırayı izler (sol = sonraki).
+      const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[logicalArrowKey(e.key, this.$el)]
       const edge = e.key === 'Home' ? 'first' : e.key === 'End' ? 'last' : null
       if (!step && !edge) return
       const radios = [...this.$el.querySelectorAll('[role="radio"]:not([disabled])')]
@@ -241,7 +243,9 @@ export default {
       const maxScroll = Math.max(0, root.scrollWidth - rootWidth)
       if (maxScroll <= 0) return
       const selectedCenter = selected.offsetLeft + selected.offsetWidth / 2
-      const nextLeft = Math.min(maxScroll, Math.max(0, selectedCenter - rootWidth / 2))
+      // RTL’de `scrollLeft` 0 (satır başı, sağ) ile `-maxScroll` arasındadır; `offsetLeft` de aynı eksendedir.
+      const rtl = isRtl(root)
+      const nextLeft = Math.min(rtl ? 0 : maxScroll, Math.max(rtl ? -maxScroll : 0, selectedCenter - rootWidth / 2))
       if (Math.abs(root.scrollLeft - nextLeft) < 1) return
       if (typeof root.scrollTo === 'function') {
         root.scrollTo({ left: nextLeft, behavior })

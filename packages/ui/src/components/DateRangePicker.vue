@@ -85,6 +85,7 @@
                       color="primary"
                       cubed
                       prefix-icon="chevron-left"
+                      class="ui-icon--dir"
                       :aria-label="resolvedPrevMonthLabel"
                       @click.stop="shiftMonth(-1)"
                     />
@@ -102,6 +103,7 @@
                       color="primary"
                       cubed
                       prefix-icon="chevron-right"
+                      class="ui-icon--dir"
                       :aria-label="resolvedNextMonthLabel"
                       @click.stop="shiftMonth(1)"
                     />
@@ -120,6 +122,8 @@
                   </div>
                   <div
                     class="ui-datepicker-grid"
+                    role="group"
+                    :aria-label="pane.title"
                     @keydown="onGridKeydown"
                   >
                     <ui-button
@@ -157,6 +161,8 @@
 </template>
 
 <script>
+import { formDirtyMixin } from '../utils/form-dirty.js'
+import { normalizeWeekStart } from '../utils/week-start.js'
 import { formatYmdDisplay, resolveDateDisplayLocale } from '../utils/format-ymd-display.js'
 import { resolveThemeDefault } from '../theme/resolve-theme-default.js'
 import { createUiIdFactory } from '../utils/ui-id.js'
@@ -242,9 +248,18 @@ function calendarMonthBounds(year, monthIndex, maxYmd, minYmd) {
 
 export default {
   name: 'DateRangePicker',
-  mixins: [uiDefaultsMixin],
+  mixins: [uiDefaultsMixin, formDirtyMixin],
   inheritAttrs: false,
   props: {
+    /**
+     * Haftanın ilk günü (0 pazar … 6 cumartesi). Verilmezse dilden çözülür:
+     * `tr` / `en-GB` pazartesi, `en-US` pazar.
+     */
+    weekStart: {
+      type: Number,
+      default: undefined,
+      validator: (v) => v == null || (Number.isInteger(v) && v >= 0 && v <= 6),
+    },
     /** `[startYmd, endYmd]` */
     modelValue: {
       type: Array,
@@ -498,10 +513,13 @@ export default {
         disabled: !preset.range || this.isRangeDisabled(preset.range[0], preset.range[1]),
       }))
     },
-    /** Hafta günü başlıkları dile göre (eskiden sabit "Su Mo Tu"). Izgara pazardan başlar. */
+    /** Hafta günü başlıkları dile göre; ızgara dilin hafta başından (`resolvedWeekStart`) başlar. */
+    resolvedWeekStart() {
+      return normalizeWeekStart(this.weekStart, this.locale)
+    },
     weekdayLabels() {
       return Array.from({ length: 7 }, (_, i) => {
-        const d = new Date(2024, 0, 7 + i)
+        const d = new Date(2024, 0, 7 + this.resolvedWeekStart + i)
         return {
           key: i,
           short: d.toLocaleDateString(this.locale, { weekday: 'short' }).replace('.', ''),
@@ -618,7 +636,7 @@ export default {
     },
     buildCellsForMonth(year, month) {
       const first = new Date(year, month, 1)
-      const gridStart = new Date(year, month, 1 - first.getDay())
+      const gridStart = new Date(year, month, 1 - ((first.getDay() - this.resolvedWeekStart + 7) % 7))
       const rangeStart = this.previewStart
       const rangeEnd = this.previewEnd
       const hasRange = rangeStart && rangeEnd
@@ -670,13 +688,16 @@ export default {
       const base = parseYmd(this.rovingYmd)
       if (!base) return
       const d = new Date(base)
+      const step = getComputedStyle(e.currentTarget).direction === 'rtl' ? -1 : 1
+      const weekOffset = (d.getDay() - this.resolvedWeekStart + 7) % 7
       const map = {
-        ArrowRight: () => d.setDate(d.getDate() + 1),
-        ArrowLeft: () => d.setDate(d.getDate() - 1),
+        // Sağdan sola yazımda ← ileri, → geri gider (görsel sıra).
+        ArrowRight: () => d.setDate(d.getDate() + step),
+        ArrowLeft: () => d.setDate(d.getDate() - step),
         ArrowDown: () => d.setDate(d.getDate() + 7),
         ArrowUp: () => d.setDate(d.getDate() - 7),
-        Home: () => d.setDate(d.getDate() - d.getDay()),
-        End: () => d.setDate(d.getDate() + (6 - d.getDay())),
+        Home: () => d.setDate(d.getDate() - weekOffset),
+        End: () => d.setDate(d.getDate() + (6 - weekOffset)),
         PageDown: () => d.setMonth(d.getMonth() + 1),
         PageUp: () => d.setMonth(d.getMonth() - 1),
       }
@@ -709,6 +730,7 @@ export default {
       const [start, end] = preset.range
       this.pickingStart = start
       this.pickingEnd = end
+      this.notifyFormDirty()
       this.$emit('update:modelValue', [start, end])
       this.$emit('change', [start, end])
       close()
@@ -740,6 +762,7 @@ export default {
 
       this.pickingStart = start
       this.pickingEnd = end
+      this.notifyFormDirty()
       this.$emit('update:modelValue', [start, end])
       this.$emit('change', [start, end])
       close()

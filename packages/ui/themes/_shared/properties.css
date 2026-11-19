@@ -1,0 +1,145 @@
+/* fewui — tema token'larından üretildi (scripts/build-theme-css.mjs); elle düzenlemeyin. */
+
+/**
+ * Renk token'ları tiplidir (`<color>`): tarayıcı değeri renk olarak bilir ve ara değer üretebilir.
+ * Böylece açık / koyu ya da ana renk değişimi anında sıçramak yerine kısa bir geçişle olur.
+ * Tiplenmemiş türevler (`--primary-soft`, `--surface-bg` …) bu token'lardan hesaplandığı için birlikte akar.
+ */
+@property --background {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: transparent;
+}
+@property --foreground {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: transparent;
+}
+@property --surface {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: transparent;
+}
+@property --surface-foreground {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: transparent;
+}
+@property --control {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: transparent;
+}
+@property --control-foreground {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: transparent;
+}
+@property --primary {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: transparent;
+}
+@property --primary-foreground {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: transparent;
+}
+@property --secondary {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: transparent;
+}
+@property --secondary-foreground {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: transparent;
+}
+@property --muted {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: transparent;
+}
+@property --muted-foreground {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: transparent;
+}
+@property --accent {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: transparent;
+}
+@property --accent-foreground {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: transparent;
+}
+@property --border {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: transparent;
+}
+@property --surface-subtle {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: transparent;
+}
+@property --surface-sunken {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: transparent;
+}
+@property --success {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: transparent;
+}
+@property --success-foreground {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: transparent;
+}
+@property --warning {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: transparent;
+}
+@property --warning-foreground {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: transparent;
+}
+@property --info {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: transparent;
+}
+@property --info-foreground {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: transparent;
+}
+@property --danger {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: transparent;
+}
+@property --danger-foreground {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: transparent;
+}
+
+/** `applyUiTheme` / `setUiThemeMode` değişim anında kısa süreliğine bu sınıfı verir. */
+.ui-theme-transition {
+  transition-property: --background, --foreground, --surface, --surface-foreground, --control, --control-foreground, --primary, --primary-foreground, --secondary, --secondary-foreground, --muted, --muted-foreground, --accent, --accent-foreground, --border, --surface-subtle, --surface-sunken, --success, --success-foreground, --warning, --warning-foreground, --info, --info-foreground, --danger, --danger-foreground;
+  transition-duration: var(--ui-theme-transition-duration, 200ms);
+  transition-timing-function: ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ui-theme-transition {
+    transition: none;
+  }
+}

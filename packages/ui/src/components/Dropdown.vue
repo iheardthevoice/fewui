@@ -7,7 +7,7 @@
     :inherit-layout="inheritLayout"
     :mobile-centered="false"
     :close-on-outside-click="closeOnOutsideClick"
-    :close-on-escape="closeOnEscape"
+    :close-on-escape="closeOnEscape && !submenuOpen"
     :outside-click-ignore-selector="outsideClickIgnoreSelector"
     @update:open="onOpenChange"
   >
@@ -15,84 +15,43 @@
       <slot
         name="trigger"
         v-bind="slotProps"
+        :trigger-attrs="{ ...slotProps.triggerAttrs, 'aria-haspopup': 'menu' }"
       />
     </template>
     <template #content="{ close }">
-      <div
+      <MenuList
         ref="menu"
-        class="ui-dropdown-menu"
-        :class="hasDescribedItems ? 'ui-dropdown-menu--described' : ''"
-        role="menu"
-        @click.stop
-        @keydown="onMenuKeydown($event, close)"
+        :items="items"
+        :aligned="aligned"
+        @select="onSelect"
+        @close="close()"
+        @toggle-submenu="submenuOpen = $event"
       >
-        <slot
-          name="before"
-          :close="close"
-        />
-        <template v-if="$slots.menu">
+        <template
+          v-if="$slots.before"
+          #before
+        >
+          <slot
+            name="before"
+            :close="close"
+          />
+        </template>
+        <template
+          v-if="$slots.menu"
+          #menu
+        >
           <slot
             name="menu"
             :close="close"
           />
         </template>
-        <template v-else>
-          <template
-            v-for="(it, idx) in items"
-            :key="idx"
-          >
-            <Divider
-              v-if="it.divider"
-              spacing="sm"
-            />
-            <span
-              v-else-if="it.heading"
-              class="ui-dropdown-heading"
-              role="presentation"
-            >{{ it.heading }}</span>
-            <ui-button
-              v-else
-              variant="ghost"
-              :color="itemColor(it)"
-              :rounded="!it.description"
-              block
-              text-align="left"
-              role="menuitem"
-              tabindex="-1"
-              :prefix-icon="it.description ? null : (it.icon || null)"
-              :suffix-icon="itemSuffixIcon(it)"
-              :disabled="it.disabled"
-              :wrap="Boolean(it.description)"
-              @click.stop="onItem(it, close)"
-            >
-              <span
-                v-if="it.description"
-                class="ui-dropdown-item-copy"
-              >
-                <span
-                  v-if="it.icon"
-                  class="ui-dropdown-item-icon"
-                  aria-hidden="true"
-                >
-                  <ui-icon
-                    :name="it.icon"
-                    size="sm"
-                  />
-                </span>
-                <span class="ui-dropdown-item-label">{{ it.label }}</span>
-                <span class="ui-dropdown-item-description">{{ it.description }}</span>
-              </span>
-              <template v-else>{{ it.label }}</template>
-            </ui-button>
-          </template>
-        </template>
-      </div>
+      </MenuList>
     </template>
   </ui-popover>
 </template>
 
 <script>
-import Divider from './Divider.vue'
+import MenuList from './MenuList.vue'
 import { captureReturnFocus, restoreFocus } from '../utils/focus-trap.js'
 
 const PLACEMENTS = [
@@ -109,7 +68,7 @@ const PLACEMENTS = [
 
 export default {
   name: 'Dropdown',
-  components: { Divider },
+  components: { MenuList },
   inheritAttrs: false,
   props: {
     /** `v-model:open` — verilmezse bileşen kendi iç durumunu yönetir */
@@ -157,6 +116,8 @@ export default {
   data() {
     return {
       internalOpen: false,
+      /** Alt menü açıkken Escape yalnız onu kapatır; kök popover tuşu dinlemez. */
+      submenuOpen: false,
     }
   },
   watch: {
@@ -167,12 +128,13 @@ export default {
     isOpen(open) {
       if (open) {
         this.returnFocusEl = captureReturnFocus()
-        this.$nextTick(() => requestAnimationFrame(() => this.focusItem(0)))
+        this.$nextTick(() => requestAnimationFrame(() => this.$refs.menu?.focusItem(0)))
       } else {
         const active = document.activeElement
-        const lost = !active || active === document.body || this.$refs.menu?.contains(active)
+        const lost = !active || active === document.body || this.$refs.menu?.containsFocus()
         if (lost) restoreFocus(this.returnFocusEl)
         this.returnFocusEl = null
+        this.submenuOpen = false
       }
     },
   },
@@ -189,60 +151,30 @@ export default {
         }
       },
     },
-    hasDescribedItems() {
-      return Boolean(this.$slots.before) || this.items.some((it) => it && !it.divider && it.description)
+    /**
+     * Sütunlu satır çizimi yalnız yeni şema kullanılan menüde açılır (alt menü, onay / radyo
+     * öğesi, kısayol); eski menülerin görünümü değişmez.
+     */
+    aligned() {
+      return this.items.some((it) => it && (
+        it.type === 'checkbox'
+        || it.type === 'radio'
+        || it.shortcut
+        || (Array.isArray(it.children) && it.children.length > 0)
+      ))
     },
   },
   methods: {
-    menuItems() {
-      const menu = this.$refs.menu
-      if (!menu) return []
-      return [...menu.querySelectorAll('[role="menuitem"]:not([disabled]):not([aria-disabled="true"])')]
-    },
-    focusItem(index) {
-      const items = this.menuItems()
-      if (!items.length) return
-      const i = ((index % items.length) + items.length) % items.length
-      items[i].focus()
-    },
-    onMenuKeydown(e, close) {
-      const items = this.menuItems()
-      const current = items.indexOf(document.activeElement)
-      const keys = {
-        ArrowDown: () => this.focusItem(current + 1),
-        ArrowUp: () => this.focusItem(current < 0 ? -1 : current - 1),
-        Home: () => this.focusItem(0),
-        End: () => this.focusItem(-1),
-      }
-      if (keys[e.key]) {
-        e.preventDefault()
-        keys[e.key]()
-        return
-      }
-      // Tab menüden çıkar: menü kapanır, odak açan düğmeye döner (APG).
-      if (e.key === 'Tab') {
-        e.preventDefault()
-        close()
-      }
-    },
     onOpenChange(value) {
       this.isOpen = value
     },
-    /** Öğe `color` (ör. `'danger'` sil eylemi); seçili öğe `primary`. */
-    itemColor(it) {
-      if (it?.color) return it.color
-      if (it?.selected) return 'primary'
-      return 'secondary'
-    },
-    itemSuffixIcon(it) {
-      if (it?.suffixIcon || it?.suffix_icon) return it.suffixIcon || it.suffix_icon
-      if (it?.selected) return 'check'
-      return null
-    },
-    onItem(it, close) {
-      if (it.disabled) return
-      this.$emit('select', it)
-      if (!it.keepOpen && !it.keep_open) close()
+    /**
+     * `select` öğeyi taşır; onay / radyo öğelerinde ikinci argüman `{ checked, group }`
+     * (tıklama sonrası olması gereken değer — liste denetimlidir).
+     */
+    onSelect(item, meta) {
+      if (meta) this.$emit('select', item, meta)
+      else this.$emit('select', item)
     },
   },
 }

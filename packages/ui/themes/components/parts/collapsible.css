@@ -1,0 +1,34 @@
+@layer components {
+  /**
+   * Yükseklik animasyonu — Collapsible ve Accordion ortak kullanır (`accordion.css` bu dosyaya dayanır).
+   * `grid-template-rows: 0fr → 1fr`: içerik yüksekliği ölçülmeden açılır. Kapalıyken `visibility: hidden`
+   * içeriği sekme sırasından ve ekran okuyucudan çıkarır; kapanışta geçiş bitene kadar gecikir.
+   */
+  .ui-collapse {
+    @apply invisible grid [grid-template-rows:0fr] [transition:grid-template-rows_200ms_ease-out,visibility_0s_linear_200ms];
+  }
+
+  .ui-collapse--open {
+    @apply visible [grid-template-rows:1fr] [transition:grid-template-rows_200ms_ease-out,visibility_0s_linear_0s];
+  }
+
+  /**
+   * `overflow: clip` + pay: içerideki kontrollerin odak halkası kenarda kesilmez.
+   * `overflow-clip-margin` desteklemeyen tarayıcıda düz kırpma olarak kalır.
+   */
+  .ui-collapse-inner {
+    @apply min-h-0 min-w-0 [overflow:clip] [overflow-clip-margin:4px];
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ui-collapse,
+    .ui-collapse--open {
+      @apply [transition:none];
+    }
+  }
+
+  /** Blok akış: tetikleyici kendi genişliğinde kalır (flex sütun düğmeyi tam genişliğe gererdi). */
+  .ui-collapsible {
+    @apply min-w-0;
+  }
+}

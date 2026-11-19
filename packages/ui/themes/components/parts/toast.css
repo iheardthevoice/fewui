@@ -1,0 +1,6 @@
+@layer components {
+  /** Toast içi eylem ("Geri al") — kapatma düğmesiyle aynı hizada, metin düğmesi. */
+  .ui-toast-action {
+    @apply self-center;
+  }
+}

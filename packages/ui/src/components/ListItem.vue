@@ -62,6 +62,7 @@
             :name="resolvedTrailingIcon"
             type="solid"
             size="sm"
+            :class="trailingIcon === 'chevron' ? 'ui-icon--dir' : undefined"
           />
         </span>
       </span>

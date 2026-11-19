@@ -216,7 +216,7 @@ export default {
       return this.block
     },
     textContentClass() {
-      const align = this.textAlign === 'left' ? 'text-left' : 'text-center'
+      const align = this.textAlign === 'left' ? 'text-start' : 'text-center'
       if (this.isBlock) {
         return cn('ui-sidebar-item-text min-w-0 flex-1 truncate', align)
       }

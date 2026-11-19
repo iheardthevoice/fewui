@@ -14,12 +14,17 @@ export default {
       tone: { info: 'Info', success: 'Success', warning: 'Warning', danger: 'Error' },
     },
     toast: {
+      expand: 'Show {count} notifications',
+      collapse: 'Collapse notifications',
       groupCount: '{count} notifications',
       groupHeading: '{count} notifications',
     },
     dialog: {
       close: 'Close',
       back: 'Back',
+      unsavedTitle: 'Unsaved changes',
+      unsavedDescription: 'If you close now, what you entered will be lost.',
+      unsavedConfirm: 'Discard changes',
     },
     guidance: {
       go: 'Continue',
@@ -90,6 +95,8 @@ export default {
       today: 'Today',
       yesterday: 'Yesterday',
       tomorrow: 'Tomorrow',
+      prevMonth: 'Previous month',
+      nextMonth: 'Next month',
     },
     dateRangePicker: {
       placeholder: 'Select date range',
@@ -119,6 +126,39 @@ export default {
     },
     photos: {
       more: '+{count}',
+    },
+    breadcrumb: {
+      ariaLabel: 'Breadcrumb',
+      more: 'Show hidden pages',
+    },
+    pagination: {
+      ariaLabel: 'Pagination',
+      prev: 'Previous page',
+      next: 'Next page',
+      page: 'Page {page}',
+    },
+    scrollArea: {
+      ariaLabel: 'Scrollable area',
+    },
+    command: {
+      placeholder: 'Type a command or search…',
+      empty: 'No results found.',
+      loading: 'Searching…',
+      label: 'Command palette',
+    },
+    chart: {
+      empty: 'No data to show',
+      legend: 'Series',
+      total: 'Total',
+      category: 'Category',
+      keyboardHint: 'Use the arrow keys to read the values.',
+    },
+    resizable: {
+      handle: 'Resize panels',
+    },
+    slider: {
+      minThumb: 'Minimum',
+      maxThumb: 'Maximum',
     },
   },
 }

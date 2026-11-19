@@ -1,0 +1,19 @@
+@layer components {
+  /** Kbd — klavye kısayolu; metin akışında satır yüksekliğini büyütmeyen küçük tuş kapağı. */
+  .ui-kbd {
+    @apply inline-flex h-5 min-w-5 shrink-0 items-center justify-center whitespace-nowrap rounded-[var(--ui-radius-checkbox,0.25rem)] border border-border bg-surface-subtle px-1 font-sans font-normal text-muted-foreground [font-variant-numeric:tabular-nums];
+  }
+
+  .ui-kbd--md {
+    @apply text-xs leading-4;
+  }
+
+  /** `sm`: menü satırı ve ipucu içi mikro metin; yazı boyutu şablondaki `ui-text-2xs` sınıfından gelir (11px). */
+  .ui-kbd--sm {
+    @apply h-4 min-w-4 px-0.5;
+  }
+
+  .ui-kbd-group {
+    @apply inline-flex items-center gap-0.5 font-sans;
+  }
+}

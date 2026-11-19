@@ -1,0 +1,59 @@
+@layer components {
+  /** Breadcrumb — tek satır, tek yazı boyutu (14px); bulunulan sayfa dışındakiler soluk. */
+  .ui-breadcrumb {
+    @apply min-w-0;
+  }
+
+  .ui-breadcrumb-list {
+    @apply m-0 flex min-w-0 list-none flex-wrap items-center gap-x-1.5 gap-y-1 p-0 text-sm leading-5 text-muted-foreground;
+  }
+
+  .ui-breadcrumb-item {
+    @apply inline-flex min-w-0 items-center gap-1.5;
+  }
+
+  /** Ayırıcı her öğenin başındadır; ilk öğede gizlenir. RTL'de chevron yön değiştirir. */
+  .ui-breadcrumb-separator {
+    @apply inline-flex h-5 w-4 shrink-0 items-center justify-center text-muted-foreground rtl:-scale-x-100;
+  }
+
+  .ui-breadcrumb-item:first-child > .ui-breadcrumb-separator {
+    @apply hidden;
+  }
+
+  .ui-breadcrumb-link,
+  .ui-breadcrumb-text,
+  .ui-breadcrumb-current {
+    @apply inline-flex min-w-0 items-center gap-1.5;
+  }
+
+  .ui-breadcrumb-label {
+    @apply min-w-0 truncate;
+  }
+
+  .ui-breadcrumb-link {
+    @apply rounded-sm text-muted-foreground no-underline outline-none transition-colors duration-150 hover:text-foreground focus-visible:text-foreground focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-background;
+  }
+
+  .ui-breadcrumb-link:focus-visible,
+  .ui-breadcrumb-ellipsis:focus-visible {
+    --tw-ring-color: var(--ui-focus-ring);
+  }
+
+  .ui-breadcrumb-current {
+    @apply text-foreground;
+  }
+
+  /** `…` düğmesi satır yüksekliğini büyütmez (20px kutu); dokunma alanı sözde öğeyle genişler. */
+  .ui-breadcrumb-ellipsis {
+    @apply relative inline-flex h-5 w-5 shrink-0 cursor-pointer items-center justify-center rounded-sm border-0 bg-transparent p-0 text-muted-foreground outline-none transition-colors duration-150 hover:bg-surface-subtle hover:text-foreground focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-background;
+  }
+
+  .ui-breadcrumb-ellipsis::after {
+    @apply absolute -inset-1.5 content-[''];
+  }
+
+  .ui-breadcrumb-ellipsis[aria-expanded='true'] {
+    @apply bg-surface-subtle text-foreground;
+  }
+}

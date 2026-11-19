@@ -1,0 +1,60 @@
+/**
+ * Dokunmatik giriş — birincil işaretçi parmaksa (`pointer: coarse`) geçerli kurallar.
+ * Kontrol ölçeğinin kendisi `_shared/global.css` içindedir (sm 36 · md 44 · lg 48); burada yalnız
+ * ölçek değişkeniyle çözülemeyen iki konu vardır: alan yazı boyutu ve küçük eylemlerin tutma alanı.
+ * Genişliğe bakmaz: telefon, dikey ve yatay tablet aynı kuralı alır; fareli masaüstü etkilenmez.
+ */
+@layer components {
+  @media (pointer: coarse) {
+    /**
+     * Yazı alanı ≥ 16px — iOS Safari 16px altındaki alana odaklanınca sayfayı yakınlaştırır.
+     * `sm` dahil her boyutta; `max()` native iOS'un 17px gövde ölçeğini küçültmez.
+     */
+    .ui-input-field,
+    .ui-input.ui-input--sm .ui-input-field,
+    .ui-select-filter-input,
+    .ui-select-values-input,
+    .ui-select.ui-select--sm .ui-select-filter-input,
+    .ui-select.ui-select--sm .ui-select-values-input {
+      @apply [font-size:max(1rem,_var(--text-base))] leading-6;
+    }
+
+    /**
+     * Küçük, yalnız ikonlu eylemler (satır "…", kapat, temizle) görsel olarak büyümez; tutma alanı
+     * `::after` ile en az `--ui-touch-target` (44px) olur. Uzatma her kenarda
+     * `(44 − boyut) / 2` kadardır; öğe zaten 44px ise sıfırdır (`min(0px, …)`).
+     */
+    .ui-button.ui-control-cubed-sm,
+    .ui-button.ui-control-cubed-md,
+    .ui-select-clear,
+    .ui-sidebar-item {
+      @apply relative;
+    }
+
+    .ui-button.ui-control-cubed-sm::after,
+    .ui-button.ui-control-cubed-md::after,
+    .ui-select-clear::after,
+    .ui-sidebar-item::after {
+      @apply absolute [content:''] [inset:min(0px,_calc((100%_-_var(--ui-touch-target))_/_2))];
+    }
+
+    /**
+     * Yan yana duran ikon düğmeleri — uzatma komşunun kutusuna taşmasın: komşu tarafta yatay
+     * uzatma yapılmaz (dikey 44px kalır).
+     */
+    .ui-button.ui-control-cubed-sm:has(+ :is(button, a, [role='button']))::after,
+    .ui-button.ui-control-cubed-md:has(+ :is(button, a, [role='button']))::after {
+      @apply [inset-inline-end:0];
+    }
+
+    :is(button, a, [role='button']) + .ui-button.ui-control-cubed-sm::after,
+    :is(button, a, [role='button']) + .ui-button.ui-control-cubed-md::after {
+      @apply [inset-inline-start:0];
+    }
+
+    /** Etiket kaldır — yatayda 44px; dikeyde satır sarınca üst/alt etikete taşmaması için 32px. */
+    .ui-tag-remove::after {
+      @apply [inset-inline:-0.875rem] [inset-block:-0.5rem];
+    }
+  }
+}

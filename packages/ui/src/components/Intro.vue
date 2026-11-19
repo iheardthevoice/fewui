@@ -134,6 +134,7 @@ import { pickPassthroughAttrs } from '../utils/pick-passthrough-attrs.js'
 import { resolveUiText } from '../utils/resolve-ui-text.js'
 import { resolveThemeIconType } from '../theme/resolve-theme-default.js'
 import { uiDefaultsMixin } from '../theme/ui-defaults.js'
+import { isRtl } from '../utils/direction.js'
 
 const SWIPE_MIN_PX = 56
 const SWIPE_AXIS_RATIO = 1.15
@@ -197,6 +198,8 @@ export default {
       startY: 0,
       startAt: 0,
       lockedAxis: null,
+      /** Kökün yazı yönü — ray kaydırma işareti buna bağlı; görünür olunca ve etkileşimde tazelenir. */
+      rtl: false,
     }
   },
   computed: {
@@ -243,7 +246,9 @@ export default {
       return this.isLastStep ? this.resolvedFinishLabel : this.resolvedNextLabel
     },
     trackStyle() {
-      const shift = `calc(${-this.activeIndex * 100}% + ${this.dragOffset}px)`
+      // RTL’de slaytlar sağdan sola dizilir: sonraki slayt solda kalır, ray sağa kayar.
+      const dir = this.rtl ? 1 : -1
+      const shift = `calc(${dir * this.activeIndex * 100}% + ${this.dragOffset}px)`
       return { transform: `translate3d(${shift}, 0, 0)` }
     },
     rootClass() {
@@ -258,21 +263,23 @@ export default {
       if (visible) {
         this.resetDrag()
         this.$nextTick(() => {
+          this.isRtl()
           this.$refs.root?.focus?.({ preventScroll: true })
         })
       }
     },
   },
+  mounted() {
+    this.isRtl()
+  },
   beforeUnmount() {
     this.releasePointer()
   },
   methods: {
+    /** Yönü ölçer ve `rtl` durumuna yazar (ray dönüşümü tepkisel kalsın). */
     isRtl() {
-      const el = this.$refs.root
-      if (el && typeof getComputedStyle === 'function') {
-        return getComputedStyle(el).direction === 'rtl'
-      }
-      return document.documentElement.dir === 'rtl'
+      this.rtl = isRtl(this.$refs.root)
+      return this.rtl
     },
     setIndex(index) {
       const next = Math.min(this.lastIndex, Math.max(0, index))
@@ -332,6 +339,7 @@ export default {
       if (event.pointerType === 'mouse' && event.button !== 0) return
       if (this.isInteractiveTarget(event.target)) return
       if (this.normalizedSteps.length < 2) return
+      this.isRtl()
       this.dragging = true
       this.dragOffset = 0
       this.pointerId = event.pointerId
@@ -361,6 +369,7 @@ export default {
       if (this.normalizedSteps.length < 2) return
       const touch = event.changedTouches?.[0]
       if (!touch) return
+      this.isRtl()
       this.dragging = true
       this.dragOffset = 0
       this.pointerId = 'touch'
@@ -396,7 +405,9 @@ export default {
       const atStart = this.activeIndex === 0
       const atEnd = this.activeIndex === this.lastIndex
       let offset = dx
-      if ((atStart && offset > 0) || (atEnd && offset < 0)) {
+      // Uçlarda lastik etkisi: “geri” yönü LTR’de sağa, RTL’de sola sürüklemedir.
+      const towardPrev = this.rtl ? offset < 0 : offset > 0
+      if ((atStart && towardPrev) || (atEnd && !towardPrev && offset !== 0)) {
         offset *= RUBBER
       }
       this.dragOffset = offset

@@ -1,6 +1,7 @@
 <template>
   <div
     :class="rootClass"
+    :style="rootStyle()"
     role="radiogroup"
     :aria-label="ariaLabel || undefined"
   >
@@ -11,6 +12,7 @@
 <script>
 import { cn } from '../utils/cn.js'
 import { createUiIdFactory } from '../utils/ui-id.js'
+import { CONTROL_SIZES } from '../utils/sizes.js'
 
 const nextRadioGroupId = createUiIdFactory('ui-radio-group')
 
@@ -38,6 +40,24 @@ export default {
       type: String,
       default: null,
       validator: (v) => v == null || v === '' || ORIENTATIONS.includes(v),
+    },
+    /**
+     * `button` + yatay: sabit sütun sayısı (dar dialog'da 3 seçenek yan yana).
+     * `0` (varsayılan) — `auto-fit` ile genişliğe göre sarılır.
+     */
+    columns: {
+      type: Number,
+      default: 0,
+      validator: (v) => Number.isInteger(v) && v >= 0 && v <= 6,
+    },
+    /**
+     * Yalnız `button`: kartlar kontrol boyuna iner (button / input ile aynı yükseklik ve köşe),
+     * etiket tek satır ortalı, seçim dolgu ile gösterilir. Boş (varsayılan) — açıklamalı kart.
+     */
+    size: {
+      type: String,
+      default: undefined,
+      validator: (v) => v == null || CONTROL_SIZES.includes(v),
     },
     /** `radiogroup` erişilebilir adı */
     ariaLabel: {
@@ -70,7 +90,17 @@ export default {
         this.normalizedVariant === 'button' && this.effectiveOrientation === 'vertical'
           ? 'ui-radio-group--vertical'
           : '',
+        this.normalizedVariant === 'button' && this.size
+          ? `ui-radio-group--control ui-radio-group--control-${this.size}`
+          : '',
       )
+    },
+  },
+  methods: {
+    rootStyle() {
+      if (this.normalizedVariant !== 'button' || this.effectiveOrientation !== 'horizontal') return undefined
+      if (!this.columns) return undefined
+      return { gridTemplateColumns: `repeat(${this.columns}, minmax(0, 1fr))` }
     },
   },
   provide() {

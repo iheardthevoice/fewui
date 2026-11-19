@@ -19,6 +19,7 @@ export default defineConfig({
       { find: 'fewui/themes/web.css', replacement: join(uiRoot, 'themes/web.css') },
       { find: 'fewui/fonts.css', replacement: join(uiRoot, 'themes/fonts.css') },
       { find: 'fewui/components.css', replacement: join(uiRoot, 'themes/components.css') },
+      { find: 'fewui/tailwind.css', replacement: join(uiRoot, 'themes/tailwind.css') },
       { find: 'fewui', replacement: resolve(uiRoot, 'src/index.js') },
       { find: '@fewui/theme-playground', replacement: resolve(playgroundRoot, 'src') },
     ],

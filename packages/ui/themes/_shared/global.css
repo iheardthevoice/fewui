@@ -3,6 +3,8 @@
  * Renk tokenları tema `color.css` dosyasında.
  */
 
+@import './properties.css';
+
 /**
  * Kontrol yükseklik ölçeği — button, input, select, segment, tab (aynı `size` = aynı yükseklik).
  * Bileşenler `ui-control-h-*` veya doğrudan bu değişkenleri kullanır.
@@ -58,6 +60,37 @@
   --ui-list-row-py: calc(var(--ui-unit) * 3);
   --ui-toolbar-gap: calc(var(--ui-unit) * 3);
   --ui-space-card: calc(var(--ui-unit) * 5);
+}
+
+/**
+ * Dokunma ölçeği — birincil işaretçi parmaksa (telefon, dikey VE yatay tablet) kontrol ölçeği
+ * büyür: sm 36 · md 44 · lg 48. Kural genişliğe değil giriş cihazına bakar; fareyle kullanılan
+ * masaüstü her genişlikte 28 · 32 · 36 kalır. Dokunma ölçüsünün TEK tanımı burasıdır
+ * (`resolveControlSize` web'de boyut sınıfını değiştirmez).
+ *
+ * Sekme, seçenek satırı ve iç boşluklar yukarıdaki türetilmiş değişkenlerden gelir; sekme adımı
+ * dokunmatikte bir birim kısalır (44 · 52 · 56) — Tab > Button ≥ çip sırası korunur, dikey alan
+ * telefon için harcanmaz.
+ *
+ * Native kabuklar (`html.cap-native`) kendi cihaz ölçülerini taşır (`platform/ios.css`,
+ * `platform/android.css`); burada hariç tutulur — ölçü iki kez uygulanmaz.
+ */
+@media (pointer: coarse) {
+  :root:not(.cap-native) {
+    --ui-control-h-sm: calc(var(--ui-unit) * 9);
+    --ui-control-h-md: calc(var(--ui-unit) * 11);
+    --ui-control-h-lg: calc(var(--ui-unit) * 12);
+    --ui-tab-step: calc(var(--ui-unit) * 2);
+  }
+}
+
+/**
+ * En küçük dokunma hedefi (WCAG 2.5.5 / HIG 44pt) — görsel olarak büyümeyen küçük eylemler
+ * (satır "…", kapat, temizle) tutma alanını `::after` ile bu ölçüye genişletir
+ * (`components/parts/touch.css`).
+ */
+:root {
+  --ui-touch-target: calc(var(--ui-unit) * 11);
 }
 
 /** Yoğun ölçek — `defaults.density = 'compact'` (`data-ui-density`). */

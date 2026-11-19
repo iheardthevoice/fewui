@@ -1,0 +1,66 @@
+@layer components {
+  /**
+   * Slider `range` — iki tutamaç. İz ve tutamaç ölçüleri tek tutamaçlı (yerel `input[type=range]`)
+   * görünümle aynıdır: iz 8px `bg-muted`, dolgu `bg-primary`, tutamaç 18×14px beyaz, hover'da primary halka.
+   */
+  .ui-slider-range-rail {
+    @apply h-2 cursor-pointer select-none [touch-action:pan-y];
+  }
+
+  /** Tıklama alanı 24px (WCAG 2.5.8); yerleşim yüksekliği 8px kalır. */
+  .ui-slider-range-rail::before {
+    content: '';
+    @apply absolute inset-x-0 -inset-y-2;
+  }
+
+  .ui-slider--disabled .ui-slider-range-rail {
+    @apply cursor-default;
+  }
+
+  .ui-slider-range-track {
+    @apply pointer-events-none absolute inset-0 overflow-hidden rounded-full bg-muted;
+  }
+
+  .ui-slider-range-fill {
+    @apply absolute inset-y-0 rounded-full bg-primary;
+  }
+
+  /**
+   * Tutamaç — sol kenarı `pos × (ray − tutamaç genişliği)`: yerel range'deki gibi uçlarda raydan taşmaz.
+   * `inset-inline-start` RTL'de kendiliğinden aynalanır.
+   */
+  .ui-slider-range-thumb {
+    @apply absolute top-1/2 z-[1] h-3.5 w-4.5 -translate-y-1/2 cursor-pointer rounded-full outline-none [background-color:var(--white)] [box-shadow:0_1px_2px_rgb(0_0_0_/_0.08)] [transition:box-shadow_0.15s_ease-out];
+    inset-inline-start: calc(var(--ui-slider-thumb-pos, 0) * (100% - 1.125rem));
+  }
+
+  /** Tutma alanı 24px — görünür tutamaç 14px. */
+  .ui-slider-range-thumb::before {
+    content: '';
+    @apply absolute -inset-x-1 -inset-y-[0.3125rem];
+  }
+
+  .ui-slider-range-thumb--top {
+    @apply z-[2];
+  }
+
+  .ui-slider:not(.ui-slider--disabled) .ui-slider-range-thumb:hover {
+    @apply [box-shadow:0_1px_2px_rgb(0_0_0_/_0.08),_0_0_0_6px_color-mix(in_oklch,_var(--primary)_35%,_transparent)];
+  }
+
+  /** Odak halkası `outline` ile: hover halkası (`box-shadow`) ile aynı anda görünebilsin. */
+  .ui-slider-range-thumb:focus-visible {
+    outline: 2px solid var(--ui-focus-ring);
+    outline-offset: 2px;
+  }
+
+  .ui-slider--disabled .ui-slider-range-thumb {
+    @apply cursor-default;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ui-slider-range-thumb {
+      transition: none;
+    }
+  }
+}

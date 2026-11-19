@@ -1,0 +1,24 @@
+/**
+ * Toast yerleşimi — telefonda (< 768px) altta, başparmak bölgesinde: üstte durduğunda sayfa
+ * başlığını ve birincil düğmeyi kapatıyordu. Uygulama alt gezinme çubuğu yüksekliğini
+ * `--ui-toast-offset-bottom` ile bildirir (yoksa 0); safe-area her zaman eklenir.
+ *
+ * Bir dialog / alt sayfa açıkken (`html.ui-scroll-lock`) toast üstte kalır — altta sayfanın
+ * birincil eylemini kapatırdı. Tablet ve masaüstü değişmez (üstte, ortada).
+ */
+@layer components {
+  @media (max-width: 767px) {
+    html:not(.ui-scroll-lock) .ui-toast-host {
+      @apply top-auto bottom-0 flex-col-reverse pt-3 [padding-bottom:calc(var(--ui-toast-offset-bottom,_0px)_+_max(0.75rem,_env(safe-area-inset-bottom,_0px)))];
+    }
+
+    html:not(.ui-scroll-lock) .ui-toast-host .ui-toast-stack {
+      @apply flex-col-reverse;
+    }
+
+    html:not(.ui-scroll-lock) .ui-toast-enter-from,
+    html:not(.ui-scroll-lock) .ui-toast-leave-to {
+      @apply translate-y-2;
+    }
+  }
+}

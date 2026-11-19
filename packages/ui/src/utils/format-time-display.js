@@ -45,5 +45,6 @@ export function formatTimeString(value, format = 'HH:mm') {
  * @returns {string}
  */
 export function formatTimeParts(hour, minute, format = 'HH:mm') {
-  return formatTimeString(`${hour}:${minute}`, format)
+  // Dakika iki haneye tamamlanır: `9:0` biçimi `formatTimeString` kalıbına uymaz ve ham yazılırdı.
+  return formatTimeString(`${hour}:${pad2(minute)}`, format)
 }

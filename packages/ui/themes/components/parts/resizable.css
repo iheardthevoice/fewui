@@ -1,0 +1,96 @@
+@layer components {
+  /** Resizable — paneller `flex-grow` ağırlığıyla bölünür; tutamaç APG "window splitter". */
+  .ui-resizable-group {
+    @apply flex size-full min-h-0 min-w-0;
+  }
+
+  .ui-resizable-group--vertical {
+    @apply flex-col;
+  }
+
+  /** Sürüklerken metin seçilmesin, imleç panel üstünde de aynı kalsın. */
+  .ui-resizable-group[data-dragging='true'] {
+    @apply select-none;
+  }
+
+  .ui-resizable-group--horizontal[data-dragging='true'] {
+    @apply cursor-col-resize;
+  }
+
+  .ui-resizable-group--vertical[data-dragging='true'] {
+    @apply cursor-row-resize;
+  }
+
+  .ui-resizable-panel {
+    @apply min-h-0 min-w-0 overflow-hidden;
+  }
+
+  /**
+   * Tutamaç — görünür çizgi 1px; tutma alanı `::before` ile iki yana genişler
+   * (fare 9px, dokunmatik 25px) ve yerleşimi değiştirmez.
+   */
+  .ui-resizable-handle {
+    @apply relative z-[1] flex shrink-0 items-center justify-center bg-border outline-none [touch-action:none];
+    transition: background-color 0.15s ease-out;
+  }
+
+  .ui-resizable-handle::before {
+    content: '';
+    @apply absolute;
+  }
+
+  .ui-resizable-handle--horizontal {
+    @apply w-px cursor-col-resize;
+  }
+
+  .ui-resizable-handle--horizontal::before {
+    @apply inset-y-0 -inset-x-1;
+  }
+
+  .ui-resizable-handle--vertical {
+    @apply h-px w-full cursor-row-resize;
+  }
+
+  .ui-resizable-handle--vertical::before {
+    @apply inset-x-0 -inset-y-1;
+  }
+
+  @media (pointer: coarse) {
+    .ui-resizable-handle--horizontal::before {
+      @apply -inset-x-3;
+    }
+
+    .ui-resizable-handle--vertical::before {
+      @apply -inset-y-3;
+    }
+  }
+
+  .ui-resizable-handle:not(.ui-resizable-handle--disabled):hover,
+  .ui-resizable-handle[data-dragging='true'] {
+    @apply bg-primary;
+  }
+
+  .ui-resizable-handle:focus-visible {
+    @apply bg-primary ring-2 ring-offset-2 ring-offset-background;
+    --tw-ring-color: var(--ui-focus-ring);
+  }
+
+  .ui-resizable-handle.ui-resizable-handle--disabled {
+    @apply cursor-default;
+  }
+
+  /** Kulp — çizginin ortasında küçük yüzey kutusu. */
+  .ui-resizable-handle-grip {
+    @apply relative z-[1] inline-flex h-5 w-3 shrink-0 items-center justify-center rounded-sm border border-border bg-surface text-muted-foreground;
+  }
+
+  .ui-resizable-handle--vertical > .ui-resizable-handle-grip {
+    @apply rotate-90;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ui-resizable-handle {
+      transition: none;
+    }
+  }
+}

@@ -1,0 +1,111 @@
+/**
+ * fewui — Tailwind v4 köprüsü (`@import "fewui/tailwind.css"`).
+ *
+ * Tema token'larını (`--primary`, `--surface-bg`, `--radius` …) Tailwind yardımcılarına bağlar:
+ * `bg-primary`, `text-muted-foreground`, `border-border`, `rounded-lg`, `bg-surface-subtle` …
+ * `inline` olduğu için değerler çalışma anında okunur; tema ve açık/koyu geçişi derleme gerektirmez.
+ *
+ * Kullanım (uygulamanın ana CSS dosyası):
+ *
+ *   @import "tailwindcss";
+ *   @source "../node_modules/fewui/packages/ui/src";   (fewui şablonlarındaki sınıflar taransın)
+ *   @import "fewui/style.css";               // ya da fewui/themes/<tema>.css
+ *   @import "fewui/tailwind.css";
+ *   @import "fewui/components.css";
+ *
+ * `dark` çeşidi `.dark` kökünü izler; `ui-theme-provider mode="light"` alt ağacı koyu sayfada açık kalır.
+ * Tailwind v3 için eski `fewui/tailwind-preset` duruyor; yeni projede kullanılmaz.
+ */
+@custom-variant dark (&:is(.dark *):not([data-ui-mode='light'] *));
+
+@theme inline {
+  /* fewui: lg/3xl = --radius; xl/2xl TW default (POS karo vb. şişmesin) */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-3xl: var(--radius);
+  --radius-4xl: 2rem;
+
+  --color-white: var(--white);
+
+  --color-base-50: var(--base-50);
+  --color-base-100: var(--base-100);
+  --color-base-200: var(--base-200);
+  --color-base-300: var(--base-300);
+  --color-base-400: var(--base-400);
+  --color-base-500: var(--base-500);
+  --color-base-600: var(--base-600);
+  --color-base-700: var(--base-700);
+  --color-base-800: var(--base-800);
+  --color-base-900: var(--base-900);
+  --color-base-950: var(--base-950);
+
+  --color-neutral-50: var(--base-50);
+  --color-neutral-100: var(--base-100);
+  --color-neutral-200: var(--base-200);
+  --color-neutral-300: var(--base-300);
+  --color-neutral-400: var(--base-400);
+  --color-neutral-500: var(--base-500);
+  --color-neutral-600: var(--base-600);
+  --color-neutral-700: var(--base-700);
+  --color-neutral-800: var(--base-800);
+  --color-neutral-900: var(--base-900);
+  --color-neutral-950: var(--base-950);
+
+  --color-border: var(--border);
+
+  --color-border-subtle: var(--border-subtle);
+  --color-ring: var(--ring);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-surface: var(--surface-bg, var(--surface));
+  /* `--color-surface`'e değil doğrudan token'a bağlanır: içe aktarılan `@theme inline` içinde tema değişkenine
+     yapılan atıf çıktıya yazılmıyor, `bg-card` boşa düşerdi. */
+  --color-card: var(--surface-bg, var(--surface));
+  --color-surface-foreground: var(--surface-foreground);
+  --color-surface-input: var(--input-background);
+  --color-surface-subtle: var(--surface-subtle);
+  --color-surface-sunken: var(--surface-sunken);
+
+  --color-control: var(--control-bg, var(--control));
+  --color-control-foreground: var(--control-foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-danger: var(--danger);
+  --color-danger-foreground: var(--danger-foreground);
+
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+
+  --color-chart: var(--chart);
+  --color-chart-foreground: var(--chart-foreground);
+  --color-chart-50: var(--chart-50);
+  --color-chart-100: var(--chart-100);
+  --color-chart-200: var(--chart-200);
+  --color-chart-300: var(--chart-300);
+  --color-chart-400: var(--chart-400);
+  --color-chart-500: var(--chart-500);
+  --color-chart-600: var(--chart-600);
+  --color-chart-700: var(--chart-700);
+  --color-chart-800: var(--chart-800);
+  --color-chart-900: var(--chart-900);
+}

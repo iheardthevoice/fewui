@@ -503,7 +503,8 @@ export default {
       return resolveUiText(this, 'ui.button.loading', 'Loading')
     },
     textContentClass() {
-      const align = this.textAlign === 'left' ? 'text-left' : 'text-center'
+      // `left` = satır başı: RTL’de sağa yaslanır (prop değeri geriye dönük uyum için aynı kalır).
+      const align = this.textAlign === 'left' ? 'text-start' : 'text-center'
       const isBlock = this.block
       if (this.wrap) {
         return ['ui-button-text min-w-0 flex-1 whitespace-normal', align].join(' ')

@@ -1,0 +1,208 @@
+@layer components {
+  /**
+   * Tablo etkileşimi — klavye odağı, sıralama başlığı, seçim sütunu, toplu işlem çubuğu ve
+   * sayfa kayarken yapışan başlık. Temel tablo kuralları layer.css'te durur.
+   */
+
+  /** `ui-table-row interactive`: satır Tab ile odaklanır; halka içeride kalır (komşu satıra taşmaz). */
+  .ui-table-row--interactive:focus-visible {
+    @apply [outline:2px_solid_var(--ui-focus-ring)] [outline-offset:-2px] [border-radius:var(--radius)];
+  }
+
+  .ui-table-body .ui-table-row--interactive:focus-visible > td:not(.ui-table-cell--empty)::before {
+    @apply [background-color:var(--ui-hover)];
+  }
+
+  /** Sıralanabilir sütun başlığı (`th[aria-sort]` içindeki düğme). */
+  .ui-table-sort {
+    @apply inline-flex max-w-full min-w-0 cursor-pointer items-center gap-1 rounded-sm border-0 bg-transparent p-0 text-start text-muted-foreground transition-colors duration-150 hover:text-foreground;
+  }
+
+  .ui-table-sort:focus-visible {
+    @apply [outline:2px_solid_var(--ui-focus-ring)] [outline-offset:2px];
+  }
+
+  .ui-table-head--align-end .ui-table-sort {
+    @apply flex-row-reverse;
+  }
+
+  .ui-table-head[aria-sort='ascending'] .ui-table-sort,
+  .ui-table-head[aria-sort='descending'] .ui-table-sort,
+  .ui-table-head[aria-sort='ascending'] .ui-table-sort .ui-section-label,
+  .ui-table-head[aria-sort='descending'] .ui-table-sort .ui-section-label {
+    @apply text-foreground;
+  }
+
+  .ui-table-sort-icon {
+    @apply shrink-0 opacity-0 transition-opacity duration-150;
+  }
+
+  .ui-table-sort:hover .ui-table-sort-icon,
+  .ui-table-sort:focus-visible .ui-table-sort-icon {
+    @apply opacity-60;
+  }
+
+  .ui-table-head[aria-sort='ascending'] .ui-table-sort-icon,
+  .ui-table-head[aria-sort='descending'] .ui-table-sort-icon {
+    @apply opacity-100;
+  }
+
+  /** Seçim sütunu: onay kutusu kadar yer kaplar, satır tıklamasını tetiklemez. */
+  .ui-table-head--select,
+  .ui-table-cell--select {
+    @apply w-10 min-w-10 max-w-10 pe-0 align-middle;
+  }
+
+  /**
+   * Toplu işlem çubuğu — seçim varken tablonun altında yüzen kapsül; liste uzunsa sayfa kayarken
+   * ekranın altına yapışır (telefonda dock'un üstünde). Başlık satırını örtmez.
+   */
+  .ui-table-bulk-bar {
+    @apply sticky z-[8] mx-auto my-2 flex w-fit max-w-[calc(100%-1rem)] min-h-12 flex-nowrap items-center gap-x-4 gap-y-2 rounded-full border border-border-subtle py-1.5 ps-5 pe-1.5 text-sm text-foreground shadow-lg [background-color:var(--popover-bg,var(--surface-bg,var(--surface)))] [backdrop-filter:blur(var(--ui-popover-backdrop-blur,0px))] [bottom:calc(0.75rem+var(--app-mobile-bottom-chrome-height,0px))];
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .ui-table-bulk-bar {
+      animation: ui-table-bulk-bar-in 160ms ease-out;
+    }
+  }
+
+  @keyframes ui-table-bulk-bar-in {
+    from {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+  }
+
+  .ui-table-bulk-bar-count {
+    @apply shrink-0 whitespace-nowrap font-medium tabular-nums [color:var(--ui-selected-fg)];
+  }
+
+  /* Kart `overflow: hidden` kaydırma kabı oluşturur, yapışma sayfaya göre çalışmaz. */
+  .ui-card:has(.ui-table-bulk-bar) {
+    @apply [overflow:clip];
+  }
+
+  .ui-table-bulk-bar-actions {
+    @apply ms-auto flex flex-nowrap items-center gap-2;
+  }
+
+  /** Liste hata bandı (yenileme başarısız; eski satırlar altında kalır). */
+  .ui-table-error {
+    @apply mx-1 mb-2;
+  }
+
+  /**
+   * Yapışan başlık (masaüstü): sayfa kayarken sütun başlıkları görünür kalır. `overflow: clip`
+   * kaydırma kabı oluşturmaz; `sticky` sayfanın kaydırma kabına göre çalışır.
+   */
+  @media (min-width: 1024px) {
+    .ui-table-scroll--sticky-head {
+      @apply [overflow-x:clip] [overflow-y:visible];
+    }
+
+    /* Kart `overflow: hidden` kaydırma kabı oluşturur ve yapışmayı bozar; `clip` köşeyi yine keser. */
+    .ui-card:has(.ui-table-scroll--sticky-head) {
+      @apply [overflow:clip];
+    }
+
+    .ui-table-scroll--sticky-head thead > tr > .ui-table-head {
+      @apply sticky z-[5] [top:var(--ui-table-sticky-top,0px)] [background-color:var(--ui-table-sticky-bg,var(--surface-bg,var(--surface)))];
+    }
+  }
+
+  /** Sayfalama satırı: sayfa boyutu seçici + numaralı sayfalar. */
+  .ui-table-pagination-controls {
+    @apply flex min-w-0 flex-wrap items-center justify-end gap-x-4 gap-y-2;
+  }
+
+  .ui-table-pagination-size {
+    @apply flex items-center gap-2 text-xs text-muted-foreground;
+  }
+
+  .ui-table-pagination-size-select {
+    @apply w-20;
+  }
+
+  @media (max-width: 639px) {
+    .ui-table-pagination:has(.ui-table-pagination-controls) {
+      @apply flex-col items-stretch gap-3;
+    }
+
+    .ui-table-pagination-controls {
+      @apply justify-between;
+    }
+  }
+}
+
+@layer components {
+  /**
+   * Satır vurgusu (hover / seçim) — yüzey içi köşe (`--ui-radius-inner`): tema köşesi büyükse
+   * (26px) satır hapa dönüşmesin. Ardışık seçili satırlar tek blok olur: grubun yalnız ilk
+   * satırının üstü, son satırının altı yuvarlak.
+   */
+  .ui-table-body .ui-table-row > td:first-child::before {
+    @apply [border-start-start-radius:var(--ui-radius-inner)] [border-end-start-radius:var(--ui-radius-inner)];
+  }
+
+  .ui-table-body .ui-table-row > td:last-child::before {
+    @apply [border-start-end-radius:var(--ui-radius-inner)] [border-end-end-radius:var(--ui-radius-inner)];
+  }
+
+  .ui-table-body .ui-table-row--selected:has(+ .ui-table-row--selected) > td:first-child::before {
+    @apply [border-end-start-radius:0];
+  }
+
+  .ui-table-body .ui-table-row--selected:has(+ .ui-table-row--selected) > td:last-child::before {
+    @apply [border-end-end-radius:0];
+  }
+
+  .ui-table-body .ui-table-row--selected + .ui-table-row--selected > td:first-child::before {
+    @apply [border-start-start-radius:0];
+  }
+
+  .ui-table-body .ui-table-row--selected + .ui-table-row--selected > td:last-child::before {
+    @apply [border-start-end-radius:0];
+  }
+
+  /**
+   * Tıklanabilir satırın hover'ı hafif ara durum (`--ui-hover`): eskiden `muted` %50 rozet ve
+   * onay kutusu dolgusuyla aynı tondaydı, satır üstündeyken onlar kayboluyordu.
+   */
+  .ui-table-body .ui-table-row--interactive:hover > td:not(.ui-table-cell--empty)::before {
+    @apply [background-color:var(--ui-hover)];
+  }
+
+  /**
+   * Seçili satırın üstüne gelince seçim tonu biraz koyulaşır, griye dönmez. Seçici genel hover
+   * kuralından (`.ui-table-row:hover:not(--no-hover)`) daha özgül olmalı.
+   */
+  .ui-table-body .ui-table-row.ui-table-row--selected:hover:not(.ui-table-row--no-hover) > td:not(.ui-table-cell--empty)::before,
+  .ui-table-body .ui-table-row.ui-table-row--selected:focus-visible > td:not(.ui-table-cell--empty)::before {
+    @apply [background-color:var(--primary-soft-hover,var(--primary-soft))];
+  }
+
+  /**
+   * Boş onay kutusu gri dolgudur (kenarlıksız); satır hover / seçim zemini aynı tona yaklaşınca
+   * kutu kaybolmasın diye o satırlarda dolgu bir kademe koyulaşır.
+   */
+  .ui-table-body .ui-table-row:hover .ui-table-cell--select .ui-checkbox:not(.ui-checkbox--checked) .ui-checkbox-box,
+  .ui-table-body .ui-table-row--selected .ui-table-cell--select .ui-checkbox:not(.ui-checkbox--checked) .ui-checkbox-box,
+  .ui-data-card--selected .ui-data-card-cell--select .ui-checkbox:not(.ui-checkbox--checked) .ui-checkbox-box {
+    @apply [background-color:color-mix(in_oklab,var(--foreground)_16%,transparent)];
+  }
+
+  /** Seçim sütunundaki onay kutusu: odak halkası etiket yerine kutunun kendisini sarar. */
+  .ui-table-cell--select .ui-checkbox:has(input:focus-visible),
+  .ui-table-head--select .ui-checkbox:has(input:focus-visible),
+  .ui-data-card-cell--select .ui-checkbox:has(input:focus-visible) {
+    @apply ring-0 ring-offset-0;
+  }
+
+  .ui-table-cell--select .ui-checkbox:has(input:focus-visible) .ui-checkbox-box,
+  .ui-table-head--select .ui-checkbox:has(input:focus-visible) .ui-checkbox-box,
+  .ui-data-card-cell--select .ui-checkbox:has(input:focus-visible) .ui-checkbox-box {
+    @apply [outline:2px_solid_var(--ui-focus-ring)] [outline-offset:2px];
+  }
+
+}

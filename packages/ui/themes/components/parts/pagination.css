@@ -1,0 +1,43 @@
+@layer components {
+  /**
+   * Pagination — düğmeler `ui-button` (yükseklik `--ui-control-h-*`). Yazı her boyutta 12px ikincil
+   * metindir (DESIGN.md yazı ölçeği: sayfalama); rakamlar eşit genişlikte, sayfa değişince kaymaz.
+   */
+  .ui-pagination {
+    @apply min-w-0;
+  }
+
+  .ui-pagination-list {
+    @apply m-0 flex list-none flex-wrap items-center gap-1 p-0;
+  }
+
+  .ui-pagination-item {
+    @apply inline-flex items-center;
+  }
+
+  .ui-pagination .ui-button.ui-pagination-page {
+    @apply px-1.5 text-xs leading-4 [font-variant-numeric:tabular-nums];
+  }
+
+  /** Tek haneli sayfa kare kalır; çok haneli sayfa yana büyür. */
+  .ui-pagination .ui-button.ui-pagination-page[data-size='sm'] {
+    @apply min-w-[var(--ui-control-h-sm)];
+  }
+
+  .ui-pagination .ui-button.ui-pagination-page[data-size='md'] {
+    @apply min-w-[var(--ui-control-h-md)];
+  }
+
+  .ui-pagination .ui-button.ui-pagination-page[data-size='lg'] {
+    @apply min-w-[var(--ui-control-h-lg)];
+  }
+
+  /** Bulunulan sayfa: yumuşak dolgu (`muted`) + orta kalınlık; renk tonu kullanılmaz. */
+  .ui-pagination .ui-button.ui-pagination-page[aria-current='page'] {
+    @apply font-medium;
+  }
+
+  .ui-pagination-ellipsis {
+    @apply inline-flex w-6 items-center justify-center text-muted-foreground;
+  }
+}

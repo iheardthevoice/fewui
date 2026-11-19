@@ -1,4 +1,7 @@
 /**
+ * ESKİ (Tailwind v3). Tailwind v4 projeleri `@import "fewui/tailwind.css"` kullanır;
+ * bu dosya yalnız v3 tüketicileri bozulmasın diye durur ve yeni token almaz.
+ *
  * CommonJS preset for Tailwind v3 — semantic colors from `themes/default.css` via var().
  *
  * Düzen: `border` / `ring` tek değer; sayfa `background` + `foreground` (bg-background, text-foreground);

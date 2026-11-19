@@ -6,6 +6,7 @@
     :title="confirmState.title"
     :close-on-backdrop="true"
     :close-on-escape="true"
+    :guard-unsaved="false"
     :aria-label="confirmState.title || fallbackAriaLabel"
   >
     <p
@@ -28,10 +29,16 @@
 </template>
 
 <script>
-import { confirmState, answerConfirm } from '../confirm-state.js'
+import { confirmState, answerConfirm, trackConfirmHost } from '../confirm-state.js'
 
 export default {
   name: 'ConfirmDialog',
+  mounted() {
+    trackConfirmHost(1)
+  },
+  beforeUnmount() {
+    trackConfirmHost(-1)
+  },
   computed: {
     confirmState() {
       return confirmState
