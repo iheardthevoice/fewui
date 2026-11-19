@@ -161,10 +161,30 @@ function normalizeAction(action) {
  */
 const TOAST_FEEDBACK = { success: 'success', warning: 'warning', danger: 'error' }
 
+/** @type {Set<(payload: object) => void>} */
+const pushListeners = new Set()
+
+/**
+ * Yeni toast gösterildiğinde haber alır (ör. açık dialog "kaydedildi" görünce kirli işaretini sıfırlar).
+ * @param {(payload: object) => void} fn
+ * @returns {() => void} aboneliği kaldırır
+ */
+export function onToastPush(fn) {
+  pushListeners.add(fn)
+  return () => pushListeners.delete(fn)
+}
+
 export function pushToast(payload = {}) {
   // Bilgi toast'ı titretmez; sonuç bildiren tonlar (başarı / uyarı / hata) dokunsal karşılık alır.
   const feedback = TOAST_FEEDBACK[payload.color]
   if (feedback) uiFeedback(feedback)
+  for (const fn of pushListeners) {
+    try {
+      fn(payload)
+    } catch {
+      // Dinleyici hatası toast akışını bozmaz.
+    }
+  }
   const now = Date.now()
   // Eylemli toast tek başına kalır: grup kartında hangi eylemin gösterileceği belirsiz olurdu.
   const allowGroup = payload.group !== false && !payload.action

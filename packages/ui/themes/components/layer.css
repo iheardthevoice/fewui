@@ -671,6 +671,11 @@
     @apply border-t border-border pt-2;
   }
 
+  /* Çizgi yalnız üstünde satır varken ayırır; grubun ilk (ya da tek) satırında çizilmez. */
+  .ui-price-display-row--divider:first-child {
+    @apply border-t-0 pt-0;
+  }
+
   .ui-price-display-row--emphasis .ui-price-display-row__label {
     @apply font-medium text-foreground;
   }

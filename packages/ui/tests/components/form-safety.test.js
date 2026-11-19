@@ -9,6 +9,7 @@ import Button from '../../src/components/Button.vue'
 import { UI_FORM_DIRTY_KEY } from '../../src/utils/form-dirty.js'
 import { UI_FORM_ERRORS_KEY, createFormErrorsContext } from '../../src/utils/form-errors.js'
 import { confirmState, answerConfirm } from '../../src/confirm-state.js'
+import { clearToasts, pushToast } from '../../src/toast-queue.js'
 
 const mounted = []
 const track = (w) => (mounted.push(w), w)
@@ -111,6 +112,25 @@ describe('Dialog — kaydedilmemiş değişiklik koruması', () => {
     document.querySelector('.ui-dialog-header__close').click()
     await flush(20)
     expect(confirmState.open).toBe(true)
+  })
+
+  it('açık kalan dialog kaydedince (başarı toast\'ı) kirli sayılmaz; bilgi toast\'ı sıfırlamaz', async () => {
+    const { state } = mountForm({ guardUnsaved: true })
+    await flush(20)
+    type(document.getElementById('name'), 'Ayran')
+    await nextTick()
+    pushToast({ title: 'Bilgi', color: 'info', group: false })
+    press(formPanel(), 'Escape')
+    await flush(20)
+    expect(confirmState.open).toBe(true)
+    answerConfirm(false)
+    await flush(30)
+    pushToast({ title: 'Tercihler kaydedildi', color: 'success', group: false })
+    press(formPanel(), 'Escape')
+    await flush(30)
+    expect(confirmState.open).toBe(false)
+    expect(state.open).toBe(false)
+    clearToasts()
   })
 
   it('temiz formda sormadan kapanır', async () => {

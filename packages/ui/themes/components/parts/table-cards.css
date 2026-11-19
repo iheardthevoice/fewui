@@ -65,7 +65,7 @@
   }
 
   .ui-data-card-cell--title {
-    @apply col-start-3 row-start-1 text-sm font-medium text-foreground [overflow-wrap:anywhere];
+    @apply col-start-3 row-start-1 text-base font-medium text-foreground [overflow-wrap:anywhere];
   }
 
   .ui-data-card-cell--trailing {
@@ -81,8 +81,93 @@
     @apply [min-width:2.75rem] [min-height:2.75rem];
   }
 
+  /**
+   * Etiket–değer satırı: etiket solda, değer her zaman sağa yaslı. Sütunun tablodaki hizası
+   * (sol metin, sağ tutar) kartta taşınmaz; aynı kartta değerler tek kenarda okunur.
+   */
   .ui-data-card-cell--line {
-    @apply col-start-3 col-end-[-1] grid items-baseline gap-x-3 [grid-template-columns:minmax(4.5rem,34%)_minmax(0,1fr)];
+    @apply col-start-3 col-end-5 grid items-baseline gap-x-4 [grid-template-columns:auto_minmax(0,1fr)];
+  }
+
+  .ui-data-card-cell--line > .ui-data-card-value {
+    @apply flex flex-col items-end text-end;
+  }
+
+  .ui-data-card-cell--line > .ui-data-card-value > .ui-table-cell-stack {
+    @apply items-end;
+  }
+
+  /**
+   * Başlık altı satırı (Apple liste deseni): kalan sütun değerleri etiketsiz, soluk ve " · " ile
+   * tek akışta. Etiket yalnız çıplak sayı / tutarda yazılır (`ui-data-card-meta-label`).
+   */
+  .ui-data-card-meta {
+    @apply col-start-3 col-end-5 -mt-1 flex min-w-0 flex-wrap items-center gap-x-1.5 gap-y-1 text-sm leading-5 text-muted-foreground [padding-inline-start:var(--ui-data-card-meta-indent,0px)];
+  }
+
+  .ui-data-card-meta:not(:has(> .ui-data-card-meta-item:not(.ui-data-card-meta-item--empty))) {
+    @apply hidden;
+  }
+
+  .ui-data-card-meta-item {
+    @apply inline-flex min-w-0 max-w-full items-center gap-1;
+  }
+
+  .ui-data-card-meta-item--empty {
+    @apply hidden;
+  }
+
+  /** Ayraç yalnız görünen iki değer arasında. */
+  .ui-data-card-meta-item:not(.ui-data-card-meta-item--empty) ~ .ui-data-card-meta-item:not(.ui-data-card-meta-item--empty)::before {
+    @apply [content:'·'] me-0.5 text-muted-foreground;
+  }
+
+  .ui-data-card-meta-label {
+    @apply shrink-0;
+  }
+
+  /** Tek değerin parçaları (telefon · e-posta) bölünmez; sığmayan son parça kısalır. */
+  .ui-data-card-meta .ui-data-card-value {
+    @apply inline-flex min-w-0 max-w-full flex-nowrap items-center gap-x-1.5 overflow-hidden text-inherit;
+  }
+
+  .ui-data-card-meta .ui-data-card-value > *,
+  .ui-data-card-meta .ui-table-cell-stack > * {
+    @apply min-w-0 shrink-0;
+  }
+
+  .ui-data-card-meta .ui-data-card-value > :last-child,
+  .ui-data-card-meta .ui-table-cell-stack > :last-child {
+    @apply shrink truncate;
+  }
+
+  /** Tablo hücresindeki başlık / alt başlık yığını kartta tek satıra açılır. */
+  .ui-data-card-meta .ui-table-cell-stack {
+    @apply contents;
+  }
+
+  .ui-data-card-meta .ui-table-cell-stack > * + *::before {
+    @apply [content:'·'] me-1.5 text-muted-foreground;
+  }
+
+  .ui-data-card-meta .ui-table-cell-title,
+  .ui-data-card-meta .ui-table-cell-subtitle {
+    @apply truncate text-sm font-normal text-muted-foreground;
+  }
+
+  /** Alt satır varsa görsel, sağ değer ve menü iki satıra göre ortalanır. */
+  .ui-data-card:has(> .ui-data-card-meta > .ui-data-card-meta-item:not(.ui-data-card-meta-item--empty)) > :is(.ui-data-card-cell--media, .ui-data-card-cell--trailing, .ui-data-card-cell--actions, .ui-data-card-cell--select) {
+    @apply [grid-row:1/span_2] self-center;
+  }
+
+  /** Kart tipografisi: başlık 16, alt satırlar 14 (tabloda 14 / 12). */
+  .ui-data-card-cell--title .ui-table-cell-title {
+    @apply text-base leading-6;
+  }
+
+  .ui-data-card-cell--title .ui-table-cell-subtitle,
+  .ui-data-card-cell--trailing .ui-table-cell-subtitle {
+    @apply text-sm leading-5;
   }
 
   .ui-data-card-label {
@@ -98,14 +183,9 @@
     @apply text-inherit;
   }
 
-  /** Tablet dikey: etiket–değer satırları iki sütuna dizilir. */
   @media (min-width: 640px) {
     .ui-data-card {
       @apply px-4;
-    }
-
-    .ui-data-card-cell--line {
-      @apply [grid-template-columns:minmax(6rem,22%)_minmax(0,1fr)];
     }
   }
 

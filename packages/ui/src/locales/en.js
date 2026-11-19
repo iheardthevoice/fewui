@@ -23,7 +23,7 @@ export default {
       close: 'Close',
       back: 'Back',
       unsavedTitle: 'Unsaved changes',
-      unsavedDescription: 'If you close now, what you entered will be lost.',
+      unsavedDescription: 'If you close now, unsaved changes will be discarded.',
       unsavedConfirm: 'Discard changes',
     },
     guidance: {

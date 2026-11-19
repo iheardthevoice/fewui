@@ -30,8 +30,8 @@ export default {
       close: 'Kapat',
       back: 'Geri',
       unsavedTitle: 'Değişiklikler kaydedilmedi',
-      unsavedDescription: 'Şimdi kapatırsanız girdiğiniz bilgiler kaybolur.',
-      unsavedConfirm: 'Değişiklikleri at',
+      unsavedDescription: 'Kapatırsanız kaydedilmemiş değişiklikler yoksayılır.',
+      unsavedConfirm: 'Değişiklikleri yoksay',
     },
     guidance: {
       go: 'Devam',

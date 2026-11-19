@@ -174,6 +174,7 @@ import { uiPortalMixin } from '../theme/ui-portal.js'
 import { OVERLAY_BASE_Z, pushOverlay, releaseOverlay, isTopModalOverlay } from '../theme/overlay-stack.js'
 import { shouldContainFocus } from '../utils/focus-guard.js'
 import { UI_FORM_DIRTY_KEY } from '../utils/form-dirty.js'
+import { onToastPush } from '../toast-queue.js'
 import { requestConfirm, hasConfirmHost } from '../confirm-state.js'
 
 const nextDialogId = createUiIdFactory('ui-dialog')
@@ -588,8 +589,14 @@ export default {
       if (this.focusGuardBound || typeof document === 'undefined') return
       this.focusGuardBound = true
       document.addEventListener('focusin', this.onDocumentFocusIn)
+      // Açık kalan dialog kaydedince ("… kaydedildi" başarı toast'ı) artık kirli sayılmaz.
+      this.stopToastWatch = onToastPush((payload) => {
+        if (payload?.color === 'success' && isTopModalOverlay(this)) this.markPristine()
+      })
     },
     unbindFocusGuard() {
+      this.stopToastWatch?.()
+      this.stopToastWatch = null
       if (!this.focusGuardBound) return
       this.focusGuardBound = false
       document.removeEventListener('focusin', this.onDocumentFocusIn)
@@ -1029,7 +1036,7 @@ export default {
           description: resolveUiText(
             this,
             'ui.dialog.unsavedDescription',
-            'If you close now, what you entered will be lost.',
+            'If you close now, unsaved changes will be discarded.',
           ),
           confirmLabel: resolveUiText(this, 'ui.dialog.unsavedConfirm', 'Discard changes'),
           color: 'danger',
