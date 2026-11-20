@@ -578,6 +578,8 @@ export interface DialogProps {
   dirty?: boolean
   /** Tek satırlı metin alanında Enter (ve her yerde Cmd/Ctrl+Enter) footer'daki birincil eylemi tetikler: `data-ui-dialog-primary` işaretli ilk etkin düğme, yoksa son etkin solid primary `ui-button`. Verilmezse tema varsayılanı `dialogSubmitOnEnter` (false). */
   submitOnEnter?: boolean
+  /** Açılışta içerideki yüklemeleri (`ui-skeleton`) en fazla bu kadar (ms) bekle: karartma hemen gelir, panel içerik hazır olunca kayar — boş açılıp sonra dolma / büyüme olmaz. `0` beklemez. */
+  openHold?: number
   'onUpdate:open'?: (...args: any[]) => any
   'onAfterLeave'?: (...args: any[]) => any
   'onBack'?: (...args: any[]) => any
@@ -1442,6 +1444,12 @@ export interface SkeletonProps {
   loading?: boolean
   /** Yalnızca `variant="line"` için: sm (16px), md (20px), lg (40px, liste/tablo satırı). */
   size?: 'md'
+  /** Kutu modu: alt alta bu kadar satır çizer (son satırlar kısalır) — metin bloğu yer tutucusu. */
+  lines?: number
+  /** Sarmalayıcı mod: iskelet ancak yükleme bu süreden (ms) uzun sürerse görünür. Hızlı yanıtta iskelet hiç çizilmez; yer yine de ayrılır (görünmez iskelet), içerik zıplamaz. */
+  delay?: number
+  /** Sarmalayıcı mod: iskelet bir kez göründüyse en az bu süre (ms) kalır — yanıp sönmez. */
+  minDuration?: number
 }
 
 export declare const Skeleton: DefineComponent<SkeletonProps>

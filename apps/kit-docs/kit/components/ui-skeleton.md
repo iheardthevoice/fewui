@@ -5,7 +5,7 @@ outline: [2, 3]
 
 # ui-skeleton
 
-İskelet: tek başına yer tutucu şekiller ve içeriği saran kullanım (`loading` bitince içerik görünür).
+İskelet: tek başına yer tutucu şekiller ve içeriği saran kullanım. Gösterim kuralı: iskelet yalnız yükleme `delay` (150 ms) süresini aşarsa görünür, görünürse en az `minDuration` (300 ms) kalır; içerik yükseklik canlandırılmadan, yalnız opacity ile belirir. "Hızlı" düğmesi 100 ms'lik yüklemeyi gösterir: iskelet hiç çizilmez.
 
 ## Example
 
@@ -33,9 +33,14 @@ outline: [2, 3]
 
     <ui-skeleton variant="block" />
 
+    <ui-skeleton :lines="3" />
+
     <ui-card title="Son siparişler">
       <template #append>
-        <ui-button variant="outline" color="secondary" size="sm" @click="reload">Yenile</ui-button>
+        <div class="flex gap-2">
+          <ui-button variant="outline" color="secondary" size="sm" @click="reload(100)">Hızlı</ui-button>
+          <ui-button variant="outline" color="secondary" size="sm" @click="reload(1500)">Yavaş</ui-button>
+        </div>
       </template>
       <ui-skeleton :loading="loading">
         <ui-list>
@@ -56,11 +61,11 @@ export default {
     }
   },
   methods: {
-    reload() {
+    reload(ms) {
       this.loading = true
       setTimeout(() => {
         this.loading = false
-      }, 1500)
+      }, ms)
     },
   },
 }
@@ -78,6 +83,9 @@ Registered globally as `<ui-skeleton>` by `app.use(UiLib)`. Local import: `impor
 | `variant` | `'line' \| 'circle' \| 'block' \| 'pill'` | `"line"` |  |
 | `loading` | `boolean` | `false` |  |
 | `size` | `'md'` | `"md"` | Yalnızca `variant="line"` için: sm (16px), md (20px), lg (40px, liste/tablo satırı). |
+| `lines` | `number` | `1` | Kutu modu: alt alta bu kadar satır çizer (son satırlar kısalır) — metin bloğu yer tutucusu. |
+| `delay` | `number` | `150` | Sarmalayıcı mod: iskelet ancak yükleme bu süreden (ms) uzun sürerse görünür. Hızlı yanıtta iskelet hiç çizilmez; yer yine de ayrılır (görünmez iskelet), içerik zıplamaz. |
+| `min-duration` | `number` | `300` | Sarmalayıcı mod: iskelet bir kez göründüyse en az bu süre (ms) kalır — yanıp sönmez. |
 
 ## Slots
 

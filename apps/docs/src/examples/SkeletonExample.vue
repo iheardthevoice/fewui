@@ -1,4 +1,9 @@
-<!-- İskelet: tek başına yer tutucu şekiller ve içeriği saran kullanım (`loading` bitince içerik görünür). -->
+<!--
+  İskelet: tek başına yer tutucu şekiller ve içeriği saran kullanım.
+  Gösterim kuralı: iskelet yalnız yükleme `delay` (150 ms) süresini aşarsa görünür, görünürse en az
+  `minDuration` (300 ms) kalır; içerik yükseklik canlandırılmadan, yalnız opacity ile belirir.
+  "Hızlı" düğmesi 100 ms'lik yüklemeyi gösterir: iskelet hiç çizilmez.
+-->
 <template>
   <div class="flex max-w-md flex-col gap-6">
     <div class="flex items-center gap-3">
@@ -20,9 +25,14 @@
 
     <ui-skeleton variant="block" />
 
+    <ui-skeleton :lines="3" />
+
     <ui-card title="Son siparişler">
       <template #append>
-        <ui-button variant="outline" color="secondary" size="sm" @click="reload">Yenile</ui-button>
+        <div class="flex gap-2">
+          <ui-button variant="outline" color="secondary" size="sm" @click="reload(100)">Hızlı</ui-button>
+          <ui-button variant="outline" color="secondary" size="sm" @click="reload(1500)">Yavaş</ui-button>
+        </div>
       </template>
       <ui-skeleton :loading="loading">
         <ui-list>
@@ -43,11 +53,11 @@ export default {
     }
   },
   methods: {
-    reload() {
+    reload(ms) {
       this.loading = true
       setTimeout(() => {
         this.loading = false
-      }, 1500)
+      }, ms)
     },
   },
 }

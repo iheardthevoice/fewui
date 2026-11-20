@@ -111,6 +111,7 @@ Registered globally as `<ui-dialog>` by `app.use(UiLib)`. Local import: `import 
 | `guard-unsaved` | `boolean` |  | Kaydedilmemiş değişiklik koruması: form kirliyken Escape / arka plan / X / sheet sürükleme kapatmadan önce onay ister. Verilmezse tema varsayılanı `dialogGuardUnsaved` (false). Programatik kapanış (`open=false`) hiçbir zaman sormaz. |
 | `dirty` | `boolean` |  | Kirli durumu elle belirler; verilmezse içerideki fewui form kontrollerinin kullanıcı değişiklikleri izlenir. |
 | `submit-on-enter` | `boolean` |  | Tek satırlı metin alanında Enter (ve her yerde Cmd/Ctrl+Enter) footer'daki birincil eylemi tetikler: `data-ui-dialog-primary` işaretli ilk etkin düğme, yoksa son etkin solid primary `ui-button`. Verilmezse tema varsayılanı `dialogSubmitOnEnter` (false). |
+| `open-hold` | `number` | `300` | Açılışta içerideki yüklemeleri (`ui-skeleton`) en fazla bu kadar (ms) bekle: karartma hemen gelir, panel içerik hazır olunca kayar — boş açılıp sonra dolma / büyüme olmaz. `0` beklemez. |
 
 ## Events
 

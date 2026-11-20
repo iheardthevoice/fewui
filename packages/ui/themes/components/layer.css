@@ -2215,6 +2215,11 @@
     @apply h-9 rounded-full;
   }
 
+  /** Kutu iskelet gecikmesi: yer ayrılı, görünmez — hızlı yüklemede hiç çizilmez. */
+  .ui-skeleton--pending {
+    @apply invisible;
+  }
+
   /** Skeleton — varsayılan satır placeholder */
   .ui-skeleton-default-rows {
     @apply flex w-full flex-col gap-3 py-0.5;
@@ -2250,16 +2255,8 @@
     @apply flex min-h-0 min-w-0 flex-1 flex-col;
   }
 
-  .ui-skeleton-host--height-active {
-    @apply overflow-hidden [transition:height_0.32s_cubic-bezier(0.22,_1,_0.36,_1)];
-  }
-
-  .ui-skeleton-host--height-locked {
-    @apply overflow-hidden;
-  }
-
   .ui-skeleton-placeholder {
-    @apply w-full min-w-0 transition-opacity duration-[320ms] ease-[cubic-bezier(0.22,1,0.36,1)];
+    @apply w-full min-w-0 transition-opacity duration-200 ease-out;
   }
 
   .ui-skeleton-placeholder--flow {
@@ -2272,6 +2269,11 @@
 
   .ui-skeleton-placeholder--fill {
     @apply bottom-0 min-h-full;
+  }
+
+  /** Gecikme süresi: iskelet yer ayırır ama görünmez — hızlı yanıtta hiç çizilmez. */
+  .ui-skeleton-placeholder--hidden {
+    @apply opacity-0 transition-none;
   }
 
   .ui-skeleton-placeholder--fade-out {
@@ -2287,17 +2289,14 @@
     @apply pointer-events-none absolute left-0 top-0 z-0 w-full overflow-visible opacity-0 h-auto;
   }
 
-  /** Refetch: içerik yerinde kalır (yükseklik kilitli); üstte iskelet */
+  /** Yeniden yükleme, iskelet görünürken: içerik yerinde (yükseklik korunur), görünmez */
   .ui-skeleton-content-wrap--loading-hold {
     @apply pointer-events-none relative z-0 w-full opacity-0;
   }
 
+  /** İçerik yerinde belirir — yükseklik canlandırılmaz, yalnız opacity. */
   .ui-skeleton-content-wrap--revealing {
-    @apply relative z-[1] opacity-0 [transform:translateY(0.5rem)] [transition:opacity_0.32s_cubic-bezier(0.22,_1,_0.36,_1),_transform_0.32s_cubic-bezier(0.22,_1,_0.36,_1)];
-  }
-
-  .ui-skeleton-content-wrap--revealing-visible {
-    @apply opacity-100 [transform:translateY(0)];
+    @apply relative z-[1] [animation:ui-skeleton-content-in_0.2s_ease-out_both];
   }
 
   .ui-skeleton-content-wrap--ready {
@@ -2311,7 +2310,6 @@
   @media (prefers-reduced-motion: reduce) {
     .ui-skeleton-placeholder,
     .ui-skeleton-content-wrap--revealing,
-    .ui-skeleton-host--height-active,
     .ui-skeleton-content {
       @apply [transition-duration:0.01ms];
     }
@@ -6625,5 +6623,14 @@
     .ui-stepper-pill {
       @apply transition-none;
     }
+  }
+}
+
+@keyframes ui-skeleton-content-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

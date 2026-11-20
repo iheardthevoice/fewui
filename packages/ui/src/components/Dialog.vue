@@ -174,6 +174,7 @@ import { uiPortalMixin } from '../theme/ui-portal.js'
 import { OVERLAY_BASE_Z, pushOverlay, releaseOverlay, isTopModalOverlay } from '../theme/overlay-stack.js'
 import { shouldContainFocus } from '../utils/focus-guard.js'
 import { UI_FORM_DIRTY_KEY } from '../utils/form-dirty.js'
+import { UI_LOADING_GATE_KEY, createLoadingGate } from '../utils/loading-gate.js'
 import { onToastPush } from '../toast-queue.js'
 import { requestConfirm, hasConfirmHost } from '../confirm-state.js'
 
@@ -209,6 +210,9 @@ const MAX_WIDTH_CLASS = {
 
 /** Alt sayfa bu kadar aşağı sürüklenip bırakılırsa kapanır (px). */
 const SHEET_DISMISS_PX = 72
+
+/** Açılışta içerik yüklemesini bekleme üst sınırı (ms). */
+const OPEN_HOLD_MS = 300
 
 export default {
   name: 'Dialog',
@@ -372,11 +376,24 @@ export default {
       type: Boolean,
       default: undefined,
     },
+    /**
+     * Açılışta içerideki yüklemeleri (`ui-skeleton`) en fazla bu kadar (ms) bekle: karartma hemen gelir,
+     * panel içerik hazır olunca kayar — boş açılıp sonra dolma / büyüme olmaz. `0` beklemez.
+     */
+    openHold: {
+      type: Number,
+      default: OPEN_HOLD_MS,
+    },
   },
   emits: ['update:open', 'after-leave', 'back'],
   provide() {
     // İç içe dialogda içteki kontroller yalnız en yakın (içteki) dialogu işaretler.
-    return { [UI_FORM_DIRTY_KEY]: () => this.markDirty() }
+    // Yükleme kapısı: içteki `ui-skeleton` beklemedeyken panel açılışı kısa süre tutulur.
+    if (!this.loadingGate) this.loadingGate = createLoadingGate()
+    return {
+      [UI_FORM_DIRTY_KEY]: () => this.markDirty(),
+      [UI_LOADING_GATE_KEY]: this.loadingGate,
+    }
   },
   data() {
     const id = nextDialogId()
@@ -781,12 +798,18 @@ export default {
         }
       }
       void el.offsetHeight
+      // Karartma hemen gelir (dokunuşa anında yanıt); panel içerideki yüklemeler bitince kayar.
       this.runOnNextFrames(() => {
         if (!this.layerMounted || this.layerClosing) return
         if (backdrop) {
           backdrop.style.transition = `opacity ${backdropDuration} ${easing}`
           backdrop.style.opacity = '1'
         }
+      })
+      const gate = this.loadingGate
+      const hold = gate && this.openHold > 0 ? gate.whenSettled(this.openHold) : Promise.resolve()
+      void hold.then(() => this.runOnNextFrames(() => {
+        if (!this.layerMounted || this.layerClosing) return
         if (panel) {
           if (mobile) {
             panel.style.transition = `transform ${duration} ${easing}`
@@ -803,7 +826,7 @@ export default {
           this.finishLayerMotion(el)
           this.onOverlayAfterEnter()
         })
-      })
+      }))
     },
     /**
      * Kapanışta klavye inset / max-height / footer padding o anki değerde donsun.

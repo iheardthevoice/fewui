@@ -2056,6 +2056,13 @@
         "required": false,
         "default": "",
         "description": "Tek satırlı metin alanında Enter (ve her yerde Cmd/Ctrl+Enter) footer'daki birincil eylemi tetikler: `data-ui-dialog-primary` işaretli ilk etkin düğme, yoksa son etkin solid primary `ui-button`. Verilmezse tema varsayılanı `dialogSubmitOnEnter` (false)."
+      },
+      {
+        "name": "openHold",
+        "type": "number",
+        "required": false,
+        "default": "300",
+        "description": "Açılışta içerideki yüklemeleri (`ui-skeleton`) en fazla bu kadar (ms) bekle: karartma hemen gelir, panel içerik hazır olunca kayar — boş açılıp sonra dolma / büyüme olmaz. `0` beklemez."
       }
     ],
     "events": [
@@ -5661,6 +5668,27 @@
         "required": false,
         "default": "\"md\"",
         "description": "Yalnızca `variant=\"line\"` için: sm (16px), md (20px), lg (40px, liste/tablo satırı)."
+      },
+      {
+        "name": "lines",
+        "type": "number",
+        "required": false,
+        "default": "1",
+        "description": "Kutu modu: alt alta bu kadar satır çizer (son satırlar kısalır) — metin bloğu yer tutucusu."
+      },
+      {
+        "name": "delay",
+        "type": "number",
+        "required": false,
+        "default": "150",
+        "description": "Sarmalayıcı mod: iskelet ancak yükleme bu süreden (ms) uzun sürerse görünür. Hızlı yanıtta iskelet hiç çizilmez; yer yine de ayrılır (görünmez iskelet), içerik zıplamaz."
+      },
+      {
+        "name": "minDuration",
+        "type": "number",
+        "required": false,
+        "default": "300",
+        "description": "Sarmalayıcı mod: iskelet bir kez göründüyse en az bu süre (ms) kalır — yanıp sönmez."
       }
     ],
     "events": [],

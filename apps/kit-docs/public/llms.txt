@@ -118,7 +118,7 @@ Rules that apply everywhere: never put appearance classes on a `ui-*` component 
 - [ui-alert](https://fewui-kit.pages.dev/kit/components/ui-alert.html): props color, title, description, icon, showIcon, live, dismissible, banner, soft, actionsEnd
 - [ui-empty](https://fewui-kit.pages.dev/kit/components/ui-empty.html): props icon, title, description, iconType, size
 - [ui-progress](https://fewui-kit.pages.dev/kit/components/ui-progress.html): props type, value, max, size, variant, indeterminate, presentational, ariaLabel, ariaValuetext
-- [ui-skeleton](https://fewui-kit.pages.dev/kit/components/ui-skeleton.html): props variant, loading, size
+- [ui-skeleton](https://fewui-kit.pages.dev/kit/components/ui-skeleton.html): props variant, loading, size, lines, delay, minDuration
 - [ui-toast](https://fewui-kit.pages.dev/kit/components/ui-toast.html)
 
 ## Layout

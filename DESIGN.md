@@ -189,6 +189,7 @@ Kart gövdesi (`ui-card-body`) varsayılan olarak bu tabanı kullanır.
 
 - **Progress:** `type="circle" | "bar"` — şifre gücü, slider izi vb.
 - **Skeleton:** Zemin opak gri değil, ön plan renginin saydam tonu (`--ui-skeleton-bg` = `--ui-skeleton-tint` %8, varsayılan `--foreground`). Altındaki yüzeyi koyulaştırır / açar; renkli kartta gri yama olmaz. Açık yazılı renkli yüzeyde `--ui-skeleton-tint: currentColor`, daha belirgin iskelet için `--ui-skeleton-strength` (ör. 12%). Skeleton'a `class` ile renk verilmez.
+- **Yükleme gösterimi (tek kural):** İskelet yalnız yükleme `delay` (150 ms) süresini aşarsa görünür; hızlı yanıtta hiç çizilmez ama yeri ayrılır (görünmez), içerik zıplamaz. Görünen iskelet en az `minDuration` (300 ms) kalır. İçerik **yükseklik canlandırılmadan**, yalnız opacity ile belirir. Yeniden yüklemede önceki içerik yerinde kalır. Metin bloğu için `lines` ile çok satırlı kutu. `ui-dialog` açılırken içindeki bekleyen iskeletleri en fazla `openHold` (300 ms) bekler: karartma hemen gelir, panel içerikle birlikte kayar.
 - **Slider:** Şeffaf native track; dolgu `Progress` bar ile.
 - **Stepper:** `default` ve `pills` (bu “pills” **Tabs** değil).
 - **Dialog / Toast / Confirm:** Programatik API’ler (`useDialog`, `useConfirm`, `useToast`); kökte ilgili portal bileşenleri gerekir.
