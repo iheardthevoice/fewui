@@ -38,6 +38,55 @@
     >
       <ui-switch v-model="reservations" />
     </ui-form-row>
+
+    <!-- variant="inset": iOS form — gruplu kartın satırı; etiket solda, kutusuz değer sağda. Etiketsiz + primary = büyük ana alan. -->
+    <ui-list-group>
+      <ui-form-row
+        variant="inset"
+        primary
+      >
+        <ui-input
+          v-model="productName"
+          aria-label="Ürün adı"
+          placeholder="Örn: Adana kebap"
+        />
+      </ui-form-row>
+    </ui-list-group>
+    <ui-list-group footer="KDV restoran ayarındaki oranla kaydedilir.">
+      <ui-form-row
+        variant="inset"
+        label="Fiyat"
+      >
+        <ui-price-input v-model="price" />
+      </ui-form-row>
+      <ui-form-row
+        variant="inset"
+        label="Birim"
+      >
+        <ui-select
+          v-model="unit"
+          :options="unitOptions"
+          :match-trigger-width="false"
+        />
+      </ui-form-row>
+      <ui-form-row
+        variant="inset"
+        label="Öne çıkan ürün"
+      >
+        <ui-switch v-model="featured" />
+      </ui-form-row>
+      <ui-form-row
+        variant="inset"
+        label="Açıklama"
+      >
+        <ui-input
+          v-model="description"
+          multiline
+          :rows="3"
+          placeholder="Lezzetini, porsiyonunu anlatın…"
+        />
+      </ui-form-row>
+    </ui-list-group>
   </form>
 </template>
 
@@ -50,6 +99,15 @@ export default {
       slug: 'lokanta-moda',
       email: 'deniz@',
       reservations: true,
+      productName: '',
+      price: 180,
+      unit: 'piece',
+      unitOptions: [
+        { value: 'piece', label: 'Adet' },
+        { value: 'portion', label: 'Porsiyon' },
+      ],
+      featured: false,
+      description: '',
     }
   },
 }

@@ -1,0 +1,23 @@
+/** Sayı artırma / azaltma (`ui-number-stepper`): iki kare düğme + ortada tabular değer. */
+@layer components {
+  .ui-number-stepper {
+    @apply inline-flex shrink-0 items-center gap-2;
+  }
+
+  .ui-number-stepper-value {
+    @apply min-w-[2ch] text-center tabular-nums text-foreground;
+  }
+
+  .ui-number-stepper--sm .ui-number-stepper-value {
+    @apply text-sm leading-5;
+  }
+
+  .ui-number-stepper--md .ui-number-stepper-value,
+  .ui-number-stepper--lg .ui-number-stepper-value {
+    @apply text-base leading-6;
+  }
+
+  .ui-number-stepper--disabled .ui-number-stepper-value {
+    @apply opacity-50;
+  }
+}

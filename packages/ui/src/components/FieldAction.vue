@@ -9,11 +9,14 @@
   >
     <ui-popover
       v-if="isPopover"
+      :presentation="presentation"
       v-model:open="resolvedOpen"
       :placement="placement"
       :width="popoverWidth"
       :disabled="disabled"
       :mobile-centered="mobileCentered"
+      :title="title || actionName || ''"
+      :description="description || ''"
     >
       <template #trigger="{ open, toggle }">
         <slot
@@ -223,6 +226,15 @@ export default {
   name: 'FieldAction',
   inheritAttrs: false,
   props: {
+    /**
+     * Açılış biçimi (`ui-popover` `presentation`): `auto` telefonda dialog, masaüstünde panel;
+     * `popover` her zaman panel; `dialog` her zaman dialog.
+     */
+    presentation: {
+      type: String,
+      default: 'auto',
+      validator: (v) => ['auto', 'popover', 'dialog'].includes(v),
+    },
     /** `v-model:open` */
     open: {
       type: Boolean,

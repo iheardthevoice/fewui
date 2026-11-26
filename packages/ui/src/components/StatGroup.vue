@@ -13,7 +13,7 @@
 import { cn } from '../utils/cn.js'
 
 const COLUMNS = [1, 2, 3, 4]
-const MIN_COLUMNS = [1, 2]
+const MIN_COLUMNS = [1, 2, 3]
 
 /**
  * `ui-stat` ızgarası — mobilde tek sütun (`min-columns="2"` ile iki), `sm` üstünde 2, geniş ekranda `columns` sütun.

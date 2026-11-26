@@ -9,6 +9,7 @@
       :value="hiddenFieldValue"
     >
     <ui-popover
+      :presentation="presentation"
       v-model:open="menuOpen"
       placement="bottom-start"
       :match-trigger-width="matchTriggerWidth && !$slots.trigger"
@@ -127,9 +128,10 @@
           </component>
         </slot>
       </template>
+      <!-- Arama kutusu `#toolbar`: dialog sunumunda dialog'un araç çubuğuna gider (başlık ve X korunur). -->
       <template
         v-if="showPopoverHeader"
-        #header="{ close }"
+        #toolbar="{ close }"
       >
         <input
           ref="filterInput"
@@ -143,7 +145,7 @@
           :aria-activedescendant="activeOptionId"
           :aria-controls="listboxId"
           autocomplete="off"
-          @mousedown.prevent
+          @mousedown="onFilterMousedown"
           @keydown="onFilterKeydown($event, close)"
         >
       </template>
@@ -268,6 +270,15 @@ export default {
   components: { Tag },
   inheritAttrs: false,
   props: {
+    /**
+     * Açılış biçimi (`ui-popover` `presentation`): `auto` telefonda dialog, masaüstünde panel;
+     * `popover` her zaman panel; `dialog` her zaman dialog.
+     */
+    presentation: {
+      type: String,
+      default: 'auto',
+      validator: (v) => ['auto', 'popover', 'dialog'].includes(v),
+    },
     variant: {
       type: String,
       default: 'field',
@@ -629,6 +640,10 @@ export default {
     },
   },
   methods: {
+    /** Odaktaki arama kutusuna tekrar tıklama odağı kaçırmasın; ilk dokunuşta odak alınabilsin (dialog sunumu). */
+    onFilterMousedown(event) {
+      if (document.activeElement === event.target) event.preventDefault()
+    },
     /**
      * Tetikleyici öznitelikleri. Tek seçim: `button` combobox tetikleyicisi. Çoklu seçim: kapsayıcı
      * `div` — içinde etiket silme düğmeleri ve arama input'u olduğundan `button` içinde iç içe

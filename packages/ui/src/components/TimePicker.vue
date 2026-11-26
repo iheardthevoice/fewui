@@ -102,6 +102,7 @@
 
     <ui-popover
       v-else
+      :presentation="presentation"
       v-model:open="menuOpen"
       placement="bottom-start"
       :match-trigger-width="false"
@@ -251,6 +252,15 @@ export default {
   mixins: [uiDefaultsMixin, formDirtyMixin],
   inheritAttrs: false,
   props: {
+    /**
+     * Açılış biçimi (`ui-popover` `presentation`): `auto` telefonda dialog, masaüstünde panel;
+     * `popover` her zaman panel; `dialog` her zaman dialog.
+     */
+    presentation: {
+      type: String,
+      default: 'auto',
+      validator: (v) => ['auto', 'popover', 'dialog'].includes(v),
+    },
     /** `HH:mm` (24 saat) */
     modelValue: {
       type: String,

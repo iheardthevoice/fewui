@@ -22,7 +22,7 @@
 
     <div
       v-else-if="hasFields"
-      class="ui-section-fields"
+      :class="['ui-section-fields', divided ? 'ui-section-fields--divided' : '']"
     >
       <slot />
     </div>
@@ -56,6 +56,14 @@ export default {
     icon: {
       type: String,
       default: '',
+    },
+    /**
+     * Geniş yerleşimde alanlar arasına ayraç (etiket solda, kontrol sağda düzeni). Dar ekranda
+     * satırlar dikeye döndüğü için ayraç çizilmez. Alanlar arasına elle `ui-divider` koymak yerine kullanılır.
+     */
+    divided: {
+      type: Boolean,
+      default: false,
     },
     /** `false`: üstteki sekme / segment konumu zaten gösteriyorsa etiketli ayırıcı çizilmez */
     showDivider: {

@@ -1,0 +1,55 @@
+/**
+ * Başlık menüsü (`ui-title-menu`): tetikleyici başlığın tipografisini devralır (h1 / dialog başlığı içinde).
+ * Durum ikonu küçük ve tonlu; ⌄ soluk — başlığın kendisi öne çıkar.
+ */
+@layer components {
+  .ui-title-menu {
+    @apply inline-flex min-w-0 max-w-full;
+  }
+
+  /**
+   * Genişlik sınırı, genişliği belli dış kapsayıcıda (başlık). İçeriğe göre boyutlanan tetikleyicide
+   * yüzde sınır döngüsel hesaplanıp başlığı boş yer varken kesiyordu ("Kat…").
+   */
+  .ui-title-menu .ui-popover,
+  .ui-title-menu .ui-popover-trigger {
+    @apply min-w-0 max-w-full;
+    /* Popover kökündeki `shrink-0` yardımcı sınıfı başlığı dar alanda taşırıyordu. */
+    flex-shrink: 1 !important;
+  }
+
+  .ui-title-menu-trigger {
+    @apply m-0 -mx-1.5 inline-flex min-w-0 cursor-pointer items-center gap-1.5 rounded-lg border-0 bg-transparent px-1.5 text-start outline-none transition-colors duration-150;
+    font: inherit;
+    color: inherit;
+    letter-spacing: inherit;
+  }
+
+  .ui-title-menu-trigger:hover,
+  .ui-title-menu-trigger[aria-expanded='true'] {
+    @apply [background-color:var(--ui-hover)];
+  }
+
+  .ui-title-menu-trigger:focus-visible {
+    @apply [box-shadow:0_0_0_2px_var(--ui-focus-ring)];
+  }
+
+  .ui-title-menu-text {
+    @apply min-w-0 truncate;
+  }
+
+  .ui-title-menu-suffix {
+    @apply shrink-0;
+  }
+
+  .ui-title-menu-suffix--primary { @apply [color:var(--primary)]; }
+  .ui-title-menu-suffix--secondary { @apply [color:var(--muted-foreground)]; }
+  .ui-title-menu-suffix--success { @apply [color:var(--success)]; }
+  .ui-title-menu-suffix--warning { @apply [color:var(--warning)]; }
+  .ui-title-menu-suffix--info { @apply [color:var(--info)]; }
+  .ui-title-menu-suffix--danger { @apply [color:var(--danger)]; }
+
+  .ui-title-menu-chevron {
+    @apply shrink-0 text-muted-foreground opacity-70;
+  }
+}

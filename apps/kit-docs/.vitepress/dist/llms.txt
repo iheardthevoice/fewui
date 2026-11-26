@@ -1,0 +1,134 @@
+# fewui
+
+> Vue 3 design system: 100 globally registered `ui-*` components, theme packages, Tailwind v4 component styles. Plain JavaScript (Options API) with generated TypeScript declarations.
+
+Rules that apply everywhere: never put appearance classes on a `ui-*` component (use props); `color` is the tone (primary, secondary, success, warning, info, danger) and `variant` is the visual style; visibility is `open` + `update:open`; form controls go inside `ui-form-row`.
+
+## Guide
+
+- [Getting started](https://fewui-kit.pages.dev/kit/getting-started.html): install, CSS setup, plugin registration
+- [Theming](https://fewui-kit.pages.dev/kit/theming.html): theme packages, tokens, scoped preview
+- [Localization & RTL](https://fewui-kit.pages.dev/kit/localization.html): languages, dates, week start, right-to-left
+- [Accessibility](https://fewui-kit.pages.dev/kit/accessibility.html): guarantees and responsibilities
+- [TypeScript & tooling](https://fewui-kit.pages.dev/kit/tooling.html): types, components.json, checks
+
+## Actions
+
+- [ui-action-group](https://fewui-kit.pages.dev/kit/components/ui-action-group.html): props orientation, joined, divided, grow, ariaLabel
+- [ui-ai-button](https://fewui-kit.pages.dev/kit/components/ui-ai-button.html): props prefixIcon, size, disabled, loading, loadingText, block
+- [ui-button](https://fewui-kit.pages.dev/kit/components/ui-button.html): props to, nativeType, variant, color, size, prefixIcon, suffixIcon, loading, loadingText, cubed, stack, rounded
+- [ui-chip-group](https://fewui-kit.pages.dev/kit/components/ui-chip-group.html): props modelValue, options, multiple, clearable, size, scrollable, disabled, ariaLabel
+- [ui-filter-chip](https://fewui-kit.pages.dev/kit/components/ui-filter-chip.html): props icon, emptyLabel, valueLabel, empty, active, clearable, disabled, ariaLabel, ariaExpanded, ariaHaspopup, suffixIcon, size
+- [ui-segment](https://fewui-kit.pages.dev/kit/components/ui-segment.html): props value, label, icon, iconType, disabled, to
+- [ui-segment-group](https://fewui-kit.pages.dev/kit/components/ui-segment-group.html): props modelValue, size, direction, iconOnly, block, scrollable, animated, navigation, ariaLabel
+
+## Forms
+
+- [ui-checkbox](https://fewui-kit.pages.dev/kit/components/ui-checkbox.html): props value, modelValue, label, description, highlight, size, presentational, indeterminate
+- [ui-checkbox-group](https://fewui-kit.pages.dev/kit/components/ui-checkbox-group.html): props modelValue, variant, orientation, ariaLabel
+- [ui-color-picker](https://fewui-kit.pages.dev/kit/components/ui-color-picker.html): props modelValue, disabled, triggerPlaceholder, popoverTitle, clearLabel, customColorLabel, block, options, showCustom, showClear
+- [ui-currency-input](https://fewui-kit.pages.dev/kit/components/ui-currency-input.html): props modelValue, currency, locale, size, disabled, readonly, placeholder, name, id, autocomplete, ariaDescribedby
+- [ui-date-picker](https://fewui-kit.pages.dev/kit/components/ui-date-picker.html): props weekStart, modelValue, placeholder, disabled, block, embedded, showQuick, id, min, todayLabel, yesterdayLabel, tomorrowLabel
+- [ui-date-range-picker](https://fewui-kit.pages.dev/kit/components/ui-date-range-picker.html): props weekStart, modelValue, placement, placeholder, disabled, id, min, max, presets, open, showTrigger, anchor
+- [ui-field-action](https://fewui-kit.pages.dev/kit/components/ui-field-action.html): props open, title, description, actionName, mode, value, prefixIcon, suffixIcon, iconOnly, clearable, disabled, size
+- [ui-form-row](https://fewui-kit.pages.dev/kit/components/ui-form-row.html): props label, description, direction, stackOnMobile, variant, id, error, primary
+- [ui-icon-picker](https://fewui-kit.pages.dev/kit/components/ui-icon-picker.html): props modelValue, icons, iconType, disabled, triggerPlaceholder, popoverTitle, clearLabel, searchPlaceholder, noResultsLabel, maxResults, panelWidth, block
+- [ui-input](https://fewui-kit.pages.dev/kit/components/ui-input.html): props variant, size, modelValue, type, multiline, rows, prefixIcon, suffixIcon, disabled, readonly, placeholder, name
+- [ui-password](https://fewui-kit.pages.dev/kit/components/ui-password.html): props size, modelValue, disabled, readonly, placeholder, name, id, autocomplete, maxlength, showStrength
+- [ui-phone](https://fewui-kit.pages.dev/kit/components/ui-phone.html): props country, number, countries, size, disabled, readonly, placeholder, numberName, id, autocomplete, numberMaxlength, countryAriaLabel
+- [ui-pin](https://fewui-kit.pages.dev/kit/components/ui-pin.html): props modelValue, length, type, disabled, readonly, mask, autocomplete, ariaLabel
+- [ui-price-input](https://fewui-kit.pages.dev/kit/components/ui-price-input.html): props modelValue, currency, format, locale
+- [ui-radio](https://fewui-kit.pages.dev/kit/components/ui-radio.html): props value, label, description, highlight
+- [ui-radio-group](https://fewui-kit.pages.dev/kit/components/ui-radio-group.html): props modelValue, variant, orientation, columns, size, ariaLabel
+- [ui-select](https://fewui-kit.pages.dev/kit/components/ui-select.html): props variant, size, modelValue, multiple, options, disabled, loading, placeholder, clearable, filterable, filterPlaceholder, prefixIcon
+- [ui-slider](https://fewui-kit.pages.dev/kit/components/ui-slider.html): props modelValue, range, minDistance, formatValue, min, max, step, label, valueText, minLabel, maxLabel, disabled
+- [ui-switch](https://fewui-kit.pages.dev/kit/components/ui-switch.html): props modelValue, disabled, id, ariaDescribedby
+- [ui-time-picker](https://fewui-kit.pages.dev/kit/components/ui-time-picker.html): props modelValue, stepMinutes, placeholder, disabled, embedded, id, popoverWidth
+
+## Overlays
+
+- [ui-command](https://fewui-kit.pages.dev/kit/components/ui-command.html): props open, inline, items, groups, query, placeholder, emptyText, loading, filter, hotkey
+- [ui-confirm-dialog](https://fewui-kit.pages.dev/kit/components/ui-confirm-dialog.html)
+- [ui-context-menu](https://fewui-kit.pages.dev/kit/components/ui-context-menu.html): props open, items, disabled
+- [ui-dialog](https://fewui-kit.pages.dev/kit/components/ui-dialog.html): props open, closeOnBackdrop, closeOnEscape, maxWidth, border, borderType, title, description, icon, iconType, showClose, closeLabel
+- [ui-dropdown](https://fewui-kit.pages.dev/kit/components/ui-dropdown.html): props open, placement, matchTriggerWidth, block, inheritLayout, closeOnOutsideClick, closeOnEscape, outsideClickIgnoreSelector, items
+- [ui-guidance](https://fewui-kit.pages.dev/kit/components/ui-guidance.html): props mode, open, icon, iconType, title, description, goLabel, closeLabel, showGo, showClose, showFooterClose, placement
+- [ui-hover-card](https://fewui-kit.pages.dev/kit/components/ui-hover-card.html): props open, openDelay, closeDelay, placement, width, disabled, ariaLabel
+- [ui-intro](https://fewui-kit.pages.dev/kit/components/ui-intro.html): props open, modelValue, steps, overlay, showSkip, skipLabel, nextLabel, finishLabel, ariaLabel
+- [ui-menubar](https://fewui-kit.pages.dev/kit/components/ui-menubar.html): props menus, size, ariaLabel
+- [ui-popover](https://fewui-kit.pages.dev/kit/components/ui-popover.html): props open, placement, matchTriggerWidth, width, disabled, anchor, closeOnOutsideClick, closeOnEscape, outsideClickIgnoreSelector, keepOpenOnAncestorPopoverClick, alignSelectedOptionToTrigger, block
+- [ui-sheet](https://fewui-kit.pages.dev/kit/components/ui-sheet.html): props open, side, overlay, closeOnBackdrop, closeOnEscape, size, title, description, icon, iconType, showClose, closeLabel
+- [ui-tooltip](https://fewui-kit.pages.dev/kit/components/ui-tooltip.html): props label, placement, showDelay, hideDelay, disabled
+
+## Navigation
+
+- [ui-breadcrumb](https://fewui-kit.pages.dev/kit/components/ui-breadcrumb.html): props items, maxItems, ariaLabel
+- [ui-breadcrumb-item](https://fewui-kit.pages.dev/kit/components/ui-breadcrumb-item.html): props to, href, label, icon, current
+- [ui-menu](https://fewui-kit.pages.dev/kit/components/ui-menu.html): props width, collapsed
+- [ui-menu-group](https://fewui-kit.pages.dev/kit/components/ui-menu-group.html): props label
+- [ui-menu-item](https://fewui-kit.pages.dev/kit/components/ui-menu-item.html): props to, prefixIcon, suffixIcon, disabled, loading, active
+- [ui-menu-nav](https://fewui-kit.pages.dev/kit/components/ui-menu-nav.html): props ariaLabel
+- [ui-pagination](https://fewui-kit.pages.dev/kit/components/ui-pagination.html): props modelValue, total, pageSize, pageCount, siblingCount, showEdges, size, disabled, ariaLabel
+- [ui-sidebar-item](https://fewui-kit.pages.dev/kit/components/ui-sidebar-item.html): props to, nativeType, size, prefixIcon, suffixIcon, cubed, block, disabled, active, textAlign
+- [ui-step](https://fewui-kit.pages.dev/kit/components/ui-step.html): props active, autofocus
+- [ui-stepper](https://fewui-kit.pages.dev/kit/components/ui-stepper.html): props modelValue, steps, variant, direction, interactive, showLabel, ariaLabel
+- [ui-tab-list](https://fewui-kit.pages.dev/kit/components/ui-tab-list.html): props ariaLabel
+- [ui-tab-panel](https://fewui-kit.pages.dev/kit/components/ui-tab-panel.html): props value
+- [ui-tab-trigger](https://fewui-kit.pages.dev/kit/components/ui-tab-trigger.html): props value, label, icon, iconType, disabled, badge, active, popup, expanded
+- [ui-table-pagination](https://fewui-kit.pages.dev/kit/components/ui-table-pagination.html): props currentPage, lastPage, metaText, pageLabel, prevAriaLabel, nextAriaLabel
+- [ui-tabs](https://fewui-kit.pages.dev/kit/components/ui-tabs.html): props modelValue, variant, orientation, fit, size, transparent, scrollable, inlineControls, nativeChrome, iconOnly, animated, indicatorKey
+
+## Data display
+
+- [ui-accordion](https://fewui-kit.pages.dev/kit/components/ui-accordion.html): props modelValue, defaultValue, multiple, collapsible, variant, size, headingLevel
+- [ui-accordion-item](https://fewui-kit.pages.dev/kit/components/ui-accordion-item.html): props value, title, description, icon, disabled
+- [ui-action-card](https://fewui-kit.pages.dev/kit/components/ui-action-card.html): props title, description, icon, iconType, selected, disabled, showTrailing
+- [ui-action-card-list](https://fewui-kit.pages.dev/kit/components/ui-action-card-list.html): props ariaLabel, maxHeight
+- [ui-avatar](https://fewui-kit.pages.dev/kit/components/ui-avatar.html): props src, name, alt, fallback, size, shape, ring, interactive
+- [ui-avatar-group](https://fewui-kit.pages.dev/kit/components/ui-avatar-group.html): props size, overflowCount, ariaLabel
+- [ui-badge](https://fewui-kit.pages.dev/kit/components/ui-badge.html): props color, variant, size, truncate, maxWidth, tooltip, hex, prefixIcon, suffixIcon, clickable
+- [ui-card](https://fewui-kit.pages.dev/kit/components/ui-card.html): props border, borderType, title, description, icon, iconType, iconColor, iconHex, iconVariant, row, headerDivider, removePadding
+- [ui-chart](https://fewui-kit.pages.dev/kit/components/ui-chart.html): props type, data, categoryKey, series, stacked, height, showLegend, showGrid, showAxis, showTooltip, valueFormatter, ariaLabel
+- [ui-collapsible](https://fewui-kit.pages.dev/kit/components/ui-collapsible.html): props open, defaultOpen, disabled
+- [ui-field](https://fewui-kit.pages.dev/kit/components/ui-field.html): props title, subtitle, card, size, fill, icon, iconType, iconTone, iconTile
+- [ui-file](https://fewui-kit.pages.dev/kit/components/ui-file.html): props name, kind, size, icon, iconType, color, basenameOnly, hideLabel
+- [ui-icon](https://fewui-kit.pages.dev/kit/components/ui-icon.html): props name, type, size, showAccessibleName
+- [ui-icon-tile](https://fewui-kit.pages.dev/kit/components/ui-icon-tile.html): props icon, iconType, color, variant, hex, size, shape
+- [ui-kbd](https://fewui-kit.pages.dev/kit/components/ui-kbd.html): props keys, size
+- [ui-list](https://fewui-kit.pages.dev/kit/components/ui-list.html): props tag, variant, density
+- [ui-list-item](https://fewui-kit.pages.dev/kit/components/ui-list-item.html): props prefixIcon, prefixIconType, align, tag, title, description, value, icon, iconType, iconColor, iconHex, iconVariant
+- [ui-photo](https://fewui-kit.pages.dev/kit/components/ui-photo.html): props src, alt, favorite, aspect, size, interactive, preview, overflowLabel, galleryIndex
+- [ui-photos](https://fewui-kit.pages.dev/kit/components/ui-photos.html): props items, max, aspect, preview
+- [ui-price-display](https://fewui-kit.pages.dev/kit/components/ui-price-display.html): props label, value, size, valueSize, tone
+- [ui-price-display-group](https://fewui-kit.pages.dev/kit/components/ui-price-display-group.html): props size
+- [ui-price-display-row](https://fewui-kit.pages.dev/kit/components/ui-price-display-row.html): props label, value, valueSize, tone, divider, emphasis
+- [ui-price-text](https://fewui-kit.pages.dev/kit/components/ui-price-text.html): props value, size, tone, strike, truncate
+- [ui-stat](https://fewui-kit.pages.dev/kit/components/ui-stat.html): props title, value, icon, iconType, color, iconTile, change, changeText, changeLabel, invertTrend, variant, size
+- [ui-stat-group](https://fewui-kit.pages.dev/kit/components/ui-stat-group.html): props columns, minColumns, ariaLabel
+- [ui-table](https://fewui-kit.pages.dev/kit/components/ui-table.html)
+- [ui-table-body](https://fewui-kit.pages.dev/kit/components/ui-table-body.html)
+- [ui-table-cell](https://fewui-kit.pages.dev/kit/components/ui-table-cell.html): props colspan, align, tone, iconCol, empty
+- [ui-table-head](https://fewui-kit.pages.dev/kit/components/ui-table-head.html): props align, width, iconCol
+- [ui-table-header](https://fewui-kit.pages.dev/kit/components/ui-table-header.html): props sticky
+- [ui-table-row](https://fewui-kit.pages.dev/kit/components/ui-table-row.html): props hover, clickable, interactive, selected
+- [ui-tag](https://fewui-kit.pages.dev/kit/components/ui-tag.html): props color, variant, size, removable
+
+## Feedback
+
+- [ui-alert](https://fewui-kit.pages.dev/kit/components/ui-alert.html): props color, title, description, icon, showIcon, live, dismissible, banner, soft, actionsEnd
+- [ui-empty](https://fewui-kit.pages.dev/kit/components/ui-empty.html): props icon, title, description, iconType, size
+- [ui-progress](https://fewui-kit.pages.dev/kit/components/ui-progress.html): props type, value, max, size, variant, indeterminate, presentational, ariaLabel, ariaValuetext
+- [ui-skeleton](https://fewui-kit.pages.dev/kit/components/ui-skeleton.html): props variant, loading, size
+- [ui-toast](https://fewui-kit.pages.dev/kit/components/ui-toast.html)
+
+## Layout
+
+- [ui-divider](https://fewui-kit.pages.dev/kit/components/ui-divider.html): props title, icon, spacing, decorative
+- [ui-resizable-group](https://fewui-kit.pages.dev/kit/components/ui-resizable-group.html): props direction, modelValue, autoSaveId, keyboardStep
+- [ui-resizable-handle](https://fewui-kit.pages.dev/kit/components/ui-resizable-handle.html): props showGrip, disabled, ariaLabel
+- [ui-resizable-panel](https://fewui-kit.pages.dev/kit/components/ui-resizable-panel.html): props defaultSize, minSize, maxSize, collapsible, collapsedSize
+- [ui-scroll-area](https://fewui-kit.pages.dev/kit/components/ui-scroll-area.html): props orientation, maxHeight, fade, ariaLabel
+- [ui-section](https://fewui-kit.pages.dev/kit/components/ui-section.html): props title, description, icon, showDivider
+- [ui-selection-indicator](https://fewui-kit.pages.dev/kit/components/ui-selection-indicator.html): props selector
+- [ui-theme-provider](https://fewui-kit.pages.dev/kit/components/ui-theme-provider.html): props theme, mode, overrides, defaults, background, tag
+- [ui-toolbar](https://fewui-kit.pages.dev/kit/components/ui-toolbar.html): props direction, wrap, ariaLabel

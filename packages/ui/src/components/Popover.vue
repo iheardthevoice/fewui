@@ -15,8 +15,68 @@
         :trigger-attrs="triggerAttrs"
       />
     </div>
+    <!--
+      Dialog sunumu (`presentation="dialog"`, ya da `auto` iken telefonda): içerik gerçek `ui-dialog` ile açılır.
+      Slot adları iki sunumda aynıdır: `header` · `toolbar` · `actions` · varsayılan / `content` · `footer`.
+    -->
+    <ui-dialog
+      v-if="dialogActive"
+      :open="open"
+      :title="dialogTitle"
+      :description="description || undefined"
+      :max-width="dialogMaxWidth"
+      :initial-focus="false"
+      :aria-label="ariaLabel || dialogTitle || undefined"
+      @update:open="onDialogOpenChange"
+    >
+      <template
+        v-if="$slots.header && !title"
+        #header
+      >
+        <slot
+          name="header"
+          :close="close"
+        />
+      </template>
+      <template
+        v-if="$slots.actions"
+        #actions
+      >
+        <slot
+          name="actions"
+          :close="close"
+        />
+      </template>
+      <template
+        v-if="$slots.toolbar"
+        #toolbar
+      >
+        <slot
+          name="toolbar"
+          :close="close"
+        />
+      </template>
+      <div class="ui-popover-dialog-body min-w-0">
+        <slot
+          name="content"
+          :close="close"
+        >
+          <slot :close="close" />
+        </slot>
+      </div>
+      <template
+        v-if="$slots.footer"
+        #footer
+      >
+        <slot
+          name="footer"
+          :close="close"
+        />
+      </template>
+    </ui-dialog>
+
     <Teleport
-      v-if="portalReady"
+      v-else-if="portalReady"
       :to="portalTarget"
     >
       <Transition
@@ -57,16 +117,40 @@
             :id="panelId"
             role="dialog"
             tabindex="-1"
-            :aria-label="ariaLabel || undefined"
+            :aria-label="ariaLabel || title || undefined"
             @keydown="onPanelKeydown"
           >
             <div class="ui-popover-motion">
               <div
-                v-if="$slots.header"
+                v-if="$slots.header || $slots.actions"
                 class="ui-popover-header"
+                :class="{ 'ui-popover-header--with-actions': $slots.actions }"
+              >
+                <div
+                  v-if="$slots.header"
+                  class="ui-popover-header__main"
+                >
+                  <slot
+                    name="header"
+                    :close="close"
+                  />
+                </div>
+                <div
+                  v-if="$slots.actions"
+                  class="ui-popover-header__actions"
+                >
+                  <slot
+                    name="actions"
+                    :close="close"
+                  />
+                </div>
+              </div>
+              <div
+                v-if="$slots.toolbar"
+                class="ui-popover-toolbar"
               >
                 <slot
-                  name="header"
+                  name="toolbar"
                   :close="close"
                 />
               </div>
@@ -74,7 +158,9 @@
                 <slot
                   name="content"
                   :close="close"
-                />
+                >
+                  <slot :close="close" />
+                </slot>
               </div>
               <div
                 v-if="$slots.footer"
@@ -231,6 +317,36 @@ export default {
       type: Boolean,
       default: true,
     },
+    /**
+     * Açılış biçimi:
+     * `auto` (varsayılan) — telefonda (`mobileCentered` iken) gerçek `ui-dialog`, masaüstünde tetikleyiciye bağlı panel;
+     * `popover` — her zaman panel (telefonda ortalı panel);
+     * `dialog` — her zaman `ui-dialog`.
+     * Slotlar iki biçimde aynı adla çalışır: `header`, `toolbar`, `actions`, varsayılan / `content`, `footer`.
+     */
+    presentation: {
+      type: String,
+      default: 'auto',
+      validator: (v) => ['auto', 'popover', 'dialog'].includes(v),
+    },
+    /**
+     * Dialog başlığı (dialog sunumunda). Boşsa tetikleyiciden türetilir: `ui-form-row` etiketi,
+     * `ui-list-item` başlığı ya da `ariaLabel`. Verilirse dialog'un hazır başlığı `#header`'ın yerini alır.
+     */
+    title: {
+      type: String,
+      default: '',
+    },
+    /** Dialog açıklaması (dialog sunumunda başlığın altında). */
+    description: {
+      type: String,
+      default: '',
+    },
+    /** Dialog sunumunda genişlik (`ui-dialog` `max-width`). */
+    dialogMaxWidth: {
+      type: String,
+      default: 'sm',
+    },
     /** Panelin (`role="dialog"`) erişilebilir adı; metin i18n'den gelir. */
     ariaLabel: {
       type: String,
@@ -246,6 +362,10 @@ export default {
       rafId: 0,
       mobileCenteredActive: false,
       mobileCenteredLeaving: false,
+      /** Açılışta tetikleyiciden türetilen dialog başlığı */
+      derivedTitle: '',
+      /** Bu açılış dialog olarak mı çiziliyor (açılış anında çözülür; açıkken değişmez) */
+      dialogActive: false,
       /** Mobil backdrop — `open` ile senkron; leave süresi `motionDuration` ile zorunlu biter. */
       backdropVisible: false,
       portalReady: false,
@@ -270,6 +390,9 @@ export default {
     },
     popoverMobileCenteredAttr() {
       return this.mobileCenteredActive || this.mobileCenteredLeaving
+    },
+    dialogTitle() {
+      return this.title || this.derivedTitle || this.ariaLabel || ''
     },
     backdropStyle() {
       // Panel her zaman backdrop üstünde; aynı z-index iOS’ta tıklama sızıntısı yapar.
@@ -300,6 +423,12 @@ export default {
   watch: {
     open(v) {
       if (v) {
+        // Sunum açılış anında çözülür (ekran döndürülse de açık katman değişmez).
+        this.dialogActive = this.resolveDialogPresentation()
+        if (this.dialogActive) {
+          if (!this.title) this.derivedTitle = this.deriveTitleFromTrigger()
+          return
+        }
         this.syncMotionDuration()
         this.mobileCenteredLeaving = false
         this.mobileCenteredActive = this.mobileCentered && isMobileViewport()
@@ -313,6 +442,8 @@ export default {
           this.bindGlobalListeners()
         })
       } else {
+        // Dialog sunumunda kapanış hareketini `ui-dialog` yürütür; `dialogActive` bir sonraki açılışa kadar kalır.
+        if (this.dialogActive) return
         if (this.mobileCenteredActive) {
           this.mobileCenteredLeaving = true
         }
@@ -334,6 +465,11 @@ export default {
     this.portalReady = true
     this.syncMotionDuration()
     if (this.open) {
+      this.dialogActive = this.resolveDialogPresentation()
+      if (this.dialogActive) {
+        if (!this.title) this.derivedTitle = this.deriveTitleFromTrigger()
+        return
+      }
       this.acquireLayer()
       this.$nextTick(() => {
         this.updatePosition()
@@ -433,6 +569,41 @@ export default {
       }
       return shell
     },
+    /**
+     * Gruplu liste satırı tetikleyicisinde (`ui-list-group` içinde `ui-list-item`) değer satırın sonundadır:
+     * panel satırın başına değil, değerin altına (sona hizalı) açılır — iOS ayar satırı gibi.
+     * Önceden `bottom-start` satırın sol kenarına yaslanıp alttaki satırların etiketlerini örtüyordu.
+     */
+    resolveRowPlacement() {
+      const shell = this.$refs.triggerRef
+      const isGroupRow = shell instanceof HTMLElement
+        && Boolean(shell.closest('.ui-list-group-card'))
+        && Boolean(shell.querySelector('.ui-list-item'))
+      if (!isGroupRow) return this.placement
+      if (this.placement === 'bottom-start' || this.placement === 'bottom') return 'bottom-end'
+      if (this.placement === 'top-start' || this.placement === 'top') return 'top-end'
+      return this.placement
+    },
+    /** `auto`: telefonda ortalanacak panel dialog olur; masaüstünde ve menülerde (`mobileCentered=false`) panel. */
+    resolveDialogPresentation() {
+      if (this.presentation === 'dialog') return true
+      if (this.presentation === 'popover') return false
+      return this.mobileCentered && isMobileViewport()
+    },
+    onDialogOpenChange(value) {
+      this.$emit('update:open', value)
+    },
+    /** Dialog başlığı: satırın etiketi (form satırı) ya da liste satırı başlığı. */
+    deriveTitleFromTrigger() {
+      const shell = this.$refs.triggerRef
+      if (!(shell instanceof HTMLElement)) return ''
+      const text = (el) => String(el?.textContent || '').replace(/\s+/g, ' ').trim()
+      const rowLabel = shell.closest('.ui-form-row')?.querySelector('.ui-form-label')
+      if (rowLabel) return text(rowLabel)
+      const itemTitle = shell.querySelector('.ui-list-item-title')
+      if (itemTitle) return text(itemTitle)
+      return ''
+    },
     updatePosition() {
       const trigger = this.resolveTriggerEl()
       const panel = this.$refs.panelRef
@@ -499,7 +670,7 @@ export default {
 
       // RTL: `top-*` / `bottom-*` içindeki start / end tetikleyicinin satır yönüne göre aynalanır
       // (start = sağ kenar). `left-*` / `right-*` fiziksel kalır.
-      const placement = mirrorInlinePlacement(this.placement, isRtl(trigger))
+      const placement = mirrorInlinePlacement(this.resolveRowPlacement(), isRtl(trigger))
       switch (placement) {
         case 'right-start':
           top = r.top
@@ -628,7 +799,10 @@ export default {
       const selected = panel.querySelector('[role="option"][aria-selected="true"]')
       if (!selected) return
       /** Metin hizası — Select `[data-popover-align]` span’larında */
-      const triggerAlign = trigger.querySelector('[data-popover-align]') || trigger
+      // Gruplu liste satırında hizalama satıra değil, satır sonundaki değere (seçenek değerin üstüne gelir).
+      const triggerAlign = trigger.querySelector('[data-popover-align]')
+        || trigger.querySelector('.ui-list-item-value')
+        || trigger
       const selectedAlign = selected.querySelector('[data-popover-align]') || selected
       const tr = triggerAlign.getBoundingClientRect()
       const sr = selectedAlign.getBoundingClientRect()

@@ -3,6 +3,7 @@
     :class="['ui-daterangepicker', showTrigger ? '' : 'ui-daterangepicker--headless', disabled ? 'pointer-events-none opacity-50' : '', $attrs.class]"
   >
     <ui-popover
+      :presentation="presentation"
       v-model:open="resolvedOpen"
       :placement="placement"
       :match-trigger-width="false"
@@ -251,6 +252,15 @@ export default {
   mixins: [uiDefaultsMixin, formDirtyMixin],
   inheritAttrs: false,
   props: {
+    /**
+     * Açılış biçimi (`ui-popover` `presentation`): `auto` telefonda dialog, masaüstünde panel;
+     * `popover` her zaman panel; `dialog` her zaman dialog.
+     */
+    presentation: {
+      type: String,
+      default: 'auto',
+      validator: (v) => ['auto', 'popover', 'dialog'].includes(v),
+    },
     /**
      * Haftanın ilk günü (0 pazar … 6 cumartesi). Verilmezse dilden çözülür:
      * `tr` / `en-GB` pazartesi, `en-US` pazar.

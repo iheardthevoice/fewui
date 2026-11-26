@@ -94,23 +94,31 @@ Registered globally as `<ui-list-item>` by `app.use(UiLib)`. Local import: `impo
 | `title` | `string` | `""` |  |
 | `description` | `string` | `""` |  |
 | `value` | `string` | `""` | Sağdaki kısa durum metni (chevron'un solunda) |
+| `value-icon` | `string` | `""` | Değerin önündeki ikon — değerin türünü bir bakışta anlatır (cihaz, işletim sistemi, tarayıcı, kaynak). Marka ikonları için `value-icon-type="brands"`. |
+| `value-icon-type` | `'solid'` |  |  |
+| `value-swatch` | `string` | `""` | Değerin önünde renk noktası (CSS rengi) — renk seçimi satırı ("Renk ●"). `value-icon` / `value-swatch` tek başına da değer sayılır (metinsiz gösterilir). |
+| `value-image` | `string` | `""` | Değerin önünde küçük görsel önizlemesi (URL) — görsel seçimi satırı; tek başına da değer sayılır. |
+| `placeholder` | `string` | `""` | Değer boşken sağda soluk gösterilen metin (ör. "Masa seçin"); chevron korunur. |
 | `icon` | `string` | `""` | Satır başı ikon karosu (`ui-icon-tile`) |
 | `icon-type` | `'solid'` |  |  |
 | `icon-color` | `string` | `""` | İkon karosu tonu (`ui-icon-tile` `color`) |
 | `icon-hex` | `string` | `""` | İkon karosu hex rengi (`ui-icon-tile` `hex`) — kategori / marka rengi |
 | `icon-variant` | `string` | `""` | `soft` \| `solid` — hex verildiğinde varsayılan `solid` |
-| `color` | `'danger'` | `""` | `danger`: başlık tehlike tonunda (ör. hesabı sil) |
+| `color` | `'danger' \| 'primary'` | `""` | `danger`: başlık tehlike tonunda (ör. hesabı sil) · `primary`: ekleme satırı (ör. "Tarih ekle") |
 | `size` | `'sm' \| 'md' \| 'lg'` | `"md"` | sm / md: 14px başlık · lg: 16px başlık |
 | `to` | `RouteLocationRaw` |  | `vue-router` hedefi — satır bağlantı olur |
 | `interactive` | `boolean` | `false` | Satır düğme olur ve `click` yayar |
 | `disabled` | `boolean` | `false` |  |
-| `trailing-icon` | `'chevron' \| 'external' \| 'none'` | `"chevron"` | Tıklanabilir satırda sağ gösterge: `chevron` \| `external` \| `none` |
+| `trailing-icon` | `'chevron' \| 'external' \| 'copy' \| 'none'` | `"chevron"` | Tıklanabilir satırda sağ gösterge: `chevron` \| `external` \| `copy` (değeri kopyalar) \| `none` |
+| `clearable` | `boolean` | `false` | Değer varken satırın sağında temizle (×) düğmesi; `clear` yayar. Chevron yerine çizilir. Seçim satırlarında (masa, kategori) seçimi kaldırmak için. |
+| `clear-label` | `string` | `""` |  |
 
 ## Events
 
 | Event | Listener |
 | --- | --- |
 | `click` | `@click` |
+| `clear` | `@clear` |
 
 ## Slots
 

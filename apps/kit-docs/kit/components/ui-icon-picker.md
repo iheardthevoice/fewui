@@ -64,6 +64,7 @@ Registered globally as `<ui-icon-picker>` by `app.use(UiLib)`. Local import: `im
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
+| `presentation` | `'auto' \| 'popover' \| 'dialog'` | `"auto"` | Açılış biçimi (`ui-popover` `presentation`): `auto` telefonda dialog, masaüstünde panel; `popover` her zaman panel; `dialog` her zaman dialog. |
 | `model-value` | `string` | `""` |  |
 | `icons` | `unknown[]` | `[]` |  |
 | `icon-type` | `string` |  |  |

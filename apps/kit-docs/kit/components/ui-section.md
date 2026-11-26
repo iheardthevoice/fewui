@@ -83,6 +83,7 @@ Registered globally as `<ui-section>` by `app.use(UiLib)`. Local import: `import
 | `title` | `string` | `""` |  |
 | `description` | `string` | `""` |  |
 | `icon` | `string` | `""` |  |
+| `divided` | `boolean` | `false` | Geniş yerleşimde alanlar arasına ayraç (etiket solda, kontrol sağda düzeni). Dar ekranda satırlar dikeye döndüğü için ayraç çizilmez. Alanlar arasına elle `ui-divider` koymak yerine kullanılır. |
 | `show-divider` | `boolean` | `true` | `false`: üstteki sekme / segment konumu zaten gösteriyorsa etiketli ayırıcı çizilmez |
 
 ## Slots

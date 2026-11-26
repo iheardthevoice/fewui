@@ -24,10 +24,11 @@
      * `::after` ile en az `--ui-touch-target` (44px) olur. Uzatma her kenarda
      * `(44 − boyut) / 2` kadardır; öğe zaten 44px ise sıfırdır (`min(0px, …)`).
      */
-    .ui-button.ui-control-cubed-sm,
-    .ui-button.ui-control-cubed-md,
-    .ui-select-clear,
-    .ui-sidebar-item {
+    /**
+     * `:where` — özgüllük 0: konumu bileşen kendisi veriyorsa (ör. `ui-list-item-clear` absolute) o kazanır.
+     * Önceden bu dosya sonra yüklendiği için satır içi temizle düğmesi akışa düşüp alt satıra kayıyordu.
+     */
+    :where(.ui-button.ui-control-cubed-sm, .ui-button.ui-control-cubed-md, .ui-select-clear, .ui-sidebar-item) {
       @apply relative;
     }
 

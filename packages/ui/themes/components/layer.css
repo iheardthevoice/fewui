@@ -21,11 +21,11 @@
   }
 
   .ui-heading-1 {
-    @apply text-3xl font-medium leading-9 tracking-tight text-foreground [font-family:var(--font-heading,_var(--font-sans))];
+    @apply text-3xl [font-weight:var(--ui-heading-weight,_600)] leading-9 [letter-spacing:var(--ui-heading-tracking,_-0.02em)] text-foreground [font-family:var(--font-heading,_var(--font-sans))];
   }
 
   .ui-heading-2 {
-    @apply text-2xl font-medium leading-8 tracking-tight text-foreground [font-family:var(--font-heading,_var(--font-sans))];
+    @apply text-2xl [font-weight:var(--ui-heading-weight,_600)] leading-8 [letter-spacing:var(--ui-heading-tracking,_-0.02em)] text-foreground [font-family:var(--font-heading,_var(--font-sans))];
   }
 
   /** Kart / bölüm başlığı: 16px, 500, 24px satır (DevTools referansı) */
@@ -2156,6 +2156,11 @@
     @apply [color:var(--danger-ink)];
   }
 
+  /** Ekleme satırı ("Tarih ekle") — iOS'taki vurgulu eylem satırı */
+  .ui-list-item-title--primary {
+    @apply [color:var(--primary-ink)];
+  }
+
   .ui-list-item-description {
     @apply line-clamp-2 text-sm font-normal leading-5 text-muted-foreground;
   }
@@ -2168,8 +2173,67 @@
     @apply max-w-40 truncate text-sm leading-5 text-muted-foreground;
   }
 
+  /** Görsel önizlemesi dolguya taşar (satırı uzatmaz); `truncate` kırpmasın diye kutu taşmaya açık. */
+  .ui-list-item-value:has(.ui-list-item-value-image) {
+    @apply inline-flex min-w-0 items-center gap-2 overflow-visible;
+  }
+
+  .ui-list-item-value-image {
+    @apply size-7 shrink-0 rounded-[0.375rem] object-cover [margin-block:-0.25rem] [outline:1px_solid_color-mix(in_oklab,_var(--foreground)_12%,_transparent)] [outline-offset:-1px];
+  }
+
+  .ui-list-item-value:has(.ui-list-item-value-swatch) {
+    @apply inline-flex min-w-0 items-center gap-1.5;
+  }
+
+  .ui-list-item-value-swatch {
+    @apply size-4 shrink-0 rounded-full [box-shadow:inset_0_0_0_1px_color-mix(in_oklab,_var(--foreground)_14%,_transparent)];
+  }
+
+  .ui-list-item-value:has(.ui-list-item-value-icon) {
+    @apply inline-flex min-w-0 items-center gap-1.5;
+  }
+
+  .ui-list-item-value-text {
+    @apply min-w-0 truncate;
+  }
+
+  .ui-list-item-value-icon {
+    @apply shrink-0 text-foreground;
+  }
+
+  /** Boş değer — satır yer tutucusu tonu (form satırlarındaki yer tutucularla aynı). */
+  .ui-list-item-value--placeholder {
+    @apply [color:var(--ui-row-placeholder,_color-mix(in_oklab,_var(--muted-foreground)_62%,_transparent))];
+  }
+
   .ui-list-item-chevron {
     @apply inline-flex shrink-0 items-center justify-center text-muted-foreground;
+  }
+
+  /** `clearable` — temizle düğmesi satır düğmesinin kardeşidir (iç içe düğme olmaz); değerin yerini daraltmaz. */
+  .ui-list-item--clearable {
+    @apply relative;
+  }
+
+  .ui-list-item--clearable > .ui-list-item-row,
+  .ui-list-item--clearable > .ui-button .ui-list-item-row {
+    /** Değer, chevron'lu satırlardaki değerle aynı çizgide biter: dolgu + 14px ikon + 12px boşluk. */
+    @apply pe-[calc(var(--ui-list-item-end,_1rem)_+_1.625rem)];
+  }
+
+  /**
+   * × chevron'un yerinde durur: düğme genişliği (masaüstü / dokunmatik) ne olursa olsun ikon merkezi
+   * chevron ikonunun merkezine (satır sağ dolgusu + 14px ikonun yarısı) oturur.
+   */
+  .ui-list-item-clear {
+    @apply absolute top-1/2 text-muted-foreground;
+    inset-inline-end: calc(var(--ui-list-item-end, 1rem) + 0.4375rem);
+    translate: 50% -50%;
+  }
+
+  [dir='rtl'] .ui-list-item-clear {
+    translate: -50% -50%;
   }
 
   /**
@@ -2887,7 +2951,7 @@
   }
 
   /** Arama başlığı ile liste aynı içeriden; aradaki boşluk (inset ×1.5) satır arasından belirgin büyük. */
-  .ui-popover-header:has(> .ui-select-filter-input) {
+  .ui-popover-toolbar:has(> .ui-select-filter-input) {
     @apply px-[var(--ui-surface-inset)] pt-[var(--ui-surface-inset)] pb-[calc(var(--ui-surface-inset)/2)];
   }
 
@@ -2943,6 +3007,32 @@
   .ui-select.ui-select--lg .ui-select-field--values {
     --ui-values-inset: calc((var(--ui-control-h-lg) - var(--ui-values-row)) / 2 - var(--ui-field-border-width, 1px));
     @apply h-auto min-h-[var(--ui-control-h-lg)] [padding-block:var(--ui-values-inset)] [padding-inline-start:var(--ui-values-inset)] [padding-inline-end:var(--ui-control-px-lg)];
+  }
+
+  /**
+   * Ön ikonlu çoklu alan: ikon tek seçim alanıyla aynı yerde durur — sol boşluk `--ui-control-px-*`,
+   * ikon → metin 8px (alanın `gap-1` + 4px). Çip eş merkezliliği ikonsuz alanda geçerlidir.
+   * Çipler satır kırarsa ikon ilk satırda kalır.
+   */
+  .ui-select-field--values:has(> .ui-select-prefix) {
+    @apply [padding-inline-start:var(--ui-control-px-md)];
+  }
+
+  .ui-select.ui-select--sm .ui-select-field--values:has(> .ui-select-prefix) {
+    @apply [padding-inline-start:var(--ui-control-px-sm)];
+  }
+
+  .ui-select.ui-select--lg .ui-select-field--values:has(> .ui-select-prefix) {
+    @apply [padding-inline-start:var(--ui-control-px-lg)];
+  }
+
+  /** Ön ikon sabit genişlikte yuvada: farklı genişlikteki glifler (klasör, etiket) metni kaydırmaz. */
+  .ui-select-prefix:not(:has(> .ui-color-picker-swatch)) {
+    @apply w-4 justify-center;
+  }
+
+  .ui-select-field--values > .ui-select-prefix {
+    @apply me-1 h-[var(--ui-values-row)] self-start;
   }
 
   .ui-select-values-inner {
@@ -3117,8 +3207,18 @@
     @apply bg-muted;
   }
 
+  /**
+   * Kart seçenek: köşe gruplu liste kartıyla (`ui-list-group-card`) aynı ifade — aynı ekranda
+   * seçenek, kart ve çok satırlı alan tek köşe dilini konuşur (önceden sabit 12px kalıyordu).
+   */
   .ui-radio--button {
-    @apply flex min-w-0 items-start gap-3 overflow-hidden rounded-xl border border-border bg-surface p-3.5 transition-colors duration-150;
+    @apply flex min-w-0 items-start gap-3 overflow-hidden border border-border bg-surface p-3.5 transition-colors duration-150 [border-radius:min(var(--radius),_1.5rem)];
+  }
+
+  /** Dialog / sheet içinde gruplu kart 20px'e iner; kart seçenek de onu izler (kontrol boyu hariç). */
+  .ui-dialog-panel .ui-radio-group:not(.ui-radio-group--control) .ui-radio--button,
+  .ui-sheet-panel .ui-radio-group:not(.ui-radio-group--control) .ui-radio--button {
+    @apply [border-radius:min(var(--radius),_1.25rem)];
   }
 
   .ui-radio-group--button.ui-radio-group--vertical > .ui-radio--button {
@@ -4806,6 +4906,28 @@
     @apply shrink-0 px-3.5 pt-3.5;
   }
 
+  /** `#actions` başlık satırının sonunda (dialog başlığındaki eylemlerle aynı yer). */
+  .ui-popover-header--with-actions {
+    @apply flex items-start justify-between gap-3;
+  }
+
+  .ui-popover-header__main {
+    @apply min-w-0 flex-1;
+  }
+
+  .ui-popover-header__actions {
+    @apply flex shrink-0 items-center gap-2;
+  }
+
+  /** `#toolbar` — başlıkla gövde arası (arama kutusu vb.); dialog sunumunda `ui-dialog` araç çubuğuna gider. */
+  .ui-popover-toolbar {
+    @apply shrink-0 px-3.5 pt-3.5;
+  }
+
+  .ui-popover-header + .ui-popover-toolbar {
+    @apply pt-2;
+  }
+
   .ui-popover-body {
     @apply min-h-0 min-w-0 flex-1 overflow-y-auto overscroll-contain ui-scrollbar-none [-webkit-overflow-scrolling:touch] touch-pan-y;
   }
@@ -4884,8 +5006,28 @@
     @apply [grid-template-columns:auto_auto_minmax(0,_1fr)_auto];
   }
 
+  /**
+   * Başlık satırı kontrolleri tek ölçü: geri, X ve `#actions` düğmesi `md` yükseklikte, dolu `secondary`
+   * (geri) ve `primary` (Kaydet). Uçlar içerik kenarına oturur — solda geri, sağda Kaydet simetrik.
+   */
   .ui-dialog-panel .ui-dialog-header__back {
-    @apply shrink-0 justify-self-start -ms-1 rounded-lg min-h-9;
+    @apply shrink-0 justify-self-start;
+  }
+
+  /**
+   * Geri düğmeli başlık (iOS gezinme çubuğu): üst satır `‹ önceki ekran` solda, `#actions` (Kaydet) sağda;
+   * başlık ikinci satırda tam genişlik, açıklama üçüncü satırda.
+   */
+  .ui-dialog-panel .ui-dialog-header--with-back .ui-dialog-header__lead {
+    @apply [grid-column:1_/_-1] row-start-2 mt-2;
+  }
+
+  .ui-dialog-panel .ui-dialog-header--with-back .ui-dialog-header__actions {
+    @apply [grid-column:-2_/_-1] row-start-1;
+  }
+
+  .ui-dialog-panel .ui-dialog-header--with-back .ui-dialog-header__description {
+    @apply row-start-3;
   }
 
   .ui-dialog-panel .ui-dialog-header__lead {
@@ -4921,7 +5063,7 @@
   }
 
   .ui-sheet-panel .ui-sheet-header__title {
-    @apply min-w-0 truncate;
+    @apply min-w-0 truncate [font-weight:var(--ui-heading-weight,_600)] [letter-spacing:var(--ui-heading-tracking,_-0.02em)];
   }
 
   .ui-sheet-panel .ui-sheet-header__actions {
@@ -5051,8 +5193,9 @@
    * Dialog kapat — boyut/radius CSS’te sabit (landing gibi TW content scan
    * olmayan tüketicilerde Button `cubed` utility sınıfları üretilmeyebilir).
    */
+  /** Başlık satırındaki tüm kontroller tek yükseklikte: X, geri ve `#actions` içindeki `md` düğme (Kaydet) aynı boyda. */
   .ui-dialog-panel .ui-dialog-header__close {
-    @apply box-border w-8 h-8 min-w-8 min-h-8 p-0 shrink-0 rounded-full;
+    @apply box-border p-0 shrink-0 rounded-full size-[var(--ui-control-h-md)] min-w-[var(--ui-control-h-md)] min-h-[var(--ui-control-h-md)];
   }
 
   .ui-dialog-panel .ui-dialog-header__description {
@@ -6312,6 +6455,16 @@
     @apply flex flex-col gap-[var(--ui-space-stack)];
   }
 
+  /**
+   * `divided` — geniş yerleşimde (yatay etiket | kontrol satırları) alanlar arasına ayraç.
+   * Dar yerleşimde satırlar dikeye döner ve kontrolün kendi dolgusu sınırı çizer; ayraç çift yapı olur, çizilmez.
+   */
+  @media (min-width: 1024px) {
+    .ui-section-fields--divided > * + * {
+      @apply border-t border-border pt-[var(--ui-space-stack)];
+    }
+  }
+
   .ui-section-body {
     @apply space-y-[var(--ui-space-stack)];
   }
@@ -6460,6 +6613,14 @@
     grid-template-columns: repeat(
       auto-fit,
       minmax(max(min(calc((100% - var(--ui-space-stack)) / 2), var(--ui-stat-min)), calc((100% - (var(--ui-stat-cols) - 1) * var(--ui-space-stack)) / var(--ui-stat-cols))), 1fr)
+    );
+  }
+
+  /** Kutusuz üç metrik (kayıt özeti) telefonda da tek sırada. */
+  .ui-stat-group--min-cols-3 {
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(max(min(calc((100% - 2 * var(--ui-space-stack)) / 3), var(--ui-stat-min)), calc((100% - (var(--ui-stat-cols) - 1) * var(--ui-space-stack)) / var(--ui-stat-cols))), 1fr)
     );
   }
 

@@ -15,6 +15,7 @@ import IconTile from './components/IconTile.vue'
 import Input from './components/Input.vue'
 import List from './components/List.vue'
 import ListItem from './components/ListItem.vue'
+import ListGroup from './components/ListGroup.vue'
 import Phone from './components/Phone.vue'
 import Pin from './components/Pin.vue'
 import Popover from './components/Popover.vue'
@@ -135,6 +136,7 @@ const GLOBAL_COMPONENTS = [
   ['ui-input', Input],
   ['ui-list', List],
   ['ui-list-item', ListItem],
+  ['ui-list-group', ListGroup],
   ['ui-phone', Phone],
   ['ui-pin', Pin],
   ['ui-popover', Popover],

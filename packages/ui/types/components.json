@@ -1334,6 +1334,13 @@
     "name": "ColorPicker",
     "props": [
       {
+        "name": "presentation",
+        "type": "'auto' | 'popover' | 'dialog'",
+        "required": false,
+        "default": "\"auto\"",
+        "description": "Açılış biçimi (`ui-popover` `presentation`): `auto` telefonda dialog, masaüstünde panel; `popover` her zaman panel; `dialog` her zaman dialog."
+      },
+      {
         "name": "modelValue",
         "type": "string",
         "required": false,
@@ -1660,6 +1667,13 @@
     "name": "DatePicker",
     "props": [
       {
+        "name": "presentation",
+        "type": "'auto' | 'popover' | 'dialog'",
+        "required": false,
+        "default": "\"auto\"",
+        "description": "Açılış biçimi (`ui-popover` `presentation`): `auto` telefonda dialog, masaüstünde panel; `popover` her zaman panel; `dialog` her zaman dialog."
+      },
+      {
         "name": "weekStart",
         "type": "number",
         "required": false,
@@ -1677,8 +1691,8 @@
         "name": "placeholder",
         "type": "string",
         "required": false,
-        "default": "\"Pick a date\"",
-        "description": ""
+        "default": "\"\"",
+        "description": "Boşsa `ui.datePicker.placeholder` (dile göre) kullanılır."
       },
       {
         "name": "disabled",
@@ -1770,6 +1784,13 @@
     "tag": "ui-date-range-picker",
     "name": "DateRangePicker",
     "props": [
+      {
+        "name": "presentation",
+        "type": "'auto' | 'popover' | 'dialog'",
+        "required": false,
+        "default": "\"auto\"",
+        "description": "Açılış biçimi (`ui-popover` `presentation`): `auto` telefonda dialog, masaüstünde panel; `popover` her zaman panel; `dialog` her zaman dialog."
+      },
       {
         "name": "weekStart",
         "type": "number",
@@ -1936,7 +1957,7 @@
         "type": "string",
         "required": false,
         "default": "null",
-        "description": "Varsayılan üst başlıkta gösterilecek ikon (`ui-icon` `name`)."
+        "description": ""
       },
       {
         "name": "iconType",
@@ -1971,7 +1992,7 @@
         "type": "string",
         "required": false,
         "default": "\"\"",
-        "description": "Geri düğmesi metni; boşsa `ui.dialog.back` (i18n)."
+        "description": "Geri düğmesi metni — önceki ekranın adı verilir (iOS: \"‹ Profil Tercihleri\"); boşsa `ui.dialog.back`. Geri düğmesi olan başlıkta üst satır: geri solda, `#actions` (ör. Kaydet) sağda; başlık altta."
       },
       {
         "name": "row",
@@ -2364,6 +2385,13 @@
     "name": "FieldAction",
     "props": [
       {
+        "name": "presentation",
+        "type": "'popover' | 'dialog' | 'auto'",
+        "required": false,
+        "default": "\"auto\"",
+        "description": "Açılış biçimi (`ui-popover` `presentation`): `auto` telefonda dialog, masaüstünde panel; `popover` her zaman panel; `dialog` her zaman dialog."
+      },
+      {
         "name": "open",
         "type": "boolean",
         "required": false,
@@ -2755,10 +2783,10 @@
       },
       {
         "name": "variant",
-        "type": "'default' | 'card'",
+        "type": "'default' | 'card' | 'inset'",
         "required": false,
         "default": "\"default\"",
-        "description": "`default`: mevcut `direction` düzeni. `card`: kenarlıklı, yuvarlatılmış yüzey; küçük ekranda dikey, `sm+` yatay `space-between`."
+        "description": "`default`: mevcut `direction` düzeni. `card`: kenarlıklı, yuvarlatılmış yüzey; küçük ekranda dikey, `sm+` yatay `space-between`. `inset`: `ui-list-group` kartının satırı (iOS form) — etiket solda, kutusuz kontrol sağda; etiketsiz satır tam genişlik (`primary` ise büyük ana alan). Açıklama / hata satırın altında."
       },
       {
         "name": "id",
@@ -3094,6 +3122,13 @@
     "tag": "ui-icon-picker",
     "name": "IconPicker",
     "props": [
+      {
+        "name": "presentation",
+        "type": "'auto' | 'popover' | 'dialog'",
+        "required": false,
+        "default": "\"auto\"",
+        "description": "Açılış biçimi (`ui-popover` `presentation`): `auto` telefonda dialog, masaüstünde panel; `popover` her zaman panel; `dialog` her zaman dialog."
+      },
       {
         "name": "modelValue",
         "type": "string",
@@ -3593,6 +3628,41 @@
         "description": "Sağdaki kısa durum metni (chevron'un solunda)"
       },
       {
+        "name": "valueIcon",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Değerin önündeki ikon — değerin türünü bir bakışta anlatır (cihaz, işletim sistemi, tarayıcı, kaynak). Marka ikonları için `value-icon-type=\"brands\"`."
+      },
+      {
+        "name": "valueIconType",
+        "type": "'solid'",
+        "required": false,
+        "default": "",
+        "description": ""
+      },
+      {
+        "name": "valueSwatch",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Değerin önünde renk noktası (CSS rengi) — renk seçimi satırı (\"Renk ●\"). `value-icon` / `value-swatch` tek başına da değer sayılır (metinsiz gösterilir)."
+      },
+      {
+        "name": "valueImage",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Değerin önünde küçük görsel önizlemesi (URL) — görsel seçimi satırı; tek başına da değer sayılır."
+      },
+      {
+        "name": "placeholder",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Değer boşken sağda soluk gösterilen metin (ör. \"Masa seçin\"); chevron korunur."
+      },
+      {
         "name": "icon",
         "type": "string",
         "required": false,
@@ -3629,10 +3699,10 @@
       },
       {
         "name": "color",
-        "type": "'danger'",
+        "type": "'danger' | 'primary'",
         "required": false,
         "default": "\"\"",
-        "description": "`danger`: başlık tehlike tonunda (ör. hesabı sil)"
+        "description": "`danger`: başlık tehlike tonunda (ör. hesabı sil) · `primary`: ekleme satırı (ör. \"Tarih ekle\")"
       },
       {
         "name": "size",
@@ -3664,14 +3734,29 @@
       },
       {
         "name": "trailingIcon",
-        "type": "'chevron' | 'external' | 'none'",
+        "type": "'chevron' | 'external' | 'copy' | 'none'",
         "required": false,
         "default": "\"chevron\"",
-        "description": "Tıklanabilir satırda sağ gösterge: `chevron` | `external` | `none`"
+        "description": "Tıklanabilir satırda sağ gösterge: `chevron` | `external` | `copy` (değeri kopyalar) | `none`"
+      },
+      {
+        "name": "clearable",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Değer varken satırın sağında temizle (×) düğmesi; `clear` yayar. Chevron yerine çizilir. Seçim satırlarında (masa, kategori) seçimi kaldırmak için."
+      },
+      {
+        "name": "clearLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
       }
     ],
     "events": [
-      "click"
+      "click",
+      "clear"
     ],
     "slots": [
       {
@@ -3692,6 +3777,167 @@
       },
       {
         "name": "trailing",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-list-group",
+    "name": "ListGroup",
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Kartın üstündeki bölüm etiketi (büyük harf, ikincil)"
+      },
+      {
+        "name": "footer",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Kartın altındaki açıklama — satırın uzun anlatımı buraya yazılır"
+      },
+      {
+        "name": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Etiket yoksa listenin erişilebilir adı"
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "default",
+        "props": []
+      },
+      {
+        "name": "footer",
+        "props": []
+      }
+    ]
+  },
+  {
+    "tag": "ui-number-stepper",
+    "name": "NumberStepper",
+    "props": [
+      {
+        "name": "modelValue",
+        "type": "number",
+        "required": false,
+        "default": "null",
+        "description": ""
+      },
+      {
+        "name": "min",
+        "type": "number",
+        "required": false,
+        "default": "0",
+        "description": ""
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "required": false,
+        "default": "null",
+        "description": ""
+      },
+      {
+        "name": "step",
+        "type": "number",
+        "required": false,
+        "default": "1",
+        "description": ""
+      },
+      {
+        "name": "size",
+        "type": "'sm'",
+        "required": false,
+        "default": "\"sm\"",
+        "description": ""
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": ""
+      },
+      {
+        "name": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Grubun erişilebilir adı (ör. \"Kişi sayısı\")"
+      },
+      {
+        "name": "decreaseLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "increaseLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      }
+    ],
+    "events": [
+      "update:modelValue"
+    ],
+    "slots": []
+  },
+  {
+    "tag": "ui-title-menu",
+    "name": "TitleMenu",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "items",
+        "type": "unknown[]",
+        "required": false,
+        "default": "[]",
+        "description": "`ui-dropdown` öğeleri"
+      },
+      {
+        "name": "suffixIcon",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Başlıktan sonra durum ikonu (ör. `star`); boşsa çizilmez"
+      },
+      {
+        "name": "suffixIconColor",
+        "type": "'primary' | 'secondary' | 'success' | 'warning' | 'info' | 'danger'",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      },
+      {
+        "name": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": ""
+      }
+    ],
+    "events": [
+      "select"
+    ],
+    "slots": [
+      {
+        "name": "default",
         "props": []
       }
     ]
@@ -4418,6 +4664,34 @@
         "description": "Mobil görünümde paneli ekran ortasında aç (varsayılan). false: tetikleyiciye göre konumlanır (Dropdown menüler)."
       },
       {
+        "name": "presentation",
+        "type": "'auto' | 'popover' | 'dialog'",
+        "required": false,
+        "default": "\"auto\"",
+        "description": "Açılış biçimi: `auto` (varsayılan) — telefonda (`mobileCentered` iken) gerçek `ui-dialog`, masaüstünde tetikleyiciye bağlı panel; `popover` — her zaman panel (telefonda ortalı panel); `dialog` — her zaman `ui-dialog`. Slotlar iki biçimde aynı adla çalışır: `header`, `toolbar`, `actions`, varsayılan / `content`, `footer`."
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Dialog başlığı (dialog sunumunda). Boşsa tetikleyiciden türetilir: `ui-form-row` etiketi, `ui-list-item` başlığı ya da `ariaLabel`. Verilirse dialog'un hazır başlığı `#header`'ın yerini alır."
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "description": "Dialog açıklaması (dialog sunumunda başlığın altında)."
+      },
+      {
+        "name": "dialogMaxWidth",
+        "type": "string",
+        "required": false,
+        "default": "\"sm\"",
+        "description": "Dialog sunumunda genişlik (`ui-dialog` `max-width`)."
+      },
+      {
         "name": "ariaLabel",
         "type": "string",
         "required": false,
@@ -4445,7 +4719,25 @@
         ]
       },
       {
+        "name": "actions",
+        "props": [
+          "close"
+        ]
+      },
+      {
+        "name": "toolbar",
+        "props": [
+          "close"
+        ]
+      },
+      {
         "name": "content",
+        "props": [
+          "close"
+        ]
+      },
+      {
+        "name": "default",
         "props": [
           "close"
         ]
@@ -4791,10 +5083,10 @@
       },
       {
         "name": "variant",
-        "type": "'list' | 'button'",
+        "type": "'list' | 'button' | 'inset'",
         "required": false,
         "default": "\"list\"",
-        "description": "`list` — satır listesi; `button` — kart seçenekleri"
+        "description": "`list` — satır listesi; `button` — kart seçenekleri; `inset` — iOS seçim listesi: gruplu kartın satırları, seçili satırda sağda ✓ (daire yok)."
       },
       {
         "name": "orientation",
@@ -5031,6 +5323,13 @@
         "description": ""
       },
       {
+        "name": "divided",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Geniş yerleşimde alanlar arasına ayraç (etiket solda, kontrol sağda düzeni). Dar ekranda satırlar dikeye döndüğü için ayraç çizilmez. Alanlar arasına elle `ui-divider` koymak yerine kullanılır."
+      },
+      {
         "name": "showDivider",
         "type": "boolean",
         "required": false,
@@ -5195,6 +5494,13 @@
     "tag": "ui-select",
     "name": "Select",
     "props": [
+      {
+        "name": "presentation",
+        "type": "'auto' | 'popover' | 'dialog'",
+        "required": false,
+        "default": "\"auto\"",
+        "description": "Açılış biçimi (`ui-popover` `presentation`): `auto` telefonda dialog, masaüstünde panel; `popover` her zaman panel; `dialog` her zaman dialog."
+      },
       {
         "name": "variant",
         "type": "'field' | 'inline'",
@@ -6662,6 +6968,13 @@
     "tag": "ui-time-picker",
     "name": "TimePicker",
     "props": [
+      {
+        "name": "presentation",
+        "type": "'auto' | 'popover' | 'dialog'",
+        "required": false,
+        "default": "\"auto\"",
+        "description": "Açılış biçimi (`ui-popover` `presentation`): `auto` telefonda dialog, masaüstünde panel; `popover` her zaman panel; `dialog` her zaman dialog."
+      },
       {
         "name": "modelValue",
         "type": "string",

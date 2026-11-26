@@ -36,6 +36,14 @@
         class="ui-radio-description"
       >{{ description }}</span>
     </span>
+    <ui-icon
+      v-if="groupVariant === 'inset' && isChecked"
+      name="check"
+      type="solid"
+      size="sm"
+      class="ui-radio-check"
+      aria-hidden="true"
+    />
   </label>
 </template>
 

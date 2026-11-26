@@ -43,13 +43,42 @@
         </span>
 
         <span
-          v-if="value || $slots.trailing"
+          v-if="hasValue || placeholder || $slots.trailing"
           class="ui-list-item-trailing"
         >
           <span
-            v-if="value"
+            v-if="hasValue"
             class="ui-list-item-value"
-          >{{ value }}</span>
+          >
+            <img
+              v-if="valueImage"
+              :src="valueImage"
+              alt=""
+              class="ui-list-item-value-image"
+              loading="lazy"
+            >
+            <span
+              v-if="valueSwatch"
+              class="ui-list-item-value-swatch"
+              :style="{ backgroundColor: valueSwatch }"
+              aria-hidden="true"
+            />
+            <ui-icon
+              v-if="valueIcon"
+              :name="valueIcon"
+              :type="resolvedValueIconType"
+              size="sm"
+              class="ui-list-item-value-icon"
+            />
+            <span
+              v-if="value"
+              class="ui-list-item-value-text"
+            >{{ value }}</span>
+          </span>
+          <span
+            v-else-if="placeholder"
+            class="ui-list-item-value ui-list-item-value--placeholder"
+          >{{ placeholder }}</span>
           <slot name="trailing" />
         </span>
 
@@ -68,7 +97,20 @@
       </span>
     </component>
 
-    <template v-else>
+    <ui-button
+      v-if="showClear"
+      type="button"
+      variant="ghost"
+      color="secondary"
+      size="sm"
+      cubed
+      prefix-icon="xmark"
+      class="ui-list-item-clear"
+      :aria-label="resolvedClearLabel"
+      @click.stop="$emit('clear')"
+    />
+
+    <template v-if="!usesRowLayout">
       <span
         v-if="prefixIcon"
         class="ui-list-item-prefix"
@@ -102,6 +144,7 @@
 
 <script>
 import { cn } from '../utils/cn.js'
+import { resolveUiText } from '../utils/resolve-ui-text.js'
 import { iconTypeProp } from '../theme/icon-type-prop.js'
 import { resolveThemeIconType } from '../theme/resolve-theme-default.js'
 import { uiDefaultsMixin } from '../theme/ui-defaults.js'
@@ -110,8 +153,8 @@ import { CONTROL_SIZES } from '../utils/sizes.js'
 const ALIGNS = ['start', 'center']
 const TAGS = ['li', 'div']
 const SIZES = CONTROL_SIZES
-const ITEM_COLORS = ['danger']
-const TRAILING_ICONS = ['chevron', 'external', 'none']
+const ITEM_COLORS = ['danger', 'primary']
+const TRAILING_ICONS = ['chevron', 'external', 'copy', 'none']
 
 const TILE_SIZE_BY_ITEM = {
   sm: 'sm',
@@ -161,6 +204,33 @@ export default {
       type: String,
       default: '',
     },
+    /**
+     * Değerin önündeki ikon — değerin türünü bir bakışta anlatır (cihaz, işletim sistemi, tarayıcı, kaynak).
+     * Marka ikonları için `value-icon-type="brands"`.
+     */
+    valueIcon: {
+      type: String,
+      default: '',
+    },
+    valueIconType: iconTypeProp,
+    /**
+     * Değerin önünde renk noktası (CSS rengi) — renk seçimi satırı ("Renk ●").
+     * `value-icon` / `value-swatch` tek başına da değer sayılır (metinsiz gösterilir).
+     */
+    valueSwatch: {
+      type: String,
+      default: '',
+    },
+    /** Değerin önünde küçük görsel önizlemesi (URL) — görsel seçimi satırı; tek başına da değer sayılır. */
+    valueImage: {
+      type: String,
+      default: '',
+    },
+    /** Değer boşken sağda soluk gösterilen metin (ör. "Masa seçin"); chevron korunur. */
+    placeholder: {
+      type: String,
+      default: '',
+    },
     /** Satır başı ikon karosu (`ui-icon-tile`) */
     icon: {
       type: String,
@@ -182,7 +252,7 @@ export default {
       type: String,
       default: '',
     },
-    /** `danger`: başlık tehlike tonunda (ör. hesabı sil) */
+    /** `danger`: başlık tehlike tonunda (ör. hesabı sil) · `primary`: ekleme satırı (ör. "Tarih ekle") */
     color: {
       type: String,
       default: '',
@@ -208,15 +278,30 @@ export default {
       type: Boolean,
       default: false,
     },
-    /** Tıklanabilir satırda sağ gösterge: `chevron` | `external` | `none` */
+    /** Tıklanabilir satırda sağ gösterge: `chevron` | `external` | `copy` (değeri kopyalar) | `none` */
     trailingIcon: {
       type: String,
       default: 'chevron',
       validator: (v) => TRAILING_ICONS.includes(v),
     },
+    /**
+     * Değer varken satırın sağında temizle (×) düğmesi; `clear` yayar. Chevron yerine çizilir.
+     * Seçim satırlarında (masa, kategori) seçimi kaldırmak için.
+     */
+    clearable: {
+      type: Boolean,
+      default: false,
+    },
+    clearLabel: {
+      type: String,
+      default: '',
+    },
   },
-  emits: ['click'],
+  emits: ['click', 'clear'],
   computed: {
+    resolvedValueIconType() {
+      return resolveThemeIconType(this.uiDefaults, this.valueIconType)
+    },
     resolvedPrefixIconType() {
       return resolveThemeIconType(this.uiDefaults, this.prefixIconType)
     },
@@ -246,14 +331,24 @@ export default {
     resolvedIconVariant() {
       return this.iconVariant || (this.iconHex ? 'solid' : 'soft')
     },
+    showClear() {
+      return this.usesRowLayout && this.clearable && this.hasValue && !this.disabled
+    },
+    resolvedClearLabel() {
+      return this.clearLabel || resolveUiText(this, 'ui.listItem.clear', 'Clear')
+    },
+    hasValue() {
+      return Boolean(this.value || this.valueIcon || this.valueSwatch || this.valueImage)
+    },
     resolvedTrailingIcon() {
-      if (!this.actionable || this.$slots.trailing) return ''
+      if (!this.actionable || this.$slots.trailing || this.showClear) return ''
       if (this.trailingIcon === 'external') return 'arrow-up-right-from-square'
+      if (this.trailingIcon === 'copy') return 'copy'
       if (this.trailingIcon === 'chevron') return 'chevron-right'
       return ''
     },
     titleClass() {
-      return cn('ui-list-item-title', this.color === 'danger' ? 'ui-list-item-title--danger' : '')
+      return cn('ui-list-item-title', this.color ? `ui-list-item-title--${this.color}` : '')
     },
     itemClass() {
       if (this.usesRowLayout) {
@@ -263,6 +358,7 @@ export default {
           `ui-list-item--${this.size}`,
           this.actionable ? 'ui-list-item--actionable' : '',
           this.disabled ? 'ui-list-item--disabled' : '',
+          this.showClear ? 'ui-list-item--clearable' : '',
         )
       }
       return cn(

@@ -1,0 +1,291 @@
+/**
+ * Form satırı `variant="inset"` — iOS form düzeni (DESIGN.md § Kalıp 2d).
+ * `ui-list-group` kartının içinde: etiket solda, kontrol sağda ve kutusuz; satırlar arası ayraç kartın kuralından.
+ * Kontroller (input, fiyat, select) burada dolgu / kenarlık / iç boşluk taşımaz, değer sağa yaslanır.
+ * Etiketsiz satır (ana alan, uzun metin, çoklu seçim) tam genişliktir ve sola yaslanır.
+ * Açıklama ve hata satırın altında tam genişlikte; hatada etiket ve değer tehlike tonunu alır.
+ */
+@layer components {
+  .ui-form-row--inset {
+    @apply grid min-w-0 items-center gap-x-4 gap-y-1 [grid-template-columns:auto_minmax(0,1fr)] px-[var(--ui-list-group-px,1rem)] py-[var(--ui-list-row-py)] min-h-[calc(1.25rem_+_2_*_var(--ui-list-row-py))] transition-colors duration-150;
+  }
+
+  .ui-form-row--inset:focus-within {
+    @apply [background-color:var(--ui-hover)];
+  }
+
+  .ui-form-row--inset > .ui-form-row-text,
+  .ui-form-row--inset > .ui-form-row-control {
+    @apply contents;
+  }
+
+  .ui-form-row--inset .ui-form-row-label-line {
+    @apply col-start-1 row-start-1 flex min-w-0 items-center gap-2;
+  }
+
+  .ui-form-row--inset .ui-form-label {
+    @apply text-sm font-normal leading-5 text-foreground;
+  }
+
+  /** Kontrol: 2. sütun, değer sağda */
+  .ui-form-row--inset > .ui-form-row-control > :where(:not(.ui-form-row-description):not(.ui-form-row-error)) {
+    @apply col-start-2 row-start-1 min-w-0 justify-self-stretch;
+  }
+
+  .ui-form-row--inset > .ui-form-row-text > .ui-form-row-description,
+  .ui-form-row--inset > .ui-form-row-control > .ui-form-row-description,
+  .ui-form-row--inset > .ui-form-row-control > .ui-form-row-error {
+    @apply [grid-column:1/-1] m-0 text-xs leading-4;
+  }
+
+  /* —— Kutusuz kontroller —— */
+  .ui-form-row--inset .ui-input,
+  .ui-form-row--inset .ui-select-field {
+    @apply h-auto min-h-0 rounded-none border-0 bg-transparent px-0 py-0 shadow-none [backdrop-filter:none] [outline:none];
+  }
+
+  /**
+   * Odak göstergesi satırın kendisidir (`:focus-within` zemini). Kontrolün odak / açık durum kuralları
+   * (dolgu, halka gölgesi) bu satırda kapatılır; o kurallar daha özgül olduğu için öncelikli.
+   */
+  .ui-form-row--inset .ui-input,
+  .ui-form-row--inset .ui-select-field {
+    background-color: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .ui-form-row--inset .ui-input-field {
+    @apply text-end text-sm leading-5;
+  }
+
+  .ui-form-row--inset .ui-input {
+    @apply justify-end gap-1;
+  }
+
+  /** Değer → ok boşluğu satır seçicisiyle (`ui-list-item`) aynı: 12px. */
+  .ui-form-row--inset .ui-select-field {
+    @apply justify-end gap-3;
+  }
+
+  .ui-form-row--inset .ui-select-field .ui-select-value,
+  .ui-form-row--inset .ui-select-field .ui-select-placeholder {
+    @apply flex-none text-end;
+  }
+
+  .ui-form-row--inset > .ui-form-row-control > .ui-switch {
+    @apply justify-self-end;
+  }
+
+  /**
+   * Satır içi kontrol satırı uzatmaz: tüm satırlar yazı satırı yüksekliğinde (fareli 44, dokunmatik 48).
+   * Seçim kutusu satır yüksekliğine sabitlenir (temizle / ok düğmeleri dolguya taşar); anahtar fazlası kadar negatif boşluk alır.
+   */
+  .ui-form-row--inset .ui-select-field:not(.ui-select-field--values) {
+    @apply h-5;
+  }
+
+  /** Seçim kutusunu saran satır içi kapsayıcılar taban çizgisi boşluğu (+1px) bırakmasın. */
+  .ui-form-row--inset :is(.ui-select, .ui-select .ui-popover) {
+    @apply flex min-w-0 flex-col;
+  }
+
+  .ui-form-row--inset > .ui-form-row-control > .ui-switch {
+    @apply -my-0.5;
+  }
+
+  /**
+   * Tarih / saat seçici: varsayılan tetikleyici bir düğmedir — satırda kutusuz, ikonsuz, değer sağda.
+   */
+  .ui-form-row--inset :is(.ui-datepicker, .ui-timepicker) {
+    @apply flex min-w-0 justify-end;
+  }
+
+  /** Popover kapsayıcıları içerik genişliğinde: tetikleyici sağa yaslanır (blok seçicide tam genişliğe uzanıyordu). */
+  .ui-form-row--inset :is(.ui-datepicker, .ui-timepicker) :is(.ui-popover, .ui-popover-trigger, .ui-popover-trigger > .ui-button) {
+    display: flex;
+    width: auto !important;
+  }
+
+  .ui-form-row--inset :is(.ui-datepicker, .ui-timepicker) .ui-popover-trigger > .ui-button {
+    @apply h-5 min-h-0 justify-end border-0 px-0 py-0 shadow-none text-sm font-normal leading-5 text-foreground;
+    /* Düğme varyantının dolgusu bu kuraldan öncelikli; satırda kutusuz olmalı. */
+    background-color: transparent !important;
+  }
+
+  .ui-form-row--inset :is(.ui-datepicker, .ui-timepicker) .ui-popover-trigger > .ui-button .ui-button-prefix {
+    display: none !important;
+  }
+
+  .ui-form-row--inset :is(.ui-datepicker, .ui-timepicker) .ui-popover-trigger > .ui-button .ui-button-text {
+    @apply flex-none;
+  }
+
+  .ui-form-row--inset :is(.ui-datepicker, .ui-timepicker) .ui-popover-trigger > .ui-button .ui-button-text > * {
+    @apply text-end;
+  }
+
+  /**
+   * Telefon: ülke kodu + numara sağda tek blok; telefon ikonu gizli (etiket söyler). Numara alanı
+   * içerik genişliğinde (13 karakter) — bütün genişliği kaplayıp ülke kodunu etiketin dibine itmez.
+   */
+  .ui-form-row--inset .ui-phone-prepend > .ui-icon {
+    display: none !important;
+  }
+
+  .ui-form-row--inset .ui-phone-prepend :is(.ui-popover-trigger, .ui-select-field) {
+    @apply h-5 min-h-0;
+  }
+
+  .ui-form-row--inset .ui-phone .ui-input-field {
+    @apply w-[8.5rem] flex-none text-start;
+  }
+
+  /** Para birimi rakamın arkasında ("180,00 ₺"); satırda değer sağa yaslı tek blok olur. */
+  .ui-form-row--inset .ui-input > :has(> .ui-currency-symbol) {
+    @apply order-2;
+  }
+
+  /** Satırda etiket ne olduğunu söyler: seçim kutusunun ön ikonu gizlenir. */
+  .ui-form-row--inset .ui-select-prefix {
+    /* Şablondaki `inline-flex` yardımcı sınıfı bileşen katmanını ezer; gizleme öncelikli. */
+    display: none !important;
+  }
+
+  /* —— Etiketsiz satır: tam genişlik, sola yaslı —— */
+  .ui-form-row--inset:not(:has(.ui-form-label)) {
+    @apply [grid-template-columns:minmax(0,1fr)];
+  }
+
+  .ui-form-row--inset:not(:has(.ui-form-label)) > .ui-form-row-control > :where(:not(.ui-form-row-description):not(.ui-form-row-error)) {
+    @apply col-start-1;
+  }
+
+  .ui-form-row--inset:not(:has(.ui-form-label)) .ui-input-field {
+    @apply text-start;
+  }
+
+  .ui-form-row--inset:not(:has(.ui-form-label)) .ui-input,
+  .ui-form-row--inset:not(:has(.ui-form-label)) .ui-select-field {
+    @apply justify-start;
+  }
+
+  /** Ana alan (ad): etiketsiz + `primary` → büyük yazı (iOS Takvim "Başlık") */
+  .ui-form-row--inset[data-primary-field]:not(:has(.ui-form-label)) .ui-input-field {
+    @apply text-lg font-medium leading-7;
+  }
+
+  /** Sayı alanında tarayıcı ok düğmeleri satır düzenini bozar; değer yazılarak girilir. */
+  .ui-form-row--inset .ui-input-field[type='number'] {
+    @apply [appearance:textfield] [-moz-appearance:textfield];
+  }
+
+  .ui-form-row--inset .ui-input-field[type='number']::-webkit-inner-spin-button,
+  .ui-form-row--inset .ui-input-field[type='number']::-webkit-outer-spin-button {
+    @apply m-0 [-webkit-appearance:none];
+  }
+
+  .ui-form-row--inset .ui-input-field--textarea {
+    @apply resize-none text-start;
+  }
+
+  /* —— Yığılı satır: uzun metin ve çoklu seçim — etiket (+ eylem) üstte, alan altta tam genişlik —— */
+  .ui-form-row--inset:has(.ui-input-field--textarea, .ui-select-field--values) {
+    @apply items-start [grid-template-columns:minmax(0,1fr)];
+  }
+
+  .ui-form-row--inset:has(.ui-input-field--textarea, .ui-select-field--values) .ui-form-row-label-line {
+    @apply justify-between;
+  }
+
+  .ui-form-row--inset:has(.ui-input-field--textarea, .ui-select-field--values) > .ui-form-row-control > :where(:not(.ui-form-row-description):not(.ui-form-row-error)) {
+    @apply col-start-1 row-start-2;
+  }
+
+  .ui-form-row--inset:not(:has(.ui-form-label)):has(.ui-input-field--textarea, .ui-select-field--values) > .ui-form-row-control > :where(:not(.ui-form-row-description):not(.ui-form-row-error)) {
+    @apply row-start-1;
+  }
+
+  .ui-form-row--inset:has(.ui-input-field--textarea, .ui-select-field--values) .ui-input,
+  .ui-form-row--inset:has(.ui-input-field--textarea, .ui-select-field--values) .ui-select-field {
+    @apply justify-start;
+  }
+
+  .ui-form-row--inset .ui-select-field--values .ui-select-values-input {
+    @apply text-start;
+  }
+
+  /* —— Hata —— (kutusuz kontrolde çerçeve yok; etiket ve değer tonlanır, mesaj altta) */
+  .ui-form-row--inset .ui-input:has(> .ui-input-field[aria-invalid='true']),
+  .ui-form-row--inset .ui-select-field[aria-invalid='true'],
+  .ui-form-row--inset .ui-select-field--values:has([aria-invalid='true']) {
+    @apply [outline:none];
+  }
+
+  .ui-form-row--inset:has([aria-invalid='true']) .ui-form-label,
+  .ui-form-row--inset:has([aria-invalid='true']) .ui-input-field {
+    @apply [color:var(--danger-ink)];
+  }
+
+  @media (pointer: coarse) {
+    .ui-form-row--inset {
+      @apply min-h-[calc(1.5rem_+_2_*_var(--ui-list-row-py))];
+    }
+
+    .ui-form-row--inset .ui-form-label,
+    .ui-form-row--inset .ui-input-field {
+      @apply text-base leading-6;
+    }
+
+    .ui-form-row--inset[data-primary-field]:not(:has(.ui-form-label)) .ui-input-field {
+      @apply text-xl leading-7;
+    }
+
+    .ui-form-row--inset .ui-select-field:not(.ui-select-field--values) {
+      @apply h-6;
+    }
+
+    .ui-form-row--inset > .ui-form-row-control > .ui-switch {
+      @apply my-0;
+    }
+
+    .ui-form-row--inset .ui-phone .ui-input-field {
+      @apply w-[10rem];
+    }
+
+    .ui-form-row--inset :is(.ui-datepicker, .ui-timepicker) .ui-popover-trigger > .ui-button {
+      @apply h-6 text-base leading-6;
+    }
+
+    .ui-form-row--inset .ui-phone-prepend :is(.ui-popover-trigger, .ui-select-field) {
+      @apply h-6;
+    }
+  }
+
+  /**
+   * Satır değeri renk kuralı (iOS): seçilen değer ikincil (`muted-foreground`), boş satırın yer tutucusu
+   * bir kademe daha soluk (`--ui-row-placeholder`), elle yazılan metin birincil. Seçim kutusu (kasa, kişi)
+   * ile satır seçicisi (tarih, saat) aynı görünür; önceden biri beyaz biri gri, yer tutucular iki ayrı tondaydı.
+   */
+  .ui-form-row--inset .ui-select-field .ui-select-value {
+    @apply text-muted-foreground;
+  }
+
+  .ui-form-row--inset .ui-select-field .ui-select-value--placeholder,
+  .ui-form-row--inset .ui-select-field .ui-select-placeholder,
+  .ui-form-row--inset .ui-select-values-input::placeholder,
+  .ui-form-row--inset .ui-input-field::placeholder {
+    @apply [color:var(--ui-row-placeholder,_color-mix(in_oklab,_var(--muted-foreground)_62%,_transparent))];
+  }
+
+  /** Seçim kutusu oku satır okuyla aynı: sağa bakan, dolu (aşağı ok yalnız serbest alanlarda). */
+  /* `!important`: Font Awesome'ın katmansız `fa-light` ağırlığı ve `text-xs` yardımcısı bileşen katmanını geçiyor. */
+  .ui-form-row--inset .ui-select-field:not(.ui-select-field--values) .ui-select-chevron > i {
+    font-size: 0.875rem !important;
+    font-weight: 900 !important;
+    transform: rotate(-90deg);
+  }
+
+  [dir='rtl'] .ui-form-row--inset .ui-select-field:not(.ui-select-field--values) .ui-select-chevron > i {
+    transform: rotate(90deg);
+  }
+}

@@ -99,6 +99,7 @@ Registered globally as `<ui-field-action>` by `app.use(UiLib)`. Local import: `i
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
+| `presentation` | `'popover' \| 'dialog' \| 'auto'` | `"auto"` | Açılış biçimi (`ui-popover` `presentation`): `auto` telefonda dialog, masaüstünde panel; `popover` her zaman panel; `dialog` her zaman dialog. |
 | `open` | `boolean` |  | `v-model:open` |
 | `title` | `string` | `""` |  |
 | `description` | `string` | `""` |  |

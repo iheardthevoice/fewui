@@ -5,3 +5,4 @@ node_modules
 coverage
 .idea
 .vscode
+apps/kit-docs/.vitepress/cache/

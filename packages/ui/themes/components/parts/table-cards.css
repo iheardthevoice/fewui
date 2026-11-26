@@ -160,6 +160,15 @@
     @apply [grid-row:1/span_2] self-center;
   }
 
+  /**
+   * Sağ değer ve menü iki satıra yayıldığında alt satır başlığın hemen altında, aynı sütunda durur.
+   * Açık yerleşim olmadan alt satır (sütun 3–5) dolu 2. satıra sığmayıp görünmez bir 3. satıra düşüyor,
+   * başlıkla arasında boşluk açılıyordu.
+   */
+  .ui-data-card:has(> .ui-data-card-meta > .ui-data-card-meta-item:not(.ui-data-card-meta-item--empty)):has(> :is(.ui-data-card-cell--trailing, .ui-data-card-cell--actions):not(.ui-data-card-cell--empty)) > .ui-data-card-meta {
+    @apply [grid-row:2] [grid-column:3/4];
+  }
+
   /** Kart tipografisi: başlık 16, alt satırlar 14 (tabloda 14 / 12). */
   .ui-data-card-cell--title .ui-table-cell-title {
     @apply text-base leading-6;

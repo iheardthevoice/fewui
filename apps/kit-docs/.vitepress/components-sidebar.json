@@ -440,5 +440,23 @@
         "link": "/kit/components/ui-toolbar"
       }
     ]
+  },
+  {
+    "text": "Other",
+    "collapsed": false,
+    "items": [
+      {
+        "text": "ui-list-group",
+        "link": "/kit/components/ui-list-group"
+      },
+      {
+        "text": "ui-number-stepper",
+        "link": "/kit/components/ui-number-stepper"
+      },
+      {
+        "text": "ui-title-menu",
+        "link": "/kit/components/ui-title-menu"
+      }
+    ]
   }
 ]

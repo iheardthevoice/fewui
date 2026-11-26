@@ -16,7 +16,7 @@ import { CONTROL_SIZES } from '../utils/sizes.js'
 
 const nextRadioGroupId = createUiIdFactory('ui-radio-group')
 
-const VARIANTS = ['list', 'button']
+const VARIANTS = ['list', 'button', 'inset']
 const ORIENTATIONS = ['vertical', 'horizontal']
 
 export default {
@@ -26,7 +26,10 @@ export default {
       type: [String, Number, Boolean],
       default: null,
     },
-    /** `list` — satır listesi; `button` — kart seçenekleri */
+    /**
+     * `list` — satır listesi; `button` — kart seçenekleri;
+     * `inset` — iOS seçim listesi: gruplu kartın satırları, seçili satırda sağda ✓ (daire yok).
+     */
     variant: {
       type: String,
       default: 'list',
@@ -72,7 +75,7 @@ export default {
   computed: {
     normalizedVariant() {
       const v = this.variant || 'list'
-      return v === 'button' ? 'button' : 'list'
+      return VARIANTS.includes(v) ? v : 'list'
     },
     effectiveOrientation() {
       if (this.normalizedVariant === 'button') {

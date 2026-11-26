@@ -1,6 +1,7 @@
 <template>
   <div :class="rootClass">
     <ui-popover
+      :presentation="presentation"
       v-model:open="popoverOpen"
       placement="bottom-start"
       :width="panelWidth"
@@ -125,6 +126,15 @@ export default {
   mixins: [uiDefaultsMixin, formDirtyMixin],
   inheritAttrs: false,
   props: {
+    /**
+     * Açılış biçimi (`ui-popover` `presentation`): `auto` telefonda dialog, masaüstünde panel;
+     * `popover` her zaman panel; `dialog` her zaman dialog.
+     */
+    presentation: {
+      type: String,
+      default: 'auto',
+      validator: (v) => ['auto', 'popover', 'dialog'].includes(v),
+    },
     modelValue: {
       type: String,
       default: '',

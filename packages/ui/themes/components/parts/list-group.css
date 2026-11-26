@@ -1,0 +1,156 @@
+/**
+ * Gruplu liste (`ui-list-group`) — ekran anatomisinin liste kalıbı (DESIGN.md § Ekran anatomisi).
+ *
+ * Satır dilbilgisi grup içinde sabittir; çağıran ekran boyut seçmez:
+ *   ikon karosu 28px · ikon → metin 12px · yatay dolgu 16px · dikey dolgu `--ui-list-row-py`
+ *   başlık gövde boyutu (400) · alt metin bir kademe küçük, tek satır · ayraç metin sütunundan başlar.
+ * Dokunmatikte (`pointer: coarse`) metinler bir kademe büyür (14 → 16, 12 → 14).
+ */
+@layer components {
+  .ui-list-group {
+    --ui-list-group-px: 1rem;
+    --ui-list-group-tile: 1.75rem;
+    --ui-list-group-gap: 0.75rem;
+    --ui-list-group-radius: 1.5rem;
+    /** Ayraç hem yüzeyde hem alan dolgusunda görünür (border token'ı dolguyla aynı tonda kalabiliyor). */
+    --ui-list-group-separator: color-mix(in oklab, var(--foreground) 12%, transparent);
+    /** Satır sağ dolgusu — temizle düğmesi bu çizgiye göre chevron hizasına oturur. */
+    --ui-list-item-end: var(--ui-list-group-px);
+    @apply flex min-w-0 flex-col gap-2;
+  }
+
+  /**
+   * Gruplar arası boşluğu kapsayıcı verir (`flex flex-col gap-6`); grup kendi kenar boşluğunu taşımaz.
+   * Önceki `.ui-list-group + .ui-list-group { mt-6 }` boşluklu kapsayıcıda ikiye katlanıyordu (16 + 24 = 40px).
+   * Dialog gövdesi 16px boşluklu: grubun komşuluğu toplam 24px olsun diye +8px.
+   */
+  .ui-dialog-panel > .ui-dialog-motion > .ui-card-body > .ui-list-group:not(:first-child),
+  .ui-dialog-panel > .ui-dialog-motion > .ui-card-body > .ui-list-group + * {
+    @apply mt-2;
+  }
+
+  /**
+   * Grup başlığı ve açıklaması kutunun dışındadır: içerik kenarında durur (form etiketleri, özet ve
+   * sayfa açıklamasıyla aynı sol çizgi). Kartın içindeki satır metni kartın kendi iç boşluğundadır.
+   * Önceden iOS gibi 16px içeride duruyordu; aynı ekrandaki form etiketleriyle ikinci bir çizgi oluşturuyordu.
+   */
+  .ui-list-group-label {
+    @apply m-0;
+  }
+
+  .ui-list-group-card {
+    @apply box-border flex min-w-0 flex-col overflow-hidden border border-border text-surface-foreground [border-radius:min(var(--radius),_var(--ui-list-group-radius))] [background-color:var(--surface)];
+  }
+
+  /** Dialog / sheet içinde kart, alan dolgusuna geçer: yüzey içinde ikinci bir gölgeli kart oluşmaz. */
+  .ui-dialog-panel .ui-list-group-card,
+  .ui-sheet-panel .ui-list-group-card {
+    @apply border-transparent [background-color:var(--input-background)];
+    --ui-list-group-radius: 1.25rem;
+  }
+
+  .ui-list-group-footer {
+    @apply m-0 text-xs leading-4 text-muted-foreground;
+  }
+
+  /* —— Satır dilbilgisi —— */
+
+  /**
+   * Kartın doğrudan çocuğu satırın kendisi veya onu saran tetikleyici olabilir
+   * (`ui-date-picker` / `ui-select` `#trigger` içinde `ui-list-item`); ayraç her iki durumda da çocuktadır.
+   */
+  .ui-list-group-card > * {
+    @apply relative block w-full;
+  }
+
+  /** Tetikleyici sarmalayıcıları (popover kökü vb.) satırı daraltmaz: değer her zaman sağa yaslanır. */
+  .ui-list-group-card :where(*:has(.ui-list-item)) {
+    @apply flex w-full min-w-0 flex-col;
+  }
+
+  .ui-list-group-card .ui-list-item {
+    @apply w-full;
+  }
+
+  .ui-list-group-card .ui-list-item .ui-list-item-row {
+    @apply gap-[var(--ui-list-group-gap)] px-[var(--ui-list-group-px)] py-[var(--ui-list-row-py)];
+  }
+
+  /** Temizle düğmesinin yeri: grup dolgusu `ui-list-item--clearable` sağ boşluğunu ezmesin (değer × altında kalıyordu); değer chevron'lu satırlarla aynı çizgide biter. */
+  .ui-list-group-card .ui-list-item--clearable .ui-list-item-row {
+    @apply pe-[calc(var(--ui-list-group-px)_+_0.875rem_+_var(--ui-list-group-gap))];
+  }
+
+  .ui-list-group-card .ui-list-item .ui-icon-tile {
+    @apply size-[var(--ui-list-group-tile)] rounded-[0.5rem];
+  }
+
+  .ui-list-group-card .ui-list-item .ui-list-item-text {
+    @apply gap-0;
+  }
+
+  .ui-list-group-card .ui-list-item .ui-list-item-title {
+    @apply text-sm font-normal leading-5;
+  }
+
+  .ui-list-group-card .ui-list-item .ui-list-item-description {
+    @apply line-clamp-1 text-xs leading-4;
+  }
+
+  /** Sağ taraf satırın en fazla %60'ı; değer bu alanda kısalır (yüzde, içerik genişliğine bağlı kutuda değil burada). */
+  .ui-list-group-card .ui-list-item .ui-list-item-trailing {
+    @apply min-w-0 max-w-[60%] shrink;
+  }
+
+  .ui-list-group-card .ui-list-item .ui-list-item-value {
+    @apply max-w-full;
+  }
+
+  .ui-list-group-card .ui-list-item .ui-list-item-value {
+    @apply text-sm leading-5;
+  }
+
+  /**
+   * Satır içi kontrol (sayaç, küçük düğme) satırı uzatmaz: metin satırıyla aynı yükseklik kalır.
+   * Kontrol, satır yüksekliğinden taşan kısmı kadar negatif dikey boşluk alır (dolgu içine taşar).
+   */
+  .ui-list-group-card .ui-list-item-trailing > :is(.ui-number-stepper, .ui-button) {
+    @apply [margin-block:calc((var(--ui-control-h-sm)_-_1.25rem)_/_-2)];
+  }
+
+  /** Hover / basılı: tek değer, kart zemininden bağımsız */
+  .ui-list-group-card .ui-list-item--actionable > .ui-button[data-variant='nav']:hover:not(:disabled),
+  .ui-list-group-card .ui-list-item--actionable > .ui-button[data-variant='nav']:focus-visible {
+    @apply [background-color:var(--ui-hover)];
+  }
+
+  /** Ayraç — metin sütunundan kartın sağ kenarına; ikonsuz satırda dolgudan başlar */
+  .ui-list-group-card > * + *::before {
+    @apply pointer-events-none absolute end-0 top-0 z-[1] h-px [content:''] [background:var(--ui-list-group-separator)] [inset-inline-start:var(--ui-list-group-px)];
+  }
+
+  .ui-list-group-card > *:has(.ui-icon-tile) + *::before {
+    @apply [inset-inline-start:calc(var(--ui-list-group-px)_+_var(--ui-list-group-tile)_+_var(--ui-list-group-gap))];
+  }
+
+  @media (pointer: coarse) {
+    .ui-list-group-card .ui-list-item .ui-list-item-title,
+    .ui-list-group-card .ui-list-item .ui-list-item-value {
+      @apply text-base leading-6;
+    }
+
+    .ui-list-group-card .ui-list-item .ui-list-item-description,
+    .ui-list-group-footer {
+      @apply text-sm leading-5;
+    }
+
+    .ui-list-group-card .ui-list-item-trailing > :is(.ui-number-stepper, .ui-button) {
+      @apply [margin-block:calc((var(--ui-control-h-sm)_-_1.5rem)_/_-2)];
+    }
+  }
+
+  /** Kart içinde kapalı anahtar izi kart dolgusuyla aynı tonda kalıyordu (yalnız topuz görünüyordu). */
+  .ui-list-group-card .ui-switch-track:not(.ui-switch-track--on) {
+    @apply [background-color:color-mix(in_oklab,_var(--foreground)_16%,_transparent)];
+  }
+}

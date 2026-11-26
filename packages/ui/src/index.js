@@ -43,6 +43,9 @@ import Intro from './components/Intro.vue'
 import Kbd from './components/Kbd.vue'
 import List from './components/List.vue'
 import ListItem from './components/ListItem.vue'
+import ListGroup from './components/ListGroup.vue'
+import NumberStepper from './components/NumberStepper.vue'
+import TitleMenu from './components/TitleMenu.vue'
 import Menu from './components/Menu.vue'
 import Menubar from './components/Menubar.vue'
 import MenuGroup from './components/MenuGroup.vue'
@@ -281,6 +284,9 @@ export {
   Kbd,
   List,
   ListItem,
+  ListGroup,
+  NumberStepper,
+  TitleMenu,
   Menu,
   Menubar,
   MenuGroup,
@@ -400,6 +406,9 @@ const GLOBAL_COMPONENTS = [
   ['ui-kbd', Kbd],
   ['ui-list', List],
   ['ui-list-item', ListItem],
+  ['ui-list-group', ListGroup],
+  ['ui-number-stepper', NumberStepper],
+  ['ui-title-menu', TitleMenu],
   ['ui-menu', Menu],
   ['ui-menu-group', MenuGroup],
   ['ui-menu-item', MenuItem],

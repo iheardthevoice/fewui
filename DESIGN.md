@@ -4,6 +4,130 @@ Bu belge **fewui** ile geliştirdiğimiz arayüz dilini, token’ları ve tekrar
 
 ---
 
+## 0. Ekran anatomisi (önce bunu oku)
+
+Bir ekran serbestçe kurulmaz; aşağıdaki üç kalıptan biriyle kurulur. Kalıbın ölçüleri bileşendedir — ekran boşluk, yazı boyutu veya ikon boyutu **seçmez**. Geçiş durumu: [`docs/DESIGN_CONSISTENCY.md`](../docs/DESIGN_CONSISTENCY.md).
+
+### Kapalı ölçüler
+
+| Eksen | İzinli değerler | Not |
+|---|---|---|
+| Boşluk | 4 · 8 · 12 · 16 · 24 · 32 px | Ekran içi düzen `--ui-space-*` ile; ekran `gap-5`, `py-2.5`, `mt-0.5` gibi ara değer yazmaz |
+| Yazı (fareli) | 24 sayfa · 20 dialog · 16 bölüm · 14 içerik · 12 ikincil | Bir ekranda en fazla 3 boyut |
+| Yazı (dokunmatik) | içerik 16 · ikincil 14 | `pointer: coarse` bir kademe büyütür; ekran bunu elle yapmaz |
+| Kalınlık | 400 · 500 · 600 | Liste satırı başlığı 400; vurgu 500; **600 yalnız sayfa / dialog / sheet başlığı** (`ui-heading-1/2`, harf aralığı −0.02em; tema `--ui-heading-weight` / `--ui-heading-tracking` ile değiştirir) |
+| İkon karosu | liste 28 px | Aynı bağlamda tek boyut; glif karonun ~%60'ı |
+| Ekran kenarı | 16 px (telefon) | İki yan eşit; ayraç ve kart ekran kenarına değmez |
+
+### Sol çizgi kuralı (iki çizgi, fazlası yok)
+
+1. **Dış çizgi — içerik kenarı:** kutunun dışında duran her şey: sayfa / dialog başlığı ve açıklaması, özet metrikleri, grup başlığı ve açıklaması (`ui-list-group` label / footer), form etiketi ve açıklaması, çip şeridi. Kutuların (kart, input, select, çip) sol kenarı da bu çizgidedir.
+2. **İç çizgi — kutunun iç boşluğu:** kartın içindeki satır metni, input / select içindeki yazı. Her kutu kendi iç boşluğunu kullanır.
+
+Kutu dışındaki bir metin kutunun iç çizgisine (16px) girintilenmez; aynı ekranda form etiketleriyle ikinci bir dış çizgi oluşturur. Denetim: değişen ekranda kutu dışı metinlerin sol x'i tek değer olmalı.
+
+### Kalıp 1 — Gruplu liste (ayarlar, hesap, gezinme menüleri)
+
+`ui-list-group` + `ui-list-item` (uygulamada `app-settings-group` / `app-settings-row`).
+
+- Grup: üstte bölüm etiketi (12 px büyük harf, içerik kenarında) → 8 px → içe çekik kart → 8 px → grup açıklaması (içerik kenarında). Gruplar arası 24 px.
+- Satır: **ikon karosu · başlık (tek satır) · alt metin (tek satır, isteğe bağlı) · sağda tek değer veya ok**. Satırda label–değer yığını, ikinci açıklama satırı veya rozet kalabalığı olmaz.
+- Uzun anlatım satıra yazılmaz; **grubun altına** (`footer`) yazılır. Satırdaki alt metin 3–5 kelimelik özettir ("Ad, telefon, hakkında").
+- Ayraç metin sütunundan başlar, kartın sağ kenarında biter.
+- Geri dönüşsüz işlem (sil, sıfırla) **en altta, kendi grubunda**, açıklaması grup altında.
+- Dialog / sheet içinde de aynı kart kullanılır (kendiliğinden alan dolgusuna geçer); kenardan kenara düz liste yoktur.
+
+### Kalıp 2 — Form
+
+`ui-section` + `ui-form-row`.
+
+- Alanlar arası 16 px (`--ui-space-stack`). Alanların arasına elle `ui-divider` konmaz; geniş ekranda ayraç gerekiyorsa `ui-section divided` (dar ekranda kendiliğinden kalkar).
+- Etiket → kontrol 6 px. Yardım metni etiketin altında, yalnız gerçekten gerekiyorsa.
+- Birincil aksiyon tek yerde: dialog'da **başlığın sağı** (`#actions`), sayfada başlık aksiyonu. Footer'da İptal yoktur.
+
+### Dialog yüksekliği
+
+Dialog **içeriği kadar uzar**; altta kullanılmayan boşluk kalmaz. Son içerik ile panelin alt kenarı arasındaki boşluk yan boşlukla aynıdır (kart dolgusu). İçeriğe ekran yüksekliğine bağlı sabit `min-h-[…dvh]` verilmez (`check:tokens` → `dialog-fixed-height`). Uzun içerik için tavan `panel-max-height` ile verilir, gövde kayar. Liste ↔ alt ekran geçişinde yükseklik değişmesi normaldir.
+
+### Kalıp 2b — Seçim alanları ve kayıt detayı (iOS Takvim düzeni)
+
+Tarih, saat, adet, masa, durum gibi **seçimle doldurulan** alanlar form satırı değil, `ui-list-group` içinde satırdır: **etiket solda, değer sağda, ok**. Satıra dokununca seçici açılır (`ui-date-picker` / `ui-time-picker` / `ui-select` `#trigger` içinde `ui-list-item interactive`).
+
+- Boş değer `placeholder` ile soluk gösterilir ("Masa seçin"); ok kaybolmaz.
+- Kaldırılabilir seçim `clearable` + `@clear` (× okun yerine çizilir; iç içe düğme yoktur).
+- **Tek seçimli sebep / seçenek listesi:** `ui-radio-group variant="inset"` — kartlı satırlar, seçili satırda sağda ✓ (daire yok). Seçimi gerektiren onay düğmesi başlıkta; "Diğer" seçilince açıklama satırı ayrı kartta açılır.
+- Görünüm seçimi satırdır: Görsel · Simge · Renk; değer görselin önizlemesi (`value-image`), ikonun kendisi (`value-icon`) ya da renk noktası (`value-swatch`) — "Seçildi" gibi durum metni yazılmaz; boşsa soluk "Yok"; `clearable` ile kaldırılır (× chevron'un yerinde, aynı hizada). Çip şeridi ("Simge belirle", "Renk belirle") yazılmaz.
+- **Satır değeri renkleri (tek kural):** seçilen değer ikincil (`muted-foreground`) — satır seçicisi (tarih, saat) ve seçim kutusu (kasa, kişi) aynı; boş satırın yer tutucusu bir kademe daha soluk (`--ui-row-placeholder`, `muted-foreground` %62); elle yazılan metin birincil. Satırdaki ok her zaman sağa bakan dolu `›`, değerden 12px uzakta.
+- **İsteğe bağlı alanlar formda da çiptir:** sık doldurulmayan alanlar (saat, kişi, not) satır olarak beklemez; grubun altında "Bilgi ekle" çip şeridi, dokununca satır açılır ve düzenleyici hemen açılır / odaklanır. Dolu ya da zorunlu hâle gelen alan (ör. beklet seçilince kişi) satır olarak görünür.
+- Çok değerli seçim (etkinlik günleri): her değer kendi satırı (`clearable`), grubun sonunda vurgulu ekleme satırı `ui-list-item color="primary" trailing-icon="none"` ("Tarih ekle"). Çip şeridi kullanılmaz.
+- Küçük sayılar `ui-number-stepper` (− 2 +) ile, `#trailing` içinde. Satır içi kontrol satırı uzatmaz; tüm satırlar eşit yükseklik (fareli 44, dokunmatik 48 px).
+- Serbest metin (ad, not) `ui-form-row` + input olarak kalır.
+- **Kayıt detayı aynı satırları salt okunur gösterir** (ok yok). Düzenleme ile detay aynı yapıdadır; kullanıcı iki farklı düzen öğrenmez. Bilgi çip / rozet yığını olarak gösterilmez.
+- **Dialog içinden başka kayda geçiş sayfayı değiştirmez:** kişi, kasa gibi bağlı kayıt satırı `to` ile rotaya gitmez; `openRecordDialog(type, id)` (`@/composables/use-record-dialog`) kaydın kendi dialog'unu açık dialog'un üstünde açar (`app-record-dialog-host`, App.vue). Kapatınca kullanıcı kaldığı dialog'a döner. Yeni tür eklemek: host'taki `RECORD_DIALOGS` (bileşen + kimlik prop'u). Kalıcı adres gerekiyorsa başlık menüsünde "Bağlantıyı kopyala".
+- Detaydaki işlemler (durum geçişleri) ikonlu satır grubu; silme en altta ayrı grup. Başlığın sağında yalnız "Düzenle".
+- Kayıt dialog'u başlığı: sağda yalnız "Düzenle" (ve varsa tek ikonlu hızlı eylem, ör. ara). "⋯" menüsünde Düzenle / Sil saklanmaz; Sil gövdenin en altında.
+- Dialog araç çubuğundaki sekmeler yalnız yazılıdır (ikonsuz, `size="sm"`); ikonlu sekme sayfa düzeyindedir.
+- Boş alan satırda soluk "Ekle" (`placeholder`) gösterir ve dokununca yalnız o alanın düzenleyicisini açar; ayrı "X ekle" çipleri yazılmaz.
+- **Değer süslemesi yalnız bilgi taşıdığında:** türü olan değerler önünde ikonla (`value-icon`) gösterilir: cihaz türü (telefon / tablet / bilgisayar), işletim sistemi ve tarayıcı (marka ikonu, `value-icon-type="brands"`), kaynak (site / panel). Durum, tonlu ve ikonlu rozetle (`#trailing` + `ui-badge variant="muted"`). Kopyalanabilir değer `trailing-icon="copy"`. Tarih, saat, adet gibi düz değerler süslenmez; her satıra ikon koymak gürültüdür.
+- Değer satırın sağ %60'ını aşmaz, sığmazsa `…` ile kısalır.
+- **Durum geçişi satırları** dolu ikon karosu taşır (`icon-variant="solid"`); karonun rengi **geçilecek durumun tonudur** ve o durumun rozetiyle aynıdır (Onayla → info, Geldi → success, İptal → danger, Beklemeye al → warning). Aynı renk iki yerde aynı anlama gelir; tüm işlemleri tek renge boyamak rengi anlamsızlaştırır.
+
+### Kalıp 2c — Kayıt detayı alanları: `app-record-fields` ("veri satırdır, eylem çiptir")
+
+Kayıt detayı (ürün, kişi, rezervasyon …) alanları tek bileşenle çizilir; ekran yalnız alan listesini verir:
+
+1. **Özet** (`summary`): kaydın kimliğini anlatan 2–3 bilgi, kutusuz `ui-stat` ile büyük (ürün: fiyat · stok · KDV; kişi: bakiye · son ziyaret). Özette tarih saatsiz.
+2. **Dolu alanlar** (`fields` içinde değeri olanlar): gruplu satır, etiket solda, değer sağda; dokununca o alanın düzenleyicisi.
+3. **Boş alanlar**: tek "Bilgi ekle" çip şeridi (`+ Barkod`, `+ Doğum tarihi`). Çip yalnız o alanı açar; her şey doluysa şerit kaybolur; salt okunur kullanıcı boş alan görmez.
+- Uzun metin (açıklama, not) değer olarak satıra sığmaz: doluysa kendi grubunda tam metin, boşsa çip.
+- Etiketler birimsiz ve kısadır ("Kalori"); birim değerdedir ("320 kcal"). Form etiketleri ("Kalori (kcal)") detayda kullanılmaz.
+- **Detayda yerinde düzenleyici yoktur.** Kategori, satış kataloğu, etiket gibi atamalar da diğer alanlar gibi satırdır ("Kategori · Biralar ›"); dokununca aynı tek alan düzenleyicisi açılır. Açık duran, anında kaydeden seçim kutuları detayda kullanılmaz — detayda tek düzenleme biçimi olur. Oluşturma formunda bu alanlar kalır (kayıt ilk anda doğru yerde görünsün).
+- Eski `app-show-field-badge` çip yığını kullanılmaz (tüm alanları — dolu ve boş — aynı çiple gösteriyordu).
+
+### Kalıp 2d — Form: iOS düzeni (`ui-form-row variant="inset"`)
+
+Form alanları tek tek kutu değil, `ui-list-group` kartının satırlarıdır. Her alan bir satır; "etiket üstte · kutu · yardım metni" üçlüsü kullanılmaz.
+
+- **Ana alan** (ürün adı, kişi adı): kendi kartında, etiketsiz + `primary` → büyük yazı (iOS Takvim "Başlık"). Erişilebilir ad `aria-label` ile.
+- **Kısa alan** (fiyat, stok, barkod, kalori): etiket solda, kutusuz değer sağda. Para birimi rakamın arkasında ("180,00 ₺"). Sayı alanında tarayıcı okları yok.
+- **Seçim** (kategori, birim, KDV): aynı satır; yerinde açılan menü ⌄ ile (iOS'ta popup menü ⌃⌄, başka ekrana geçen satır ›). Satırda seçim kutusunun ön ikonu yok (etiket söyler).
+- **Anahtar**: satırın sağında; kart içinde kapalı izi görünür ton.
+- **Tarih / saat**: seçicinin düğmesi satırda kutusuz ve ikonsuz, değer sağda.
+- **Telefon**: ülke kodu + numara sağda tek blok; telefon ikonu gizli (etiket söyler).
+- **Uzun metin / çoklu seçim** (açıklama, etiketler): yığılı satır — etiket (+ AI gibi eylem) üstte, alan altta, aynı kartta.
+- **Yardım metni** alan başına yazılmaz; gerçekten gerekiyorsa grubun altına tek cümle (`ui-list-group footer`).
+- **Hata**: kutusuz kontrolde çerçeve yok; etiket ve değer tehlike tonunu alır, mesaj satırın altında.
+- Tüm satırlar eşit yükseklik (fareli 44, dokunmatik 48); satır içi kontrol satırı uzatmaz.
+- Gruplar arası boşluğu kapsayıcı verir (`gap-6`); dialog gövdesinde grubun komşuluğu toplam 24px. `ui-list-group` kendi kenar boşluğunu taşımaz.
+- Kartın kendisi kutu olan bileşenler (satış kataloğu seçimi gibi işaretli kartlar) kartın içine konmaz; normal `ui-form-row` ile durur.
+
+### Kalıp 3 — Veri listesi ve detay
+
+`app-data-table` / `app-data-list` (telefonda kart) ve `ui-field size="sm"` detay. Telefon kartı: görsel · başlık / tek muted alt satır · tek sağ değer. Durum rozeti yalnız istisna için.
+
+- Tek satırlı alan (input, select, telefon) tema köşesiyle hap olur; çok satırlı alan (textarea) yuvarlatılmış dikdörtgendir. Bu fark bilinçlidir (iOS ile aynı), eşitlenmez.
+
+### Başlık
+
+Sayfa: `app-panel-page` (başlık + açıklama, açıklama kırpılmaz). Dialog: `ui-dialog` prop'ları.
+
+- Başlığın yanında süs ikonu yoktur (`ui-dialog` / `ui-sheet` `icon` prop'u çizilmez).
+- **Başlık menüsü (`ui-title-menu`, uygulamada `app-title-menu`):** başlık düzeyindeki eylemler (favori, bağlantı kopyala) başlığın kendisindedir — başlığa dokununca menü açılır, yanında soluk ⌄. Her eylem için başlığa ayrı ikon eklenmez.
+  - Favorideyken başlıktan sonra küçük dolu ★ (yalnız durum; favoride değilken hiçbir şey yok).
+  - Masaüstünde ⌘D / Ctrl+D favoriyi değiştirir (açık dialog varken yalnız dialog'daki başlık). Dokunmatikte kısayol ipucu gösterilmez.
+  - Favorilenebilir: modül sayfaları ve kalıcı kayıtlar (ürün, kişi, kasa, kullanıcı, rol). Geçici kayıtlar (rezervasyon, hareket, sipariş) favorilenmez; menüde yalnız "Bağlantıyı kopyala".
+  - Kayıt dialog'u alt rota olarak açıkken sayfa başlığı kendi sayfasını favoriler, açık kaydı değil.
+- Geri: `‹` (chevron-left) + **önceki ekranın adı** (`back-label`). Düğmenin sol kenarı başlığın sol kenarıyla aynı hizadadır. Sayfa başlığındaki geri düğmesi de aynı oku kullanır.
+- Geri düğmeli dialog başlığı iOS gezinme çubuğu gibidir: üst satırda geri solda, birincil aksiyon (Kaydet) sağda; başlık ikinci satırda, açıklama üçüncü satırda.
+- Geri düğmesi varken X çizilmez (iOS: alt ekranda kapatma yok; Esc, dış tıklama ve sheet sürükleme kapatır). Kök ekranda X solda, başlıkla aynı satırda.
+- Başlık satırındaki kontroller tek ölçü: geri (dolu `secondary`), X ve `#actions` içindeki düğme (dolu `primary`) `md` yükseklikte (`--ui-control-h-md`; dokunmatikte 44). Sol uç (geri) ve sağ uç (Kaydet) içerik kenarına oturur; geri düğmesinin sol kenarı başlıkla aynı hizadadır. Üst satır → başlık 14 px (`row-gap` + `mt-2`).
+
+### Kontrol
+
+Değişen her ekran 393 px genişlikte light + dark ekran görüntüsüyle kontrol edilir: farklı yazı boyutu ≤ 3, ikon karosu boyutu ≤ 2, iki yan boşluk eşit, ikon ve metin sütunları satırlar arasında aynı x'te.
+
+---
+
 ## 1. Tema ve token’lar
 
 - **Font:** Inter (`--font-sans`), `default.css` ile yüklenir.
@@ -32,7 +156,11 @@ Bu belge **fewui** ile geliştirdiğimiz arayüz dilini, token’ları ve tekrar
 
 Kart gövdesi (`ui-card-body`) varsayılan olarak bu tabanı kullanır.
 
-**Ölçek:** gövde metni 12 / 14 / 16 / 18px (`text-xs` / `text-sm` / `text-base` / `text-lg`). Bu değerlerin arası (ör. 13px, 15px) kullanılmaz. 12px altı yalnız mikro metindir (rozet, sayaç, avatar harfi); 20px üstü yalnız kasıtlı vurgudur (marka, büyük rakam). Vurgu kalınlığı en fazla `font-medium` (500); `font-semibold` ve `font-bold` yoktur.
+**Ölçek:** gövde metni 12 / 14 / 16 / 18px (`text-xs` / `text-sm` / `text-base` / `text-lg`). Bu değerlerin arası (ör. 13px, 15px) kullanılmaz. 12px altı yalnız mikro metindir (rozet, sayaç, avatar harfi); 20px üstü yalnız kasıtlı vurgudur (marka, büyük rakam). Vurgu kalınlığı en fazla `font-medium` (500); `font-semibold` ve `font-bold` yazılmaz. İstisna: `ui-heading-1/2` ve dialog / sheet başlığı 600 (token'dan).
+
+**Masaüstünde satır seçicisi değere bağlıdır:** gruplu liste satırından (`ui-list-group` içinde `ui-list-item` tetikleyici) açılan panel satırın sonuna hizalı, değerin altında açılır; seçim menüsünde seçili seçenek değerin üstüne oturur.
+
+**Seçiciler telefonda dialog'dur (`presentation`):** `ui-popover` ve onu kullanan seçiciler (`ui-select`, `ui-date-picker`, `ui-time-picker`, `ui-date-range-picker`, renk / ikon seçici, `ui-field-action`) `presentation` alır: `auto` (varsayılan) telefonda içeriği gerçek `ui-dialog` ile açar (alt sayfa, tutamaç, başlık), masaüstünde tetikleyiciye bağlı panel; `popover` her zaman panel (gezinme alt menüsü, önizleme kartı gibi seçici olmayanlar); `dialog` her zaman dialog. Slot adları iki biçimde aynıdır: `header` · `toolbar` (ör. seçim kutusunun arama alanı) · `actions` · varsayılan / `content` · `footer`. Dialog başlığı `title` ile verilir; boşsa satır etiketinden (`ui-form-row` / `ui-list-item` başlığı) türetilir. Menüler (`ui-dropdown`, bağlam menüsü) tetikleyiciye bağlı kalır.
 
 **Katman sırası:** dialog ve sheet açılınca altta açık kalan popover, dropdown ve select kapanır; arkada etkileşimli kalmazlar. Dialog içinden açılan yüzen katman her zaman dialogun üstündedir. Sıra `src/theme/overlay-stack.js` kaydından gelir (taban: dialog 400, onay 420, popover 450, toast 500).
 

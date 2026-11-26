@@ -51,17 +51,16 @@
                 v-if="hasDefaultHeader"
                 class="ui-dialog-header"
                 :class="{
-                  'ui-dialog-header--no-icon': !icon,
                   'ui-dialog-header--with-back': withBack,
-                  'ui-dialog-header--with-close': showClose,
+                  'ui-dialog-header--with-close': showHeaderClose,
                 }"
               >
                 <ui-button
-                  v-if="showClose"
+                  v-if="showHeaderClose"
                   type="button"
                   variant="solid"
                   color="secondary"
-                  size="sm"
+                  size="md"
                   cubed
                   prefix-icon="xmark"
                   class="ui-dialog-header__close"
@@ -71,10 +70,10 @@
                 <ui-button
                   v-if="withBack"
                   type="button"
-                  variant="ghost"
+                  variant="solid"
                   color="secondary"
                   size="md"
-                  prefix-icon="arrow-left"
+                  prefix-icon="chevron-left"
                   class="ui-dialog-header__back ui-icon--dir"
                   @click="onBack"
                 >
@@ -88,16 +87,6 @@
                   >
                     <slot name="title">{{ title }}</slot>
                   </h3>
-                  <span
-                    v-if="icon"
-                    class="ui-dialog-header__icon"
-                  >
-                    <ui-icon
-                      :name="icon"
-                      :type="resolvedIconType"
-                      size="md"
-                    />
-                  </span>
                 </div>
                 <div
                   v-if="$slots.append || $slots.actions"
@@ -258,7 +247,9 @@ export default {
       type: String,
       default: '',
     },
-    /** Varsayılan üst başlıkta gösterilecek ikon (`ui-icon` `name`). */
+    /**
+     * @deprecated Başlıkta süs ikonu çizilmez (DESIGN.md § Ekran anatomisi — başlık). Prop geriye uyum için kalır.
+     */
     icon: {
       type: String,
       default: null,
@@ -284,7 +275,10 @@ export default {
       type: Boolean,
       default: false,
     },
-    /** Geri düğmesi metni; boşsa `ui.dialog.back` (i18n). */
+    /**
+     * Geri düğmesi metni — önceki ekranın adı verilir (iOS: "‹ Profil Tercihleri"); boşsa `ui.dialog.back`.
+     * Geri düğmesi olan başlıkta üst satır: geri solda, `#actions` (ör. Kaydet) sağda; başlık altta.
+     */
     backLabel: {
       type: String,
       default: '',
@@ -479,7 +473,6 @@ export default {
     },
     hasDefaultHeader() {
       return !!(
-        this.icon ||
         this.hasTitle ||
         this.hasDescription ||
         this.$slots.actions ||
@@ -487,6 +480,13 @@ export default {
         this.showClose ||
         this.withBack
       )
+    },
+    /**
+     * Geri düğmesi varken X çizilmez (iOS gezinme çubuğu: solda geri, sağda birincil aksiyon).
+     * Kapatma Esc / dış tıklama / sheet sürükleme ile sürer; kök ekrana dönünce X geri gelir.
+     */
+    showHeaderClose() {
+      return this.showClose && !this.withBack
     },
     hasHeaderBlock() {
       return !!this.$slots.header || this.hasDefaultHeader

@@ -112,6 +112,7 @@
 
     <ui-popover
       v-else
+      :presentation="presentation"
       v-model:open="menuOpen"
       placement="bottom-start"
       :match-trigger-width="!$slots.trigger"
@@ -289,6 +290,15 @@ export default {
   inheritAttrs: false,
   props: {
     /**
+     * Açılış biçimi (`ui-popover` `presentation`): `auto` telefonda dialog, masaüstünde panel;
+     * `popover` her zaman panel; `dialog` her zaman dialog.
+     */
+    presentation: {
+      type: String,
+      default: 'auto',
+      validator: (v) => ['auto', 'popover', 'dialog'].includes(v),
+    },
+    /**
      * Haftanın ilk günü (0 pazar … 6 cumartesi). Verilmezse dilden çözülür:
      * `tr` / `en-GB` pazartesi, `en-US` pazar.
      */
@@ -302,9 +312,10 @@ export default {
       type: String,
       default: '',
     },
+    /** Boşsa `ui.datePicker.placeholder` (dile göre) kullanılır. */
     placeholder: {
       type: String,
-      default: 'Pick a date',
+      default: '',
     },
     disabled: {
       type: Boolean,
@@ -379,7 +390,9 @@ export default {
       return resolveDateDisplayLocale(this.$i18n?.locale)
     },
     displayText() {
-      if (!this.selectedDate) return this.placeholder
+      if (!this.selectedDate) {
+        return this.placeholder || resolveUiText(this, 'ui.datePicker.placeholder', 'Pick a date')
+      }
       const format = resolveThemeDefault(this.uiDefaults, undefined, 'dateFormat')
       return formatDateDisplay(this.selectedDate, this.locale, format)
     },

@@ -1,10 +1,10 @@
-import { ac as x, bL as U, bq as it, i as Y, aA as W, aV as fe, bG as Fe, as as A, S as xi, q as Vt, bv as z, V as $t, E as Ht, aL as ue, b1 as Ne, o as Kt, aK as wi, J as Be, z as Ut, ao as Ve, bx as $e, bM as Si, br as Yt, b4 as Ci, bm as Ti, y as Ii, aW as Wt, aO as Li, bt as xe, aX as Gt, bb as qt, a_ as Ai, ay as Mi, a2 as jt, f as Zt, bz as zi, p as Xt, bN as Pi, aJ as Qt, bK as Ei, b0 as Oi, bi as Di, aZ as Ri, bE as Fi, bd as Ni, bO as Bi, d as ut, a3 as ct, b3 as Vi, bu as Xe, bn as $i, bp as rt, a9 as Hi, bH as Jt, c as ei, g as ti, m as Qe, Y as Ki, O as Ui, h as Yi, b8 as Wi, b5 as Gi, by as qi, aq as ji, aD as Zi, be as ge, bj as Xi, bc as Qi, bJ as Ji, aE as er, A as tr, a as ir, b as rr, e as nr, j as sr, k as ar, n as lr, u as or, I as ur, v as cr, w as dr, L as hr, x as fr, P as mr, H as pr, R as gr, K as br, Q as yr, T as vr, U as _r, W as kr, Z as xr, _ as wr, $ as Sr, a0 as Cr, a1 as Tr, aR as Ir, bg as Lr, ah as Ar, bB as Mr, ag as zr } from "./custom-css-CrX9ZE1D.js";
-import { B as Fp, C as Np, l as Bp, F as Vp, r as $p, s as Hp, t as Kp, G as Up, M as Yp, N as Wp, D as Gp, X as qp, a4 as jp, a5 as Zp, a6 as Xp, a7 as Qp, a8 as Jp, aa as eg, ab as tg, ad as ig, ae as rg, af as ng, ai as sg, aj as ag, ak as lg, al as og, am as ug, an as cg, ap as dg, ar as hg, at as fg, au as mg, av as pg, aw as gg, ax as bg, az as yg, aB as vg, aC as _g, aF as kg, aG as xg, aH as wg, aI as Sg, aM as Cg, aN as Tg, aP as Ig, aQ as Lg, aS as Ag, aT as Mg, aU as zg, aY as Pg, a$ as Eg, b2 as Og, b6 as Dg, b7 as Rg, b9 as Fg, ba as Ng, bf as Bg, bh as Vg, bk as $g, bl as Hg, bo as Kg, bs as Ug, bw as Yg, bA as Wg, bC as Gg, bD as qg, bF as jg, bI as Zg, bP as Xg, bQ as Qg, bR as Jg, bS as eb } from "./custom-css-CrX9ZE1D.js";
-import { openBlock as u, createElementBlock as c, normalizeClass as k, renderSlot as b, resolveComponent as v, createBlock as y, resolveDynamicComponent as le, withCtx as _, createElementVNode as f, createVNode as w, createCommentVNode as m, createTextVNode as E, toDisplayString as p, normalizeStyle as V, mergeProps as P, Fragment as S, renderList as L, withKeys as we, withModifiers as K, createSlots as oe, normalizeProps as Pr, guardReactiveProps as Er, Teleport as Se, Transition as Ce, Comment as ii, Text as ri, readonly as Or, reactive as nt, markRaw as dt, withDirectives as ni, vShow as si, unref as Dr, computed as Rr } from "vue";
+import { ad as x, bM as Y, br as it, i as U, aB as G, aW as fe, bH as Ne, at as A, S as xi, q as Bt, bw as M, W as $t, E as Ht, aM as ue, b2 as Fe, o as Kt, aL as wi, K as Ve, H as Ut, ap as Be, by as $e, bN as Si, bs as Yt, b5 as Ci, bn as Ti, z as Ii, aX as Gt, aP as Li, bu as xe, aY as Wt, bc as qt, a$ as Ai, az as Mi, a3 as jt, f as Zt, bA as zi, p as Xt, bO as Pi, aK as Qt, bL as Ei, b1 as Oi, bj as Di, a_ as Ri, bF as Ni, be as Fi, bP as Vi, d as ut, a4 as ct, b4 as Bi, bv as Xe, bo as $i, bq as rt, aa as Hi, bI as Jt, c as ei, g as ti, m as Qe, Z as Ki, Q as Ui, h as Yi, b9 as Gi, b6 as Wi, bz as qi, ar as ji, aE as Zi, bf as ge, bk as Xi, bd as Qi, bK as Ji, aF as er, A as tr, a as ir, b as rr, e as nr, j as sr, k as ar, n as lr, u as or, I as ur, v as cr, w as dr, L as hr, y as fr, x as mr, P as pr, J as gr, R as br, N as yr, T as vr, U as _r, V as kr, X as xr, _ as wr, $ as Sr, a0 as Cr, a1 as Tr, a2 as Ir, aS as Lr, bh as Ar, ai as Mr, bC as zr, ah as Pr } from "./custom-css-hwfmZD1z.js";
+import { B as jp, C as Zp, l as Xp, F as Qp, r as Jp, s as eg, t as tg, G as ig, M as rg, O as ng, D as sg, Y as ag, a5 as lg, a6 as og, a7 as ug, a8 as cg, a9 as dg, ab as hg, ac as fg, ae as mg, af as pg, ag as gg, aj as bg, ak as yg, al as vg, am as _g, an as kg, ao as xg, aq as wg, as as Sg, au as Cg, av as Tg, aw as Ig, ax as Lg, ay as Ag, aA as Mg, aC as zg, aD as Pg, aG as Eg, aH as Og, aI as Dg, aJ as Rg, aN as Ng, aO as Fg, aQ as Vg, aR as Bg, aT as $g, aU as Hg, aV as Kg, aZ as Ug, b0 as Yg, b3 as Gg, b7 as Wg, b8 as qg, ba as jg, bb as Zg, bg as Xg, bi as Qg, bl as Jg, bm as eb, bp as tb, bt as ib, bx as rb, bB as nb, bD as sb, bE as ab, bG as lb, bJ as ob, bQ as ub, bR as cb, bS as db, bT as hb } from "./custom-css-hwfmZD1z.js";
+import { openBlock as u, createElementBlock as c, normalizeClass as k, renderSlot as b, resolveComponent as y, createBlock as v, resolveDynamicComponent as le, withCtx as _, createElementVNode as f, createVNode as w, createCommentVNode as m, createTextVNode as E, toDisplayString as p, normalizeStyle as B, mergeProps as P, Fragment as S, renderList as L, withKeys as we, withModifiers as K, createSlots as oe, normalizeProps as Er, guardReactiveProps as Or, Teleport as Se, Transition as Ce, Comment as ii, Text as ri, readonly as Dr, reactive as nt, markRaw as dt, withDirectives as ni, vShow as si, unref as Rr, computed as Nr } from "vue";
 import { RouterLink as ai } from "vue-router";
-const Fr = ["line", "card"], Nr = [...Y], Br = {
+const Fr = ["line", "card"], Vr = [...U], Br = {
   name: "Accordion",
-  mixins: [U],
+  mixins: [Y],
   provide() {
     return {
       uiAccordion: this
@@ -44,7 +44,7 @@ const Fr = ["line", "card"], Nr = [...Y], Br = {
     size: {
       type: String,
       default: void 0,
-      validator: (e) => e == null || Nr.includes(e)
+      validator: (e) => e == null || Vr.includes(e)
     },
     /** Başlık düğmesini saran başlık seviyesi (`h2`–`h6`); sayfa hiyerarşisine göre seçilir. */
     headingLevel: {
@@ -116,7 +116,7 @@ const Fr = ["line", "card"], Nr = [...Y], Br = {
     }
   }
 };
-function Vr(e, t, i, n, s, r) {
+function $r(e, t, i, n, s, r) {
   return u(), c("div", {
     class: k(r.rootClass),
     onKeydown: t[0] || (t[0] = (...o) => r.onKeydown && r.onKeydown(...o))
@@ -124,7 +124,7 @@ function Vr(e, t, i, n, s, r) {
     b(e.$slots, "default")
   ], 34);
 }
-const $r = /* @__PURE__ */ x(Br, [["render", Vr]]), Hr = W("ui-accordion-item"), Kr = {
+const Hr = /* @__PURE__ */ x(Br, [["render", $r]]), Kr = G("ui-accordion-item"), Ur = {
   name: "AccordionItem",
   inject: {
     uiAccordion: {
@@ -158,7 +158,7 @@ const $r = /* @__PURE__ */ x(Br, [["render", Vr]]), Hr = W("ui-accordion-item"),
   },
   data() {
     return {
-      uid: Hr()
+      uid: Kr()
     };
   },
   computed: {
@@ -195,27 +195,27 @@ const $r = /* @__PURE__ */ x(Br, [["render", Vr]]), Hr = W("ui-accordion-item"),
       this.disabled || !this.uiAccordion || this.uiAccordion.toggle(this.value);
     }
   }
-}, Ur = ["data-state"], Yr = ["id", "aria-expanded", "aria-controls", "aria-disabled", "disabled"], Wr = {
+}, Yr = ["data-state"], Gr = ["id", "aria-expanded", "aria-controls", "aria-disabled", "disabled"], Wr = {
   key: 0,
   class: "ui-accordion-icon",
   "aria-hidden": "true"
-}, Gr = { class: "ui-accordion-text" }, qr = { class: "ui-accordion-title" }, jr = {
+}, qr = { class: "ui-accordion-text" }, jr = { class: "ui-accordion-title" }, Zr = {
   key: 0,
   class: "ui-accordion-description"
-}, Zr = {
+}, Xr = {
   key: 1,
   class: "ui-accordion-append"
-}, Xr = {
+}, Qr = {
   class: "ui-accordion-chevron",
   "aria-hidden": "true"
-}, Qr = ["id", "aria-labelledby"], Jr = { class: "ui-collapse-inner" }, en = { class: "ui-accordion-content" };
-function tn(e, t, i, n, s, r) {
-  const o = v("ui-icon");
+}, Jr = ["id", "aria-labelledby"], en = { class: "ui-collapse-inner" }, tn = { class: "ui-accordion-content" };
+function rn(e, t, i, n, s, r) {
+  const o = y("ui-icon");
   return u(), c("div", {
     class: k(r.itemClass),
     "data-state": r.isOpen ? "open" : "closed"
   }, [
-    (u(), y(le(r.headingTag), { class: "ui-accordion-header" }, {
+    (u(), v(le(r.headingTag), { class: "ui-accordion-header" }, {
       default: _(() => [
         f("button", {
           id: r.triggerId,
@@ -233,24 +233,24 @@ function tn(e, t, i, n, s, r) {
               size: "sm"
             }, null, 8, ["name"])
           ])) : m("", !0),
-          f("span", Gr, [
-            f("span", qr, [
+          f("span", qr, [
+            f("span", jr, [
               b(e.$slots, "title", {}, () => [
                 E(p(i.title), 1)
               ])
             ]),
-            i.description ? (u(), c("span", jr, p(i.description), 1)) : m("", !0)
+            i.description ? (u(), c("span", Zr, p(i.description), 1)) : m("", !0)
           ]),
-          e.$slots.append ? (u(), c("span", Zr, [
+          e.$slots.append ? (u(), c("span", Xr, [
             b(e.$slots, "append")
           ])) : m("", !0),
-          f("span", Xr, [
+          f("span", Qr, [
             w(o, {
               name: "chevron-down",
               size: "xs"
             })
           ])
-        ], 8, Yr)
+        ], 8, Gr)
       ]),
       _: 3
     })),
@@ -260,17 +260,17 @@ function tn(e, t, i, n, s, r) {
       role: "region",
       "aria-labelledby": r.triggerId
     }, [
-      f("div", Jr, [
-        f("div", en, [
+      f("div", en, [
+        f("div", tn, [
           b(e.$slots, "default")
         ])
       ])
-    ], 10, Qr)
-  ], 10, Ur);
+    ], 10, Jr)
+  ], 10, Yr);
 }
-const rn = /* @__PURE__ */ x(Kr, [["render", tn]]), nn = {
+const nn = /* @__PURE__ */ x(Ur, [["render", rn]]), sn = {
   name: "ActionCard",
-  mixins: [U],
+  mixins: [Y],
   props: {
     title: {
       type: String,
@@ -300,7 +300,7 @@ const rn = /* @__PURE__ */ x(Kr, [["render", tn]]), nn = {
   },
   emits: ["click"],
   computed: {
-    ...Fe(),
+    ...Ne(),
     hasLeadingSlot() {
       return !!this.$slots.leading;
     },
@@ -308,16 +308,16 @@ const rn = /* @__PURE__ */ x(Kr, [["render", tn]]), nn = {
       return this.icon && !this.hasLeadingSlot;
     }
   }
-}, sn = ["disabled"], an = {
+}, an = ["disabled"], ln = {
   key: 0,
   class: "ui-action-card__icon",
   "aria-hidden": "true"
-}, ln = { class: "ui-action-card__content" }, on = { class: "ui-action-card__title" }, un = {
+}, on = { class: "ui-action-card__content" }, un = { class: "ui-action-card__title" }, cn = {
   key: 0,
   class: "ui-action-card__description"
 };
-function cn(e, t, i, n, s, r) {
-  const o = v("ui-icon");
+function dn(e, t, i, n, s, r) {
+  const o = y("ui-icon");
   return u(), c("button", {
     type: "button",
     class: k(["ui-action-card", { "ui-action-card--selected": i.selected }]),
@@ -325,7 +325,7 @@ function cn(e, t, i, n, s, r) {
     onClick: t[0] || (t[0] = (l) => e.$emit("click", l))
   }, [
     b(e.$slots, "leading", {}, () => [
-      r.showDefaultLeading ? (u(), c("span", an, [
+      r.showDefaultLeading ? (u(), c("span", ln, [
         w(o, {
           name: i.icon,
           type: e.resolvedIconType,
@@ -333,12 +333,12 @@ function cn(e, t, i, n, s, r) {
         }, null, 8, ["name", "type"])
       ])) : m("", !0)
     ]),
-    f("span", ln, [
-      f("span", on, p(i.title), 1),
-      i.description ? (u(), c("span", un, p(i.description), 1)) : m("", !0)
+    f("span", on, [
+      f("span", un, p(i.title), 1),
+      i.description ? (u(), c("span", cn, p(i.description), 1)) : m("", !0)
     ]),
     b(e.$slots, "trailing", {}, () => [
-      i.showTrailing ? (u(), y(o, {
+      i.showTrailing ? (u(), v(o, {
         key: 0,
         name: "chevron-right",
         type: "light",
@@ -347,9 +347,9 @@ function cn(e, t, i, n, s, r) {
         "aria-hidden": "true"
       })) : m("", !0)
     ])
-  ], 10, sn);
+  ], 10, an);
 }
-const dn = /* @__PURE__ */ x(nn, [["render", cn]]), hn = {
+const hn = /* @__PURE__ */ x(sn, [["render", dn]]), fn = {
   name: "ActionCardList",
   props: {
     ariaLabel: {
@@ -367,20 +367,20 @@ const dn = /* @__PURE__ */ x(nn, [["render", cn]]), hn = {
         return { maxHeight: this.maxHeight };
     }
   }
-}, fn = ["aria-label"];
-function mn(e, t, i, n, s, r) {
+}, mn = ["aria-label"];
+function pn(e, t, i, n, s, r) {
   return u(), c("div", {
     class: "ui-action-card-list",
     role: "list",
     "aria-label": i.ariaLabel || void 0,
-    style: V(r.listStyle)
+    style: B(r.listStyle)
   }, [
     b(e.$slots, "default")
-  ], 12, fn);
+  ], 12, mn);
 }
-const pn = /* @__PURE__ */ x(hn, [["render", mn]]), gn = {
+const gn = /* @__PURE__ */ x(fn, [["render", pn]]), bn = {
   name: "AiButton",
-  mixins: [U],
+  mixins: [Y],
   inheritAttrs: !1,
   props: {
     prefixIcon: {
@@ -424,22 +424,22 @@ const pn = /* @__PURE__ */ x(hn, [["render", mn]]), gn = {
       };
     }
   }
-}, bn = ["data-size"], yn = { class: "ui-ai-button__surface" };
-function vn(e, t, i, n, s, r) {
-  const o = v("ui-button");
+}, yn = ["data-size"], vn = { class: "ui-ai-button__surface" };
+function _n(e, t, i, n, s, r) {
+  const o = y("ui-button");
   return u(), c("span", {
     class: k(["ui-ai-button", {
       "ui-ai-button--block": r.isBlock,
       "ui-ai-button--disabled": i.disabled || i.loading
     }]),
     "data-size": r.resolvedSize,
-    style: V(r.rootStyle)
+    style: B(r.rootStyle)
   }, [
     t[1] || (t[1] = f("span", {
       class: "ui-ai-button__glow",
       "aria-hidden": "true"
     }, null, -1)),
-    f("span", yn, [
+    f("span", vn, [
       w(o, P({
         type: "button",
         variant: "solid",
@@ -459,22 +459,22 @@ function vn(e, t, i, n, s, r) {
         _: 3
       }, 16, ["size", "prefix-icon", "disabled", "loading", "loading-text", "block"])
     ])
-  ], 14, bn);
+  ], 14, yn);
 }
-const _n = /* @__PURE__ */ x(gn, [["render", vn]]), kn = xi, Ge = {
+const kn = /* @__PURE__ */ x(bn, [["render", _n]]), xn = xi, We = {
   xs: "ui-avatar-group--xs",
   sm: "ui-avatar-group--sm",
   md: "ui-avatar-group--md",
   lg: "ui-avatar-group--lg",
   xl: "ui-avatar-group--xl"
-}, xn = {
+}, wn = {
   name: "AvatarGroup",
-  SIZE_CLASS: Ge,
+  SIZE_CLASS: We,
   props: {
     size: {
       type: String,
       default: "md",
-      validator: (e) => kn.includes(e)
+      validator: (e) => xn.includes(e)
     },
     /** Extra count shown as +N after visible avatars. */
     overflowCount: {
@@ -490,7 +490,7 @@ const _n = /* @__PURE__ */ x(gn, [["render", vn]]), kn = xi, Ge = {
     rootClass() {
       return A(
         "ui-avatar-group",
-        Ge[this.size] || Ge.md,
+        We[this.size] || We.md,
         this.$attrs.class
       );
     },
@@ -498,21 +498,21 @@ const _n = /* @__PURE__ */ x(gn, [["render", vn]]), kn = xi, Ge = {
       return `+${Math.max(0, Math.trunc(Number(this.overflowCount) || 0))}`;
     }
   }
-}, wn = ["aria-label"], Sn = {
+}, Sn = ["aria-label"], Cn = {
   key: 0,
   class: "ui-avatar-group-overflow"
 };
-function Cn(e, t, i, n, s, r) {
+function Tn(e, t, i, n, s, r) {
   return u(), c("div", {
     class: k(r.rootClass),
     role: "group",
     "aria-label": i.ariaLabel || void 0
   }, [
     b(e.$slots, "default"),
-    i.overflowCount > 0 ? (u(), c("span", Sn, p(r.overflowText), 1)) : m("", !0)
-  ], 10, wn);
+    i.overflowCount > 0 ? (u(), c("span", Cn, p(r.overflowText), 1)) : m("", !0)
+  ], 10, Sn);
 }
-const Tn = /* @__PURE__ */ x(xn, [["render", Cn]]), In = {
+const In = /* @__PURE__ */ x(wn, [["render", Tn]]), Ln = {
   name: "BreadcrumbItem",
   components: { RouterLink: ai },
   props: {
@@ -546,51 +546,51 @@ const Tn = /* @__PURE__ */ x(xn, [["render", Cn]]), In = {
       return this.to != null && this.to !== "";
     }
   }
-}, Ln = { class: "ui-breadcrumb-item" }, An = {
+}, An = { class: "ui-breadcrumb-item" }, Mn = {
   class: "ui-breadcrumb-separator",
   "aria-hidden": "true"
-}, Mn = {
+}, zn = {
   key: 0,
   class: "ui-breadcrumb-current",
   "aria-current": "page"
-}, zn = { class: "ui-breadcrumb-label" }, Pn = { class: "ui-breadcrumb-label" }, En = ["href"], On = { class: "ui-breadcrumb-label" }, Dn = {
+}, Pn = { class: "ui-breadcrumb-label" }, En = { class: "ui-breadcrumb-label" }, On = ["href"], Dn = { class: "ui-breadcrumb-label" }, Rn = {
   key: 3,
   class: "ui-breadcrumb-text"
-}, Rn = { class: "ui-breadcrumb-label" };
+}, Nn = { class: "ui-breadcrumb-label" };
 function Fn(e, t, i, n, s, r) {
-  const o = v("ui-icon"), l = v("RouterLink");
-  return u(), c("li", Ln, [
-    f("span", An, [
+  const o = y("ui-icon"), l = y("RouterLink");
+  return u(), c("li", An, [
+    f("span", Mn, [
       w(o, {
         name: "chevron-right",
         size: "xs"
       })
     ]),
-    i.current ? (u(), c("span", Mn, [
-      i.icon ? (u(), y(o, {
+    i.current ? (u(), c("span", zn, [
+      i.icon ? (u(), v(o, {
         key: 0,
         name: i.icon,
         size: "xs",
         "aria-hidden": "true"
       }, null, 8, ["name"])) : m("", !0),
-      f("span", zn, [
+      f("span", Pn, [
         b(e.$slots, "default", {}, () => [
           E(p(i.label), 1)
         ])
       ])
-    ])) : r.hasRouterTo ? (u(), y(l, {
+    ])) : r.hasRouterTo ? (u(), v(l, {
       key: 1,
       to: i.to,
       class: "ui-breadcrumb-link"
     }, {
       default: _(() => [
-        i.icon ? (u(), y(o, {
+        i.icon ? (u(), v(o, {
           key: 0,
           name: i.icon,
           size: "xs",
           "aria-hidden": "true"
         }, null, 8, ["name"])) : m("", !0),
-        f("span", Pn, [
+        f("span", En, [
           b(e.$slots, "default", {}, () => [
             E(p(i.label), 1)
           ])
@@ -602,25 +602,25 @@ function Fn(e, t, i, n, s, r) {
       href: i.href,
       class: "ui-breadcrumb-link"
     }, [
-      i.icon ? (u(), y(o, {
+      i.icon ? (u(), v(o, {
         key: 0,
         name: i.icon,
         size: "xs",
         "aria-hidden": "true"
       }, null, 8, ["name"])) : m("", !0),
-      f("span", On, [
+      f("span", Dn, [
         b(e.$slots, "default", {}, () => [
           E(p(i.label), 1)
         ])
       ])
-    ], 8, En)) : (u(), c("span", Dn, [
-      i.icon ? (u(), y(o, {
+    ], 8, On)) : (u(), c("span", Rn, [
+      i.icon ? (u(), v(o, {
         key: 0,
         name: i.icon,
         size: "xs",
         "aria-hidden": "true"
       }, null, 8, ["name"])) : m("", !0),
-      f("span", Rn, [
+      f("span", Nn, [
         b(e.$slots, "default", {}, () => [
           E(p(i.label), 1)
         ])
@@ -628,9 +628,9 @@ function Fn(e, t, i, n, s, r) {
     ]))
   ]);
 }
-const li = /* @__PURE__ */ x(In, [["render", Fn]]), Nn = {
+const li = /* @__PURE__ */ x(Ln, [["render", Fn]]), Vn = {
   name: "Breadcrumb",
-  components: { BreadcrumbItem: li, Dropdown: Vt },
+  components: { BreadcrumbItem: li, Dropdown: Bt },
   props: {
     /**
      * Kısa yol: `[{ label, to, href, icon }]`. Son öğe bulunulan sayfadır.
@@ -656,10 +656,10 @@ const li = /* @__PURE__ */ x(In, [["render", Fn]]), Nn = {
   },
   computed: {
     resolvedAriaLabel() {
-      return this.ariaLabel || z(this, "ui.breadcrumb.ariaLabel", "Breadcrumb");
+      return this.ariaLabel || M(this, "ui.breadcrumb.ariaLabel", "Breadcrumb");
     },
     moreLabel() {
-      return z(this, "ui.breadcrumb.more", "Show hidden pages");
+      return M(this, "ui.breadcrumb.more", "Show hidden pages");
     },
     /** Görünen sıra: öğe ya da daraltılmış grup. */
     entries() {
@@ -683,25 +683,25 @@ const li = /* @__PURE__ */ x(In, [["render", Fn]]), Nn = {
       e != null && e.href && window.location.assign(e.href);
     }
   }
-}, Bn = ["aria-label"], Vn = { class: "ui-breadcrumb-list" }, $n = {
+}, Bn = ["aria-label"], $n = { class: "ui-breadcrumb-list" }, Hn = {
   key: 0,
   class: "ui-breadcrumb-item"
-}, Hn = {
+}, Kn = {
   class: "ui-breadcrumb-separator",
   "aria-hidden": "true"
-}, Kn = ["aria-label", "onClick"];
-function Un(e, t, i, n, s, r) {
-  const o = v("ui-icon"), l = v("Dropdown"), a = v("BreadcrumbItem");
+}, Un = ["aria-label", "onClick"];
+function Yn(e, t, i, n, s, r) {
+  const o = y("ui-icon"), l = y("Dropdown"), a = y("BreadcrumbItem");
   return u(), c("nav", {
     class: "ui-breadcrumb",
     "aria-label": r.resolvedAriaLabel
   }, [
-    f("ol", Vn, [
+    f("ol", $n, [
       (u(!0), c(S, null, L(r.entries, (d) => (u(), c(S, {
         key: d.key
       }, [
-        d.collapsed ? (u(), c("li", $n, [
-          f("span", Hn, [
+        d.collapsed ? (u(), c("li", Hn, [
+          f("span", Kn, [
             w(o, {
               name: "chevron-right",
               size: "xs"
@@ -721,11 +721,11 @@ function Un(e, t, i, n, s, r) {
                   name: "ellipsis",
                   size: "xs"
                 })
-              ], 16, Kn)
+              ], 16, Un)
             ]),
             _: 1
           }, 8, ["items", "onSelect"])
-        ])) : (u(), y(a, {
+        ])) : (u(), v(a, {
           key: 1,
           to: d.item.to,
           href: d.item.href,
@@ -738,8 +738,8 @@ function Un(e, t, i, n, s, r) {
     ])
   ], 8, Bn);
 }
-const Yn = /* @__PURE__ */ x(Nn, [["render", Un]]), oi = Math.PI * 2;
-function M(e) {
+const Gn = /* @__PURE__ */ x(Vn, [["render", Yn]]), oi = Math.PI * 2;
+function z(e) {
   return Math.round(e * 100) / 100;
 }
 function ne(e) {
@@ -753,7 +753,7 @@ function Wn(e, t = 5) {
   let r = 10;
   return s <= 1 ? r = 1 : s <= 2 ? r = 2 : s <= 5 && (r = 5), r * n;
 }
-function Gn(e, t, i = 5) {
+function qn(e, t, i = 5) {
   let n = Number.isFinite(e) ? e : 0, s = Number.isFinite(t) ? t : 0;
   n > s && ([n, s] = [s, n]), n === s && (n === 0 ? s = 1 : n > 0 ? n = 0 : s = 0);
   const r = Wn(s - n, Math.max(1, Math.floor(i))), o = Math.floor(n / r + 1e-9) * r, l = Math.ceil(s / r - 1e-9) * r, a = Math.max(1, Math.round((l - o) / r)), d = Math.max(0, -Math.floor(Math.log10(r))) + 1, h = [];
@@ -761,21 +761,21 @@ function Gn(e, t, i = 5) {
     h.push(Number((o + g * r).toFixed(d)));
   return h;
 }
-function qn(e, t, i, n) {
+function jn(e, t, i, n) {
   const s = t - e;
   return s === 0 ? () => i : (r) => i + (r - e) / s * (n - i);
 }
-function jn(e, t, i) {
+function Zn(e, t, i) {
   const n = e > 0 ? Math.max(0, i - t) / e : 0;
   return { step: n, center: (s) => t + n * (s + 0.5) };
 }
-function Zn(e, t, i, n) {
+function Xn(e, t, i, n) {
   return n > 0 ? i > 0 ? Math.min(n - 1, Math.max(0, Math.floor((e - t) / i))) : 0 : -1;
 }
-function Xn(e, t) {
+function Qn(e, t) {
   return !(t > 0) || !(e > 0) ? 1 : Math.max(1, Math.ceil(e / t));
 }
-function Qn(e, t) {
+function Jn(e, t) {
   const i = t.map(() => []);
   return e.forEach((n, s) => {
     let r = 0, o = 0;
@@ -785,7 +785,7 @@ function Qn(e, t) {
     });
   }), i;
 }
-function Jn(e) {
+function es(e) {
   let t = 1 / 0, i = -1 / 0;
   for (const n of e)
     n == null || !Number.isFinite(n) || (n < t && (t = n), n > i && (i = n));
@@ -798,34 +798,34 @@ function ui(e) {
       i = !1;
       continue;
     }
-    t += `${i ? "L" : "M"}${M(n[0])} ${M(n[1])}`, i = !0;
+    t += `${i ? "L" : "M"}${z(n[0])} ${z(n[1])}`, i = !0;
   }
   return t;
 }
-function es(e, t) {
+function ts(e, t) {
   const i = [], n = [];
   for (let o = 0; o < e.length; o += 1)
     !e[o] || !t[o] || (i.push(e[o]), n.push(t[o]));
   if (!i.length) return "";
-  const s = ui(i), r = n.reverse().map((o) => `L${M(o[0])} ${M(o[1])}`).join("");
+  const s = ui(i), r = n.reverse().map((o) => `L${z(o[0])} ${z(o[1])}`).join("");
   return `${s}${r}Z`;
 }
 function ht(e, t, i, n, s = 0, r = !1) {
   if (!(i > 0) || !(n > 0)) return "";
-  const o = Math.max(0, Math.min(s, i / 2, n)), l = M(e), a = M(e + i), d = M(t), h = M(t + n);
+  const o = Math.max(0, Math.min(s, i / 2, n)), l = z(e), a = z(e + i), d = z(t), h = z(t + n);
   if (o === 0) return `M${l} ${d}H${a}V${h}H${l}Z`;
-  const g = M(o);
-  return r ? `M${l} ${d}H${a}V${M(h - o)}A${g} ${g} 0 0 1 ${M(a - o)} ${h}H${M(l + o)}A${g} ${g} 0 0 1 ${l} ${M(h - o)}Z` : `M${l} ${h}V${M(d + o)}A${g} ${g} 0 0 1 ${M(l + o)} ${d}H${M(a - o)}A${g} ${g} 0 0 1 ${a} ${M(d + o)}V${h}Z`;
+  const g = z(o);
+  return r ? `M${l} ${d}H${a}V${z(h - o)}A${g} ${g} 0 0 1 ${z(a - o)} ${h}H${z(l + o)}A${g} ${g} 0 0 1 ${l} ${z(h - o)}Z` : `M${l} ${h}V${z(d + o)}A${g} ${g} 0 0 1 ${z(l + o)} ${d}H${z(a - o)}A${g} ${g} 0 0 1 ${a} ${z(d + o)}V${h}Z`;
 }
 function ci(e, t, i, n) {
   return [e + i * Math.sin(n), t - i * Math.cos(n)];
 }
-function ts(e, t, i, n, s, r) {
+function is(e, t, i, n, s, r) {
   const o = r - s;
   if (!(o > 0) || !(i > 0)) return "";
-  const l = M(i), a = M(Math.max(0, Math.min(n, i))), d = (C, T) => {
-    const [D, B] = ci(e, t, C, T);
-    return `${M(D)} ${M(B)}`;
+  const l = z(i), a = z(Math.max(0, Math.min(n, i))), d = (C, T) => {
+    const [D, V] = ci(e, t, C, T);
+    return `${z(D)} ${z(V)}`;
   };
   if (o >= oi - 1e-6) {
     const C = s + Math.PI;
@@ -833,9 +833,9 @@ function ts(e, t, i, n, s, r) {
     return a > 0 && (T += `M${d(a, s)}A${a} ${a} 0 1 0 ${d(a, C)}A${a} ${a} 0 1 0 ${d(a, s)}Z`), T;
   }
   const h = o > Math.PI ? 1 : 0, g = `M${d(l, s)}A${l} ${l} 0 ${h} 1 ${d(l, r)}`;
-  return a === 0 ? `${g}L${M(e)} ${M(t)}Z` : `${g}L${d(a, r)}A${a} ${a} 0 ${h} 0 ${d(a, s)}Z`;
+  return a === 0 ? `${g}L${z(e)} ${z(t)}Z` : `${g}L${d(a, r)}A${a} ${a} 0 ${h} 0 ${d(a, s)}Z`;
 }
-function is(e, t = 0) {
+function rs(e, t = 0) {
   const i = e.map((l) => l != null && Number.isFinite(l) && l > 0 ? l : 0), n = i.reduce((l, a) => l + a, 0), r = i.filter((l) => l > 0).length > 1 ? Math.max(0, t) : 0;
   let o = 0;
   return i.map((l) => {
@@ -843,11 +843,11 @@ function is(e, t = 0) {
     return o += d, { start: g, end: C, mid: T, value: l, ratio: a };
   });
 }
-const rs = W("ui-chart"), ns = ["bar", "line", "area", "donut"], ss = 8, ft = ["", "6 4", "2 4", "10 4 2 4"], mt = 24, re = 2, pt = 4, gt = 12, as = 7;
+const ns = G("ui-chart"), ss = ["bar", "line", "area", "donut"], as = 8, ft = ["", "6 4", "2 4", "10 4 2 4"], mt = 24, re = 2, pt = 4, gt = 12, ls = 7;
 function bt(e) {
-  return `var(--chart-series-${e % ss + 1})`;
+  return `var(--chart-series-${e % as + 1})`;
 }
-const ls = {
+const os = {
   name: "Chart",
   components: { "ui-chart-empty": Ht, "ui-chart-skeleton": $t },
   inheritAttrs: !1,
@@ -855,7 +855,7 @@ const ls = {
     type: {
       type: String,
       default: "bar",
-      validator: (e) => ns.includes(e)
+      validator: (e) => ss.includes(e)
     },
     /** Satır nesneleri: `[{ day: 'Pzt', salon: 12400, paket: 3200 }]`. */
     data: {
@@ -934,7 +934,7 @@ const ls = {
   },
   data() {
     return {
-      hintId: `${rs()}-hint`,
+      hintId: `${ns()}-hint`,
       /** Ölçüm mount sonrası gelir; SSR'da boyuta bağlı hiçbir şey çizilmez. */
       width: 0,
       plotHeight: 0,
@@ -1003,67 +1003,67 @@ const ls = {
       return e.length < 2 ? [] : e.map((t) => ({ ...t, hidden: this.hiddenKeys.includes(t.key) }));
     },
     legendLabel() {
-      return z(this, "ui.chart.legend", "Series");
+      return M(this, "ui.chart.legend", "Series");
     },
     totalLabel() {
-      return z(this, "ui.chart.total", "Total");
+      return M(this, "ui.chart.total", "Total");
     },
     keyboardHint() {
-      return z(this, "ui.chart.keyboardHint", "Use the arrow keys to read the values.");
+      return M(this, "ui.chart.keyboardHint", "Use the arrow keys to read the values.");
     },
     resolvedCategoryLabel() {
-      return this.categoryLabel || z(this, "ui.chart.category", "Category");
+      return this.categoryLabel || M(this, "ui.chart.category", "Category");
     },
     resolvedEmptyTitle() {
-      return this.emptyTitle || z(this, "ui.chart.empty", "No data to show");
+      return this.emptyTitle || M(this, "ui.chart.empty", "No data to show");
     },
     cartesian() {
       if (this.isDonut || !this.ready) return null;
-      const e = this.rows, t = e.length, i = this.visibleSeries, n = i.map((I) => I.key), s = this.type === "bar", o = this.stacked && (s || this.type === "area") ? Qn(e, n) : null, l = [0];
+      const e = this.rows, t = e.length, i = this.visibleSeries, n = i.map((I) => I.key), s = this.type === "bar", o = this.stacked && (s || this.type === "area") ? Jn(e, n) : null, l = [0];
       if (o)
-        for (const I of o) for (const N of I) l.push(N[0], N[1]);
+        for (const I of o) for (const F of I) l.push(F[0], F[1]);
       else
-        for (const I of e) for (const N of n) l.push(ne(I == null ? void 0 : I[N]));
-      const [a, d] = Jn(l), h = 8, g = this.plotHeight - (this.showAxis ? 24 : 4), C = Math.max(1, g - h), T = Gn(a, d, Math.min(6, Math.max(2, Math.floor(C / 44)))), D = T.map((I) => this.formatValue(I, "axis")), B = this.showAxis ? Math.ceil(Math.max(...D.map((I) => this.measureText(I)))) + 12 : 4, R = Math.max(B + 1, this.width - 8), O = qn(T[0], T[T.length - 1], g, h), F = jn(t, B, R), j = M(O(0)), Ke = T.map((I, N) => ({ value: I, y: M(O(I)), label: D[N] })), Te = e.map((I) => this.categoryText(I)), me = Te.map((I) => this.measureText(I)), Ue = Xn(Math.max(0, ...me) + 12, F.step), at = [];
+        for (const I of e) for (const F of n) l.push(ne(I == null ? void 0 : I[F]));
+      const [a, d] = es(l), h = 8, g = this.plotHeight - (this.showAxis ? 24 : 4), C = Math.max(1, g - h), T = qn(a, d, Math.min(6, Math.max(2, Math.floor(C / 44)))), D = T.map((I) => this.formatValue(I, "axis")), V = this.showAxis ? Math.ceil(Math.max(...D.map((I) => this.measureText(I)))) + 12 : 4, R = Math.max(V + 1, this.width - 8), O = jn(T[0], T[T.length - 1], g, h), N = Zn(t, V, R), j = z(O(0)), Ke = T.map((I, F) => ({ value: I, y: z(O(I)), label: D[F] })), Te = e.map((I) => this.categoryText(I)), me = Te.map((I) => this.measureText(I)), Ue = Qn(Math.max(0, ...me) + 12, N.step), at = [];
       for (let I = 0; I < t; I += Ue) {
-        const N = me[I] / 2, $ = Math.min(this.width - N, Math.max(N, F.center(I)));
-        at.push({ index: I, text: Te[I], x: M($) });
+        const F = me[I] / 2, $ = Math.min(this.width - F, Math.max(F, N.center(I)));
+        at.push({ index: I, text: Te[I], x: z($) });
       }
       const Ye = [], lt = [], ot = [];
       if (s && i.length) {
-        const I = F.step * 0.72;
+        const I = N.step * 0.72;
         if (o) {
-          const N = Math.max(1, Math.min(mt, I));
+          const F = Math.max(1, Math.min(mt, I));
           for (let $ = 0; $ < t; $ += 1) {
-            let Q = -1, G = -1;
+            let Q = -1, W = -1;
             i.forEach((Z, X) => {
               const [J, q] = o[X][$];
-              q > J ? Q = X : q < J && (G = X);
+              q > J ? Q = X : q < J && (W = X);
             }), i.forEach((Z, X) => {
               const [J, q] = o[X][$];
               if (J === q) return;
               const ce = q < J;
-              let pe = Math.min(O(J), O(q)), We = Math.abs(O(q) - O(J));
-              J !== 0 && We > re + 1 && (We -= re, ce && (pe += re));
-              const ki = ce ? X === G : X === Q;
+              let pe = Math.min(O(J), O(q)), Ge = Math.abs(O(q) - O(J));
+              J !== 0 && Ge > re + 1 && (Ge -= re, ce && (pe += re));
+              const ki = ce ? X === W : X === Q;
               Ye.push({
                 id: `${Z.key}:${$}`,
                 color: Z.color,
-                d: ht(F.center($) - N / 2, pe, N, We, ki ? pt : 0, ce)
+                d: ht(N.center($) - F / 2, pe, F, Ge, ki ? pt : 0, ce)
               });
             });
           }
         } else {
-          const N = i.length, $ = Math.max(1, Math.min(mt, (I - re * (N - 1)) / N)), Q = $ * N + re * (N - 1);
-          for (let G = 0; G < t; G += 1) {
-            const Z = F.center(G) - Q / 2;
+          const F = i.length, $ = Math.max(1, Math.min(mt, (I - re * (F - 1)) / F)), Q = $ * F + re * (F - 1);
+          for (let W = 0; W < t; W += 1) {
+            const Z = N.center(W) - Q / 2;
             i.forEach((X, J) => {
               var pe;
-              const q = ne((pe = e[G]) == null ? void 0 : pe[X.key]);
+              const q = ne((pe = e[W]) == null ? void 0 : pe[X.key]);
               if (q == null || q === 0) return;
               const ce = O(q);
               Ye.push({
-                id: `${X.key}:${G}`,
+                id: `${X.key}:${W}`,
                 color: X.color,
                 d: ht(
                   Z + J * ($ + re),
@@ -1077,26 +1077,26 @@ const ls = {
             });
           }
         }
-      } else s || i.forEach((I, N) => {
-        const $ = e.map((Q, G) => {
-          const Z = o ? o[N][G][1] : ne(Q == null ? void 0 : Q[I.key]);
-          return Z == null ? null : [M(F.center(G)), M(O(Z))];
+      } else s || i.forEach((I, F) => {
+        const $ = e.map((Q, W) => {
+          const Z = o ? o[F][W][1] : ne(Q == null ? void 0 : Q[I.key]);
+          return Z == null ? null : [z(N.center(W)), z(O(Z))];
         });
         if (lt.push({ key: I.key, color: I.color, dash: I.dash, points: $, d: ui($) }), this.type === "area") {
-          const Q = e.map((G, Z) => [
-            M(F.center(Z)),
-            o ? M(O(o[N][Z][0])) : j
+          const Q = e.map((W, Z) => [
+            z(N.center(Z)),
+            o ? z(O(o[F][Z][0])) : j
           ]);
-          ot.push({ key: I.key, color: I.color, d: es($, Q) });
+          ot.push({ key: I.key, color: I.color, d: ts($, Q) });
         }
       });
       return {
-        left: B,
+        left: V,
         right: R,
         top: h,
         bottom: g,
         zeroY: j,
-        step: F.step,
+        step: N.step,
         count: t,
         ticks: Ke,
         xLabels: at,
@@ -1106,27 +1106,27 @@ const ls = {
         stacked: !!o,
         // Tek noktalı çizgi yol üretmez; nokta ile gösterilir.
         showDots: t === 1,
-        center: (I) => M(F.center(I)),
-        bandX: (I) => M(B + F.step * I)
+        center: (I) => z(N.center(I)),
+        bandX: (I) => z(V + N.step * I)
       };
     },
     donut() {
       if (!this.isDonut || !this.ready) return null;
-      const e = this.donutItems, t = this.width / 2, i = this.plotHeight / 2, n = Math.max(0, Math.min(this.width, this.plotHeight) / 2 - 2), s = n * 0.66, r = e.map((d) => this.hiddenKeys.includes(d.key) ? 0 : d.value), o = is(r, n > 0 ? re / ((n + s) / 2) : 0), l = r.reduce((d, h) => d + (h > 0 ? h : 0), 0), a = e.map((d, h) => {
+      const e = this.donutItems, t = this.width / 2, i = this.plotHeight / 2, n = Math.max(0, Math.min(this.width, this.plotHeight) / 2 - 2), s = n * 0.66, r = e.map((d) => this.hiddenKeys.includes(d.key) ? 0 : d.value), o = rs(r, n > 0 ? re / ((n + s) / 2) : 0), l = r.reduce((d, h) => d + (h > 0 ? h : 0), 0), a = e.map((d, h) => {
         const g = o[h], [C, T] = ci(t, i, (n + s) / 2, g.mid);
         return {
           id: d.key,
           index: h,
           color: d.color,
           ratio: g.ratio,
-          d: ts(t, i, n, s, g.start, g.end),
-          tx: M(C),
-          ty: M(T)
+          d: is(t, i, n, s, g.start, g.end),
+          tx: z(C),
+          ty: z(T)
         };
       }).filter((d) => d.d);
       return {
-        cx: M(t),
-        cy: M(i),
+        cx: z(t),
+        cy: z(i),
         slices: a,
         total: l,
         inner: s
@@ -1243,7 +1243,7 @@ const ls = {
     },
     measureText(e) {
       const t = String(e ?? "");
-      return this.measureContext ? this.measureContext.measureText(t).width : t.length * as;
+      return this.measureContext ? this.measureContext.measureText(t).width : t.length * ls;
     },
     categoryText(e) {
       const t = e == null ? void 0 : e[this.categoryKey];
@@ -1286,7 +1286,7 @@ const ls = {
         this.activeIndex = o == null ? null : Number(o);
         return;
       }
-      const t = this.$refs.plot.getBoundingClientRect(), i = this.cartesian, n = Zn(e.clientX - t.left, i.left, i.step, i.count);
+      const t = this.$refs.plot.getBoundingClientRect(), i = this.cartesian, n = Xn(e.clientX - t.left, i.left, i.step, i.count);
       this.activeIndex = n < 0 ? null : n;
     },
     onPointerLeave(e) {
@@ -1331,48 +1331,48 @@ const ls = {
       e.preventDefault(), this.keyboardActive = !0, this.activeIndex = t[n];
     }
   }
-}, os = ["role", "aria-label", "aria-describedby", "aria-busy", "tabindex"], us = {
+}, us = ["role", "aria-label", "aria-describedby", "aria-busy", "tabindex"], cs = {
   key: 1,
   class: "ui-chart-empty"
-}, cs = ["width", "height", "viewBox", "aria-label"], ds = {
+}, ds = ["width", "height", "viewBox", "aria-label"], hs = {
   key: 0,
   "aria-hidden": "true"
-}, hs = ["x1", "x2", "y1", "y2"], fs = ["x", "y", "width", "height"], ms = {
+}, fs = ["x1", "x2", "y1", "y2"], ms = ["x", "y", "width", "height"], ps = {
   key: 2,
   "aria-hidden": "true"
-}, ps = ["x", "y"], gs = ["x", "y"], bs = { key: 3 }, ys = ["d", "fill"], vs = { key: 0 }, _s = ["d", "fill"], ks = ["d", "stroke", "stroke-dasharray"], xs = { key: 1 }, ws = ["cx", "cy", "fill"], Ss = ["x1", "x2", "y1", "y2"], Cs = { key: 5 }, Ts = ["x1", "x2", "y1", "y2"], Is = ["cx", "cy", "fill"], Ls = ["d", "fill", "data-index"], As = {
+}, gs = ["x", "y"], bs = ["x", "y"], ys = { key: 3 }, vs = ["d", "fill"], _s = { key: 0 }, ks = ["d", "fill"], xs = ["d", "stroke", "stroke-dasharray"], ws = { key: 1 }, Ss = ["cx", "cy", "fill"], Cs = ["x1", "x2", "y1", "y2"], Ts = { key: 5 }, Is = ["x1", "x2", "y1", "y2"], Ls = ["cx", "cy", "fill"], As = ["d", "fill", "data-index"], Ms = {
   key: 0,
   "aria-hidden": "true"
-}, Ms = ["x", "y"], zs = ["x", "y"], Ps = { class: "ui-chart-tooltip-title" }, Es = {
+}, zs = ["x", "y"], Ps = ["x", "y"], Es = { class: "ui-chart-tooltip-title" }, Os = {
   class: "ui-chart-key",
   width: "12",
   height: "12",
   viewBox: "0 0 12 12",
   focusable: "false"
-}, Os = ["stroke", "stroke-dasharray"], Ds = { class: "ui-chart-tooltip-label" }, Rs = { class: "ui-chart-tooltip-value" }, Fs = {
+}, Ds = ["stroke", "stroke-dasharray"], Rs = { class: "ui-chart-tooltip-label" }, Ns = { class: "ui-chart-tooltip-value" }, Fs = {
   key: 0,
   class: "ui-chart-tooltip-row ui-chart-tooltip-row--total"
-}, Ns = { class: "ui-chart-tooltip-label" }, Bs = { class: "ui-chart-tooltip-value" }, Vs = ["aria-label"], $s = ["aria-pressed", "onClick"], Hs = {
+}, Vs = { class: "ui-chart-tooltip-label" }, Bs = { class: "ui-chart-tooltip-value" }, $s = ["aria-label"], Hs = ["aria-pressed", "onClick"], Ks = {
   class: "ui-chart-key",
   width: "12",
   height: "12",
   viewBox: "0 0 12 12",
   "aria-hidden": "true",
   focusable: "false"
-}, Ks = ["stroke", "stroke-dasharray"], Us = ["fill"], Ys = { class: "ui-chart-legend-label" }, Ws = {
+}, Us = ["stroke", "stroke-dasharray"], Ys = ["fill"], Gs = { class: "ui-chart-legend-label" }, Ws = {
   key: 1,
   class: "sr-only"
-}, Gs = { key: 0 }, qs = { scope: "col" }, js = { scope: "row" }, Zs = ["id"], Xs = {
+}, qs = { key: 0 }, js = { scope: "col" }, Zs = { scope: "row" }, Xs = ["id"], Qs = {
   class: "sr-only",
   "aria-live": "polite"
 };
-function Qs(e, t, i, n, s, r) {
-  const o = v("ui-chart-skeleton"), l = v("ui-chart-empty");
+function Js(e, t, i, n, s, r) {
+  const o = y("ui-chart-skeleton"), l = y("ui-chart-empty");
   return u(), c("div", P({ class: r.rootClass }, r.passthroughAttrs), [
     f("div", {
       ref: "plot",
       class: "ui-chart-plot",
-      style: V({ height: i.height }),
+      style: B({ height: i.height }),
       role: r.interactive ? "group" : void 0,
       "aria-label": r.interactive && i.ariaLabel || void 0,
       "aria-describedby": r.interactive ? s.hintId : void 0,
@@ -1385,11 +1385,11 @@ function Qs(e, t, i, n, s, r) {
       onBlur: t[4] || (t[4] = (...a) => r.onBlur && r.onBlur(...a)),
       onKeydown: t[5] || (t[5] = (...a) => r.onKeydown && r.onKeydown(...a))
     }, [
-      i.loading ? (u(), y(o, {
+      i.loading ? (u(), v(o, {
         key: 0,
         variant: "block",
         class: "ui-chart-skeleton"
-      })) : r.isEmpty ? (u(), c("div", us, [
+      })) : r.isEmpty ? (u(), c("div", cs, [
         b(e.$slots, "empty", {}, () => [
           w(l, {
             icon: "chart-column",
@@ -1409,7 +1409,7 @@ function Qs(e, t, i, n, s, r) {
           focusable: "false"
         }, [
           r.cartesian ? (u(), c(S, { key: 0 }, [
-            i.showGrid ? (u(), c("g", ds, [
+            i.showGrid ? (u(), c("g", hs, [
               (u(!0), c(S, null, L(r.cartesian.ticks, (a) => (u(), c("line", {
                 key: `g${a.value}`,
                 class: "ui-chart-grid-line",
@@ -1417,7 +1417,7 @@ function Qs(e, t, i, n, s, r) {
                 x2: r.cartesian.right,
                 y1: a.y,
                 y2: a.y
-              }, null, 8, hs))), 128))
+              }, null, 8, fs))), 128))
             ])) : m("", !0),
             i.type === "bar" && s.activeIndex != null ? (u(), c("rect", {
               key: 1,
@@ -1427,8 +1427,8 @@ function Qs(e, t, i, n, s, r) {
               width: r.cartesian.step,
               height: r.cartesian.bottom - r.cartesian.top,
               rx: "4"
-            }, null, 8, fs)) : m("", !0),
-            i.showAxis ? (u(), c("g", ms, [
+            }, null, 8, ms)) : m("", !0),
+            i.showAxis ? (u(), c("g", ps, [
               (u(!0), c(S, null, L(r.cartesian.ticks, (a) => (u(), c("text", {
                 key: `y${a.value}`,
                 class: "ui-chart-tick",
@@ -1436,30 +1436,30 @@ function Qs(e, t, i, n, s, r) {
                 y: a.y,
                 "text-anchor": "end",
                 "dominant-baseline": "middle"
-              }, p(a.label), 9, ps))), 128)),
+              }, p(a.label), 9, gs))), 128)),
               (u(!0), c(S, null, L(r.cartesian.xLabels, (a) => (u(), c("text", {
                 key: `x${a.index}`,
                 class: "ui-chart-tick",
                 x: a.x,
                 y: r.cartesian.bottom + 16,
                 "text-anchor": "middle"
-              }, p(a.text), 9, gs))), 128))
+              }, p(a.text), 9, bs))), 128))
             ])) : m("", !0),
-            i.type === "bar" ? (u(), c("g", bs, [
+            i.type === "bar" ? (u(), c("g", ys, [
               (u(!0), c(S, null, L(r.cartesian.bars, (a) => (u(), c("path", {
                 key: a.id,
                 class: "ui-chart-bar",
                 d: a.d,
                 fill: a.color
-              }, null, 8, ys))), 128))
+              }, null, 8, vs))), 128))
             ])) : (u(), c(S, { key: 4 }, [
-              i.type === "area" ? (u(), c("g", vs, [
+              i.type === "area" ? (u(), c("g", _s, [
                 (u(!0), c(S, null, L(r.cartesian.areas, (a) => (u(), c("path", {
                   key: `a${a.key}`,
                   class: "ui-chart-area",
                   d: a.d,
                   fill: a.color
-                }, null, 8, _s))), 128))
+                }, null, 8, ks))), 128))
               ])) : m("", !0),
               (u(!0), c(S, null, L(r.cartesian.lines, (a) => (u(), c("path", {
                 key: `l${a.key}`,
@@ -1467,8 +1467,8 @@ function Qs(e, t, i, n, s, r) {
                 d: a.d,
                 stroke: a.color,
                 "stroke-dasharray": a.dash || void 0
-              }, null, 8, ks))), 128)),
-              r.cartesian.showDots ? (u(), c("g", xs, [
+              }, null, 8, xs))), 128)),
+              r.cartesian.showDots ? (u(), c("g", ws, [
                 (u(!0), c(S, null, L(r.cartesian.lines, (a) => (u(), c(S, {
                   key: `d${a.key}`
                 }, [
@@ -1480,7 +1480,7 @@ function Qs(e, t, i, n, s, r) {
                       cy: d[1],
                       r: "4",
                       fill: a.color
-                    }, null, 8, ws)) : m("", !0)
+                    }, null, 8, Ss)) : m("", !0)
                   ], 64))), 128))
                 ], 64))), 128))
               ])) : m("", !0)
@@ -1491,15 +1491,15 @@ function Qs(e, t, i, n, s, r) {
               x2: r.cartesian.right,
               y1: r.cartesian.zeroY,
               y2: r.cartesian.zeroY
-            }, null, 8, Ss),
-            i.type !== "bar" && s.activeIndex != null ? (u(), c("g", Cs, [
+            }, null, 8, Cs),
+            i.type !== "bar" && s.activeIndex != null ? (u(), c("g", Ts, [
               f("line", {
                 class: "ui-chart-crosshair",
                 x1: r.cartesian.center(s.activeIndex),
                 x2: r.cartesian.center(s.activeIndex),
                 y1: r.cartesian.top,
                 y2: r.cartesian.bottom
-              }, null, 8, Ts),
+              }, null, 8, Is),
               (u(!0), c(S, null, L(r.cartesian.lines, (a) => (u(), c(S, {
                 key: `c${a.key}`
               }, [
@@ -1510,7 +1510,7 @@ function Qs(e, t, i, n, s, r) {
                   cy: a.points[s.activeIndex][1],
                   r: "4",
                   fill: a.color
-                }, null, 8, Is)) : m("", !0)
+                }, null, 8, Ls)) : m("", !0)
               ], 64))), 128))
             ])) : m("", !0)
           ], 64)) : r.donut ? (u(), c(S, { key: 1 }, [
@@ -1520,35 +1520,35 @@ function Qs(e, t, i, n, s, r) {
               d: a.d,
               fill: a.color,
               "data-index": a.index
-            }, null, 10, Ls))), 128)),
-            r.donutCenter ? (u(), c("g", As, [
+            }, null, 10, As))), 128)),
+            r.donutCenter ? (u(), c("g", Ms, [
               f("text", {
                 class: "ui-chart-donut-value",
                 x: r.donut.cx,
                 y: r.donut.cy - 2,
                 "text-anchor": "middle"
-              }, p(r.donutCenter.value), 9, Ms),
+              }, p(r.donutCenter.value), 9, zs),
               f("text", {
                 class: "ui-chart-tick",
                 x: r.donut.cx,
                 y: r.donut.cy + 16,
                 "text-anchor": "middle"
-              }, p(r.donutCenter.label), 9, zs)
+              }, p(r.donutCenter.label), 9, Ps)
             ])) : m("", !0)
           ], 64)) : m("", !0)
-        ], 8, cs)),
+        ], 8, ds)),
         r.tooltip ? (u(), c("div", {
           key: 0,
           class: k(["ui-chart-tooltip", r.tooltip.flip && "ui-chart-tooltip--flip", r.tooltip.middle && "ui-chart-tooltip--middle"]),
-          style: V(r.tooltip.style),
+          style: B(r.tooltip.style),
           "aria-hidden": "true"
         }, [
-          f("p", Ps, p(r.tooltip.title), 1),
+          f("p", Es, p(r.tooltip.title), 1),
           (u(!0), c(S, null, L(r.tooltip.rows, (a) => (u(), c("div", {
             key: a.key,
             class: "ui-chart-tooltip-row"
           }, [
-            (u(), c("svg", Es, [
+            (u(), c("svg", Os, [
               f("line", {
                 x1: "0",
                 x2: "12",
@@ -1558,18 +1558,18 @@ function Qs(e, t, i, n, s, r) {
                 "stroke-width": "2",
                 "stroke-linecap": "round",
                 "stroke-dasharray": a.dash || void 0
-              }, null, 8, Os)
+              }, null, 8, Ds)
             ])),
-            f("span", Ds, p(a.label), 1),
-            f("span", Rs, p(a.value), 1)
+            f("span", Rs, p(a.label), 1),
+            f("span", Ns, p(a.value), 1)
           ]))), 128)),
           r.tooltip.total != null ? (u(), c("div", Fs, [
-            f("span", Ns, p(r.totalLabel), 1),
+            f("span", Vs, p(r.totalLabel), 1),
             f("span", Bs, p(r.tooltip.total), 1)
           ])) : m("", !0)
         ], 6)) : m("", !0)
       ], 64)) : m("", !0)
-    ], 44, os),
+    ], 44, us),
     r.legendItems.length ? (u(), c("ul", {
       key: 0,
       class: "ui-chart-legend",
@@ -1584,7 +1584,7 @@ function Qs(e, t, i, n, s, r) {
           "aria-pressed": a.hidden ? "false" : "true",
           onClick: (d) => r.toggleSeries(a.key)
         }, [
-          (u(), c("svg", Hs, [
+          (u(), c("svg", Ks, [
             i.type === "line" ? (u(), c("line", {
               key: 0,
               x1: "0",
@@ -1595,7 +1595,7 @@ function Qs(e, t, i, n, s, r) {
               "stroke-width": "2",
               "stroke-linecap": "round",
               "stroke-dasharray": a.dash || void 0
-            }, null, 8, Ks)) : (u(), c("rect", {
+            }, null, 8, Us)) : (u(), c("rect", {
               key: 1,
               x: "1",
               y: "1",
@@ -1603,17 +1603,17 @@ function Qs(e, t, i, n, s, r) {
               height: "10",
               rx: "3",
               fill: a.color
-            }, null, 8, Us))
+            }, null, 8, Ys))
           ])),
-          f("span", Ys, p(a.label), 1)
-        ], 10, $s)
+          f("span", Gs, p(a.label), 1)
+        ], 10, Hs)
       ]))), 128))
-    ], 8, Vs)) : m("", !0),
+    ], 8, $s)) : m("", !0),
     !i.loading && !r.isEmpty ? (u(), c("table", Ws, [
-      i.ariaLabel ? (u(), c("caption", Gs, p(i.ariaLabel), 1)) : m("", !0),
+      i.ariaLabel ? (u(), c("caption", qs, p(i.ariaLabel), 1)) : m("", !0),
       f("thead", null, [
         f("tr", null, [
-          f("th", qs, p(r.resolvedCategoryLabel), 1),
+          f("th", js, p(r.resolvedCategoryLabel), 1),
           (u(!0), c(S, null, L(r.tableSeries, (a) => (u(), c("th", {
             key: a.key,
             scope: "col"
@@ -1622,7 +1622,7 @@ function Qs(e, t, i, n, s, r) {
       ]),
       f("tbody", null, [
         (u(!0), c(S, null, L(r.rows, (a, d) => (u(), c("tr", { key: d }, [
-          f("th", js, p(r.categoryText(a)), 1),
+          f("th", Zs, p(r.categoryText(a)), 1),
           (u(!0), c(S, null, L(r.tableSeries, (h) => (u(), c("td", {
             key: h.key
           }, p(r.formatValue(r.cell(a, h.key), "table")), 1))), 128))
@@ -1633,11 +1633,11 @@ function Qs(e, t, i, n, s, r) {
       key: 2,
       id: s.hintId,
       class: "sr-only"
-    }, p(r.keyboardHint), 9, Zs)) : m("", !0),
-    f("span", Xs, p(r.liveText), 1)
+    }, p(r.keyboardHint), 9, Xs)) : m("", !0),
+    f("span", Qs, p(r.liveText), 1)
   ], 16);
 }
-const Js = /* @__PURE__ */ x(ls, [["render", Qs]]), ea = Y, ta = {
+const ea = /* @__PURE__ */ x(os, [["render", Js]]), ta = U, ia = {
   name: "Checkbox",
   mixins: [ue],
   inject: {
@@ -1673,7 +1673,7 @@ const Js = /* @__PURE__ */ x(ls, [["render", Qs]]), ea = Y, ta = {
     size: {
       type: String,
       default: "md",
-      validator: (e) => ea.includes(e)
+      validator: (e) => ta.includes(e)
     },
     /**
      * Yalnız durum göstergesi — etiket gövdesi yok, tıklama / odak dıştaki satır düğmesinde
@@ -1746,21 +1746,21 @@ const Js = /* @__PURE__ */ x(ls, [["render", Qs]]), ea = Y, ta = {
         this.notifyFormDirty(), this.$emit("update:modelValue", !this.modelValue);
     }
   }
-}, ia = ["type", "name", "value", "checked", "indeterminate", "aria-checked", "tabindex", "aria-hidden"], ra = {
+}, ra = ["type", "name", "value", "checked", "indeterminate", "aria-checked", "tabindex", "aria-hidden"], na = {
   class: "ui-checkbox-box",
   "aria-hidden": "true"
-}, na = {
-  key: 0,
-  class: "ui-checkbox-body"
 }, sa = {
   key: 0,
-  class: "ui-checkbox-label"
+  class: "ui-checkbox-body"
 }, aa = {
+  key: 0,
+  class: "ui-checkbox-label"
+}, la = {
   key: 1,
   class: "ui-checkbox-description"
 };
-function la(e, t, i, n, s, r) {
-  const o = v("ui-icon");
+function oa(e, t, i, n, s, r) {
+  const o = y("ui-icon");
   return u(), c("label", {
     class: k(r.checkboxClasses),
     onKeydown: [
@@ -1779,31 +1779,31 @@ function la(e, t, i, n, s, r) {
       "aria-hidden": i.presentational ? "true" : void 0,
       class: "sr-only",
       onChange: t[0] || (t[0] = (...l) => r.onNativeChange && r.onNativeChange(...l))
-    }, null, 40, ia),
-    f("span", ra, [
-      r.isIndeterminate ? (u(), y(o, {
+    }, null, 40, ra),
+    f("span", na, [
+      r.isIndeterminate ? (u(), v(o, {
         key: 0,
         name: "minus",
         size: "xs",
         class: "ui-checkbox-check-icon text-primary-foreground"
-      })) : r.isChecked ? (u(), y(o, {
+      })) : r.isChecked ? (u(), v(o, {
         key: 1,
         name: "check",
         size: "xs",
         class: "ui-checkbox-check-icon text-primary-foreground"
       })) : m("", !0)
     ]),
-    i.presentational ? m("", !0) : (u(), c("span", na, [
-      e.$slots.label || i.label ? (u(), c("span", sa, [
+    i.presentational ? m("", !0) : (u(), c("span", sa, [
+      e.$slots.label || i.label ? (u(), c("span", aa, [
         b(e.$slots, "label", {}, () => [
           E(p(i.label), 1)
         ])
       ])) : m("", !0),
-      i.description ? (u(), c("span", aa, p(i.description), 1)) : m("", !0)
+      i.description ? (u(), c("span", la, p(i.description), 1)) : m("", !0)
     ]))
   ], 34);
 }
-const oa = /* @__PURE__ */ x(ta, [["render", la]]), ua = ["list", "button"], ca = ["vertical", "horizontal"], da = W("ui-checkbox-group"), ha = {
+const ua = /* @__PURE__ */ x(ia, [["render", oa]]), ca = ["list", "button"], da = ["vertical", "horizontal"], ha = G("ui-checkbox-group"), fa = {
   name: "CheckboxGroup",
   props: {
     /** Seçili değerler dizisi (ilkel karşılaştırma). */
@@ -1815,7 +1815,7 @@ const oa = /* @__PURE__ */ x(ta, [["render", la]]), ua = ["list", "button"], ca 
     variant: {
       type: String,
       default: "list",
-      validator: (e) => ua.includes(e)
+      validator: (e) => ca.includes(e)
     },
     /**
      * `button`: varsayılan yatay; `vertical` alt alta (uzun açıklamalı seçim vb.).
@@ -1823,7 +1823,7 @@ const oa = /* @__PURE__ */ x(ta, [["render", la]]), ua = ["list", "button"], ca 
     orientation: {
       type: String,
       default: null,
-      validator: (e) => e == null || e === "" || ca.includes(e)
+      validator: (e) => e == null || e === "" || da.includes(e)
     },
     ariaLabel: {
       type: String,
@@ -1832,7 +1832,7 @@ const oa = /* @__PURE__ */ x(ta, [["render", la]]), ua = ["list", "button"], ca 
   },
   emits: ["update:modelValue"],
   data() {
-    return { groupName: da() };
+    return { groupName: ha() };
   },
   computed: {
     normalizedVariant() {
@@ -1854,17 +1854,17 @@ const oa = /* @__PURE__ */ x(ta, [["render", la]]), ua = ["list", "button"], ca 
       uiCheckboxGroup: this
     };
   }
-}, fa = ["aria-label"];
-function ma(e, t, i, n, s, r) {
+}, ma = ["aria-label"];
+function pa(e, t, i, n, s, r) {
   return u(), c("div", {
     class: k(r.rootClass),
     role: "group",
     "aria-label": i.ariaLabel || void 0
   }, [
     b(e.$slots, "default")
-  ], 10, fa);
+  ], 10, ma);
 }
-const pa = /* @__PURE__ */ x(ha, [["render", ma]]), ga = Y, ba = {
+const ga = /* @__PURE__ */ x(fa, [["render", pa]]), ba = U, ya = {
   name: "ChipGroup",
   mixins: [ue],
   inheritAttrs: !1,
@@ -1895,7 +1895,7 @@ const pa = /* @__PURE__ */ x(ha, [["render", ma]]), ga = Y, ba = {
     size: {
       type: String,
       default: void 0,
-      validator: (e) => e == null || ga.includes(e)
+      validator: (e) => e == null || ba.includes(e)
     },
     /** Tek satırda yatay kaydırma (dar ekran); `false` iken alt satıra kayar */
     scrollable: {
@@ -1992,16 +1992,16 @@ const pa = /* @__PURE__ */ x(ha, [["render", ma]]), ga = Y, ba = {
       const i = this.normalizedOptions, n = i.map((d, h) => d.disabled || this.disabled ? -1 : h).filter((d) => d >= 0);
       if (!n.length) return;
       e.preventDefault();
-      const s = Ne(e.key, this.$refs.root), r = Math.max(0, n.indexOf(this.focusIndex));
+      const s = Fe(e.key, this.$refs.root), r = Math.max(0, n.indexOf(this.focusIndex));
       let o = r;
       e.key === "Home" ? o = 0 : e.key === "End" ? o = n.length - 1 : s === "ArrowRight" || s === "ArrowDown" ? o = (r + 1) % n.length : o = (r - 1 + n.length) % n.length;
       const l = n[o];
       this.focusIndex = l, (a = this.chipElements()[l]) == null || a.focus(), this.multiple || this.toggle(i[l]);
     }
   }
-}, ya = ["role", "aria-label"];
-function va(e, t, i, n, s, r) {
-  const o = v("ui-button");
+}, va = ["role", "aria-label"];
+function _a(e, t, i, n, s, r) {
+  const o = y("ui-button");
   return u(), c("div", P({
     ref: "root",
     class: r.rootClass,
@@ -2010,7 +2010,7 @@ function va(e, t, i, n, s, r) {
   }, r.passthroughAttrs, {
     onKeydown: t[0] || (t[0] = (...l) => r.onKeydown && r.onKeydown(...l))
   }), [
-    (u(!0), c(S, null, L(r.normalizedOptions, (l, a) => (u(), y(o, {
+    (u(!0), c(S, null, L(r.normalizedOptions, (l, a) => (u(), v(o, {
       key: r.optionKey(l, a),
       type: "button",
       size: i.size,
@@ -2039,9 +2039,9 @@ function va(e, t, i, n, s, r) {
       ]),
       _: 2
     }, 1032, ["size", "color", "prefix-icon", "disabled", "role", "aria-checked", "aria-pressed", "aria-label", "aria-current", "tabindex", "onClick", "onFocus"]))), 128))
-  ], 16, ya);
+  ], 16, va);
 }
-const _a = /* @__PURE__ */ x(ba, [["render", va]]), ka = W("ui-collapsible"), xa = {
+const ka = /* @__PURE__ */ x(ya, [["render", _a]]), xa = G("ui-collapsible"), wa = {
   name: "Collapsible",
   props: {
     /** `v-model:open` — verilmezse bileşen kendi iç durumunu yönetir. */
@@ -2063,7 +2063,7 @@ const _a = /* @__PURE__ */ x(ba, [["render", va]]), ka = W("ui-collapsible"), xa
   emits: ["update:open"],
   data() {
     return {
-      contentId: ka(),
+      contentId: xa(),
       internalOpen: this.defaultOpen
     };
   },
@@ -2094,8 +2094,8 @@ const _a = /* @__PURE__ */ x(ba, [["render", va]]), ka = W("ui-collapsible"), xa
       this.disabled || e === this.isOpen || (this.internalOpen = e, this.$emit("update:open", e));
     }
   }
-}, wa = ["data-state"], Sa = ["id"], Ca = { class: "ui-collapse-inner" };
-function Ta(e, t, i, n, s, r) {
+}, Sa = ["data-state"], Ca = ["id"], Ta = { class: "ui-collapse-inner" };
+function Ia(e, t, i, n, s, r) {
   return u(), c("div", {
     class: k(r.rootClass),
     "data-state": r.isOpen ? "open" : "closed"
@@ -2109,16 +2109,16 @@ function Ta(e, t, i, n, s, r) {
       id: s.contentId,
       class: k(["ui-collapse", r.isOpen ? "ui-collapse--open" : ""])
     }, [
-      f("div", Ca, [
+      f("div", Ta, [
         b(e.$slots, "default", {
           open: r.isOpen,
           toggle: r.toggle
         })
       ])
-    ], 10, Sa)
-  ], 10, wa);
+    ], 10, Ca)
+  ], 10, Sa);
 }
-const Ia = /* @__PURE__ */ x(xa, [["render", Ta]]), La = [
+const La = /* @__PURE__ */ x(wa, [["render", Ia]]), Aa = [
   "#f87171",
   "#fb923c",
   "#fbbf24",
@@ -2176,11 +2176,20 @@ const Ia = /* @__PURE__ */ x(xa, [["render", Ta]]), La = [
   "#52525b",
   "#3f3f46",
   "#27272a"
-], Aa = {
+], Ma = {
   name: "ColorPicker",
   mixins: [ue],
   inheritAttrs: !1,
   props: {
+    /**
+     * Açılış biçimi (`ui-popover` `presentation`): `auto` telefonda dialog, masaüstünde panel;
+     * `popover` her zaman panel; `dialog` her zaman dialog.
+     */
+    presentation: {
+      type: String,
+      default: "auto",
+      validator: (e) => ["auto", "popover", "dialog"].includes(e)
+    },
     modelValue: {
       type: String,
       default: ""
@@ -2256,11 +2265,11 @@ const Ia = /* @__PURE__ */ x(xa, [["render", Ta]]), La = [
       }
     },
     triggerLabel() {
-      return this.triggerPlaceholder ? this.triggerPlaceholder : z(this, "ui.colorPicker.triggerPlaceholder", "Pick a color");
+      return this.triggerPlaceholder ? this.triggerPlaceholder : M(this, "ui.colorPicker.triggerPlaceholder", "Pick a color");
     },
     /** `{ value, label, color }` listesi — düz hex dizisi de aynı biçime çevrilir. */
     swatches() {
-      return (this.options || La).map(
+      return (this.options || Aa).map(
         (e) => typeof e == "string" ? { value: e, label: e, color: e } : { value: e.value, label: e.label ?? e.value, color: e.color ?? e.value }
       );
     },
@@ -2277,13 +2286,13 @@ const Ia = /* @__PURE__ */ x(xa, [["render", Ta]]), La = [
       return ((e = this.selectedSwatch) == null ? void 0 : e.label) || this.localColor || this.triggerLabel;
     },
     popoverTitleLabel() {
-      return this.popoverTitle ? this.popoverTitle : z(this, "ui.colorPicker.popoverTitle", "Color palette");
+      return this.popoverTitle ? this.popoverTitle : M(this, "ui.colorPicker.popoverTitle", "Color palette");
     },
     clearLabelText() {
-      return this.clearLabel ? this.clearLabel : z(this, "ui.colorPicker.clear", "Clear");
+      return this.clearLabel ? this.clearLabel : M(this, "ui.colorPicker.clear", "Clear");
     },
     customColorLabelText() {
-      return this.customColorLabel ? this.customColorLabel : z(this, "ui.colorPicker.customHex", "Custom color (hex)");
+      return this.customColorLabel ? this.customColorLabel : M(this, "ui.colorPicker.customHex", "Custom color (hex)");
     }
   },
   methods: {
@@ -2300,22 +2309,23 @@ const Ia = /* @__PURE__ */ x(xa, [["render", Ta]]), La = [
       /^#[0-9A-Fa-f]{3}$/.test(t) && (t = `#${t[1]}${t[1]}${t[2]}${t[2]}${t[3]}${t[3]}`), /^#[0-9A-Fa-f]{6}$/.test(t) && (this.localColor = t.toUpperCase());
     }
   }
-}, Ma = ["disabled", "aria-expanded", "onClick"], za = {
+}, za = ["disabled", "aria-expanded", "onClick"], Pa = {
   class: "ui-select-prefix inline-flex shrink-0 items-center",
   "aria-hidden": "true"
-}, Pa = { class: "ui-select-field-suffix" }, Ea = {
+}, Ea = { class: "ui-select-field-suffix" }, Oa = {
   class: "ui-select-chevron",
   "aria-hidden": "true"
-}, Oa = { class: "ui-color-picker-panel" }, Da = { class: "ui-color-picker-panel__header" }, Ra = { class: "ui-color-picker-panel__title" }, Fa = { class: "ui-color-picker-swatches" }, Na = ["title", "aria-label", "aria-pressed", "onClick"], Ba = {
+}, Da = { class: "ui-color-picker-panel" }, Ra = { class: "ui-color-picker-panel__header" }, Na = { class: "ui-color-picker-panel__title" }, Fa = { class: "ui-color-picker-swatches" }, Va = ["title", "aria-label", "aria-pressed", "onClick"], Ba = {
   key: 0,
   class: "ui-color-picker-custom"
-}, Va = { class: "ui-color-picker-panel__title" }, $a = { class: "ui-color-picker-custom__row" };
-function Ha(e, t, i, n, s, r) {
-  const o = v("ui-icon"), l = v("ui-button"), a = v("ui-input"), d = v("ui-popover");
+}, $a = { class: "ui-color-picker-panel__title" }, Ha = { class: "ui-color-picker-custom__row" };
+function Ka(e, t, i, n, s, r) {
+  const o = y("ui-icon"), l = y("ui-button"), a = y("ui-input"), d = y("ui-popover");
   return u(), c("div", {
     class: k(r.rootClass)
   }, [
     w(d, {
+      presentation: i.presentation,
       open: s.popoverOpen,
       "onUpdate:open": t[1] || (t[1] = (h) => s.popoverOpen = h),
       placement: "bottom-start",
@@ -2336,12 +2346,12 @@ function Ha(e, t, i, n, s, r) {
             "aria-haspopup": !0,
             onClick: g
           }, [
-            f("span", za, [
+            f("span", Pa, [
               r.triggerSwatch ? (u(), c("span", {
                 key: 0,
                 class: "ui-color-picker-swatch ui-color-picker-swatch--trigger",
-                style: V({ backgroundColor: r.triggerSwatch })
-              }, null, 4)) : (u(), y(o, {
+                style: B({ backgroundColor: r.triggerSwatch })
+              }, null, 4)) : (u(), v(o, {
                 key: 1,
                 name: "palette",
                 size: "xs",
@@ -2351,22 +2361,22 @@ function Ha(e, t, i, n, s, r) {
             f("span", {
               class: k(["ui-select-value", { "ui-select-value--placeholder": !r.localColor }])
             }, p(r.displayValue), 3),
-            f("span", Pa, [
-              f("span", Ea, [
+            f("span", Ea, [
+              f("span", Oa, [
                 w(o, {
                   name: "chevron-down",
                   size: "xs"
                 })
               ])
             ])
-          ], 8, Ma)
+          ], 8, za)
         ])
       ]),
       content: _(() => [
-        f("div", Oa, [
-          f("div", Da, [
-            f("span", Ra, p(r.popoverTitleLabel), 1),
-            i.showClear && r.localColor ? (u(), y(l, {
+        f("div", Da, [
+          f("div", Ra, [
+            f("span", Na, p(r.popoverTitleLabel), 1),
+            i.showClear && r.localColor ? (u(), v(l, {
               key: 0,
               type: "button",
               variant: "ghost",
@@ -2386,24 +2396,24 @@ function Ha(e, t, i, n, s, r) {
               key: h.value,
               type: "button",
               class: k(["ui-color-picker-swatch ui-color-picker-swatch--preset", { "ui-color-picker-swatch--selected": r.localColor === h.value }]),
-              style: V({ backgroundColor: h.color }),
+              style: B({ backgroundColor: h.color }),
               title: h.label,
               "aria-label": h.label,
               "aria-pressed": r.localColor === h.value ? "true" : "false",
               onClick: (g) => r.selectColor(h.value)
             }, [
-              r.localColor === h.value ? (u(), y(o, {
+              r.localColor === h.value ? (u(), v(o, {
                 key: 0,
                 name: "check",
                 type: "solid",
                 size: "xs",
                 class: "text-white mix-blend-difference"
               })) : m("", !0)
-            ], 14, Na))), 128))
+            ], 14, Va))), 128))
           ]),
           i.showCustom ? (u(), c("div", Ba, [
-            f("span", Va, p(r.customColorLabelText), 1),
-            f("div", $a, [
+            f("span", $a, p(r.customColorLabelText), 1),
+            f("div", Ha, [
               w(a, {
                 modelValue: r.localColor,
                 "onUpdate:modelValue": t[0] || (t[0] = (h) => r.localColor = h),
@@ -2414,7 +2424,7 @@ function Ha(e, t, i, n, s, r) {
               }, null, 8, ["modelValue", "onBlur"]),
               f("span", {
                 class: "ui-color-picker-swatch ui-color-picker-swatch--preview",
-                style: V({ backgroundColor: r.localColor || "transparent" }),
+                style: B({ backgroundColor: r.localColor || "transparent" }),
                 "aria-hidden": "true"
               }, null, 4)
             ])
@@ -2422,11 +2432,11 @@ function Ha(e, t, i, n, s, r) {
         ])
       ]),
       _: 3
-    }, 8, ["open", "match-trigger-width", "disabled"])
+    }, 8, ["presentation", "open", "match-trigger-width", "disabled"])
   ], 2);
 }
-const Ka = /* @__PURE__ */ x(Aa, [["render", Ha]]), Ua = W("ui-command"), yt = 8, vt = (e) => wi(e, { diacritics: !0 });
-function Ya(e, t) {
+const Ua = /* @__PURE__ */ x(Ma, [["render", Ka]]), Ya = G("ui-command"), yt = 8, vt = (e) => wi(e, { diacritics: !0 });
+function Ga(e, t) {
   const i = vt(t).split(/\s+/).filter(Boolean);
   if (!i.length) return !0;
   const n = Array.isArray(e.keywords) ? e.keywords.join(" ") : e.keywords || "", s = vt(`${e.label || ""} ${n}`);
@@ -2440,7 +2450,7 @@ function Wa(e, t) {
     r === "mod" ? s[t ? "meta" : "ctrl"] = !0 : r === "ctrl" || r === "control" ? s.ctrl = !0 : r === "meta" || r === "cmd" || r === "command" ? s.meta = !0 : r === "shift" ? s.shift = !0 : (r === "alt" || r === "option") && (s.alt = !0);
   return s;
 }
-const Ga = {
+const qa = {
   name: "Command",
   components: { "ui-command-dialog": Kt },
   inheritAttrs: !1,
@@ -2499,7 +2509,7 @@ const Ga = {
   emits: ["update:open", "update:query", "select"],
   data() {
     return {
-      uid: Ua(),
+      uid: Ya(),
       internalQuery: "",
       /** Etkin seçeneğin `options` içindeki sırası. */
       activePosition: 0
@@ -2523,16 +2533,16 @@ const Ga = {
       return this.query !== void 0 ? this.query : this.internalQuery;
     },
     resolvedPlaceholder() {
-      return this.placeholder || z(this, "ui.command.placeholder", "Type a command or search…");
+      return this.placeholder || M(this, "ui.command.placeholder", "Type a command or search…");
     },
     resolvedEmptyText() {
-      return this.emptyText || z(this, "ui.command.empty", "No results found.");
+      return this.emptyText || M(this, "ui.command.empty", "No results found.");
     },
     resolvedLoadingText() {
-      return z(this, "ui.command.loading", "Searching…");
+      return M(this, "ui.command.loading", "Searching…");
     },
     resolvedListLabel() {
-      return z(this, "ui.command.label", "Command palette");
+      return M(this, "ui.command.label", "Command palette");
     },
     /** Kaynak gruplar: `groups` ya da `items` içindeki `group` adına göre (ilk görülme sırası). */
     sourceGroups() {
@@ -2548,7 +2558,7 @@ const Ga = {
     },
     /** Süzülmüş gruplar; her seçenek düz listedeki sırasını (`position`) taşır. */
     visibleGroups() {
-      const e = this.filter || Ya, t = this.currentQuery, i = [];
+      const e = this.filter || Ga, t = this.currentQuery, i = [];
       let n = 0;
       return this.sourceGroups.forEach((s, r) => {
         const o = [];
@@ -2670,27 +2680,27 @@ const Ga = {
       n && n !== this.$refs.input || (e.preventDefault(), this.inline ? this.focus() : this.$emit("update:open", !this.open));
     }
   }
-}, qa = { class: "ui-command-search" }, ja = {
+}, ja = { class: "ui-command-search" }, Za = {
   class: "ui-command-search-icon",
   "aria-hidden": "true"
-}, Za = ["aria-controls", "aria-activedescendant", "aria-label", "placeholder", "value"], Xa = ["id", "aria-label", "aria-busy"], Qa = ["role", "aria-labelledby"], Ja = ["id"], el = ["id", "aria-selected", "aria-disabled", "onPointermove", "onClick"], tl = {
+}, Xa = ["aria-controls", "aria-activedescendant", "aria-label", "placeholder", "value"], Qa = ["id", "aria-label", "aria-busy"], Ja = ["role", "aria-labelledby"], el = ["id"], tl = ["id", "aria-selected", "aria-disabled", "onPointermove", "onClick"], il = {
   key: 0,
   class: "ui-command-item-icon",
   "aria-hidden": "true"
-}, il = { class: "ui-command-item-copy" }, rl = { class: "ui-command-item-label" }, nl = {
+}, rl = { class: "ui-command-item-copy" }, nl = { class: "ui-command-item-label" }, sl = {
   key: 0,
   class: "ui-command-item-description"
-}, sl = {
+}, al = {
   key: 1,
   class: "ui-kbd ui-kbd--md ui-command-item-shortcut"
-}, al = {
+}, ll = {
   class: "ui-command-empty",
   role: "status",
   "aria-live": "polite"
 };
-function ll(e, t, i, n, s, r) {
-  const o = v("ui-icon");
-  return u(), y(le(i.inline ? "div" : "ui-command-dialog"), P(r.shellAttrs, {
+function ol(e, t, i, n, s, r) {
+  const o = y("ui-icon");
+  return u(), v(le(i.inline ? "div" : "ui-command-dialog"), P(r.shellAttrs, {
     "onUpdate:open": t[3] || (t[3] = (l) => e.$emit("update:open", l))
   }), {
     default: _(() => [
@@ -2699,8 +2709,8 @@ function ll(e, t, i, n, s, r) {
         class: k(["ui-command", i.inline ? "ui-command--inline" : ""]),
         onKeydown: t[2] || (t[2] = (...l) => r.onKeydown && r.onKeydown(...l))
       }, [
-        f("div", qa, [
-          f("span", ja, [
+        f("div", ja, [
+          f("span", Za, [
             w(o, {
               name: i.loading ? "spinner" : "magnifying-glass",
               size: "sm",
@@ -2723,7 +2733,7 @@ function ll(e, t, i, n, s, r) {
             autocapitalize: "off",
             spellcheck: "false",
             onInput: t[0] || (t[0] = (...l) => r.onInput && r.onInput(...l))
-          }, null, 40, Za)
+          }, null, 40, Xa)
         ]),
         f("div", {
           id: r.listId,
@@ -2746,7 +2756,7 @@ function ll(e, t, i, n, s, r) {
               id: l.labelId,
               class: "ui-command-group-label",
               role: "presentation"
-            }, p(l.label), 9, Ja)) : m("", !0),
+            }, p(l.label), 9, el)) : m("", !0),
             (u(!0), c(S, null, L(l.options, (a) => (u(), c("div", {
               id: a.id,
               key: a.id,
@@ -2761,23 +2771,23 @@ function ll(e, t, i, n, s, r) {
                 item: a.item,
                 active: a.position === s.activePosition
               }, () => [
-                r.hasIcons ? (u(), c("span", tl, [
-                  a.item.icon ? (u(), y(o, {
+                r.hasIcons ? (u(), c("span", il, [
+                  a.item.icon ? (u(), v(o, {
                     key: 0,
                     name: a.item.icon,
                     size: "sm"
                   }, null, 8, ["name"])) : m("", !0)
                 ])) : m("", !0),
-                f("span", il, [
-                  f("span", rl, p(a.item.label), 1),
-                  a.item.description ? (u(), c("span", nl, p(a.item.description), 1)) : m("", !0)
+                f("span", rl, [
+                  f("span", nl, p(a.item.label), 1),
+                  a.item.description ? (u(), c("span", sl, p(a.item.description), 1)) : m("", !0)
                 ]),
-                a.item.shortcut ? (u(), c("kbd", sl, p(a.item.shortcut), 1)) : m("", !0)
+                a.item.shortcut ? (u(), c("kbd", al, p(a.item.shortcut), 1)) : m("", !0)
               ])
-            ], 40, el))), 128))
-          ], 8, Qa))), 128))
-        ], 40, Xa),
-        f("div", al, [
+            ], 40, tl))), 128))
+          ], 8, Ja))), 128))
+        ], 40, Qa),
+        f("div", ll, [
           r.options.length ? m("", !0) : b(e.$slots, "empty", {
             key: 0,
             query: r.currentQuery
@@ -2790,9 +2800,9 @@ function ll(e, t, i, n, s, r) {
     _: 3
   }, 16);
 }
-const ol = /* @__PURE__ */ x(Ga, [["render", ll]]), ul = 500, cl = 10, _t = 10, dl = {
+const ul = /* @__PURE__ */ x(qa, [["render", ol]]), cl = 500, dl = 10, _t = 10, hl = {
   name: "ContextMenu",
-  components: { MenuList: Ut, Popover: Be },
+  components: { MenuList: Ut, Popover: Ve },
   props: {
     /** `v-model:open` — verilmezse bileşen kendi iç durumunu yönetir. */
     open: {
@@ -2848,7 +2858,7 @@ const ol = /* @__PURE__ */ x(Ga, [["render", ll]]), ul = 500, cl = 10, _t = 10, 
     isOpen(e) {
       var t;
       if (e)
-        this.returnFocusEl = Ve(), this.focusFirst();
+        this.returnFocusEl = Be(), this.focusFirst();
       else {
         const i = document.activeElement;
         (!i || i === document.body || ((t = this.$refs.menu) == null ? void 0 : t.containsFocus())) && $e(this.returnFocusEl), this.returnFocusEl = null, this.submenuOpen = !1;
@@ -2898,12 +2908,12 @@ const ol = /* @__PURE__ */ x(Ga, [["render", ll]]), ul = 500, cl = 10, _t = 10, 
       const t = e.touches[0];
       this.touchOrigin = { x: t.clientX, y: t.clientY }, this.longPressTimer = setTimeout(() => {
         this.longPressTimer = null, this.longPressFired = !0, Si("impact-medium"), this.openAt(this.touchOrigin.x, this.touchOrigin.y);
-      }, ul);
+      }, cl);
     },
     onTouchMove(e) {
       if (!this.longPressTimer || !this.touchOrigin) return;
       const t = e.touches[0];
-      Math.hypot(t.clientX - this.touchOrigin.x, t.clientY - this.touchOrigin.y) > cl && this.clearLongPress();
+      Math.hypot(t.clientX - this.touchOrigin.x, t.clientY - this.touchOrigin.y) > dl && this.clearLongPress();
     },
     /** Uzun basış menüyü açtıysa parmak kalkınca alttaki öğeye tıklama gitmez. */
     onTouchEnd(e) {
@@ -2919,8 +2929,8 @@ const ol = /* @__PURE__ */ x(Ga, [["render", ll]]), ul = 500, cl = 10, _t = 10, 
     }
   }
 };
-function hl(e, t, i, n, s, r) {
-  const o = v("MenuList"), l = v("Popover");
+function fl(e, t, i, n, s, r) {
+  const o = y("MenuList"), l = y("Popover");
   return u(), c("div", {
     class: "ui-context-menu",
     onContextmenu: t[1] || (t[1] = (...a) => r.onContextMenu && r.onContextMenu(...a)),
@@ -2962,7 +2972,7 @@ function hl(e, t, i, n, s, r) {
     }, 8, ["open", "anchor", "close-on-escape", "onUpdate:open"])
   ], 32);
 }
-const fl = /* @__PURE__ */ x(dl, [["render", hl]]), kt = {
+const ml = /* @__PURE__ */ x(hl, [["render", fl]]), kt = {
   "₺": "TRY",
   $: "USD",
   "€": "EUR",
@@ -2999,7 +3009,7 @@ function di(e) {
     return t;
   }
 }
-function Ip(e, t, i = "tr-TR") {
+function Vp(e, t, i = "tr-TR") {
   const n = Number(e) || 0, s = He(t);
   try {
     return new Intl.NumberFormat(i, { style: "currency", currency: s }).format(n);
@@ -3029,18 +3039,18 @@ function fi(e = "tr-TR") {
     return { group: ".", decimal: "," };
   }
 }
-function ml(e, t = "tr-TR") {
+function pl(e, t = "tr-TR") {
   const { group: i, decimal: n } = fi(t);
   let s = String(e ?? "").trim();
   return s ? (s = s.split(i).join(""), s = s.split(n).join("."), hi(s)) : "";
 }
-function pl(e, t = "tr-TR") {
+function gl(e, t = "tr-TR") {
   const i = hi(e);
   if (!i) return "";
   const { group: n, decimal: s } = fi(t), [r = "", o] = i.split("."), a = (r.replace(/^0+(?=\d)/, "") || "0").replace(/\B(?=(\d{3})+(?!\d))/g, n);
   return o === void 0 ? a : `${a}${s}${o}`;
 }
-const gl = W("ui-currency-input"), bl = Y, yl = {
+const bl = G("ui-currency-input"), yl = U, vl = {
   name: "CurrencyInput",
   inheritAttrs: !1,
   props: {
@@ -3061,7 +3071,7 @@ const gl = W("ui-currency-input"), bl = Y, yl = {
     size: {
       type: String,
       default: void 0,
-      validator: (e) => e == null || bl.includes(e)
+      validator: (e) => e == null || yl.includes(e)
     },
     disabled: {
       type: Boolean,
@@ -3094,7 +3104,7 @@ const gl = W("ui-currency-input"), bl = Y, yl = {
   },
   emits: ["update:modelValue", "input", "change", "focus", "blur"],
   data() {
-    return { fallbackId: gl() };
+    return { fallbackId: bl() };
   },
   computed: {
     displaySymbol() {
@@ -3105,10 +3115,10 @@ const gl = W("ui-currency-input"), bl = Y, yl = {
     },
     innerValue: {
       get() {
-        return pl(this.modelValue, this.locale);
+        return gl(this.modelValue, this.locale);
       },
       set(e) {
-        const t = ml(e, this.locale);
+        const t = pl(e, this.locale);
         this.$emit("update:modelValue", t);
       }
     },
@@ -3140,13 +3150,13 @@ const gl = W("ui-currency-input"), bl = Y, yl = {
       this.$emit("blur", e);
     }
   }
-}, vl = {
+}, _l = {
   class: "ui-currency-symbol shrink-0 select-none font-medium tabular-nums text-muted-foreground",
   "aria-hidden": "true"
 };
-function _l(e, t, i, n, s, r) {
-  const o = v("ui-input");
-  return u(), y(o, P({
+function kl(e, t, i, n, s, r) {
+  const o = y("ui-input");
+  return u(), v(o, P({
     id: r.resolvedId,
     modelValue: r.innerValue,
     "onUpdate:modelValue": t[0] || (t[0] = (l) => r.innerValue = l),
@@ -3164,12 +3174,12 @@ function _l(e, t, i, n, s, r) {
     onBlur: r.onBlur
   }), {
     prepend: _(() => [
-      f("span", vl, p(r.displaySymbol), 1)
+      f("span", _l, p(r.displaySymbol), 1)
     ]),
     _: 1
   }, 16, ["id", "modelValue", "size", "disabled", "readonly", "placeholder", "name", "autocomplete", "aria-describedby", "onBlur"]);
 }
-const mi = /* @__PURE__ */ x(yl, [["render", _l]]), kl = W("ui-daterangepicker"), xl = ["bottom-start", "bottom-end", "bottom", "top-start", "top-end", "top"];
+const mi = /* @__PURE__ */ x(vl, [["render", kl]]), xl = G("ui-daterangepicker"), wl = ["bottom-start", "bottom-end", "bottom", "top-start", "top-end", "top"];
 function ve(e) {
   return String(e).padStart(2, "0");
 }
@@ -3189,7 +3199,7 @@ function ie(e, t) {
 function Ie(e, t, i) {
   return new Date(e, t, 1).toLocaleString(i, { month: "long", year: "numeric" });
 }
-function wl(e, t, i) {
+function Sl(e, t, i) {
   const n = ae(e);
   if (!n) return null;
   const s = n.getDay(), r = s === 0 ? -6 : 1 - s, o = new Date(n.getFullYear(), n.getMonth(), n.getDate() + r), l = H(o), a = new Date(o.getFullYear(), o.getMonth(), o.getDate() + 6);
@@ -3198,7 +3208,7 @@ function wl(e, t, i) {
   let h = l;
   return i && h < i && (h = i), ie(h, d) > 0 ? null : [h, d];
 }
-function Sl(e, t, i) {
+function Cl(e, t, i) {
   const n = ae(e);
   if (!n) return null;
   const s = n.getFullYear(), r = `${s}-01-01`;
@@ -3214,11 +3224,20 @@ function xt(e, t, i, n) {
   let l = s;
   return n && l < n && (l = n), ie(l, o) > 0 ? null : [l, o];
 }
-const Cl = {
+const Tl = {
   name: "DateRangePicker",
-  mixins: [U, ue],
+  mixins: [Y, ue],
   inheritAttrs: !1,
   props: {
+    /**
+     * Açılış biçimi (`ui-popover` `presentation`): `auto` telefonda dialog, masaüstünde panel;
+     * `popover` her zaman panel; `dialog` her zaman dialog.
+     */
+    presentation: {
+      type: String,
+      default: "auto",
+      validator: (e) => ["auto", "popover", "dialog"].includes(e)
+    },
     /**
      * Haftanın ilk günü (0 pazar … 6 cumartesi). Verilmezse dilden çözülür:
      * `tr` / `en-GB` pazartesi, `en-US` pazar.
@@ -3240,7 +3259,7 @@ const Cl = {
     placement: {
       type: String,
       default: "bottom-end",
-      validator: (e) => xl.includes(e)
+      validator: (e) => wl.includes(e)
     },
     placeholder: {
       type: String,
@@ -3294,7 +3313,7 @@ const Cl = {
     var i, n;
     const e = ((i = this.modelValue) == null ? void 0 : i[0]) || "", t = ae(e) || ae((n = this.modelValue) == null ? void 0 : n[1]) || /* @__PURE__ */ new Date();
     return {
-      fallbackId: kl(),
+      fallbackId: xl(),
       menuOpen: !1,
       viewYear: t.getFullYear(),
       viewMonth: t.getMonth(),
@@ -3304,7 +3323,7 @@ const Cl = {
       /** Klavye ile gezilen gün (roving tabindex). */
       focusYmd: "",
       /** Mobilde tek ay — çift ay dikey yığılınca panel sığmıyor. */
-      narrowViewport: typeof window < "u" ? Wt() : !1
+      narrowViewport: typeof window < "u" ? Gt() : !1
     };
   },
   mounted() {
@@ -3412,7 +3431,7 @@ const Cl = {
         {
           key: "thisWeek",
           label: g("ui.dateRangePicker.thisWeek"),
-          range: wl(t, this.maxYmd, this.minYmd)
+          range: Sl(t, this.maxYmd, this.minYmd)
         },
         {
           key: "thisMonth",
@@ -3431,7 +3450,7 @@ const Cl = {
         {
           key: "thisYear",
           label: g("ui.dateRangePicker.thisYear", { year: l }),
-          range: Sl(t, this.maxYmd, this.minYmd)
+          range: Cl(t, this.maxYmd, this.minYmd)
         }
       ].map((T) => ({
         ...T,
@@ -3502,7 +3521,7 @@ const Cl = {
     resolvedOpen(e) {
       var t;
       if (e)
-        this.returnFocusEl = Ve(), this.pickingStart = this.startYmd, this.pickingEnd = this.endYmd, this.hoverYmd = "", this.focusYmd = "", this.syncViewFromValue(), this.$nextTick(() => requestAnimationFrame(() => this.focusRovingCell()));
+        this.returnFocusEl = Be(), this.pickingStart = this.startYmd, this.pickingEnd = this.endYmd, this.hoverYmd = "", this.focusYmd = "", this.syncViewFromValue(), this.$nextTick(() => requestAnimationFrame(() => this.focusRovingCell()));
       else {
         this.pickingStart = "", this.pickingEnd = "", this.hoverYmd = "", this.focusYmd = "";
         const i = document.activeElement;
@@ -3529,11 +3548,11 @@ const Cl = {
     buildCellsForMonth(e, t) {
       const i = new Date(e, t, 1), n = new Date(e, t, 1 - (i.getDay() - this.resolvedWeekStart + 7) % 7), s = this.previewStart, r = this.previewEnd, o = s && r, l = [];
       for (let a = 0; a < 42; a += 1) {
-        const d = new Date(n.getFullYear(), n.getMonth(), n.getDate() + a), h = d.getMonth() === t && d.getFullYear() === e, g = d.getDate(), C = H(d), T = `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}-${t}`, D = H(/* @__PURE__ */ new Date()) === C, B = !!(this.minYmd && C < this.minYmd) || !!(this.maxYmd && C > this.maxYmd);
+        const d = new Date(n.getFullYear(), n.getMonth(), n.getDate() + a), h = d.getMonth() === t && d.getFullYear() === e, g = d.getDate(), C = H(d), T = `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}-${t}`, D = H(/* @__PURE__ */ new Date()) === C, V = !!(this.minYmd && C < this.minYmd) || !!(this.maxYmd && C > this.maxYmd);
         let R = !1, O = !1;
         if (o) {
-          const F = ie(s, r) <= 0 ? s : r, j = ie(s, r) <= 0 ? r : s;
-          R = ie(C, F) >= 0 && ie(C, j) <= 0, O = C === F || C === j;
+          const N = ie(s, r) <= 0 ? s : r, j = ie(s, r) <= 0 ? r : s;
+          R = ie(C, N) >= 0 && ie(C, j) <= 0, O = C === N || C === j;
         }
         l.push({
           key: T,
@@ -3541,7 +3560,7 @@ const Cl = {
           date: d,
           today: D,
           inMonth: h,
-          disabled: B,
+          disabled: V,
           inRange: R,
           endpoint: O
         });
@@ -3616,27 +3635,28 @@ const Cl = {
       return e.endpoint || e.today && !e.inRange ? "primary" : "secondary";
     }
   }
-}, Tl = { class: "min-w-0 flex-1 truncate text-foreground" }, Il = { class: "ui-datepicker-panel ui-daterangepicker-panel p-2" }, Ll = { class: "ui-daterangepicker-layout" }, Al = ["aria-label"], Ml = { class: "ui-daterangepicker-calendars" }, zl = {
+}, Il = { class: "min-w-0 flex-1 truncate text-foreground" }, Ll = { class: "ui-datepicker-panel ui-daterangepicker-panel p-2" }, Al = { class: "ui-daterangepicker-layout" }, Ml = ["aria-label"], zl = { class: "ui-daterangepicker-calendars" }, Pl = {
   key: 0,
   class: "mb-2 text-xs text-muted-foreground"
-}, Pl = {
+}, El = {
   ref: "monthRow",
   class: "ui-daterangepicker-month-row"
-}, El = { class: "mb-2 flex items-center justify-between gap-2" }, Ol = {
+}, Ol = { class: "mb-2 flex items-center justify-between gap-2" }, Dl = {
   key: 1,
   class: "size-[var(--ui-control-h-md)] shrink-0",
   "aria-hidden": "true"
-}, Dl = { class: "min-w-0 flex-1 text-center text-sm font-medium tabular-nums text-foreground" }, Rl = {
+}, Rl = { class: "min-w-0 flex-1 text-center text-sm font-medium tabular-nums text-foreground" }, Nl = {
   key: 3,
   class: "size-[var(--ui-control-h-md)] shrink-0",
   "aria-hidden": "true"
-}, Fl = { class: "ui-datepicker-weekdays mb-1" }, Nl = ["title"], Bl = ["aria-label"];
-function Vl(e, t, i, n, s, r) {
-  const o = v("ui-button"), l = v("ui-popover");
+}, Fl = { class: "ui-datepicker-weekdays mb-1" }, Vl = ["title"], Bl = ["aria-label"];
+function $l(e, t, i, n, s, r) {
+  const o = y("ui-button"), l = y("ui-popover");
   return u(), c("div", {
     class: k(["ui-daterangepicker", i.showTrigger ? "" : "ui-daterangepicker--headless", i.disabled ? "pointer-events-none opacity-50" : "", e.$attrs.class])
   }, [
     w(l, {
+      presentation: i.presentation,
       open: r.resolvedOpen,
       "onUpdate:open": t[3] || (t[3] = (a) => r.resolvedOpen = a),
       placement: i.placement,
@@ -3667,21 +3687,21 @@ function Vl(e, t, i, n, s, r) {
             onClick: d
           }, {
             default: _(() => [
-              f("span", Tl, p(r.displayText), 1)
+              f("span", Il, p(r.displayText), 1)
             ]),
             _: 1
           }, 8, ["id", "disabled", "aria-expanded", "onClick"])
         ]) : m("", !0)
       ]),
       content: _(({ close: a }) => [
-        f("div", Il, [
-          f("div", Ll, [
+        f("div", Ll, [
+          f("div", Al, [
             r.quickPresets.length ? (u(), c("aside", {
               key: 0,
               class: "ui-daterangepicker-quick",
               "aria-label": r.resolvedQuickAriaLabel
             }, [
-              (u(!0), c(S, null, L(r.quickPresets, (d) => (u(), y(o, {
+              (u(!0), c(S, null, L(r.quickPresets, (d) => (u(), v(o, {
                 key: d.key,
                 type: "button",
                 variant: r.isPresetActive(d) ? "solid" : "outline",
@@ -3698,16 +3718,16 @@ function Vl(e, t, i, n, s, r) {
                 ]),
                 _: 2
               }, 1032, ["variant", "color", "disabled", "aria-pressed", "data-active", "onClick"]))), 128))
-            ], 8, Al)) : m("", !0),
-            f("div", Ml, [
-              r.rangeHint ? (u(), c("p", zl, p(r.rangeHint), 1)) : m("", !0),
-              f("div", Pl, [
+            ], 8, Ml)) : m("", !0),
+            f("div", zl, [
+              r.rangeHint ? (u(), c("p", Pl, p(r.rangeHint), 1)) : m("", !0),
+              f("div", El, [
                 (u(!0), c(S, null, L(r.calendarPanes, (d) => (u(), c("section", {
                   key: d.key,
                   class: "ui-daterangepicker-month"
                 }, [
-                  f("div", El, [
-                    d.showPrev ? (u(), y(o, {
+                  f("div", Ol, [
+                    d.showPrev ? (u(), v(o, {
                       key: 0,
                       variant: "ghost",
                       color: "primary",
@@ -3716,9 +3736,9 @@ function Vl(e, t, i, n, s, r) {
                       class: "ui-icon--dir",
                       "aria-label": r.resolvedPrevMonthLabel,
                       onClick: t[0] || (t[0] = K((h) => r.shiftMonth(-1), ["stop"]))
-                    }, null, 8, ["aria-label"])) : (u(), c("span", Ol)),
-                    f("span", Dl, p(d.title), 1),
-                    d.showNext ? (u(), y(o, {
+                    }, null, 8, ["aria-label"])) : (u(), c("span", Dl)),
+                    f("span", Rl, p(d.title), 1),
+                    d.showNext ? (u(), v(o, {
                       key: 2,
                       variant: "ghost",
                       color: "primary",
@@ -3727,13 +3747,13 @@ function Vl(e, t, i, n, s, r) {
                       class: "ui-icon--dir",
                       "aria-label": r.resolvedNextMonthLabel,
                       onClick: t[1] || (t[1] = K((h) => r.shiftMonth(1), ["stop"]))
-                    }, null, 8, ["aria-label"])) : (u(), c("span", Rl))
+                    }, null, 8, ["aria-label"])) : (u(), c("span", Nl))
                   ]),
                   f("div", Fl, [
                     (u(!0), c(S, null, L(r.weekdayLabels, (h) => (u(), c("span", {
                       key: h.key,
                       title: h.long
-                    }, p(h.short), 9, Nl))), 128))
+                    }, p(h.short), 9, Vl))), 128))
                   ]),
                   f("div", {
                     class: "ui-datepicker-grid",
@@ -3741,7 +3761,7 @@ function Vl(e, t, i, n, s, r) {
                     "aria-label": d.title,
                     onKeydown: t[2] || (t[2] = (...h) => r.onGridKeydown && r.onGridKeydown(...h))
                   }, [
-                    (u(!0), c(S, null, L(d.cells, (h) => (u(), y(o, {
+                    (u(!0), c(S, null, L(d.cells, (h) => (u(), v(o, {
                       key: h.key,
                       variant: r.dayVariant(h),
                       color: r.dayColor(h),
@@ -3774,12 +3794,12 @@ function Vl(e, t, i, n, s, r) {
         ])
       ]),
       _: 3
-    }, 8, ["open", "placement", "width", "disabled", "anchor", "inherit-layout"])
+    }, 8, ["presentation", "open", "placement", "width", "disabled", "anchor", "inherit-layout"])
   ], 2);
 }
-const $l = /* @__PURE__ */ x(Cl, [["render", Vl]]), Hl = ["sm", "md"], Kl = {
+const Hl = /* @__PURE__ */ x(Tl, [["render", $l]]), Kl = ["sm", "md"], Ul = {
   name: "Field",
-  mixins: [U],
+  mixins: [Y],
   inheritAttrs: !1,
   props: {
     title: {
@@ -3802,7 +3822,7 @@ const $l = /* @__PURE__ */ x(Cl, [["render", Vl]]), Hl = ["sm", "md"], Kl = {
     size: {
       type: String,
       default: "md",
-      validator: (e) => Hl.includes(e)
+      validator: (e) => Kl.includes(e)
     },
     /** Grid / flex hücrede kart yüksekliğini eşitlemek için `h-full`. */
     fill: {
@@ -3830,7 +3850,7 @@ const $l = /* @__PURE__ */ x(Cl, [["render", Vl]]), Hl = ["sm", "md"], Kl = {
     }
   },
   computed: {
-    ...Fe(),
+    ...Ne(),
     passthroughAttrs() {
       const { class: e, ...t } = this.$attrs;
       return t;
@@ -3858,24 +3878,24 @@ const $l = /* @__PURE__ */ x(Cl, [["render", Vl]]), Hl = ["sm", "md"], Kl = {
       );
     }
   }
-}, Ul = {
+}, Yl = {
   key: 2,
   class: "ui-field__title"
-}, Yl = {
+}, Gl = {
   key: 1,
   class: "ui-field__value"
 }, Wl = {
   key: 2,
   class: "ui-field__subtitle"
 };
-function Gl(e, t, i, n, s, r) {
-  const o = v("ui-icon-tile"), l = v("ui-icon");
+function ql(e, t, i, n, s, r) {
+  const o = y("ui-icon-tile"), l = y("ui-icon");
   return u(), c("div", P({ class: r.rootClass }, r.passthroughAttrs), [
     i.title || r.showIcon ? (u(), c("div", {
       key: 0,
       class: k(["ui-field__title-row", { "ui-field__title-row--tile": r.showIcon && i.iconTile }])
     }, [
-      r.showIcon && i.iconTile ? (u(), y(o, {
+      r.showIcon && i.iconTile ? (u(), v(o, {
         key: 0,
         icon: i.icon,
         "icon-type": e.resolvedIconType,
@@ -3892,15 +3912,15 @@ function Gl(e, t, i, n, s, r) {
           size: "md"
         }, null, 8, ["name", "type"])
       ], 2)) : m("", !0),
-      i.title ? (u(), c("span", Ul, p(i.title), 1)) : m("", !0)
+      i.title ? (u(), c("span", Yl, p(i.title), 1)) : m("", !0)
     ], 2)) : m("", !0),
-    r.hasValue ? (u(), c("div", Yl, [
+    r.hasValue ? (u(), c("div", Gl, [
       b(e.$slots, "default")
     ])) : m("", !0),
     i.subtitle ? (u(), c("p", Wl, p(i.subtitle), 1)) : m("", !0)
   ], 16);
 }
-const ql = /* @__PURE__ */ x(Kl, [["render", Gl]]), jl = ["popover", "dialog"], Zl = Y, Xl = [
+const jl = /* @__PURE__ */ x(Ul, [["render", ql]]), Zl = ["popover", "dialog"], Xl = U, Ql = [
   "bottom-start",
   "bottom-end",
   "bottom",
@@ -3910,10 +3930,19 @@ const ql = /* @__PURE__ */ x(Kl, [["render", Gl]]), jl = ["popover", "dialog"], 
   "right-end",
   "left-start",
   "left-end"
-], Ql = {
+], Jl = {
   name: "FieldAction",
   inheritAttrs: !1,
   props: {
+    /**
+     * Açılış biçimi (`ui-popover` `presentation`): `auto` telefonda dialog, masaüstünde panel;
+     * `popover` her zaman panel; `dialog` her zaman dialog.
+     */
+    presentation: {
+      type: String,
+      default: "auto",
+      validator: (e) => ["auto", "popover", "dialog"].includes(e)
+    },
     /** `v-model:open` */
     open: {
       type: Boolean,
@@ -3936,7 +3965,7 @@ const ql = /* @__PURE__ */ x(Kl, [["render", Gl]]), jl = ["popover", "dialog"], 
     mode: {
       type: String,
       default: "popover",
-      validator: (e) => jl.includes(e)
+      validator: (e) => Zl.includes(e)
     },
     /** Seçili değerin görünen metni; doluysa tetikleyicide `actionName` yerine gösterilir. */
     value: {
@@ -3971,12 +4000,12 @@ const ql = /* @__PURE__ */ x(Kl, [["render", Gl]]), jl = ["popover", "dialog"], 
     size: {
       type: String,
       default: void 0,
-      validator: (e) => e == null || Zl.includes(e)
+      validator: (e) => e == null || Xl.includes(e)
     },
     placement: {
       type: String,
       default: "bottom-start",
-      validator: (e) => Xl.includes(e)
+      validator: (e) => Ql.includes(e)
     },
     popoverWidth: {
       type: [String, Number],
@@ -4063,10 +4092,10 @@ const ql = /* @__PURE__ */ x(Kl, [["render", Gl]]), jl = ["popover", "dialog"], 
       return this.showFooter || !!this.$slots.footer;
     },
     resolvedClearLabel() {
-      return this.clearLabel != null && this.clearLabel !== "" ? this.clearLabel : z(this, "ui.fieldAction.clear", "Clear");
+      return this.clearLabel != null && this.clearLabel !== "" ? this.clearLabel : M(this, "ui.fieldAction.clear", "Clear");
     },
     resolvedDoneLabel() {
-      return this.doneLabel != null && this.doneLabel !== "" ? this.doneLabel : z(this, "ui.fieldAction.done", "Done");
+      return this.doneLabel != null && this.doneLabel !== "" ? this.doneLabel : M(this, "ui.fieldAction.done", "Done");
     }
   },
   methods: {
@@ -4083,15 +4112,15 @@ const ql = /* @__PURE__ */ x(Kl, [["render", Gl]]), jl = ["popover", "dialog"], 
       this.$emit("clear"), typeof e == "function" && e();
     }
   }
-}, Jl = { class: "ui-field-action-header" }, eo = { class: "ui-field-action-header__text" }, to = {
+}, eo = { class: "ui-field-action-header" }, to = { class: "ui-field-action-header__text" }, io = {
   key: 0,
   class: "ui-field-action-header__title"
-}, io = {
+}, ro = {
   key: 1,
   class: "ui-field-action-header__description"
-}, ro = { class: "ui-field-action-body" }, no = { class: "ui-field-action-body" }, so = { class: "ui-field-action-footer" };
-function ao(e, t, i, n, s, r) {
-  const o = v("ui-button"), l = v("ui-filter-chip"), a = v("ui-popover"), d = v("ui-dialog");
+}, no = { class: "ui-field-action-body" }, so = { class: "ui-field-action-body" }, ao = { class: "ui-field-action-footer" };
+function lo(e, t, i, n, s, r) {
+  const o = y("ui-button"), l = y("ui-filter-chip"), a = y("ui-popover"), d = y("ui-dialog");
   return u(), c("div", {
     class: k([
       "ui-field-action",
@@ -4100,14 +4129,17 @@ function ao(e, t, i, n, s, r) {
       e.$attrs.class
     ])
   }, [
-    r.isPopover ? (u(), y(a, {
+    r.isPopover ? (u(), v(a, {
       key: 0,
+      presentation: i.presentation,
       open: r.resolvedOpen,
       "onUpdate:open": t[1] || (t[1] = (h) => r.resolvedOpen = h),
       placement: i.placement,
       width: i.popoverWidth,
       disabled: i.disabled,
-      "mobile-centered": i.mobileCentered
+      "mobile-centered": i.mobileCentered,
+      title: i.title || i.actionName || "",
+      description: i.description || ""
     }, oe({
       trigger: _(({ open: h, toggle: g }) => [
         b(e.$slots, "trigger", {
@@ -4118,7 +4150,7 @@ function ao(e, t, i, n, s, r) {
           hasValue: r.hasValue,
           clear: () => r.onClear(r.close)
         }, () => [
-          i.iconOnly ? (u(), y(o, {
+          i.iconOnly ? (u(), v(o, {
             key: 0,
             type: "button",
             class: "ui-filter-chip",
@@ -4133,7 +4165,7 @@ function ao(e, t, i, n, s, r) {
             "aria-haspopup": !0,
             "aria-label": r.triggerAriaLabel,
             onClick: (C) => r.onTriggerClick(C, g)
-          }, null, 8, ["variant", "color", "size", "prefix-icon", "disabled", "aria-expanded", "aria-label", "onClick"])) : (u(), y(l, {
+          }, null, 8, ["variant", "color", "size", "prefix-icon", "disabled", "aria-expanded", "aria-label", "onClick"])) : (u(), v(l, {
             key: 1,
             icon: i.prefixIcon || "",
             "suffix-icon": i.suffixIcon || "",
@@ -4153,7 +4185,7 @@ function ao(e, t, i, n, s, r) {
         ])
       ]),
       content: _(({ close: h }) => [
-        f("div", ro, [
+        f("div", no, [
           b(e.$slots, "default", {
             close: h,
             open: r.resolvedOpen
@@ -4166,12 +4198,12 @@ function ao(e, t, i, n, s, r) {
         name: "header",
         fn: _(({ close: h }) => [
           b(e.$slots, "header", { close: h }, () => [
-            f("div", Jl, [
-              f("div", eo, [
-                i.title ? (u(), c("p", to, p(i.title), 1)) : m("", !0),
-                i.description ? (u(), c("p", io, p(i.description), 1)) : m("", !0)
+            f("div", eo, [
+              f("div", to, [
+                i.title ? (u(), c("p", io, p(i.title), 1)) : m("", !0),
+                i.description ? (u(), c("p", ro, p(i.description), 1)) : m("", !0)
               ]),
-              i.iconOnly && i.clearable && r.hasValue ? (u(), y(o, {
+              i.iconOnly && i.clearable && r.hasValue ? (u(), v(o, {
                 key: 0,
                 type: "button",
                 variant: "ghost",
@@ -4194,7 +4226,7 @@ function ao(e, t, i, n, s, r) {
         ]),
         key: "1"
       } : void 0
-    ]), 1032, ["open", "placement", "width", "disabled", "mobile-centered"])) : (u(), c(S, { key: 1 }, [
+    ]), 1032, ["presentation", "open", "placement", "width", "disabled", "mobile-centered", "title", "description"])) : (u(), c(S, { key: 1 }, [
       b(e.$slots, "trigger", {
         open: r.resolvedOpen,
         toggle: r.toggle,
@@ -4203,7 +4235,7 @@ function ao(e, t, i, n, s, r) {
         hasValue: r.hasValue,
         clear: () => r.onClear(r.close)
       }, () => [
-        i.iconOnly ? (u(), y(o, {
+        i.iconOnly ? (u(), v(o, {
           key: 0,
           type: "button",
           variant: r.triggerVariant,
@@ -4217,7 +4249,7 @@ function ao(e, t, i, n, s, r) {
           "aria-haspopup": !0,
           "aria-label": r.triggerAriaLabel,
           onClick: t[2] || (t[2] = (h) => r.onTriggerClick(h, r.toggle))
-        }, null, 8, ["variant", "color", "size", "prefix-icon", "disabled", "aria-expanded", "aria-label"])) : (u(), y(l, {
+        }, null, 8, ["variant", "color", "size", "prefix-icon", "disabled", "aria-expanded", "aria-label"])) : (u(), v(l, {
           key: 1,
           icon: i.prefixIcon || "",
           "suffix-icon": i.suffixIcon || "",
@@ -4246,7 +4278,7 @@ function ao(e, t, i, n, s, r) {
         "close-on-escape": i.closeOnEscape
       }, oe({
         default: _(() => [
-          f("div", no, [
+          f("div", so, [
             b(e.$slots, "default", {
               close: r.close,
               open: r.resolvedOpen
@@ -4259,7 +4291,7 @@ function ao(e, t, i, n, s, r) {
           name: "footer",
           fn: _(() => [
             b(e.$slots, "footer", { close: r.close }, () => [
-              f("div", so, [
+              f("div", ao, [
                 w(o, {
                   type: "button",
                   variant: "solid",
@@ -4280,7 +4312,7 @@ function ao(e, t, i, n, s, r) {
     ], 64))
   ], 2);
 }
-const lo = /* @__PURE__ */ x(Ql, [["render", ao]]), oo = ["auto", "file", "folder"], uo = Y, co = { icon: "folder", color: "text-sky-500" }, ho = { icon: "file-lines", color: "text-muted-foreground" }, fo = {
+const oo = /* @__PURE__ */ x(Jl, [["render", lo]]), uo = ["auto", "file", "folder"], co = U, ho = { icon: "folder", color: "text-sky-500" }, fo = { icon: "file-lines", color: "text-muted-foreground" }, mo = {
   pdf: { icon: "file-pdf", color: "text-red-500" },
   doc: { icon: "file-word", color: "text-blue-600" },
   docx: { icon: "file-word", color: "text-blue-600" },
@@ -4351,7 +4383,7 @@ const lo = /* @__PURE__ */ x(Ql, [["render", ao]]), oo = ["auto", "file", "folde
 function Oe(e) {
   return String(e ?? "").trim();
 }
-function mo(e) {
+function po(e) {
   const t = Oe(e);
   return /[/\\]\s*$/.test(t);
 }
@@ -4361,7 +4393,7 @@ function pi(e) {
   const i = t.split(/[/\\]/);
   return i[i.length - 1] || t;
 }
-function po(e) {
+function go(e) {
   const t = pi(e), i = t.lastIndexOf(".");
   return i <= 0 || i === t.length - 1 ? "" : t.slice(i + 1).toLowerCase();
 }
@@ -4383,9 +4415,9 @@ const St = {
   yellow: "text-yellow-500",
   cyan: "text-cyan-500",
   emerald: "text-emerald-600"
-}, go = {
+}, bo = {
   name: "File",
-  mixins: [U],
+  mixins: [Y],
   props: {
     /** Dosya veya klasör adı (veya yol — `basename-only` ile yalnız son parça gösterilir) */
     name: {
@@ -4396,13 +4428,13 @@ const St = {
     kind: {
       type: String,
       default: "auto",
-      validator: (e) => oo.includes(e)
+      validator: (e) => uo.includes(e)
     },
     /** Finder tarzı düzen ölçeği */
     size: {
       type: String,
       default: "md",
-      validator: (e) => uo.includes(e)
+      validator: (e) => co.includes(e)
     },
     /** Font Awesome `name` (önek yok); verilirse uzantı eşlemesi yok sayılır */
     icon: {
@@ -4436,7 +4468,7 @@ const St = {
       return `${this.fullLabel || this.displayLabel}, ${e}`;
     },
     resolvedKind() {
-      return this.kind === "folder" ? "folder" : this.kind === "file" ? "file" : mo(this.name) ? "folder" : "file";
+      return this.kind === "folder" ? "folder" : this.kind === "file" ? "file" : po(this.name) ? "folder" : "file";
     },
     displayLabel() {
       const e = Oe(this.name);
@@ -4446,9 +4478,9 @@ const St = {
       return Oe(this.name) || this.displayLabel;
     },
     inferredMeta() {
-      if (this.resolvedKind === "folder") return co;
-      const e = po(this.name);
-      return fo[e] || ho;
+      if (this.resolvedKind === "folder") return ho;
+      const e = go(this.name);
+      return mo[e] || fo;
     },
     resolvedIcon() {
       return this.icon ? this.icon : this.inferredMeta.icon;
@@ -4479,9 +4511,9 @@ const St = {
       return this.hideLabel ? "" : this.preset.root;
     }
   }
-}, bo = ["aria-label"], yo = ["title"];
-function vo(e, t, i, n, s, r) {
-  const o = v("ui-icon");
+}, yo = ["aria-label"], vo = ["title"];
+function _o(e, t, i, n, s, r) {
+  const o = y("ui-icon");
   return u(), c("div", {
     class: k(["ui-file group inline-flex max-w-full flex-col items-center gap-2 text-center select-none", r.rootSizeClass]),
     role: "img",
@@ -4502,10 +4534,10 @@ function vo(e, t, i, n, s, r) {
       class: k(["ui-file-name w-full truncate px-0.5 text-center font-medium leading-snug tracking-tight text-foreground", r.labelClass]),
       "aria-hidden": "true",
       title: r.fullLabel
-    }, p(r.displayLabel), 11, yo))
-  ], 10, bo);
+    }, p(r.displayLabel), 11, vo))
+  ], 10, yo);
 }
-const _o = /* @__PURE__ */ x(go, [["render", vo]]), ko = Y, xo = ["primary", "secondary", "success", "warning", "danger"], wo = {
+const ko = /* @__PURE__ */ x(bo, [["render", _o]]), xo = U, wo = ["primary", "secondary", "success", "warning", "danger"], So = {
   name: "FilterChip",
   props: {
     icon: {
@@ -4565,13 +4597,13 @@ const _o = /* @__PURE__ */ x(go, [["render", vo]]), ko = Y, xo = ["primary", "se
     size: {
       type: String,
       default: void 0,
-      validator: (e) => e == null || ko.includes(e)
+      validator: (e) => e == null || xo.includes(e)
     },
     /** Verilirse boş / dolu durum rengi yerine sabit ton kullanılır */
     color: {
       type: String,
       default: "",
-      validator: (e) => !e || xo.includes(e)
+      validator: (e) => !e || wo.includes(e)
     }
   },
   emits: ["click", "clear"],
@@ -4607,9 +4639,9 @@ const _o = /* @__PURE__ */ x(go, [["render", vo]]), ko = Y, xo = ["primary", "se
     }
   }
 };
-function So(e, t, i, n, s, r) {
-  const o = v("ui-button");
-  return u(), y(o, {
+function Co(e, t, i, n, s, r) {
+  const o = y("ui-button");
+  return u(), v(o, {
     type: "button",
     class: "ui-filter-chip",
     variant: r.buttonVariant,
@@ -4632,8 +4664,8 @@ function So(e, t, i, n, s, r) {
     _: 1
   }, 8, ["variant", "color", "size", "prefix-icon", "suffix-icon", "disabled", "aria-label", "aria-expanded", "aria-haspopup", "aria-keyshortcuts", "onClick", "onKeydown"]);
 }
-const Co = /* @__PURE__ */ x(wo, [["render", So]]);
-function To(e) {
+const To = /* @__PURE__ */ x(So, [["render", Co]]);
+function Io(e) {
   const t = e.filter((o) => o && (o.width > 0 || o.height > 0));
   if (!t.length) return null;
   const i = Math.min(...t.map((o) => o.top)), n = Math.min(...t.map((o) => o.left)), s = Math.max(...t.map((o) => o.right)), r = Math.max(...t.map((o) => o.bottom));
@@ -4662,12 +4694,12 @@ function Ct(e) {
     const i = [
       t.querySelector(".ui-form-row-text"),
       t.querySelector(".ui-form-row-control")
-    ].filter((s) => s instanceof HTMLElement), n = To(i.map((s) => s.getBoundingClientRect()));
+    ].filter((s) => s instanceof HTMLElement), n = Io(i.map((s) => s.getBoundingClientRect()));
     if (n) return n;
   }
   return t.getBoundingClientRect();
 }
-function Io(e) {
+function Lo(e) {
   var i;
   if (!((i = e == null ? void 0 : e.classList) != null && i.contains("ui-form-row")))
     return [e];
@@ -4676,7 +4708,7 @@ function Io(e) {
     n instanceof HTMLElement && t.push(n);
   return t;
 }
-const Lo = ["dialog", "popover", "card", "tour"], Ao = [
+const Ao = ["dialog", "popover", "card", "tour"], Mo = [
   "bottom-start",
   "bottom-end",
   "bottom",
@@ -4687,15 +4719,15 @@ const Lo = ["dialog", "popover", "card", "tour"], Ao = [
   "right-end",
   "left-start",
   "left-end"
-], Mo = ["sm", "md", "lg", "xl", "2xl", "full"], ee = 12, zo = 8, Po = {
+], zo = ["sm", "md", "lg", "xl", "2xl", "full"], ee = 12, Po = 8, Eo = {
   name: "Guidance",
-  mixins: [U],
+  mixins: [Y],
   props: {
     /** `dialog` | `popover` | `card` | `tour` */
     mode: {
       type: String,
       default: "dialog",
-      validator: (e) => Lo.includes(e)
+      validator: (e) => Ao.includes(e)
     },
     /** v-model:open — dialog, popover, tour */
     open: {
@@ -4740,7 +4772,7 @@ const Lo = ["dialog", "popover", "card", "tour"], Ao = [
     placement: {
       type: String,
       default: "bottom-start",
-      validator: (e) => Ao.includes(e)
+      validator: (e) => Mo.includes(e)
     },
     /** Tour: CSS seçici veya HTMLElement */
     target: {
@@ -4750,12 +4782,12 @@ const Lo = ["dialog", "popover", "card", "tour"], Ao = [
     /** Tour: hedef etrafındaki vurgu boşluğu (px) */
     targetPadding: {
       type: Number,
-      default: zo
+      default: Po
     },
     maxWidth: {
       type: String,
       default: "sm",
-      validator: (e) => Mo.includes(e)
+      validator: (e) => zo.includes(e)
     },
     popoverWidth: {
       type: String,
@@ -4798,7 +4830,7 @@ const Lo = ["dialog", "popover", "card", "tour"], Ao = [
     };
   },
   computed: {
-    ...Fe(),
+    ...Ne(),
     shouldRender() {
       return this.repeatable || !this.seen;
     },
@@ -4817,10 +4849,10 @@ const Lo = ["dialog", "popover", "card", "tour"], Ao = [
       return this.showGo || this.showFooterClose || !!this.$slots.footer;
     },
     resolvedGoLabel() {
-      return this.goLabel ? this.goLabel : z(this, "ui.guidance.go", "Continue");
+      return this.goLabel ? this.goLabel : M(this, "ui.guidance.go", "Continue");
     },
     resolvedCloseLabel() {
-      return this.closeLabel ? this.closeLabel : z(this, "ui.guidance.close", "Close");
+      return this.closeLabel ? this.closeLabel : M(this, "ui.guidance.close", "Close");
     }
   },
   watch: {
@@ -4886,9 +4918,9 @@ const Lo = ["dialog", "popover", "card", "tour"], Ao = [
         height: `${Math.max(0, C - h)}px`
       };
       let D = C + ee;
-      const B = Gt(t);
-      let R = B ? T - o : g;
-      this.placement.startsWith("top") ? D = h - l - ee : this.placement.startsWith("right") ? (D = h, R = T + ee) : this.placement.startsWith("left") ? (D = h, R = g - o - ee) : this.placement.includes("end") && (R = B ? g : T - o), e && !this.placement.startsWith("top") && !this.placement.startsWith("left") && !this.placement.startsWith("right") && D + l > s - ee && (D = h - l - ee), D = Math.max(ee, Math.min(D, s - l - ee)), R = Math.max(ee, Math.min(R, n - o - ee)), this.tourPanelStyle = {
+      const V = Wt(t);
+      let R = V ? T - o : g;
+      this.placement.startsWith("top") ? D = h - l - ee : this.placement.startsWith("right") ? (D = h, R = T + ee) : this.placement.startsWith("left") ? (D = h, R = g - o - ee) : this.placement.includes("end") && (R = V ? g : T - o), e && !this.placement.startsWith("top") && !this.placement.startsWith("left") && !this.placement.startsWith("right") && D + l > s - ee && (D = h - l - ee), D = Math.max(ee, Math.min(D, s - l - ee)), R = Math.max(ee, Math.min(R, n - o - ee)), this.tourPanelStyle = {
         position: "fixed",
         top: `${D}px`,
         left: `${R}px`,
@@ -4924,7 +4956,7 @@ const Lo = ["dialog", "popover", "card", "tour"], Ao = [
         e && this.tourResizeObserver.observe(e);
         const t = this.resolveTourTarget();
         if (t)
-          for (const i of Io(t))
+          for (const i of Lo(t))
             this.tourResizeObserver.observe(i);
       }
     },
@@ -4932,47 +4964,47 @@ const Lo = ["dialog", "popover", "card", "tour"], Ao = [
       this.tourTargetRetries = 0, this._tourTargetRetryRaf && (cancelAnimationFrame(this._tourTargetRetryRaf), this._tourTargetRetryRaf = null), this._tourLayoutRaf && (cancelAnimationFrame(this._tourLayoutRaf), this._tourLayoutRaf = null), this._tourOnResize && (window.removeEventListener("resize", this._tourOnResize), window.removeEventListener("scroll", this._tourOnResize, !0), this._tourOnResize = null), this.tourResizeObserver && (this.tourResizeObserver.disconnect(), this.tourResizeObserver = null);
     }
   }
-}, Eo = { class: "ui-guidance-footer" }, Oo = { class: "ui-guidance-popover" }, Do = {
+}, Oo = { class: "ui-guidance-footer" }, Do = { class: "ui-guidance-popover" }, Ro = {
   key: 0,
   class: "ui-guidance-popover__lead"
-}, Ro = {
+}, No = {
   key: 0,
   class: "ui-guidance-popover__icon"
-}, Fo = { class: "ui-guidance-popover__text" }, No = {
+}, Fo = { class: "ui-guidance-popover__text" }, Vo = {
   key: 0,
   class: "ui-guidance-popover__title"
 }, Bo = {
   key: 1,
   class: "ui-guidance-popover__description ui-text-default"
-}, Vo = {
+}, $o = {
   key: 1,
   class: "ui-guidance-footer ui-guidance-footer--popover"
-}, $o = ["aria-label"], Ho = { class: "ui-guidance-tour__content" }, Ko = { class: "ui-header-lead" }, Uo = { class: "ui-header-lead__main" }, Yo = {
+}, Ho = ["aria-label"], Ko = { class: "ui-guidance-tour__content" }, Uo = { class: "ui-header-lead" }, Yo = { class: "ui-header-lead__main" }, Go = {
   key: 0,
   class: "ui-header-lead__icon"
-}, Wo = { class: "ui-header-lead__text" }, Go = {
+}, Wo = { class: "ui-header-lead__text" }, qo = {
   key: 0,
   class: "ui-guidance-tour__title"
-}, qo = {
+}, jo = {
   key: 1,
   class: "ui-guidance-tour__description ui-text-default"
-}, jo = {
-  key: 0,
-  class: "ui-header-lead__actions"
 }, Zo = {
   key: 0,
-  class: "ui-guidance-tour__body"
+  class: "ui-header-lead__actions"
 }, Xo = {
+  key: 0,
+  class: "ui-guidance-tour__body"
+}, Qo = {
   key: 1,
   class: "ui-guidance-footer ui-guidance-footer--tour"
 };
-function Qo(e, t, i, n, s, r) {
-  const o = v("ui-button"), l = v("ui-card"), a = v("ui-dialog"), d = v("ui-icon"), h = v("ui-popover");
+function Jo(e, t, i, n, s, r) {
+  const o = y("ui-button"), l = y("ui-card"), a = y("ui-dialog"), d = y("ui-icon"), h = y("ui-popover");
   return r.shouldRender ? (u(), c("div", {
     key: 0,
     class: k(r.rootShellClass)
   }, [
-    i.mode === "card" ? (u(), y(l, {
+    i.mode === "card" ? (u(), v(l, {
       key: 0,
       icon: i.icon,
       "icon-type": e.resolvedIconType,
@@ -4996,8 +5028,8 @@ function Qo(e, t, i, n, s, r) {
         name: "footer",
         fn: _(() => [
           b(e.$slots, "footer", {}, () => [
-            f("div", Eo, [
-              i.showFooterClose ? (u(), y(o, {
+            f("div", Oo, [
+              i.showFooterClose ? (u(), v(o, {
                 key: 0,
                 type: "button",
                 variant: "outline",
@@ -5010,7 +5042,7 @@ function Qo(e, t, i, n, s, r) {
                 ]),
                 _: 1
               }, 8, ["onClick"])) : m("", !0),
-              i.showGo ? (u(), y(o, {
+              i.showGo ? (u(), v(o, {
                 key: 1,
                 type: "button",
                 color: "primary",
@@ -5027,7 +5059,7 @@ function Qo(e, t, i, n, s, r) {
         ]),
         key: "1"
       } : void 0
-    ]), 1032, ["icon", "icon-type", "title", "description"])) : i.mode === "dialog" ? (u(), y(a, {
+    ]), 1032, ["icon", "icon-type", "title", "description"])) : i.mode === "dialog" ? (u(), v(a, {
       key: 1,
       open: r.syncOpen,
       "onUpdate:open": t[0] || (t[0] = (g) => r.syncOpen = g),
@@ -5069,7 +5101,7 @@ function Qo(e, t, i, n, s, r) {
         ]),
         key: "1"
       } : void 0
-    ]), 1032, ["open", "icon", "icon-type", "title", "description", "max-width", "close-on-backdrop", "close-on-escape", "show-close"])) : i.mode === "popover" ? (u(), y(h, {
+    ]), 1032, ["open", "icon", "icon-type", "title", "description", "max-width", "close-on-backdrop", "close-on-escape", "show-close"])) : i.mode === "popover" ? (u(), v(h, {
       key: 2,
       open: r.syncOpen,
       "onUpdate:open": t[2] || (t[2] = (g) => r.syncOpen = g),
@@ -5079,12 +5111,12 @@ function Qo(e, t, i, n, s, r) {
       "close-on-escape": i.closeOnEscape
     }, {
       trigger: _((g) => [
-        b(e.$slots, "trigger", Pr(Er(g)))
+        b(e.$slots, "trigger", Er(Or(g)))
       ]),
       content: _(() => [
-        f("div", Oo, [
-          i.icon || i.title || i.description ? (u(), c("div", Do, [
-            i.icon ? (u(), c("span", Ro, [
+        f("div", Do, [
+          i.icon || i.title || i.description ? (u(), c("div", Ro, [
+            i.icon ? (u(), c("span", No, [
               w(d, {
                 name: i.icon,
                 type: e.resolvedIconType,
@@ -5092,13 +5124,13 @@ function Qo(e, t, i, n, s, r) {
               }, null, 8, ["name", "type"])
             ])) : m("", !0),
             f("div", Fo, [
-              i.title ? (u(), c("p", No, p(i.title), 1)) : m("", !0),
+              i.title ? (u(), c("p", Vo, p(i.title), 1)) : m("", !0),
               i.description ? (u(), c("p", Bo, p(i.description), 1)) : m("", !0)
             ])
           ])) : m("", !0),
           b(e.$slots, "default"),
-          r.hasFooterActions && !e.$slots.footer ? (u(), c("div", Vo, [
-            i.showFooterClose ? (u(), y(o, {
+          r.hasFooterActions && !e.$slots.footer ? (u(), c("div", $o, [
+            i.showFooterClose ? (u(), v(o, {
               key: 0,
               type: "button",
               variant: "outline",
@@ -5112,7 +5144,7 @@ function Qo(e, t, i, n, s, r) {
               ]),
               _: 1
             }, 8, ["onClick"])) : m("", !0),
-            i.showGo ? (u(), y(o, {
+            i.showGo ? (u(), v(o, {
               key: 1,
               type: "button",
               color: "primary",
@@ -5129,7 +5161,7 @@ function Qo(e, t, i, n, s, r) {
         ])
       ]),
       _: 3
-    }, 8, ["open", "placement", "width", "close-on-outside-click", "close-on-escape"])) : i.mode === "tour" ? (u(), y(Se, {
+    }, 8, ["open", "placement", "width", "close-on-outside-click", "close-on-escape"])) : i.mode === "tour" ? (u(), v(Se, {
       key: 3,
       to: "body"
     }, [
@@ -5154,21 +5186,21 @@ function Qo(e, t, i, n, s, r) {
             s.tourHighlightStyle ? (u(), c("div", {
               key: 1,
               class: "ui-guidance-tour__highlight",
-              style: V(s.tourHighlightStyle),
+              style: B(s.tourHighlightStyle),
               "aria-hidden": "true"
             }, null, 4)) : m("", !0),
             f("div", {
               ref: "tourPanelRef",
               class: "ui-guidance-tour__panel ui-surface ui-card ui-card--no-padding",
-              style: V(s.tourPanelStyle),
+              style: B(s.tourPanelStyle),
               role: "dialog",
               "aria-modal": "true",
               "aria-label": i.title || r.resolvedGoLabel
             }, [
-              f("div", Ho, [
-                f("div", Ko, [
-                  f("div", Uo, [
-                    i.icon ? (u(), c("span", Yo, [
+              f("div", Ko, [
+                f("div", Uo, [
+                  f("div", Yo, [
+                    i.icon ? (u(), c("span", Go, [
                       w(d, {
                         name: i.icon,
                         type: e.resolvedIconType,
@@ -5176,11 +5208,11 @@ function Qo(e, t, i, n, s, r) {
                       }, null, 8, ["name", "type"])
                     ])) : m("", !0),
                     f("div", Wo, [
-                      i.title ? (u(), c("p", Go, p(i.title), 1)) : m("", !0),
-                      i.description ? (u(), c("p", qo, p(i.description), 1)) : m("", !0)
+                      i.title ? (u(), c("p", qo, p(i.title), 1)) : m("", !0),
+                      i.description ? (u(), c("p", jo, p(i.description), 1)) : m("", !0)
                     ])
                   ]),
-                  i.showClose ? (u(), c("div", jo, [
+                  i.showClose ? (u(), c("div", Zo, [
                     w(o, {
                       type: "button",
                       variant: "solid",
@@ -5193,11 +5225,11 @@ function Qo(e, t, i, n, s, r) {
                     }, null, 8, ["aria-label", "onClick"])
                   ])) : m("", !0)
                 ]),
-                e.$slots.default ? (u(), c("div", Zo, [
+                e.$slots.default ? (u(), c("div", Xo, [
                   b(e.$slots, "default")
                 ])) : m("", !0),
-                r.hasFooterActions && !e.$slots.footer ? (u(), c("div", Xo, [
-                  i.showFooterClose ? (u(), y(o, {
+                r.hasFooterActions && !e.$slots.footer ? (u(), c("div", Qo, [
+                  i.showFooterClose ? (u(), v(o, {
                     key: 0,
                     type: "button",
                     variant: "outline",
@@ -5211,7 +5243,7 @@ function Qo(e, t, i, n, s, r) {
                     ]),
                     _: 1
                   }, 8, ["onClick"])) : m("", !0),
-                  i.showGo ? (u(), y(o, {
+                  i.showGo ? (u(), v(o, {
                     key: 1,
                     type: "button",
                     color: "primary",
@@ -5226,7 +5258,7 @@ function Qo(e, t, i, n, s, r) {
                   }, 8, ["onClick"])) : m("", !0)
                 ])) : b(e.$slots, "footer", { key: 2 })
               ])
-            ], 12, $o)
+            ], 12, Ho)
           ], 34)) : m("", !0)
         ]),
         _: 3
@@ -5234,7 +5266,7 @@ function Qo(e, t, i, n, s, r) {
     ])) : m("", !0)
   ], 2)) : m("", !0);
 }
-const Jo = /* @__PURE__ */ x(Po, [["render", Qo]]), eu = [
+const eu = /* @__PURE__ */ x(Eo, [["render", Jo]]), tu = [
   "bottom-start",
   "bottom-end",
   "bottom",
@@ -5245,9 +5277,9 @@ const Jo = /* @__PURE__ */ x(Po, [["render", Qo]]), eu = [
   "top-start",
   "top-end",
   "top"
-], tu = {
+], iu = {
   name: "HoverCard",
-  components: { Popover: Be },
+  components: { Popover: Ve },
   props: {
     /** `v-model:open` — verilmezse bileşen kendi iç durumunu yönetir. */
     open: {
@@ -5267,7 +5299,7 @@ const Jo = /* @__PURE__ */ x(Po, [["render", Qo]]), eu = [
     placement: {
       type: String,
       default: "bottom",
-      validator: (e) => eu.includes(e)
+      validator: (e) => tu.includes(e)
     },
     /** Kart genişliği (örn. `20rem`); verilmezse içerik + tema üst sınırı. */
     width: {
@@ -5348,9 +5380,9 @@ const Jo = /* @__PURE__ */ x(Po, [["render", Qo]]), eu = [
     }
   }
 };
-function iu(e, t, i, n, s, r) {
-  const o = v("Popover");
-  return u(), y(o, {
+function ru(e, t, i, n, s, r) {
+  const o = y("Popover");
+  return u(), v(o, {
     open: r.isOpen,
     placement: i.placement,
     width: i.width,
@@ -5385,11 +5417,20 @@ function iu(e, t, i, n, s, r) {
     _: 3
   }, 8, ["open", "placement", "width", "aria-label", "onUpdate:open"]);
 }
-const ru = /* @__PURE__ */ x(tu, [["render", iu]]), nu = {
+const nu = /* @__PURE__ */ x(iu, [["render", ru]]), su = {
   name: "IconPicker",
-  mixins: [U, ue],
+  mixins: [Y, ue],
   inheritAttrs: !1,
   props: {
+    /**
+     * Açılış biçimi (`ui-popover` `presentation`): `auto` telefonda dialog, masaüstünde panel;
+     * `popover` her zaman panel; `dialog` her zaman dialog.
+     */
+    presentation: {
+      type: String,
+      default: "auto",
+      validator: (e) => ["auto", "popover", "dialog"].includes(e)
+    },
     modelValue: {
       type: String,
       default: ""
@@ -5448,7 +5489,7 @@ const ru = /* @__PURE__ */ x(tu, [["render", iu]]), nu = {
     };
   },
   computed: {
-    ...Fe(),
+    ...Ne(),
     rootClass() {
       return A(
         "ui-icon-picker min-w-0",
@@ -5501,25 +5542,26 @@ const ru = /* @__PURE__ */ x(tu, [["render", iu]]), nu = {
       this.localIcon = "", this.notifyFormDirty(), this.$emit("update:modelValue", null), this.popoverOpen = !1;
     }
   }
-}, su = ["disabled", "aria-expanded", "onClick"], au = {
+}, au = ["disabled", "aria-expanded", "onClick"], lu = {
   class: "ui-select-prefix inline-flex shrink-0 items-center text-muted-foreground",
   "aria-hidden": "true"
-}, lu = { class: "ui-select-field-suffix" }, ou = {
+}, ou = { class: "ui-select-field-suffix" }, uu = {
   class: "ui-select-chevron",
   "aria-hidden": "true"
-}, uu = { class: "ui-icon-picker-panel" }, cu = { class: "ui-icon-picker-panel__header" }, du = { class: "ui-icon-picker-panel__title" }, hu = { class: "ui-icon-picker-panel__search" }, fu = {
+}, cu = { class: "ui-icon-picker-panel" }, du = { class: "ui-icon-picker-panel__header" }, hu = { class: "ui-icon-picker-panel__title" }, fu = { class: "ui-icon-picker-panel__search" }, mu = {
   key: 0,
   class: "ui-icon-picker-panel__empty"
-}, mu = {
+}, pu = {
   key: 1,
   class: "ui-icon-picker-grid"
-}, pu = ["title", "onClick"];
-function gu(e, t, i, n, s, r) {
-  const o = v("ui-icon"), l = v("ui-button"), a = v("ui-input"), d = v("ui-popover");
+}, gu = ["title", "onClick"];
+function bu(e, t, i, n, s, r) {
+  const o = y("ui-icon"), l = y("ui-button"), a = y("ui-input"), d = y("ui-popover");
   return u(), c("div", {
     class: k(r.rootClass)
   }, [
     w(d, {
+      presentation: i.presentation,
       open: s.popoverOpen,
       "onUpdate:open": t[1] || (t[1] = (h) => s.popoverOpen = h),
       placement: "bottom-start",
@@ -5540,7 +5582,7 @@ function gu(e, t, i, n, s, r) {
             "aria-haspopup": !0,
             onClick: g
           }, [
-            f("span", au, [
+            f("span", lu, [
               w(o, {
                 name: r.localIcon || "grid",
                 type: e.resolvedIconType,
@@ -5550,22 +5592,22 @@ function gu(e, t, i, n, s, r) {
             f("span", {
               class: k(["ui-select-value", { "ui-select-value--placeholder": !r.localIcon }])
             }, p(r.localIcon || r.triggerLabel), 3),
-            f("span", lu, [
-              f("span", ou, [
+            f("span", ou, [
+              f("span", uu, [
                 w(o, {
                   name: "chevron-down",
                   size: "xs"
                 })
               ])
             ])
-          ], 8, su)
+          ], 8, au)
         ])
       ]),
       content: _(() => [
-        f("div", uu, [
-          f("div", cu, [
-            f("span", du, p(r.popoverTitleLabel), 1),
-            r.localIcon ? (u(), y(l, {
+        f("div", cu, [
+          f("div", du, [
+            f("span", hu, p(r.popoverTitleLabel), 1),
+            r.localIcon ? (u(), v(l, {
               key: 0,
               type: "button",
               variant: "ghost",
@@ -5580,7 +5622,7 @@ function gu(e, t, i, n, s, r) {
               _: 1
             }, 8, ["onClick"])) : m("", !0)
           ]),
-          f("div", hu, [
+          f("div", fu, [
             w(a, {
               modelValue: s.searchQuery,
               "onUpdate:modelValue": t[0] || (t[0] = (h) => s.searchQuery = h),
@@ -5591,7 +5633,7 @@ function gu(e, t, i, n, s, r) {
               autocomplete: "off"
             }, null, 8, ["modelValue", "placeholder"])
           ]),
-          r.filteredIcons.length ? (u(), c("div", mu, [
+          r.filteredIcons.length ? (u(), c("div", pu, [
             (u(!0), c(S, null, L(r.filteredIcons, (h) => (u(), c("button", {
               key: h,
               type: "button",
@@ -5604,17 +5646,17 @@ function gu(e, t, i, n, s, r) {
                 type: e.resolvedIconType,
                 size: "sm"
               }, null, 8, ["name", "type"])
-            ], 10, pu))), 128))
-          ])) : (u(), c("div", fu, p(r.resolvedNoResultsLabel), 1))
+            ], 10, gu))), 128))
+          ])) : (u(), c("div", mu, p(r.resolvedNoResultsLabel), 1))
         ])
       ]),
       _: 3
-    }, 8, ["open", "width", "disabled"])
+    }, 8, ["presentation", "open", "width", "disabled"])
   ], 2);
 }
-const bu = /* @__PURE__ */ x(nu, [["render", gu]]), yu = 56, vu = 1.15, _u = 0.28, ku = {
+const yu = /* @__PURE__ */ x(su, [["render", bu]]), vu = 56, _u = 1.15, ku = 0.28, xu = {
   name: "Intro",
-  mixins: [U],
+  mixins: [Y],
   inheritAttrs: !1,
   props: {
     /** Overlay iken görünürlük; `overlay` kapalıysa yok sayılır. */
@@ -5698,19 +5740,19 @@ const bu = /* @__PURE__ */ x(nu, [["render", gu]]), yu = 56, vu = 1.15, _u = 0.2
       return this.activeIndex >= this.lastIndex;
     },
     resolvedSkipLabel() {
-      return this.skipLabel || z(this, "ui.intro.skip", "Skip");
+      return this.skipLabel || M(this, "ui.intro.skip", "Skip");
     },
     resolvedNextLabel() {
-      return this.nextLabel || z(this, "ui.intro.next", "Next");
+      return this.nextLabel || M(this, "ui.intro.next", "Next");
     },
     resolvedFinishLabel() {
-      return this.finishLabel || z(this, "ui.intro.finish", "Get started");
+      return this.finishLabel || M(this, "ui.intro.finish", "Get started");
     },
     resolvedAriaLabel() {
-      return this.ariaLabel || z(this, "ui.intro.stepsAria", "Introduction");
+      return this.ariaLabel || M(this, "ui.intro.stepsAria", "Introduction");
     },
     resolvedCarouselRole() {
-      return z(this, "ui.intro.carouselRole", "carousel");
+      return M(this, "ui.intro.carouselRole", "carousel");
     },
     primaryLabel() {
       return this.isLastStep ? this.resolvedFinishLabel : this.resolvedNextLabel;
@@ -5742,7 +5784,7 @@ const bu = /* @__PURE__ */ x(nu, [["render", gu]]), yu = 56, vu = 1.15, _u = 0.2
   methods: {
     /** Yönü ölçer ve `rtl` durumuna yazar (ray dönüşümü tepkisel kalsın). */
     isRtl() {
-      return this.rtl = Gt(this.$refs.root), this.rtl;
+      return this.rtl = Wt(this.$refs.root), this.rtl;
     },
     setIndex(e) {
       const t = Math.min(this.lastIndex, Math.max(0, e));
@@ -5824,7 +5866,7 @@ const bu = /* @__PURE__ */ x(nu, [["render", gu]]), yu = 56, vu = 1.15, _u = 0.2
       const n = e - this.startX, s = t - this.startY;
       if (!this.lockedAxis) {
         if (Math.abs(n) < 8 && Math.abs(s) < 8) return;
-        if (this.lockedAxis = Math.abs(n) > Math.abs(s) * vu ? "x" : "y", this.lockedAxis === "y") {
+        if (this.lockedAxis = Math.abs(n) > Math.abs(s) * _u ? "x" : "y", this.lockedAxis === "y") {
           this.resetDrag();
           return;
         }
@@ -5834,11 +5876,11 @@ const bu = /* @__PURE__ */ x(nu, [["render", gu]]), yu = 56, vu = 1.15, _u = 0.2
       const r = this.activeIndex === 0, o = this.activeIndex === this.lastIndex;
       let l = n;
       const a = this.rtl ? l < 0 : l > 0;
-      (r && a || o && !a && l !== 0) && (l *= _u), this.dragOffset = l;
+      (r && a || o && !a && l !== 0) && (l *= ku), this.dragOffset = l;
     },
     commitDrag(e, t) {
       var d;
-      const i = e - this.startX, n = Math.max(1, t - this.startAt), s = i / n, r = ((d = this.$refs.viewport) == null ? void 0 : d.clientWidth) || 0, o = Math.max(yu, r * 0.18), l = this.lockedAxis === "x" && (Math.abs(i) >= o || Math.abs(s) > 0.45);
+      const i = e - this.startX, n = Math.max(1, t - this.startAt), s = i / n, r = ((d = this.$refs.viewport) == null ? void 0 : d.clientWidth) || 0, o = Math.max(vu, r * 0.18), l = this.lockedAxis === "x" && (Math.abs(i) >= o || Math.abs(s) > 0.45);
       if (this.releasePointer(), this.resetDrag(), !l) return;
       if (this.isRtl() ? i > 0 : i < 0) {
         this.isLastStep || this.goNext();
@@ -5847,19 +5889,19 @@ const bu = /* @__PURE__ */ x(nu, [["render", gu]]), yu = 56, vu = 1.15, _u = 0.2
       this.goPrev();
     }
   }
-}, xu = ["aria-modal", "aria-label", "aria-roledescription"], wu = { class: "ui-intro__header" }, Su = ["aria-hidden"], Cu = {
+}, wu = ["aria-modal", "aria-label", "aria-roledescription"], Su = { class: "ui-intro__header" }, Cu = ["aria-hidden"], Tu = {
   key: 0,
   class: "ui-intro__icon"
-}, Tu = {
+}, Iu = {
   key: 1,
   class: "ui-intro__title"
-}, Iu = {
+}, Lu = {
   key: 2,
   class: "ui-intro__description"
-}, Lu = { class: "ui-intro__footer" }, Au = ["aria-label"], Mu = ["aria-selected", "aria-label", "onClick"];
-function zu(e, t, i, n, s, r) {
-  const o = v("ui-button"), l = v("ui-icon");
-  return u(), y(Se, {
+}, Au = { class: "ui-intro__footer" }, Mu = ["aria-label"], zu = ["aria-selected", "aria-label", "onClick"];
+function Pu(e, t, i, n, s, r) {
+  const o = y("ui-button"), l = y("ui-icon");
+  return u(), v(Se, {
     to: "body",
     disabled: !i.overlay
   }, [
@@ -5877,9 +5919,9 @@ function zu(e, t, i, n, s, r) {
         }, r.passthroughAttrs, {
           onKeydown: t[8] || (t[8] = (...a) => r.onRootKeydown && r.onRootKeydown(...a))
         }), [
-          f("div", wu, [
+          f("div", Su, [
             b(e.$slots, "header", {}, () => [
-              i.showSkip ? (u(), y(o, {
+              i.showSkip ? (u(), v(o, {
                 key: 0,
                 type: "button",
                 variant: "link",
@@ -5907,7 +5949,7 @@ function zu(e, t, i, n, s, r) {
           }, [
             f("div", {
               class: k(["ui-intro__track", { "ui-intro__track--dragging": s.dragging }]),
-              style: V(r.trackStyle)
+              style: B(r.trackStyle)
             }, [
               (u(!0), c(S, null, L(r.normalizedSteps, (a, d) => (u(), c("div", {
                 key: a.key,
@@ -5919,20 +5961,20 @@ function zu(e, t, i, n, s, r) {
                   index: d,
                   active: d === r.activeIndex
                 }, () => [
-                  a.icon ? (u(), c("span", Cu, [
+                  a.icon ? (u(), c("span", Tu, [
                     w(l, {
                       name: a.icon,
                       type: a.iconType,
                       size: "xl"
                     }, null, 8, ["name", "type"])
                   ])) : m("", !0),
-                  a.title ? (u(), c("h2", Tu, p(a.title), 1)) : m("", !0),
-                  a.description ? (u(), c("p", Iu, p(a.description), 1)) : m("", !0)
+                  a.title ? (u(), c("h2", Iu, p(a.title), 1)) : m("", !0),
+                  a.description ? (u(), c("p", Lu, p(a.description), 1)) : m("", !0)
                 ])
-              ], 8, Su))), 128))
+              ], 8, Cu))), 128))
             ], 6)
           ], 544),
-          f("div", Lu, [
+          f("div", Au, [
             b(e.$slots, "footer", {
               index: r.activeIndex,
               isLast: r.isLastStep,
@@ -5954,8 +5996,8 @@ function zu(e, t, i, n, s, r) {
                   "aria-selected": d === r.activeIndex,
                   "aria-label": a.ariaLabel || a.title || String(d + 1),
                   onClick: (h) => r.goTo(d)
-                }, null, 10, Mu))), 128))
-              ], 8, Au)) : m("", !0),
+                }, null, 10, zu))), 128))
+              ], 8, Mu)) : m("", !0),
               w(o, {
                 type: "button",
                 color: "primary",
@@ -5970,13 +6012,13 @@ function zu(e, t, i, n, s, r) {
               }, 8, ["onClick"])
             ])
           ])
-        ], 16, xu)) : m("", !0)
+        ], 16, wu)) : m("", !0)
       ]),
       _: 3
     })
   ], 8, ["disabled"]);
 }
-const Pu = /* @__PURE__ */ x(ku, [["render", zu]]), Eu = ["sm", "md"], Tt = {
+const Eu = /* @__PURE__ */ x(xu, [["render", Pu]]), Ou = ["sm", "md"], Tt = {
   mod: ["⌘", "Ctrl"],
   cmd: ["⌘", "Ctrl"],
   meta: ["⌘", "Win"],
@@ -6002,7 +6044,7 @@ const Pu = /* @__PURE__ */ x(ku, [["render", zu]]), Eu = ["sm", "md"], Tt = {
   arrowdown: "↓",
   arrowleft: "←",
   arrowright: "→"
-}, Ou = {
+}, Du = {
   name: "Kbd",
   props: {
     /**
@@ -6016,7 +6058,7 @@ const Pu = /* @__PURE__ */ x(ku, [["render", zu]]), Eu = ["sm", "md"], Tt = {
     size: {
       type: String,
       default: "md",
-      validator: (e) => Eu.includes(e)
+      validator: (e) => Ou.includes(e)
     }
   },
   data() {
@@ -6044,11 +6086,11 @@ const Pu = /* @__PURE__ */ x(ku, [["render", zu]]), Eu = ["sm", "md"], Tt = {
     const e = ((t = navigator.userAgentData) == null ? void 0 : t.platform) || navigator.platform || navigator.userAgent || "";
     this.isApple = /mac|iphone|ipad|ipod/i.test(e);
   }
-}, Du = {
+}, Ru = {
   key: 1,
   class: "ui-kbd-group"
 };
-function Ru(e, t, i, n, s, r) {
+function Nu(e, t, i, n, s, r) {
   return e.$slots.default || r.resolvedKeys.length <= 1 ? (u(), c("kbd", {
     key: 0,
     class: k(r.keyClass)
@@ -6056,19 +6098,196 @@ function Ru(e, t, i, n, s, r) {
     b(e.$slots, "default", {}, () => [
       E(p(r.resolvedKeys[0]), 1)
     ])
-  ], 2)) : (u(), c("kbd", Du, [
+  ], 2)) : (u(), c("kbd", Ru, [
     (u(!0), c(S, null, L(r.resolvedKeys, (o, l) => (u(), c("kbd", {
       key: l,
       class: k(r.keyClass)
     }, p(o), 3))), 128))
   ]));
 }
-const Fu = /* @__PURE__ */ x(Ou, [["render", Ru]]), Nu = ["sm", "md", "lg", "full"], Lt = {
+const Fu = /* @__PURE__ */ x(Du, [["render", Nu]]), Vu = {
+  name: "NumberStepper",
+  props: {
+    modelValue: {
+      type: Number,
+      default: null
+    },
+    min: {
+      type: Number,
+      default: 0
+    },
+    max: {
+      type: Number,
+      default: 1 / 0
+    },
+    step: {
+      type: Number,
+      default: 1
+    },
+    size: {
+      type: String,
+      default: "sm",
+      validator: (e) => U.includes(e)
+    },
+    disabled: {
+      type: Boolean,
+      default: !1
+    },
+    /** Grubun erişilebilir adı (ör. "Kişi sayısı") */
+    ariaLabel: {
+      type: String,
+      default: ""
+    },
+    decreaseLabel: {
+      type: String,
+      default: ""
+    },
+    increaseLabel: {
+      type: String,
+      default: ""
+    }
+  },
+  emits: ["update:modelValue"],
+  computed: {
+    current() {
+      const e = Number(this.modelValue);
+      return Number.isFinite(e) ? e : null;
+    },
+    displayValue() {
+      return this.current == null ? "—" : String(this.current);
+    },
+    atMin() {
+      return this.current != null && this.current - this.step < this.min;
+    },
+    atMax() {
+      return this.current != null && this.current + this.step > this.max;
+    },
+    resolvedDecreaseLabel() {
+      return this.decreaseLabel || M(this, "ui.numberStepper.decrease", "Decrease");
+    },
+    resolvedIncreaseLabel() {
+      return this.increaseLabel || M(this, "ui.numberStepper.increase", "Increase");
+    }
+  },
+  methods: {
+    bump(e) {
+      const t = this.current == null ? this.min : this.current, i = this.current == null ? t : t + e * this.step;
+      this.$emit("update:modelValue", Math.min(this.max, Math.max(this.min, i)));
+    }
+  }
+}, Bu = ["aria-label"], $u = {
+  class: "ui-number-stepper-value",
+  "aria-live": "polite"
+};
+function Hu(e, t, i, n, s, r) {
+  const o = y("ui-button");
+  return u(), c("div", {
+    role: "group",
+    "aria-label": i.ariaLabel || void 0,
+    class: k(["ui-number-stepper", `ui-number-stepper--${i.size}`, i.disabled ? "ui-number-stepper--disabled" : ""])
+  }, [
+    w(o, {
+      type: "button",
+      variant: "solid",
+      color: "secondary",
+      size: i.size,
+      cubed: "",
+      "prefix-icon": "minus",
+      disabled: i.disabled || r.atMin,
+      "aria-label": r.resolvedDecreaseLabel,
+      onClick: t[0] || (t[0] = (l) => r.bump(-1))
+    }, null, 8, ["size", "disabled", "aria-label"]),
+    f("output", $u, p(r.displayValue), 1),
+    w(o, {
+      type: "button",
+      variant: "solid",
+      color: "secondary",
+      size: i.size,
+      cubed: "",
+      "prefix-icon": "plus",
+      disabled: i.disabled || r.atMax,
+      "aria-label": r.resolvedIncreaseLabel,
+      onClick: t[1] || (t[1] = (l) => r.bump(1))
+    }, null, 8, ["size", "disabled", "aria-label"])
+  ], 10, Bu);
+}
+const Ku = /* @__PURE__ */ x(Vu, [["render", Hu]]), Uu = ["primary", "secondary", "success", "warning", "info", "danger"], Yu = {
+  name: "TitleMenu",
+  props: {
+    title: {
+      type: String,
+      default: ""
+    },
+    /** `ui-dropdown` öğeleri */
+    items: {
+      type: Array,
+      default: () => []
+    },
+    /** Başlıktan sonra durum ikonu (ör. `star`); boşsa çizilmez */
+    suffixIcon: {
+      type: String,
+      default: ""
+    },
+    suffixIconColor: {
+      type: String,
+      default: "",
+      validator: (e) => !e || Uu.includes(e)
+    },
+    ariaLabel: {
+      type: String,
+      default: ""
+    }
+  },
+  emits: ["select"]
+}, Gu = { class: "ui-title-menu" }, Wu = ["aria-expanded", "aria-label", "onClick"], qu = { class: "ui-title-menu-text" };
+function ju(e, t, i, n, s, r) {
+  const o = y("ui-icon"), l = y("ui-dropdown");
+  return u(), c("span", Gu, [
+    w(l, {
+      items: i.items,
+      placement: "bottom-start",
+      onSelect: t[0] || (t[0] = (a) => e.$emit("select", a))
+    }, {
+      trigger: _(({ toggle: a, open: d, triggerAttrs: h }) => [
+        f("button", P({
+          type: "button",
+          class: "ui-title-menu-trigger"
+        }, h, {
+          "aria-expanded": d ? "true" : "false",
+          "aria-label": i.ariaLabel || void 0,
+          onClick: a
+        }), [
+          f("span", qu, [
+            b(e.$slots, "default", {}, () => [
+              E(p(i.title), 1)
+            ])
+          ]),
+          i.suffixIcon ? (u(), v(o, {
+            key: 0,
+            name: i.suffixIcon,
+            type: "solid",
+            size: "sm",
+            class: k(["ui-title-menu-suffix", i.suffixIconColor ? `ui-title-menu-suffix--${i.suffixIconColor}` : ""]),
+            "aria-hidden": "true"
+          }, null, 8, ["name", "class"])) : m("", !0),
+          w(o, {
+            name: "chevron-down",
+            size: "xs",
+            class: "ui-title-menu-chevron",
+            "aria-hidden": "true"
+          })
+        ], 16, Wu)
+      ]),
+      _: 3
+    }, 8, ["items"])
+  ]);
+}
+const Zu = /* @__PURE__ */ x(Yu, [["render", ju]]), Xu = ["sm", "md", "lg", "full"], Lt = {
   sm: "w-52 max-w-full",
   md: "w-56 max-w-full",
   lg: "w-64 max-w-full",
   full: "w-full max-w-full"
-}, Bu = {
+}, Qu = {
   name: "Menu",
   inheritAttrs: !1,
   provide() {
@@ -6082,7 +6301,7 @@ const Fu = /* @__PURE__ */ x(Ou, [["render", Ru]]), Nu = ["sm", "md", "lg", "ful
     width: {
       type: String,
       default: "full",
-      validator: (e) => Nu.includes(e)
+      validator: (e) => Xu.includes(e)
     },
     /**
      * İkon rayı: etiketler ve grup başlıkları gizlenir (ekran okuyucuda kalır), öğeler kare ikon
@@ -6113,38 +6332,38 @@ const Fu = /* @__PURE__ */ x(Ou, [["render", Ru]]), Nu = ["sm", "md", "lg", "ful
       this.$emit("update:collapsed", !this.collapsed);
     }
   }
-}, Vu = ["data-collapsed"], $u = {
+}, Ju = ["data-collapsed"], ec = {
   key: 0,
   class: "ui-menu-header"
-}, Hu = { class: "ui-menu-body" }, Ku = {
+}, tc = { class: "ui-menu-body" }, ic = {
   key: 1,
   class: "ui-menu-footer"
 };
-function Uu(e, t, i, n, s, r) {
+function rc(e, t, i, n, s, r) {
   return u(), c("nav", P({
     class: r.rootClass,
     "data-collapsed": i.collapsed ? "true" : void 0
   }, r.passthroughAttrs), [
-    e.$slots.header ? (u(), c("div", $u, [
+    e.$slots.header ? (u(), c("div", ec, [
       b(e.$slots, "header", {
         collapsed: i.collapsed,
         toggle: r.toggleCollapsed
       })
     ])) : m("", !0),
-    f("div", Hu, [
+    f("div", tc, [
       b(e.$slots, "default")
     ]),
-    e.$slots.footer ? (u(), c("div", Ku, [
+    e.$slots.footer ? (u(), c("div", ic, [
       b(e.$slots, "footer", {
         collapsed: i.collapsed,
         toggle: r.toggleCollapsed
       })
     ])) : m("", !0)
-  ], 16, Vu);
+  ], 16, Ju);
 }
-const Yu = /* @__PURE__ */ x(Bu, [["render", Uu]]), Wu = W("ui-menubar"), Gu = {
+const nc = /* @__PURE__ */ x(Qu, [["render", rc]]), sc = G("ui-menubar"), ac = {
   name: "Menubar",
-  components: { MenuList: Ut, Popover: Be },
+  components: { MenuList: Ut, Popover: Ve },
   props: {
     /** `[{ label, items, disabled }]` — `items` `ui-dropdown` ile aynı şemadadır. */
     menus: {
@@ -6154,7 +6373,7 @@ const Yu = /* @__PURE__ */ x(Bu, [["render", Uu]]), Wu = W("ui-menubar"), Gu = {
     size: {
       type: String,
       default: "sm",
-      validator: (e) => Y.includes(e)
+      validator: (e) => U.includes(e)
     },
     /** `role="menubar"` için erişilebilir ad; metin i18n'den gelir. */
     ariaLabel: {
@@ -6165,7 +6384,7 @@ const Yu = /* @__PURE__ */ x(Bu, [["render", Uu]]), Wu = W("ui-menubar"), Gu = {
   emits: ["select"],
   data() {
     return {
-      uid: Wu(),
+      uid: sc(),
       /** Açık menünün dizini; -1 = hepsi kapalı. */
       openIndex: -1,
       /** Son odaklanan başlık — Tab ile çubuğa dönünce buradan devam edilir. */
@@ -6237,7 +6456,7 @@ const Yu = /* @__PURE__ */ x(Bu, [["render", Uu]]), Wu = W("ui-menubar"), Gu = {
       var r, o;
       const t = Number(((o = (r = e.target) == null ? void 0 : r.dataset) == null ? void 0 : o.menubarIndex) ?? -1);
       if (t < 0) return;
-      const i = Ne(e.key, this.$el), n = (l) => {
+      const i = Fe(e.key, this.$el), n = (l) => {
         var a;
         l < 0 || (this.openIndex >= 0 ? this.openMenu(l) : (a = this.triggerEl(l)) == null || a.focus());
       }, s = {
@@ -6265,16 +6484,16 @@ const Yu = /* @__PURE__ */ x(Bu, [["render", Uu]]), Wu = W("ui-menubar"), Gu = {
       t ? this.$emit("select", e, t) : this.$emit("select", e);
     }
   }
-}, qu = ["aria-label"];
-function ju(e, t, i, n, s, r) {
-  const o = v("ui-button"), l = v("MenuList"), a = v("Popover");
+}, lc = ["aria-label"];
+function oc(e, t, i, n, s, r) {
+  const o = y("ui-button"), l = y("MenuList"), a = y("Popover");
   return u(), c("div", {
     class: "ui-menubar",
     role: "menubar",
     "aria-label": i.ariaLabel || void 0,
     onKeydown: t[1] || (t[1] = (...d) => r.onBarKeydown && r.onBarKeydown(...d))
   }, [
-    (u(!0), c(S, null, L(i.menus, (d, h) => (u(), y(a, {
+    (u(!0), c(S, null, L(i.menus, (d, h) => (u(), v(a, {
       key: h,
       open: s.openIndex === h,
       placement: "bottom-start",
@@ -6334,9 +6553,9 @@ function ju(e, t, i, n, s, r) {
       ]),
       _: 2
     }, 1032, ["open", "close-on-escape", "onUpdate:open"]))), 128))
-  ], 40, qu);
+  ], 40, lc);
 }
-const Zu = /* @__PURE__ */ x(Gu, [["render", ju]]), Xu = {
+const uc = /* @__PURE__ */ x(ac, [["render", oc]]), cc = {
   name: "MenuGroup",
   inheritAttrs: !1,
   props: {
@@ -6354,23 +6573,23 @@ const Zu = /* @__PURE__ */ x(Gu, [["render", ju]]), Xu = {
       return t;
     }
   }
-}, Qu = {
+}, dc = {
   key: 0,
   class: "ui-menu-group-label"
-}, Ju = { class: "ui-menu-group-items" };
-function ec(e, t, i, n, s, r) {
+}, hc = { class: "ui-menu-group-items" };
+function fc(e, t, i, n, s, r) {
   return u(), c("div", P({ class: r.groupClass }, r.passthroughAttrs), [
-    i.label ? (u(), c("p", Qu, p(i.label), 1)) : m("", !0),
-    f("div", Ju, [
+    i.label ? (u(), c("p", dc, p(i.label), 1)) : m("", !0),
+    f("div", hc, [
       b(e.$slots, "default")
     ])
   ], 16);
 }
-const tc = /* @__PURE__ */ x(Xu, [["render", ec]]), ic = "circle";
+const mc = /* @__PURE__ */ x(cc, [["render", fc]]), pc = "circle";
 function gi(e) {
   return Array.isArray(e) ? e.map((t) => t == null || typeof t != "object" || t.type === ii ? "" : t.type === ri ? String(t.children ?? "") : t.type === S || typeof t.type == "string" ? gi(t.children) : "").join("") : typeof e == "string" ? e : "";
 }
-const rc = {
+const gc = {
   name: "MenuItem",
   components: { "ui-menu-item-tooltip": jt },
   inheritAttrs: !1,
@@ -6421,7 +6640,7 @@ const rc = {
       return !!((e = this.uiMenu) != null && e.collapsed);
     },
     railFallbackIcon() {
-      return ic;
+      return pc;
     },
     railPlacement() {
       return this.rtl ? "left" : "right";
@@ -6466,9 +6685,9 @@ const rc = {
     }
   }
 };
-function nc(e, t, i, n, s, r) {
-  const o = v("ui-button"), l = v("ui-menu-item-tooltip");
-  return r.rail ? (u(), y(l, {
+function bc(e, t, i, n, s, r) {
+  const o = y("ui-button"), l = y("ui-menu-item-tooltip");
+  return r.rail ? (u(), v(l, {
     key: 0,
     label: r.railLabel(),
     placement: r.railPlacement
@@ -6501,7 +6720,7 @@ function nc(e, t, i, n, s, r) {
       ]),
       key: "0"
     }
-  ]), 1032, ["label", "placement"])) : (u(), y(o, P({
+  ]), 1032, ["label", "placement"])) : (u(), v(o, P({
     key: 1,
     type: "button",
     variant: "ghost",
@@ -6522,7 +6741,7 @@ function nc(e, t, i, n, s, r) {
     _: 3
   }, 16, ["to", "prefix-icon", "suffix-icon", "disabled", "loading", "class", "aria-current", "onClick"]));
 }
-const sc = /* @__PURE__ */ x(rc, [["render", nc]]), ac = {
+const yc = /* @__PURE__ */ x(gc, [["render", bc]]), vc = {
   name: "MenuNav",
   inheritAttrs: !1,
   props: {
@@ -6540,23 +6759,23 @@ const sc = /* @__PURE__ */ x(rc, [["render", nc]]), ac = {
       return t;
     }
   }
-}, lc = ["aria-label"];
-function oc(e, t, i, n, s, r) {
+}, _c = ["aria-label"];
+function kc(e, t, i, n, s, r) {
   return u(), c("div", P({
     class: r.navClass,
     role: "navigation",
     "aria-label": i.ariaLabel || void 0
   }, r.passthroughAttrs), [
     b(e.$slots, "default")
-  ], 16, lc);
+  ], 16, _c);
 }
-const uc = /* @__PURE__ */ x(ac, [["render", oc]]), cc = [...Y];
+const xc = /* @__PURE__ */ x(vc, [["render", kc]]), wc = [...U];
 function be(e, t) {
   const i = [];
   for (let n = e; n <= t; n += 1) i.push(n);
   return i;
 }
-const dc = {
+const Sc = {
   name: "Pagination",
   components: { Button: Zt },
   props: {
@@ -6593,7 +6812,7 @@ const dc = {
     size: {
       type: String,
       default: void 0,
-      validator: (e) => e == null || cc.includes(e)
+      validator: (e) => e == null || wc.includes(e)
     },
     disabled: {
       type: Boolean,
@@ -6631,13 +6850,13 @@ const dc = {
       return !a && d ? [...be(1, h).map(n), s("end"), n(e)] : a && !d ? [n(1), s("start"), ...be(e - h + 1, e).map(n)] : [n(1), s("start"), ...be(o, l).map(n), s("end"), n(e)];
     },
     resolvedAriaLabel() {
-      return this.ariaLabel || z(this, "ui.pagination.ariaLabel", "Pagination");
+      return this.ariaLabel || M(this, "ui.pagination.ariaLabel", "Pagination");
     },
     prevLabel() {
-      return z(this, "ui.pagination.prev", "Previous page");
+      return M(this, "ui.pagination.prev", "Previous page");
     },
     nextLabel() {
-      return z(this, "ui.pagination.next", "Next page");
+      return M(this, "ui.pagination.next", "Next page");
     },
     rootClass() {
       return ["ui-pagination", this.disabled ? "ui-pagination--disabled" : ""];
@@ -6664,18 +6883,18 @@ const dc = {
       });
     }
   }
-}, hc = ["aria-label"], fc = { class: "ui-pagination-list" }, mc = { class: "ui-pagination-item" }, pc = ["aria-hidden"], gc = {
+}, Cc = ["aria-label"], Tc = { class: "ui-pagination-list" }, Ic = { class: "ui-pagination-item" }, Lc = ["aria-hidden"], Ac = {
   key: 0,
   class: "ui-pagination-ellipsis"
-}, bc = { class: "ui-pagination-item" };
-function yc(e, t, i, n, s, r) {
-  const o = v("Button"), l = v("ui-icon");
+}, Mc = { class: "ui-pagination-item" };
+function zc(e, t, i, n, s, r) {
+  const o = y("Button"), l = y("ui-icon");
   return u(), c("nav", {
     class: k(r.rootClass),
     "aria-label": r.resolvedAriaLabel
   }, [
-    f("ul", fc, [
-      f("li", mc, [
+    f("ul", Tc, [
+      f("li", Ic, [
         w(o, {
           class: "ui-pagination-nav ui-icon--dir",
           variant: "ghost",
@@ -6693,12 +6912,12 @@ function yc(e, t, i, n, s, r) {
         class: "ui-pagination-item",
         "aria-hidden": a.ellipsis ? "true" : void 0
       }, [
-        a.ellipsis ? (u(), c("span", gc, [
+        a.ellipsis ? (u(), c("span", Ac, [
           w(l, {
             name: "ellipsis",
             size: "xs"
           })
-        ])) : (u(), y(o, {
+        ])) : (u(), v(o, {
           key: 1,
           class: "ui-pagination-page",
           variant: a.page === r.currentPage ? "muted" : "ghost",
@@ -6714,8 +6933,8 @@ function yc(e, t, i, n, s, r) {
           ]),
           _: 2
         }, 1032, ["variant", "size", "disabled", "aria-label", "aria-current", "onClick"]))
-      ], 8, pc))), 128)),
-      f("li", bc, [
+      ], 8, Lc))), 128)),
+      f("li", Mc, [
         w(o, {
           class: "ui-pagination-nav ui-icon--dir",
           variant: "ghost",
@@ -6729,10 +6948,10 @@ function yc(e, t, i, n, s, r) {
         }, null, 8, ["size", "disabled", "aria-label"])
       ])
     ])
-  ], 10, hc);
+  ], 10, Cc);
 }
-const vc = /* @__PURE__ */ x(dc, [["render", yc]]);
-function _c(e) {
+const Pc = /* @__PURE__ */ x(Sc, [["render", zc]]);
+function Ec(e) {
   const t = String(e ?? "");
   if (!t)
     return { score: 0, percent: 0, label: "empty" };
@@ -6745,14 +6964,14 @@ function _c(e) {
     label: r
   };
 }
-const kc = W("ui-password"), xc = Y, wc = {
+const Oc = G("ui-password"), Dc = U, Rc = {
   name: "Password",
   inheritAttrs: !1,
   props: {
     size: {
       type: String,
       default: void 0,
-      validator: (e) => e == null || xc.includes(e)
+      validator: (e) => e == null || Dc.includes(e)
     },
     modelValue: {
       type: String,
@@ -6794,7 +7013,7 @@ const kc = W("ui-password"), xc = Y, wc = {
   },
   emits: ["update:modelValue", "focus", "blur"],
   data() {
-    const e = kc(), t = e.slice(12);
+    const e = Oc(), t = e.slice(12);
     return {
       fallbackId: e,
       fallbackStrengthId: `ui-password-strength-${t}`,
@@ -6814,7 +7033,7 @@ const kc = W("ui-password"), xc = Y, wc = {
       return this.id != null && this.id !== "" ? this.id : this.fallbackId;
     },
     strength() {
-      return _c(this.modelValue);
+      return Ec(this.modelValue);
     },
     strengthVariant() {
       const e = this.strength.label;
@@ -6846,9 +7065,9 @@ const kc = W("ui-password"), xc = Y, wc = {
       return t;
     }
   }
-}, Sc = ["aria-label", "aria-pressed", "disabled"], Cc = ["id", "aria-live"];
-function Tc(e, t, i, n, s, r) {
-  const o = v("ui-icon"), l = v("ui-input"), a = v("ui-progress");
+}, Nc = ["aria-label", "aria-pressed", "disabled"], Fc = ["id", "aria-live"];
+function Vc(e, t, i, n, s, r) {
+  const o = y("ui-icon"), l = y("ui-input"), a = y("ui-progress");
   return u(), c("div", {
     class: k(["ui-password", [e.$attrs.class]])
   }, [
@@ -6882,7 +7101,7 @@ function Tc(e, t, i, n, s, r) {
             name: s.visible ? "eye-slash" : "eye",
             size: "xs"
           }, null, 8, ["name"])
-        ], 8, Sc)
+        ], 8, Nc)
       ]),
       _: 1
     }, 16, ["id", "modelValue", "type", "size", "disabled", "readonly", "placeholder", "name", "autocomplete", "maxlength", "aria-describedby"]),
@@ -6904,15 +7123,15 @@ function Tc(e, t, i, n, s, r) {
         key: 0,
         class: k(["ui-password-strength-label", `ui-password-strength-label--${r.strength.label}`])
       }, p(r.strengthText), 3)) : m("", !0)
-    ], 8, Cc)) : m("", !0)
+    ], 8, Fc)) : m("", !0)
   ], 2);
 }
-const Ic = /* @__PURE__ */ x(wc, [["render", Tc]]), Lc = ["square", "video", "auto"], Ac = ["fill", "sm", "md", "lg"], At = {
+const Bc = /* @__PURE__ */ x(Rc, [["render", Vc]]), $c = ["square", "video", "auto"], Hc = ["fill", "sm", "md", "lg"], At = {
   fill: "ui-photo--size-fill",
   sm: "ui-photo--size-sm",
   md: "ui-photo--size-md",
   lg: "ui-photo--size-lg"
-}, Mc = {
+}, Kc = {
   name: "Photo",
   inheritAttrs: !1,
   props: {
@@ -6931,12 +7150,12 @@ const Ic = /* @__PURE__ */ x(wc, [["render", Tc]]), Lc = ["square", "video", "au
     aspect: {
       type: String,
       default: "square",
-      validator: (e) => Lc.includes(e)
+      validator: (e) => $c.includes(e)
     },
     size: {
       type: String,
       default: "fill",
-      validator: (e) => Ac.includes(e)
+      validator: (e) => Hc.includes(e)
     },
     interactive: {
       type: Boolean,
@@ -7064,25 +7283,25 @@ const Ic = /* @__PURE__ */ x(wc, [["render", Tc]]), Lc = ["square", "video", "au
       this.showNext && (this.previewIndex += 1);
     },
     onPreviewKeydown(e) {
-      const t = Ne(e.key, e.currentTarget);
+      const t = Fe(e.key, e.currentTarget);
       e.key === "Escape" ? (e.preventDefault(), this.closePreview()) : t === "ArrowLeft" ? (e.preventDefault(), this.goPrev()) : t === "ArrowRight" && (e.preventDefault(), this.goNext());
     }
   }
-}, zc = ["src", "alt"], Pc = ["aria-hidden"], Ec = {
+}, Uc = ["src", "alt"], Yc = ["aria-hidden"], Gc = {
   key: 2,
   class: "ui-photo__favorite",
   "aria-hidden": "true"
-}, Oc = {
+}, Wc = {
   key: 3,
   class: "ui-photo__overflow"
-}, Dc = ["aria-label"], Rc = ["aria-label"], Fc = { class: "ui-photo-preview__panel" }, Nc = ["src", "alt"], Bc = {
+}, qc = ["aria-label"], jc = ["aria-label"], Zc = { class: "ui-photo-preview__panel" }, Xc = ["src", "alt"], Qc = {
   key: 3,
   class: "ui-photo-preview__counter"
 };
-function Vc(e, t, i, n, s, r) {
-  const o = v("ui-icon"), l = v("ui-button");
+function Jc(e, t, i, n, s, r) {
+  const o = y("ui-icon"), l = y("ui-button");
   return u(), c(S, null, [
-    (u(), y(le(r.rootTag), P({
+    (u(), v(le(r.rootTag), P({
       type: i.interactive ? "button" : void 0,
       class: r.rootClass
     }, r.rootBind, { onClick: r.onClick }), {
@@ -7095,7 +7314,7 @@ function Vc(e, t, i, n, s, r) {
           loading: "lazy",
           decoding: "async",
           onError: t[0] || (t[0] = (a) => s.imageFailed = !0)
-        }, null, 40, zc)) : (u(), c("span", {
+        }, null, 40, Uc)) : (u(), c("span", {
           key: 1,
           class: "ui-photo__empty",
           "aria-hidden": i.interactive ? "true" : void 0
@@ -7105,19 +7324,19 @@ function Vc(e, t, i, n, s, r) {
             type: "light",
             class: "ui-photo__empty-icon"
           })
-        ], 8, Pc)),
-        i.favorite ? (u(), c("span", Ec, [
+        ], 8, Yc)),
+        i.favorite ? (u(), c("span", Gc, [
           w(o, {
             name: "star",
             type: "light",
             size: "xs"
           })
         ])) : m("", !0),
-        i.overflowLabel ? (u(), c("span", Oc, p(i.overflowLabel), 1)) : m("", !0)
+        i.overflowLabel ? (u(), c("span", Wc, p(i.overflowLabel), 1)) : m("", !0)
       ]),
       _: 1
     }, 16, ["type", "class", "onClick"])),
-    (u(), y(Se, { to: "body" }, [
+    (u(), v(Se, { to: "body" }, [
       w(Ce, {
         name: "ui-photo-preview",
         appear: ""
@@ -7136,8 +7355,8 @@ function Vc(e, t, i, n, s, r) {
               class: "ui-photo-preview__backdrop",
               "aria-label": r.closeLabel,
               onClick: t[1] || (t[1] = (...a) => r.closePreview && r.closePreview(...a))
-            }, null, 8, Rc),
-            f("div", Fc, [
+            }, null, 8, jc),
+            f("div", Zc, [
               w(l, {
                 type: "button",
                 variant: "solid",
@@ -7148,7 +7367,7 @@ function Vc(e, t, i, n, s, r) {
                 "aria-label": r.closeLabel,
                 onClick: r.closePreview
               }, null, 8, ["aria-label", "onClick"]),
-              r.showPrev ? (u(), y(l, {
+              r.showPrev ? (u(), v(l, {
                 key: 0,
                 type: "button",
                 variant: "solid",
@@ -7164,8 +7383,8 @@ function Vc(e, t, i, n, s, r) {
                 src: r.activeSrc,
                 alt: r.activeAlt,
                 class: "ui-photo-preview__img"
-              }, null, 8, Nc)) : m("", !0),
-              r.showNext ? (u(), y(l, {
+              }, null, 8, Xc)) : m("", !0),
+              r.showNext ? (u(), v(l, {
                 key: 2,
                 type: "button",
                 variant: "solid",
@@ -7176,16 +7395,16 @@ function Vc(e, t, i, n, s, r) {
                 "aria-label": r.nextLabel,
                 onClick: K(r.goNext, ["stop"])
               }, null, 8, ["aria-label", "onClick"])) : m("", !0),
-              r.counterLabel ? (u(), c("p", Bc, p(r.counterLabel), 1)) : m("", !0)
+              r.counterLabel ? (u(), c("p", Qc, p(r.counterLabel), 1)) : m("", !0)
             ])
-          ], 40, Dc)) : m("", !0)
+          ], 40, qc)) : m("", !0)
         ]),
         _: 1
       })
     ]))
   ], 64);
 }
-const $c = /* @__PURE__ */ x(Mc, [["render", Vc]]), Hc = ["square", "video", "auto"], Kc = {
+const ed = /* @__PURE__ */ x(Kc, [["render", Jc]]), td = ["square", "video", "auto"], id = {
   name: "Photos",
   props: {
     items: {
@@ -7199,7 +7418,7 @@ const $c = /* @__PURE__ */ x(Mc, [["render", Vc]]), Hc = ["square", "video", "au
     aspect: {
       type: String,
       default: "square",
-      validator: (e) => Hc.includes(e)
+      validator: (e) => td.includes(e)
     },
     preview: {
       type: Boolean,
@@ -7301,22 +7520,22 @@ const $c = /* @__PURE__ */ x(Mc, [["render", Vc]]), Hc = ["square", "video", "au
       this.showNext && (this.previewIndex += 1);
     },
     onPreviewKeydown(e) {
-      const t = Ne(e.key, e.currentTarget);
+      const t = Fe(e.key, e.currentTarget);
       e.key === "Escape" ? (e.preventDefault(), this.closePreview()) : t === "ArrowLeft" ? (e.preventDefault(), this.goPrev()) : t === "ArrowRight" && (e.preventDefault(), this.goNext());
     }
   }
-}, Uc = ["data-count"], Yc = ["aria-label"], Wc = ["aria-label"], Gc = { class: "ui-photo-preview__panel" }, qc = ["src", "alt"], jc = {
+}, rd = ["data-count"], nd = ["aria-label"], sd = ["aria-label"], ad = { class: "ui-photo-preview__panel" }, ld = ["src", "alt"], od = {
   key: 3,
   class: "ui-photo-preview__counter"
 };
-function Zc(e, t, i, n, s, r) {
-  const o = v("ui-photo"), l = v("ui-button");
+function ud(e, t, i, n, s, r) {
+  const o = y("ui-photo"), l = y("ui-button");
   return u(), c(S, null, [
     f("div", {
       class: k(["ui-photos", r.layoutClass]),
       "data-count": r.displayCount
     }, [
-      (u(!0), c(S, null, L(r.visibleItems, (a, d) => (u(), y(o, {
+      (u(!0), c(S, null, L(r.visibleItems, (a, d) => (u(), v(o, {
         key: a.key || `${a.src}-${d}`,
         src: a.src,
         alt: a.alt || "",
@@ -7328,8 +7547,8 @@ function Zc(e, t, i, n, s, r) {
         "aria-label": a.alt || void 0,
         onOpenPreview: r.openPreviewAt
       }, null, 8, ["src", "alt", "favorite", "aspect", "preview", "gallery-index", "overflow-label", "aria-label", "onOpenPreview"]))), 128))
-    ], 10, Uc),
-    (u(), y(Se, { to: "body" }, [
+    ], 10, rd),
+    (u(), v(Se, { to: "body" }, [
       w(Ce, {
         name: "ui-photo-preview",
         appear: ""
@@ -7348,8 +7567,8 @@ function Zc(e, t, i, n, s, r) {
               class: "ui-photo-preview__backdrop",
               "aria-label": r.closeLabel,
               onClick: t[0] || (t[0] = (...a) => r.closePreview && r.closePreview(...a))
-            }, null, 8, Wc),
-            f("div", Gc, [
+            }, null, 8, sd),
+            f("div", ad, [
               w(l, {
                 type: "button",
                 variant: "solid",
@@ -7360,7 +7579,7 @@ function Zc(e, t, i, n, s, r) {
                 "aria-label": r.closeLabel,
                 onClick: r.closePreview
               }, null, 8, ["aria-label", "onClick"]),
-              r.showPrev ? (u(), y(l, {
+              r.showPrev ? (u(), v(l, {
                 key: 0,
                 type: "button",
                 variant: "solid",
@@ -7376,8 +7595,8 @@ function Zc(e, t, i, n, s, r) {
                 src: r.activeSrc,
                 alt: r.activeAlt,
                 class: "ui-photo-preview__img"
-              }, null, 8, qc)) : m("", !0),
-              r.showNext ? (u(), y(l, {
+              }, null, 8, ld)) : m("", !0),
+              r.showNext ? (u(), v(l, {
                 key: 2,
                 type: "button",
                 variant: "solid",
@@ -7388,16 +7607,16 @@ function Zc(e, t, i, n, s, r) {
                 "aria-label": r.nextLabel,
                 onClick: K(r.goNext, ["stop"])
               }, null, 8, ["aria-label", "onClick"])) : m("", !0),
-              r.counterLabel ? (u(), c("p", jc, p(r.counterLabel), 1)) : m("", !0)
+              r.counterLabel ? (u(), c("p", od, p(r.counterLabel), 1)) : m("", !0)
             ])
-          ], 40, Yc)) : m("", !0)
+          ], 40, nd)) : m("", !0)
         ]),
         _: 1
       })
     ]))
   ], 64);
 }
-const Xc = /* @__PURE__ */ x(Kc, [["render", Zc]]), Qc = ["sm", "md", "lg", "xl", "2xl"], Jc = ["default", "foreground", "muted", "success", "danger", "primary"], ed = {
+const cd = /* @__PURE__ */ x(id, [["render", ud]]), dd = ["sm", "md", "lg", "xl", "2xl"], hd = ["default", "foreground", "muted", "success", "danger", "primary"], fd = {
   name: "PriceText",
   props: {
     value: {
@@ -7407,12 +7626,12 @@ const Xc = /* @__PURE__ */ x(Kc, [["render", Zc]]), Qc = ["sm", "md", "lg", "xl"
     size: {
       type: String,
       default: "md",
-      validator: (e) => Qc.includes(e)
+      validator: (e) => dd.includes(e)
     },
     tone: {
       type: String,
       default: "default",
-      validator: (e) => Jc.includes(e)
+      validator: (e) => hd.includes(e)
     },
     strike: {
       type: Boolean,
@@ -7434,7 +7653,7 @@ const Xc = /* @__PURE__ */ x(Kc, [["render", Zc]]), Qc = ["sm", "md", "lg", "xl"
     }
   }
 };
-function td(e, t, i, n, s, r) {
+function md(e, t, i, n, s, r) {
   return u(), c("span", {
     class: k(["ui-price-text", r.rootClass])
   }, [
@@ -7443,7 +7662,7 @@ function td(e, t, i, n, s, r) {
     ])
   ], 2);
 }
-const st = /* @__PURE__ */ x(ed, [["render", td]]), id = Y, rd = ["sm", "md", "lg", "xl", "2xl"], nd = ["default", "foreground", "muted", "success", "danger", "primary"], sd = {
+const st = /* @__PURE__ */ x(fd, [["render", md]]), pd = U, gd = ["sm", "md", "lg", "xl", "2xl"], bd = ["default", "foreground", "muted", "success", "danger", "primary"], yd = {
   name: "PriceDisplay",
   components: { PriceText: st },
   props: {
@@ -7458,17 +7677,17 @@ const st = /* @__PURE__ */ x(ed, [["render", td]]), id = Y, rd = ["sm", "md", "l
     size: {
       type: String,
       default: "md",
-      validator: (e) => id.includes(e)
+      validator: (e) => pd.includes(e)
     },
     valueSize: {
       type: String,
       default: "lg",
-      validator: (e) => rd.includes(e)
+      validator: (e) => gd.includes(e)
     },
     tone: {
       type: String,
       default: "default",
-      validator: (e) => nd.includes(e)
+      validator: (e) => bd.includes(e)
     }
   },
   computed: {
@@ -7476,13 +7695,13 @@ const st = /* @__PURE__ */ x(ed, [["render", td]]), id = Y, rd = ["sm", "md", "l
       return this.size !== "md" ? `ui-price-display--${this.size}` : null;
     }
   }
-}, ad = { class: "ui-price-display__label" };
-function ld(e, t, i, n, s, r) {
-  const o = v("PriceText");
+}, vd = { class: "ui-price-display__label" };
+function _d(e, t, i, n, s, r) {
+  const o = y("PriceText");
   return u(), c("div", {
     class: k(["ui-price-display", r.rootClass])
   }, [
-    f("span", ad, p(i.label), 1),
+    f("span", vd, p(i.label), 1),
     w(o, {
       value: i.value,
       size: i.valueSize,
@@ -7497,13 +7716,13 @@ function ld(e, t, i, n, s, r) {
     }, 8, ["value", "size", "tone"])
   ], 2);
 }
-const od = /* @__PURE__ */ x(sd, [["render", ld]]), ud = Y, cd = {
+const kd = /* @__PURE__ */ x(yd, [["render", _d]]), xd = U, wd = {
   name: "PriceDisplayGroup",
   props: {
     size: {
       type: String,
       default: "md",
-      validator: (e) => ud.includes(e)
+      validator: (e) => xd.includes(e)
     }
   },
   computed: {
@@ -7512,14 +7731,14 @@ const od = /* @__PURE__ */ x(sd, [["render", ld]]), ud = Y, cd = {
     }
   }
 };
-function dd(e, t, i, n, s, r) {
+function Sd(e, t, i, n, s, r) {
   return u(), c("div", {
     class: k(["ui-price-display-group", r.rootClass])
   }, [
     b(e.$slots, "default")
   ], 2);
 }
-const hd = /* @__PURE__ */ x(cd, [["render", dd]]), fd = ["sm", "md", "lg", "xl", "2xl"], md = ["default", "foreground", "muted", "success", "danger", "primary"], pd = {
+const Cd = /* @__PURE__ */ x(wd, [["render", Sd]]), Td = ["sm", "md", "lg", "xl", "2xl"], Id = ["default", "foreground", "muted", "success", "danger", "primary"], Ld = {
   name: "PriceDisplayRow",
   components: { PriceText: st },
   props: {
@@ -7534,12 +7753,12 @@ const hd = /* @__PURE__ */ x(cd, [["render", dd]]), fd = ["sm", "md", "lg", "xl"
     valueSize: {
       type: String,
       default: "md",
-      validator: (e) => fd.includes(e)
+      validator: (e) => Td.includes(e)
     },
     tone: {
       type: String,
       default: "default",
-      validator: (e) => md.includes(e)
+      validator: (e) => Id.includes(e)
     },
     divider: {
       type: Boolean,
@@ -7558,13 +7777,13 @@ const hd = /* @__PURE__ */ x(cd, [["render", dd]]), fd = ["sm", "md", "lg", "xl"
       };
     }
   }
-}, gd = { class: "ui-price-display-row__label" };
-function bd(e, t, i, n, s, r) {
-  const o = v("PriceText");
+}, Ad = { class: "ui-price-display-row__label" };
+function Md(e, t, i, n, s, r) {
+  const o = y("PriceText");
   return u(), c("div", {
     class: k(["ui-price-display-row", r.rootClass])
   }, [
-    f("span", gd, p(i.label), 1),
+    f("span", Ad, p(i.label), 1),
     w(o, {
       value: i.value,
       size: i.valueSize,
@@ -7579,22 +7798,22 @@ function bd(e, t, i, n, s, r) {
     }, 8, ["value", "size", "tone"])
   ], 2);
 }
-const yd = /* @__PURE__ */ x(pd, [["render", bd]]), vd = ["tr-TR", "en-US"], De = nt({
+const zd = /* @__PURE__ */ x(Ld, [["render", Md]]), Pd = ["tr-TR", "en-US"], De = nt({
   currency: "TRY",
   format: "tr-TR"
 });
-function _d(e, t = De.format) {
-  return vd.includes(e) ? e : t;
+function Ed(e, t = De.format) {
+  return Pd.includes(e) ? e : t;
 }
-function kd(e = {}) {
+function Od(e = {}) {
   e.currency != null && String(e.currency).trim() !== "" && (De.currency = He(e.currency));
   const t = e.format ?? e.locale;
-  t != null && (De.format = _d(t));
+  t != null && (De.format = Ed(t));
 }
-function xd() {
-  return Or(De);
+function Dd() {
+  return Dr(De);
 }
-const wd = {
+const Rd = {
   name: "PriceInput",
   components: { CurrencyInput: mi },
   inheritAttrs: !1,
@@ -7620,7 +7839,7 @@ const wd = {
   },
   emits: ["update:modelValue", "input", "change", "focus", "blur"],
   setup() {
-    return { priceInputConfig: xd() };
+    return { priceInputConfig: Dd() };
   },
   computed: {
     resolvedCurrency() {
@@ -7631,9 +7850,9 @@ const wd = {
     }
   }
 };
-function Sd(e, t, i, n, s, r) {
-  const o = v("CurrencyInput");
-  return u(), y(o, P({
+function Nd(e, t, i, n, s, r) {
+  const o = y("CurrencyInput");
+  return u(), v(o, P({
     "model-value": i.modelValue,
     currency: r.resolvedCurrency,
     locale: r.resolvedFormat
@@ -7645,7 +7864,7 @@ function Sd(e, t, i, n, s, r) {
     onBlur: t[4] || (t[4] = (l) => e.$emit("blur", l))
   }), null, 16, ["model-value", "currency", "locale"]);
 }
-const Cd = /* @__PURE__ */ x(wd, [["render", Sd]]), Td = ["bar", "circle"], Mt = ["sm", "md", "lg", "xl", "2xl"], zt = ["thin", "md"], Id = ["default", "weak", "fair", "good", "strong"], Le = { sm: 16, md: 20, lg: 24, xl: 40, "2xl": 56 }, Ld = { sm: 1.5, md: 2, lg: 2, xl: 3, "2xl": 3.5 }, Ad = {
+const Fd = /* @__PURE__ */ x(Rd, [["render", Nd]]), Vd = ["bar", "circle"], Mt = ["sm", "md", "lg", "xl", "2xl"], zt = ["thin", "md"], Bd = ["default", "weak", "fair", "good", "strong"], Le = { sm: 16, md: 20, lg: 24, xl: 40, "2xl": 56 }, $d = { sm: 1.5, md: 2, lg: 2, xl: 3, "2xl": 3.5 }, Hd = {
   name: "Progress",
   inheritAttrs: !1,
   props: {
@@ -7653,7 +7872,7 @@ const Cd = /* @__PURE__ */ x(wd, [["render", Sd]]), Td = ["bar", "circle"], Mt =
     type: {
       type: String,
       default: "bar",
-      validator: (e) => Td.includes(e)
+      validator: (e) => Vd.includes(e)
     },
     /** 0 … `max` */
     value: {
@@ -7676,7 +7895,7 @@ const Cd = /* @__PURE__ */ x(wd, [["render", Sd]]), Td = ["bar", "circle"], Mt =
     variant: {
       type: String,
       default: "default",
-      validator: (e) => Id.includes(e)
+      validator: (e) => Bd.includes(e)
     },
     indeterminate: {
       type: Boolean,
@@ -7732,22 +7951,22 @@ const Cd = /* @__PURE__ */ x(wd, [["render", Sd]]), Td = ["bar", "circle"], Mt =
       return !Number.isFinite(e) || e <= 0 ? 0 : Math.round(this.clampedPercent / 100 * e);
     },
     circleMetrics() {
-      const e = Le[this.circleSizeKey] ?? Le.sm, t = Ld[this.circleSizeKey] ?? 2, i = (e - t) / 2, n = e / 2, s = 2 * Math.PI * i, r = s * (1 - this.clampedPercent / 100);
+      const e = Le[this.circleSizeKey] ?? Le.sm, t = $d[this.circleSizeKey] ?? 2, i = (e - t) / 2, n = e / 2, s = 2 * Math.PI * i, r = s * (1 - this.clampedPercent / 100);
       return { size: e, stroke: t, radius: i, center: n, circumference: s, offset: r };
     },
     resolvedAriaLabel() {
       return this.ariaLabel ? this.ariaLabel : typeof this.$t == "function" ? this.$t("ui.progress.ariaLabel") : "Progress";
     }
   }
-}, Md = ["role", "aria-valuenow", "aria-valuemin", "aria-valuemax", "aria-label", "aria-valuetext"], zd = ["width", "height", "viewBox"], Pd = ["cx", "cy", "r", "stroke-width"], Ed = ["cx", "cy", "r", "stroke-width", "stroke-dasharray", "stroke-dashoffset"], Od = {
+}, Kd = ["role", "aria-valuenow", "aria-valuemin", "aria-valuemax", "aria-label", "aria-valuetext"], Ud = ["width", "height", "viewBox"], Yd = ["cx", "cy", "r", "stroke-width"], Gd = ["cx", "cy", "r", "stroke-width", "stroke-dasharray", "stroke-dashoffset"], Wd = {
   key: 1,
   class: "ui-progress-bar-track",
   "aria-hidden": "true"
 };
-function Dd(e, t, i, n, s, r) {
+function qd(e, t, i, n, s, r) {
   return u(), c("div", {
     class: k(r.rootClass),
-    style: V(r.circleRootStyle),
+    style: B(r.circleRootStyle),
     role: i.presentational ? void 0 : "progressbar",
     "aria-valuenow": i.presentational || i.indeterminate ? void 0 : r.ariaValueNow,
     "aria-valuemin": i.presentational ? void 0 : 0,
@@ -7770,7 +7989,7 @@ function Dd(e, t, i, n, s, r) {
         cy: r.circleMetrics.center,
         r: r.circleMetrics.radius,
         "stroke-width": r.circleMetrics.stroke
-      }, null, 8, Pd),
+      }, null, 8, Yd),
       f("circle", {
         class: "ui-progress-circle-indicator",
         cx: r.circleMetrics.center,
@@ -7779,16 +7998,16 @@ function Dd(e, t, i, n, s, r) {
         "stroke-width": r.circleMetrics.stroke,
         "stroke-dasharray": r.circleMetrics.circumference,
         "stroke-dashoffset": r.circleMetrics.offset
-      }, null, 8, Ed)
-    ], 8, zd)) : (u(), c("div", Od, [
+      }, null, 8, Gd)
+    ], 8, Ud)) : (u(), c("div", Wd, [
       f("div", {
         class: "ui-progress-bar-indicator",
-        style: V({ width: `${r.clampedPercent}%` })
+        style: B({ width: `${r.clampedPercent}%` })
       }, null, 4)
     ]))
-  ], 14, Md);
+  ], 14, Kd);
 }
-const Rd = /* @__PURE__ */ x(Ad, [["render", Dd]]), Fd = ["horizontal", "vertical"], Nd = "ui-resizable:", se = 1e-3;
+const jd = /* @__PURE__ */ x(Hd, [["render", qd]]), Zd = ["horizontal", "vertical"], Xd = "ui-resizable:", se = 1e-3;
 function et(e) {
   return Math.round(e * 100) / 100;
 }
@@ -7810,7 +8029,7 @@ function Me(e) {
   const t = e.reduce((i, n) => i + n, 0);
   return e.length ? t > 0 ? e.map((i) => et(i / t * 100)) : e.map(() => et(100 / e.length)) : [];
 }
-const Bd = {
+const Qd = {
   name: "ResizableGroup",
   inheritAttrs: !1,
   provide() {
@@ -7821,7 +8040,7 @@ const Bd = {
     direction: {
       type: String,
       default: "horizontal",
-      validator: (e) => Fd.includes(e)
+      validator: (e) => Zd.includes(e)
     },
     /** Panel boyutları (yüzde, toplam 100). Verilmezse bileşen kendi durumunu tutar. */
     modelValue: {
@@ -7904,7 +8123,7 @@ const Bd = {
       return Ae(t, e) ? Me(t.map(Number)) : Ae(this.modelValue, e) ? Me(this.modelValue.map(Number)) : this.defaultSizes();
     },
     storageKey() {
-      return this.autoSaveId ? `${Nd}${this.autoSaveId}` : "";
+      return this.autoSaveId ? `${Xd}${this.autoSaveId}` : "";
     },
     readStored() {
       const e = this.storageKey();
@@ -8022,17 +8241,17 @@ const Bd = {
       this.resizePair(e, a) && this.finishResize();
     }
   }
-}, Vd = ["data-direction", "data-dragging"];
-function $d(e, t, i, n, s, r) {
+}, Jd = ["data-direction", "data-dragging"];
+function eh(e, t, i, n, s, r) {
   return u(), c("div", P({
     class: r.rootClass,
     "data-direction": i.direction,
     "data-dragging": s.dragging ? "true" : void 0
   }, r.passthroughAttrs), [
     b(e.$slots, "default", { sizes: s.sizes })
-  ], 16, Vd);
+  ], 16, Jd);
 }
-const Hd = /* @__PURE__ */ x(Bd, [["render", $d]]), Kd = {
+const th = /* @__PURE__ */ x(Qd, [["render", eh]]), ih = {
   name: "ResizableHandle",
   inheritAttrs: !1,
   inject: {
@@ -8070,7 +8289,7 @@ const Hd = /* @__PURE__ */ x(Bd, [["render", $d]]), Kd = {
       return this.index < 0 ? null : this.uiResizable.handleValues(this.index);
     },
     resolvedAriaLabel() {
-      return this.ariaLabel || z(this, "ui.resizable.handle", "Resize panels");
+      return this.ariaLabel || M(this, "ui.resizable.handle", "Resize panels");
     },
     rootClass() {
       return A(
@@ -8143,13 +8362,13 @@ const Hd = /* @__PURE__ */ x(Bd, [["render", $d]]), Kd = {
       e.preventDefault();
     }
   }
-}, Ud = ["tabindex", "aria-orientation", "aria-valuenow", "aria-valuemin", "aria-valuemax", "aria-controls", "aria-label", "aria-disabled", "data-dragging"], Yd = {
+}, rh = ["tabindex", "aria-orientation", "aria-valuenow", "aria-valuemin", "aria-valuemax", "aria-controls", "aria-label", "aria-disabled", "data-dragging"], nh = {
   key: 0,
   class: "ui-resizable-handle-grip",
   "aria-hidden": "true"
 };
-function Wd(e, t, i, n, s, r) {
-  const o = v("ui-icon");
+function sh(e, t, i, n, s, r) {
+  const o = y("ui-icon");
   return u(), c("div", P({
     class: r.rootClass,
     role: "separator",
@@ -8170,15 +8389,15 @@ function Wd(e, t, i, n, s, r) {
     onLostpointercapture: t[4] || (t[4] = (...l) => r.onPointerEnd && r.onPointerEnd(...l)),
     onKeydown: t[5] || (t[5] = (...l) => r.onKeydown && r.onKeydown(...l))
   }), [
-    i.showGrip ? (u(), c("span", Yd, [
+    i.showGrip ? (u(), c("span", nh, [
       w(o, {
         name: "grip-vertical",
         size: "xs"
       })
     ])) : m("", !0)
-  ], 16, Ud);
+  ], 16, rh);
 }
-const Gd = /* @__PURE__ */ x(Kd, [["render", Wd]]), qd = W("ui-resizable-panel"), jd = {
+const ah = /* @__PURE__ */ x(ih, [["render", sh]]), lh = G("ui-resizable-panel"), oh = {
   name: "ResizablePanel",
   inheritAttrs: !1,
   inject: {
@@ -8210,7 +8429,7 @@ const Gd = /* @__PURE__ */ x(Kd, [["render", Wd]]), qd = W("ui-resizable-panel")
   },
   emits: ["collapse", "expand"],
   data() {
-    return { fallbackId: qd() };
+    return { fallbackId: lh() };
   },
   computed: {
     panelId() {
@@ -8254,8 +8473,8 @@ const Gd = /* @__PURE__ */ x(Kd, [["render", Wd]]), qd = W("ui-resizable-panel")
     var e;
     (e = this.uiResizable) == null || e.unregisterPanel(this);
   }
-}, Zd = ["id", "data-collapsed"];
-function Xd(e, t, i, n, s, r) {
+}, uh = ["id", "data-collapsed"];
+function ch(e, t, i, n, s, r) {
   return u(), c("div", P({
     id: r.panelId,
     class: r.rootClass,
@@ -8266,16 +8485,16 @@ function Xd(e, t, i, n, s, r) {
       collapsed: r.collapsed,
       size: r.size
     })
-  ], 16, Zd);
+  ], 16, uh);
 }
-const Qd = /* @__PURE__ */ x(jd, [["render", Xd]]), Jd = ["vertical", "horizontal", "both"], eh = {
+const dh = /* @__PURE__ */ x(oh, [["render", ch]]), hh = ["vertical", "horizontal", "both"], fh = {
   name: "ScrollArea",
   props: {
     /** Kaydırma ekseni. */
     orientation: {
       type: String,
       default: "vertical",
-      validator: (e) => Jd.includes(e)
+      validator: (e) => hh.includes(e)
     },
     /** CSS uzunluğu (`"16rem"`, `"50vh"`); sayı verilirse piksel. Boşsa yükseklik ebeveynden gelir. */
     maxHeight: {
@@ -8302,7 +8521,7 @@ const Qd = /* @__PURE__ */ x(jd, [["render", Xd]]), Jd = ["vertical", "horizonta
   },
   computed: {
     resolvedAriaLabel() {
-      return this.ariaLabel || z(this, "ui.scrollArea.ariaLabel", "Scrollable area");
+      return this.ariaLabel || M(this, "ui.scrollArea.ariaLabel", "Scrollable area");
     },
     viewportStyle() {
       if (!(this.maxHeight === "" || this.maxHeight == null))
@@ -8351,30 +8570,30 @@ const Qd = /* @__PURE__ */ x(jd, [["render", Xd]]), Jd = ["vertical", "horizonta
       (a.top !== o.top || a.bottom !== o.bottom || a.left !== o.left || a.right !== o.right) && (this.edges = o);
     }
   }
-}, th = ["tabindex", "role", "aria-label"], ih = {
+}, mh = ["tabindex", "role", "aria-label"], ph = {
   ref: "content",
   class: "ui-scroll-area-content"
 };
-function rh(e, t, i, n, s, r) {
+function gh(e, t, i, n, s, r) {
   return u(), c("div", {
     class: k(r.rootClass)
   }, [
     f("div", {
       ref: "viewport",
       class: "ui-scroll-area-viewport",
-      style: V(r.viewportStyle),
+      style: B(r.viewportStyle),
       tabindex: s.overflowing ? 0 : void 0,
       role: s.overflowing ? "region" : void 0,
       "aria-label": s.overflowing ? r.resolvedAriaLabel : void 0,
       onScrollPassive: t[0] || (t[0] = (...o) => r.measure && r.measure(...o))
     }, [
-      f("div", ih, [
+      f("div", ph, [
         b(e.$slots, "default")
       ], 512)
-    ], 44, th)
+    ], 44, mh)
   ], 2);
 }
-const nh = /* @__PURE__ */ x(eh, [["render", rh]]), sh = {
+const bh = /* @__PURE__ */ x(fh, [["render", gh]]), yh = {
   name: "Section",
   props: {
     title: {
@@ -8388,6 +8607,14 @@ const nh = /* @__PURE__ */ x(eh, [["render", rh]]), sh = {
     icon: {
       type: String,
       default: ""
+    },
+    /**
+     * Geniş yerleşimde alanlar arasına ayraç (etiket solda, kontrol sağda düzeni). Dar ekranda
+     * satırlar dikeye döndüğü için ayraç çizilmez. Alanlar arasına elle `ui-divider` koymak yerine kullanılır.
+     */
+    divided: {
+      type: Boolean,
+      default: !1
     },
     /** `false`: üstteki sekme / segment konumu zaten gösteriyorsa etiketli ayırıcı çizilmez */
     showDivider: {
@@ -8403,35 +8630,35 @@ const nh = /* @__PURE__ */ x(eh, [["render", rh]]), sh = {
       return !!this.$slots.default && !this.$slots.body;
     }
   }
-}, ah = { class: "ui-section" }, lh = {
+}, vh = { class: "ui-section" }, _h = {
   key: 1,
   class: "ui-section-description ui-text-default"
-}, oh = {
-  key: 3,
-  class: "ui-section-fields"
-}, uh = {
+}, kh = {
   key: 4,
   class: "ui-section-body"
 };
-function ch(e, t, i, n, s, r) {
-  const o = v("ui-divider");
-  return u(), c("section", ah, [
-    r.showSectionDivider ? (u(), y(o, {
+function xh(e, t, i, n, s, r) {
+  const o = y("ui-divider");
+  return u(), c("section", vh, [
+    r.showSectionDivider ? (u(), v(o, {
       key: 0,
       title: i.title,
       icon: i.icon,
       spacing: "md",
       decorative: !1
     }, null, 8, ["title", "icon"])) : m("", !0),
-    i.description ? (u(), c("p", lh, p(i.description), 1)) : m("", !0),
-    e.$slots.empty ? b(e.$slots, "empty", { key: 2 }) : r.hasFields ? (u(), c("div", oh, [
+    i.description ? (u(), c("p", _h, p(i.description), 1)) : m("", !0),
+    e.$slots.empty ? b(e.$slots, "empty", { key: 2 }) : r.hasFields ? (u(), c("div", {
+      key: 3,
+      class: k(["ui-section-fields", i.divided ? "ui-section-fields--divided" : ""])
+    }, [
       b(e.$slots, "default")
-    ])) : e.$slots.body ? (u(), c("div", uh, [
+    ], 2)) : e.$slots.body ? (u(), c("div", kh, [
       b(e.$slots, "body")
     ])) : m("", !0)
   ]);
 }
-const dh = /* @__PURE__ */ x(sh, [["render", ch]]), hh = {
+const wh = /* @__PURE__ */ x(yh, [["render", xh]]), Sh = {
   name: "SelectionIndicator",
   mixins: [zi],
   props: {
@@ -8471,7 +8698,7 @@ const dh = /* @__PURE__ */ x(sh, [["render", ch]]), hh = {
     }
   }
 };
-function fh(e, t, i, n, s, r) {
+function Ch(e, t, i, n, s, r) {
   return u(), c("span", P({
     ref: "indicator",
     class: "ui-selection-indicator"
@@ -8479,14 +8706,14 @@ function fh(e, t, i, n, s, r) {
     f("span", { class: "ui-selection-indicator-fill" }, null, -1)
   ])], 16);
 }
-const mh = /* @__PURE__ */ x(hh, [["render", fh]]), ph = W("ui-sheet"), gh = ["left", "right"], bh = ["sm", "md", "lg", "xl"], yh = ["solid", "regular", "brands", "light", "duotone", "thin"], Pt = {
+const Th = /* @__PURE__ */ x(Sh, [["render", Ch]]), Ih = G("ui-sheet"), Lh = ["left", "right"], Ah = ["sm", "md", "lg", "xl"], Mh = ["solid", "regular", "brands", "light", "duotone", "thin"], Pt = {
   sm: "ui-sheet-panel--sm",
   md: "ui-sheet-panel--md",
   lg: "ui-sheet-panel--lg",
   xl: "ui-sheet-panel--xl"
-}, vh = {
+}, zh = {
   name: "Sheet",
-  mixins: [Pi, U],
+  mixins: [Pi, Y],
   components: { Divider: Xt },
   inheritAttrs: !1,
   props: {
@@ -8499,7 +8726,7 @@ const mh = /* @__PURE__ */ x(hh, [["render", fh]]), ph = W("ui-sheet"), gh = ["l
     side: {
       type: String,
       default: "right",
-      validator: (e) => gh.includes(e)
+      validator: (e) => Lh.includes(e)
     },
     /**
      * `true` — karartmalı tam ekran katman (modal).
@@ -8520,7 +8747,7 @@ const mh = /* @__PURE__ */ x(hh, [["render", fh]]), ph = W("ui-sheet"), gh = ["l
     size: {
       type: String,
       default: "md",
-      validator: (e) => bh.includes(e)
+      validator: (e) => Ah.includes(e)
     },
     title: {
       type: String,
@@ -8530,6 +8757,7 @@ const mh = /* @__PURE__ */ x(hh, [["render", fh]]), ph = W("ui-sheet"), gh = ["l
       type: String,
       default: ""
     },
+    /** @deprecated Başlıkta süs ikonu çizilmez (DESIGN.md § Ekran anatomisi). Prop geriye uyum için kalır. */
     icon: {
       type: String,
       default: null
@@ -8537,7 +8765,7 @@ const mh = /* @__PURE__ */ x(hh, [["render", fh]]), ph = W("ui-sheet"), gh = ["l
     iconType: {
       type: String,
       default: void 0,
-      validator: (e) => e == null || yh.includes(e)
+      validator: (e) => e == null || Mh.includes(e)
     },
     showClose: {
       type: Boolean,
@@ -8586,7 +8814,7 @@ const mh = /* @__PURE__ */ x(hh, [["render", fh]]), ph = W("ui-sheet"), gh = ["l
   },
   emits: ["update:open", "after-leave"],
   data() {
-    const e = ph();
+    const e = Ih();
     return {
       titleId: `ui-sheet-title-${e}`,
       descriptionId: `ui-sheet-desc-${e}`,
@@ -8598,7 +8826,7 @@ const mh = /* @__PURE__ */ x(hh, [["render", fh]]), ph = W("ui-sheet"), gh = ["l
   watch: {
     open: {
       handler(e) {
-        e ? (this.returnFocusEl = Ve(), this.acquireLayer(), this.lockScroll(), this.scheduleInitialFocus()) : (this.releaseLayer(), this.clearFocusFallback());
+        e ? (this.returnFocusEl = Be(), this.acquireLayer(), this.lockScroll(), this.scheduleInitialFocus()) : (this.releaseLayer(), this.clearFocusFallback());
       },
       flush: "post"
     }
@@ -8614,7 +8842,7 @@ const mh = /* @__PURE__ */ x(hh, [["render", fh]]), ph = W("ui-sheet"), gh = ["l
       return xe(this.uiDefaults, this.iconType);
     },
     hasDefaultHeader() {
-      return !!(this.icon || this.title != null && this.title !== "" || this.description != null && this.description !== "" || this.$slots.actions || this.$slots.append || this.showClose);
+      return !!(this.title != null && this.title !== "" || this.description != null && this.description !== "" || this.$slots.actions || this.$slots.append || this.showClose);
     },
     hasHeaderBlock() {
       return !!this.$slots.header || this.hasDefaultHeader;
@@ -8652,7 +8880,7 @@ const mh = /* @__PURE__ */ x(hh, [["render", fh]]), ph = W("ui-sheet"), gh = ["l
         return this.ariaLabel;
     },
     resolvedCloseLabel() {
-      return this.closeLabel != null && this.closeLabel !== "" ? this.closeLabel : z(this, "ui.dialog.close", "Close");
+      return this.closeLabel != null && this.closeLabel !== "" ? this.closeLabel : M(this, "ui.dialog.close", "Close");
     },
     rootLayerStyle() {
       if (this.rootZIndex != null)
@@ -8669,12 +8897,12 @@ const mh = /* @__PURE__ */ x(hh, [["render", fh]]), ph = W("ui-sheet"), gh = ["l
   },
   methods: {
     acquireLayer() {
-      this.rootZIndex == null && (this.rootZIndex = Ni(this, "modal", () => this.close()), this.overlay && typeof document < "u" && document.addEventListener("focusin", this.onDocumentFocusIn));
+      this.rootZIndex == null && (this.rootZIndex = Fi(this, "modal", () => this.close()), this.overlay && typeof document < "u" && document.addEventListener("focusin", this.onDocumentFocusIn));
     },
     /** Odak arkadaki sayfaya kaçarsa panele geri çağırır (bkz. `utils/focus-guard.js`). */
     onDocumentFocusIn(e) {
       var t, i;
-      !this.overlay || !Ri(this) || Fi(e.target, this.$refs.layerRef) && ((i = (t = this.$refs.panelRef) == null ? void 0 : t.focus) == null || i.call(t, { preventScroll: !0 }));
+      !this.overlay || !Ri(this) || Ni(e.target, this.$refs.layerRef) && ((i = (t = this.$refs.panelRef) == null ? void 0 : t.focus) == null || i.call(t, { preventScroll: !0 }));
     },
     releaseLayer() {
       this.rootZIndex != null && (typeof document < "u" && document.removeEventListener("focusin", this.onDocumentFocusIn), Di(this), this.rootZIndex = null);
@@ -8684,7 +8912,7 @@ const mh = /* @__PURE__ */ x(hh, [["render", fh]]), ph = W("ui-sheet"), gh = ["l
       this.scrollLocked || !this.overlay || (this.scrollLocked = !0, Oi());
     },
     unlockScroll() {
-      this.scrollLocked && (this.scrollLocked = !1, Bi());
+      this.scrollLocked && (this.scrollLocked = !1, Vi());
     },
     close() {
       this.$emit("update:open", !1);
@@ -8720,22 +8948,22 @@ const mh = /* @__PURE__ */ x(hh, [["render", fh]]), ph = W("ui-sheet"), gh = ["l
       });
     }
   }
-}, _h = ["aria-modal", "aria-labelledby", "aria-describedby", "aria-label"], kh = {
+}, Ph = ["aria-modal", "aria-labelledby", "aria-describedby", "aria-label"], Eh = {
   key: 0,
   class: "ui-card-header shrink-0"
-}, xh = ["id"], wh = {
+}, Oh = {
+  key: 0,
+  class: "ui-sheet-header ui-sheet-header--no-icon"
+}, Dh = ["id"], Rh = {
   key: 1,
-  class: "ui-sheet-header__icon"
-}, Sh = {
-  key: 2,
   class: "ui-sheet-header__actions"
-}, Ch = ["id"], Th = {
+}, Nh = ["id"], Fh = {
   key: 1,
   class: "ui-card-toolbar shrink-0"
 };
-function Ih(e, t, i, n, s, r) {
-  const o = v("ui-icon"), l = v("ui-button"), a = v("Divider");
-  return s.portalReady ? (u(), y(Se, {
+function Vh(e, t, i, n, s, r) {
+  const o = y("ui-button"), l = y("Divider");
+  return s.portalReady ? (u(), v(Se, {
     key: 0,
     to: e.portalTarget
   }, [
@@ -8750,16 +8978,16 @@ function Ih(e, t, i, n, s, r) {
           key: 0,
           ref: "layerRef",
           class: k(r.rootLayerClasses),
-          style: V(r.rootLayerStyle),
+          style: B(r.rootLayerStyle),
           tabindex: "-1",
           role: "presentation",
-          onKeydown: t[2] || (t[2] = (...d) => r.onLayerKeydown && r.onLayerKeydown(...d))
+          onKeydown: t[2] || (t[2] = (...a) => r.onLayerKeydown && r.onLayerKeydown(...a))
         }, [
           i.overlay ? (u(), c("div", {
             key: 0,
             class: "ui-sheet-backdrop absolute inset-0 bg-black/70",
             "aria-hidden": "true",
-            onClick: t[0] || (t[0] = (...d) => r.onBackdrop && r.onBackdrop(...d))
+            onClick: t[0] || (t[0] = (...a) => r.onBackdrop && r.onBackdrop(...a))
           })) : m("", !0),
           f("div", P({
             ref: "panelRef",
@@ -8774,30 +9002,20 @@ function Ih(e, t, i, n, s, r) {
             onClick: t[1] || (t[1] = K(() => {
             }, ["stop"]))
           }), [
-            r.hasHeaderBlock ? (u(), c("div", kh, [
+            r.hasHeaderBlock ? (u(), c("div", Eh, [
               b(e.$slots, "header", {}, () => [
-                r.hasDefaultHeader ? (u(), c("div", {
-                  key: 0,
-                  class: k(["ui-sheet-header", { "ui-sheet-header--no-icon": !i.icon }])
-                }, [
+                r.hasDefaultHeader ? (u(), c("div", Oh, [
                   i.title ? (u(), c("h3", {
                     key: 0,
                     id: s.titleId,
                     class: "ui-sheet-header__title ui-heading-3"
-                  }, p(i.title), 9, xh)) : m("", !0),
-                  i.icon ? (u(), c("span", wh, [
-                    w(o, {
-                      name: i.icon,
-                      type: r.resolvedIconType,
-                      size: "sm"
-                    }, null, 8, ["name", "type"])
-                  ])) : m("", !0),
-                  e.$slots.append || e.$slots.actions ? (u(), c("div", Sh, [
+                  }, p(i.title), 9, Dh)) : m("", !0),
+                  e.$slots.append || e.$slots.actions ? (u(), c("div", Rh, [
                     b(e.$slots, "append"),
                     b(e.$slots, "actions")
                   ])) : m("", !0),
-                  i.showClose ? (u(), y(l, {
-                    key: 3,
+                  i.showClose ? (u(), v(o, {
+                    key: 2,
                     type: "button",
                     variant: "solid",
                     color: "secondary",
@@ -8808,17 +9026,17 @@ function Ih(e, t, i, n, s, r) {
                     onClick: r.close
                   }, null, 8, ["aria-label", "onClick"])) : m("", !0),
                   i.description ? (u(), c("p", {
-                    key: 4,
+                    key: 3,
                     id: s.descriptionId,
                     class: "ui-sheet-header__description ui-text-default"
-                  }, p(i.description), 9, Ch)) : m("", !0)
-                ], 2)) : m("", !0)
+                  }, p(i.description), 9, Nh)) : m("", !0)
+                ])) : m("", !0)
               ])
             ])) : m("", !0),
-            e.$slots.toolbar ? (u(), c("div", Th, [
+            e.$slots.toolbar ? (u(), c("div", Fh, [
               b(e.$slots, "toolbar")
             ])) : m("", !0),
-            r.showHeaderDivider ? (u(), y(a, {
+            r.showHeaderDivider ? (u(), v(l, {
               key: 2,
               spacing: "none",
               class: "!my-0 shrink-0"
@@ -8838,14 +9056,14 @@ function Ih(e, t, i, n, s, r) {
             }, [
               b(e.$slots, "footer")
             ], 2)) : m("", !0)
-          ], 16, _h)
+          ], 16, Ph)
         ], 38)) : m("", !0)
       ]),
       _: 3
     }, 8, ["name", "onAfterEnter", "onAfterLeave"])
   ], 8, ["to"])) : m("", !0);
 }
-const Lh = /* @__PURE__ */ x(vh, [["render", Ih]]), Ah = ["sm", "md", "lg"], Mh = ["button", "submit", "reset"], Et = {
+const Bh = /* @__PURE__ */ x(zh, [["render", Vh]]), $h = ["sm", "md", "lg"], Hh = ["button", "submit", "reset"], Et = {
   sm: "ui-control-h-sm",
   md: "ui-control-h-md",
   lg: "ui-control-h-lg"
@@ -8853,9 +9071,9 @@ const Lh = /* @__PURE__ */ x(vh, [["render", Ih]]), Ah = ["sm", "md", "lg"], Mh 
   sm: "ui-control-cubed-sm aspect-square",
   md: "ui-control-cubed-md aspect-square",
   lg: "ui-control-cubed-lg aspect-square"
-}, zh = {
+}, Kh = {
   name: "SidebarItem",
-  mixins: [U],
+  mixins: [Y],
   components: { RouterLink: ai },
   inheritAttrs: !1,
   props: {
@@ -8866,12 +9084,12 @@ const Lh = /* @__PURE__ */ x(vh, [["render", Ih]]), Ah = ["sm", "md", "lg"], Mh 
     nativeType: {
       type: String,
       default: "button",
-      validator: (e) => Mh.includes(e)
+      validator: (e) => Hh.includes(e)
     },
     size: {
       type: String,
       default: void 0,
-      validator: (e) => e == null || Ah.includes(e)
+      validator: (e) => e == null || $h.includes(e)
     },
     prefixIcon: {
       type: String,
@@ -8971,32 +9189,32 @@ const Lh = /* @__PURE__ */ x(vh, [["render", Ih]]), Ah = ["sm", "md", "lg"], Mh 
       this.$emit("click", e), !e.defaultPrevented && t(e);
     }
   }
-}, Ph = ["href", "aria-current", "aria-disabled", "tabindex", "onClick"], Eh = {
+}, Uh = ["href", "aria-current", "aria-disabled", "tabindex", "onClick"], Yh = {
   key: 0,
   class: "ui-sidebar-item-inner inline-flex size-full min-h-0 min-w-0 items-center justify-center [&_.ui-icon]:leading-none"
-}, Oh = {
+}, Gh = {
   key: 0,
   class: "inline-flex shrink-0 items-center justify-center",
   "aria-hidden": "true"
-}, Dh = {
+}, Wh = {
   key: 1,
   class: "inline-flex shrink-0 items-center justify-center",
   "aria-hidden": "true"
-}, Rh = ["type", "disabled", "aria-current"], Fh = {
+}, qh = ["type", "disabled", "aria-current"], jh = {
   key: 0,
   class: "ui-sidebar-item-inner inline-flex size-full min-h-0 min-w-0 items-center justify-center [&_.ui-icon]:leading-none"
-}, Nh = {
+}, Zh = {
   key: 0,
   class: "inline-flex shrink-0 items-center justify-center",
   "aria-hidden": "true"
-}, Bh = {
+}, Xh = {
   key: 1,
   class: "inline-flex shrink-0 items-center justify-center",
   "aria-hidden": "true"
 };
-function Vh(e, t, i, n, s, r) {
-  const o = v("ui-icon"), l = v("RouterLink");
-  return r.hasRouterTo ? (u(), y(l, {
+function Qh(e, t, i, n, s, r) {
+  const o = y("ui-icon"), l = y("RouterLink");
+  return r.hasRouterTo ? (u(), v(l, {
     key: 0,
     to: i.to,
     custom: ""
@@ -9011,18 +9229,18 @@ function Vh(e, t, i, n, s, r) {
       }, r.forwardedAttrs, {
         onClick: (h) => r.onRouterLinkClick(h, d)
       }), [
-        r.usesCubedCenterLayout ? (u(), c("span", Eh, [
-          i.prefixIcon ? (u(), y(o, {
+        r.usesCubedCenterLayout ? (u(), c("span", Yh, [
+          i.prefixIcon ? (u(), v(o, {
             key: 0,
             size: r.cubedIconSize,
             name: i.prefixIcon
-          }, null, 8, ["size", "name"])) : i.suffixIcon ? (u(), y(o, {
+          }, null, 8, ["size", "name"])) : i.suffixIcon ? (u(), v(o, {
             key: 1,
             size: r.cubedIconSize,
             name: i.suffixIcon
           }, null, 8, ["size", "name"])) : b(e.$slots, "default", { key: 2 })
         ])) : (u(), c(S, { key: 1 }, [
-          i.prefixIcon ? (u(), c("span", Oh, [
+          i.prefixIcon ? (u(), c("span", Gh, [
             w(o, {
               size: r.inlineIconSize,
               name: i.prefixIcon
@@ -9033,14 +9251,14 @@ function Vh(e, t, i, n, s, r) {
           }, [
             b(e.$slots, "default")
           ], 2),
-          i.suffixIcon ? (u(), c("span", Dh, [
+          i.suffixIcon ? (u(), c("span", Wh, [
             w(o, {
               size: r.inlineIconSize,
               name: i.suffixIcon
             }, null, 8, ["size", "name"])
           ])) : m("", !0)
         ], 64))
-      ], 16, Ph)
+      ], 16, Uh)
     ]),
     _: 3
   }, 8, ["to"])) : (u(), c("button", P({
@@ -9052,18 +9270,18 @@ function Vh(e, t, i, n, s, r) {
   }, r.forwardedAttrs, {
     onClick: t[0] || (t[0] = (...a) => r.onClick && r.onClick(...a))
   }), [
-    r.usesCubedCenterLayout ? (u(), c("span", Fh, [
-      i.prefixIcon ? (u(), y(o, {
+    r.usesCubedCenterLayout ? (u(), c("span", jh, [
+      i.prefixIcon ? (u(), v(o, {
         key: 0,
         size: r.cubedIconSize,
         name: i.prefixIcon
-      }, null, 8, ["size", "name"])) : i.suffixIcon ? (u(), y(o, {
+      }, null, 8, ["size", "name"])) : i.suffixIcon ? (u(), v(o, {
         key: 1,
         size: r.cubedIconSize,
         name: i.suffixIcon
       }, null, 8, ["size", "name"])) : b(e.$slots, "default", { key: 2 })
     ])) : (u(), c(S, { key: 1 }, [
-      i.prefixIcon ? (u(), c("span", Nh, [
+      i.prefixIcon ? (u(), c("span", Zh, [
         w(o, {
           size: r.inlineIconSize,
           name: i.prefixIcon
@@ -9074,16 +9292,16 @@ function Vh(e, t, i, n, s, r) {
       }, [
         b(e.$slots, "default")
       ], 2),
-      i.suffixIcon ? (u(), c("span", Bh, [
+      i.suffixIcon ? (u(), c("span", Xh, [
         w(o, {
           size: r.inlineIconSize,
           name: i.suffixIcon
         }, null, 8, ["size", "name"])
       ])) : m("", !0)
     ], 64))
-  ], 16, Rh));
+  ], 16, qh));
 }
-const $h = /* @__PURE__ */ x(zh, [["render", Vh]]), Hh = W("ui-slider"), Kh = {
+const Jh = /* @__PURE__ */ x(Kh, [["render", Qh]]), ef = G("ui-slider"), tf = {
   name: "Slider",
   mixins: [ue],
   inheritAttrs: !1,
@@ -9153,7 +9371,7 @@ const $h = /* @__PURE__ */ x(zh, [["render", Vh]]), Hh = W("ui-slider"), Kh = {
   emits: ["update:modelValue", "input", "change"],
   data() {
     return {
-      fallbackId: Hh(),
+      fallbackId: ef(),
       /** `range`: son dokunulan tutamaç üstte kalır (üst üste geldiklerinde tutulabilsin). */
       activeThumb: 1,
       /** `range`: sürüklenen tutamaç ve işaretçi kimliği. */
@@ -9187,8 +9405,8 @@ const $h = /* @__PURE__ */ x(zh, [["render", Vh]]), Hh = W("ui-slider"), Kh = {
     },
     rangeThumbs() {
       const [e, t] = this.rangeValue, i = this.rangeGap, n = [
-        z(this, "ui.slider.minThumb", "Minimum"),
-        z(this, "ui.slider.maxThumb", "Maximum")
+        M(this, "ui.slider.minThumb", "Minimum"),
+        M(this, "ui.slider.maxThumb", "Maximum")
       ];
       return [e, t].map((s, r) => ({
         index: r,
@@ -9337,33 +9555,33 @@ const $h = /* @__PURE__ */ x(zh, [["render", Vh]]), Hh = W("ui-slider"), Kh = {
       }
     }
   }
-}, Uh = {
+}, rf = {
   key: 0,
   class: "ui-slider-header"
-}, Yh = {
+}, nf = {
   key: 0,
   class: "ui-form-label"
-}, Wh = {
+}, sf = {
   key: 1,
   class: "ui-slider-value"
-}, Gh = {
+}, af = {
   key: 1,
   class: "ui-slider-rail"
-}, qh = ["id", "value", "min", "max", "step", "disabled", "aria-valuemin", "aria-valuemax", "aria-valuenow", "aria-valuetext", "aria-describedby"], jh = ["id", "aria-label"], Zh = {
+}, lf = ["id", "value", "min", "max", "step", "disabled", "aria-valuemin", "aria-valuemax", "aria-valuenow", "aria-valuetext", "aria-describedby"], of = ["id", "aria-label"], uf = {
   class: "ui-slider-range-track",
   "aria-hidden": "true"
-}, Xh = ["tabindex", "data-thumb", "aria-label", "aria-valuemin", "aria-valuemax", "aria-valuenow", "aria-valuetext", "aria-disabled", "aria-describedby", "onKeydown", "onFocus"], Qh = {
+}, cf = ["tabindex", "data-thumb", "aria-label", "aria-valuemin", "aria-valuemax", "aria-valuenow", "aria-valuetext", "aria-disabled", "aria-describedby", "onKeydown", "onFocus"], df = {
   key: 3,
   class: "ui-slider-scale"
-}, Jh = { key: 0 }, ef = { key: 1 };
-function tf(e, t, i, n, s, r) {
-  const o = v("ui-progress");
+}, hf = { key: 0 }, ff = { key: 1 };
+function mf(e, t, i, n, s, r) {
+  const o = y("ui-progress");
   return u(), c("div", {
     class: k(r.rootClass)
   }, [
-    i.label || r.hasValue ? (u(), c("div", Uh, [
-      i.label ? (u(), c("span", Yh, p(i.label), 1)) : m("", !0),
-      r.hasValue ? (u(), c("span", Wh, p(i.valueText), 1)) : m("", !0)
+    i.label || r.hasValue ? (u(), c("div", rf, [
+      i.label ? (u(), c("span", nf, p(i.label), 1)) : m("", !0),
+      r.hasValue ? (u(), c("span", sf, p(i.valueText), 1)) : m("", !0)
     ])) : m("", !0),
     i.range ? (u(), c("div", {
       key: 2,
@@ -9378,16 +9596,16 @@ function tf(e, t, i, n, s, r) {
       onPointercancel: t[5] || (t[5] = (...l) => r.onRangePointerEnd && r.onRangePointerEnd(...l)),
       onLostpointercapture: t[6] || (t[6] = (...l) => r.onRangePointerEnd && r.onRangePointerEnd(...l))
     }, [
-      f("div", Zh, [
+      f("div", uf, [
         f("div", {
           class: "ui-slider-range-fill",
-          style: V(r.rangeFillStyle)
+          style: B(r.rangeFillStyle)
         }, null, 4)
       ]),
       (u(!0), c(S, null, L(r.rangeThumbs, (l) => (u(), c("div", {
         key: l.index,
         class: k(["ui-slider-range-thumb", s.activeThumb === l.index && "ui-slider-range-thumb--top"]),
-        style: V(l.style),
+        style: B(l.style),
         role: "slider",
         tabindex: i.disabled ? -1 : 0,
         "data-thumb": l.index,
@@ -9401,8 +9619,8 @@ function tf(e, t, i, n, s, r) {
         "aria-orientation": "horizontal",
         onKeydown: (a) => r.onRangeKeydown(a, l.index),
         onFocus: (a) => s.activeThumb = l.index
-      }, null, 46, Xh))), 128))
-    ], 40, jh)) : (u(), c("div", Gh, [
+      }, null, 46, cf))), 128))
+    ], 40, of)) : (u(), c("div", af, [
       w(o, {
         type: "bar",
         size: "md",
@@ -9426,19 +9644,19 @@ function tf(e, t, i, n, s, r) {
         "aria-describedby": i.ariaDescribedby,
         onInput: t[0] || (t[0] = (...l) => r.onNativeInput && r.onNativeInput(...l)),
         onChange: t[1] || (t[1] = (...l) => r.onChange && r.onChange(...l))
-      }), null, 16, qh)
+      }), null, 16, lf)
     ])),
-    i.minLabel || i.maxLabel ? (u(), c("div", Qh, [
-      i.minLabel ? (u(), c("span", Jh, p(i.minLabel), 1)) : m("", !0),
-      i.maxLabel ? (u(), c("span", ef, p(i.maxLabel), 1)) : m("", !0)
+    i.minLabel || i.maxLabel ? (u(), c("div", df, [
+      i.minLabel ? (u(), c("span", hf, p(i.minLabel), 1)) : m("", !0),
+      i.maxLabel ? (u(), c("span", ff, p(i.maxLabel), 1)) : m("", !0)
     ])) : m("", !0)
   ], 2);
 }
-const rf = /* @__PURE__ */ x(Kh, [["render", tf]]), nf = Y, sf = ["primary", "secondary", "success", "warning", "info", "danger"], af = ["soft", "surface", "plain"], Dt = {
+const pf = /* @__PURE__ */ x(tf, [["render", mf]]), gf = U, bf = ["primary", "secondary", "success", "warning", "info", "danger"], yf = ["soft", "surface", "plain"], Dt = {
   sm: "ui-display-sm",
   md: "ui-display-md",
   lg: "ui-display-lg"
-}, lf = {
+}, vf = {
   name: "Stat",
   inheritAttrs: !1,
   props: {
@@ -9459,7 +9677,7 @@ const rf = /* @__PURE__ */ x(Kh, [["render", tf]]), nf = Y, sf = ["primary", "se
     color: {
       type: String,
       default: "",
-      validator: (e) => !e || sf.includes(e)
+      validator: (e) => !e || bf.includes(e)
     },
     /** Başlık ikonu `ui-icon-tile` içinde, `color` zemininde */
     iconTile: {
@@ -9490,13 +9708,13 @@ const rf = /* @__PURE__ */ x(Kh, [["render", tf]]), nf = Y, sf = ["primary", "se
     variant: {
       type: String,
       default: "soft",
-      validator: (e) => af.includes(e)
+      validator: (e) => yf.includes(e)
     },
     /** Değer ölçüsü: sm 18px · md 20px · lg 24px */
     size: {
       type: String,
       default: "lg",
-      validator: (e) => nf.includes(e)
+      validator: (e) => gf.includes(e)
     },
     /** Kart tıklanabilir (`click` yayar; Enter / Space ile de çalışır) */
     interactive: {
@@ -9569,21 +9787,21 @@ const rf = /* @__PURE__ */ x(Kh, [["render", tf]]), nf = Y, sf = ["primary", "se
       !this.interactive || this.loading || this.$emit("click", e);
     }
   }
-}, of = ["role", "tabindex", "aria-busy"], uf = {
+}, _f = ["role", "tabindex", "aria-busy"], kf = {
   key: 0,
   class: "ui-stat-value-skeleton"
-}, cf = {
+}, xf = {
   key: 1,
   class: "ui-stat-change-label"
-}, df = {
+}, wf = {
   key: 3,
   class: "ui-stat-body"
-}, hf = {
+}, Sf = {
   key: 4,
   class: "ui-stat-footer"
 };
-function ff(e, t, i, n, s, r) {
-  const o = v("ui-skeleton"), l = v("ui-icon"), a = v("ui-field");
+function Cf(e, t, i, n, s, r) {
+  const o = y("ui-skeleton"), l = y("ui-icon"), a = y("ui-field");
   return u(), c("div", P({
     class: r.rootClass,
     role: i.interactive ? "button" : void 0,
@@ -9606,7 +9824,7 @@ function ff(e, t, i, n, s, r) {
       "icon-tile": i.iconTile
     }, {
       default: _(() => [
-        i.loading ? (u(), c("span", uf, [
+        i.loading ? (u(), c("span", kf, [
           w(o, {
             variant: "line",
             size: "md"
@@ -9624,30 +9842,30 @@ function ff(e, t, i, n, s, r) {
           class: k(r.changeClass)
         }, [
           r.hasChangeContent ? (u(), c(S, { key: 0 }, [
-            r.changeIcon ? (u(), y(l, {
+            r.changeIcon ? (u(), v(l, {
               key: 0,
               name: r.changeIcon,
               size: "xs",
               "aria-hidden": "true"
             }, null, 8, ["name"])) : m("", !0),
             f("span", null, p(r.changeDisplay), 1),
-            i.changeLabel ? (u(), c("span", cf, p(i.changeLabel), 1)) : m("", !0)
+            i.changeLabel ? (u(), c("span", xf, p(i.changeLabel), 1)) : m("", !0)
           ], 64)) : (u(), c(S, { key: 1 }, [
             E(p(" "))
           ], 64))
         ], 2)) : m("", !0),
-        e.$slots.default ? (u(), c("div", df, [
+        e.$slots.default ? (u(), c("div", wf, [
           b(e.$slots, "default")
         ])) : m("", !0),
-        e.$slots.footer ? (u(), c("div", hf, [
+        e.$slots.footer ? (u(), c("div", Sf, [
           b(e.$slots, "footer")
         ])) : m("", !0)
       ]),
       _: 3
     }, 8, ["card", "title", "icon", "icon-type", "icon-tone", "icon-tile"])
-  ], 16, of);
+  ], 16, _f);
 }
-const mf = /* @__PURE__ */ x(lf, [["render", ff]]), pf = [1, 2, 3, 4], gf = [1, 2], bf = {
+const Tf = /* @__PURE__ */ x(vf, [["render", Cf]]), If = [1, 2, 3, 4], Lf = [1, 2, 3], Af = {
   name: "StatGroup",
   inheritAttrs: !1,
   props: {
@@ -9655,13 +9873,13 @@ const mf = /* @__PURE__ */ x(lf, [["render", ff]]), pf = [1, 2, 3, 4], gf = [1, 
     columns: {
       type: Number,
       default: 3,
-      validator: (e) => pf.includes(e)
+      validator: (e) => If.includes(e)
     },
     /** Dar ekranda en az sütun sayısı; `2` mobilde de metrikleri ikişer dizer */
     minColumns: {
       type: Number,
       default: 1,
-      validator: (e) => gf.includes(e)
+      validator: (e) => Lf.includes(e)
     },
     ariaLabel: {
       type: String,
@@ -9682,17 +9900,17 @@ const mf = /* @__PURE__ */ x(lf, [["render", ff]]), pf = [1, 2, 3, 4], gf = [1, 
       return t;
     }
   }
-}, yf = ["aria-label"];
-function vf(e, t, i, n, s, r) {
+}, Mf = ["aria-label"];
+function zf(e, t, i, n, s, r) {
   return u(), c("div", P({
     class: r.rootClass,
     role: "group",
     "aria-label": i.ariaLabel || void 0
   }, r.passthroughAttrs), [
     b(e.$slots, "default")
-  ], 16, yf);
+  ], 16, Mf);
 }
-const _f = /* @__PURE__ */ x(bf, [["render", vf]]), kf = {
+const Pf = /* @__PURE__ */ x(Af, [["render", zf]]), Ef = {
   name: "Step",
   props: {
     /** Adım paneli görünür mü */
@@ -9717,7 +9935,7 @@ const _f = /* @__PURE__ */ x(bf, [["render", vf]]), kf = {
       return e instanceof HTMLElement ? e.closest(".ui-dialog-panel") || e.closest(".ui-sheet-panel") || e.closest(".ui-card") || e : null;
     },
     scheduleFocus() {
-      !this.autofocus || !this.active || Wt() || this.$nextTick(() => {
+      !this.autofocus || !this.active || Gt() || this.$nextTick(() => {
         requestAnimationFrame(() => {
           if (!this.active) return;
           const e = this.resolveFocusRoot();
@@ -9726,20 +9944,20 @@ const _f = /* @__PURE__ */ x(bf, [["render", vf]]), kf = {
       });
     }
   }
-}, xf = {
+}, Of = {
   ref: "root",
   class: "ui-step"
 };
-function wf(e, t, i, n, s, r) {
-  return ni((u(), c("div", xf, [
+function Df(e, t, i, n, s, r) {
+  return ni((u(), c("div", Of, [
     b(e.$slots, "default")
   ], 512)), [
     [si, i.active]
   ]);
 }
-const Sf = /* @__PURE__ */ x(kf, [["render", wf]]), Cf = ["horizontal", "vertical"], Tf = ["default", "pills"], If = {
+const Rf = /* @__PURE__ */ x(Ef, [["render", Df]]), Nf = ["horizontal", "vertical"], Ff = ["default", "pills"], Vf = {
   name: "Stepper",
-  mixins: [U],
+  mixins: [Y],
   inheritAttrs: !1,
   props: {
     modelValue: {
@@ -9757,12 +9975,12 @@ const Sf = /* @__PURE__ */ x(kf, [["render", wf]]), Cf = ["horizontal", "vertica
     variant: {
       type: String,
       default: "default",
-      validator: (e) => Tf.includes(e)
+      validator: (e) => Ff.includes(e)
     },
     direction: {
       type: String,
       default: "horizontal",
-      validator: (e) => Cf.includes(e)
+      validator: (e) => Nf.includes(e)
     },
     interactive: {
       type: Boolean,
@@ -9835,40 +10053,40 @@ const Sf = /* @__PURE__ */ x(kf, [["render", wf]]), Cf = ["horizontal", "vertica
       return this.modelValue > e ? "ui-stepper-rail--done" : "ui-stepper-rail--todo";
     }
   }
-}, Lf = ["role", "aria-label"], Af = { class: "ui-stepper-pills-track" }, Mf = {
+}, Bf = ["role", "aria-label"], $f = { class: "ui-stepper-pills-track" }, Hf = {
   key: 0,
   class: "ui-stepper-pills-label"
-}, zf = { class: "flex w-full min-w-0 items-center justify-center" }, Pf = {
+}, Kf = { class: "flex w-full min-w-0 items-center justify-center" }, Uf = {
   key: 1,
   class: "ui-stepper-rail-spacer w-4 shrink-0",
   "aria-hidden": "true"
-}, Ef = {
+}, Yf = {
   key: 1,
   class: "tabular-nums"
-}, Of = {
+}, Gf = {
   key: 3,
   class: "ui-stepper-rail-spacer w-4 shrink-0",
   "aria-hidden": "true"
-}, Df = { class: "ui-stepper-title ui-stepper-title--horizontal" }, Rf = {
+}, Wf = { class: "ui-stepper-title ui-stepper-title--horizontal" }, qf = {
   key: 0,
   class: "ui-stepper-description ui-stepper-description--horizontal"
-}, Ff = { class: "flex flex-col items-center" }, Nf = {
+}, jf = { class: "flex flex-col items-center" }, Zf = {
   key: 1,
   class: "tabular-nums"
-}, Bf = { class: "ui-stepper-copy ui-stepper-copy--vertical min-w-0 flex-1" }, Vf = { class: "ui-stepper-title" }, $f = {
+}, Xf = { class: "ui-stepper-copy ui-stepper-copy--vertical min-w-0 flex-1" }, Qf = { class: "ui-stepper-title" }, Jf = {
   key: 0,
   class: "ui-stepper-description"
 };
-function Hf(e, t, i, n, s, r) {
-  const o = v("ui-icon");
+function em(e, t, i, n, s, r) {
+  const o = y("ui-icon");
   return u(), c("div", P({
     class: r.rootClass,
     role: i.variant === "pills" ? "group" : "list",
     "aria-label": i.ariaLabel
   }, r.passthroughAttrs), [
     i.variant === "pills" ? (u(), c(S, { key: 0 }, [
-      f("div", Af, [
-        (u(!0), c(S, null, L(r.normalizedSteps, (l, a) => (u(), y(le(i.interactive ? "button" : "span"), P({
+      f("div", $f, [
+        (u(!0), c(S, null, L(r.normalizedSteps, (l, a) => (u(), v(le(i.interactive ? "button" : "span"), P({
           key: a,
           class: ["ui-stepper-pill", r.pillClass(a)],
           "aria-current": i.interactive && a === i.modelValue ? "step" : void 0,
@@ -9878,19 +10096,19 @@ function Hf(e, t, i, n, s, r) {
           onClick: (d) => i.interactive ? r.go(a) : void 0
         }), null, 16, ["class", "aria-current", "aria-label", "aria-hidden", "onClick"]))), 128))
       ]),
-      i.showLabel ? (u(), c("p", Mf, p(r.pillsLabel), 1)) : m("", !0)
+      i.showLabel ? (u(), c("p", Hf, p(r.pillsLabel), 1)) : m("", !0)
     ], 64)) : i.direction === "horizontal" ? (u(!0), c(S, { key: 1 }, L(r.normalizedSteps, (l, a) => (u(), c("div", {
       key: a,
       class: "ui-stepper-item ui-stepper-item--horizontal flex min-w-0 flex-1 flex-col items-center text-center",
       role: "listitem"
     }, [
-      f("div", zf, [
+      f("div", Kf, [
         a > 0 ? (u(), c("span", {
           key: 0,
           class: k(["ui-stepper-rail ui-stepper-rail--h", r.railBeforeClass(a)]),
           "aria-hidden": "true"
-        }, null, 2)) : (u(), c("span", Pf)),
-        (u(), y(le(i.interactive ? "button" : "div"), P({
+        }, null, 2)) : (u(), c("span", Uf)),
+        (u(), v(le(i.interactive ? "button" : "div"), P({
           class: ["ui-stepper-indicator shrink-0", r.indicatorClass(a)],
           "aria-current": a === i.modelValue ? "step" : void 0,
           "aria-label": l.title
@@ -9898,12 +10116,12 @@ function Hf(e, t, i, n, s, r) {
           onClick: (d) => i.interactive ? r.go(a) : void 0
         }), {
           default: _(() => [
-            l.icon ? (u(), y(o, {
+            l.icon ? (u(), v(o, {
               key: 0,
               name: l.icon,
               type: l.iconType || "light",
               size: "sm"
-            }, null, 8, ["name", "type"])) : (u(), c("span", Ef, p(a + 1), 1))
+            }, null, 8, ["name", "type"])) : (u(), c("span", Yf, p(a + 1), 1))
           ]),
           _: 2
         }, 1040, ["class", "aria-current", "aria-label", "onClick"])),
@@ -9911,17 +10129,17 @@ function Hf(e, t, i, n, s, r) {
           key: 2,
           class: k(["ui-stepper-rail ui-stepper-rail--h", r.railAfterClass(a)]),
           "aria-hidden": "true"
-        }, null, 2)) : (u(), c("span", Of))
+        }, null, 2)) : (u(), c("span", Gf))
       ]),
-      f("p", Df, p(l.title), 1),
-      l.description ? (u(), c("p", Rf, p(l.description), 1)) : m("", !0)
+      f("p", Wf, p(l.title), 1),
+      l.description ? (u(), c("p", qf, p(l.description), 1)) : m("", !0)
     ]))), 128)) : (u(!0), c(S, { key: 2 }, L(r.normalizedSteps, (l, a) => (u(), c("div", {
       key: a,
       class: "ui-stepper-item ui-stepper-item--vertical flex gap-3",
       role: "listitem"
     }, [
-      f("div", Ff, [
-        (u(), y(le(i.interactive ? "button" : "div"), P({
+      f("div", jf, [
+        (u(), v(le(i.interactive ? "button" : "div"), P({
           class: ["ui-stepper-indicator shrink-0", r.indicatorClass(a)],
           "aria-current": a === i.modelValue ? "step" : void 0,
           "aria-label": l.title
@@ -9929,12 +10147,12 @@ function Hf(e, t, i, n, s, r) {
           onClick: (d) => i.interactive ? r.go(a) : void 0
         }), {
           default: _(() => [
-            l.icon ? (u(), y(o, {
+            l.icon ? (u(), v(o, {
               key: 0,
               name: l.icon,
               type: l.iconType || "light",
               size: "sm"
-            }, null, 8, ["name", "type"])) : (u(), c("span", Nf, p(a + 1), 1))
+            }, null, 8, ["name", "type"])) : (u(), c("span", Zf, p(a + 1), 1))
           ]),
           _: 2
         }, 1040, ["class", "aria-current", "aria-label", "onClick"])),
@@ -9944,14 +10162,14 @@ function Hf(e, t, i, n, s, r) {
           "aria-hidden": "true"
         }, null, 2)) : m("", !0)
       ]),
-      f("div", Bf, [
-        f("p", Vf, p(l.title), 1),
-        l.description ? (u(), c("p", $f, p(l.description), 1)) : m("", !0)
+      f("div", Xf, [
+        f("p", Qf, p(l.title), 1),
+        l.description ? (u(), c("p", Jf, p(l.description), 1)) : m("", !0)
       ])
     ]))), 128))
-  ], 16, Lf);
+  ], 16, Bf);
 }
-const Kf = /* @__PURE__ */ x(If, [["render", Hf]]), Uf = {
+const tm = /* @__PURE__ */ x(Vf, [["render", em]]), im = {
   name: "Table",
   inheritAttrs: !1,
   props: {
@@ -9977,7 +10195,7 @@ const Kf = /* @__PURE__ */ x(If, [["render", Hf]]), Uf = {
     }
   }
 };
-function Yf(e, t, i, n, s, r) {
+function rm(e, t, i, n, s, r) {
   return u(), c("div", {
     class: k(r.scrollClass)
   }, [
@@ -9986,15 +10204,15 @@ function Yf(e, t, i, n, s, r) {
     ], 16)
   ], 2);
 }
-const Wf = /* @__PURE__ */ x(Uf, [["render", Yf]]), Gf = {
+const nm = /* @__PURE__ */ x(im, [["render", rm]]), sm = {
   name: "TableBody"
-}, qf = { class: "ui-table-body" };
-function jf(e, t, i, n, s, r) {
-  return u(), c("tbody", qf, [
+}, am = { class: "ui-table-body" };
+function lm(e, t, i, n, s, r) {
+  return u(), c("tbody", am, [
     b(e.$slots, "default")
   ]);
 }
-const Zf = /* @__PURE__ */ x(Gf, [["render", jf]]), Xf = ["left", "center", "right"], Qf = ["title", "secondary", "body"], Jf = {
+const om = /* @__PURE__ */ x(sm, [["render", lm]]), um = ["left", "center", "right"], cm = ["title", "secondary", "body"], dm = {
   name: "TableCell",
   props: {
     colspan: {
@@ -10004,12 +10222,12 @@ const Zf = /* @__PURE__ */ x(Gf, [["render", jf]]), Xf = ["left", "center", "rig
     align: {
       type: String,
       default: "left",
-      validator: (e) => Xf.includes(e)
+      validator: (e) => um.includes(e)
     },
     tone: {
       type: String,
       default: "",
-      validator: (e) => e === "" || Qf.includes(e)
+      validator: (e) => e === "" || cm.includes(e)
     },
     iconCol: {
       type: Boolean,
@@ -10041,22 +10259,22 @@ const Zf = /* @__PURE__ */ x(Gf, [["render", jf]]), Xf = ["left", "center", "rig
       );
     }
   }
-}, em = ["colspan"];
-function tm(e, t, i, n, s, r) {
+}, hm = ["colspan"];
+function fm(e, t, i, n, s, r) {
   return u(), c("td", {
     colspan: i.colspan > 0 ? i.colspan : void 0,
     class: k(r.rootClass)
   }, [
     b(e.$slots, "default")
-  ], 10, em);
+  ], 10, hm);
 }
-const im = /* @__PURE__ */ x(Jf, [["render", tm]]), rm = ["left", "center", "right"], nm = ["sm", "md", "lg"], sm = {
+const mm = /* @__PURE__ */ x(dm, [["render", fm]]), pm = ["left", "center", "right"], gm = ["sm", "md", "lg"], bm = {
   name: "TableHead",
   props: {
     align: {
       type: String,
       default: "left",
-      validator: (e) => rm.includes(e)
+      validator: (e) => pm.includes(e)
     },
     width: {
       type: String,
@@ -10087,20 +10305,20 @@ const im = /* @__PURE__ */ x(Jf, [["render", tm]]), rm = ["left", "center", "rig
       );
     },
     widthStyle() {
-      if (!(this.iconCol || nm.includes(this.width)) && this.width)
+      if (!(this.iconCol || gm.includes(this.width)) && this.width)
         return { width: this.width, minWidth: this.width };
     }
   }
 };
-function am(e, t, i, n, s, r) {
+function ym(e, t, i, n, s, r) {
   return u(), c("th", {
     class: k(r.rootClass),
-    style: V(r.widthStyle)
+    style: B(r.widthStyle)
   }, [
     b(e.$slots, "default")
   ], 6);
 }
-const lm = /* @__PURE__ */ x(sm, [["render", am]]), om = {
+const vm = /* @__PURE__ */ x(bm, [["render", ym]]), _m = {
   name: "TableHeader",
   props: {
     sticky: {
@@ -10114,14 +10332,14 @@ const lm = /* @__PURE__ */ x(sm, [["render", am]]), om = {
     }
   }
 };
-function um(e, t, i, n, s, r) {
+function km(e, t, i, n, s, r) {
   return u(), c("thead", {
     class: k(r.rootClass)
   }, [
     b(e.$slots, "default")
   ], 2);
 }
-const cm = /* @__PURE__ */ x(om, [["render", um]]), dm = {
+const xm = /* @__PURE__ */ x(_m, [["render", km]]), wm = {
   name: "TablePagination",
   props: {
     currentPage: {
@@ -10158,16 +10376,16 @@ const cm = /* @__PURE__ */ x(om, [["render", um]]), dm = {
       return this.currentPage < this.lastPage;
     }
   }
-}, hm = { class: "ui-table-pagination" }, fm = { class: "ui-table-pagination-meta" }, mm = { class: "ui-table-pagination-nav" }, pm = { class: "ui-table-pagination-page" };
-function gm(e, t, i, n, s, r) {
-  const o = v("ui-button");
-  return u(), c("div", hm, [
-    f("div", fm, [
+}, Sm = { class: "ui-table-pagination" }, Cm = { class: "ui-table-pagination-meta" }, Tm = { class: "ui-table-pagination-nav" }, Im = { class: "ui-table-pagination-page" };
+function Lm(e, t, i, n, s, r) {
+  const o = y("ui-button");
+  return u(), c("div", Sm, [
+    f("div", Cm, [
       b(e.$slots, "meta", {}, () => [
         E(p(i.metaText), 1)
       ])
     ]),
-    f("div", mm, [
+    f("div", Tm, [
       w(o, {
         type: "button",
         variant: "outline",
@@ -10180,7 +10398,7 @@ function gm(e, t, i, n, s, r) {
         "aria-label": i.prevAriaLabel,
         onClick: t[0] || (t[0] = (l) => e.$emit("prev"))
       }, null, 8, ["disabled", "aria-label"]),
-      f("div", pm, p(i.pageLabel), 1),
+      f("div", Im, p(i.pageLabel), 1),
       w(o, {
         type: "button",
         variant: "outline",
@@ -10196,7 +10414,7 @@ function gm(e, t, i, n, s, r) {
     ])
   ]);
 }
-const bm = /* @__PURE__ */ x(dm, [["render", gm]]), ym = ["none", "soft", "strong"], vm = [
+const Am = /* @__PURE__ */ x(wm, [["render", Lm]]), Mm = ["none", "soft", "strong"], zm = [
   "a[href]",
   "button",
   "input",
@@ -10213,13 +10431,13 @@ const bm = /* @__PURE__ */ x(dm, [["render", gm]]), ym = ["none", "soft", "stron
   '[role="combobox"]',
   '[contenteditable="true"]',
   "[data-row-click-ignore]"
-].join(","), _m = {
+].join(","), Pm = {
   name: "TableRow",
   props: {
     hover: {
       type: String,
       default: void 0,
-      validator: (e) => e == null || ym.includes(e)
+      validator: (e) => e == null || Mm.includes(e)
     },
     clickable: {
       type: Boolean,
@@ -10257,7 +10475,7 @@ const bm = /* @__PURE__ */ x(dm, [["render", gm]]), ym = ["none", "soft", "stron
     isFromInnerControl(e) {
       const t = e.target;
       if (!(t instanceof Element) || t === this.$el) return !1;
-      const i = t.closest(vm);
+      const i = t.closest(zm);
       return !!(i && i !== this.$el && this.$el.contains(i));
     },
     onClick(e) {
@@ -10282,8 +10500,8 @@ const bm = /* @__PURE__ */ x(dm, [["render", gm]]), ym = ["none", "soft", "stron
       i === "first" ? r = 0 : i === "last" ? r = n.length - 1 : r = Math.min(n.length - 1, Math.max(0, s + i)), e.preventDefault(), n[r] && n[r] !== this.$el && n[r].focus();
     }
   }
-}, km = ["tabindex"];
-function xm(e, t, i, n, s, r) {
+}, Em = ["tabindex"];
+function Om(e, t, i, n, s, r) {
   return u(), c("tr", {
     class: k(r.rootClass),
     tabindex: i.interactive ? 0 : void 0,
@@ -10291,9 +10509,9 @@ function xm(e, t, i, n, s, r) {
     onKeydown: t[1] || (t[1] = (...o) => r.onKeydown && r.onKeydown(...o))
   }, [
     b(e.$slots, "default")
-  ], 42, km);
+  ], 42, Em);
 }
-const wm = /* @__PURE__ */ x(_m, [["render", xm]]), Sm = {
+const Dm = /* @__PURE__ */ x(Pm, [["render", Om]]), Rm = {
   name: "TabPanel",
   inheritAttrs: !1,
   inject: {
@@ -10328,8 +10546,8 @@ const wm = /* @__PURE__ */ x(_m, [["render", xm]]), Sm = {
   mounted() {
     !this.uiTabs && typeof import.meta < "u";
   }
-}, Cm = ["id", "aria-labelledby"];
-function Tm(e, t, i, n, s, r) {
+}, Nm = ["id", "aria-labelledby"];
+function Fm(e, t, i, n, s, r) {
   return ni((u(), c("div", P({
     role: "tabpanel",
     id: r.panelDomId,
@@ -10337,11 +10555,11 @@ function Tm(e, t, i, n, s, r) {
     class: r.panelClass
   }, r.passthroughAttrs), [
     b(e.$slots, "default")
-  ], 16, Cm)), [
+  ], 16, Nm)), [
     [si, r.isActive]
   ]);
 }
-const Im = /* @__PURE__ */ x(Sm, [["render", Tm]]), Rt = Symbol("uiThemeMode"), Lm = {
+const Vm = /* @__PURE__ */ x(Rm, [["render", Fm]]), Rt = Symbol("uiThemeMode"), Bm = {
   name: "ThemeProvider",
   inheritAttrs: !1,
   inject: {
@@ -10351,7 +10569,7 @@ const Im = /* @__PURE__ */ x(Sm, [["render", Tm]]), Rt = Symbol("uiThemeMode"), 
   provide() {
     return {
       [ct]: this.providedDefaults,
-      [Rt]: Rr(() => this.resolvedMode),
+      [Rt]: Nr(() => this.resolvedMode),
       [Hi]: () => this.$refs.portal || null
     };
   },
@@ -10390,7 +10608,7 @@ const Im = /* @__PURE__ */ x(Sm, [["render", Tm]]), Rt = Symbol("uiThemeMode"), 
     resolvedMode() {
       if (this.mode === "system") return this.systemDark ? "dark" : "light";
       if (this.mode) return this.mode;
-      const e = Dr(this.parentMode);
+      const e = Rr(this.parentMode);
       return e || (this.documentDark ? "dark" : "light");
     },
     cssVars() {
@@ -10398,7 +10616,7 @@ const Im = /* @__PURE__ */ x(Sm, [["render", Tm]]), Rt = Symbol("uiThemeMode"), 
     },
     mergedDefaults() {
       var e;
-      return Vi({
+      return Bi({
         ...this.parentDefaults,
         ...(e = this.pkg) == null ? void 0 : e.defaults,
         ...this.defaults
@@ -10440,12 +10658,12 @@ const Im = /* @__PURE__ */ x(Sm, [["render", Tm]]), Rt = Symbol("uiThemeMode"), 
     var e, t;
     (e = this.modeObserver) == null || e.disconnect(), (t = this.stopSystemWatch) == null || t.call(this);
   }
-}, Am = {
+}, $m = {
   ref: "portal",
   class: "ui-theme-provider-portal"
 };
-function Mm(e, t, i, n, s, r) {
-  return u(), y(le(i.tag), P({
+function Hm(e, t, i, n, s, r) {
+  return u(), v(le(i.tag), P({
     class: ["ui-theme-provider", [
       { dark: r.resolvedMode === "dark", "ui-theme-provider--background": i.background },
       e.$attrs.class
@@ -10456,7 +10674,7 @@ function Mm(e, t, i, n, s, r) {
     style: r.cssVars
   }, r.passthroughAttrs), {
     default: _(() => [
-      f("div", Am, null, 512),
+      f("div", $m, null, 512),
       b(e.$slots, "default", {
         mode: r.resolvedMode,
         theme: r.pkg
@@ -10465,7 +10683,7 @@ function Mm(e, t, i, n, s, r) {
     _: 3
   }, 16, ["class", "data-ui-theme", "data-ui-mode", "data-ui-density", "style"]);
 }
-const zm = /* @__PURE__ */ x(Lm, [["render", Mm]]);
+const Km = /* @__PURE__ */ x(Bm, [["render", Hm]]);
 function he(e) {
   return String(e).padStart(2, "0");
 }
@@ -10483,18 +10701,27 @@ function bi(e, t = "HH:mm") {
   }
   return `${he(n)}:${he(s)}`;
 }
-function Pm(e, t, i = "HH:mm") {
+function Um(e, t, i = "HH:mm") {
   return bi(`${e}:${he(t)}`, i);
 }
-const Em = W("ui-timepicker"), je = 40;
+const Ym = G("ui-timepicker"), je = 40;
 function Ze(e) {
   return String(e).padStart(2, "0");
 }
-const Om = {
+const Gm = {
   name: "TimePicker",
-  mixins: [U, ue],
+  mixins: [Y, ue],
   inheritAttrs: !1,
   props: {
+    /**
+     * Açılış biçimi (`ui-popover` `presentation`): `auto` telefonda dialog, masaüstünde panel;
+     * `popover` her zaman panel; `dialog` her zaman dialog.
+     */
+    presentation: {
+      type: String,
+      default: "auto",
+      validator: (e) => ["auto", "popover", "dialog"].includes(e)
+    },
     /** `HH:mm` (24 saat) */
     modelValue: {
       type: String,
@@ -10533,7 +10760,7 @@ const Om = {
   emits: ["update:modelValue", "change"],
   data() {
     return {
-      fallbackId: Em(),
+      fallbackId: Ym(),
       menuOpen: !1,
       draftHour: 0,
       draftMinute: 0,
@@ -10557,19 +10784,19 @@ const Om = {
       return this.modelValue != null && this.modelValue !== "";
     },
     resolvedPlaceholder() {
-      return this.placeholder != null && this.placeholder !== "" ? this.placeholder : z(this, "ui.timePicker.placeholder", "Select time");
+      return this.placeholder != null && this.placeholder !== "" ? this.placeholder : M(this, "ui.timePicker.placeholder", "Select time");
     },
     hourAriaLabel() {
-      return z(this, "ui.timePicker.hourAria", "Hour");
+      return M(this, "ui.timePicker.hourAria", "Hour");
     },
     minuteAriaLabel() {
-      return z(this, "ui.timePicker.minuteAria", "Minute");
+      return M(this, "ui.timePicker.minuteAria", "Minute");
     },
     resolvedTimeFormat() {
       return Yt(this.uiDefaults, void 0, "timeFormat");
     },
     display() {
-      return this.menuOpen ? Pm(this.draftHour, this.draftMinute, this.resolvedTimeFormat) : this.hasValue ? bi(String(this.modelValue), this.resolvedTimeFormat) : this.resolvedPlaceholder;
+      return this.menuOpen ? Um(this.draftHour, this.draftMinute, this.resolvedTimeFormat) : this.hasValue ? bi(String(this.modelValue), this.resolvedTimeFormat) : this.resolvedPlaceholder;
     },
     supportsScrollEnd() {
       return typeof window > "u" ? !1 : "onscrollend" in window;
@@ -10579,7 +10806,7 @@ const Om = {
     menuOpen(e) {
       var t;
       if (e)
-        this.returnFocusEl = Ve(), this.applyModelToDraft(), this.$nextTick(() => {
+        this.returnFocusEl = Be(), this.applyModelToDraft(), this.$nextTick(() => {
           this.$nextTick(() => {
             var i, n, s;
             this.scrollWheelsToDraft(), this.bindWheelListeners(), (s = (n = (i = this.$refs.hourWheel) == null ? void 0 : i.closest('[role="spinbutton"]')) == null ? void 0 : n.focus) == null || s.call(n, { preventScroll: !0 });
@@ -10756,18 +10983,10 @@ const Om = {
       Math.abs(e.scrollTop - n) > 0.5 && (e.scrollTop = n), this.emitDraft();
     }
   }
-}, Dm = {
+}, Wm = {
   key: 0,
   class: "ui-timepicker-panel w-full"
-}, Rm = { class: "ui-timepicker-wheels" }, Fm = { class: "ui-timepicker-wheels-row" }, Nm = ["aria-valuetext", "aria-valuenow", "aria-label"], Bm = {
-  ref: "hourWheel",
-  class: "ui-timepicker-wheel-viewport",
-  tabindex: "-1"
-}, Vm = { class: "ui-timepicker-wheel-spacer" }, $m = ["onClick"], Hm = ["aria-valuetext", "aria-valuenow", "aria-label"], Km = {
-  ref: "minuteWheel",
-  class: "ui-timepicker-wheel-viewport",
-  tabindex: "-1"
-}, Um = { class: "ui-timepicker-wheel-spacer" }, Ym = ["onClick"], Wm = { class: "min-w-0 flex-1 truncate text-foreground" }, Gm = { class: "ui-timepicker-panel w-full p-2" }, qm = { class: "ui-timepicker-wheels" }, jm = { class: "ui-timepicker-wheels-row" }, Zm = ["aria-valuetext", "aria-valuenow", "aria-label"], Xm = {
+}, qm = { class: "ui-timepicker-wheels" }, jm = { class: "ui-timepicker-wheels-row" }, Zm = ["aria-valuetext", "aria-valuenow", "aria-label"], Xm = {
   ref: "hourWheel",
   class: "ui-timepicker-wheel-viewport",
   tabindex: "-1"
@@ -10775,9 +10994,17 @@ const Om = {
   ref: "minuteWheel",
   class: "ui-timepicker-wheel-viewport",
   tabindex: "-1"
-}, ip = { class: "ui-timepicker-wheel-spacer" }, rp = ["onClick"];
-function np(e, t, i, n, s, r) {
-  const o = v("ui-button"), l = v("ui-popover");
+}, ip = { class: "ui-timepicker-wheel-spacer" }, rp = ["onClick"], np = { class: "min-w-0 flex-1 truncate text-foreground" }, sp = { class: "ui-timepicker-panel w-full p-2" }, ap = { class: "ui-timepicker-wheels" }, lp = { class: "ui-timepicker-wheels-row" }, op = ["aria-valuetext", "aria-valuenow", "aria-label"], up = {
+  ref: "hourWheel",
+  class: "ui-timepicker-wheel-viewport",
+  tabindex: "-1"
+}, cp = { class: "ui-timepicker-wheel-spacer" }, dp = ["onClick"], hp = ["aria-valuetext", "aria-valuenow", "aria-label"], fp = {
+  ref: "minuteWheel",
+  class: "ui-timepicker-wheel-viewport",
+  tabindex: "-1"
+}, mp = { class: "ui-timepicker-wheel-spacer" }, pp = ["onClick"];
+function gp(e, t, i, n, s, r) {
+  const o = y("ui-button"), l = y("ui-popover");
   return u(), c("div", {
     class: k([
       "ui-timepicker",
@@ -10786,13 +11013,13 @@ function np(e, t, i, n, s, r) {
       e.$attrs.class
     ])
   }, [
-    i.embedded ? (u(), c("div", Dm, [
-      f("div", Rm, [
+    i.embedded ? (u(), c("div", Wm, [
+      f("div", qm, [
         t[6] || (t[6] = f("div", {
           class: "ui-timepicker-selection-band",
           "aria-hidden": "true"
         }, null, -1)),
-        f("div", Fm, [
+        f("div", jm, [
           f("div", {
             class: "min-h-0 min-w-0 flex-1",
             role: "spinbutton",
@@ -10805,8 +11032,8 @@ function np(e, t, i, n, s, r) {
             "aria-valuemax": "23",
             "aria-label": r.hourAriaLabel
           }, [
-            f("div", Bm, [
-              f("div", Vm, [
+            f("div", Xm, [
+              f("div", Qm, [
                 (u(!0), c(S, null, L(r.hourOptions, (a) => (u(), c("button", {
                   key: "h-" + a,
                   type: "button",
@@ -10816,10 +11043,10 @@ function np(e, t, i, n, s, r) {
                     a === s.draftHour ? "ui-timepicker-wheel-item--selected" : ""
                   ]),
                   onClick: (d) => r.selectHour(a)
-                }, p(r.pad2(a)), 11, $m))), 128))
+                }, p(r.pad2(a)), 11, Jm))), 128))
               ])
             ], 512)
-          ], 40, Nm),
+          ], 40, Zm),
           t[5] || (t[5] = f("span", {
             class: "ui-timepicker-colon",
             "aria-hidden": "true"
@@ -10836,8 +11063,8 @@ function np(e, t, i, n, s, r) {
             "aria-valuemax": "59",
             "aria-label": r.minuteAriaLabel
           }, [
-            f("div", Km, [
-              f("div", Um, [
+            f("div", tp, [
+              f("div", ip, [
                 (u(!0), c(S, null, L(r.minuteValues, (a, d) => (u(), c("button", {
                   key: "m-" + a,
                   type: "button",
@@ -10847,10 +11074,10 @@ function np(e, t, i, n, s, r) {
                     a === s.draftMinute ? "ui-timepicker-wheel-item--selected" : ""
                   ]),
                   onClick: (h) => r.selectMinute(d)
-                }, p(r.pad2(a)), 11, Ym))), 128))
+                }, p(r.pad2(a)), 11, rp))), 128))
               ])
             ], 512)
-          ], 40, Hm)
+          ], 40, ep)
         ]),
         t[7] || (t[7] = f("div", {
           class: "ui-timepicker-wheels-fade ui-timepicker-wheels-fade--top",
@@ -10861,8 +11088,9 @@ function np(e, t, i, n, s, r) {
           "aria-hidden": "true"
         }, null, -1))
       ])
-    ])) : (u(), y(l, {
+    ])) : (u(), v(l, {
       key: 1,
+      presentation: i.presentation,
       open: s.menuOpen,
       "onUpdate:open": t[4] || (t[4] = (a) => s.menuOpen = a),
       placement: "bottom-start",
@@ -10890,20 +11118,20 @@ function np(e, t, i, n, s, r) {
             onClick: d
           }, {
             default: _(() => [
-              f("span", Wm, p(r.display), 1)
+              f("span", np, p(r.display), 1)
             ]),
             _: 1
           }, 8, ["id", "disabled", "aria-expanded", "onClick"])
         ])
       ]),
       content: _(() => [
-        f("div", Gm, [
-          f("div", qm, [
+        f("div", sp, [
+          f("div", ap, [
             t[10] || (t[10] = f("div", {
               class: "ui-timepicker-selection-band",
               "aria-hidden": "true"
             }, null, -1)),
-            f("div", jm, [
+            f("div", lp, [
               f("div", {
                 class: "min-h-0 min-w-0 flex-1",
                 role: "spinbutton",
@@ -10916,8 +11144,8 @@ function np(e, t, i, n, s, r) {
                 "aria-valuemax": "23",
                 "aria-label": r.hourAriaLabel
               }, [
-                f("div", Xm, [
-                  f("div", Qm, [
+                f("div", up, [
+                  f("div", cp, [
                     (u(!0), c(S, null, L(r.hourOptions, (a) => (u(), c("button", {
                       key: "h-" + a,
                       type: "button",
@@ -10927,10 +11155,10 @@ function np(e, t, i, n, s, r) {
                         a === s.draftHour ? "ui-timepicker-wheel-item--selected" : ""
                       ]),
                       onClick: (d) => r.selectHour(a)
-                    }, p(r.pad2(a)), 11, Jm))), 128))
+                    }, p(r.pad2(a)), 11, dp))), 128))
                   ])
                 ], 512)
-              ], 40, Zm),
+              ], 40, op),
               t[9] || (t[9] = f("span", {
                 class: "ui-timepicker-colon",
                 "aria-hidden": "true"
@@ -10947,8 +11175,8 @@ function np(e, t, i, n, s, r) {
                 "aria-valuemax": "59",
                 "aria-label": r.minuteAriaLabel
               }, [
-                f("div", tp, [
-                  f("div", ip, [
+                f("div", fp, [
+                  f("div", mp, [
                     (u(!0), c(S, null, L(r.minuteValues, (a, d) => (u(), c("button", {
                       key: "m-" + a,
                       type: "button",
@@ -10958,10 +11186,10 @@ function np(e, t, i, n, s, r) {
                         a === s.draftMinute ? "ui-timepicker-wheel-item--selected" : ""
                       ]),
                       onClick: (h) => r.selectMinute(d)
-                    }, p(r.pad2(a)), 11, rp))), 128))
+                    }, p(r.pad2(a)), 11, pp))), 128))
                   ])
                 ], 512)
-              ], 40, ep)
+              ], 40, hp)
             ]),
             t[11] || (t[11] = f("div", {
               class: "ui-timepicker-wheels-fade ui-timepicker-wheels-fade--top",
@@ -10975,17 +11203,17 @@ function np(e, t, i, n, s, r) {
         ])
       ]),
       _: 3
-    }, 8, ["open", "width", "disabled"]))
+    }, 8, ["presentation", "open", "width", "disabled"]))
   ], 2);
 }
-const sp = /* @__PURE__ */ x(Om, [["render", np]]), ap = ["horizontal", "vertical"], lp = {
+const bp = /* @__PURE__ */ x(Gm, [["render", gp]]), yp = ["horizontal", "vertical"], vp = {
   name: "Toolbar",
   inheritAttrs: !1,
   props: {
     direction: {
       type: String,
       default: "horizontal",
-      validator: (e) => ap.includes(e)
+      validator: (e) => yp.includes(e)
     },
     /** Yatay düzende sığmayan öğeler alt satıra kayar */
     wrap: {
@@ -11012,40 +11240,40 @@ const sp = /* @__PURE__ */ x(Om, [["render", np]]), ap = ["horizontal", "vertica
       return t;
     }
   }
-}, op = ["role", "aria-label"], up = {
+}, _p = ["role", "aria-label"], kp = {
   key: 0,
   class: "ui-toolbar-start"
-}, cp = {
+}, xp = {
   key: 1,
   class: "ui-toolbar-main"
-}, dp = {
+}, wp = {
   key: 2,
   class: "ui-toolbar-end"
 };
-function hp(e, t, i, n, s, r) {
+function Sp(e, t, i, n, s, r) {
   return u(), c("div", P({
     class: r.rootClass,
     role: i.ariaLabel ? "toolbar" : void 0,
     "aria-label": i.ariaLabel || void 0
   }, r.passthroughAttrs), [
-    e.$slots.start ? (u(), c("div", up, [
+    e.$slots.start ? (u(), c("div", kp, [
       b(e.$slots, "start")
     ])) : m("", !0),
-    e.$slots.default ? (u(), c("div", cp, [
+    e.$slots.default ? (u(), c("div", xp, [
       b(e.$slots, "default")
     ])) : m("", !0),
-    e.$slots.end ? (u(), c("div", dp, [
+    e.$slots.end ? (u(), c("div", wp, [
       b(e.$slots, "end")
     ])) : m("", !0)
-  ], 16, op);
+  ], 16, _p);
 }
-const fp = /* @__PURE__ */ x(lp, [["render", hp]]), mp = 12;
+const Cp = /* @__PURE__ */ x(vp, [["render", Sp]]), Tp = 12;
 function ze(e, t, i, n = 1) {
   const { l: s, c: r, h: o } = qi(e, t, i), l = o * Math.PI / 180;
   return { L: s, a: r * Math.cos(l), b: r * Math.sin(l), alpha: n };
 }
-function pp(e) {
-  const t = Math.hypot(e.a, e.b), i = (Math.atan2(e.b, e.a) * 180 / Math.PI + 360) % 360, [n, s, r] = Gi(e.L, t, i).map((a) => Math.min(255, Math.max(0, Math.round(a)))), o = (a) => a.toString(16).padStart(2, "0"), l = Math.min(1, Math.max(0, e.alpha));
+function Ip(e) {
+  const t = Math.hypot(e.a, e.b), i = (Math.atan2(e.b, e.a) * 180 / Math.PI + 360) % 360, [n, s, r] = Wi(e.L, t, i).map((a) => Math.min(255, Math.max(0, Math.round(a)))), o = (a) => a.toString(16).padStart(2, "0"), l = Math.min(1, Math.max(0, e.alpha));
   return `#${o(n)}${o(s)}${o(r)}${l < 0.999 ? o(Math.round(l * 255)) : ""}`;
 }
 function tt(e, t = ",") {
@@ -11055,8 +11283,8 @@ function tt(e, t = ",") {
     r === "(" && (n += 1), r === ")" && (n -= 1), r === t && n === 0 ? (i.push(s.trim()), s = "") : s += r;
   return s.trim() && i.push(s.trim()), i;
 }
-function gp(e, t, i = 0) {
-  if (i > mp) return null;
+function Lp(e, t, i = 0) {
+  if (i > Tp) return null;
   let n = String(e);
   for (let s = 0; s < 40 && n.includes("var("); s += 1) {
     const r = n.indexOf("var(");
@@ -11073,7 +11301,7 @@ function gp(e, t, i = 0) {
   }
   return n.includes("var(") ? null : n;
 }
-function Ft(e) {
+function Nt(e) {
   const t = /^(-?[0-9.]+)%$/.exec(String(e).trim());
   return t ? Number.parseFloat(t[1]) / 100 : null;
 }
@@ -11092,7 +11320,7 @@ function yi(e) {
     return ze(l, a, d, o.length === 8 ? parseInt(o.slice(6, 8), 16) / 255 : 1);
   }
   if (/^oklch\(/i.test(t) && !/^oklch\(\s*from/i.test(t)) {
-    const o = Wi(t);
+    const o = Gi(t);
     if (!o) return null;
     const l = (r = /\/\s*([0-9.]+%?)\s*\)$/.exec(t)) == null ? void 0 : r[1], a = l ? l.endsWith("%") ? Number.parseFloat(l) / 100 : Number.parseFloat(l) : 1, d = o.h * Math.PI / 180;
     return { L: o.l, a: o.c * Math.cos(d), b: o.c * Math.sin(d), alpha: a };
@@ -11107,7 +11335,7 @@ function yi(e) {
     const o = tt(s[2]);
     if (o.length !== 2) return null;
     const l = o.map((O) => {
-      const F = tt(O, " "), j = F.findIndex((me) => Ft(me) != null), Ke = j === -1 ? null : Ft(F[j]), Te = F.filter((me, Ue) => Ue !== j).join(" ");
+      const N = tt(O, " "), j = N.findIndex((me) => Nt(me) != null), Ke = j === -1 ? null : Nt(N[j]), Te = N.filter((me, Ue) => Ue !== j).join(" ");
       return { color: yi(Te), weight: Ke };
     });
     if (l.some((O) => !O.color)) return null;
@@ -11115,36 +11343,36 @@ function yi(e) {
     a == null && d == null ? a = d = 0.5 : a == null ? a = 1 - d : d == null && (d = 1 - a);
     const h = a + d;
     if (!(h > 0)) return null;
-    const [g, C] = [a / h, d / h], [T, D] = l.map((O) => O.color), B = T.alpha * g + D.alpha * C;
-    if (B <= 0) return { L: 0, a: 0, b: 0, alpha: 0 };
-    const R = (O) => (T[O] * T.alpha * g + D[O] * D.alpha * C) / B;
-    return { L: R("L"), a: R("a"), b: R("b"), alpha: B * Math.min(1, h) };
+    const [g, C] = [a / h, d / h], [T, D] = l.map((O) => O.color), V = T.alpha * g + D.alpha * C;
+    if (V <= 0) return { L: 0, a: 0, b: 0, alpha: 0 };
+    const R = (O) => (T[O] * T.alpha * g + D[O] * D.alpha * C) / V;
+    return { L: R("L"), a: R("a"), b: R("b"), alpha: V * Math.min(1, h) };
   }
   return null;
 }
-function bp(e, t) {
-  const i = gp(e, t);
+function Ap(e, t) {
+  const i = Lp(e, t);
   if (i == null) return null;
   const n = yi(i);
-  return n ? pp(n) : null;
+  return n ? Ip(n) : null;
 }
-const yp = /^var\(\s*(--base-(\d+)|--chart-(\d+)|--white)\s*\)$/;
-function vp(e) {
-  const t = yp.exec(String(e).trim());
+const Mp = /^var\(\s*(--base-(\d+)|--chart-(\d+)|--white)\s*\)$/;
+function zp(e) {
+  const t = Mp.exec(String(e).trim());
   return t ? t[2] ? `{primitive.color.base.${t[2]}}` : t[3] ? `{primitive.color.chart.${t[3]}}` : "{primitive.color.white}" : null;
 }
 function ke(e, t, i, { alias: n = !0, primitives: s = i } = {}) {
   var d;
-  const r = bp(t, i);
+  const r = Ap(t, i);
   if (!r) return null;
-  const o = (d = /^var\(\s*(--[a-z0-9-]+)\s*\)$/.exec(String(t).trim())) == null ? void 0 : d[1], l = o ? i[o] === s[o] : !1, a = n && l ? vp(t) : null;
+  const o = (d = /^var\(\s*(--[a-z0-9-]+)\s*\)$/.exec(String(t).trim())) == null ? void 0 : d[1], l = o ? i[o] === s[o] : !1, a = n && l ? zp(t) : null;
   return {
     $type: "color",
     $value: a ?? r,
     $extensions: { "com.fewui": { cssVar: e, css: String(t), ...a ? { resolved: r } : {} } }
   };
 }
-function _p(e) {
+function Pp(e) {
   return e.replace(/^--(ui-)?/, "").replace(/-([a-z0-9])/g, (t, i) => i.toUpperCase());
 }
 const vi = [
@@ -11155,7 +11383,7 @@ const vi = [
   ...Array.from({ length: Yi }, (e, t) => `chartSeries${t + 1}`)
 ], _i = Object.keys(Qe).filter(
   (e) => /^--(ui-hover|ui-focus-ring|ui-selected-fg|primary-soft|primary-soft-hover|primary-ink|warning-ink|success-ink|info-ink|danger-ink|surface-bg|control-bg|popover-bg|input-background)$/.test(e)
-), Lp = {
+), Bp = {
   primitive: [
     ...ei.map((e) => `--base-${e}`),
     ...ti.map((e) => `--chart-${e}`),
@@ -11174,7 +11402,7 @@ const vi = [
     "--ui-control-h-lg"
   ]
 };
-function Nt(e, t) {
+function Ft(e, t) {
   const i = {};
   for (const s of vi) {
     const r = Jt(s);
@@ -11186,17 +11414,17 @@ function Nt(e, t) {
   for (const s of _i) {
     if (!(s in e)) continue;
     const r = ke(s, e[s], e, { alias: !1 });
-    r && (n[_p(s)] = r);
+    r && (n[Pp(s)] = r);
   }
   return { semantic: i, component: n };
 }
-function Bt(e, t) {
+function Vt(e, t) {
   return { $type: "fontFamily", $value: String(t || "").split(",").map((n) => n.trim().replace(/^["']|["']$/g, "")).filter(Boolean), $extensions: { "com.fewui": { cssVar: e } } };
 }
 function de(e, t, i) {
   return { $type: "dimension", $value: t, $extensions: { "com.fewui": { cssVar: e, ...i ? { css: i } : {} } } };
 }
-function Ap(e) {
+function $p(e) {
   const t = rt(e), i = Xe(t, "light"), n = Xe(t, "dark"), s = {};
   for (const g of ei) {
     const C = ke(`--base-${g}`, i[`--base-${g}`] ?? "", i, { alias: !1 });
@@ -11207,7 +11435,7 @@ function Ap(e) {
     const C = ke(`--chart-${g}`, i[`--chart-${g}`] ?? "", i, { alias: !1 });
     C && (r[g] = C);
   }
-  const o = ke("--white", i["--white"] ?? "", i, { alias: !1 }), l = Number.parseFloat(i["--radius"]), a = /px\s*$/.test(String(i["--radius"] || "")) && Number.isFinite(l), d = Nt(i, i), h = Nt(n, i);
+  const o = ke("--white", i["--white"] ?? "", i, { alias: !1 }), l = Number.parseFloat(i["--radius"]), a = /px\s*$/.test(String(i["--radius"] || "")) && Number.isFinite(l), d = Ft(i, i), h = Ft(n, i);
   return {
     $description: `fewui theme "${t.id}" — W3C Design Tokens (DTCG). Generated from preset.js; do not edit.`,
     $extensions: {
@@ -11221,8 +11449,8 @@ function Ap(e) {
     primitive: {
       color: { base: s, ...Object.keys(r).length ? { chart: r } : {}, ...o ? { white: o } : {} },
       font: {
-        ...i["--font-sans"] ? { body: Bt("--font-sans", i["--font-sans"]) } : {},
-        ...i["--font-heading"] && !/^var\(/.test(i["--font-heading"]) ? { heading: Bt("--font-heading", i["--font-heading"]) } : {}
+        ...i["--font-sans"] ? { body: Vt("--font-sans", i["--font-sans"]) } : {},
+        ...i["--font-heading"] && !/^var\(/.test(i["--font-heading"]) ? { heading: Vt("--font-heading", i["--font-heading"]) } : {}
       },
       ...i["--radius"] ? { radius: { base: de("--radius", String(i["--radius"])) } } : {}
     },
@@ -11246,7 +11474,7 @@ function Ap(e) {
 function Pe(e) {
   return e == null ? {} : typeof e == "string" ? { title: e } : typeof e == "object" ? e : {};
 }
-function Mp() {
+function Hp() {
   return {
     push: ge,
     dismiss: Zi,
@@ -11257,7 +11485,7 @@ function Mp() {
     danger: (e) => ge({ ...Pe(e), color: "danger" })
   };
 }
-function zp(e = !1) {
+function Kp(e = !1) {
   return nt({
     open: !!e,
     show() {
@@ -11271,7 +11499,7 @@ function zp(e = !1) {
     }
   });
 }
-function Pp() {
+function Up() {
   return {
     confirm: Xi
   };
@@ -11280,370 +11508,376 @@ const Re = {
   en: er,
   tr: Ji
 };
-function Ep(e = "en") {
+function Yp(e = "en") {
   return Re[e] ?? Re.en;
 }
-const kp = [
-  ["ui-accordion", $r],
-  ["ui-accordion-item", rn],
-  ["ui-action-card", dn],
-  ["ui-action-card-list", pn],
+const Ep = [
+  ["ui-accordion", Hr],
+  ["ui-accordion-item", nn],
+  ["ui-action-card", hn],
+  ["ui-action-card-list", gn],
   ["ui-action-group", tr],
-  ["ui-ai-button", _n],
+  ["ui-ai-button", kn],
   ["ui-alert", ir],
   ["ui-avatar", rr],
-  ["ui-avatar-group", Tn],
+  ["ui-avatar-group", In],
   ["ui-badge", nr],
-  ["ui-breadcrumb", Yn],
+  ["ui-breadcrumb", Gn],
   ["ui-breadcrumb-item", li],
   ["ui-button", Zt],
   ["ui-card", sr],
-  ["ui-chart", Js],
-  ["ui-checkbox", oa],
-  ["ui-checkbox-group", pa],
-  ["ui-chip-group", _a],
-  ["ui-collapsible", Ia],
-  ["ui-color-picker", Ka],
-  ["ui-command", ol],
+  ["ui-chart", ea],
+  ["ui-checkbox", ua],
+  ["ui-checkbox-group", ga],
+  ["ui-chip-group", ka],
+  ["ui-collapsible", La],
+  ["ui-color-picker", Ua],
+  ["ui-command", ul],
   ["ui-confirm-dialog", ar],
-  ["ui-context-menu", fl],
+  ["ui-context-menu", ml],
   ["ui-currency-input", mi],
   ["ui-date-picker", lr],
-  ["ui-date-range-picker", $l],
+  ["ui-date-range-picker", Hl],
   ["ui-dialog", Kt],
   ["ui-divider", Xt],
-  ["ui-dropdown", Vt],
+  ["ui-dropdown", Bt],
   ["ui-empty", Ht],
-  ["ui-field", ql],
-  ["ui-field-action", lo],
-  ["ui-file", _o],
-  ["ui-filter-chip", Co],
+  ["ui-field", jl],
+  ["ui-field-action", oo],
+  ["ui-file", ko],
+  ["ui-filter-chip", To],
   ["ui-form-row", or],
-  ["ui-guidance", Jo],
-  ["ui-hover-card", ru],
+  ["ui-guidance", eu],
+  ["ui-hover-card", nu],
   ["ui-icon", ur],
-  ["ui-icon-picker", bu],
+  ["ui-icon-picker", yu],
   ["ui-icon-tile", cr],
   ["ui-input", dr],
-  ["ui-intro", Pu],
+  ["ui-intro", Eu],
   ["ui-kbd", Fu],
   ["ui-list", hr],
   ["ui-list-item", fr],
-  ["ui-menu", Yu],
-  ["ui-menu-group", tc],
-  ["ui-menu-item", sc],
-  ["ui-menu-nav", uc],
-  ["ui-menubar", Zu],
-  ["ui-pagination", vc],
-  ["ui-password", Ic],
-  ["ui-phone", mr],
-  ["ui-photo", $c],
-  ["ui-photos", Xc],
-  ["ui-pin", pr],
-  ["ui-popover", Be],
-  ["ui-price-display", od],
-  ["ui-price-display-group", hd],
-  ["ui-price-display-row", yd],
-  ["ui-price-input", Cd],
+  ["ui-list-group", mr],
+  ["ui-number-stepper", Ku],
+  ["ui-title-menu", Zu],
+  ["ui-menu", nc],
+  ["ui-menu-group", mc],
+  ["ui-menu-item", yc],
+  ["ui-menu-nav", xc],
+  ["ui-menubar", uc],
+  ["ui-pagination", Pc],
+  ["ui-password", Bc],
+  ["ui-phone", pr],
+  ["ui-photo", ed],
+  ["ui-photos", cd],
+  ["ui-pin", gr],
+  ["ui-popover", Ve],
+  ["ui-price-display", kd],
+  ["ui-price-display-group", Cd],
+  ["ui-price-display-row", zd],
+  ["ui-price-input", Fd],
   ["ui-price-text", st],
-  ["ui-progress", Rd],
-  ["ui-radio", gr],
-  ["ui-radio-group", br],
-  ["ui-resizable-group", Hd],
-  ["ui-resizable-handle", Gd],
-  ["ui-resizable-panel", Qd],
-  ["ui-scroll-area", nh],
-  ["ui-section", dh],
-  ["ui-segment", yr],
-  ["ui-segment-group", vr],
-  ["ui-select", _r],
-  ["ui-selection-indicator", mh],
-  ["ui-sheet", Lh],
-  ["ui-sidebar-item", $h],
+  ["ui-progress", jd],
+  ["ui-radio", br],
+  ["ui-radio-group", yr],
+  ["ui-resizable-group", th],
+  ["ui-resizable-handle", ah],
+  ["ui-resizable-panel", dh],
+  ["ui-scroll-area", bh],
+  ["ui-section", wh],
+  ["ui-segment", vr],
+  ["ui-segment-group", _r],
+  ["ui-select", kr],
+  ["ui-selection-indicator", Th],
+  ["ui-sheet", Bh],
+  ["ui-sidebar-item", Jh],
   ["ui-skeleton", $t],
-  ["ui-slider", rf],
-  ["ui-stat", mf],
-  ["ui-stat-group", _f],
-  ["ui-step", Sf],
-  ["ui-stepper", Kf],
-  ["ui-switch", kr],
-  ["ui-tab-list", xr],
-  ["ui-tab-panel", Im],
-  ["ui-tab-trigger", wr],
-  ["ui-table", Wf],
-  ["ui-table-body", Zf],
-  ["ui-table-cell", im],
-  ["ui-table-head", lm],
-  ["ui-table-header", cm],
-  ["ui-table-pagination", bm],
-  ["ui-table-row", wm],
-  ["ui-tabs", Sr],
-  ["ui-tag", Cr],
-  ["ui-theme-provider", zm],
-  ["ui-time-picker", sp],
-  ["ui-toast", Tr],
-  ["ui-toolbar", fp],
+  ["ui-slider", pf],
+  ["ui-stat", Tf],
+  ["ui-stat-group", Pf],
+  ["ui-step", Rf],
+  ["ui-stepper", tm],
+  ["ui-switch", xr],
+  ["ui-tab-list", wr],
+  ["ui-tab-panel", Vm],
+  ["ui-tab-trigger", Sr],
+  ["ui-table", nm],
+  ["ui-table-body", om],
+  ["ui-table-cell", mm],
+  ["ui-table-head", vm],
+  ["ui-table-header", xm],
+  ["ui-table-pagination", Am],
+  ["ui-table-row", Dm],
+  ["ui-tabs", Cr],
+  ["ui-tag", Tr],
+  ["ui-theme-provider", Km],
+  ["ui-time-picker", bp],
+  ["ui-toast", Ir],
+  ["ui-toolbar", Cp],
   ["ui-tooltip", jt]
 ];
 let Ee = null;
-function xp(e, t = {}) {
+function Op(e, t = {}) {
   const i = rt(e);
-  if (Ir(i.id) || Lr(i), Ar(i, t), Ee && (Mr(Ee, { ...i.defaults, ...t.defaults }), typeof document < "u")) {
+  if (Lr(i.id) || Ar(i), Mr(i, t), Ee && (zr(Ee, { ...i.defaults, ...t.defaults }), typeof document < "u")) {
     const n = typeof t.root == "string" ? document.querySelector(t.root) : t.root;
-    zr(n || document.documentElement, Ee.density);
+    Pr(n || document.documentElement, Ee.density);
   }
   return i;
 }
-function wp(e, t = {}) {
-  var g, C, T, D, B;
+function Dp(e, t = {}) {
+  var g, C, T, D, V;
   const { i18n: i, locale: n, locales: s, theme: r, mode: o, overrides: l, inline: a, defaults: d, priceInput: h } = t;
-  if (Ee = Qi(e, d), r && xp(r, { mode: o, overrides: l, inline: a, defaults: d }), h && kd(h), (g = i == null ? void 0 : i.global) != null && g.mergeLocaleMessage) {
+  if (Ee = Qi(e, d), r && Op(r, { mode: o, overrides: l, inline: a, defaults: d }), h && Od(h), (g = i == null ? void 0 : i.global) != null && g.mergeLocaleMessage) {
     const R = s ?? (n != null ? [n] : [
       typeof i.global.locale == "string" ? i.global.locale : ((C = i.global.locale) == null ? void 0 : C.value) ?? "en"
     ]);
     for (const O of R) {
-      const F = Re[O];
-      if (F) {
-        i.global.mergeLocaleMessage(O, F);
+      const N = Re[O];
+      if (N) {
+        i.global.mergeLocaleMessage(O, N);
         continue;
       }
-      (B = (D = (T = i.global).getLocaleMessage) == null ? void 0 : D.call(T, O)) != null && B.ui || i.global.mergeLocaleMessage(O, Re.en);
+      (V = (D = (T = i.global).getLocaleMessage) == null ? void 0 : D.call(T, O)) != null && V.ui || i.global.mergeLocaleMessage(O, Re.en);
     }
   }
-  for (const [R, O] of kp)
+  for (const [R, O] of Ep)
     e.component(R, O);
 }
-const Op = {
-  install: wp
+const Gp = {
+  install: Dp
 };
 export {
-  $r as Accordion,
-  rn as AccordionItem,
-  dn as ActionCard,
-  pn as ActionCardList,
+  Hr as Accordion,
+  nn as AccordionItem,
+  hn as ActionCard,
+  gn as ActionCardList,
   tr as ActionGroup,
-  _n as AiButton,
+  kn as AiButton,
   ir as Alert,
   rr as Avatar,
-  Tn as AvatarGroup,
-  Fp as BACKDROP_BLUR_SCALE,
+  In as AvatarGroup,
+  jp as BACKDROP_BLUR_SCALE,
   ut as BASE_UI_DEFAULTS,
   nr as Badge,
-  Yn as Breadcrumb,
+  Gn as Breadcrumb,
   li as BreadcrumbItem,
   Zt as Button,
-  Np as CARD_PADDING_SCALE,
-  Y as CONTROL_SIZES,
+  Zp as CARD_PADDING_SCALE,
+  U as CONTROL_SIZES,
   sr as Card,
-  Js as Chart,
-  oa as Checkbox,
-  pa as CheckboxGroup,
-  _a as ChipGroup,
-  Ia as Collapsible,
-  Ka as ColorPicker,
-  ol as Command,
+  ea as Chart,
+  ua as Checkbox,
+  ga as CheckboxGroup,
+  ka as ChipGroup,
+  La as Collapsible,
+  Ua as ColorPicker,
+  ul as Command,
   ar as ConfirmDialog,
-  fl as ContextMenu,
+  ml as ContextMenu,
   mi as CurrencyInput,
-  Bp as DEFAULT_THEME_ID,
+  Xp as DEFAULT_THEME_ID,
   Qe as DERIVED_VARS,
   lr as DatePicker,
-  $l as DateRangePicker,
+  Hl as DateRangePicker,
   Kt as Dialog,
   Xt as Divider,
-  Vt as Dropdown,
+  Bt as Dropdown,
   Ht as Empty,
-  Vp as FEW_COLOR_SCALE,
-  $p as FEW_PALETTE_ID,
-  Hp as FEW_PRIMARY,
-  Kp as FEW_PRIMARY_FOREGROUND,
-  ql as Field,
-  lo as FieldAction,
-  _o as File,
-  Co as FilterChip,
+  Qp as FEW_COLOR_SCALE,
+  Jp as FEW_PALETTE_ID,
+  eg as FEW_PRIMARY,
+  tg as FEW_PRIMARY_FOREGROUND,
+  jl as Field,
+  oo as FieldAction,
+  ko as File,
+  To as FilterChip,
   or as FormRow,
-  Up as GOOGLE_FONTS_CATALOG,
-  Jo as Guidance,
-  ru as HoverCard,
+  ig as GOOGLE_FONTS_CATALOG,
+  eu as Guidance,
+  nu as HoverCard,
   ur as Icon,
-  bu as IconPicker,
+  yu as IconPicker,
   cr as IconTile,
   dr as Input,
-  Pu as Intro,
+  Eu as Intro,
   Fu as Kbd,
   hr as List,
+  mr as ListGroup,
   fr as ListItem,
-  Yp as MIX_FROM_MAP,
-  Yu as Menu,
-  tc as MenuGroup,
-  sc as MenuItem,
-  uc as MenuNav,
-  Zu as Menubar,
-  vd as PRICE_FORMATS,
-  vc as Pagination,
-  Ic as Password,
-  mr as Phone,
-  $c as Photo,
-  Xc as Photos,
-  pr as Pin,
-  Be as Popover,
-  od as PriceDisplay,
-  hd as PriceDisplayGroup,
-  yd as PriceDisplayRow,
-  Cd as PriceInput,
+  rg as MIX_FROM_MAP,
+  nc as Menu,
+  mc as MenuGroup,
+  yc as MenuItem,
+  xc as MenuNav,
+  uc as Menubar,
+  Ku as NumberStepper,
+  Pd as PRICE_FORMATS,
+  Pc as Pagination,
+  Bc as Password,
+  pr as Phone,
+  ed as Photo,
+  cd as Photos,
+  gr as Pin,
+  Ve as Popover,
+  kd as PriceDisplay,
+  Cd as PriceDisplayGroup,
+  zd as PriceDisplayRow,
+  Fd as PriceInput,
   st as PriceText,
-  Rd as Progress,
-  gr as Radio,
-  br as RadioGroup,
-  Hd as ResizableGroup,
-  Gd as ResizableHandle,
-  Qd as ResizablePanel,
+  jd as Progress,
+  br as Radio,
+  yr as RadioGroup,
+  th as ResizableGroup,
+  ah as ResizableHandle,
+  dh as ResizablePanel,
   xi as SCALE_SIZES,
-  Wp as SIZE_SCALE,
+  ng as SIZE_SCALE,
   Ui as STATUS_TONES,
-  nh as ScrollArea,
-  dh as Section,
-  yr as Segment,
-  vr as SegmentGroup,
-  _r as Select,
-  mh as SelectionIndicator,
-  Lh as Sheet,
-  $h as SidebarItem,
+  bh as ScrollArea,
+  wh as Section,
+  vr as Segment,
+  _r as SegmentGroup,
+  kr as Select,
+  Th as SelectionIndicator,
+  Bh as Sheet,
+  Jh as SidebarItem,
   $t as Skeleton,
-  rf as Slider,
-  mf as Stat,
-  _f as StatGroup,
-  Sf as Step,
-  Kf as Stepper,
-  kr as Switch,
-  Gp as THEME_CUSTOM_CSS_ID,
-  qp as TOAST_GROUP_WINDOW_MS,
+  pf as Slider,
+  Tf as Stat,
+  Pf as StatGroup,
+  Rf as Step,
+  tm as Stepper,
+  xr as Switch,
+  sg as THEME_CUSTOM_CSS_ID,
+  ag as TOAST_GROUP_WINDOW_MS,
   Ki as TOKEN_GROUPS,
-  Lp as TOKEN_LAYERS,
-  xr as TabList,
-  Im as TabPanel,
-  wr as TabTrigger,
-  Wf as Table,
-  Zf as TableBody,
-  im as TableCell,
-  lm as TableHead,
-  cm as TableHeader,
-  bm as TablePagination,
-  wm as TableRow,
-  Sr as Tabs,
-  Cr as Tag,
-  zm as ThemeProvider,
-  sp as TimePicker,
-  Tr as Toast,
-  fp as Toolbar,
+  Bp as TOKEN_LAYERS,
+  wr as TabList,
+  Vm as TabPanel,
+  Sr as TabTrigger,
+  nm as Table,
+  om as TableBody,
+  mm as TableCell,
+  vm as TableHead,
+  xm as TableHeader,
+  Am as TablePagination,
+  Dm as TableRow,
+  Cr as Tabs,
+  Tr as Tag,
+  Km as ThemeProvider,
+  bp as TimePicker,
+  Zu as TitleMenu,
+  Ir as Toast,
+  Cp as Toolbar,
   jt as Tooltip,
   ct as UI_DEFAULTS_KEY,
-  jp as UI_DENSITIES,
-  Zp as UI_FORM_DIRTY_KEY,
-  Xp as UI_FORM_ERRORS_KEY,
-  Qp as UI_ICON_TYPES,
-  Jp as UI_KEYBOARD_INSET_EVENT,
+  lg as UI_DENSITIES,
+  og as UI_FORM_DIRTY_KEY,
+  ug as UI_FORM_ERRORS_KEY,
+  cg as UI_ICON_TYPES,
+  dg as UI_KEYBOARD_INSET_EVENT,
   Hi as UI_PORTAL_KEY,
-  eg as UI_THEME_MODE_EVENT,
-  tg as UI_THEME_TRANSITION_CLASS,
-  ig as applyGoogleFontsCatalogPreview,
-  rg as applyGoogleFontsForTheme,
-  ng as applyThemeCustomCss,
-  zr as applyUiDensity,
-  Ar as applyUiTheme,
-  sg as buildGoogleFontsLinkTag,
-  ag as buildGoogleFontsStylesheetUrl,
-  lg as buildThemeCss,
-  og as buildThemeEnforcementCss,
-  ug as buildThemeModeScript,
-  cg as buildThemeStyleAttr,
-  dg as clearThemeCustomCss,
+  hg as UI_THEME_MODE_EVENT,
+  fg as UI_THEME_TRANSITION_CLASS,
+  mg as applyGoogleFontsCatalogPreview,
+  pg as applyGoogleFontsForTheme,
+  gg as applyThemeCustomCss,
+  Pr as applyUiDensity,
+  Mr as applyUiTheme,
+  bg as buildGoogleFontsLinkTag,
+  yg as buildGoogleFontsStylesheetUrl,
+  vg as buildThemeCss,
+  _g as buildThemeEnforcementCss,
+  kg as buildThemeModeScript,
+  xg as buildThemeStyleAttr,
+  wg as clearThemeCustomCss,
   ji as clearToasts,
-  hg as clearUiTheme,
-  fg as colorToHex,
-  mg as colorToRgb,
-  pg as computeThemeVars,
-  gg as contrastRatio,
-  bg as createFormErrorsContext,
-  yg as createUiId,
-  W as createUiIdFactory,
-  Op as default,
-  vg as defineTheme,
-  _g as deriveBrandColorsFromPrimary,
+  Sg as clearUiTheme,
+  Cg as colorToHex,
+  Tg as colorToRgb,
+  Ig as computeThemeVars,
+  Lg as contrastRatio,
+  Ag as createFormErrorsContext,
+  Mg as createUiId,
+  G as createUiIdFactory,
+  Gp as default,
+  zg as defineTheme,
+  Pg as deriveBrandColorsFromPrimary,
   Zi as dismissToast,
-  kg as ensureContrastForMode,
-  xg as ensureLabelContrast,
-  wg as expandTokens,
-  Sg as extendTheme,
+  Eg as ensureContrastForMode,
+  Og as ensureLabelContrast,
+  Dg as expandTokens,
+  Rg as extendTheme,
   ue as formDirtyMixin,
-  Ip as formatCurrencyAmount,
-  Cg as formatFontFamily,
-  Tg as formatGoogleFontFamilyName,
-  pl as formatMoneyInput,
+  Vp as formatCurrencyAmount,
+  Ng as formatFontFamily,
+  Fg as formatGoogleFontFamilyName,
+  gl as formatMoneyInput,
   di as getCurrencySymbol,
-  Ig as getFewPrimaryColors,
+  Vg as getFewPrimaryColors,
   fi as getMoneySeparators,
-  xd as getPriceInputConfig,
-  Lg as getThemeCssPath,
-  Ir as getThemePackage,
-  Ep as getUiMessages,
-  Ag as getUiThemeMode,
-  Mg as googleFontSelectOptions,
-  zg as hexToOklchString,
+  Dd as getPriceInputConfig,
+  Bg as getThemeCssPath,
+  Lr as getThemePackage,
+  Yp as getUiMessages,
+  $g as getUiThemeMode,
+  Hg as googleFontSelectOptions,
+  Kg as hexToOklchString,
   fe as iconTypeProp,
-  Pg as isThemePackage,
-  Eg as listThemes,
-  Og as mergeTokens,
-  Vi as mergeUiDefaults,
-  Gi as oklchToRgb,
-  Dg as onVisibleViewportChange,
-  Rg as parseHex,
-  ml as parseLocalizedMoneyInput,
-  Wi as parseOklch,
-  Fg as parseOklchLightness,
-  Ng as pickContrastForeground,
+  Ug as isThemePackage,
+  Yg as listThemes,
+  Gg as mergeTokens,
+  Bi as mergeUiDefaults,
+  Wi as oklchToRgb,
+  Wg as onVisibleViewportChange,
+  qg as parseHex,
+  pl as parseLocalizedMoneyInput,
+  Gi as parseOklch,
+  jg as parseOklchLightness,
+  Zg as pickContrastForeground,
   qt as pickPassthroughAttrs,
   Qi as provideUiDefaults,
   ge as pushToast,
-  Bg as readKeyboardInset,
-  Lr as registerTheme,
-  Vg as relativeLuminance,
+  Xg as readKeyboardInset,
+  Ar as registerTheme,
+  Qg as relativeLuminance,
   Xi as requestConfirm,
-  $g as resetUiIds,
-  Hg as resolveControlSize,
-  bp as resolveCssColorToHex,
+  Jg as resetUiIds,
+  eb as resolveControlSize,
+  Ap as resolveCssColorToHex,
   He as resolveCurrencyCode,
-  Kg as resolveSystemMode,
+  tb as resolveSystemMode,
   rt as resolveTheme,
   it as resolveThemeControlSize,
   Yt as resolveThemeDefault,
-  Ug as resolveThemeFontFamilies,
+  ib as resolveThemeFontFamilies,
   xe as resolveThemeIconType,
   Xe as resolveThemeVars,
-  z as resolveUiText,
-  Yg as resolveUiThemeMode,
+  M as resolveUiText,
+  rb as resolveUiThemeMode,
   qi as rgbToOklch,
   hi as sanitizeMoneyInput,
-  kd as setPriceInputConfig,
-  Wg as setToastExpanded,
-  Mr as setUiDefaults,
-  Gg as setUiFeedbackHandler,
-  xp as setUiTheme,
-  qg as setUiThemeMode,
-  jg as themeConfigToTokens,
-  Fe as themeIconTypeComputed,
-  Ap as themeToDesignTokens,
+  Od as setPriceInputConfig,
+  nb as setToastExpanded,
+  zr as setUiDefaults,
+  sb as setUiFeedbackHandler,
+  Op as setUiTheme,
+  ab as setUiThemeMode,
+  lb as themeConfigToTokens,
+  Ne as themeIconTypeComputed,
+  $p as themeToDesignTokens,
   Jt as toCssVarName,
-  Zg as toggleToastExpanded,
-  U as uiDefaultsMixin,
+  ob as toggleToastExpanded,
+  Y as uiDefaultsMixin,
   Si as uiFeedback,
   Pi as uiPortalMixin,
-  Pp as useConfirm,
-  zp as useDialog,
-  Mp as useToast,
-  Xg as useUiDefaults,
-  Qg as visibleViewportBottom,
-  Jg as withDerivedBrandTokens,
-  eb as withDerivedConfigBrandColors
+  Up as useConfirm,
+  Kp as useDialog,
+  Hp as useToast,
+  ub as useUiDefaults,
+  cb as visibleViewportBottom,
+  db as withDerivedBrandTokens,
+  hb as withDerivedConfigBrandColors
 };
 //# sourceMappingURL=index.js.map

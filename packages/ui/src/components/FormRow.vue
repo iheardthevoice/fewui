@@ -75,7 +75,7 @@ import { UI_FORM_ERRORS_KEY, formErrorText } from '../utils/form-errors.js'
 const nextFormRowId = createUiIdFactory('ui-form-control')
 
 const DIRECTIONS = ['vertical', 'horizontal']
-const VARIANTS = ['default', 'card']
+const VARIANTS = ['default', 'card', 'inset']
 
 export default {
   name: 'FormRow',
@@ -109,6 +109,8 @@ export default {
     /**
      * `default`: mevcut `direction` düzeni.
      * `card`: kenarlıklı, yuvarlatılmış yüzey; küçük ekranda dikey, `sm+` yatay `space-between`.
+     * `inset`: `ui-list-group` kartının satırı (iOS form) — etiket solda, kutusuz kontrol sağda;
+     *   etiketsiz satır tam genişlik (`primary` ise büyük ana alan). Açıklama / hata satırın altında.
      */
     variant: {
       type: String,
@@ -232,6 +234,8 @@ export default {
         this.stackOnMobile && this.direction === 'horizontal'
           ? 'ui-form-row--stack-mobile'
           : ''
+      // Gruplu kart satırı (`ui-list-group` içinde): etiket solda, kutusuz kontrol sağda.
+      if (this.variant === 'inset') return 'ui-form-row--inset'
       if (this.variant === 'card') {
         const base =
           this.direction === 'vertical'

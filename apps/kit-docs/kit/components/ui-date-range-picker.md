@@ -70,6 +70,7 @@ Registered globally as `<ui-date-range-picker>` by `app.use(UiLib)`. Local impor
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
+| `presentation` | `'auto' \| 'popover' \| 'dialog'` | `"auto"` | Açılış biçimi (`ui-popover` `presentation`): `auto` telefonda dialog, masaüstünde panel; `popover` her zaman panel; `dialog` her zaman dialog. |
 | `week-start` | `number` |  | Haftanın ilk günü (0 pazar … 6 cumartesi). Verilmezse dilden çözülür: `tr` / `en-GB` pazartesi, `en-US` pazar. |
 | `model-value` | `unknown[]` | `["",""]` | `[startYmd, endYmd]` |
 | `placement` | `'bottom-start' \| 'bottom-end' \| 'bottom' \| 'top-start' \| 'top-end' \| 'top'` | `"bottom-end"` | Masaüstü panelin tetikleyiciye göre yeri. Varsayılan sağa hizalı (`bottom-end`); araç çubuğunun solundaki filtre çipinde `bottom-start` verilir, panel sola taşmaz. |

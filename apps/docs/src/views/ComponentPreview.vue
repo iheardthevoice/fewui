@@ -406,6 +406,22 @@ const notifSelectAll = computed({
               <ui-radio value="public" label="Herkese açık" />
               <ui-radio value="links" label="Yalnızca bağlantılar" />
             </ui-radio-group>
+            <!-- Açılış biçimi: auto (telefonda dialog) · popover · dialog — slotlar iki biçimde aynı adla -->
+            <div class="mt-4">
+              <ui-select
+                v-model="profileVisibility"
+                presentation="dialog"
+                :options="[{ value: 'public', label: 'Herkese açık' }, { value: 'links', label: 'Yalnızca bağlantılar' }]"
+                aria-label="Görünürlük (dialog)"
+              />
+            </div>
+            <!-- iOS seçim listesi (tek seçim, satır sonunda ✓) -->
+            <p class="ui-section-label m-0 mt-4">İptal sebebi</p>
+            <ui-radio-group v-model="profileVisibility" variant="inset" aria-label="İptal sebebi">
+              <ui-radio value="public" label="Müşteri vazgeçti" />
+              <ui-radio value="links" label="Yanlış ödeme yöntemi" />
+              <ui-radio value="other" label="Diğer" />
+            </ui-radio-group>
           </ui-form-row>
           <ui-form-row label="E-posta özeti" description="Haftalık dinlenme ve gelir özeti." direction="horizontal">
             <ui-switch v-model="profileDigest" aria-label="E-posta özeti" />
@@ -877,6 +893,23 @@ const notifSelectAll = computed({
           <ui-list-item title="Wi-Fi" value="Misafir" icon="wifi" icon-hex="#5856D6" size="lg" interactive />
           <ui-list-item title="Hesabı sil" icon="trash" icon-hex="#FF3B30" color="danger" size="lg" interactive />
         </ui-list>
+      </ui-card>
+
+      <!-- Gruplu liste: tarih satırları + vurgulu ekleme satırı -->
+      <ui-card class="mb-8 break-inside-avoid w-full" title="Etkinlik günleri">
+        <ui-list-group label="Günler">
+          <ui-list-item tag="div" title="Tarih" value="12 Ara Cum" clearable interactive />
+          <ui-list-item tag="div" title="Tarih ekle" color="primary" interactive />
+        </ui-list-group>
+      </ui-card>
+
+      <!-- Görünüm satırları: görsel önizlemesi, ikon, renk noktası; × chevron hizasında -->
+      <ui-card class="mb-8 break-inside-avoid w-full" title="Kategori görünümü">
+        <ui-list-group label="Görünüm">
+          <ui-list-item tag="div" title="Görsel" value-image="https://picsum.photos/id/292/120/120" clearable interactive />
+          <ui-list-item tag="div" title="Simge" value-icon="mug-hot" clearable interactive />
+          <ui-list-item tag="div" title="Renk" value-swatch="#FF9500" value="Turuncu" interactive />
+        </ui-list-group>
       </ui-card>
 
       <!-- Bölge ve faturalama: dikey sekme -->

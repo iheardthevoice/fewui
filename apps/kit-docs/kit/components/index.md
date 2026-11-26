@@ -4,7 +4,7 @@ title: Components
 
 # Components
 
-fewui registers **100** global `ui-*` components. Every page lists props, events and slots generated from the component source, and most include a live example with copy-paste code.
+fewui registers **103** global `ui-*` components. Every page lists props, events and slots generated from the component source, and most include a live example with copy-paste code.
 
 ## Actions
 
@@ -33,3 +33,7 @@ fewui registers **100** global `ui-*` components. Every page lists props, events
 ## Layout
 
 [`ui-divider`](./ui-divider) · [`ui-resizable-group`](./ui-resizable-group) · [`ui-resizable-handle`](./ui-resizable-handle) · [`ui-resizable-panel`](./ui-resizable-panel) · [`ui-scroll-area`](./ui-scroll-area) · [`ui-section`](./ui-section) · [`ui-selection-indicator`](./ui-selection-indicator) · [`ui-theme-provider`](./ui-theme-provider) · [`ui-toolbar`](./ui-toolbar)
+
+## Other
+
+[`ui-list-group`](./ui-list-group) · [`ui-number-stepper`](./ui-number-stepper) · [`ui-title-menu`](./ui-title-menu)

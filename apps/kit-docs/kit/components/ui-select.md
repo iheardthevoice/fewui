@@ -101,6 +101,7 @@ Registered globally as `<ui-select>` by `app.use(UiLib)`. Local import: `import 
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
+| `presentation` | `'auto' \| 'popover' \| 'dialog'` | `"auto"` | Açılış biçimi (`ui-popover` `presentation`): `auto` telefonda dialog, masaüstünde panel; `popover` her zaman panel; `dialog` her zaman dialog. |
 | `variant` | `'field' \| 'inline'` | `"field"` |  |
 | `size` | `'md' \| 'lg' \| 'sm'` |  |  |
 | `model-value` | `string \| number \| boolean \| unknown[]` |  |  |

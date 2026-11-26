@@ -1,0 +1,66 @@
+/**
+ * Radio grubu — `variant="inset"`: iOS seçim listesi (iptal sebebi, tek seçim).
+ * Gruplu liste kartıyla aynı malzeme: satırlar kartın içinde, ayraç metin sütunundan başlar,
+ * seçim daireyle değil satır sonundaki ✓ ile gösterilir. Dialog / sheet içinde kart alan dolgusuna geçer.
+ */
+@layer components {
+  .ui-radio-group--inset {
+    --ui-radio-inset-px: 1rem;
+    @apply flex min-w-0 flex-col overflow-hidden border border-border [border-radius:min(var(--radius),_1.5rem)] [background-color:var(--surface)];
+  }
+
+  .ui-dialog-panel .ui-radio-group--inset,
+  .ui-sheet-panel .ui-radio-group--inset {
+    @apply border-transparent [border-radius:min(var(--radius),_1.25rem)] [background-color:var(--input-background)];
+  }
+
+  .ui-radio--inset {
+    @apply relative flex min-h-11 w-full cursor-pointer items-center gap-3 px-[var(--ui-radio-inset-px)] py-2.5 text-start transition-colors duration-150;
+  }
+
+  .ui-radio--inset:hover {
+    @apply [background-color:var(--ui-hover)];
+  }
+
+  .ui-radio--inset:has(input:focus-visible) {
+    @apply [box-shadow:inset_0_0_0_2px_var(--ring)];
+  }
+
+  .ui-radio--inset + .ui-radio--inset::before {
+    @apply pointer-events-none absolute end-0 top-0 h-px [content:''] [inset-inline-start:var(--ui-radio-inset-px)] [background:color-mix(in_oklab,_var(--foreground)_12%,_transparent)];
+  }
+
+  .ui-radio--inset .ui-radio-indicator {
+    @apply hidden;
+  }
+
+  .ui-radio--inset .ui-radio-body {
+    @apply flex min-w-0 flex-1 flex-col;
+  }
+
+  .ui-radio--inset .ui-radio-label {
+    @apply text-sm font-normal leading-5 text-foreground;
+  }
+
+  .ui-radio--inset .ui-radio-description {
+    @apply text-xs leading-4 text-muted-foreground;
+  }
+
+  .ui-radio-check {
+    @apply shrink-0 [color:var(--primary-ink)];
+  }
+
+  @media (pointer: coarse) {
+    .ui-radio--inset {
+      @apply min-h-12;
+    }
+
+    .ui-radio--inset .ui-radio-label {
+      @apply text-base leading-6;
+    }
+
+    .ui-radio--inset .ui-radio-description {
+      @apply text-sm leading-5;
+    }
+  }
+}

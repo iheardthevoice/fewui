@@ -92,6 +92,7 @@ export default {
       noResults: 'No results',
     },
     datePicker: {
+      placeholder: 'Pick a date',
       today: 'Today',
       yesterday: 'Yesterday',
       tomorrow: 'Tomorrow',
@@ -155,6 +156,13 @@ export default {
     },
     resizable: {
       handle: 'Resize panels',
+    },
+    numberStepper: {
+      decrease: 'Decrease',
+      increase: 'Increase',
+    },
+    listItem: {
+      clear: 'Clear',
     },
     slider: {
       minThumb: 'Minimum',

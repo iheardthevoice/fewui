@@ -1,6 +1,6 @@
 # fewui
 
-> Vue 3 design system: 100 globally registered `ui-*` components, theme packages, Tailwind v4 component styles. Plain JavaScript (Options API) with generated TypeScript declarations.
+> Vue 3 design system: 103 globally registered `ui-*` components, theme packages, Tailwind v4 component styles. Plain JavaScript (Options API) with generated TypeScript declarations.
 
 Rules that apply everywhere: never put appearance classes on a `ui-*` component (use props); `color` is the tone (primary, secondary, success, warning, info, danger) and `variant` is the visual style; visibility is `open` + `update:open`; form controls go inside `ui-form-row`.
 
@@ -26,13 +26,13 @@ Rules that apply everywhere: never put appearance classes on a `ui-*` component 
 
 - [ui-checkbox](https://fewui-kit.pages.dev/kit/components/ui-checkbox.html): props value, modelValue, label, description, highlight, size, presentational, indeterminate
 - [ui-checkbox-group](https://fewui-kit.pages.dev/kit/components/ui-checkbox-group.html): props modelValue, variant, orientation, ariaLabel
-- [ui-color-picker](https://fewui-kit.pages.dev/kit/components/ui-color-picker.html): props modelValue, disabled, triggerPlaceholder, popoverTitle, clearLabel, customColorLabel, block, options, showCustom, showClear
+- [ui-color-picker](https://fewui-kit.pages.dev/kit/components/ui-color-picker.html): props presentation, modelValue, disabled, triggerPlaceholder, popoverTitle, clearLabel, customColorLabel, block, options, showCustom, showClear
 - [ui-currency-input](https://fewui-kit.pages.dev/kit/components/ui-currency-input.html): props modelValue, currency, locale, size, disabled, readonly, placeholder, name, id, autocomplete, ariaDescribedby
-- [ui-date-picker](https://fewui-kit.pages.dev/kit/components/ui-date-picker.html): props weekStart, modelValue, placeholder, disabled, block, embedded, showQuick, id, min, todayLabel, yesterdayLabel, tomorrowLabel
-- [ui-date-range-picker](https://fewui-kit.pages.dev/kit/components/ui-date-range-picker.html): props weekStart, modelValue, placement, placeholder, disabled, id, min, max, presets, open, showTrigger, anchor
-- [ui-field-action](https://fewui-kit.pages.dev/kit/components/ui-field-action.html): props open, title, description, actionName, mode, value, prefixIcon, suffixIcon, iconOnly, clearable, disabled, size
+- [ui-date-picker](https://fewui-kit.pages.dev/kit/components/ui-date-picker.html): props presentation, weekStart, modelValue, placeholder, disabled, block, embedded, showQuick, id, min, todayLabel, yesterdayLabel
+- [ui-date-range-picker](https://fewui-kit.pages.dev/kit/components/ui-date-range-picker.html): props presentation, weekStart, modelValue, placement, placeholder, disabled, id, min, max, presets, open, showTrigger
+- [ui-field-action](https://fewui-kit.pages.dev/kit/components/ui-field-action.html): props presentation, open, title, description, actionName, mode, value, prefixIcon, suffixIcon, iconOnly, clearable, disabled
 - [ui-form-row](https://fewui-kit.pages.dev/kit/components/ui-form-row.html): props label, description, direction, stackOnMobile, variant, id, error, field, primary
-- [ui-icon-picker](https://fewui-kit.pages.dev/kit/components/ui-icon-picker.html): props modelValue, icons, iconType, disabled, triggerPlaceholder, popoverTitle, clearLabel, searchPlaceholder, noResultsLabel, maxResults, panelWidth, block
+- [ui-icon-picker](https://fewui-kit.pages.dev/kit/components/ui-icon-picker.html): props presentation, modelValue, icons, iconType, disabled, triggerPlaceholder, popoverTitle, clearLabel, searchPlaceholder, noResultsLabel, maxResults, panelWidth
 - [ui-input](https://fewui-kit.pages.dev/kit/components/ui-input.html): props variant, size, modelValue, type, multiline, rows, prefixIcon, suffixIcon, disabled, readonly, placeholder, name
 - [ui-password](https://fewui-kit.pages.dev/kit/components/ui-password.html): props size, modelValue, disabled, readonly, placeholder, name, id, autocomplete, maxlength, showStrength
 - [ui-phone](https://fewui-kit.pages.dev/kit/components/ui-phone.html): props country, number, countries, size, disabled, readonly, placeholder, numberName, id, autocomplete, numberMaxlength, countryAriaLabel
@@ -40,10 +40,10 @@ Rules that apply everywhere: never put appearance classes on a `ui-*` component 
 - [ui-price-input](https://fewui-kit.pages.dev/kit/components/ui-price-input.html): props modelValue, currency, format, locale
 - [ui-radio](https://fewui-kit.pages.dev/kit/components/ui-radio.html): props value, label, description, highlight
 - [ui-radio-group](https://fewui-kit.pages.dev/kit/components/ui-radio-group.html): props modelValue, variant, orientation, columns, size, ariaLabel
-- [ui-select](https://fewui-kit.pages.dev/kit/components/ui-select.html): props variant, size, modelValue, multiple, options, disabled, loading, placeholder, clearable, filterable, filterPlaceholder, prefixIcon
+- [ui-select](https://fewui-kit.pages.dev/kit/components/ui-select.html): props presentation, variant, size, modelValue, multiple, options, disabled, loading, placeholder, clearable, filterable, filterPlaceholder
 - [ui-slider](https://fewui-kit.pages.dev/kit/components/ui-slider.html): props modelValue, range, minDistance, formatValue, min, max, step, label, valueText, minLabel, maxLabel, disabled
 - [ui-switch](https://fewui-kit.pages.dev/kit/components/ui-switch.html): props modelValue, disabled, id, ariaDescribedby
-- [ui-time-picker](https://fewui-kit.pages.dev/kit/components/ui-time-picker.html): props modelValue, stepMinutes, placeholder, disabled, embedded, id, popoverWidth
+- [ui-time-picker](https://fewui-kit.pages.dev/kit/components/ui-time-picker.html): props presentation, modelValue, stepMinutes, placeholder, disabled, embedded, id, popoverWidth
 
 ## Overlays
 
@@ -96,7 +96,7 @@ Rules that apply everywhere: never put appearance classes on a `ui-*` component 
 - [ui-icon-tile](https://fewui-kit.pages.dev/kit/components/ui-icon-tile.html): props icon, iconType, color, variant, hex, size, shape
 - [ui-kbd](https://fewui-kit.pages.dev/kit/components/ui-kbd.html): props keys, size
 - [ui-list](https://fewui-kit.pages.dev/kit/components/ui-list.html): props tag, variant, density
-- [ui-list-item](https://fewui-kit.pages.dev/kit/components/ui-list-item.html): props prefixIcon, prefixIconType, align, tag, title, description, value, icon, iconType, iconColor, iconHex, iconVariant
+- [ui-list-item](https://fewui-kit.pages.dev/kit/components/ui-list-item.html): props prefixIcon, prefixIconType, align, tag, title, description, value, valueIcon, valueIconType, valueSwatch, valueImage, placeholder
 - [ui-photo](https://fewui-kit.pages.dev/kit/components/ui-photo.html): props src, alt, favorite, aspect, size, interactive, preview, overflowLabel, galleryIndex
 - [ui-photos](https://fewui-kit.pages.dev/kit/components/ui-photos.html): props items, max, aspect, preview
 - [ui-price-display](https://fewui-kit.pages.dev/kit/components/ui-price-display.html): props label, value, size, valueSize, tone
@@ -128,7 +128,13 @@ Rules that apply everywhere: never put appearance classes on a `ui-*` component 
 - [ui-resizable-handle](https://fewui-kit.pages.dev/kit/components/ui-resizable-handle.html): props showGrip, disabled, ariaLabel
 - [ui-resizable-panel](https://fewui-kit.pages.dev/kit/components/ui-resizable-panel.html): props defaultSize, minSize, maxSize, collapsible, collapsedSize
 - [ui-scroll-area](https://fewui-kit.pages.dev/kit/components/ui-scroll-area.html): props orientation, maxHeight, fade, ariaLabel
-- [ui-section](https://fewui-kit.pages.dev/kit/components/ui-section.html): props title, description, icon, showDivider
+- [ui-section](https://fewui-kit.pages.dev/kit/components/ui-section.html): props title, description, icon, divided, showDivider
 - [ui-selection-indicator](https://fewui-kit.pages.dev/kit/components/ui-selection-indicator.html): props selector
 - [ui-theme-provider](https://fewui-kit.pages.dev/kit/components/ui-theme-provider.html): props theme, mode, overrides, defaults, background, tag
 - [ui-toolbar](https://fewui-kit.pages.dev/kit/components/ui-toolbar.html): props direction, wrap, ariaLabel
+
+## Other
+
+- [ui-list-group](https://fewui-kit.pages.dev/kit/components/ui-list-group.html): props label, footer, ariaLabel
+- [ui-number-stepper](https://fewui-kit.pages.dev/kit/components/ui-number-stepper.html): props modelValue, min, max, step, size, disabled, ariaLabel, decreaseLabel, increaseLabel
+- [ui-title-menu](https://fewui-kit.pages.dev/kit/components/ui-title-menu.html): props title, items, suffixIcon, suffixIconColor, ariaLabel

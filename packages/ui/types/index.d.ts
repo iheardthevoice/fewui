@@ -390,6 +390,8 @@ export interface CollapsibleProps {
 export declare const Collapsible: DefineComponent<CollapsibleProps>
 
 export interface ColorPickerProps {
+  /** Açılış biçimi (`ui-popover` `presentation`): `auto` telefonda dialog, masaüstünde panel; `popover` her zaman panel; `dialog` her zaman dialog. */
+  presentation?: 'auto' | 'popover' | 'dialog'
   modelValue?: string
   disabled?: boolean
   triggerPlaceholder?: string
@@ -477,10 +479,13 @@ export interface CurrencyInputProps {
 export declare const CurrencyInput: DefineComponent<CurrencyInputProps>
 
 export interface DatePickerProps {
+  /** Açılış biçimi (`ui-popover` `presentation`): `auto` telefonda dialog, masaüstünde panel; `popover` her zaman panel; `dialog` her zaman dialog. */
+  presentation?: 'auto' | 'popover' | 'dialog'
   /** Haftanın ilk günü (0 pazar … 6 cumartesi). Verilmezse dilden çözülür: `tr` / `en-GB` pazartesi, `en-US` pazar. */
   weekStart?: number
   /** `YYYY-MM-DD` */
   modelValue?: string
+  /** Boşsa `ui.datePicker.placeholder` (dile göre) kullanılır. */
   placeholder?: string
   disabled?: boolean
   block?: boolean
@@ -503,6 +508,8 @@ export interface DatePickerProps {
 export declare const DatePicker: DefineComponent<DatePickerProps>
 
 export interface DateRangePickerProps {
+  /** Açılış biçimi (`ui-popover` `presentation`): `auto` telefonda dialog, masaüstünde panel; `popover` her zaman panel; `dialog` her zaman dialog. */
+  presentation?: 'auto' | 'popover' | 'dialog'
   /** Haftanın ilk günü (0 pazar … 6 cumartesi). Verilmezse dilden çözülür: `tr` / `en-GB` pazartesi, `en-US` pazar. */
   weekStart?: number
   /** `[startYmd, endYmd]` */
@@ -542,7 +549,6 @@ export interface DialogProps {
   borderType?: 'solid' | 'dashed' | 'dotted' | 'double'
   title?: string
   description?: string
-  /** Varsayılan üst başlıkta gösterilecek ikon (`ui-icon` `name`). */
   icon?: string
   /** `ui-icon` `type` prop’u. */
   iconType?: 'solid' | 'regular' | 'brands' | 'light' | 'duotone' | 'thin'
@@ -552,7 +558,7 @@ export interface DialogProps {
   closeLabel?: string
   /** Başlıkta geri düğmesi; `@back` ile birlikte kullanılır. */
   withBack?: boolean
-  /** Geri düğmesi metni; boşsa `ui.dialog.back` (i18n). */
+  /** Geri düğmesi metni — önceki ekranın adı verilir (iOS: "‹ Profil Tercihleri"); boşsa `ui.dialog.back`. Geri düğmesi olan başlıkta üst satır: geri solda, `#actions` (ör. Kaydet) sağda; başlık altta. */
   backLabel?: string
   /** Gövde: yatay satır (buton / ikon sıraları). */
   row?: boolean
@@ -650,6 +656,8 @@ export interface FieldProps {
 export declare const Field: DefineComponent<FieldProps>
 
 export interface FieldActionProps {
+  /** Açılış biçimi (`ui-popover` `presentation`): `auto` telefonda dialog, masaüstünde panel; `popover` her zaman panel; `dialog` her zaman dialog. */
+  presentation?: 'popover' | 'dialog' | 'auto'
   /** `v-model:open` */
   open?: boolean
   title?: string
@@ -739,8 +747,8 @@ export interface FormRowProps {
   direction?: 'vertical' | 'horizontal'
   /** `direction="horizontal"` iken dar viewport’ta dikey yığılır (`max-width: 1023px` — segment `icon-only="mobile"` ile aynı kırılım). */
   stackOnMobile?: boolean
-  /** `default`: mevcut `direction` düzeni. `card`: kenarlıklı, yuvarlatılmış yüzey; küçük ekranda dikey, `sm+` yatay `space-between`. */
-  variant?: 'default' | 'card'
+  /** `default`: mevcut `direction` düzeni. `card`: kenarlıklı, yuvarlatılmış yüzey; küçük ekranda dikey, `sm+` yatay `space-between`. `inset`: `ui-list-group` kartının satırı (iOS form) — etiket solda, kutusuz kontrol sağda; etiketsiz satır tam genişlik (`primary` ise büyük ana alan). Açıklama / hata satırın altında. */
+  variant?: 'default' | 'card' | 'inset'
   /** Dışarıdan sabit id vermek için (ör. test); verilmezse otomatik üretilir. */
   id?: string
   /** Alan hatası (WCAG 3.3.1). Verilince kontrolün altında gösterilir; kontrol `aria-invalid` ve `aria-describedby` ile otomatik bağlanır (FormRow içindeki ilk fewui kontrolü). */
@@ -823,6 +831,8 @@ export interface IconProps {
 export declare const Icon: DefineComponent<IconProps>
 
 export interface IconPickerProps {
+  /** Açılış biçimi (`ui-popover` `presentation`): `auto` telefonda dialog, masaüstünde panel; `popover` her zaman panel; `dialog` her zaman dialog. */
+  presentation?: 'auto' | 'popover' | 'dialog'
   modelValue?: string
   icons?: unknown[]
   iconType?: string
@@ -942,6 +952,15 @@ export interface ListItemProps {
   description?: string
   /** Sağdaki kısa durum metni (chevron'un solunda) */
   value?: string
+  /** Değerin önündeki ikon — değerin türünü bir bakışta anlatır (cihaz, işletim sistemi, tarayıcı, kaynak). Marka ikonları için `value-icon-type="brands"`. */
+  valueIcon?: string
+  valueIconType?: 'solid'
+  /** Değerin önünde renk noktası (CSS rengi) — renk seçimi satırı ("Renk ●"). `value-icon` / `value-swatch` tek başına da değer sayılır (metinsiz gösterilir). */
+  valueSwatch?: string
+  /** Değerin önünde küçük görsel önizlemesi (URL) — görsel seçimi satırı; tek başına da değer sayılır. */
+  valueImage?: string
+  /** Değer boşken sağda soluk gösterilen metin (ör. "Masa seçin"); chevron korunur. */
+  placeholder?: string
   /** Satır başı ikon karosu (`ui-icon-tile`) */
   icon?: string
   iconType?: 'solid'
@@ -951,8 +970,8 @@ export interface ListItemProps {
   iconHex?: string
   /** `soft` | `solid` — hex verildiğinde varsayılan `solid` */
   iconVariant?: string
-  /** `danger`: başlık tehlike tonunda (ör. hesabı sil) */
-  color?: 'danger'
+  /** `danger`: başlık tehlike tonunda (ör. hesabı sil) · `primary`: ekleme satırı (ör. "Tarih ekle") */
+  color?: 'danger' | 'primary'
   /** sm / md: 14px başlık · lg: 16px başlık */
   size?: 'sm' | 'md' | 'lg'
   /** `vue-router` hedefi — satır bağlantı olur */
@@ -960,12 +979,56 @@ export interface ListItemProps {
   /** Satır düğme olur ve `click` yayar */
   interactive?: boolean
   disabled?: boolean
-  /** Tıklanabilir satırda sağ gösterge: `chevron` | `external` | `none` */
-  trailingIcon?: 'chevron' | 'external' | 'none'
+  /** Tıklanabilir satırda sağ gösterge: `chevron` | `external` | `copy` (değeri kopyalar) | `none` */
+  trailingIcon?: 'chevron' | 'external' | 'copy' | 'none'
+  /** Değer varken satırın sağında temizle (×) düğmesi; `clear` yayar. Chevron yerine çizilir. Seçim satırlarında (masa, kategori) seçimi kaldırmak için. */
+  clearable?: boolean
+  clearLabel?: string
   'onClick'?: (...args: any[]) => any
+  'onClear'?: (...args: any[]) => any
 }
 
 export declare const ListItem: DefineComponent<ListItemProps>
+
+export interface ListGroupProps {
+  /** Kartın üstündeki bölüm etiketi (büyük harf, ikincil) */
+  label?: string
+  /** Kartın altındaki açıklama — satırın uzun anlatımı buraya yazılır */
+  footer?: string
+  /** Etiket yoksa listenin erişilebilir adı */
+  ariaLabel?: string
+}
+
+export declare const ListGroup: DefineComponent<ListGroupProps>
+
+export interface NumberStepperProps {
+  modelValue?: number
+  min?: number
+  max?: number
+  step?: number
+  size?: 'sm'
+  disabled?: boolean
+  /** Grubun erişilebilir adı (ör. "Kişi sayısı") */
+  ariaLabel?: string
+  decreaseLabel?: string
+  increaseLabel?: string
+  'onUpdate:modelValue'?: (...args: any[]) => any
+}
+
+export declare const NumberStepper: DefineComponent<NumberStepperProps>
+
+export interface TitleMenuProps {
+  title?: string
+  /** `ui-dropdown` öğeleri */
+  items?: unknown[]
+  /** Başlıktan sonra durum ikonu (ör. `star`); boşsa çizilmez */
+  suffixIcon?: string
+  suffixIconColor?: 'primary' | 'secondary' | 'success' | 'warning' | 'info' | 'danger'
+  ariaLabel?: string
+  'onSelect'?: (...args: any[]) => any
+}
+
+export declare const TitleMenu: DefineComponent<TitleMenuProps>
 
 export interface MenuProps {
   /** `full` (varsayılan): kapsayıcıyı (kart, sidebar) doldurur. `sm` / `md` / `lg`: sabit genişlik — yüzen panel vb. */
@@ -1148,6 +1211,14 @@ export interface PopoverProps {
   inheritLayout?: boolean
   /** Mobil görünümde paneli ekran ortasında aç (varsayılan). false: tetikleyiciye göre konumlanır (Dropdown menüler). */
   mobileCentered?: boolean
+  /** Açılış biçimi: `auto` (varsayılan) — telefonda (`mobileCentered` iken) gerçek `ui-dialog`, masaüstünde tetikleyiciye bağlı panel; `popover` — her zaman panel (telefonda ortalı panel); `dialog` — her zaman `ui-dialog`. Slotlar iki biçimde aynı adla çalışır: `header`, `toolbar`, `actions`, varsayılan / `content`, `footer`. */
+  presentation?: 'auto' | 'popover' | 'dialog'
+  /** Dialog başlığı (dialog sunumunda). Boşsa tetikleyiciden türetilir: `ui-form-row` etiketi, `ui-list-item` başlığı ya da `ariaLabel`. Verilirse dialog'un hazır başlığı `#header`'ın yerini alır. */
+  title?: string
+  /** Dialog açıklaması (dialog sunumunda başlığın altında). */
+  description?: string
+  /** Dialog sunumunda genişlik (`ui-dialog` `max-width`). */
+  dialogMaxWidth?: string
   /** Panelin (`role="dialog"`) erişilebilir adı; metin i18n'den gelir. */
   ariaLabel?: string
   'onUpdate:open'?: (...args: any[]) => any
@@ -1239,8 +1310,8 @@ export declare const Radio: DefineComponent<RadioProps>
 
 export interface RadioGroupProps {
   modelValue?: string | number | boolean
-  /** `list` — satır listesi; `button` — kart seçenekleri */
-  variant?: 'list' | 'button'
+  /** `list` — satır listesi; `button` — kart seçenekleri; `inset` — iOS seçim listesi: gruplu kartın satırları, seçili satırda sağda ✓ (daire yok). */
+  variant?: 'list' | 'button' | 'inset'
   /** `list`: varsayılan dikey; `horizontal` yan yana. `button`: varsayılan yatay; `vertical` alt alta (uzun açıklamalı plan seçimi vb.). */
   orientation?: 'vertical' | 'horizontal'
   /** `button` + yatay: sabit sütun sayısı (dar dialog'da 3 seçenek yan yana). `0` (varsayılan) — `auto-fit` ile genişliğe göre sarılır. */
@@ -1309,6 +1380,8 @@ export interface SectionProps {
   title?: string
   description?: string
   icon?: string
+  /** Geniş yerleşimde alanlar arasına ayraç (etiket solda, kontrol sağda düzeni). Dar ekranda satırlar dikeye döndüğü için ayraç çizilmez. Alanlar arasına elle `ui-divider` koymak yerine kullanılır. */
+  divided?: boolean
   /** `false`: üstteki sekme / segment konumu zaten gösteriyorsa etiketli ayırıcı çizilmez */
   showDivider?: boolean
 }
@@ -1351,6 +1424,8 @@ export interface SegmentGroupProps {
 export declare const SegmentGroup: DefineComponent<SegmentGroupProps>
 
 export interface SelectProps {
+  /** Açılış biçimi (`ui-popover` `presentation`): `auto` telefonda dialog, masaüstünde panel; `popover` her zaman panel; `dialog` her zaman dialog. */
+  presentation?: 'auto' | 'popover' | 'dialog'
   variant?: 'field' | 'inline'
   size?: 'md' | 'lg' | 'sm'
   modelValue?: string | number | boolean | unknown[]
@@ -1712,6 +1787,8 @@ export interface ThemeProviderProps {
 export declare const ThemeProvider: DefineComponent<ThemeProviderProps>
 
 export interface TimePickerProps {
+  /** Açılış biçimi (`ui-popover` `presentation`): `auto` telefonda dialog, masaüstünde panel; `popover` her zaman panel; `dialog` her zaman dialog. */
+  presentation?: 'auto' | 'popover' | 'dialog'
   /** `HH:mm` (24 saat) */
   modelValue?: string
   /** Adım (dakika) */
@@ -2151,6 +2228,12 @@ declare module 'vue' {
     UiList: typeof List
     'ui-list-item': typeof ListItem
     UiListItem: typeof ListItem
+    'ui-list-group': typeof ListGroup
+    UiListGroup: typeof ListGroup
+    'ui-number-stepper': typeof NumberStepper
+    UiNumberStepper: typeof NumberStepper
+    'ui-title-menu': typeof TitleMenu
+    UiTitleMenu: typeof TitleMenu
     'ui-menu': typeof Menu
     UiMenu: typeof Menu
     'ui-menu-group': typeof MenuGroup

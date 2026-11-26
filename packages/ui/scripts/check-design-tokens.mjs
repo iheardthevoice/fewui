@@ -80,6 +80,19 @@ for (const root of roots) {
         findings.push({ rule: rule.id, file: rel, line: lineOf(source, match.index), text: match[0].slice(0, 60), hint: rule.hint })
       }
     }
+    // Dialog / sheet içeriğine ekran yüksekliğine bağlı sabit min-height: kısa içerikte altta boş alan bırakır.
+    // Dialog içeriği kadar uzar; yükseklik tavanı `panel-max-height` ile verilir.
+    if ((!only || only.includes('dialog-fixed-height')) && /<ui-(dialog|sheet)\b/.test(source)) {
+      for (const match of source.matchAll(/(?<![\w-])min-h-\[[^\]]*\d+d?vh[^\]]*\]/g)) {
+        findings.push({
+          rule: 'dialog-fixed-height',
+          file: rel,
+          line: lineOf(source, match.index),
+          text: match[0],
+          hint: 'dialog içeriğe göre uzar; tavan için panel-max-height',
+        })
+      }
+    }
     // Palet rengi: aynı class dizisinde `dark:` karşılığı yoksa
     if (only && !only.includes('palette-no-dark')) continue
     for (const classMatch of source.matchAll(/class="([^"]*)"/g)) {

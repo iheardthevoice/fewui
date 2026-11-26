@@ -95,6 +95,10 @@ Registered globally as `<ui-popover>` by `app.use(UiLib)`. Local import: `import
 | `block` | `boolean` | `false` | true: tetikleyici satır genişliğini doldurur (sidebar footer vb.) |
 | `inherit-layout` | `boolean` | `false` | true: kök ve tetikleyici kabuğu `display: contents` — flex satırında yalnızca slot (ör. `ui-tab-trigger`) katılır; konumlandırma ilk çocuk öğeden alınır. |
 | `mobile-centered` | `boolean` | `true` | Mobil görünümde paneli ekran ortasında aç (varsayılan). false: tetikleyiciye göre konumlanır (Dropdown menüler). |
+| `presentation` | `'auto' \| 'popover' \| 'dialog'` | `"auto"` | Açılış biçimi: `auto` (varsayılan) — telefonda (`mobileCentered` iken) gerçek `ui-dialog`, masaüstünde tetikleyiciye bağlı panel; `popover` — her zaman panel (telefonda ortalı panel); `dialog` — her zaman `ui-dialog`. Slotlar iki biçimde aynı adla çalışır: `header`, `toolbar`, `actions`, varsayılan / `content`, `footer`. |
+| `title` | `string` | `""` | Dialog başlığı (dialog sunumunda). Boşsa tetikleyiciden türetilir: `ui-form-row` etiketi, `ui-list-item` başlığı ya da `ariaLabel`. Verilirse dialog'un hazır başlığı `#header`'ın yerini alır. |
+| `description` | `string` | `""` | Dialog açıklaması (dialog sunumunda başlığın altında). |
+| `dialog-max-width` | `string` | `"sm"` | Dialog sunumunda genişlik (`ui-dialog` `max-width`). |
 | `aria-label` | `string` | `""` | Panelin (`role="dialog"`) erişilebilir adı; metin i18n'den gelir. |
 
 ## Events
@@ -109,6 +113,9 @@ Registered globally as `<ui-popover>` by `app.use(UiLib)`. Local import: `import
 | --- | --- |
 | `trigger` | `open`, `toggle`, `close`, `triggerAttrs` |
 | `header` | `close` |
+| `actions` | `close` |
+| `toolbar` | `close` |
 | `content` | `close` |
+| `default` | `close` |
 | `footer` | `close` |
 

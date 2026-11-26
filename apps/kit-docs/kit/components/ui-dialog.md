@@ -93,12 +93,12 @@ Registered globally as `<ui-dialog>` by `app.use(UiLib)`. Local import: `import 
 | `border-type` | `'solid' \| 'dashed' \| 'dotted' \| 'double'` | `"solid"` | `border-*` stili. |
 | `title` | `string` | `""` |  |
 | `description` | `string` | `""` |  |
-| `icon` | `string` | `null` | Varsayılan üst başlıkta gösterilecek ikon (`ui-icon` `name`). |
+| `icon` | `string` | `null` |  |
 | `icon-type` | `'solid' \| 'regular' \| 'brands' \| 'light' \| 'duotone' \| 'thin'` |  | `ui-icon` `type` prop’u. |
 | `show-close` | `boolean` | `true` | Sağ üst kapat düğmesi. |
 | `close-label` | `string` | `""` | Kapat düğmesi `aria-label`; boşsa `ui.dialog.close` (i18n). |
 | `with-back` | `boolean` | `false` | Başlıkta geri düğmesi; `@back` ile birlikte kullanılır. |
-| `back-label` | `string` | `""` | Geri düğmesi metni; boşsa `ui.dialog.back` (i18n). |
+| `back-label` | `string` | `""` | Geri düğmesi metni — önceki ekranın adı verilir (iOS: "‹ Profil Tercihleri"); boşsa `ui.dialog.back`. Geri düğmesi olan başlıkta üst satır: geri solda, `#actions` (ör. Kaydet) sağda; başlık altta. |
 | `row` | `boolean` | `false` | Gövde: yatay satır (buton / ikon sıraları). |
 | `body-padding` | `'default' \| 'none'` | `"default"` | Gövde dolgusu — `none`: kenar padding sıfır (POS ödeme vb.). |
 | `body-layout` | `'default' \| 'flex'` | `"default"` | Gövde düzeni — `flex`: dikey flex + taşma kontrolü (içerik paneli). |

@@ -101,6 +101,7 @@ export default {
       noResults: 'Sonuç bulunamadı',
     },
     datePicker: {
+      placeholder: 'Tarih seçin',
       today: 'Bugün',
       yesterday: 'Dün',
       tomorrow: 'Yarın',
@@ -164,6 +165,13 @@ export default {
     },
     resizable: {
       handle: 'Panelleri yeniden boyutlandır',
+    },
+    numberStepper: {
+      decrease: 'Azalt',
+      increase: 'Artır',
+    },
+    listItem: {
+      clear: 'Temizle',
     },
     slider: {
       minThumb: 'En az',

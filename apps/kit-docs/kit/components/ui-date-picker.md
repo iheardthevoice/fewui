@@ -64,9 +64,10 @@ Registered globally as `<ui-date-picker>` by `app.use(UiLib)`. Local import: `im
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
+| `presentation` | `'auto' \| 'popover' \| 'dialog'` | `"auto"` | Açılış biçimi (`ui-popover` `presentation`): `auto` telefonda dialog, masaüstünde panel; `popover` her zaman panel; `dialog` her zaman dialog. |
 | `week-start` | `number` |  | Haftanın ilk günü (0 pazar … 6 cumartesi). Verilmezse dilden çözülür: `tr` / `en-GB` pazartesi, `en-US` pazar. |
 | `model-value` | `string` | `""` | `YYYY-MM-DD` |
-| `placeholder` | `string` | `"Pick a date"` |  |
+| `placeholder` | `string` | `""` | Boşsa `ui.datePicker.placeholder` (dile göre) kullanılır. |
 | `disabled` | `boolean` | `false` |  |
 | `block` | `boolean` | `true` |  |
 | `embedded` | `boolean` | `false` | true: tetikleyici/popover yok — paneli doğrudan yerleştir (FieldAction vb.). |

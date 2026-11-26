@@ -44,8 +44,7 @@
             <slot name="header">
               <div
                 v-if="hasDefaultHeader"
-                class="ui-sheet-header"
-                :class="{ 'ui-sheet-header--no-icon': !icon }"
+                class="ui-sheet-header ui-sheet-header--no-icon"
               >
                 <h3
                   v-if="title"
@@ -54,16 +53,6 @@
                 >
                   {{ title }}
                 </h3>
-                <span
-                  v-if="icon"
-                  class="ui-sheet-header__icon"
-                >
-                  <ui-icon
-                    :name="icon"
-                    :type="resolvedIconType"
-                    size="sm"
-                  />
-                </span>
                 <div
                   v-if="$slots.append || $slots.actions"
                   class="ui-sheet-header__actions"
@@ -204,6 +193,7 @@ export default {
       type: String,
       default: '',
     },
+    /** @deprecated Başlıkta süs ikonu çizilmez (DESIGN.md § Ekran anatomisi). Prop geriye uyum için kalır. */
     icon: {
       type: String,
       default: null,
@@ -299,7 +289,6 @@ export default {
     },
     hasDefaultHeader() {
       return !!(
-        this.icon ||
         (this.title != null && this.title !== '') ||
         (this.description != null && this.description !== '') ||
         this.$slots.actions ||

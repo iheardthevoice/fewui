@@ -64,7 +64,7 @@ Registered globally as `<ui-radio-group>` by `app.use(UiLib)`. Local import: `im
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
 | `model-value` | `string \| number \| boolean` | `null` |  |
-| `variant` | `'list' \| 'button'` | `"list"` | `list` — satır listesi; `button` — kart seçenekleri |
+| `variant` | `'list' \| 'button' \| 'inset'` | `"list"` | `list` — satır listesi; `button` — kart seçenekleri; `inset` — iOS seçim listesi: gruplu kartın satırları, seçili satırda sağda ✓ (daire yok). |
 | `orientation` | `'vertical' \| 'horizontal'` | `null` | `list`: varsayılan dikey; `horizontal` yan yana. `button`: varsayılan yatay; `vertical` alt alta (uzun açıklamalı plan seçimi vb.). |
 | `columns` | `number` | `0` | `button` + yatay: sabit sütun sayısı (dar dialog'da 3 seçenek yan yana). `0` (varsayılan) — `auto-fit` ile genişliğe göre sarılır. |
 | `size` | `string` |  | Yalnız `button`: kartlar kontrol boyuna iner (button / input ile aynı yükseklik ve köşe), etiket tek satır ortalı, seçim dolgu ile gösterilir. Boş (varsayılan) — açıklamalı kart. |

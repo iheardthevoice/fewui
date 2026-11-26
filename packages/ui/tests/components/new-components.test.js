@@ -189,3 +189,84 @@ describe('Breadcrumb', () => {
     expect(document.querySelector('a[href="/menu"]')).toBeTruthy()
   })
 })
+
+describe('ListGroup', () => {
+  it('etiketi listenin adı yapar, kartı role=list ile çizer ve footer gösterir', async () => {
+    const { default: ListGroup } = await import('../../src/components/ListGroup.vue')
+    const { default: ListItem } = await import('../../src/components/ListItem.vue')
+    const wrapper = mountUi(ListGroup, {
+      props: { label: 'Hesap', footer: 'Açıklama' },
+      slots: {
+        default: () => [
+          h(ListItem, { tag: 'div', title: 'Güvenlik', icon: 'lock' }),
+          h(ListItem, { tag: 'div', title: 'Oturumlar' }),
+        ],
+      },
+    })
+    await flush(5)
+    const section = wrapper.element
+    const label = section.querySelector('.ui-list-group-label')
+    expect(section.getAttribute('aria-labelledby')).toBe(label.id)
+    const card = section.querySelector('.ui-list-group-card')
+    expect(card.getAttribute('role')).toBe('list')
+    expect(card.querySelectorAll('[role="listitem"]').length).toBe(2)
+    expect(section.querySelector('.ui-list-group-footer').textContent.trim()).toBe('Açıklama')
+  })
+
+  it('etiket yokken ariaLabel karta yazılır', async () => {
+    const { default: ListGroup } = await import('../../src/components/ListGroup.vue')
+    const wrapper = mountUi(ListGroup, { props: { ariaLabel: 'Kategoriler' } })
+    await flush(2)
+    expect(wrapper.element.hasAttribute('aria-labelledby')).toBe(false)
+    expect(wrapper.element.querySelector('.ui-list-group-card').getAttribute('aria-label')).toBe('Kategoriler')
+  })
+})
+
+describe('NumberStepper', () => {
+  it('artırır, azaltır ve sınırda düğmeyi kapatır', async () => {
+    const { default: NumberStepper } = await import('../../src/components/NumberStepper.vue')
+    const wrapper = mountUi(NumberStepper, { props: { modelValue: 1, min: 1, max: 2, ariaLabel: 'Kişi' } })
+    await flush(2)
+    const [dec, inc] = wrapper.element.querySelectorAll('button')
+    expect(wrapper.element.getAttribute('role')).toBe('group')
+    expect(dec.disabled).toBe(true)
+    inc.click()
+    await nextTick()
+    expect(wrapper.emitted('update:modelValue')[0]).toEqual([2])
+    await wrapper.setProps({ modelValue: 2 })
+    expect(inc.disabled).toBe(true)
+  })
+})
+
+describe('ListItem clearable', () => {
+  it('değer varken temizle düğmesi çizer ve clear yayar; chevron çizmez', async () => {
+    const { default: ListItem } = await import('../../src/components/ListItem.vue')
+    const wrapper = mountUi(ListItem, { props: { tag: 'div', title: 'Masa', value: 'B4', interactive: true, clearable: true } })
+    await flush(2)
+    const clear = wrapper.element.querySelector('.ui-list-item-clear')
+    expect(clear).toBeTruthy()
+    expect(wrapper.element.querySelector('.ui-list-item-chevron')).toBeNull()
+    clear.click()
+    await nextTick()
+    expect(wrapper.emitted('clear')).toHaveLength(1)
+    expect(wrapper.emitted('click')).toBeUndefined()
+    await wrapper.setProps({ value: '' })
+    expect(wrapper.element.querySelector('.ui-list-item-clear')).toBeNull()
+  })
+})
+
+describe('FormRow inset', () => {
+  it('inset sınıfını verir, etiketi kontrole bağlar', async () => {
+    const { default: FormRow } = await import('../../src/components/FormRow.vue')
+    const { default: Input } = await import('../../src/components/Input.vue')
+    const wrapper = mountUi(FormRow, {
+      props: { variant: 'inset', label: 'Fiyat' },
+      slots: { default: ({ controlId }) => h(Input, { id: controlId, modelValue: '' }) },
+    })
+    await flush(2)
+    expect(wrapper.element.classList.contains('ui-form-row--inset')).toBe(true)
+    const label = wrapper.element.querySelector('label')
+    expect(label.textContent.trim()).toBe('Fiyat')
+    expect(wrapper.element.querySelector(`#${label.getAttribute('for')}`)).toBeTruthy()
+  })
+})
